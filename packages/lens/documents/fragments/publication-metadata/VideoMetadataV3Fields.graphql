@@ -1,4 +1,5 @@
 fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
   id
   rawURI
   tags

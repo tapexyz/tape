@@ -58,19 +58,19 @@ const documents = {
     types.QuoteBaseFieldsFragmentDoc,
   'fragment QuoteFields on Quote {\n  ...QuoteBaseFields\n  quoteOn {\n    ...PrimaryPublicationFields\n  }\n}':
     types.QuoteFieldsFragmentDoc,
-  'fragment AudioMetadataV3Fields on AudioMetadataV3 {\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  asset {\n    ...PublicationMetadataMediaAudioFields\n  }\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  title\n  content\n}':
+  'fragment AudioMetadataV3Fields on AudioMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  asset {\n    ...PublicationMetadataMediaAudioFields\n  }\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  title\n  content\n}':
     types.AudioMetadataV3FieldsFragmentDoc,
-  'fragment ImageMetadataV3Fields on ImageMetadataV3 {\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  asset {\n    ...PublicationMetadataMediaImageFields\n  }\n  title\n  content\n}':
+  'fragment ImageMetadataV3Fields on ImageMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  asset {\n    ...PublicationMetadataMediaImageFields\n  }\n  title\n  content\n}':
     types.ImageMetadataV3FieldsFragmentDoc,
-  'fragment LinkMetadataV3Fields on LinkMetadataV3 {\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  sharingLink\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  content\n}':
+  'fragment LinkMetadataV3Fields on LinkMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  sharingLink\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  content\n}':
     types.LinkMetadataV3FieldsFragmentDoc,
-  'fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  startsAt\n  endsAt\n  playbackURL\n  liveURL\n  checkLiveAPI\n  title\n  content\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n}':
+  'fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  startsAt\n  endsAt\n  playbackURL\n  liveURL\n  checkLiveAPI\n  title\n  content\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n}':
     types.LiveStreamMetadataV3FieldsFragmentDoc,
-  'fragment MintMetadataV3Fields on MintMetadataV3 {\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  mintLink\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  content\n}':
+  'fragment MintMetadataV3Fields on MintMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  mintLink\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  content\n}':
     types.MintMetadataV3FieldsFragmentDoc,
-  'fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  content\n}':
+  'fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  content\n}':
     types.TextOnlyMetadataV3FieldsFragmentDoc,
-  'fragment VideoMetadataV3Fields on VideoMetadataV3 {\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  asset {\n    ...PublicationMetadataMediaVideoFields\n  }\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  title\n  content\n  isShortVideo\n}':
+  'fragment VideoMetadataV3Fields on VideoMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  asset {\n    ...PublicationMetadataMediaVideoFields\n  }\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  title\n  content\n  isShortVideo\n}':
     types.VideoMetadataV3FieldsFragmentDoc,
   'fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {\n  audio {\n    raw {\n      uri\n    }\n    optimized {\n      uri\n    }\n  }\n  cover {\n    raw {\n      uri\n    }\n    optimized {\n      uri\n    }\n  }\n  duration\n}':
     types.PublicationMetadataMediaAudioFieldsFragmentDoc,
@@ -372,43 +372,43 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment AudioMetadataV3Fields on AudioMetadataV3 {\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  asset {\n    ...PublicationMetadataMediaAudioFields\n  }\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  title\n  content\n}'
+  source: 'fragment AudioMetadataV3Fields on AudioMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  asset {\n    ...PublicationMetadataMediaAudioFields\n  }\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  title\n  content\n}'
 ): typeof import('./graphql').AudioMetadataV3FieldsFragmentDoc
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment ImageMetadataV3Fields on ImageMetadataV3 {\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  asset {\n    ...PublicationMetadataMediaImageFields\n  }\n  title\n  content\n}'
+  source: 'fragment ImageMetadataV3Fields on ImageMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  asset {\n    ...PublicationMetadataMediaImageFields\n  }\n  title\n  content\n}'
 ): typeof import('./graphql').ImageMetadataV3FieldsFragmentDoc
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment LinkMetadataV3Fields on LinkMetadataV3 {\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  sharingLink\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  content\n}'
+  source: 'fragment LinkMetadataV3Fields on LinkMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  sharingLink\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  content\n}'
 ): typeof import('./graphql').LinkMetadataV3FieldsFragmentDoc
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  startsAt\n  endsAt\n  playbackURL\n  liveURL\n  checkLiveAPI\n  title\n  content\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n}'
+  source: 'fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  startsAt\n  endsAt\n  playbackURL\n  liveURL\n  checkLiveAPI\n  title\n  content\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n}'
 ): typeof import('./graphql').LiveStreamMetadataV3FieldsFragmentDoc
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment MintMetadataV3Fields on MintMetadataV3 {\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  mintLink\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  content\n}'
+  source: 'fragment MintMetadataV3Fields on MintMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  mintLink\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  content\n}'
 ): typeof import('./graphql').MintMetadataV3FieldsFragmentDoc
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  content\n}'
+  source: 'fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  content\n}'
 ): typeof import('./graphql').TextOnlyMetadataV3FieldsFragmentDoc
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: 'fragment VideoMetadataV3Fields on VideoMetadataV3 {\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  asset {\n    ...PublicationMetadataMediaVideoFields\n  }\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  title\n  content\n  isShortVideo\n}'
+  source: 'fragment VideoMetadataV3Fields on VideoMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  asset {\n    ...PublicationMetadataMediaVideoFields\n  }\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  title\n  content\n  isShortVideo\n}'
 ): typeof import('./graphql').VideoMetadataV3FieldsFragmentDoc
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.

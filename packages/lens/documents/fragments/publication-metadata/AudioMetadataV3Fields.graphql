@@ -1,4 +1,5 @@
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
+  __typename
   id
   rawURI
   tags

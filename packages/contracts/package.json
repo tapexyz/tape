@@ -10,7 +10,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md,json,css}\""
   },
   "devDependencies": {
-    "@nomicfoundation/hardhat-ethers": "^3.0.6",
+    "@nomicfoundation/hardhat-ethers": "^3.0.7",
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "@nomicfoundation/hardhat-verify": "^2.0.9",
     "@openzeppelin/contracts": "^5.0.2",
@@ -19,7 +19,7 @@
     "@tape.xyz/config": "workspace:*",
     "dotenv": "^16.4.5",
     "ethers": "^6.13.2",
-    "hardhat": "^2.22.8",
+    "hardhat": "^2.22.9",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
   }

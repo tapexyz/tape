@@ -7326,7 +7326,7 @@ export type QuoteFieldsFragment = ({
 }) & { ' $fragmentName'?: 'QuoteFieldsFragment' }
 
 export type AudioMetadataV3FieldsFragment = {
-  __typename?: 'AudioMetadataV3'
+  __typename: 'AudioMetadataV3'
   id: string
   rawURI: any
   tags?: Array<string> | null
@@ -7365,7 +7365,7 @@ export type AudioMetadataV3FieldsFragment = {
 } & { ' $fragmentName'?: 'AudioMetadataV3FieldsFragment' }
 
 export type ImageMetadataV3FieldsFragment = {
-  __typename?: 'ImageMetadataV3'
+  __typename: 'ImageMetadataV3'
   id: string
   rawURI: any
   tags?: Array<string> | null
@@ -7404,7 +7404,7 @@ export type ImageMetadataV3FieldsFragment = {
 } & { ' $fragmentName'?: 'ImageMetadataV3FieldsFragment' }
 
 export type LinkMetadataV3FieldsFragment = {
-  __typename?: 'LinkMetadataV3'
+  __typename: 'LinkMetadataV3'
   id: string
   rawURI: any
   tags?: Array<string> | null
@@ -7438,7 +7438,7 @@ export type LinkMetadataV3FieldsFragment = {
 } & { ' $fragmentName'?: 'LinkMetadataV3FieldsFragment' }
 
 export type LiveStreamMetadataV3FieldsFragment = {
-  __typename?: 'LiveStreamMetadataV3'
+  __typename: 'LiveStreamMetadataV3'
   id: string
   rawURI: any
   tags?: Array<string> | null
@@ -7477,7 +7477,7 @@ export type LiveStreamMetadataV3FieldsFragment = {
 } & { ' $fragmentName'?: 'LiveStreamMetadataV3FieldsFragment' }
 
 export type MintMetadataV3FieldsFragment = {
-  __typename?: 'MintMetadataV3'
+  __typename: 'MintMetadataV3'
   id: string
   rawURI: any
   tags?: Array<string> | null
@@ -7511,7 +7511,7 @@ export type MintMetadataV3FieldsFragment = {
 } & { ' $fragmentName'?: 'MintMetadataV3FieldsFragment' }
 
 export type TextOnlyMetadataV3FieldsFragment = {
-  __typename?: 'TextOnlyMetadataV3'
+  __typename: 'TextOnlyMetadataV3'
   id: string
   rawURI: any
   tags?: Array<string> | null
@@ -7527,7 +7527,7 @@ export type TextOnlyMetadataV3FieldsFragment = {
 } & { ' $fragmentName'?: 'TextOnlyMetadataV3FieldsFragment' }
 
 export type VideoMetadataV3FieldsFragment = {
-  __typename?: 'VideoMetadataV3'
+  __typename: 'VideoMetadataV3'
   id: string
   rawURI: any
   tags?: Array<string> | null
@@ -10234,6 +10234,7 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
 export const VideoMetadataV3FieldsFragmentDoc = new TypedDocumentString(
   `
     fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -10320,6 +10321,7 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
 export const AudioMetadataV3FieldsFragmentDoc = new TypedDocumentString(
   `
     fragment AudioMetadataV3Fields on AudioMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -10405,6 +10407,7 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
 export const ImageMetadataV3FieldsFragmentDoc = new TypedDocumentString(
   `
     fragment ImageMetadataV3Fields on ImageMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -10490,6 +10493,7 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
 export const LinkMetadataV3FieldsFragmentDoc = new TypedDocumentString(
   `
     fragment LinkMetadataV3Fields on LinkMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -10572,6 +10576,7 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
 export const LiveStreamMetadataV3FieldsFragmentDoc = new TypedDocumentString(
   `
     fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -10659,6 +10664,7 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
 export const MintMetadataV3FieldsFragmentDoc = new TypedDocumentString(
   `
     fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -10741,6 +10747,7 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
 export const TextOnlyMetadataV3FieldsFragmentDoc = new TypedDocumentString(
   `
     fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -10788,6 +10795,7 @@ export const AnyPublicationMetadataFieldsFragmentDoc = new TypedDocumentString(
   value
 }
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -10805,6 +10813,7 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -10822,6 +10831,7 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   content
 }
 fragment LinkMetadataV3Fields on LinkMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -10836,6 +10846,7 @@ fragment LinkMetadataV3Fields on LinkMetadataV3 {
   content
 }
 fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -10855,6 +10866,7 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
   }
 }
 fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -10869,6 +10881,7 @@ fragment MintMetadataV3Fields on MintMetadataV3 {
   content
 }
 fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -10879,6 +10892,7 @@ fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
   content
 }
 fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -11479,6 +11493,7 @@ fragment PublicationStatsFields on PublicationStats {
   countOpenActions
 }
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -11496,6 +11511,7 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -11513,6 +11529,7 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   content
 }
 fragment LinkMetadataV3Fields on LinkMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -11527,6 +11544,7 @@ fragment LinkMetadataV3Fields on LinkMetadataV3 {
   content
 }
 fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -11546,6 +11564,7 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
   }
 }
 fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -11560,6 +11579,7 @@ fragment MintMetadataV3Fields on MintMetadataV3 {
   content
 }
 fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -11570,6 +11590,7 @@ fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
   content
 }
 fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -12051,6 +12072,7 @@ fragment PublicationStatsFields on PublicationStats {
   countOpenActions
 }
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -12068,6 +12090,7 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -12085,6 +12108,7 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   content
 }
 fragment LinkMetadataV3Fields on LinkMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -12099,6 +12123,7 @@ fragment LinkMetadataV3Fields on LinkMetadataV3 {
   content
 }
 fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -12118,6 +12143,7 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
   }
 }
 fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -12132,6 +12158,7 @@ fragment MintMetadataV3Fields on MintMetadataV3 {
   content
 }
 fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -12142,6 +12169,7 @@ fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
   content
 }
 fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -12593,6 +12621,7 @@ fragment PublicationStatsFields on PublicationStats {
   countOpenActions
 }
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -12610,6 +12639,7 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -12627,6 +12657,7 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   content
 }
 fragment LinkMetadataV3Fields on LinkMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -12641,6 +12672,7 @@ fragment LinkMetadataV3Fields on LinkMetadataV3 {
   content
 }
 fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -12660,6 +12692,7 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
   }
 }
 fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -12674,6 +12707,7 @@ fragment MintMetadataV3Fields on MintMetadataV3 {
   content
 }
 fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -12684,6 +12718,7 @@ fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
   content
 }
 fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -13203,6 +13238,7 @@ fragment QuoteBaseFields on Quote {
   }
 }
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -13220,6 +13256,7 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -13237,6 +13274,7 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   content
 }
 fragment LinkMetadataV3Fields on LinkMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -13251,6 +13289,7 @@ fragment LinkMetadataV3Fields on LinkMetadataV3 {
   content
 }
 fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -13270,6 +13309,7 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
   }
 }
 fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -13284,6 +13324,7 @@ fragment MintMetadataV3Fields on MintMetadataV3 {
   content
 }
 fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -13294,6 +13335,7 @@ fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
   content
 }
 fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -13819,6 +13861,7 @@ fragment QuoteBaseFields on Quote {
   }
 }
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -13836,6 +13879,7 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -13853,6 +13897,7 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   content
 }
 fragment LinkMetadataV3Fields on LinkMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -13867,6 +13912,7 @@ fragment LinkMetadataV3Fields on LinkMetadataV3 {
   content
 }
 fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -13886,6 +13932,7 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
   }
 }
 fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -13900,6 +13947,7 @@ fragment MintMetadataV3Fields on MintMetadataV3 {
   content
 }
 fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -13910,6 +13958,7 @@ fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
   content
 }
 fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -14444,6 +14493,7 @@ fragment QuoteBaseFields on Quote {
   }
 }
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -14461,6 +14511,7 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -14478,6 +14529,7 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   content
 }
 fragment LinkMetadataV3Fields on LinkMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -14492,6 +14544,7 @@ fragment LinkMetadataV3Fields on LinkMetadataV3 {
   content
 }
 fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -14511,6 +14564,7 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
   }
 }
 fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -14525,6 +14579,7 @@ fragment MintMetadataV3Fields on MintMetadataV3 {
   content
 }
 fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -14535,6 +14590,7 @@ fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
   content
 }
 fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -15060,6 +15116,7 @@ fragment QuoteBaseFields on Quote {
   }
 }
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -15077,6 +15134,7 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -15094,6 +15152,7 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   content
 }
 fragment LinkMetadataV3Fields on LinkMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -15108,6 +15167,7 @@ fragment LinkMetadataV3Fields on LinkMetadataV3 {
   content
 }
 fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -15127,6 +15187,7 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
   }
 }
 fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -15141,6 +15202,7 @@ fragment MintMetadataV3Fields on MintMetadataV3 {
   content
 }
 fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -15151,6 +15213,7 @@ fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
   content
 }
 fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -16971,6 +17034,7 @@ fragment QuoteFields on Quote {
   }
 }
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -16988,6 +17052,7 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -17005,6 +17070,7 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   content
 }
 fragment LinkMetadataV3Fields on LinkMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -17019,6 +17085,7 @@ fragment LinkMetadataV3Fields on LinkMetadataV3 {
   content
 }
 fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -17038,6 +17105,7 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
   }
 }
 fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -17052,6 +17120,7 @@ fragment MintMetadataV3Fields on MintMetadataV3 {
   content
 }
 fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -17062,6 +17131,7 @@ fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
   content
 }
 fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -17602,6 +17672,7 @@ fragment QuoteFields on Quote {
   }
 }
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -17619,6 +17690,7 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -17636,6 +17708,7 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   content
 }
 fragment LinkMetadataV3Fields on LinkMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -17650,6 +17723,7 @@ fragment LinkMetadataV3Fields on LinkMetadataV3 {
   content
 }
 fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -17669,6 +17743,7 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
   }
 }
 fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -17683,6 +17758,7 @@ fragment MintMetadataV3Fields on MintMetadataV3 {
   content
 }
 fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -17693,6 +17769,7 @@ fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
   content
 }
 fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -19004,6 +19081,7 @@ fragment QuoteFields on Quote {
   }
 }
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -19021,6 +19099,7 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -19038,6 +19117,7 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   content
 }
 fragment LinkMetadataV3Fields on LinkMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -19052,6 +19132,7 @@ fragment LinkMetadataV3Fields on LinkMetadataV3 {
   content
 }
 fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -19071,6 +19152,7 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
   }
 }
 fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -19085,6 +19167,7 @@ fragment MintMetadataV3Fields on MintMetadataV3 {
   content
 }
 fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -19095,6 +19178,7 @@ fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
   content
 }
 fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -19834,6 +19918,7 @@ fragment QuoteBaseFields on Quote {
   }
 }
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -19851,6 +19936,7 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -19868,6 +19954,7 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   content
 }
 fragment LinkMetadataV3Fields on LinkMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -19882,6 +19969,7 @@ fragment LinkMetadataV3Fields on LinkMetadataV3 {
   content
 }
 fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -19901,6 +19989,7 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
   }
 }
 fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -19915,6 +20004,7 @@ fragment MintMetadataV3Fields on MintMetadataV3 {
   content
 }
 fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -19925,6 +20015,7 @@ fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
   content
 }
 fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -20935,6 +21026,7 @@ fragment QuoteFields on Quote {
   }
 }
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -20952,6 +21044,7 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -20969,6 +21062,7 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   content
 }
 fragment LinkMetadataV3Fields on LinkMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -20983,6 +21077,7 @@ fragment LinkMetadataV3Fields on LinkMetadataV3 {
   content
 }
 fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -21002,6 +21097,7 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
   }
 }
 fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -21016,6 +21112,7 @@ fragment MintMetadataV3Fields on MintMetadataV3 {
   content
 }
 fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -21026,6 +21123,7 @@ fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
   content
 }
 fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -21593,6 +21691,7 @@ fragment QuoteFields on Quote {
   }
 }
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -21610,6 +21709,7 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -21627,6 +21727,7 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   content
 }
 fragment LinkMetadataV3Fields on LinkMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -21641,6 +21742,7 @@ fragment LinkMetadataV3Fields on LinkMetadataV3 {
   content
 }
 fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -21660,6 +21762,7 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
   }
 }
 fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -21674,6 +21777,7 @@ fragment MintMetadataV3Fields on MintMetadataV3 {
   content
 }
 fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -21684,6 +21788,7 @@ fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
   content
 }
 fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -22251,6 +22356,7 @@ fragment QuoteFields on Quote {
   }
 }
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -22268,6 +22374,7 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -22285,6 +22392,7 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   content
 }
 fragment LinkMetadataV3Fields on LinkMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -22299,6 +22407,7 @@ fragment LinkMetadataV3Fields on LinkMetadataV3 {
   content
 }
 fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -22318,6 +22427,7 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
   }
 }
 fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -22332,6 +22442,7 @@ fragment MintMetadataV3Fields on MintMetadataV3 {
   content
 }
 fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -22342,6 +22453,7 @@ fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
   content
 }
 fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -22911,6 +23023,7 @@ fragment QuoteFields on Quote {
   }
 }
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -22928,6 +23041,7 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -22945,6 +23059,7 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   content
 }
 fragment LinkMetadataV3Fields on LinkMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -22959,6 +23074,7 @@ fragment LinkMetadataV3Fields on LinkMetadataV3 {
   content
 }
 fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -22978,6 +23094,7 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
   }
 }
 fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -22992,6 +23109,7 @@ fragment MintMetadataV3Fields on MintMetadataV3 {
   content
 }
 fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -23002,6 +23120,7 @@ fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
   content
 }
 fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -23573,6 +23692,7 @@ fragment QuoteFields on Quote {
   }
 }
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -23590,6 +23710,7 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -23607,6 +23728,7 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   content
 }
 fragment LinkMetadataV3Fields on LinkMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -23621,6 +23743,7 @@ fragment LinkMetadataV3Fields on LinkMetadataV3 {
   content
 }
 fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -23640,6 +23763,7 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
   }
 }
 fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -23654,6 +23778,7 @@ fragment MintMetadataV3Fields on MintMetadataV3 {
   content
 }
 fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -23664,6 +23789,7 @@ fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
   content
 }
 fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -24404,6 +24530,7 @@ fragment QuoteFields on Quote {
   }
 }
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -24421,6 +24548,7 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -24438,6 +24566,7 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   content
 }
 fragment LinkMetadataV3Fields on LinkMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -24452,6 +24581,7 @@ fragment LinkMetadataV3Fields on LinkMetadataV3 {
   content
 }
 fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -24471,6 +24601,7 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
   }
 }
 fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -24485,6 +24616,7 @@ fragment MintMetadataV3Fields on MintMetadataV3 {
   content
 }
 fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
   id
   rawURI
   tags
@@ -24495,6 +24627,7 @@ fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
   content
 }
 fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
   id
   rawURI
   tags

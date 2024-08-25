@@ -1,4 +1,5 @@
 fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
   id
   rawURI
   tags

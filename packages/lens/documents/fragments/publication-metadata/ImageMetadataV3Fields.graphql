@@ -1,4 +1,5 @@
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
+  __typename
   id
   rawURI
   tags

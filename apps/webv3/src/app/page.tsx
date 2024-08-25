@@ -1,7 +1,7 @@
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
 import { Feed } from '@/components/home/feed'
-import { publicationsQuery } from '@/components/home/query'
+import { publicationsQuery } from '@/components/home/queries'
 
 import { rqClient } from './providers/react-query'
 

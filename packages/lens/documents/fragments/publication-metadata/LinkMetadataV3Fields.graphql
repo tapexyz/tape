@@ -1,4 +1,5 @@
 fragment LinkMetadataV3Fields on LinkMetadataV3 {
+  __typename
   id
   rawURI
   tags

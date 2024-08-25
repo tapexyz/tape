@@ -1,4 +1,5 @@
 fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
   id
   rawURI
   tags
