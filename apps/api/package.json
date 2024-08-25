@@ -14,15 +14,15 @@
     "format": "prettier --write \"**/*.{ts,tsx,md,json,css}\""
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "3.632.0",
+    "@aws-sdk/client-sts": "3.637.0",
     "@hono/node-server": "^1.12.1",
     "@hono/zod-validator": "^0.2.2",
     "@lens-protocol/metadata": "^1.2.0",
     "base64url": "^3.0.1",
-    "hono": "^4.5.6",
+    "hono": "^4.5.8",
     "linkedom": "^0.18.4",
     "ua-parser-js": "2.0.0-beta.3",
-    "viem": "^2.19.7",
+    "viem": "^2.20.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -31,9 +31,9 @@
     "@tape.xyz/constants": "workspace:*",
     "@tape.xyz/generic": "workspace:*",
     "@tape.xyz/server": "workspace:*",
-    "@types/node": "^22.4.1",
+    "@types/node": "^22.5.0",
     "@types/ua-parser-js": "^0.7.39",
-    "tsx": "^4.16.5",
+    "tsx": "^4.18.0",
     "typescript": "5.5.4"
   }
 }

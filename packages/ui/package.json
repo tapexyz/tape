@@ -22,7 +22,7 @@
     "@radix-ui/react-switch": "^1.1.0",
     "@radix-ui/react-tabs": "^1.1.0",
     "@tippyjs/react": "^4.2.6",
-    "framer-motion": "^11.3.28",
+    "framer-motion": "^11.3.30",
     "next-themes": "^0.3.0",
     "react": "^18.3.1",
     "tippy.js": "^6.3.7"
@@ -32,7 +32,7 @@
     "@tape.xyz/config": "workspace:*",
     "@tape.xyz/constants": "workspace:*",
     "@tape.xyz/generic": "workspace:*",
-    "@types/react": "^18.3.3",
+    "@types/react": "^18.3.4",
     "typescript": "5.5.4"
   }
 }
