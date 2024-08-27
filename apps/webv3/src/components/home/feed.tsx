@@ -5,7 +5,7 @@ import { getProfile, getPublication } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens/gql'
 
 import { TapeLink } from '@/components/shared/link'
-import { Virtualized } from '@/components/shared/virtualized1'
+import { Virtualized } from '@/components/shared/virtualized'
 
 import { publicationsQuery } from './queries'
 
