@@ -33,8 +33,9 @@ const backupEventsToS3 = async () => {
     })
 
     const rowsCount = await rowsCountResult.json<{ count: string }>()
+    const eventsCount = parseInt(rowsCount[0].count)
 
-    if (parseInt(rowsCount[0].count) === batchSize) {
+    if (eventsCount === batchSize) {
       // Proceed with the backup if there are rows to back up
       await clickhouseClient.query({
         format: 'JSONEachRow',
@@ -60,13 +61,14 @@ const backupEventsToS3 = async () => {
       console.info(
         `[Cron] Backup completed successfully for ${fileName} with offset ${offset}`
       )
-    } else {
-      const remainingEvents = batchSize - parseInt(rowsCount[0].count)
-
-      console.info(
-        `[Cron] No more events to back up at offset ${offset}. ${remainingEvents} events still need to be backed up.`
-      )
+      return
     }
+
+    const eventsRequired = batchSize - eventsCount
+
+    console.info(
+      `[Cron] Current batch contains ${eventsCount} events at offset ${offset}. ${eventsRequired} more events are required to complete the batch size of ${batchSize}.`
+    )
   } catch (error) {
     console.error('[Cron] backupEventsToS3 - Error processing events', error)
   }
