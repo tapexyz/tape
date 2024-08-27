@@ -5,11 +5,11 @@ import { getPublication } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens/gql'
 import { useParams } from 'next/navigation'
 
-import { commentsQuery } from './queries'
+import { commentsQuery } from '../queries'
 
 export const Comments = () => {
-  const { id } = useParams<{ id: string }>()
-  const { data, isLoading } = useInfiniteQuery(commentsQuery(id))
+  const { pubId } = useParams<{ pubId: string }>()
+  const { data, isLoading } = useInfiniteQuery(commentsQuery(pubId))
 
   return (
     <div>
