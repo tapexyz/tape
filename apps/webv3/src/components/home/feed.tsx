@@ -31,13 +31,7 @@ export const Feed = () => {
             return (
               <div className="p-5">
                 <TapeLink
-                  href={{
-                    pathname: '/[handle]/[pubId]',
-                    query: {
-                      handle: getProfile(publication.by).slug,
-                      pubId: publication.id
-                    }
-                  }}
+                  href={`/${getProfile(publication.by).slug}/${publication.id}`}
                 >
                   {publication.metadata.content}
                 </TapeLink>
