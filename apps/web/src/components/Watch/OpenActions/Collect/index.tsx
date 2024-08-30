@@ -491,10 +491,18 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
           {amount ? (
             <div className="mb-3 flex flex-col">
               <span className="font-bold">Price</span>
-              <div className="flex items-end space-x-1">
+              <div className="flex items-end space-x-1.5">
                 <span className="space-x-1">
                   <span className="text-2xl">{details?.amount.value}</span>
-                  <span>{details?.amount.assetSymbol}</span>
+                  <span className="inline-flex items-center">
+                    <span>{details?.amount.assetSymbol}</span>
+                    {details?.amount.rate && (
+                      <>
+                        <span className="middot" />
+                        <span>${details?.amount.rate}</span>
+                      </>
+                    )}
+                  </span>
                 </span>
                 <Tooltip
                   content={
