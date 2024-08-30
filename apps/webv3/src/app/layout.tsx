@@ -2,7 +2,6 @@ import './globals.css'
 
 import { TAPE_APP_DESCRIPTION, TAPE_APP_NAME } from '@tape.xyz/constants'
 import type { Metadata } from 'next'
-import Link from 'next/link'
 
 import { Providers } from './providers'
 
@@ -19,7 +18,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Link href="/">Home</Link>
         <Providers>{children}</Providers>
       </body>
     </html>
