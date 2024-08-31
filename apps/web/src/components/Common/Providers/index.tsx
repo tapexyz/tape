@@ -11,6 +11,7 @@ import authLink from '@/lib/authLink'
 import ErrorBoundary from '../ErrorBoundary'
 import Layout from '../Layout'
 import CuratedProfilesProvider from './CuratedProfilesProvider'
+import ServiceWorkerProvider from './ServiceWorkerProvider'
 import SubscriptionProvider from './SubscriptionProvider'
 import ThemeProvider from './ThemeProvider'
 import TogglesProvider from './TogglesProvider'
@@ -40,26 +41,28 @@ const Providers = ({ children }: { children: ReactNode }) => {
 
   return (
     <ErrorBoundary>
-      <Web3Provider>
-        <ApolloProvider client={apolloQueryClient}>
-          <QueryClientProvider client={reactQueryClient}>
-            <ThemeProvider>
-              <CuratedProfilesProvider />
-              <SubscriptionProvider />
-              <TogglesProvider />
-              <LivepeerConfig client={livepeerClient}>
-                <Layout
-                  skipNav={NO_TOP_NAV_PATHS.includes(pathname)}
-                  skipBottomNav={NO_BOTTOM_NAV_PATHS.includes(pathname)}
-                  skipPadding={NO_PADDING_PATHS.includes(pathname)}
-                >
-                  {children}
-                </Layout>
-              </LivepeerConfig>
-            </ThemeProvider>
-          </QueryClientProvider>
-        </ApolloProvider>
-      </Web3Provider>
+      <ServiceWorkerProvider>
+        <Web3Provider>
+          <ApolloProvider client={apolloQueryClient}>
+            <QueryClientProvider client={reactQueryClient}>
+              <ThemeProvider>
+                <CuratedProfilesProvider />
+                <SubscriptionProvider />
+                <TogglesProvider />
+                <LivepeerConfig client={livepeerClient}>
+                  <Layout
+                    skipNav={NO_TOP_NAV_PATHS.includes(pathname)}
+                    skipBottomNav={NO_BOTTOM_NAV_PATHS.includes(pathname)}
+                    skipPadding={NO_PADDING_PATHS.includes(pathname)}
+                  >
+                    {children}
+                  </Layout>
+                </LivepeerConfig>
+              </ThemeProvider>
+            </QueryClientProvider>
+          </ApolloProvider>
+        </Web3Provider>
+      </ServiceWorkerProvider>
     </ErrorBoundary>
   )
 }

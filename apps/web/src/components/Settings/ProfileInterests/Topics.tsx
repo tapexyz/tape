@@ -1,5 +1,5 @@
 import { tw } from '@tape.xyz/browser'
-import { EVENTS, sanitizeProfileInterests, Tower } from '@tape.xyz/generic'
+import { EVENTS, sanitizeProfileInterests } from '@tape.xyz/generic'
 import type {
   ProfileInterestsRequest,
   ProfileInterestTypes
@@ -13,15 +13,18 @@ import { useApolloClient } from '@tape.xyz/lens/apollo'
 import { Spinner } from '@tape.xyz/ui'
 import React, { useEffect } from 'react'
 
+import useSw from '@/hooks/useSw'
 import useProfileStore from '@/lib/store/idb/profile'
 
 const MAX_TOPICS_ALLOWED = 12
 
 const Topics = () => {
   const activeProfile = useProfileStore((state) => state.activeProfile)
+  const { addEventToQueue } = useSw()
 
   useEffect(() => {
-    Tower.track(EVENTS.PROFILE_INTERESTS.VIEW)
+    addEventToQueue(EVENTS.PROFILE_INTERESTS.VIEW)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const { cache } = useApolloClient()
@@ -50,13 +53,13 @@ const Topics = () => {
       if (!selectedTopics?.includes(topic)) {
         const interests = [...selectedTopics, topic]
         updateCache(interests)
-        Tower.track(EVENTS.PROFILE_INTERESTS.ADD)
+        addEventToQueue(EVENTS.PROFILE_INTERESTS.ADD)
         return addProfileInterests({ variables: { request } })
       }
       const topics = [...selectedTopics]
       topics.splice(topics.indexOf(topic), 1)
       updateCache(topics)
-      Tower.track(EVENTS.PROFILE_INTERESTS.REMOVE)
+      addEventToQueue(EVENTS.PROFILE_INTERESTS.REMOVE)
       removeProfileInterests({ variables: { request } })
     } catch {}
   }

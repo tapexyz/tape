@@ -1,4 +1,4 @@
-import { EVENTS, Tower } from '@tape.xyz/generic'
+import { EVENTS } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useProfileQuery } from '@tape.xyz/lens'
 import { useRouter } from 'next/router'
@@ -8,6 +8,7 @@ import Custom500 from 'src/pages/500'
 
 import MetaTags from '@/components/Common/MetaTags'
 import SettingsShimmer from '@/components/Shimmers/SettingsShimmer'
+import useSw from '@/hooks/useSw'
 import useProfileStore from '@/lib/store/idb/profile'
 
 import Allowance from './Allowance'
@@ -34,9 +35,11 @@ export const SETTINGS = '/settings'
 const Settings = () => {
   const router = useRouter()
   const { activeProfile } = useProfileStore()
+  const { addEventToQueue } = useSw()
 
   useEffect(() => {
-    Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.SETTINGS })
+    addEventToQueue(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.SETTINGS })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const { data, loading, error } = useProfileQuery({

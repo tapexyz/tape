@@ -4,7 +4,7 @@ import {
   IS_MAINNET,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
-import { EVENTS, Tower } from '@tape.xyz/generic'
+import { EVENTS } from '@tape.xyz/generic'
 import type {
   AnyPublication,
   PrimaryPublication,
@@ -25,6 +25,7 @@ import { useInView } from 'react-cool-inview'
 
 import MetaTags from '@/components/Common/MetaTags'
 import { NoDataFound } from '@/components/UIElements/NoDataFound'
+import useSw from '@/hooks/useSw'
 import useCuratedProfiles from '@/lib/store/idb/curated'
 
 import ByteVideo from './ByteVideo'
@@ -34,6 +35,7 @@ const Bytes = () => {
   const router = useRouter()
   const [currentViewingId, setCurrentViewingId] = useState('')
   const curatedProfiles = useCuratedProfiles((state) => state.curatedProfiles)
+  const { addEventToQueue } = useSw()
 
   const [sliderRef, { current: slider }] = useKeenSlider(
     {
@@ -96,7 +98,7 @@ const Bytes = () => {
   useEffect(() => {
     if (router.isReady) {
       fetchSingleByte()
-      Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.BYTES })
+      addEventToQueue(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.BYTES })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.isReady, curatedProfiles.length])

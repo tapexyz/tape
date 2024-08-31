@@ -18,7 +18,6 @@ import {
   getPublicationData,
   getSignature,
   logger,
-  Tower,
   trimify,
   uploadToAr
 } from '@tape.xyz/generic'
@@ -52,6 +51,7 @@ import { object, string } from 'zod'
 import EmojiPicker from '@/components/UIElements/EmojiPicker'
 import InputMentions from '@/components/UIElements/InputMentions'
 import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
+import useSw from '@/hooks/useSw'
 import useProfileStore from '@/lib/store/idb/profile'
 import useNonceStore from '@/lib/store/nonce'
 import usePersistStore from '@/lib/store/persist'
@@ -106,6 +106,7 @@ const NewComment: FC<Props> = ({
     },
     resolver: zodResolver(formSchema)
   })
+  const { addEventToQueue } = useSw()
 
   useEffect(() => {
     setValue('comment', defaultValue)
@@ -130,7 +131,7 @@ const NewComment: FC<Props> = ({
     if (__typename === 'RelayError') {
       return
     }
-    Tower.track(EVENTS.PUBLICATION.NEW_COMMENT, {
+    addEventToQueue(EVENTS.PUBLICATION.NEW_COMMENT, {
       publication_id: targetVideo.id,
       publication_state: targetVideo.momoka?.proof ? 'DATA_ONLY' : 'ON_CHAIN'
     })

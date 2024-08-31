@@ -5,8 +5,7 @@ import {
   getProfile,
   getProfilePicture,
   logger,
-  shortenAddress,
-  Tower
+  shortenAddress
 } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import {
@@ -29,6 +28,7 @@ import { useAccount, useSignMessage } from 'wagmi'
 
 import Badge from '@/components/Common/Badge'
 import ButtonShimmer from '@/components/Shimmers/ButtonShimmer'
+import useSw from '@/hooks/useSw'
 import { signIn, signOut } from '@/lib/store/auth'
 import useProfileStore from '@/lib/store/idb/profile'
 
@@ -43,6 +43,7 @@ const Authenticate = () => {
   const [showSignup, setShowSignup] = useState(false)
   const [selectedProfileId, setSelectedProfileId] = useState<string>('')
   const { activeProfile, setActiveProfile } = useProfileStore()
+  const { addEventToQueue } = useSw()
 
   const router = useRouter()
   const { address, connector, isConnected } = useAccount()
@@ -154,7 +155,7 @@ const Authenticate = () => {
           router.push('/')
         }
       }
-      Tower.track(EVENTS.AUTH.SIGN_IN_WITH_LENS)
+      addEventToQueue(EVENTS.AUTH.SIGN_IN_WITH_LENS)
     } catch (error) {
       logger.error('[Error Sign In]', {
         error,

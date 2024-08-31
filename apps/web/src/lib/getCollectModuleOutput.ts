@@ -1,10 +1,10 @@
-import { type OpenActionModule } from '@tape.xyz/lens'
+import type { OpenActionModule } from '@tape.xyz/lens'
 
 export const getCollectModuleOutput = (openActionModule: OpenActionModule) => {
   const output = {
     collectLimit: 0,
     amount: {
-      rate: '',
+      fiat: '',
       value: '',
       assetAddress: '',
       assetDecimals: '',
@@ -27,7 +27,7 @@ export const getCollectModuleOutput = (openActionModule: OpenActionModule) => {
           assetSymbol: openActionModule.amount?.asset.symbol,
           assetAddress: openActionModule.amount?.asset.contract.address,
           assetDecimals: openActionModule.amount?.asset.decimals,
-          rate: openActionModule.amount?.rate?.value
+          fiat: openActionModule.amount?.asFiat?.value ?? '0'
         },
         recipient: openActionModule.recipient,
         referralFee: openActionModule.referralFee,
@@ -44,7 +44,7 @@ export const getCollectModuleOutput = (openActionModule: OpenActionModule) => {
           assetSymbol: openActionModule.amount?.asset.symbol,
           assetAddress: openActionModule.amount?.asset.contract.address,
           assetDecimals: openActionModule.amount?.asset.decimals,
-          rate: openActionModule.amount?.rate?.value ?? 0
+          fiat: openActionModule.amount?.asFiat?.value ?? 0
         },
         recipients: openActionModule.recipients,
         referralFee: openActionModule.referralFee,

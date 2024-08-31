@@ -19,7 +19,6 @@ import {
   getSignature,
   imageCdn,
   logger,
-  Tower,
   uploadToAr
 } from '@tape.xyz/generic'
 import type {
@@ -50,6 +49,7 @@ import { useSendTransaction, useSignTypedData, useWriteContract } from 'wagmi'
 import type { z } from 'zod'
 import { number, object, string } from 'zod'
 
+import useSw from '@/hooks/useSw'
 import useProfileStore from '@/lib/store/idb/profile'
 import usePersistStore from '@/lib/store/persist'
 
@@ -69,6 +69,7 @@ type FormData = z.infer<typeof formSchema>
 
 const TipForm: FC<Props> = ({ video, setShow }) => {
   const targetVideo = getPublication(video)
+  const { addEventToQueue } = useSw()
 
   const {
     register,
@@ -128,7 +129,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
     setLoading(false)
     setShow(false)
     toast.success(`Tipped successfully`)
-    Tower.track(EVENTS.PUBLICATION.NEW_COMMENT, {
+    addEventToQueue(EVENTS.PUBLICATION.NEW_COMMENT, {
       publication_id: targetVideo.id,
       comment_type: 'tip',
       publication_state: targetVideo.momoka?.proof ? 'MOMOKA' : 'ON_CHAIN'
@@ -383,7 +384,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
       if (hash) {
         await submitComment(hash)
       }
-      Tower.track(EVENTS.PUBLICATION.TIP.SENT)
+      addEventToQueue(EVENTS.PUBLICATION.TIP.SENT)
     } catch (error) {
       setLoading(false)
       logger.error('[Error Send Tip]', error)

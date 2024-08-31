@@ -24,7 +24,6 @@ import {
   isWatchable,
   logger,
   sanitizeDStorageUrl,
-  Tower,
   trimify,
   uploadToAr
 } from '@tape.xyz/generic'
@@ -49,6 +48,7 @@ import { useSignTypedData, useWriteContract } from 'wagmi'
 
 import PinnedVideoShimmer from '@/components/Shimmers/PinnedVideoShimmer'
 import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
+import useSw from '@/hooks/useSw'
 import { getTimeAgo } from '@/lib/formatTime'
 import useProfileStore from '@/lib/store/idb/profile'
 
@@ -61,6 +61,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
   const handleWrongNetwork = useHandleWrongNetwork()
   const { canUseLensManager, canBroadcast } =
     checkLensManagerPermissions(activeProfile)
+  const { addEventToQueue } = useSw()
 
   const { data, error, loading } = usePublicationQuery({
     variables: {
@@ -82,7 +83,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
       return
     }
     toast.success(`Transaction submitted`)
-    Tower.track(EVENTS.PUBLICATION.UNPIN)
+    addEventToQueue(EVENTS.PUBLICATION.UNPIN)
   }
 
   const { signTypedDataAsync } = useSignTypedData({

@@ -6,7 +6,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: { for: USD }) {
+      asFiat(request: { for: USD }) {
         ...FiatAmountFields
       }
     }
@@ -24,7 +24,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: { for: USD }) {
+      asFiat(request: { for: USD }) {
         ...FiatAmountFields
       }
     }
@@ -46,7 +46,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: { for: USD }) {
+      asFiat(request: { for: USD }) {
         ...FiatAmountFields
       }
     }
@@ -67,7 +67,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: { for: USD }) {
+      asFiat(request: { for: USD }) {
         ...FiatAmountFields
       }
     }

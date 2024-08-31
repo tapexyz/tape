@@ -39,3 +39,6 @@ next-env.d.ts
 dist
 .gitsigners
 
+# Service Workers
+sw.js
+

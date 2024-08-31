@@ -3,8 +3,7 @@ import {
   EVENTS,
   getLennyPicture,
   getProfile,
-  getProfilePicture,
-  Tower
+  getProfilePicture
 } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import {
@@ -36,6 +35,7 @@ import { useTheme } from 'next-themes'
 import React, { useMemo } from 'react'
 import { useAccount } from 'wagmi'
 
+import useSw from '@/hooks/useSw'
 import getCurrentSession from '@/lib/getCurrentSession'
 import { signOut } from '@/lib/store/auth'
 import useProfileStore from '@/lib/store/idb/profile'
@@ -47,6 +47,7 @@ const UserMenu = () => {
   const { push, asPath } = useRouter()
   const { address } = useAccount()
   const { activeProfile } = useProfileStore()
+  const { addEventToQueue } = useSw()
 
   const { data } = useProfilesManagedQuery({
     variables: {
@@ -78,7 +79,7 @@ const UserMenu = () => {
       })
     }
     signOut()
-    Tower.track(EVENTS.AUTH.SIGN_OUT)
+    addEventToQueue(EVENTS.AUTH.SIGN_OUT)
     location.reload()
   }
 
@@ -198,7 +199,7 @@ const UserMenu = () => {
           onClick={() => {
             const selected = theme === 'dark' ? 'light' : 'dark'
             setTheme(selected)
-            Tower.track(EVENTS.SYSTEM.TOGGLE_THEME, {
+            addEventToQueue(EVENTS.SYSTEM.TOGGLE_THEME, {
               selected_theme: selected
             })
           }}

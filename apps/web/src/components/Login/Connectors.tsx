@@ -1,15 +1,17 @@
-import { EVENTS, Tower } from '@tape.xyz/generic'
+import { EVENTS } from '@tape.xyz/generic'
 import { Button, Callout, CheckOutline, WarningOutline } from '@tape.xyz/ui'
 import React, { memo, useMemo } from 'react'
 import type { Connector } from 'wagmi'
 import { useAccount, useConnect } from 'wagmi'
 
 import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
+import useSw from '@/hooks/useSw'
 import useProfileStore from '@/lib/store/idb/profile'
 
 import Authenticate from './Authenticate'
 
 const Connectors = () => {
+  const { addEventToQueue } = useSw()
   const { activeProfile } = useProfileStore()
   const handleWrongNetwork = useHandleWrongNetwork()
 
@@ -20,7 +22,7 @@ const Connectors = () => {
     try {
       await handleWrongNetwork()
       await connectAsync({ connector })
-      Tower.track(EVENTS.AUTH.CONNECT_WALLET, { connector: connector.id })
+      addEventToQueue(EVENTS.AUTH.CONNECT_WALLET, { connector: connector.id })
     } catch {}
   }
 

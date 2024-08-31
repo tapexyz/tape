@@ -7,8 +7,7 @@ import {
 import {
   checkLensManagerPermissions,
   EVENTS,
-  getSignature,
-  Tower
+  getSignature
 } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import {
@@ -23,11 +22,13 @@ import { useSignTypedData, useWriteContract } from 'wagmi'
 
 import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
 import usePendingTxn from '@/hooks/usePendingTxn'
+import useSw from '@/hooks/useSw'
 import useProfileStore from '@/lib/store/idb/profile'
 import useNonceStore from '@/lib/store/nonce'
 
 const ToggleLensManager = () => {
   const [loading, setLoading] = useState(false)
+  const { addEventToQueue } = useSw()
 
   const { activeProfile, setActiveProfile } = useProfileStore()
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
@@ -86,7 +87,7 @@ const ToggleLensManager = () => {
       channel.signless = isLensManagerEnabled ? false : true
       setActiveProfile(channel as Profile)
       setLoading(false)
-      Tower.track(EVENTS.MANAGER.TOGGLE, { enabled: channel.signless })
+      addEventToQueue(EVENTS.MANAGER.TOGGLE, { enabled: channel.signless })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])

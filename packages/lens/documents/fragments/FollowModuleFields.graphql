@@ -3,7 +3,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: { for: USD }) {
+      asFiat(request: { for: USD }) {
         ...FiatAmountFields
       }
     }

@@ -1,6 +1,6 @@
 import { tw } from '@tape.xyz/browser'
 import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
-import { EVENTS, formatNumber, getPublication, Tower } from '@tape.xyz/generic'
+import { EVENTS, formatNumber, getPublication } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
 import {
   PublicationReactionType,
@@ -12,6 +12,7 @@ import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 
+import useSw from '@/hooks/useSw'
 import useProfileStore from '@/lib/store/idb/profile'
 
 type Props = {
@@ -34,6 +35,7 @@ const PublicationReaction: FC<Props> = ({
   const targetPublication = getPublication(publication)
 
   const { activeProfile } = useProfileStore()
+  const { addEventToQueue } = useSw()
 
   const [reaction, setReaction] = useState({
     isLiked: targetPublication.operations.hasReacted,
@@ -77,7 +79,7 @@ const PublicationReaction: FC<Props> = ({
           }
         }
       })
-      Tower.track(EVENTS.PUBLICATION.LIKE)
+      addEventToQueue(EVENTS.PUBLICATION.LIKE)
     }
   }
 

@@ -5,7 +5,7 @@ import {
   POLYGON_CHAIN_ID,
   REQUESTING_SIGNATURE_MESSAGE
 } from '@tape.xyz/constants'
-import { EVENTS, logger, Tower } from '@tape.xyz/generic'
+import { EVENTS, logger } from '@tape.xyz/generic'
 import {
   Button,
   Callout,
@@ -22,12 +22,14 @@ import toast from 'react-hot-toast'
 import { formatEther, formatGwei, formatUnits } from 'viem'
 import { useAccount, useBalance, useWalletClient } from 'wagmi'
 
+import useSw from '@/hooks/useSw'
 import useAppStore from '@/lib/store'
 
 const IrysInfo = () => {
   const isMounted = useIsMounted()
   const { address } = useAccount()
   const { data: walletClient } = useWalletClient()
+  const { addEventToQueue } = useSw()
 
   const { data: userBalance } = useBalance({
     address,
@@ -126,7 +128,7 @@ const IrysInfo = () => {
             BigInt(fundResult?.quantity)
           )} ${IRYS_CURRENCY} is done and it will be reflected in few seconds.`
         )
-        Tower.track(EVENTS.DEPOSIT_MATIC)
+        addEventToQueue(EVENTS.DEPOSIT_MATIC)
       }
     } catch (error) {
       toast.error('Failed to deposit storage balance')
@@ -160,7 +162,7 @@ const IrysInfo = () => {
         toast.success(
           `Withdraw of ${Number(irysData.balance).toFixed(2)} ${IRYS_CURRENCY} is done and it will be reflected in few seconds.`
         )
-        Tower.track(EVENTS.WITHDRAW_MATIC)
+        addEventToQueue(EVENTS.WITHDRAW_MATIC)
       }
     } catch (error) {
       logger.error('[Error Irys Withdraw]', error)
