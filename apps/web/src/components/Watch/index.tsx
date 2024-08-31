@@ -3,8 +3,7 @@ import {
   getIsSuspendedProfile,
   getPublication,
   getPublicationData,
-  isWatchable,
-  Tower
+  isWatchable
 } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
 import { usePublicationQuery } from '@tape.xyz/lens'
@@ -17,6 +16,7 @@ import Custom500 from 'src/pages/500'
 import MetaTags from '@/components/Common/MetaTags'
 import ProfileSuspended from '@/components/Common/ProfileSuspended'
 import { WatchShimmer } from '@/components/Shimmers/WatchShimmer'
+import useSw from '@/hooks/useSw'
 import useAppStore from '@/lib/store'
 import useCommentStore from '@/lib/store/comment'
 
@@ -29,6 +29,7 @@ const VideoDetails = () => {
   const {
     query: { id, t: time }
   } = useRouter()
+  const { addEventToQueue } = useSw()
 
   const setVideoWatchTime = useAppStore((state) => state.setVideoWatchTime)
   const selectedCommentFilter = useCommentStore(
@@ -36,7 +37,8 @@ const VideoDetails = () => {
   )
 
   useEffect(() => {
-    Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.WATCH })
+    addEventToQueue(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.WATCH })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {

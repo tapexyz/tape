@@ -9,7 +9,7 @@ import {
   TAPE_SIGNUP_PROXY_ADDRESS,
   ZERO_ADDRESS
 } from '@tape.xyz/constants'
-import { EVENTS, Tower } from '@tape.xyz/generic'
+import { EVENTS } from '@tape.xyz/generic'
 import {
   useGenerateLensApiRelayAddressQuery,
   useHandleToAddressLazyQuery
@@ -42,6 +42,7 @@ import { object, string } from 'zod'
 
 import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
 import usePendingTxn from '@/hooks/usePendingTxn'
+import useSw from '@/hooks/useSw'
 
 type Props = {
   showLogin: boolean
@@ -75,6 +76,7 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
   const [creating, setCreating] = useState(false)
   const [isHandleAvailable, setIsHandleAvailable] = useState(false)
   const handleWrongNetwork = useHandleWrongNetwork()
+  const { addEventToQueue } = useSw()
 
   const { address } = useAccount()
   const handle = watch('handle')?.toLowerCase()
@@ -99,7 +101,7 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
     reset()
     toast.success('Profile created')
     setCreating(false)
-    Tower.track(EVENTS.AUTH.SIGNUP_SUCCESS, {
+    addEventToQueue(EVENTS.AUTH.SIGNUP_SUCCESS, {
       price: signupPriceFormatted,
       via
     })
@@ -135,7 +137,7 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
           }
         }
       })
-      Tower.track(EVENTS.AUTH.SIGNUP_HANDLE_SEARCH, {
+      addEventToQueue(EVENTS.AUTH.SIGNUP_HANDLE_SEARCH, {
         handle: `${LENS_NAMESPACE_PREFIX}${handle}`
       })
       if (data?.handleToAddress) {

@@ -28,7 +28,6 @@ import {
   getSignature,
   getUploadedMediaType,
   logger,
-  Tower,
   trimify,
   uploadToAr
 } from '@tape.xyz/generic'
@@ -61,6 +60,7 @@ import {
 } from 'wagmi'
 
 import MetaTags from '@/components/Common/MetaTags'
+import useSw from '@/hooks/useSw'
 import { getCollectModuleInput } from '@/lib/getCollectModuleInput'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@/lib/store'
 import useProfileStore from '@/lib/store/idb/profile'
@@ -86,6 +86,7 @@ const CreateSteps = () => {
   const { address } = useAccount()
   const router = useRouter()
   const { data: walletClient } = useWalletClient()
+  const { addEventToQueue } = useSw()
 
   const { canUseLensManager, canBroadcast } =
     checkLensManagerPermissions(activeProfile)
@@ -133,7 +134,8 @@ const CreateSteps = () => {
   }
 
   useEffect(() => {
-    Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.UPLOAD })
+    addEventToQueue(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.UPLOAD })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const stopLoading = () => {
@@ -153,7 +155,7 @@ const CreateSteps = () => {
     if (__typename === 'RelayError') {
       return
     }
-    Tower.track(EVENTS.PUBLICATION.NEW_POST, {
+    addEventToQueue(EVENTS.PUBLICATION.NEW_POST, {
       video_format: uploadedMedia.mediaType,
       video_type: uploadedMedia.isByteVideo ? 'SHORT_FORM' : 'LONG_FORM',
       publication_state: uploadedMedia.collectModule.isRevertCollect

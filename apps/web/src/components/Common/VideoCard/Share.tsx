@@ -1,12 +1,13 @@
 import { useCopyToClipboard } from '@tape.xyz/browser'
 import { STATIC_ASSETS, TAPE_WEBSITE_URL } from '@tape.xyz/constants'
-import { EVENTS, getSharableLink, imageCdn, Tower } from '@tape.xyz/generic'
+import { EVENTS, getSharableLink, imageCdn } from '@tape.xyz/generic'
 import type { PrimaryPublication } from '@tape.xyz/lens'
 import { CopyOutline, MirrorOutline, Tooltip } from '@tape.xyz/ui'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import type { FC } from 'react'
-import React from 'react'
+
+import useSw from '@/hooks/useSw'
 
 import EmbedMedia from '../EmbedMedia'
 import MirrorPublication from '../MirrorPublication'
@@ -18,11 +19,12 @@ type Props = {
 const Share: FC<Props> = ({ publication }) => {
   const [copy] = useCopyToClipboard()
   const { resolvedTheme } = useTheme()
+  const { addEventToQueue } = useSw()
   const url = `${TAPE_WEBSITE_URL}/watch/${publication.id}`
 
   const onCopyVideoUrl = async () => {
     await copy(url)
-    Tower.track(EVENTS.PUBLICATION.PERMALINK)
+    addEventToQueue(EVENTS.PUBLICATION.PERMALINK)
   }
 
   return (
@@ -38,7 +40,7 @@ const Share: FC<Props> = ({ publication }) => {
           className="rounded-full"
           target="_blank"
           rel="noreferrer"
-          onClick={() => Tower.track(EVENTS.PUBLICATION.SHARE.HEY)}
+          onClick={() => addEventToQueue(EVENTS.PUBLICATION.SHARE.HEY)}
           href={getSharableLink('hey', publication)}
         >
           <img
@@ -58,7 +60,7 @@ const Share: FC<Props> = ({ publication }) => {
           target="_blank"
           rel="noreferrer"
           href={getSharableLink('x', publication)}
-          onClick={() => Tower.track(EVENTS.PUBLICATION.SHARE.X)}
+          onClick={() => addEventToQueue(EVENTS.PUBLICATION.SHARE.X)}
         >
           <div className="rounded-full bg-gray-200 p-3 dark:bg-gray-800">
             {resolvedTheme === 'dark' ? (
@@ -90,7 +92,7 @@ const Share: FC<Props> = ({ publication }) => {
         </Link>
         <Link
           href={getSharableLink('reddit', publication)}
-          onClick={() => Tower.track(EVENTS.PUBLICATION.SHARE.REDDIT)}
+          onClick={() => addEventToQueue(EVENTS.PUBLICATION.SHARE.REDDIT)}
           target="_blank"
           rel="noreferrer"
         >
@@ -108,7 +110,7 @@ const Share: FC<Props> = ({ publication }) => {
         <Link
           href={getSharableLink('linkedin', publication)}
           target="_blank"
-          onClick={() => Tower.track(EVENTS.PUBLICATION.SHARE.LINKEDIN)}
+          onClick={() => addEventToQueue(EVENTS.PUBLICATION.SHARE.LINKEDIN)}
           rel="noreferrer"
         >
           <img

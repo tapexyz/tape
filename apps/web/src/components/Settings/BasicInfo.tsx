@@ -22,7 +22,6 @@ import {
   imageCdn,
   logger,
   sanitizeDStorageUrl,
-  Tower,
   trimify,
   uploadToAr
 } from '@tape.xyz/generic'
@@ -46,6 +45,7 @@ import { object, string, union } from 'zod'
 
 import EmojiPicker from '@/components/UIElements/EmojiPicker'
 import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
+import useSw from '@/hooks/useSw'
 
 type Props = {
   profile: Profile
@@ -85,6 +85,7 @@ const BasicInfo = ({ profile }: Props) => {
   const handleWrongNetwork = useHandleWrongNetwork()
   const { canUseLensManager, canBroadcast } =
     checkLensManagerPermissions(profile)
+  const { addEventToQueue } = useSw()
 
   const {
     register,
@@ -133,7 +134,7 @@ const BasicInfo = ({ profile }: Props) => {
     }
     setLoading(false)
     toast.success('Profile updated')
-    Tower.track(EVENTS.PROFILE.UPDATE)
+    addEventToQueue(EVENTS.PROFILE.UPDATE)
   }
 
   const { signTypedDataAsync } = useSignTypedData({

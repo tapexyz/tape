@@ -3,8 +3,7 @@ import {
   EVENTS,
   getIsSuspendedProfile,
   getProfile,
-  getValueFromKeyInAttributes,
-  Tower
+  getValueFromKeyInAttributes
 } from '@tape.xyz/generic'
 import type { Profile, ProfileRequest } from '@tape.xyz/lens'
 import { useProfileQuery } from '@tape.xyz/lens'
@@ -16,6 +15,7 @@ import Custom500 from 'src/pages/500'
 import MetaTags from '@/components/Common/MetaTags'
 import ProfileSuspended from '@/components/Common/ProfileSuspended'
 import ProfilePageShimmer from '@/components/Shimmers/ProfilePageShimmer'
+import useSw from '@/hooks/useSw'
 
 import BasicInfo from './BasicInfo'
 import Cover from './Cover'
@@ -24,11 +24,13 @@ import PinnedVideo from './Tabs/PinnedVideo'
 
 const ViewProfile = () => {
   const { query } = useRouter()
+  const { addEventToQueue } = useSw()
   const handle = query.handle as string[]
   const forProfileId = query.id as string
 
   useEffect(() => {
-    Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.PROFILE })
+    addEventToQueue(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.PROFILE })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const forHandle =

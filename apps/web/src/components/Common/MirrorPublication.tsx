@@ -8,8 +8,7 @@ import {
 import {
   checkLensManagerPermissions,
   EVENTS,
-  getSignature,
-  Tower
+  getSignature
 } from '@tape.xyz/generic'
 import type {
   CreateMomokaMirrorEip712TypedData,
@@ -32,6 +31,7 @@ import toast from 'react-hot-toast'
 import { useSignTypedData, useWriteContract } from 'wagmi'
 
 import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
+import useSw from '@/hooks/useSw'
 import useProfileStore from '@/lib/store/idb/profile'
 import useNonceStore from '@/lib/store/nonce'
 
@@ -55,6 +55,7 @@ const MirrorPublication: FC<Props> = ({
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const { canUseLensManager, canBroadcast } =
     checkLensManagerPermissions(activeProfile)
+  const { addEventToQueue } = useSw()
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -68,7 +69,7 @@ const MirrorPublication: FC<Props> = ({
     onMirrorSuccess?.()
     setLoading(false)
     toast.success(successToast)
-    Tower.track(EVENTS.PUBLICATION.MIRROR, {
+    addEventToQueue(EVENTS.PUBLICATION.MIRROR, {
       publication_id: video.id,
       publication_state: video.momoka?.proof ? 'MOMOKA' : 'ON_CHAIN'
     })

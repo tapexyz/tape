@@ -9,8 +9,7 @@ import {
   checkLensManagerPermissions,
   EVENTS,
   getProfile,
-  getSignature,
-  Tower
+  getSignature
 } from '@tape.xyz/generic'
 import type { FollowLensManagerRequest, Profile } from '@tape.xyz/lens'
 import {
@@ -26,6 +25,7 @@ import toast from 'react-hot-toast'
 import { useSignTypedData, useWriteContract } from 'wagmi'
 
 import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
+import useSw from '@/hooks/useSw'
 import useProfileStore from '@/lib/store/idb/profile'
 import useNonceStore from '@/lib/store/nonce'
 
@@ -35,6 +35,7 @@ type Props = {
 }
 
 const Follow: FC<Props> = ({ profile, onSubscribe }) => {
+  const { addEventToQueue } = useSw()
   const [loading, setLoading] = useState(false)
   const { activeProfile } = useProfileStore()
   const { canUseLensManager, canBroadcast } =
@@ -55,7 +56,7 @@ const Follow: FC<Props> = ({ profile, onSubscribe }) => {
     onSubscribe()
     setLoading(false)
     toast.success(`Followed ${getProfile(profile)?.displayName}`)
-    Tower.track(EVENTS.PROFILE.FOLLOW, {
+    addEventToQueue(EVENTS.PROFILE.FOLLOW, {
       profile_id: profile.id,
       profile_name: getProfile(profile)?.slug
     })

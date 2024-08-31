@@ -4,7 +4,7 @@ import {
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
-import { EVENTS, Tower } from '@tape.xyz/generic'
+import { EVENTS } from '@tape.xyz/generic'
 import type { Notification, NotificationRequest } from '@tape.xyz/lens'
 import { CustomFiltersType, useNotificationsQuery } from '@tape.xyz/lens'
 import { CustomNotificationsFilterEnum } from '@tape.xyz/lens/custom-types'
@@ -15,6 +15,7 @@ import { useInView } from 'react-cool-inview'
 import MetaTags from '@/components/Common/MetaTags'
 import NotificationsShimmer from '@/components/Shimmers/NotificationsShimmer'
 import { NoDataFound } from '@/components/UIElements/NoDataFound'
+import useSw from '@/hooks/useSw'
 import useNotificationStore from '@/lib/store/notification'
 import usePersistStore from '@/lib/store/persist'
 
@@ -34,9 +35,11 @@ const Notifications = () => {
   const selectedNotificationsFilter = usePersistStore(
     (state) => state.selectedNotificationsFilter
   )
+  const { addEventToQueue } = useSw()
 
   useEffect(() => {
-    Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.NOTIFICATIONS })
+    addEventToQueue(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.NOTIFICATIONS })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const request: NotificationRequest = {

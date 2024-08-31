@@ -1,9 +1,11 @@
-import { EVENTS, getProfile, Tower } from '@tape.xyz/generic'
+import { EVENTS, getProfile } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@tape.xyz/ui'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React from 'react'
+
+import useSw from '@/hooks/useSw'
 
 import ProfileBytes from './ProfileBytes'
 import ProfileVideos from './ProfileVideos'
@@ -14,6 +16,7 @@ type Props = {
 
 const ProfileTabs: FC<Props> = ({ profile }) => {
   const router = useRouter()
+  const { addEventToQueue } = useSw()
 
   const handleTabChange = (tab: string) => {
     if (tab) {
@@ -33,7 +36,7 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
             className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
             onClick={() => {
               handleTabChange('videos')
-              Tower.track(EVENTS.PROFILE.CLICK_PROFILE_VIDEOS)
+              addEventToQueue(EVENTS.PROFILE.CLICK_PROFILE_VIDEOS)
             }}
             value="videos"
           >
@@ -43,7 +46,7 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
             className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
             onClick={() => {
               handleTabChange('bytes')
-              Tower.track(EVENTS.PROFILE.CLICK_PROFILE_BYTES)
+              addEventToQueue(EVENTS.PROFILE.CLICK_PROFILE_BYTES)
             }}
             value="bytes"
           >

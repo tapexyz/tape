@@ -20,7 +20,6 @@ import {
   getProfile,
   getSignature,
   imageCdn,
-  Tower,
   trimify,
   uploadToAr
 } from '@tape.xyz/generic'
@@ -46,6 +45,7 @@ import type { z } from 'zod'
 import { object, string } from 'zod'
 
 import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
+import useSw from '@/hooks/useSw'
 import useProfileStore from '@/lib/store/idb/profile'
 import useNonceStore from '@/lib/store/nonce'
 
@@ -86,6 +86,7 @@ const New: FC<Props> = ({ refetch }) => {
   const setLensHubOnchainSigNonce = useNonceStore(
     (state) => state.setLensHubOnchainSigNonce
   )
+  const { addEventToQueue } = useSw()
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -102,7 +103,7 @@ const New: FC<Props> = ({ refetch }) => {
     reset()
     refetch()
     toast.success('Posted successfully!')
-    Tower.track(EVENTS.PUBLICATION.NEW_POST, {
+    addEventToQueue(EVENTS.PUBLICATION.NEW_POST, {
       type: 'banger',
       publication_state: canUseLensManager ? 'MOMOKA' : 'ON_CHAIN',
       user_id: activeProfile?.id

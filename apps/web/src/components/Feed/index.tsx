@@ -4,7 +4,7 @@ import {
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
-import { EVENTS, Tower } from '@tape.xyz/generic'
+import { EVENTS } from '@tape.xyz/generic'
 import type { FeedItem, FeedRequest, PrimaryPublication } from '@tape.xyz/lens'
 import {
   FeedEventItemType,
@@ -21,15 +21,18 @@ import MetaTags from '@/components/Common/MetaTags'
 import VideoCard from '@/components/Common/VideoCard'
 import TimelineShimmer from '@/components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@/components/UIElements/NoDataFound'
+import useSw from '@/hooks/useSw'
 import useAppStore from '@/lib/store'
 import useProfileStore from '@/lib/store/idb/profile'
 
 const Feed = () => {
   const { activeProfile } = useProfileStore()
+  const { addEventToQueue } = useSw()
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
 
   useEffect(() => {
-    Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.FEED })
+    addEventToQueue(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.FEED })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const request: FeedRequest = {

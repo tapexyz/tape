@@ -8,8 +8,7 @@ import {
   checkLensManagerPermissions,
   EVENTS,
   getProfile,
-  getSignature,
-  Tower
+  getSignature
 } from '@tape.xyz/generic'
 import type { CreateUnfollowBroadcastItemResult, Profile } from '@tape.xyz/lens'
 import {
@@ -25,6 +24,7 @@ import toast from 'react-hot-toast'
 import { useSignTypedData, useWriteContract } from 'wagmi'
 
 import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
+import useSw from '@/hooks/useSw'
 import useProfileStore from '@/lib/store/idb/profile'
 import useNonceStore from '@/lib/store/nonce'
 
@@ -36,6 +36,7 @@ type Props = {
 const UnFollow: FC<Props> = ({ profile, onUnSubscribe }) => {
   const [loading, setLoading] = useState(false)
 
+  const { addEventToQueue } = useSw()
   const { activeProfile } = useProfileStore()
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const { canUseLensManager, canBroadcast } =
@@ -55,7 +56,7 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe }) => {
     setLoading(false)
     onUnSubscribe()
     toast.success(`Unfollowed ${getProfile(profile)?.displayName}`)
-    Tower.track(EVENTS.PROFILE.UNFOLLOW, {
+    addEventToQueue(EVENTS.PROFILE.UNFOLLOW, {
       profile_id: profile.id,
       profile_name: getProfile(profile)?.slug
     })

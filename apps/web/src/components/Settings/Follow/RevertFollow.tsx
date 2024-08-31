@@ -7,8 +7,7 @@ import {
 import {
   checkLensManagerPermissions,
   EVENTS,
-  getSignature,
-  Tower
+  getSignature
 } from '@tape.xyz/generic'
 import type {
   CreateSetFollowModuleBroadcastItemResult,
@@ -27,6 +26,7 @@ import { useSignTypedData, useWriteContract } from 'wagmi'
 
 import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
 import usePendingTxn from '@/hooks/usePendingTxn'
+import useSw from '@/hooks/useSw'
 import useProfileStore from '@/lib/store/idb/profile'
 import useNonceStore from '@/lib/store/nonce'
 
@@ -35,6 +35,7 @@ type Props = {
 }
 
 const RevertFollow = ({ profile }: Props) => {
+  const { addEventToQueue } = useSw()
   const [loading, setLoading] = useState(false)
   const [isRevertFollow, setIsRevertFollow] = useState(
     profile.followModule?.type === FollowModuleType.RevertFollowModule
@@ -56,7 +57,7 @@ const RevertFollow = ({ profile }: Props) => {
     setLoading(false)
     setIsRevertFollow(!isRevertFollow)
     toast.success('Follow settings updated')
-    Tower.track(EVENTS.PROFILE.SETTINGS.TOGGLE_REVERT_FOLLOW)
+    addEventToQueue(EVENTS.PROFILE.SETTINGS.TOGGLE_REVERT_FOLLOW)
   }
 
   const onError = (error: CustomErrorWithData) => {

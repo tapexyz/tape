@@ -7,7 +7,7 @@ query ApprovedModuleAllowanceAmount(
       asset {
         ...Erc20Fields
       }
-      rate(request: { for: USD }) {
+      asFiat(request: { for: USD }) {
         ...FiatAmountFields
       }
     }

@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE } from '@tape.xyz/constants'
-import { EVENTS, Tower } from '@tape.xyz/generic'
+import { EVENTS } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useReportProfileMutation } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
@@ -9,6 +9,7 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 
 import MetaTags from '@/components/Common/MetaTags'
+import useSw from '@/hooks/useSw'
 
 type Props = {
   profile: Profile
@@ -17,6 +18,7 @@ type Props = {
 
 const ReportProfile: FC<Props> = ({ profile, close }) => {
   const [reason, setReason] = useState('SPAM-REPETITIVE')
+  const { addEventToQueue } = useSw()
 
   const [createReport, { loading: reporting }] = useReportProfileMutation({
     onError: (error: CustomErrorWithData) => {
@@ -24,7 +26,7 @@ const ReportProfile: FC<Props> = ({ profile, close }) => {
     },
     onCompleted: () => {
       toast.success(`Profile reported.`)
-      Tower.track(EVENTS.PROFILE.REPORT, {
+      addEventToQueue(EVENTS.PROFILE.REPORT, {
         profile_id: profile.id
       })
     }

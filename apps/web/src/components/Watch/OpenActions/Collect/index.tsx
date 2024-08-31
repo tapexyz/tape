@@ -496,10 +496,10 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
                   <span className="text-2xl">{details?.amount.value}</span>
                   <span className="inline-flex items-center">
                     <span>{details?.amount.assetSymbol}</span>
-                    {details?.amount.rate && (
+                    {details?.amount.fiat && (
                       <>
                         <span className="middot" />
-                        <span>${details?.amount.rate}</span>
+                        <span>${details?.amount.fiat}</span>
                       </>
                     )}
                   </span>

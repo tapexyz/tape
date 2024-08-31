@@ -1,9 +1,10 @@
 import { tw } from '@tape.xyz/browser'
 import { CREATOR_VIDEO_CATEGORIES } from '@tape.xyz/constants'
-import { EVENTS, Tower } from '@tape.xyz/generic'
+import { EVENTS } from '@tape.xyz/generic'
 import type { FC } from 'react'
 import React, { useRef } from 'react'
 
+import useSw from '@/hooks/useSw'
 import useAppStore from '@/lib/store'
 
 import HorizontalScroller from './HorizontalScroller'
@@ -15,10 +16,11 @@ type Props = {
 const CategoryFilters: FC<Props> = ({ heading }) => {
   const sectionRef = useRef<HTMLDivElement>(null)
   const { activeTagFilter, setActiveTagFilter } = useAppStore()
+  const { addEventToQueue } = useSw()
 
   const onFilter = (tag: string) => {
     setActiveTagFilter(tag)
-    Tower.track(EVENTS.FILTER_CATEGORIES)
+    addEventToQueue(EVENTS.FILTER_CATEGORIES)
   }
 
   return (

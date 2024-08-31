@@ -6,7 +6,7 @@ import {
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
-import { EVENTS, Tower } from '@tape.xyz/generic'
+import { EVENTS } from '@tape.xyz/generic'
 import type {
   ExplorePublicationRequest,
   PrimaryPublication
@@ -32,6 +32,7 @@ import { useInView } from 'react-cool-inview'
 import Timeline from '@/components/Home/Timeline'
 import TimelineShimmer from '@/components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@/components/UIElements/NoDataFound'
+import useSw from '@/hooks/useSw'
 import { getUnixTimestampNDaysAgo } from '@/lib/formatTime'
 import useAppStore from '@/lib/store'
 
@@ -46,6 +47,7 @@ const since = getUnixTimestampNDaysAgo(30)
 const ExploreFeed = () => {
   const [activeCriteria, setActiveCriteria] = useState(initialCriteria)
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
+  const { addEventToQueue } = useSw()
 
   const getCriteria = () => {
     if (activeCriteria.trending) {
@@ -110,7 +112,7 @@ const ExploreFeed = () => {
           className={tw(activeCriteria.trending && 'border-brand-500')}
           onClick={() => {
             setActiveCriteria({ ...initialCriteria })
-            Tower.track(EVENTS.PAGEVIEW, {
+            addEventToQueue(EVENTS.PAGEVIEW, {
               page: EVENTS.PAGE_VIEW.EXPLORE_TRENDING
             })
           }}
@@ -127,7 +129,7 @@ const ExploreFeed = () => {
               popular: true,
               trending: false
             })
-            Tower.track(EVENTS.PAGEVIEW, {
+            addEventToQueue(EVENTS.PAGEVIEW, {
               page: EVENTS.PAGE_VIEW.EXPLORE_POPULAR
             })
           }}
@@ -144,7 +146,7 @@ const ExploreFeed = () => {
               interesting: true,
               trending: false
             })
-            Tower.track(EVENTS.PAGEVIEW, {
+            addEventToQueue(EVENTS.PAGEVIEW, {
               page: EVENTS.PAGE_VIEW.EXPLORE_INTERESTING
             })
           }}

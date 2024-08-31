@@ -3,8 +3,7 @@ import {
   EVENTS,
   getProfile,
   getPublication,
-  getPublicationData,
-  Tower
+  getPublicationData
 } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
 import { useReportPublicationMutation } from '@tape.xyz/lens'
@@ -15,6 +14,7 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 
 import MetaTags from '@/components/Common/MetaTags'
+import useSw from '@/hooks/useSw'
 
 type Props = {
   publication: AnyPublication
@@ -24,6 +24,7 @@ type Props = {
 const ReportPublication: FC<Props> = ({ publication, close }) => {
   const targetPublication = getPublication(publication)
   const [reason, setReason] = useState('SPAM-FAKE_ENGAGEMENT')
+  const { addEventToQueue } = useSw()
 
   const [createReport, { loading: reporting }] = useReportPublicationMutation({
     onError: (error: CustomErrorWithData) => {
@@ -31,7 +32,7 @@ const ReportPublication: FC<Props> = ({ publication, close }) => {
     },
     onCompleted: () => {
       toast.success(`Publication reported.`)
-      Tower.track(EVENTS.PUBLICATION.REPORT, {
+      addEventToQueue(EVENTS.PUBLICATION.REPORT, {
         publication_id: targetPublication.id,
         publication_type: targetPublication.__typename?.toLowerCase()
       })

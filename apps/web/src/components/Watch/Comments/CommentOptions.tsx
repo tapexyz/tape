@@ -1,5 +1,5 @@
 import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
-import { EVENTS, Tower } from '@tape.xyz/generic'
+import { EVENTS } from '@tape.xyz/generic'
 import type { Comment } from '@tape.xyz/lens'
 import { useHidePublicationMutation } from '@tape.xyz/lens'
 import {
@@ -17,6 +17,7 @@ import toast from 'react-hot-toast'
 import ReportPublication from '@/components/Report/Publication'
 import Confirm from '@/components/UIElements/Confirm'
 import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
+import useSw from '@/hooks/useSw'
 import useProfileStore from '@/lib/store/idb/profile'
 
 type Props = {
@@ -29,6 +30,7 @@ const CommentOptions: FC<Props> = ({ comment }) => {
   const handleWrongNetwork = useHandleWrongNetwork()
 
   const { activeProfile } = useProfileStore()
+  const { addEventToQueue } = useSw()
 
   const [hideComment, { loading: hiding }] = useHidePublicationMutation({
     update(cache) {
@@ -41,7 +43,7 @@ const CommentOptions: FC<Props> = ({ comment }) => {
     },
     onCompleted: () => {
       toast.success(`Comment deleted`)
-      Tower.track(EVENTS.PUBLICATION.DELETE, {
+      addEventToQueue(EVENTS.PUBLICATION.DELETE, {
         publication_type: comment.__typename?.toLowerCase()
       })
     }

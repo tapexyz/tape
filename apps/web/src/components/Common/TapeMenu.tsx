@@ -4,11 +4,14 @@ import {
   TAPE_STATUS_PAGE,
   TAPE_X_HANDLE
 } from '@tape.xyz/constants'
-import { EVENTS, Tower } from '@tape.xyz/generic'
+import { EVENTS } from '@tape.xyz/generic'
 import Link from 'next/link'
-import React from 'react'
+
+import useSw from '@/hooks/useSw'
 
 const TapeMenu = () => {
+  const { addEventToQueue } = useSw()
+
   return (
     <div className="grid grid-cols-2 py-1 pl-1">
       <Link
@@ -16,7 +19,7 @@ const TapeMenu = () => {
         href={`https://github.com/${TAPE_GITHUB_HANDLE}/brand-kit`}
         target="_blank"
         onClick={() => {
-          Tower.track(EVENTS.SYSTEM.MORE_MENU.BRAND_KIT)
+          addEventToQueue(EVENTS.SYSTEM.MORE_MENU.BRAND_KIT)
         }}
       >
         Brand Kit
@@ -25,7 +28,7 @@ const TapeMenu = () => {
         className="rounded-lg px-2.5 py-1.5"
         href={`https://github.com/${TAPE_GITHUB_HANDLE}`}
         onClick={() => {
-          Tower.track(EVENTS.SYSTEM.MORE_MENU.GITHUB)
+          addEventToQueue(EVENTS.SYSTEM.MORE_MENU.GITHUB)
         }}
         target="_blank"
       >
@@ -35,7 +38,7 @@ const TapeMenu = () => {
         className="rounded-lg px-2.5 py-1.5"
         href={`${TAPE_FEEDBACK_URL}/feature-requests`}
         onClick={() => {
-          Tower.track(EVENTS.SYSTEM.MORE_MENU.FEEDBACK)
+          addEventToQueue(EVENTS.SYSTEM.MORE_MENU.FEEDBACK)
         }}
         target="_blank"
       >
@@ -45,7 +48,7 @@ const TapeMenu = () => {
         className="rounded-lg px-2.5 py-1.5"
         href={TAPE_FEEDBACK_URL}
         onClick={() => {
-          Tower.track(EVENTS.SYSTEM.MORE_MENU.ROADMAP)
+          addEventToQueue(EVENTS.SYSTEM.MORE_MENU.ROADMAP)
         }}
         target="_blank"
       >
@@ -56,7 +59,7 @@ const TapeMenu = () => {
         className="rounded-lg px-2.5 py-1.5"
         href={`https://x.com/${TAPE_X_HANDLE}`}
         onClick={() => {
-          Tower.track(EVENTS.SYSTEM.MORE_MENU.X)
+          addEventToQueue(EVENTS.SYSTEM.MORE_MENU.X)
         }}
         target="_blank"
       >
@@ -66,7 +69,7 @@ const TapeMenu = () => {
         className="rounded-lg px-2.5 py-1.5"
         href="/discord"
         onClick={() => {
-          Tower.track(EVENTS.SYSTEM.MORE_MENU.DISCORD)
+          addEventToQueue(EVENTS.SYSTEM.MORE_MENU.DISCORD)
         }}
         target="_blank"
       >
@@ -78,7 +81,7 @@ const TapeMenu = () => {
         href="/thanks"
         target="_blank"
         onClick={() => {
-          Tower.track(EVENTS.SYSTEM.MORE_MENU.THANKS)
+          addEventToQueue(EVENTS.SYSTEM.MORE_MENU.THANKS)
         }}
       >
         Thanks
@@ -87,7 +90,7 @@ const TapeMenu = () => {
         className="rounded-lg px-2.5 py-1.5"
         href={TAPE_STATUS_PAGE}
         onClick={() => {
-          Tower.track(EVENTS.SYSTEM.MORE_MENU.STATUS)
+          addEventToQueue(EVENTS.SYSTEM.MORE_MENU.STATUS)
         }}
         target="_blank"
       >
@@ -98,7 +101,7 @@ const TapeMenu = () => {
         className="rounded-lg px-2.5 py-1.5"
         target="_blank"
         onClick={() => {
-          Tower.track(EVENTS.SYSTEM.MORE_MENU.TERMS)
+          addEventToQueue(EVENTS.SYSTEM.MORE_MENU.TERMS)
         }}
         href="/terms"
       >
@@ -108,7 +111,7 @@ const TapeMenu = () => {
         className="rounded-lg px-2.5 py-1.5"
         target="_blank"
         onClick={() => {
-          Tower.track(EVENTS.SYSTEM.MORE_MENU.PRIVACY)
+          addEventToQueue(EVENTS.SYSTEM.MORE_MENU.PRIVACY)
         }}
         href="/privacy"
       >

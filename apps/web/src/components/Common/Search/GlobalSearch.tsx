@@ -4,7 +4,7 @@ import {
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
-import { EVENTS, Tower } from '@tape.xyz/generic'
+import { EVENTS } from '@tape.xyz/generic'
 import type {
   PrimaryPublication,
   Profile,
@@ -23,6 +23,7 @@ import { Input, SearchOutline, Spinner } from '@tape.xyz/ui'
 import React, { useEffect, useRef, useState } from 'react'
 
 import { NoDataFound } from '@/components/UIElements/NoDataFound'
+import useSw from '@/hooks/useSw'
 
 import Profiles from './Profiles'
 import Publications from './Publications'
@@ -30,6 +31,7 @@ import Publications from './Publications'
 const GlobalSearch = () => {
   const [showSearchBar, setShowSearchBar] = useState(false)
   const [keyword, setKeyword] = useState('')
+  const { addEventToQueue } = useSw()
 
   const debouncedValue = useDebounce<string>(keyword, 500)
   const resultsRef = useRef(null)
@@ -82,7 +84,7 @@ const GlobalSearch = () => {
           request: profileSearchRequest
         }
       })
-      Tower.track(EVENTS.SEARCH)
+      addEventToQueue(EVENTS.SEARCH)
     }
   }
 

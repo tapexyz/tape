@@ -1,4 +1,4 @@
-import { EVENTS, Tower } from '@tape.xyz/generic'
+import { EVENTS } from '@tape.xyz/generic'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
@@ -7,14 +7,17 @@ import Logo from '@/components/Common/Logo'
 import MetaTags from '@/components/Common/MetaTags'
 import CardBorders from '@/components/Login/CardBorders'
 import Connectors from '@/components/Login/Connectors'
+import useSw from '@/hooks/useSw'
 
 const BackgroundComets = dynamic(
   () => import('@/components/Login/BackgroundComets')
 )
 
 const Login = () => {
+  const { addEventToQueue } = useSw()
   useEffect(() => {
-    Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.LOGIN })
+    addEventToQueue(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.LOGIN })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

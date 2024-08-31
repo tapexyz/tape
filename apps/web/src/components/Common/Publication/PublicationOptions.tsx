@@ -18,7 +18,6 @@ import {
   getSignature,
   getValueFromKeyInAttributes,
   logger,
-  Tower,
   trimify,
   uploadToAr
 } from '@tape.xyz/generic'
@@ -60,6 +59,7 @@ import { useSignTypedData, useWriteContract } from 'wagmi'
 import ReportPublication from '@/components/Report/Publication'
 import Confirm from '@/components/UIElements/Confirm'
 import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
+import useSw from '@/hooks/useSw'
 import useProfileStore from '@/lib/store/idb/profile'
 
 import ArweaveExplorerLink from '../Links/ArweaveExplorerLink'
@@ -77,6 +77,7 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
   const [showShareModal, setShowShareModal] = useState(false)
   const [showReportModal, setShowReportModal] = useState(false)
 
+  const { addEventToQueue } = useSw()
   const { cache } = useApolloClient()
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const { canUseLensManager, canBroadcast } =
@@ -99,7 +100,7 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
     },
     onCompleted: () => {
       toast.success(`Video deleted`)
-      Tower.track(EVENTS.PUBLICATION.DELETE, {
+      addEventToQueue(EVENTS.PUBLICATION.DELETE, {
         publication_type: publication.__typename?.toLowerCase()
       })
     }
@@ -133,7 +134,7 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
       return
     }
     toast.success(`Transaction submitted`)
-    Tower.track(EVENTS.PUBLICATION.PIN)
+    addEventToQueue(EVENTS.PUBLICATION.PIN)
   }
 
   const { signTypedDataAsync } = useSignTypedData({
@@ -279,7 +280,7 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
         ? `Publication marked as not interested`
         : `Publication removed from not interested`
     )
-    Tower.track(EVENTS.PUBLICATION.TOGGLE_INTEREST)
+    addEventToQueue(EVENTS.PUBLICATION.TOGGLE_INTEREST)
   }
 
   const modifyListCache = (saved: boolean) => {
@@ -297,7 +298,7 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
     toast.success(
       saved ? `Video added to your list` : `Video removed from your list`
     )
-    Tower.track(EVENTS.PUBLICATION.TOGGLE_INTEREST)
+    addEventToQueue(EVENTS.PUBLICATION.TOGGLE_INTEREST)
   }
 
   const [addToNotInterested] = useAddPublicationNotInterestedMutation({
@@ -477,7 +478,7 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
               {getIsIPFSUrl(publication.metadata.rawURI) ? (
                 <IPFSLink hash={getMetadataCid(publication)}>
                   <DropdownMenuItem
-                    onClick={() => Tower.track(EVENTS.CLICK_VIEW_METADATA)}
+                    onClick={() => addEventToQueue(EVENTS.CLICK_VIEW_METADATA)}
                   >
                     <p className="flex items-center gap-2">
                       <ExternalOutline className="size-3.5" />
@@ -488,7 +489,7 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
               ) : (
                 <ArweaveExplorerLink txId={getMetadataCid(publication)}>
                   <DropdownMenuItem
-                    onClick={() => Tower.track(EVENTS.CLICK_VIEW_METADATA)}
+                    onClick={() => addEventToQueue(EVENTS.CLICK_VIEW_METADATA)}
                   >
                     <p className="flex items-center gap-2">
                       <ExternalOutline className="size-3.5" />
@@ -502,7 +503,7 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
                   txId={publication.momoka?.proof?.replace('ar://', '')}
                 >
                   <DropdownMenuItem
-                    onClick={() => Tower.track(EVENTS.CLICK_VIEW_PROOF)}
+                    onClick={() => addEventToQueue(EVENTS.CLICK_VIEW_PROOF)}
                   >
                     <p className="flex items-center gap-2">
                       <ExternalOutline className="size-3.5" />

@@ -4,31 +4,34 @@
   "license": "AGPL-3.0",
   "main": "./index.ts",
   "scripts": {
+    "build:sw": "tsc worker/sw.ts --outDir ../../../apps/web/public --module ESNext --lib DOM,ESNext,WebWorker --skipLibCheck",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "typecheck": "tsc --pretty",
     "format:check": "prettier --check \"**/*.{ts,tsx,md,json,css}\"",
-    "format": "prettier --write \"**/*.{ts,tsx,md,json,css}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md,json,css}\"",
+    "postinstall": "pnpm build:sw"
   },
-  "devDependencies": {
+  "dependencies": {
+    "@rajesh896/broprint.js": "^2.1.1",
     "@aws-sdk/client-s3": "3.637.0",
     "@aws-sdk/lib-storage": "3.637.0",
     "@livepeer/react": "3.1.9",
     "axios": "^1.7.5",
     "next": "^14.2.7",
     "react": "^18.3.1",
-    "typescript": "5.5.4",
+    "clsx": "^2.1.1",
+    "fast-average-color": "^9.4.0",
+    "tailwind-merge": "^2.5.1",
     "uuid": "^10.0.0"
   },
-  "dependencies": {
-    "@rajesh896/broprint.js": "^2.1.1",
+  "devDependencies": {
     "@tape.xyz/config": "workspace:*",
     "@tape.xyz/constants": "workspace:*",
     "@tape.xyz/generic": "workspace:*",
     "@tape.xyz/lens": "workspace:*",
     "@types/react": "^18.3.5",
+    "@types/node": "^22.5.1",
     "@types/uuid": "^10.0.0",
-    "clsx": "^2.1.1",
-    "fast-average-color": "^9.4.0",
-    "tailwind-merge": "^2.5.1"
+    "typescript": "5.5.4"
   }
 }

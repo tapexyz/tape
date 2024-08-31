@@ -9,8 +9,7 @@ import {
   checkLensManagerPermissions,
   EVENTS,
   getProfile,
-  getSignature,
-  Tower
+  getSignature
 } from '@tape.xyz/generic'
 import type { FeeFollowModuleSettings, Profile } from '@tape.xyz/lens'
 import {
@@ -33,6 +32,7 @@ import {
   useWriteContract
 } from 'wagmi'
 
+import useSw from '@/hooks/useSw'
 import useProfileStore from '@/lib/store/idb/profile'
 import useNonceStore from '@/lib/store/nonce'
 
@@ -47,6 +47,7 @@ const SuperFollow: FC<Props> = ({ profile, onJoin }) => {
   const [loading, setLoading] = useState(false)
   const [isAllowed, setIsAllowed] = useState(false)
 
+  const { addEventToQueue } = useSw()
   const { activeProfile } = useProfileStore()
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const { canBroadcast } = checkLensManagerPermissions(activeProfile)
@@ -64,7 +65,7 @@ const SuperFollow: FC<Props> = ({ profile, onJoin }) => {
     setOpen(false)
     toast.success(`Followed ${getProfile(profile)?.displayName}`)
     setLoading(false)
-    Tower.track(EVENTS.PROFILE.SUPER_FOLLOW, {
+    addEventToQueue(EVENTS.PROFILE.SUPER_FOLLOW, {
       profile_id: profile.id,
       profile_name: getProfile(profile)?.slug
     })
