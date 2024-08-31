@@ -120,7 +120,7 @@ app.post('/batch', zValidator('json', batchValidationSchema), async (c) => {
 
     return c.json({ success: true })
   } catch (error) {
-    console.error('[TOWER] Error:', error)
+    console.error('[BATCH TOWER] Error:', error)
     return c.json({ success: false, message: ERROR_MESSAGE })
   }
 })
