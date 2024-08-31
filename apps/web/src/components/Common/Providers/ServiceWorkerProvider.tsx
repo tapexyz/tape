@@ -8,15 +8,16 @@ import { ServiceWorkerContext } from '@/hooks/useSw'
 
 const ServiceWorkerProvider: FC<{ children: ReactNode }> = ({ children }) => {
   useEffect(() => {
-    if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
-      navigator.serviceWorker
-        .register('/sw.js')
-        .then((registration) => {
-          console.log('[SW] ⚙︎', registration.scope)
-        })
-        .catch((error) => {
-          console.error('[SW] ⚙︎ Registration failed:', error)
-        })
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (const registration of registrations) {
+          registration.unregister()
+        }
+
+        navigator.serviceWorker
+          .register('/sw.js', { scope: '/' })
+          .catch(console.error)
+      })
     }
   }, [])
 
