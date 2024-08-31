@@ -1,4 +1,4 @@
-const WORKER_TOWER_URL = 'https://api.tape.xyz/tower/batch'
+const EVENTS_BATCH_URL = 'https://api.tape.xyz/tower/batch'
 let eventQueue: Record<string, unknown>[] = []
 
 const sendBatchedEvents = async () => {
@@ -7,7 +7,7 @@ const sendBatchedEvents = async () => {
     eventQueue = [] // Clear the queue
 
     try {
-      await fetch(WORKER_TOWER_URL, {
+      await fetch(EVENTS_BATCH_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ events: eventsToSend })

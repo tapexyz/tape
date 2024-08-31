@@ -15,8 +15,13 @@ const ServiceWorkerProvider: FC<{ children: ReactNode }> = ({ children }) => {
         }
 
         navigator.serviceWorker
-          .register('/sw.js', { scope: '/' })
-          .catch(console.error)
+          .register('/sw.js')
+          .then((registration) => {
+            console.log('[SW] ⚙︎', registration.scope)
+          })
+          .catch((error) => {
+            console.error('[SW] ⚙︎', error)
+          })
       })
     }
   }, [])
