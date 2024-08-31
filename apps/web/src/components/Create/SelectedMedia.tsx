@@ -17,6 +17,7 @@ import UploadMethod from './UploadMethod'
 
 const SelectedMedia = () => {
   const mediaRef = useRef<HTMLVideoElement>(null)
+  const [loading, setLoading] = useState(true)
   const [interacted, setInteracted] = useState(false)
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)
@@ -26,10 +27,11 @@ const SelectedMedia = () => {
     if (mediaRef.current?.duration && mediaRef.current?.duration !== Infinity) {
       setUploadedMedia({
         durationInSeconds: mediaRef.current.duration
-          ? Math.floor(mediaRef.current.duration)
+          ? Math.abs(mediaRef.current.duration)
           : 0
       })
     }
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -65,46 +67,54 @@ const SelectedMedia = () => {
           onClick={() => onClickVideo()}
           src={uploadedMedia.preview}
         />
-        <Badge
-          onClick={() => onClickVideo()}
-          className="absolute bottom-3 right-2"
-        >
-          Play/Pause
-        </Badge>
-        <Badge className="absolute bottom-3 left-2">
-          {uploadedMedia.file?.size && (
-            <span className="space-x-1 whitespace-nowrap">
-              <span>
-                {formatTimeFromSeconds(String(uploadedMedia.durationInSeconds))}
-              </span>
-              <span>({formatBytes(uploadedMedia.file?.size)})</span>
-            </span>
-          )}
-        </Badge>
-        {uploadedMedia.durationInSeconds === 0 ? (
-          <Badge className="absolute right-3 top-3 bg-red-500 text-white">
-            <span className="whitespace-nowrap font-bold">
-              Only media files longer than 1 second are allowed
-            </span>
-          </Badge>
-        ) : null}
-        {uploadedMedia.percent ? (
-          <Tooltip content={`Uploaded (${uploadedMedia.percent}%)`}>
-            <div className="absolute bottom-0 w-full overflow-hidden bg-gray-200">
-              <div
-                className={tw(
-                  'h-[6px]',
-                  uploadedMedia.percent !== 0
-                    ? 'bg-brand-500'
-                    : 'bg-gray-300 dark:bg-gray-800'
-                )}
-                style={{
-                  width: `${uploadedMedia.percent}%`
-                }}
-              />
-            </div>
-          </Tooltip>
-        ) : null}
+
+        {!loading && (
+          <>
+            <Badge
+              onClick={() => onClickVideo()}
+              className="absolute bottom-3 right-2"
+            >
+              Play/Pause
+            </Badge>
+            <Badge className="absolute bottom-3 left-2">
+              {uploadedMedia.file?.size && (
+                <span className="space-x-1 whitespace-nowrap">
+                  <span>
+                    {formatTimeFromSeconds(
+                      String(uploadedMedia.durationInSeconds)
+                    )}
+                  </span>
+                  <span>({formatBytes(uploadedMedia.file?.size)})</span>
+                </span>
+              )}
+            </Badge>
+            {uploadedMedia.durationInSeconds === 0 &&
+            uploadedMedia.file?.size ? (
+              <Badge className="absolute right-3 top-3 bg-red-500 text-white">
+                <span className="whitespace-nowrap font-bold">
+                  Only media files longer than 1 second are allowed
+                </span>
+              </Badge>
+            ) : null}
+            {uploadedMedia.percent ? (
+              <Tooltip content={`Uploaded (${uploadedMedia.percent}%)`}>
+                <div className="absolute bottom-0 w-full overflow-hidden bg-gray-200">
+                  <div
+                    className={tw(
+                      'h-[6px]',
+                      uploadedMedia.percent !== 0
+                        ? 'bg-brand-500'
+                        : 'bg-gray-300 dark:bg-gray-800'
+                    )}
+                    style={{
+                      width: `${uploadedMedia.percent}%`
+                    }}
+                  />
+                </div>
+              </Tooltip>
+            ) : null}
+          </>
+        )}
       </div>
       {getIsFeatureEnabled(
         FEATURE_FLAGS.POST_WITH_SOURCE_URL,
