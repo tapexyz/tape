@@ -1,6 +1,12 @@
-import { useContext } from 'react'
+import { createContext, useContext } from 'react'
 
-import { ServiceWorkerContext } from '@/components/Common/Providers/ServiceWorkerProvider'
+type ServiceWorkerContextType = {
+  addEventToQueue: (name: string, properties?: Record<string, unknown>) => void
+}
+
+export const ServiceWorkerContext = createContext<
+  ServiceWorkerContextType | undefined
+>(undefined)
 
 const useSw = () => {
   const context = useContext(ServiceWorkerContext)

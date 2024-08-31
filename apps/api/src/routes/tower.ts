@@ -107,11 +107,12 @@ app.post('/batch', zValidator('json', batchValidationSchema), async (c) => {
   try {
     const reqBody = await c.req.json<BatchRequestInput>()
 
-    const { events } = reqBody
-    const parsed = batchValidationSchema.safeParse(events)
+    const parsed = batchValidationSchema.safeParse(reqBody)
     if (!parsed.success) {
-      return c.json({ success: false, message: 'Invalid request object' })
+      return c.json({ success: false, error: 'Invalid request event' })
     }
+
+    const { events } = reqBody
 
     for (const event of events) {
       await processEvent(c.req, event)

@@ -40,7 +40,7 @@ export const TAPE_EMBED_URL = IS_MAINNET
   : 'https://embed-testnet.tape.xyz'
 export const TAPE_API_URL = IS_PRODUCTION
   ? 'https://api.tape.xyz'
-  : 'http://localhost:3000'
+  : 'http://localhost:3001'
 
 // tape addresses
 export const TAPE_SIGNUP_PROXY_ADDRESS = IS_MAINNET

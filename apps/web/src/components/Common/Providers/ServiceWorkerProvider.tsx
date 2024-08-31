@@ -2,15 +2,9 @@ import { IS_MAINNET, IS_PRODUCTION } from '@tape.xyz/constants'
 import { parseJwt } from '@tape.xyz/generic'
 import { LocalStore } from '@tape.xyz/lens/custom-types'
 import type { FC, ReactNode } from 'react'
-import { createContext, useEffect } from 'react'
+import { useEffect } from 'react'
 
-type ServiceWorkerContextType = {
-  addEventToQueue: (name: string, properties?: Record<string, unknown>) => void
-}
-
-export const ServiceWorkerContext = createContext<
-  ServiceWorkerContextType | undefined
->(undefined)
+import { ServiceWorkerContext } from '@/hooks/useSw'
 
 const ServiceWorkerProvider: FC<{ children: ReactNode }> = ({ children }) => {
   useEffect(() => {
