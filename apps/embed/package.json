@@ -28,11 +28,11 @@
     "@tape.xyz/generic": "workspace:*",
     "@tape.xyz/lens": "workspace:*",
     "@tape.xyz/ui": "workspace:*",
-    "@types/node": "22.5.1",
+    "@types/node": "22.5.2",
     "@types/react": "18.3.5",
     "@types/react-dom": "18.3.0",
     "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.41",
+    "postcss": "^8.4.42",
     "tailwindcss": "^3.4.10",
     "typescript": "5.5.4"
   }

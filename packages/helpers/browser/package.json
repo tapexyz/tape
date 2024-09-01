@@ -12,15 +12,15 @@
     "postinstall": "pnpm build:sw"
   },
   "dependencies": {
-    "@rajesh896/broprint.js": "^2.1.1",
     "@aws-sdk/client-s3": "3.637.0",
     "@aws-sdk/lib-storage": "3.637.0",
     "@livepeer/react": "3.1.9",
-    "axios": "^1.7.5",
-    "next": "^14.2.7",
-    "react": "^18.3.1",
+    "@rajesh896/broprint.js": "^2.1.1",
+    "axios": "^1.7.7",
     "clsx": "^2.1.1",
     "fast-average-color": "^9.4.0",
+    "next": "^14.2.7",
+    "react": "^18.3.1",
     "tailwind-merge": "^2.5.1",
     "uuid": "^10.0.0"
   },
@@ -29,8 +29,8 @@
     "@tape.xyz/constants": "workspace:*",
     "@tape.xyz/generic": "workspace:*",
     "@tape.xyz/lens": "workspace:*",
+    "@types/node": "^22.5.2",
     "@types/react": "^18.3.5",
-    "@types/node": "^22.5.1",
     "@types/uuid": "^10.0.0",
     "typescript": "5.5.4"
   }
