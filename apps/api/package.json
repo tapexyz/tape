@@ -22,7 +22,7 @@
     "hono": "^4.5.8",
     "linkedom": "^0.18.4",
     "ua-parser-js": "2.0.0-beta.3",
-    "viem": "^2.20.1",
+    "viem": "^2.21.1",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -31,7 +31,7 @@
     "@tape.xyz/constants": "workspace:*",
     "@tape.xyz/generic": "workspace:*",
     "@tape.xyz/server": "workspace:*",
-    "@types/node": "^22.5.1",
+    "@types/node": "^22.5.2",
     "@types/ua-parser-js": "^0.7.39",
     "tsx": "^4.19.0",
     "typescript": "5.5.4"
