@@ -27,7 +27,7 @@ const SelectedMedia = () => {
     if (mediaRef.current?.duration && mediaRef.current?.duration !== Infinity) {
       setUploadedMedia({
         durationInSeconds: mediaRef.current.duration
-          ? Math.abs(mediaRef.current.duration)
+          ? Math.floor(mediaRef.current.duration)
           : 0
       })
     }
