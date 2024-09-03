@@ -68,9 +68,10 @@ const cleanup4Ever = async (): Promise<void> => {
       console.log(
         `[4ever cleanup] Deleted ${objectsToDelete.length} objects older than 15 days.`
       )
-    } else {
-      console.log('[4ever cleanup] No objects older than 15 days found.')
+      return
     }
+
+    console.log('[4ever cleanup] No objects older than 15 days found.')
   } catch (error) {
     console.error('[4ever cleanup] Error deleting objects:', error)
   }
