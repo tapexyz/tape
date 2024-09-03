@@ -1,3 +1,4 @@
+import type { PutObjectCommandInput } from '@aws-sdk/client-s3'
 import { S3 } from '@aws-sdk/client-s3'
 import { Upload } from '@aws-sdk/lib-storage'
 import {
@@ -45,7 +46,7 @@ const everland = async (
       }
     )
     const fileKey = uuidv4()
-    const params = {
+    const params: PutObjectCommandInput = {
       Bucket: EVER_BUCKET_NAME,
       Key: fileKey,
       Body: file,

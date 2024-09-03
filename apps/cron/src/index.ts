@@ -3,8 +3,8 @@ import 'dotenv/config'
 import cron from 'node-cron'
 
 import { backupEventsToS3 } from './services/backup/events'
+import { cleanup4Ever, vacuumPostgres } from './services/cleanup'
 import { flushEvents } from './services/events'
-import { vacuumPostgres } from './services/vacuum'
 import { wakeClickHouse } from './services/wake'
 
 // Schedule the flushEvents function to run every 4 hour
@@ -25,4 +25,10 @@ cron.schedule('0 0 * * *', async () => {
 cron.schedule('0 0 * * 0', async () => {
   console.log('[cron] Vacuuming postgres', new Date())
   await vacuumPostgres()
+})
+
+// Schedule the cleanup4Ever function to run every day
+cron.schedule('0 0 * * *', async () => {
+  console.log('[cron] Cleaning up 4ever', new Date())
+  await cleanup4Ever()
 })

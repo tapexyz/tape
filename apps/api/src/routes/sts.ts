@@ -1,10 +1,14 @@
 import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts'
-import { ERROR_MESSAGE, EVER_BUCKET_NAME } from '@tape.xyz/constants'
+import {
+  ERROR_MESSAGE,
+  EVER_BUCKET_NAME,
+  EVER_ENDPOINT,
+  EVER_REGION
+} from '@tape.xyz/constants'
 import { Hono } from 'hono'
 
 const app = new Hono()
 
-const everEndpoint = 'https://endpoint.4everland.co'
 const params = {
   DurationSeconds: 3600,
   Policy: `{
@@ -25,17 +29,17 @@ const params = {
   }`
 }
 
+const accessKeyId = process.env.EVER_ACCESS_KEY!
+const secretAccessKey = process.env.EVER_ACCESS_SECRET!
+
+const stsClient = new STSClient({
+  endpoint: EVER_ENDPOINT,
+  region: EVER_REGION,
+  credentials: { accessKeyId, secretAccessKey }
+})
+
 app.get('/', async (c) => {
   try {
-    const accessKeyId = process.env.EVER_ACCESS_KEY!
-    const secretAccessKey = process.env.EVER_ACCESS_SECRET!
-
-    const stsClient = new STSClient({
-      endpoint: everEndpoint,
-      region: 'us-west-2',
-      credentials: { accessKeyId, secretAccessKey }
-    })
-
     const data = await stsClient.send(
       new AssumeRoleCommand({
         ...params,
