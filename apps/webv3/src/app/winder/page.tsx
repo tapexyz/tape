@@ -68,7 +68,7 @@ export default function WinderPage() {
             bounce: 0.3,
             duration: 0.4
           }}
-          className="relative flex items-center overflow-hidden rounded-full bg-[#00C979] px-4 py-1 text-lg font-semibold text-white shadow"
+          className="relative flex items-center overflow-hidden rounded-full bg-[#00C979] px-6 py-1.5 text-lg font-semibold text-white shadow"
           onClick={() => {
             setState('loading')
             setTimeout(() => {
@@ -124,9 +124,9 @@ export default function WinderPage() {
               <motion.span
                 key="now"
                 className="ml-1"
-                initial={{ x: 30, opacity: 0 }}
+                initial={{ x: 5, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                exit={{ x: 30, opacity: 0 }}
+                exit={{ x: 5, opacity: 0 }}
                 transition={{ type: 'tween', duration: 0.2 }}
               >
                 Now
