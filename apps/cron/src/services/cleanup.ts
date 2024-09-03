@@ -27,9 +27,8 @@ const s3Client = new S3({
 const cleanup4Ever = async (): Promise<void> => {
   try {
     const daysToSubtract = 15
-    const currentDate = new Date()
     const dateDaysAgo = new Date(
-      currentDate.setDate(currentDate.getDate() - daysToSubtract)
+      Date.now() - daysToSubtract * 24 * 60 * 60 * 1000
     )
 
     let continuationToken: string | undefined = undefined
@@ -46,32 +45,46 @@ const cleanup4Ever = async (): Promise<void> => {
 
       if (Contents) {
         const oldObjects = Contents.filter(
-          (object) => new Date(object.LastModified!) < dateDaysAgo
+          (object) =>
+            object.LastModified && new Date(object.LastModified) < dateDaysAgo
         )
         objectsToDelete = objectsToDelete.concat(
-          oldObjects.map((object) => ({ Key: object.Key! }))
+          oldObjects
+            .map((object) => ({ Key: object.Key! }))
+            .filter((obj) => obj.Key)
         )
       }
 
       continuationToken = IsTruncated ? NextContinuationToken : undefined
     } while (continuationToken)
 
-    if (objectsToDelete.length > 0) {
+    if (objectsToDelete.length === 0) {
+      console.log(
+        `[4ever cleanup] No objects older than ${daysToSubtract} days found.`
+      )
+      return
+    }
+
+    const maxDeleteBatchSize = 1000
+    for (let i = 0; i < objectsToDelete.length; i += maxDeleteBatchSize) {
+      const batch = objectsToDelete.slice(i, i + maxDeleteBatchSize)
+
       const deleteCommand = new DeleteObjectsCommand({
         Bucket: EVER_BUCKET_NAME,
         Delete: {
-          Objects: objectsToDelete
+          Objects: batch
         }
       })
 
       await s3Client.send(deleteCommand)
       console.log(
-        `[4ever cleanup] Deleted ${objectsToDelete.length} objects older than 15 days.`
+        `[4ever cleanup] Deleted ${batch.length} objects older than ${daysToSubtract} days in batch ${i / maxDeleteBatchSize + 1}.`
       )
-      return
     }
 
-    console.log('[4ever cleanup] No objects older than 15 days found.')
+    console.log(
+      `[4ever cleanup] Total deleted ${objectsToDelete.length} objects older than ${daysToSubtract} days.`
+    )
   } catch (error) {
     console.error('[4ever cleanup] Error deleting objects:', error)
   }
