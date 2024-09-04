@@ -54,87 +54,163 @@ const Success = ({ className }: { className?: string }) => (
   </svg>
 )
 
+const Warning = ({ className }: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className={className}
+  >
+    <path
+      fillRule="evenodd"
+      d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75Zm0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
+      clipRule="evenodd"
+    />
+  </svg>
+)
+
 export default function WinderPage() {
-  const [state, setState] = useState<'default' | 'success' | 'loading'>(
-    'default'
-  )
+  const [state, setState] = useState<'idle' | 'loading' | 'warning'>('idle')
+
+  const getIcon = () => {
+    switch (state) {
+      case 'loading':
+        return (
+          <motion.span
+            key={state}
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+          >
+            <Spinner className="mr-1.5 size-5" />
+          </motion.span>
+        )
+      case 'warning':
+        return (
+          <motion.span
+            key={state}
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{
+              scale: 1,
+              opacity: 1,
+              x: [0, -2, 2, -2, 2, 0], // Define the shake movement
+              transition: {
+                scale: { duration: 0.2 }, // Duration for scale-up
+                x: { delay: 0.5, duration: 0.3 } // Delay and duration for the shake effect
+              }
+            }}
+            exit={{ scale: 0, opacity: 0 }}
+          >
+            <Warning className="mr-1.5 size-5" />
+          </motion.span>
+        )
+      default:
+        return (
+          <motion.span
+            key={state}
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+          >
+            <Success className="mr-1.5 size-5" />
+          </motion.span>
+        )
+    }
+  }
+
+  const onClickBtn = () => {
+    setState('loading')
+    setTimeout(() => {
+      setState('warning')
+      setTimeout(() => {
+        setState('loading')
+        setTimeout(() => {
+          setState('idle')
+          setTimeout(() => {
+            onClickBtn()
+          }, 4000)
+        }, 1800)
+      }, 1800)
+    }, 1800)
+  }
 
   return (
     <div className="grid h-screen place-items-center">
-      <div>
-        <motion.button
-          transition={{
-            type: 'spring',
-            bounce: 0.3,
-            duration: 0.4
-          }}
-          className="relative flex items-center overflow-hidden rounded-full bg-[#00C979] px-6 py-1.5 text-lg font-semibold text-white shadow"
-          onClick={() => {
-            setState('loading')
-            setTimeout(() => {
-              setState('success')
-              setTimeout(() => {
-                setState('default')
-              }, 1000)
-            }, 2000)
-          }}
-          layout="position"
-          disabled={state === 'loading' || state === 'success'}
-        >
+      <motion.button
+        animate={{
+          backgroundColor:
+            state === 'warning'
+              ? '#FFE3E1'
+              : state === 'loading'
+                ? '#E6F4FF'
+                : '#DCF4DE',
+          color:
+            state === 'warning'
+              ? '#FF424A'
+              : state === 'loading'
+                ? '#40A3EF'
+                : '#38C65C'
+        }}
+        className="flex items-center overflow-hidden rounded-full px-5 py-2.5 text-lg font-semibold"
+        onClick={() => onClickBtn()}
+      >
+        <AnimatePresence mode="popLayout" initial={false}>
+          {getIcon()}
+        </AnimatePresence>
+
+        <div className="flex items-center gap-1">
           <AnimatePresence mode="popLayout" initial={false}>
-            {state === 'loading' && (
+            {state === 'loading' ? (
               <motion.span
-                key="loading"
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0, opacity: 0, dur: 0 }}
-                transition={{ type: 'tween', duration: 0.2 }}
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -30 }}
+                transition={{ type: 'spring', duration: 0.4 }}
               >
-                <Spinner className="mr-1.5 size-5" />
+                Analyzing
               </motion.span>
-            )}
-            {state === 'success' && (
-              <motion.span
-                key="success"
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0, opacity: 0 }}
-                transition={{ type: 'tween', duration: 0.2 }}
-              >
-                <Success className="mr-1.5 size-5" />
-              </motion.span>
-            )}
+            ) : null}
           </AnimatePresence>
-          <span>Post</span>
+          <motion.span
+            layout
+            transition={{ type: 'spring', duration: 0.4, bounce: 0.2 }}
+          >
+            Transaction
+          </motion.span>
           <AnimatePresence mode="popLayout" initial={false}>
-            {(state === 'loading' || state === 'success') && (
+            {state === 'warning' ? (
               <motion.span
-                key={state}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ type: 'tween', duration: 0.2 }}
+                initial={{ opacity: 0, x: 50 }}
+                animate={{
+                  opacity: 1,
+                  x: 0,
+                  transition: { duration: 0.2 }
+                }}
+                exit={{ opacity: 0, x: 50 }}
+                transition={{ duration: 0.3 }}
               >
-                {state === 'loading' ? 'ing' : 'ed'}
+                Warning
               </motion.span>
-            )}
+            ) : null}
           </AnimatePresence>
           <AnimatePresence mode="popLayout" initial={false}>
-            {state === 'default' && (
+            {state === 'idle' ? (
               <motion.span
-                key="now"
-                className="ml-1"
-                initial={{ x: 5, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                exit={{ x: 5, opacity: 0 }}
-                transition={{ type: 'tween', duration: 0.2 }}
+                initial={{ opacity: 0, x: 50 }}
+                animate={{
+                  opacity: 1,
+                  x: 0,
+                  transition: { duration: 0.2 }
+                }}
+                exit={{ opacity: 0, x: 50, transition: { duration: 0.4 } }}
+                transition={{ duration: 0.3, type: 'spring' }}
               >
-                Now
+                Safe
               </motion.span>
-            )}
+            ) : null}
           </AnimatePresence>
-        </motion.button>
-      </div>
+        </div>
+      </motion.button>
     </div>
   )
 }

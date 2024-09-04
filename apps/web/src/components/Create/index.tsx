@@ -24,6 +24,7 @@ import {
   canUploadedToIpfs,
   checkLensManagerPermissions,
   EVENTS,
+  getIsSuspendedProfile,
   getProfile,
   getSignature,
   getUploadedMediaType,
@@ -67,6 +68,7 @@ import useProfileStore from '@/lib/store/idb/profile'
 import useNonceStore from '@/lib/store/nonce'
 import usePersistStore from '@/lib/store/persist'
 
+import ProfileSuspended from '../Common/ProfileSuspended'
 import type { VideoFormData } from './Details'
 import Details from './Details'
 
@@ -573,6 +575,12 @@ const CreateSteps = () => {
     } else {
       await uploadToIrys()
     }
+  }
+
+  const isSuspended = getIsSuspendedProfile(activeProfile.id)
+
+  if (isSuspended) {
+    return <ProfileSuspended />
   }
 
   return (
