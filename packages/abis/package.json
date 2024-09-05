@@ -15,6 +15,6 @@
   },
   "devDependencies": {
     "@tape.xyz/config": "workspace:*",
-    "@types/node": "^22.5.2"
+    "@types/node": "^22.5.4"
   }
 }

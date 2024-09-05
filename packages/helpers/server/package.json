@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@tape.xyz/config": "workspace:*",
-    "@types/node": "^22.5.2",
+    "@types/node": "^22.5.4",
     "prisma": "^5.19.1",
     "typescript": "5.5.4"
   }
