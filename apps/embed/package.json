@@ -16,7 +16,7 @@
   "dependencies": {
     "@livepeer/react": "3.1.9",
     "graphql": "^16.9.0",
-    "next": "14.2.7",
+    "next": "14.2.8",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-hot-toast": "^2.4.1"
@@ -28,11 +28,11 @@
     "@tape.xyz/generic": "workspace:*",
     "@tape.xyz/lens": "workspace:*",
     "@tape.xyz/ui": "workspace:*",
-    "@types/node": "22.5.2",
+    "@types/node": "22.5.4",
     "@types/react": "18.3.5",
     "@types/react-dom": "18.3.0",
     "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.42",
+    "postcss": "^8.4.45",
     "tailwindcss": "^3.4.10",
     "typescript": "5.5.4"
   }

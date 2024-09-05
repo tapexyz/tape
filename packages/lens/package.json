@@ -13,9 +13,9 @@
     "format": "prettier --write \"**/*.{ts,tsx,md,json,css,graphql}\""
   },
   "dependencies": {
-    "@apollo/client": "3.11.5",
+    "@apollo/client": "3.11.8",
     "@graphql-codegen/client-preset": "^4.3.3",
-    "@irys/sdk": "^0.2.10",
+    "@irys/sdk": "^0.2.11",
     "@lens-protocol/metadata": "^1.2.0"
   },
   "devDependencies": {

@@ -14,7 +14,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md,json,css}\""
   },
   "dependencies": {
-    "next": "14.2.7",
+    "next": "14.2.8",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
@@ -23,7 +23,7 @@
     "@tape.xyz/constants": "workspace:*",
     "@tape.xyz/generic": "workspace:*",
     "@tape.xyz/lens": "workspace:*",
-    "@types/node": "^22.5.2",
+    "@types/node": "^22.5.4",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
     "typescript": "^5.5.4"
