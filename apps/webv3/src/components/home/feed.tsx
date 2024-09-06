@@ -1,7 +1,7 @@
 'use client'
 
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query'
-import { getProfile, getPublication } from '@tape.xyz/generic'
+import { getPublication } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens/gql'
 
 import { TapeLink } from '@/components/shared/link'
@@ -30,9 +30,7 @@ export const Feed = () => {
             const publication = getPublication(anyPublication)
             return (
               <div className="p-5">
-                <TapeLink
-                  href={`/${getProfile(publication.by).slug}/${publication.id}`}
-                >
+                <TapeLink href={`/watch/${publication.id}`}>
                   {publication.metadata.content}
                 </TapeLink>
               </div>

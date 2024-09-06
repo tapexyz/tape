@@ -4,7 +4,8 @@ import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile as ProfileType } from '@tape.xyz/lens/gql'
 import type { Metadata } from 'next'
 
-import { rqClient } from '../providers/react-query'
+import { rqClient } from '@/app/providers/react-query'
+
 import { Profile } from './_components/profile'
 import { profileQuery } from './queries'
 
