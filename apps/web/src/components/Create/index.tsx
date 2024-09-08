@@ -513,14 +513,12 @@ const CreateSteps = () => {
         }
       ]
       const fileSize = uploadedMedia?.file?.size as number
-      // @ts-ignore
       const uploader = instance.uploader.chunkedUploader
       const chunkSize = 10000000 // 10 MB
       uploader.setChunkSize(chunkSize)
       if (fileSize < chunkSize) {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE, { duration: 8000 })
       }
-      // @ts-ignore
       uploader.on('chunkUpload', (chunkInfo) => {
         const expectedChunks = Math.floor(fileSize / chunkSize)
         if (expectedChunks === chunkInfo.id) {
