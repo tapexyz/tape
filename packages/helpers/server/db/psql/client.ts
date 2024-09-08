@@ -1,4 +1,4 @@
-import { PrismaClient } from './generated/psql.ts'
+import { PrismaClient } from '@prisma/client'
 
 const psql = new PrismaClient({ log: ['info'] })
 

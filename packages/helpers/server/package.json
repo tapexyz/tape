@@ -9,7 +9,7 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,md,json,css}\"",
     "format": "prettier --write \"**/*.{ts,tsx,md,json,css}\"",
     "psql:migrate": "prisma migrate dev --schema ./db/psql/schema.prisma",
-    "prisma:generate": "prisma generate --schema ./db/psql/schema.prisma",
+    "prisma:generate": "prisma generate --schema ./db/psql/schema.prisma --sql",
     "postinstall": "pnpm prisma:generate"
   },
   "dependencies": {

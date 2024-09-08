@@ -4,7 +4,7 @@
   "license": "AGPL-3.0",
   "main": "./index.ts",
   "scripts": {
-    "build:sw": "tsc worker/sw.ts --outDir ../../../apps/web/public --module ESNext --lib DOM,ESNext,WebWorker --skipLibCheck",
+    "build:sw": "tsc worker/sw.ts --outDir ../../../apps/web/public",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "typecheck": "tsc --pretty",
     "format:check": "prettier --check \"**/*.{ts,tsx,md,json,css}\"",

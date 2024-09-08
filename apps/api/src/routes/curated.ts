@@ -1,3 +1,4 @@
+import { getCuratedProfiles } from '@prisma/client/sql'
 import { CACHE_CONTROL, ERROR_MESSAGE, REDIS_KEYS } from '@tape.xyz/constants'
 import { psql, REDIS_EXPIRY, rGet, rSet } from '@tape.xyz/server'
 import { Hono } from 'hono'
@@ -15,8 +16,7 @@ app.get('/profiles', async (c) => {
     }
     console.info('CACHE MISS')
 
-    const results: { profileId: string }[] =
-      await psql.$queryRaw`SELECT "profileId" FROM "Profile" WHERE "isCurated" = TRUE ORDER BY RANDOM() LIMIT 50;`
+    const results = await psql.$queryRawTyped(getCuratedProfiles())
 
     const ids = results.map(({ profileId }) => profileId)
 
