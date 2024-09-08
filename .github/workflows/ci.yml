@@ -27,6 +27,8 @@ jobs:
             cache: 'pnpm'
  
         - name: Install dependencies 🧳
+          env:
+            PSQL_DATABASE_URL: ${{ secrets.PSQL_DATABASE_URL }}
           run: pnpm install
           
         - name: Check Lint 💅🏻
