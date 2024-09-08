@@ -1,49 +1,45 @@
+import { Uploader } from '@irys/upload'
+import { Matic } from '@irys/upload-ethereum'
 import { signMetadata } from '@lens-protocol/metadata'
 import { ERROR_MESSAGE } from '@tape.xyz/constants'
 import { Hono } from 'hono'
 import { privateKeyToAccount } from 'viem/accounts'
 
-import { createData, EthereumSigner } from '@/helpers/metadata'
-
 const app = new Hono()
+
+const walletPk = process.env.WALLET_PRIVATE_KEY!
+const getIrysUploader = async () => await Uploader(Matic).withWallet(walletPk)
 
 app.post('/', async (c) => {
   try {
     const payload = await c.req.json()
 
-    const WALLET_PRIVATE_KEY = process.env.WALLET_PRIVATE_KEY!
-    const signer = new EthereumSigner(WALLET_PRIVATE_KEY)
+    const irys = await getIrysUploader()
 
-    const account = privateKeyToAccount(`0x${WALLET_PRIVATE_KEY}`)
-    const signed = await signMetadata(payload, (message) =>
+    const account = privateKeyToAccount(`0x${walletPk}`)
+    const signedMetadata = await signMetadata(payload, (message) =>
       account.signMessage({ message })
     )
 
-    const tx = createData(JSON.stringify(signed), signer, {
+    const receipt = await irys.upload(JSON.stringify(signedMetadata), {
       tags: [
         { name: 'Content-Type', value: 'application/json' },
         { name: 'App-Name', value: 'Tape' }
       ]
     })
-    await tx.sign(signer)
-    const irysRes = await fetch('https://arweave.mainnet.irys.xyz/tx/matic', {
-      method: 'POST',
-      headers: { 'content-type': 'application/octet-stream' },
-      body: tx.getRaw()
-    })
 
-    if (irysRes.statusText !== 'Created' && irysRes.statusText !== 'OK') {
+    if (!receipt.id) {
       return c.json({
         success: true,
         message: ERROR_MESSAGE,
-        irysRes: JSON.stringify(irysRes)
+        irysRes: JSON.stringify(receipt)
       })
     }
 
     return c.json({
       success: true,
-      id: tx.id,
-      url: `ar://${tx.id}`
+      id: receipt.id,
+      url: `ar://${receipt.id}`
     })
   } catch (error) {
     console.error('[METADATA] Error:', error)

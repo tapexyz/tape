@@ -9,7 +9,7 @@ import {
   WMATIC_TOKEN_ADDRESS
 } from '@tape.xyz/constants'
 import { logger } from '@tape.xyz/generic'
-import type { IrysDataState, UploadedMedia } from '@tape.xyz/lens/custom-types'
+import type { UploadedMedia } from '@tape.xyz/lens/custom-types'
 import { createPublicClient, fallback, http, type WalletClient } from 'viem'
 import { polygon, polygonAmoy } from 'viem/chains'
 import { create } from 'zustand'
@@ -64,6 +64,15 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS: UploadedMedia = {
   },
   unknownOpenAction: null,
   hasOpenActions: false
+}
+
+type IrysDataState = {
+  instance: WebIrys | null
+  balance: string
+  estimatedPrice: string
+  deposit: string | null
+  depositing: boolean
+  showDeposit: boolean
 }
 
 interface AppState {
