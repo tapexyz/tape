@@ -145,8 +145,6 @@ export const REDIS_KEYS = {
 }
 
 // irys
-export const IRYS_NETWORK = IS_MAINNET ? 'mainnet' : 'devnet'
-export const IRYS_CURRENCY = 'matic'
 export const ARWEAVE_GATEWAY_URL = 'https://gateway.irys.xyz'
 export const IRYS_CONNECT_MESSAGE = 'Estimating video upload cost...'
 export const REQUESTING_SIGNATURE_MESSAGE = 'Requesting signature...'

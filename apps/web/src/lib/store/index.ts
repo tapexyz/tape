@@ -1,9 +1,10 @@
-import { WebIrys } from '@irys/sdk'
+import { WebUploader } from '@irys/web-upload'
+import type BaseWebIrys from '@irys/web-upload/dist/types/base'
+import { WebMatic } from '@irys/web-upload-ethereum'
+import { ViemV2Adapter } from '@irys/web-upload-ethereum-viem-v2'
 import { MetadataLicenseType } from '@lens-protocol/metadata'
 import {
   CREATOR_VIDEO_CATEGORIES,
-  IRYS_CURRENCY,
-  IRYS_NETWORK,
   IS_MAINNET,
   POLYGON_RPC_URLS,
   WMATIC_TOKEN_ADDRESS
@@ -67,7 +68,7 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS: UploadedMedia = {
 }
 
 type IrysDataState = {
-  instance: WebIrys | null
+  instance: BaseWebIrys | null
   balance: string
   estimatedPrice: string
   deposit: string | null
@@ -84,7 +85,7 @@ interface AppState {
   setActiveTagFilter: (activeTagFilter: string) => void
   setVideoWatchTime: (videoWatchTime: number) => void
   setIrysData: (irysProps: Partial<IrysDataState>) => void
-  getIrysInstance: (client: WalletClient) => Promise<WebIrys | null>
+  getIrysInstance: (client: WalletClient) => Promise<BaseWebIrys | null>
 }
 
 const useAppStore = create<AppState>((set) => ({
@@ -102,20 +103,16 @@ const useAppStore = create<AppState>((set) => ({
     })),
   getIrysInstance: async (client: WalletClient) => {
     try {
-      const instance = new WebIrys({
-        network: IRYS_NETWORK,
-        token: IRYS_CURRENCY,
-        wallet: {
-          name: 'viemv2',
-          provider: client,
-          publicClient: createPublicClient({
-            chain: IS_MAINNET ? polygon : polygonAmoy,
-            transport: fallback(POLYGON_RPC_URLS.map((rpc) => http(rpc)))
-          })
-        }
+      const publicClient = createPublicClient({
+        chain: IS_MAINNET ? polygon : polygonAmoy,
+        transport: fallback(POLYGON_RPC_URLS.map((rpc) => http(rpc)))
       })
-      await instance.ready()
-      return instance
+      const irysUploader = await WebUploader(WebMatic).withAdapter(
+        ViemV2Adapter(client, { publicClient })
+      )
+
+      await irysUploader.ready()
+      return irysUploader
     } catch (error) {
       logger.error('[Error Init Irys]', error)
       return null
