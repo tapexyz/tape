@@ -18,7 +18,7 @@ import {
 } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { formatEther, formatGwei, formatUnits } from 'viem'
+import { formatEther, formatUnits } from 'viem'
 import { useAccount, useBalance, useWalletClient } from 'wagmi'
 
 import useSw from '@/hooks/useSw'
@@ -126,9 +126,7 @@ const IrysInfo = () => {
       const fundResult = await irysData.instance.fund(fundValue)
       if (fundResult) {
         toast.success(
-          `Deposit of ${formatGwei(
-            BigInt(fundResult?.quantity)
-          )} POL is done and it will be reflected in few seconds.`
+          `Deposit of ${irysData.instance.utils.fromAtomic(fundResult?.quantity)} POL is done and it will be reflected in few seconds.`
         )
         addEventToQueue(EVENTS.DEPOSIT_POL)
       }
@@ -164,6 +162,7 @@ const IrysInfo = () => {
         toast.success(
           `Withdraw of ${Number(irysData.balance).toFixed(2)} POL is done and it will be reflected in few seconds.`
         )
+        await fetchBalance()
         addEventToQueue(EVENTS.WITHDRAW_POL)
       }
     } catch (error) {

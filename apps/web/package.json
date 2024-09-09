@@ -16,8 +16,8 @@
   "dependencies": {
     "@emoji-mart/react": "^1.1.1",
     "@hookform/resolvers": "^3.9.0",
-    "@irys/web-upload": "0.0.3-a1",
-    "@irys/web-upload-ethereum": "0.0.3-a1",
+    "@irys/web-upload": "0.0.3",
+    "@irys/web-upload-ethereum": "0.0.3",
     "@irys/web-upload-ethereum-viem-v2": "^0.0.3",
     "@lens-protocol/metadata": "^1.2.0",
     "@livepeer/react": "3.1.9",
