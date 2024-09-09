@@ -104,7 +104,7 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
                 </div>
                 <div
                   role="button"
-                  className="absolute right-2 top-2 z-[1] rounded-full bg-white p-1.5"
+                  className="absolute right-2 top-2 z-[1] rounded-full bg-white p-1.5 dark:bg-black"
                   onClick={(e) => e.preventDefault()}
                 >
                   <PublicationOptions publication={byte} />
