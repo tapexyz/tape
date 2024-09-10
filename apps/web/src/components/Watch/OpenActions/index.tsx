@@ -71,7 +71,9 @@ const OpenActions: FC<Props> = ({ publication, text, children }) => {
 
   return (
     <>
-      {<button onClick={() => setShowActionModal(true)}>{children}</button> ?? (
+      {children ? (
+        <button onClick={() => setShowActionModal(true)}>{children}</button>
+      ) : (
         <Button
           onClick={() => setShowActionModal(true)}
           icon={<CollectOutline className="size-4" />}
