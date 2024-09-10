@@ -251,13 +251,15 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
         <Button
           loading={
             uploadedMedia.loading ||
-            uploadedMedia.uploadingThumbnail ||
-            uploadedMedia.durationInSeconds === 0
+            (Boolean(uploadedMedia.file?.size) &&
+              (uploadedMedia.uploadingThumbnail ||
+                uploadedMedia.durationInSeconds === 0))
           }
           disabled={
             uploadedMedia.loading ||
-            uploadedMedia.uploadingThumbnail ||
-            uploadedMedia.durationInSeconds === 0
+            (Boolean(uploadedMedia.file?.size) &&
+              (uploadedMedia.uploadingThumbnail ||
+                uploadedMedia.durationInSeconds === 0))
           }
           type="submit"
         >
