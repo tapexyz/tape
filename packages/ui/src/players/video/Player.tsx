@@ -36,11 +36,7 @@ const PlayerInstance: FC<PlayerProps> = ({
   return (
     <Player
       theme={videoPlayerTheme}
-      src={
-        url?.includes(IRYS_GATEWAY_URL)
-          ? url.replace(`${IRYS_GATEWAY_URL}/`, 'ar://')
-          : url
-      }
+      src={url}
       poster={posterUrl}
       showTitle={false}
       objectFit="contain"
