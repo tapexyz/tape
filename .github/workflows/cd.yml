@@ -29,6 +29,7 @@ jobs:
 
       - name: Deploy to Vercel ・ WEB
         env:
+          PSQL_DATABASE_URL: ${{ secrets.PSQL_DATABASE_URL }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_WEB }}
         run: |
           vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}

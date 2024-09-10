@@ -39,6 +39,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build and push docker image 🔨
+        env:
+          PSQL_DATABASE_URL: ${{ secrets.PSQL_DATABASE_URL }}
         uses: ./.github/actions/docker
         with:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -65,6 +67,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build and push docker image 🔨
+        env:
+          PSQL_DATABASE_URL: ${{ secrets.PSQL_DATABASE_URL }}
         uses: ./.github/actions/docker
         with:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
