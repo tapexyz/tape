@@ -13,7 +13,6 @@ export const sanitizeDStorageUrl = (url: string) => {
     .replace('https://ipfs.infura.io/ipfs/', ipfsGateway)
     .replace('https://gateway.pinata.cloud/ipfs/', ipfsGateway)
     .replace('https://gw.ipfs-lens.dev/ipfs/', ipfsGateway)
-    .replace('https://gateway.irys.xyz/', irysGateway)
     .replace('ipfs://ipfs/', ipfsGateway)
     .replace('ar://', irysGateway)
     .replace('ipfs://', ipfsGateway)
