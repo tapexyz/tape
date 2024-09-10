@@ -210,5 +210,6 @@ export const CACHE_CONTROL = {
   FOR_ONE_WEEK: 'public, max-age=604800, s-maxage=604800',
   FOR_ONE_DAY: 'public, max-age=86400, s-maxage=86400',
   FOR_ONE_HOUR: 'public, max-age=3600, s-maxage=3600',
+  FOR_FIFTEEN_MINUTE: 'public, max-age=900, s-maxage=900',
   FOR_FIVE_MINUTE: 'public, max-age=300, s-maxage=300'
 }

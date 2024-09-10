@@ -6,7 +6,7 @@ const app = new Hono()
 
 app.get('/profiles', async (c) => {
   try {
-    c.header('Cache-Control', CACHE_CONTROL.FOR_ONE_HOUR)
+    c.header('Cache-Control', CACHE_CONTROL.FOR_FIFTEEN_MINUTE)
 
     const cachedValue = await rGet(REDIS_KEYS.CURATED_PROFILES)
     if (cachedValue) {
