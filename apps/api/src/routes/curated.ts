@@ -6,7 +6,7 @@ const app = new Hono()
 
 app.get('/profiles', async (c) => {
   try {
-    c.header('Cache-Control', CACHE_CONTROL.FOR_FIFTEEN_MINUTE)
+    c.header('Cache-Control', CACHE_CONTROL.FOR_FIVE_MINUTE)
 
     const cachedValue = await rGet(REDIS_KEYS.CURATED_PROFILES)
     if (cachedValue) {
@@ -23,7 +23,7 @@ app.get('/profiles', async (c) => {
     await rSet(
       REDIS_KEYS.CURATED_PROFILES,
       JSON.stringify(ids),
-      REDIS_EXPIRY.HALF_DAY
+      REDIS_EXPIRY.THREE_HOURS
     )
     return c.json({ success: true, ids })
   } catch (error) {
