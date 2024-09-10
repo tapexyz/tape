@@ -18,7 +18,7 @@
     "@hookform/resolvers": "^3.9.0",
     "@irys/web-upload": "0.0.3",
     "@irys/web-upload-ethereum": "0.0.3",
-    "@irys/web-upload-ethereum-viem-v2": "^0.0.3",
+    "@irys/web-upload-ethereum-viem-v2": "^0.0.4",
     "@lens-protocol/metadata": "^1.2.0",
     "@livepeer/react": "3.1.9",
     "@tailwindcss/aspect-ratio": "^0.4.2",
@@ -34,7 +34,7 @@
     "js-cookie": "^3.0.5",
     "keen-slider": "^6.8.6",
     "make-plural": "^7.4.0",
-    "next": "14.2.8",
+    "next": "14.2.9",
     "next-themes": "^0.3.0",
     "react": "18.3.1",
     "react-cool-inview": "^3.0.1",
@@ -44,8 +44,8 @@
     "react-use-websocket": "^4.8.1",
     "textarea-caret": "^3.1.0",
     "uuid": "^10.0.0",
-    "viem": "^2.21.2",
-    "wagmi": "^2.12.7",
+    "viem": "^2.21.4",
+    "wagmi": "^2.12.9",
     "zod": "^3.23.8",
     "zustand": "^4.5.5"
   },
@@ -67,6 +67,6 @@
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.45",
     "tailwindcss": "^3.4.10",
-    "typescript": "5.5.4"
+    "typescript": "5.6.2"
   }
 }
