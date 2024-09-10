@@ -29,7 +29,6 @@ jobs:
 
       - name: Deploy to Vercel ・ WEB
         env:
-          PSQL_DATABASE_URL: ${{ secrets.PSQL_DATABASE_URL }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_WEB }}
         run: |
           vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
@@ -38,7 +37,6 @@ jobs:
 
       - name: Deploy to Vercel ・ EMBED
         env:
-          PSQL_DATABASE_URL: ${{ secrets.PSQL_DATABASE_URL }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_EMBED }}
         run: |
           vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
@@ -47,7 +45,6 @@ jobs:
  
       - name: Deploy to Vercel ・ OG
         env:
-          PSQL_DATABASE_URL: ${{ secrets.PSQL_DATABASE_URL }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_OG }}
         run: |
           vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
