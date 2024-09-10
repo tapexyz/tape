@@ -1,5 +1,10 @@
 {
   "extends": "@tape.xyz/config/base.tsconfig.json",
+  "compilerOptions": {
+    "lib": ["DOM", "ESNext", "WebWorker"],
+    "skipLibCheck": true,
+    "module": "ESNext"
+  },
   "include": ["./worker/sw.ts"],
   "exclude": ["node_modules"]
 }

@@ -18,6 +18,7 @@
     "@tape.xyz/config": "workspace:*",
     "@tape.xyz/constants": "workspace:*",
     "@tape.xyz/lens": "workspace:*",
+    "@types/node": "^22.5.4",
     "typescript": "5.5.4"
   }
 }

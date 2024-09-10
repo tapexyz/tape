@@ -1,4 +1,3 @@
-import type { WebIrys } from '@irys/sdk'
 import type { MetadataLicenseType } from '@lens-protocol/metadata'
 
 import type {
@@ -9,15 +8,6 @@ import type {
   RecipientDataInput,
   SimpleCollectOpenActionSettings
 } from './generated'
-
-export type IrysDataState = {
-  instance: WebIrys | null
-  balance: string
-  estimatedPrice: string
-  deposit: string | null
-  depositing: boolean
-  showDeposit: boolean
-}
 
 export type CollectModuleType = {
   isRevertCollect?: boolean
@@ -45,7 +35,7 @@ export type ReferenceModuleType = {
   } | null
 }
 
-type FileReaderStreamType = NodeJS.ReadableStream & {
+type FileReaderStreamType = ReadableStream & {
   name: string
   size: number
   type: string

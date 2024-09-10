@@ -15,7 +15,6 @@
   "dependencies": {
     "@apollo/client": "3.11.8",
     "@graphql-codegen/client-preset": "^4.3.3",
-    "@irys/sdk": "^0.2.11",
     "@lens-protocol/metadata": "^1.2.0"
   },
   "devDependencies": {
@@ -27,6 +26,7 @@
     "@graphql-typed-document-node/core": "^3.2.0",
     "@tape.xyz/config": "workspace:*",
     "@tape.xyz/constants": "workspace:*",
+    "@types/node": "22.5.4",
     "typescript": "5.5.4"
   }
 }

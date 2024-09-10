@@ -100,7 +100,7 @@ export const ETHERSCAN_URL = IS_MAINNET
 export const POLYGON_CHAIN_ID = IS_MAINNET ? 137 : 80002
 
 // ipfs
-export const IPFS_FREE_UPLOAD_LIMIT = IS_MAINNET ? 5000 : 0 // in MB
+export const IPFS_FREE_UPLOAD_LIMIT = IS_MAINNET ? 10000 : 0 // in MB
 export const IPFS_GATEWAY_URL = 'https://gw.ipfs-lens.dev/ipfs'
 export const EVER_ENDPOINT = 'https://endpoint.4everland.co'
 export const EVER_REGION = '4EVERLAND'
@@ -145,9 +145,7 @@ export const REDIS_KEYS = {
 }
 
 // irys
-export const IRYS_NETWORK = IS_MAINNET ? 'mainnet' : 'devnet'
-export const IRYS_CURRENCY = 'matic'
-export const ARWEAVE_GATEWAY_URL = 'https://gateway.irys.xyz'
+export const IRYS_GATEWAY_URL = 'https://gateway.irys.xyz'
 export const IRYS_CONNECT_MESSAGE = 'Estimating video upload cost...'
 export const REQUESTING_SIGNATURE_MESSAGE = 'Requesting signature...'
 export const MOONPAY_URL = IS_MAINNET

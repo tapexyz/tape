@@ -14,6 +14,7 @@ import { getUserLocale, uploadToIPFS } from '@tape.xyz/browser'
 import {
   ERROR_MESSAGE,
   IRYS_CONNECT_MESSAGE,
+  IRYS_GATEWAY_URL,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   TAPE_APP_ID,
@@ -538,10 +539,10 @@ const CreateSteps = () => {
       const response = await upload
       setUploadedMedia({
         loading: false,
-        dUrl: `ar://${response.data.id}`
+        dUrl: `${IRYS_GATEWAY_URL}/${response.data.id}`
       })
       return await create({
-        dUrl: `ar://${response.data.id}`
+        dUrl: `${IRYS_GATEWAY_URL}/${response.data.id}`
       })
     } catch (error) {
       toast.error('Failed to upload media to Arweave')

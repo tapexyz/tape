@@ -1,7 +1,6 @@
-import type { WebIrys } from '@irys/sdk'
+import type BaseWebIrys from '@irys/web-upload/dist/types/base'
 import { useIsMounted } from '@tape.xyz/browser'
 import {
-  IRYS_CURRENCY,
   POLYGON_CHAIN_ID,
   REQUESTING_SIGNATURE_MESSAGE
 } from '@tape.xyz/constants'
@@ -19,7 +18,7 @@ import {
 } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { formatEther, formatGwei, formatUnits } from 'viem'
+import { formatEther, formatUnits } from 'viem'
 import { useAccount, useBalance, useWalletClient } from 'wagmi'
 
 import useSw from '@/hooks/useSw'
@@ -39,6 +38,10 @@ const IrysInfo = () => {
       refetchInterval: 2000
     }
   })
+  const formattedUserBalance = formatUnits(
+    userBalance?.value ?? BigInt(0),
+    userBalance?.decimals as number
+  )
 
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)
   const getIrysInstance = useAppStore((state) => state.getIrysInstance)
@@ -46,14 +49,14 @@ const IrysInfo = () => {
   const setIrysData = useAppStore((state) => state.setIrysData)
   const [fetchingBalance, setFetchingBalance] = useState(false)
 
-  const estimatePrice = async (irys: WebIrys) => {
+  const estimatePrice = async (irys: BaseWebIrys) => {
     if (!uploadedMedia.stream) {
       return toast.error('Upload cost estimation failed')
     }
-    return await irys.utils.getPrice(IRYS_CURRENCY, uploadedMedia.stream?.size)
+    return await irys.getPrice(uploadedMedia.stream?.size)
   }
 
-  const fetchBalance = async (irys?: WebIrys) => {
+  const fetchBalance = async (irys?: BaseWebIrys) => {
     setFetchingBalance(true)
     try {
       const instance = irys || irysData.instance
@@ -109,13 +112,12 @@ const IrysInfo = () => {
       return toast.error('Invalid deposit amount')
     }
 
-    const formattedValue = formatUnits(
-      userBalance?.value ?? BigInt(0),
-      userBalance?.decimals as number
-    )
-    if (formattedValue && parseFloat(formattedValue) < depositAmount) {
+    if (
+      formattedUserBalance &&
+      parseFloat(formattedUserBalance) < depositAmount
+    ) {
       return toast.error(
-        `Insufficient funds in your wallet, you have ${formattedValue} MATIC.`
+        `Insufficient funds in your wallet, you have ${formattedUserBalance} POL.`
       )
     }
     setIrysData({ depositing: true })
@@ -124,11 +126,9 @@ const IrysInfo = () => {
       const fundResult = await irysData.instance.fund(fundValue)
       if (fundResult) {
         toast.success(
-          `Deposit of ${formatGwei(
-            BigInt(fundResult?.quantity)
-          )} ${IRYS_CURRENCY} is done and it will be reflected in few seconds.`
+          `Deposit of ${irysData.instance.utils.fromAtomic(fundResult?.quantity)} POL is done and it will be reflected in few seconds.`
         )
-        addEventToQueue(EVENTS.DEPOSIT_MATIC)
+        addEventToQueue(EVENTS.DEPOSIT_POL)
       }
     } catch (error) {
       toast.error('Failed to deposit storage balance')
@@ -160,9 +160,10 @@ const IrysInfo = () => {
       const withdrawBalanceResult = await irysData.instance.withdrawAll()
       if (withdrawBalanceResult.tx_id) {
         toast.success(
-          `Withdraw of ${Number(irysData.balance).toFixed(2)} ${IRYS_CURRENCY} is done and it will be reflected in few seconds.`
+          `Withdraw of ${Number(irysData.balance).toFixed(2)} POL is done and it will be reflected in few seconds.`
         )
-        addEventToQueue(EVENTS.WITHDRAW_MATIC)
+        await fetchBalance()
+        addEventToQueue(EVENTS.WITHDRAW_POL)
       }
     } catch (error) {
       logger.error('[Error Irys Withdraw]', error)
@@ -184,7 +185,7 @@ const IrysInfo = () => {
         <div className="flex justify-between">
           {!fetchingBalance ? (
             <span className="text-lg font-bold">
-              {Number(irysData.estimatedPrice).toFixed(2)} matic
+              {Number(irysData.estimatedPrice).toFixed(2)} POL
             </span>
           ) : (
             <span className="animate-shimmer mt-[6px] h-[22px] w-1/2 rounded-lg bg-gray-200 dark:bg-gray-700" />
@@ -243,7 +244,7 @@ const IrysInfo = () => {
         <div className="flex justify-between">
           {!fetchingBalance ? (
             <span className="text-lg font-bold">
-              {Number(irysData.balance).toFixed(2)} matic
+              {Number(irysData.balance).toFixed(2)} POL
             </span>
           ) : (
             <span className="animate-shimmer mt-[6px] h-[22px] w-1/2 rounded-lg bg-gray-200 dark:bg-gray-700" />
@@ -252,11 +253,11 @@ const IrysInfo = () => {
       </div>
       {irysData.showDeposit && (
         <div className="space-y-1">
-          <span className="font-medium">Amount to deposit (MATIC)</span>
+          <span className="font-medium">Amount to deposit (POL)</span>
           <div className="flex gap-2">
             <Input
               type="number"
-              placeholder={userBalance?.formatted}
+              placeholder={formattedUserBalance}
               className="py-1.5 md:py-2"
               autoComplete="off"
               min={0}

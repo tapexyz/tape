@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "./generated/psql.ts"
+  previewFeatures = ["typedSql"]
 }
 
 datasource db {

@@ -6460,7 +6460,7 @@ type FollowModuleFields_FeeFollowModuleSettings_Fragment = {
   recipient: any
   amount: {
     __typename?: 'Amount'
-    rate?:
+    asFiat?:
       | ({ __typename?: 'FiatAmount' } & {
           ' $fragmentRefs'?: {
             FiatAmountFieldsFragment: FiatAmountFieldsFragment
@@ -6601,7 +6601,7 @@ type OpenActionModulesFields_LegacyMultirecipientFeeCollectModuleSettings_Fragme
     }
     amount: {
       __typename?: 'Amount'
-      rate?:
+      asFiat?:
         | ({ __typename?: 'FiatAmount' } & {
             ' $fragmentRefs'?: {
               FiatAmountFieldsFragment: FiatAmountFieldsFragment
@@ -6641,7 +6641,7 @@ type OpenActionModulesFields_LegacySimpleCollectModuleSettings_Fragment = {
   }
   amount: {
     __typename?: 'Amount'
-    rate?:
+    asFiat?:
       | ({ __typename?: 'FiatAmount' } & {
           ' $fragmentRefs'?: {
             FiatAmountFieldsFragment: FiatAmountFieldsFragment
@@ -6676,7 +6676,7 @@ type OpenActionModulesFields_MultirecipientFeeCollectOpenActionSettings_Fragment
     }
     amount: {
       __typename?: 'Amount'
-      rate?:
+      asFiat?:
         | ({ __typename?: 'FiatAmount' } & {
             ' $fragmentRefs'?: {
               FiatAmountFieldsFragment: FiatAmountFieldsFragment
@@ -6714,7 +6714,7 @@ type OpenActionModulesFields_SimpleCollectOpenActionSettings_Fragment = {
   }
   amount: {
     __typename?: 'Amount'
-    rate?:
+    asFiat?:
       | ({ __typename?: 'FiatAmount' } & {
           ' $fragmentRefs'?: {
             FiatAmountFieldsFragment: FiatAmountFieldsFragment
@@ -7650,6 +7650,7 @@ export type AuthenticateMutation = {
     __typename?: 'AuthenticationResult'
     accessToken: any
     refreshToken: any
+    identityToken: any
   }
 }
 
@@ -8816,7 +8817,7 @@ export type ApprovedModuleAllowanceAmountQuery = {
       asset: { __typename?: 'Erc20' } & {
         ' $fragmentRefs'?: { Erc20FieldsFragment: Erc20FieldsFragment }
       }
-      rate?:
+      asFiat?:
         | ({ __typename?: 'FiatAmount' } & {
             ' $fragmentRefs'?: {
               FiatAmountFieldsFragment: FiatAmountFieldsFragment
@@ -9815,7 +9816,7 @@ export const FollowModuleFieldsFragmentDoc = new TypedDocumentString(
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -9953,7 +9954,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -10984,7 +10985,7 @@ export const OpenActionModulesFieldsFragmentDoc = new TypedDocumentString(
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -11002,7 +11003,7 @@ export const OpenActionModulesFieldsFragmentDoc = new TypedDocumentString(
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -11024,7 +11025,7 @@ export const OpenActionModulesFieldsFragmentDoc = new TypedDocumentString(
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -11045,7 +11046,7 @@ export const OpenActionModulesFieldsFragmentDoc = new TypedDocumentString(
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -11201,7 +11202,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -11245,7 +11246,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -11263,7 +11264,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -11285,7 +11286,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -11306,7 +11307,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -11753,7 +11754,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -11797,7 +11798,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -11815,7 +11816,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -11837,7 +11838,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -11858,7 +11859,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -12329,7 +12330,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -12373,7 +12374,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -12391,7 +12392,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -12413,7 +12414,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -12434,7 +12435,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -12892,7 +12893,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -12936,7 +12937,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -12954,7 +12955,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -12976,7 +12977,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -12997,7 +12998,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -13504,7 +13505,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -13548,7 +13549,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -13566,7 +13567,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -13588,7 +13589,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -13609,7 +13610,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -14136,7 +14137,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -14180,7 +14181,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -14198,7 +14199,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -14220,7 +14221,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -14241,7 +14242,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -14759,7 +14760,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -14803,7 +14804,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -14821,7 +14822,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -14843,7 +14844,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -14864,7 +14865,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -15297,6 +15298,7 @@ export const AuthenticateDocument = new TypedDocumentString(`
   authenticate(request: $request) {
     accessToken
     refreshToken
+    identityToken
   }
 }
     `) as unknown as TypedDocumentString<
@@ -16346,7 +16348,7 @@ export const ApprovedModuleAllowanceAmountDocument = new TypedDocumentString(`
       asset {
         ...Erc20Fields
       }
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -16430,7 +16432,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -16671,7 +16673,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -16715,7 +16717,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -16733,7 +16735,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -16755,7 +16757,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -16776,7 +16778,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -17309,7 +17311,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -17353,7 +17355,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -17371,7 +17373,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -17393,7 +17395,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -17414,7 +17416,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -17889,7 +17891,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -18069,7 +18071,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -18371,7 +18373,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -18703,7 +18705,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -18762,7 +18764,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -18780,7 +18782,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -18802,7 +18804,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -18823,7 +18825,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -19315,7 +19317,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -19561,7 +19563,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -19605,7 +19607,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -19623,7 +19625,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -19645,7 +19647,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -19666,7 +19668,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -20129,7 +20131,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -20217,7 +20219,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -20400,7 +20402,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -20648,7 +20650,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -20707,7 +20709,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -20725,7 +20727,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -20747,7 +20749,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -20768,7 +20770,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -21313,7 +21315,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -21372,7 +21374,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -21390,7 +21392,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -21412,7 +21414,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -21433,7 +21435,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -21978,7 +21980,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -22037,7 +22039,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -22055,7 +22057,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -22077,7 +22079,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -22098,7 +22100,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -22645,7 +22647,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -22704,7 +22706,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -22722,7 +22724,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -22744,7 +22746,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -22765,7 +22767,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -23314,7 +23316,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -23373,7 +23375,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -23391,7 +23393,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -23413,7 +23415,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -23434,7 +23436,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -23917,7 +23919,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -24167,7 +24169,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -24211,7 +24213,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -24229,7 +24231,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -24251,7 +24253,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -24272,7 +24274,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectNft
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -24755,7 +24757,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -24938,7 +24940,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }
@@ -25123,7 +25125,7 @@ fragment FollowModuleFields on FollowModule {
     type
     amount {
       ...AmountFields
-      rate(request: {for: USD}) {
+      asFiat(request: {for: USD}) {
         ...FiatAmountFields
       }
     }

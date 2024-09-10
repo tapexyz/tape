@@ -1,4 +1,5 @@
 import { zValidator } from '@hono/zod-validator'
+import { IRYS_GATEWAY_URL } from '@tape.xyz/constants'
 import { Hono } from 'hono'
 import { prettyJSON } from 'hono/pretty-json'
 import { object, string } from 'zod'
@@ -17,7 +18,7 @@ app.get(
   async (c) => {
     const { id } = c.req.param()
     try {
-      const result = await fetch(`https://gateway.irys.xyz/${id}`, {
+      const result = await fetch(`${IRYS_GATEWAY_URL}/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -28,7 +29,7 @@ app.get(
       return c.json(JSON.parse(JSON.stringify(viewsRes)))
     } catch (error) {
       console.error('[GATEWAY] Error:', error)
-      return c.redirect(`https://gateway.irys.xyz/${id}`)
+      return c.redirect(`${IRYS_GATEWAY_URL}/${id}`)
     }
   }
 )
