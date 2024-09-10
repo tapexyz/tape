@@ -1,7 +1,7 @@
 import type { AspectRatio } from '@livepeer/react'
 import { Player } from '@livepeer/react'
 import { videoPlayerTheme } from '@tape.xyz/browser'
-import { ARWEAVE_GATEWAY_URL, IPFS_GATEWAY_URL } from '@tape.xyz/constants'
+import { IPFS_GATEWAY_URL, IRYS_GATEWAY_URL } from '@tape.xyz/constants'
 import type { FC } from 'react'
 import React from 'react'
 
@@ -37,8 +37,8 @@ const PlayerInstance: FC<PlayerProps> = ({
     <Player
       theme={videoPlayerTheme}
       src={
-        url?.includes(ARWEAVE_GATEWAY_URL)
-          ? url.replace(`${ARWEAVE_GATEWAY_URL}/`, 'ar://')
+        url?.includes(IRYS_GATEWAY_URL)
+          ? url.replace(`${IRYS_GATEWAY_URL}/`, 'ar://')
           : url
       }
       poster={posterUrl}
@@ -60,7 +60,7 @@ const PlayerInstance: FC<PlayerProps> = ({
           ? {
               fallback: true,
               ipfsGateway: IPFS_GATEWAY_URL,
-              arweaveGateway: ARWEAVE_GATEWAY_URL
+              arweaveGateway: IRYS_GATEWAY_URL
             }
           : undefined
       }

@@ -145,7 +145,7 @@ export const REDIS_KEYS = {
 }
 
 // irys
-export const ARWEAVE_GATEWAY_URL = 'https://gateway.irys.xyz'
+export const IRYS_GATEWAY_URL = 'https://gateway.irys.xyz'
 export const IRYS_CONNECT_MESSAGE = 'Estimating video upload cost...'
 export const REQUESTING_SIGNATURE_MESSAGE = 'Requesting signature...'
 export const MOONPAY_URL = IS_MAINNET

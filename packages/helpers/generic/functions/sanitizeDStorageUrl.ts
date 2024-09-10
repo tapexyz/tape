@@ -1,8 +1,8 @@
-import { ARWEAVE_GATEWAY_URL, IPFS_GATEWAY_URL } from '@tape.xyz/constants'
+import { IPFS_GATEWAY_URL, IRYS_GATEWAY_URL } from '@tape.xyz/constants'
 
 export const sanitizeDStorageUrl = (url: string) => {
   const ipfsGateway = `${IPFS_GATEWAY_URL}/`
-  const arweaveGateway = `${ARWEAVE_GATEWAY_URL}/`
+  const irysGateway = `${IRYS_GATEWAY_URL}/`
   if (!url) {
     return url
   }
@@ -13,7 +13,8 @@ export const sanitizeDStorageUrl = (url: string) => {
     .replace('https://ipfs.infura.io/ipfs/', ipfsGateway)
     .replace('https://gateway.pinata.cloud/ipfs/', ipfsGateway)
     .replace('https://gw.ipfs-lens.dev/ipfs/', ipfsGateway)
+    .replace('https://gateway.irys.xyz/', irysGateway)
     .replace('ipfs://ipfs/', ipfsGateway)
-    .replace('ar://', arweaveGateway)
+    .replace('ar://', irysGateway)
     .replace('ipfs://', ipfsGateway)
 }

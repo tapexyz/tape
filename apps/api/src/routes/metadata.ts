@@ -1,7 +1,7 @@
 import { Uploader } from '@irys/upload'
 import { Matic } from '@irys/upload-ethereum'
 import { signMetadata } from '@lens-protocol/metadata'
-import { ERROR_MESSAGE } from '@tape.xyz/constants'
+import { ERROR_MESSAGE, IRYS_GATEWAY_URL } from '@tape.xyz/constants'
 import { Hono } from 'hono'
 import { privateKeyToAccount } from 'viem/accounts'
 
@@ -39,7 +39,7 @@ app.post('/', async (c) => {
     return c.json({
       success: true,
       id: receipt.id,
-      url: `ar://${receipt.id}`
+      url: `${IRYS_GATEWAY_URL}/${receipt.id}`
     })
   } catch (error) {
     console.error('[METADATA] Error:', error)
