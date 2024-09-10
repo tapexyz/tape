@@ -12,7 +12,6 @@ export const EVENTS = {
   PAGE_VIEW: {
     HOME: 'Home Page',
     FEED: 'Feed Page',
-    BANGERS: 'Bangers Page',
     LOGIN: 'Login Page',
     EXPLORE: 'Explore Page',
     PROFILE: 'Profile Page',

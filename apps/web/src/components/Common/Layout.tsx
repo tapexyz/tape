@@ -28,16 +28,10 @@ import Navbar from './Navbar'
 interface Props {
   children: ReactNode
   skipNav?: boolean
-  skipBottomNav?: boolean
   skipPadding?: boolean
 }
 
-const Layout: FC<Props> = ({
-  children,
-  skipNav,
-  skipBottomNav,
-  skipPadding
-}) => {
+const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
   const { setLensHubOnchainSigNonce } = useNonceStore()
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const setActiveProfile = useProfileStore((state) => state.setActiveProfile)
@@ -110,7 +104,7 @@ const Layout: FC<Props> = ({
       >
         {children}
       </div>
-      {!skipBottomNav && <MobileBottomNav />}
+      <MobileBottomNav />
     </>
   )
 }

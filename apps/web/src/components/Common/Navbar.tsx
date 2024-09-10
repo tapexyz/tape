@@ -1,6 +1,4 @@
 import { tw } from '@tape.xyz/browser'
-import { FEATURE_FLAGS } from '@tape.xyz/constants'
-import { getIsFeatureEnabled } from '@tape.xyz/generic'
 import {
   BellOutline,
   Button,
@@ -73,18 +71,6 @@ const Navbar = () => {
           >
             Feed
           </Link>
-          {getIsFeatureEnabled(FEATURE_FLAGS.BANGERS, activeProfile?.id) && (
-            <Link
-              href="/bangers"
-              className={tw(
-                isActivePath('/bangers')
-                  ? 'font-bold'
-                  : 'text-dust font-medium hover:opacity-90'
-              )}
-            >
-              Bangers
-            </Link>
-          )}
         </div>
         <div className="flex w-1/5 items-center justify-end space-x-3">
           <GlobalSearch />

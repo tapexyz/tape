@@ -18,10 +18,8 @@ import TogglesProvider from './TogglesProvider'
 import Web3Provider from './Web3Provider'
 
 const NO_TOP_NAV_PATHS = ['/login']
-const NO_BOTTOM_NAV_PATHS = ['/bangers']
 const NO_PADDING_PATHS = [
   '/u/[[...handle]]',
-  '/bangers',
   '/profile/[id]',
   '/login',
   '/bytes',
@@ -52,7 +50,6 @@ const Providers = ({ children }: { children: ReactNode }) => {
                 <LivepeerConfig client={livepeerClient}>
                   <Layout
                     skipNav={NO_TOP_NAV_PATHS.includes(pathname)}
-                    skipBottomNav={NO_BOTTOM_NAV_PATHS.includes(pathname)}
                     skipPadding={NO_PADDING_PATHS.includes(pathname)}
                   >
                     {children}
