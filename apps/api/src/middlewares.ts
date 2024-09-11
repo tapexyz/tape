@@ -1,5 +1,5 @@
 import crypto from 'crypto'
-import type { Context, Next } from 'hono'
+import type { Context, HonoRequest, Next } from 'hono'
 import { cors as corsMiddleware } from 'hono/cors'
 import { rateLimiter as rateLimiterMiddleware } from 'hono-rate-limiter'
 
@@ -10,9 +10,12 @@ const allowedOrigins = [
   'https://og.tape.xyz'
 ]
 
+const getIp = (req: HonoRequest) =>
+  req.header('x-forwarded-for') || req.header('remote-addr')
+
 export const ipRestriction = async (c: Context, next: Next) => {
   const origin = c.req.header('Origin')
-  const ip = c.req.header('x-forwarded-for') || c.req.header('remote-addr')
+  const ip = getIp(c.req)
   console.info(
     `[${c.req.method}] method from [${origin}] with ip [${ip}] to [${c.req.path}]`
   )
@@ -29,7 +32,7 @@ export const ratelimiter = rateLimiterMiddleware({
   standardHeaders: true,
   keyGenerator: (c) => {
     const { path } = c.req
-    const ip = c.req.header('x-forwarded-for') || c.req.header('remote-addr')
+    const ip = getIp(c.req)
     return crypto.createHash('sha256').update(`${path}:${ip}`).digest('hex')
   }
 })
