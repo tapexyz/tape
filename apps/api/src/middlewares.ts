@@ -15,9 +15,10 @@ const getIp = (req: HonoRequest) =>
 
 export const ipRestriction = async (c: Context, next: Next) => {
   const origin = c.req.header('Origin')
+  const ua = c.req.header('User-Agent')
   const ip = getIp(c.req)
   console.info(
-    `[${c.req.method}] method from [${origin}] with ip [${ip}] to [${c.req.path}]`
+    `[${c.req.method}] method from UA [${ua}] at [${origin}] with with ip [${ip}] to [${c.req.path}]`
   )
   //   if (origin && !allowedOrigins.includes(origin)) {
   //     return c.text('Forbidden', 403)
