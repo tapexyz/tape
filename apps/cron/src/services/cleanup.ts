@@ -11,15 +11,14 @@ import {
 } from '@tape.xyz/constants'
 import { psql } from '@tape.xyz/server'
 
-const accessKeyId = process.env.EVER_ACCESS_KEY!
-const secretAccessKey = process.env.EVER_ACCESS_SECRET!
+const { EVER_ACCESS_KEY, EVER_ACCESS_SECRET } = process.env
 
 const s3Client = new S3({
   endpoint: EVER_ENDPOINT,
   region: EVER_REGION,
   credentials: {
-    accessKeyId,
-    secretAccessKey
+    accessKeyId: EVER_ACCESS_KEY,
+    secretAccessKey: EVER_ACCESS_SECRET
   },
   maxAttempts: 5
 })

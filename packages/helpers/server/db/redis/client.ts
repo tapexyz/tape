@@ -2,7 +2,7 @@ import type { RedisClientType } from 'redis'
 import { createClient } from 'redis'
 
 const redisClient: RedisClientType = createClient({
-  url: process.env.REDIS_URL!
+  url: process.env.REDIS_URL
 })
 
 const connectRedis = async () => {

@@ -1,8 +1,6 @@
 import { clickhouseClient, REDIS_EXPIRY, rGet, rSet } from '@tape.xyz/server'
 
-const { S3_BUCKET_URL } = process.env
-const { S3_ACCESS_KEY_ID } = process.env
-const { S3_SECRET_ACCESS_KEY } = process.env
+const { S3_BUCKET_URL, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY } = process.env
 
 const backupEventsToS3 = async () => {
   try {

@@ -17,7 +17,7 @@ type RequestInput = z.infer<typeof validationSchema>
 app.post('/', zValidator('json', validationSchema), async (c) => {
   try {
     const body = await c.req.json<RequestInput>()
-    const LOGTAIL_API_KEY = process.env.LOGTAIL_API_KEY!
+    const { LOGTAIL_API_KEY } = process.env
     const result = await fetch(logtailApiURL, {
       method: 'POST',
       headers: {

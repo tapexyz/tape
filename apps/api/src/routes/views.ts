@@ -15,7 +15,7 @@ app.post('/', zValidator('json', validationSchema), async (c) => {
   try {
     const body = await c.req.json<RequestInput>()
 
-    const LIVEPEER_API_TOKEN = process.env.LIVEPEER_API_TOKEN!
+    const { LIVEPEER_API_TOKEN } = process.env
     const result = await fetch(
       `https://livepeer.studio/api/data/views/query/total/${body.cid}`,
       {
