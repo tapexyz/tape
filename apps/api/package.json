@@ -23,7 +23,6 @@
     "@prisma/client": "^5.19.1",
     "base64url": "^3.0.1",
     "hono": "^4.5.8",
-    "hono-rate-limiter": "^0.4.0",
     "linkedom": "^0.18.4",
     "ua-parser-js": "2.0.0-beta.3",
     "viem": "^2.21.5",
