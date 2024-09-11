@@ -17,14 +17,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node.js, pnpm, and Cache Dependencies
+      - name: Setup Node.js and Cache Dependencies
         uses: actions/setup-node@v4
         with:
-          node-version-file: ".nvmrc"
-          cache: "pnpm"
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
 
-      - name: Install pnpm
-        run: corepack enable && corepack prepare pnpm@9 --activate
+      - name: Install Latest pnpm
+        run: npm install -g pnpm@latest
 
       - name: Restore pnpm Cache
         uses: actions/cache@v3
