@@ -2,9 +2,9 @@ import 'dotenv/config'
 
 import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
-import { cors } from 'hono/cors'
 import { logger } from 'hono/logger'
 
+import { cors, ipRestriction, ratelimiter } from './middlewares'
 import allowedTokens from './routes/allowed-tokens'
 import avatar from './routes/avatar'
 import curated from './routes/curated'
@@ -21,10 +21,12 @@ import views from './routes/views'
 
 const app = new Hono()
 
-app.use('*', cors())
 app.use(logger())
+app.use(ratelimiter)
+app.use(ipRestriction)
+app.use('*', cors)
 
-app.get('/', (c) => c.text('tape.xyz'))
+app.get('/', (c) => c.text('nothing to see here, visit tape.xyz'))
 
 app.route('/did', did)
 app.route('/sts', sts)

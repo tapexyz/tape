@@ -12,10 +12,10 @@ import type { IPFSUploadResult } from '@tape.xyz/lens/custom-types'
 import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid'
 
-const everland = async (
+export const uploadToIPFS = async (
   file: File,
   onProgress?: (percentage: number) => void
-) => {
+): Promise<IPFSUploadResult> => {
   try {
     const { data } = await axios.get(WORKER_STS_TOKEN_URL)
     const client = new S3({
@@ -76,12 +76,4 @@ const everland = async (
       type: file.type
     }
   }
-}
-
-export const uploadToIPFS = async (
-  file: File,
-  onProgress?: (percentage: number) => void
-): Promise<IPFSUploadResult> => {
-  const { url, type } = await everland(file, onProgress)
-  return { url, type }
 }
