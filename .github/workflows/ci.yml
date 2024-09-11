@@ -29,8 +29,12 @@ jobs:
         - name: Install dependencies 🧳
           run: pnpm install
           
-        - name: Check Lint 💅🏻
-          run: pnpm lint && pnpm typecheck && pnpm format:check
+        - name: Check Lint, Typecheck, and Format 💅🏻
+          run: |
+            pnpm lint &
+            pnpm typecheck &
+            pnpm format:check
+          shell: bash
 
         - name: Run Build 🔨
           run: pnpm build
