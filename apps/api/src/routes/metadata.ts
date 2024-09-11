@@ -7,8 +7,9 @@ import { privateKeyToAccount } from 'viem/accounts'
 
 const app = new Hono()
 
-const walletPk = process.env.WALLET_PRIVATE_KEY!
-const getIrysUploader = async () => await Uploader(Matic).withWallet(walletPk)
+const { WALLET_PRIVATE_KEY } = process.env
+const getIrysUploader = async () =>
+  await Uploader(Matic).withWallet(WALLET_PRIVATE_KEY)
 
 app.post('/', async (c) => {
   try {
@@ -16,7 +17,7 @@ app.post('/', async (c) => {
 
     const irys = await getIrysUploader()
 
-    const account = privateKeyToAccount(`0x${walletPk}`)
+    const account = privateKeyToAccount(`0x${WALLET_PRIVATE_KEY}`)
     const signedMetadata = await signMetadata(payload, (message) =>
       account.signMessage({ message })
     )

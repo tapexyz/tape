@@ -45,7 +45,7 @@ const processEvent = async (req: HonoRequest, event: RequestInput) => {
     regionName: string
   } | null = null
 
-  const IP_API_KEY = process.env.IP_API_KEY!
+  const { IP_API_KEY } = process.env
   try {
     const ipResponse = await fetch(
       `https://pro.ip-api.com/json/${ip}?key=${IP_API_KEY}`

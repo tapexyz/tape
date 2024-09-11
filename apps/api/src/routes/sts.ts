@@ -29,13 +29,15 @@ const params = {
   }`
 }
 
-const accessKeyId = process.env.EVER_ACCESS_KEY!
-const secretAccessKey = process.env.EVER_ACCESS_SECRET!
+const { EVER_ACCESS_KEY, EVER_ACCESS_SECRET } = process.env
 
 const stsClient = new STSClient({
   endpoint: EVER_ENDPOINT,
   region: EVER_REGION,
-  credentials: { accessKeyId, secretAccessKey }
+  credentials: {
+    accessKeyId: EVER_ACCESS_KEY,
+    secretAccessKey: EVER_ACCESS_SECRET
+  }
 })
 
 app.get('/', async (c) => {
