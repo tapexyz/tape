@@ -44,8 +44,8 @@
     "react-use-websocket": "^4.8.1",
     "textarea-caret": "^3.1.0",
     "uuid": "^10.0.0",
-    "viem": "^2.21.4",
-    "wagmi": "^2.12.9",
+    "viem": "^2.21.5",
+    "wagmi": "^2.12.10",
     "zod": "^3.23.8",
     "zustand": "^4.5.5"
   },

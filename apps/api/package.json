@@ -14,7 +14,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md,json,css}\""
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "3.645.0",
+    "@aws-sdk/client-sts": "3.649.0",
     "@hono/node-server": "^1.12.2",
     "@hono/zod-validator": "^0.2.2",
     "@irys/upload": "^0.0.3",
@@ -25,7 +25,7 @@
     "hono": "^4.5.8",
     "linkedom": "^0.18.4",
     "ua-parser-js": "2.0.0-beta.3",
-    "viem": "^2.21.4",
+    "viem": "^2.21.5",
     "zod": "^3.23.8"
   },
   "devDependencies": {

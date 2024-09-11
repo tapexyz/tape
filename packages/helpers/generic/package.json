@@ -12,7 +12,7 @@
   "dependencies": {
     "@lens-protocol/metadata": "^1.2.0",
     "axios": "^1.7.7",
-    "viem": "^2.21.4"
+    "viem": "^2.21.5"
   },
   "devDependencies": {
     "@tape.xyz/config": "workspace:*",
