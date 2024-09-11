@@ -1,7 +1,7 @@
 import crypto from 'crypto'
 import type { Context, Next } from 'hono'
 import { cors as corsMiddleware } from 'hono/cors'
-import { rateLimiter } from 'hono-rate-limiter'
+import { rateLimiter as rateLimiterMiddleware } from 'hono-rate-limiter'
 
 const allowedOrigins = [
   'https://tape.xyz',
@@ -22,7 +22,7 @@ export const ipRestriction = async (c: Context, next: Next) => {
   await next()
 }
 
-export const limiter = rateLimiter({
+export const ratelimiter = rateLimiterMiddleware({
   windowMs: 5 * 60 * 1000, // 5 minutes
   limit: 100, // Limit each IP to 100 requests per `window`
   message: 'Hold on, too many requests!',

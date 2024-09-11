@@ -4,7 +4,7 @@ import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
 import { logger } from 'hono/logger'
 
-import { cors, ipRestriction, limiter } from './middlewares'
+import { cors, ipRestriction, ratelimiter } from './middlewares'
 import allowedTokens from './routes/allowed-tokens'
 import avatar from './routes/avatar'
 import curated from './routes/curated'
@@ -22,7 +22,7 @@ import views from './routes/views'
 const app = new Hono()
 
 app.use(logger())
-app.use(limiter)
+app.use(ratelimiter)
 app.use(ipRestriction)
 app.use('*', cors)
 
