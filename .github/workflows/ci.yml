@@ -10,28 +10,39 @@ on:
 
 jobs:
   build:
-      name: Build and Test 👷🏻
-      timeout-minutes: 60
-      runs-on: ubuntu-latest
+    name: Build and Test 👷🏻
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
 
-      steps:
-        - uses: actions/checkout@v4
-        - uses: pnpm/action-setup@v3
-          with:
-            version: 8
-          
-        - uses: actions/setup-node@v4
-          with:
-            check-latest: true
-            node-version-file: '.nvmrc'
-            cache: 'pnpm'
- 
-        - name: Install dependencies 🧳
-          run: pnpm install
-          
-        - name: Check Lint 💅🏻
-          run: pnpm lint && pnpm typecheck && pnpm format:check
+    steps:
+      - uses: actions/checkout@v4
 
-        - name: Run Build 🔨
-          run: pnpm build
- 
+      - name: Setup Node.js, pnpm, and Cache Dependencies
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
+
+      - name: Install pnpm
+        run: corepack enable && corepack prepare pnpm@9 --activate
+
+      - name: Restore pnpm Cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies 🧳
+        run: pnpm install --frozen-lockfile --prefer-offline
+
+      - name: Check Lint, Typecheck, and Format 💅🏻
+        run: |
+          pnpm lint &
+          pnpm typecheck &
+          pnpm format:check
+        shell: bash
+
+      - name: Run Build 🔨
+        run: pnpm build
