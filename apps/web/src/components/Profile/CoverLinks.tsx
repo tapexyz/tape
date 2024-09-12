@@ -85,7 +85,7 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
         <Link
           href={`https://x.com/${x
             ?.replace("https://twitter.com/", "")
-            .replace("http://twitter.com/", "")}`}
+            .replace("https://x.com/", "")}`}
           target="_blank"
           rel="noreferer noreferrer"
           className="flex items-center justify-center rounded-lg bg-white bg-opacity-80 p-1.5 dark:bg-gray-900"
