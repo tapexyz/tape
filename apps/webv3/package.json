@@ -9,7 +9,6 @@
     "export": "next export",
     "start": "pnpm build && next start --port 4784",
     "lint": "biome lint",
-    "format": "biome format --write .",
     "typecheck": "tsc --pretty --noEmit"
   },
   "dependencies": {

@@ -8,7 +8,6 @@
     "build": "tsc",
     "start": "tsx src/index.ts",
     "lint": "biome lint",
-    "format": "biome format --write .",
     "typecheck": "tsc --pretty --noEmit"
   },
   "license": "AGPL-3.0",

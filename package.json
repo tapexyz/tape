@@ -4,19 +4,19 @@
   "version": "2.0.3-beta",
   "private": true,
   "scripts": {
-    "prepare": "husky",
     "preinstall": "npx only-allow pnpm",
     "dev": "pnpm -r --parallel run dev",
     "start": "pnpm -r --parallel run start",
     "build": "pnpm -r --parallel run build",
     "codegen": "pnpm -r --parallel run codegen",
     "codegenv3": "pnpm -r --parallel run codegenv3",
+    "prepare": "husky",
     "lint:repo:fix": "pnpm dlx sherif@latest --fix",
     "lint:repo": "pnpm dlx sherif@latest",
     "lint": "pnpm -r --parallel run lint && pnpm lint:repo",
+    "typecheck": "pnpm -r --parallel run typecheck",
     "format:check": "biome format .",
-    "format": "biome format --write .",
-    "typecheck": "pnpm -r --parallel run typecheck"
+    "format": "biome format --write ."
   },
   "devDependencies": {
     "@biomejs/biome": "1.8.3",

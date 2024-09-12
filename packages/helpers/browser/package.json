@@ -6,7 +6,6 @@
   "scripts": {
     "build:sw": "tsc worker/sw.ts --outDir ../../../apps/web/public",
     "lint": "biome check .",
-    "format": "biome format --write .",
     "typecheck": "tsc --pretty --noEmit",
     "postinstall": "pnpm build:sw"
   },
