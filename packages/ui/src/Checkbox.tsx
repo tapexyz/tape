@@ -1,7 +1,7 @@
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import { tw } from "@tape.xyz/browser";
 import type { ElementRef } from "react";
-import React, { forwardRef, useId } from "react";
+import { forwardRef, useId } from "react";
 
 import { CheckOutline } from "./icons";
 

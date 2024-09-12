@@ -2,7 +2,7 @@ import { EVENTS } from "@tape.xyz/generic";
 import type { Profile } from "@tape.xyz/lens";
 import { useProfileQuery } from "@tape.xyz/lens";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
 

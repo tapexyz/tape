@@ -1,6 +1,5 @@
 import type { Profile } from "@tape.xyz/lens";
 import type { FC } from "react";
-import React from "react";
 
 import Followers from "./Followers";
 import Following from "./Following";

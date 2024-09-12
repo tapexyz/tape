@@ -1,7 +1,6 @@
 import { tw } from "@tape.xyz/browser";
 import { formatNumber } from "@tape.xyz/generic";
 import type { FC } from "react";
-import React from "react";
 
 import Badge from "@/components/Common/Badge";
 

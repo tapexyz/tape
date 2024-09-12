@@ -51,7 +51,7 @@ import {
 } from "@tape.xyz/lens";
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { v4 as uuidv4 } from "uuid";
 import {

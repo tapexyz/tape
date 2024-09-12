@@ -1,5 +1,3 @@
-import React from "react";
-
 import { CardShimmer } from "./VideoCardShimmer";
 
 const PinnedVideoShimmer = () => {

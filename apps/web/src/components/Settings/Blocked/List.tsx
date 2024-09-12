@@ -32,7 +32,7 @@ import { useApolloClient } from "@tape.xyz/lens/apollo";
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
 import { Button, Spinner } from "@tape.xyz/ui";
 import Link from "next/link";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useInView } from "react-cool-inview";
 import toast from "react-hot-toast";
 import { useSignTypedData, useWriteContract } from "wagmi";

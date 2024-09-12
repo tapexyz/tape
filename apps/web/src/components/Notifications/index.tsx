@@ -9,7 +9,7 @@ import type { Notification, NotificationRequest } from "@tape.xyz/lens";
 import { CustomFiltersType, useNotificationsQuery } from "@tape.xyz/lens";
 import { CustomNotificationsFilterEnum } from "@tape.xyz/lens/custom-types";
 import { Spinner } from "@tape.xyz/ui";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useInView } from "react-cool-inview";
 
 import MetaTags from "@/components/Common/MetaTags";

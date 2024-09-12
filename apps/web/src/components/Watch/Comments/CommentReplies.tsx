@@ -21,7 +21,7 @@ import {
 } from "@tape.xyz/ui";
 import Link from "next/link";
 import type { FC } from "react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import Badge from "@/components/Common/Badge";
 import InterweaveContent from "@/components/Common/InterweaveContent";

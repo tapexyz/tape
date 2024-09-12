@@ -20,7 +20,7 @@ import {
 import { ChevronDownOutline, ChevronUpOutline, Spinner } from "@tape.xyz/ui";
 import { useKeenSlider } from "keen-slider/react";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useInView } from "react-cool-inview";
 
 import MetaTags from "@/components/Common/MetaTags";

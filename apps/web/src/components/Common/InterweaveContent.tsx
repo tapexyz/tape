@@ -1,5 +1,4 @@
 import { Interweave } from "interweave";
-import React from "react";
 
 import { EmailMatcher } from "./matchers/EmailMatcher";
 import { HashtagMatcher } from "./matchers/HashtagMatcher";

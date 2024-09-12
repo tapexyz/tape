@@ -3,7 +3,7 @@ import { Player } from "@livepeer/react";
 import { videoPlayerTheme } from "@tape.xyz/browser";
 import { IPFS_GATEWAY_URL, IRYS_GATEWAY_URL } from "@tape.xyz/constants";
 import type { FC } from "react";
-import React from "react";
+import { memo } from "react";
 
 export interface PlayerProps {
   playerRef?: (ref: HTMLMediaElement) => void;
@@ -67,4 +67,4 @@ const PlayerInstance: FC<PlayerProps> = ({
   );
 };
 
-export default React.memo(PlayerInstance);
+export default memo(PlayerInstance);

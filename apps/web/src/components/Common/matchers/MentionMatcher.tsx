@@ -5,7 +5,7 @@ import {
 } from "@tape.xyz/constants";
 import { Matcher } from "interweave";
 import Link from "next/link";
-import React from "react";
+import { createElement } from "react";
 
 import type { MentionProps } from "./utils";
 
@@ -27,7 +27,7 @@ const ProfileLink = ({ ...props }: any) => {
 
 export class MentionMatcher extends Matcher<MentionProps> {
   replaceWith(match: string, props: MentionProps) {
-    return React.createElement(ProfileLink, props, match);
+    return createElement(ProfileLink, props, match);
   }
 
   asTag(): string {

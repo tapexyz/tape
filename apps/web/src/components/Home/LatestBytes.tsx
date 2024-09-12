@@ -19,7 +19,6 @@ import {
   usePublicationsQuery,
 } from "@tape.xyz/lens";
 import Link from "next/link";
-import React from "react";
 
 import Badge from "@/components/Common/Badge";
 import HoverableProfile from "@/components/Common/HoverableProfile";

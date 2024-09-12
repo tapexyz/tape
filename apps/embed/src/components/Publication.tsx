@@ -5,7 +5,7 @@ import { getLivepeerClient, setFingerprint, tapeFont } from "@tape.xyz/browser";
 import { getPublication } from "@tape.xyz/generic";
 import type { AnyPublication } from "@tape.xyz/lens";
 import type { FC } from "react";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 import Video from "./Video";
 

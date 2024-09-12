@@ -42,7 +42,7 @@ import {
   Spinner,
   TextArea,
 } from "@tape.xyz/ui";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useSignTypedData, useWriteContract } from "wagmi";

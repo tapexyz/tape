@@ -5,8 +5,8 @@ import {
   REQUESTING_SIGNATURE_MESSAGE,
 } from "@tape.xyz/constants";
 import {
-  checkLensManagerPermissions,
   EVENTS,
+  checkLensManagerPermissions,
   getSignature,
 } from "@tape.xyz/generic";
 import type {
@@ -20,7 +20,7 @@ import {
 } from "@tape.xyz/lens";
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
 import { Button, Spinner } from "@tape.xyz/ui";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useSignTypedData, useWriteContract } from "wagmi";
 

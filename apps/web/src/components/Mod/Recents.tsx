@@ -15,7 +15,6 @@ import {
   useExplorePublicationsQuery,
 } from "@tape.xyz/lens";
 import { Spinner } from "@tape.xyz/ui";
-import React from "react";
 import { useInView } from "react-cool-inview";
 
 import Timeline from "@/components/Home/Timeline";

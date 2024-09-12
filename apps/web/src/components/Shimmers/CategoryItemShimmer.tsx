@@ -1,5 +1,3 @@
-import React from "react";
-
 const CategoryItemShimmer = () => {
   return (
     <div className="animate-shimmer">

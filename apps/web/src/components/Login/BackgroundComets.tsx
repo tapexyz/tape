@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import React, { memo } from "react";
+import { memo } from "react";
 
 const paths = [
   "M-366 -205C-366 -205 -298 200 166 327C630 454 698 859 698 859",

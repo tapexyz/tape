@@ -1,6 +1,5 @@
 import { Button, Modal } from "@tape.xyz/ui";
 import type { Dispatch, FC } from "react";
-import React from "react";
 
 type Props = {
   showConfirm: boolean;

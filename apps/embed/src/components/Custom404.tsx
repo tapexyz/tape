@@ -1,5 +1,4 @@
 import { STATIC_ASSETS, TAPE_APP_NAME } from "@tape.xyz/constants";
-import React from "react";
 
 const Custom404 = () => {
   return (

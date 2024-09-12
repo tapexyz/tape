@@ -16,7 +16,7 @@ import {
 } from "@tape.xyz/lens";
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
 import { Button } from "@tape.xyz/ui";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useSignTypedData, useWriteContract } from "wagmi";
 

@@ -12,7 +12,6 @@ import type { Profile, ProfilesManagedRequest } from "@tape.xyz/lens";
 import { useProfilesManagedQuery } from "@tape.xyz/lens";
 import { Spinner } from "@tape.xyz/ui";
 import Link from "next/link";
-import React from "react";
 import { useInView } from "react-cool-inview";
 
 import Badge from "@/components/Common/Badge";

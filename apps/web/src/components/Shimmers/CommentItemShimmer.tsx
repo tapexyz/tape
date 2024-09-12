@@ -1,5 +1,3 @@
-import React from "react";
-
 const CommentItemShimmer = () => {
   return (
     <div className="animate-shimmer flex flex-col space-x-2">

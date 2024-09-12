@@ -1,5 +1,3 @@
-import React from "react";
-
 const SignalWaveGraphic = () => {
   return (
     <div className="absolute right-0 top-0 flex translate-x-2 items-center justify-center opacity-60">

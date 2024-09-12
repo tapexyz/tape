@@ -12,7 +12,6 @@ import {
   usePublicationsQuery,
 } from "@tape.xyz/lens";
 import { Spinner } from "@tape.xyz/ui";
-import React from "react";
 import { useInView } from "react-cool-inview";
 
 import CategoryFilters from "@/components/Common/CategoryFilters";

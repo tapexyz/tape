@@ -8,7 +8,6 @@ import {
 import type { MirrorablePublication } from "@tape.xyz/lens";
 import Link from "next/link";
 import type { FC } from "react";
-import React from "react";
 
 import Badge from "@/components/Common/Badge";
 import FollowActions from "@/components/Common/FollowActions";

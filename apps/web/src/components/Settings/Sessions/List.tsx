@@ -14,7 +14,7 @@ import {
   ChevronDownOutline,
   Spinner,
 } from "@tape.xyz/ui";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useInView } from "react-cool-inview";
 import toast from "react-hot-toast";
 

@@ -1,6 +1,6 @@
 import { EVENTS } from "@tape.xyz/generic";
 import type { NextPage } from "next";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 import useSw from "@/hooks/useSw";
 

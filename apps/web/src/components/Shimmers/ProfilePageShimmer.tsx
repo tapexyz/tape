@@ -1,5 +1,3 @@
-import React from "react";
-
 import ButtonShimmer from "./ButtonShimmer";
 import TimelineShimmer from "./TimelineShimmer";
 

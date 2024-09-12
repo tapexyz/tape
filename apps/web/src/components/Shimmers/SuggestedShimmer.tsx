@@ -1,5 +1,3 @@
-import React from "react";
-
 const SuggestedShimmer = () => {
   return (
     <div className="w-full rounded-md">

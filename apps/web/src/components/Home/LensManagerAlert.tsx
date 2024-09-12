@@ -3,7 +3,6 @@ import {
   checkLensManagerPermissions,
   getIsProfileOwner,
 } from "@tape.xyz/generic";
-import React from "react";
 import { useAccount } from "wagmi";
 
 import ToggleLensManager from "@/components/Settings/Manager/LensManager/ToggleLensManager";

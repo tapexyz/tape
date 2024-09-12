@@ -7,7 +7,7 @@ import {
 import type { AnyPublication } from "@tape.xyz/lens";
 import { Modal } from "@tape.xyz/ui";
 import type { FC } from "react";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import AudioComment from "./AudioComment";
 import VideoComment from "./VideoComment";

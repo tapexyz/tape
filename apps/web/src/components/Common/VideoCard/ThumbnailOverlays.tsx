@@ -1,7 +1,6 @@
 import { getPublication, getPublicationData } from "@tape.xyz/generic";
 import type { AnyPublication } from "@tape.xyz/lens";
 import type { FC } from "react";
-import React from "react";
 
 import { formatTimeFromSeconds } from "@/lib/formatTime";
 

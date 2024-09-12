@@ -9,7 +9,6 @@ import type { ActedNotification, OpenActionProfileActed } from "@tape.xyz/lens";
 import { CollectOutline } from "@tape.xyz/ui";
 import Link from "next/link";
 import type { FC } from "react";
-import React from "react";
 
 import HoverableProfile from "@/components/Common/HoverableProfile";
 

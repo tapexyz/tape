@@ -8,7 +8,6 @@ import type { CommentNotification } from "@tape.xyz/lens";
 import { CommentOutline } from "@tape.xyz/ui";
 import Link from "next/link";
 import type { FC } from "react";
-import React from "react";
 
 import HoverableProfile from "@/components/Common/HoverableProfile";
 import { getShortHandTime } from "@/lib/formatTime";

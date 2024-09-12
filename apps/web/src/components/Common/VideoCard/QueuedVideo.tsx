@@ -16,7 +16,6 @@ import { useApolloClient } from "@tape.xyz/lens/apollo";
 import type { QueuedVideoType } from "@tape.xyz/lens/custom-types";
 import { Tooltip } from "@tape.xyz/ui";
 import type { FC } from "react";
-import React from "react";
 
 import usePendingTxn from "@/hooks/usePendingTxn";
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from "@/lib/store";

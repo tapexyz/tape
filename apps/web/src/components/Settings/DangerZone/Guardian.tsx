@@ -10,7 +10,7 @@ import { useProfileLazyQuery } from "@tape.xyz/lens";
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
 import { Button } from "@tape.xyz/ui";
 import type { FC } from "react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useHandleWrongNetwork from "src/hooks/useHandleWrongNetwork";
 import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";

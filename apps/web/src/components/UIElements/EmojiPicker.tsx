@@ -9,7 +9,7 @@ import {
 import axios from "axios";
 import { useTheme } from "next-themes";
 import type { FC } from "react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 type EmojiData = {
   aliases: Record<string, any>;

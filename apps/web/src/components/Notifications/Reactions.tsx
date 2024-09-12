@@ -11,7 +11,6 @@ import type {
 import { HeartOutline } from "@tape.xyz/ui";
 import Link from "next/link";
 import type { FC } from "react";
-import React from "react";
 
 import HoverableProfile from "@/components/Common/HoverableProfile";
 

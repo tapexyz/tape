@@ -13,7 +13,7 @@ import {
 } from "@tape.xyz/lens";
 import { ChevronDownOutline, ChevronUpOutline, Spinner } from "@tape.xyz/ui";
 import type { FC } from "react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useInView } from "react-cool-inview";
 
 import CommentsShimmer from "@/components/Shimmers/CommentsShimmer";

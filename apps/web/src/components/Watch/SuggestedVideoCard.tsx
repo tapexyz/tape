@@ -15,7 +15,7 @@ import type { MirrorablePublication } from "@tape.xyz/lens";
 import { CommentOutline, HeartOutline } from "@tape.xyz/ui";
 import Link from "next/link";
 import type { FC } from "react";
-import React from "react";
+import { memo } from "react";
 
 import HoverableProfile from "@/components/Common/HoverableProfile";
 import PublicationOptions from "@/components/Common/Publication/PublicationOptions";
@@ -110,4 +110,4 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
   );
 };
 
-export default React.memo(SuggestedVideoCard);
+export default memo(SuggestedVideoCard);

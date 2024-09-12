@@ -8,7 +8,6 @@ import type { Profile } from "@tape.xyz/lens";
 import { UserOutline } from "@tape.xyz/ui";
 import Link from "next/link";
 import type { FC } from "react";
-import React from "react";
 
 import Badge from "../Badge";
 

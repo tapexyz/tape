@@ -1,5 +1,4 @@
 import { useVideoViews } from "@tape.xyz/browser";
-import React from "react";
 
 const ViewCount = ({ cid }: { cid: string }) => {
   const { views } = useVideoViews(cid);

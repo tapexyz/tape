@@ -2,7 +2,7 @@ import { tw } from "@tape.xyz/browser";
 import { CREATOR_VIDEO_CATEGORIES } from "@tape.xyz/constants";
 import { EVENTS } from "@tape.xyz/generic";
 import type { FC } from "react";
-import React, { useRef } from "react";
+import { useRef } from "react";
 
 import useSw from "@/hooks/useSw";
 import useAppStore from "@/lib/store";

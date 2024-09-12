@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 
 const OpenActionsShimmer = () => {
   const cards = useMemo(() => Array(10).fill(1), []);

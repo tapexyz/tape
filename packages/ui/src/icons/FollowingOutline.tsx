@@ -1,5 +1,4 @@
 import type { SVGProps } from "react";
-import React from "react";
 
 export const FollowingOutline = (props: SVGProps<SVGSVGElement>) => (
   <svg

@@ -1,6 +1,5 @@
 import { tw } from "@tape.xyz/browser";
 import type { FC, ReactNode } from "react";
-import React from "react";
 
 type Props = {
   variant?: "primary" | "secondary" | "danger";

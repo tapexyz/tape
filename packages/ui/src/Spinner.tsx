@@ -1,6 +1,5 @@
 import { tw } from "@tape.xyz/browser";
 import type { FC } from "react";
-import React from "react";
 
 type Props = {
   size?: "sm" | "md";

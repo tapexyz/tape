@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 
 const NotificationsShimmer = () => {
   const notifications = useMemo(() => Array(20).fill(1), []);

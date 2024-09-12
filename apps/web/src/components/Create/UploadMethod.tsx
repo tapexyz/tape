@@ -1,5 +1,5 @@
 import { canUploadedToIpfs } from "@tape.xyz/generic";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 import useAppStore from "@/lib/store";
 import useProfileStore from "@/lib/store/idb/profile";

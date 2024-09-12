@@ -6,7 +6,7 @@ import {
   Modal,
 } from "@tape.xyz/ui";
 import type { FC } from "react";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import MirrorPublication from "@/components/Common/MirrorPublication";
 import PublicationOptions from "@/components/Common/Publication/PublicationOptions";

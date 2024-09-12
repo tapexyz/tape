@@ -1,6 +1,5 @@
 import { ChevronLeftOutline, ChevronRightOutline } from "@tape.xyz/ui";
 import type { FC, RefObject } from "react";
-import React from "react";
 
 type Props = {
   heading: string;

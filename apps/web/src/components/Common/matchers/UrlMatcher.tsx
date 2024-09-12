@@ -3,8 +3,8 @@ import { imageCdn } from "@tape.xyz/generic";
 import type { ChildrenNode, MatchResponse, Node } from "interweave";
 import { Matcher } from "interweave";
 import Link from "next/link";
-import React from "react";
 
+import { createElement } from "react";
 import type { UrlMatcherOptions, UrlProps } from "./utils";
 import { EMAIL_DISTINCT_PATTERN, URL_PATTERN } from "./utils";
 
@@ -55,7 +55,7 @@ export class UrlMatcher extends Matcher<UrlProps, UrlMatcherOptions> {
   }
 
   replaceWith(children: ChildrenNode, props: UrlProps): Node {
-    return React.createElement(Url, props, children);
+    return createElement(Url, props, children);
   }
 
   asTag(): string {

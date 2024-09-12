@@ -4,7 +4,6 @@ import { checkIsBytesVideo } from "@tape.xyz/generic";
 import type { IPFSUploadResult } from "@tape.xyz/lens/custom-types";
 import { Button, Switch, Tooltip } from "@tape.xyz/ui";
 import type { FC } from "react";
-import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import type { z } from "zod";

@@ -2,7 +2,6 @@ import { getPublication, isWatchable } from "@tape.xyz/generic";
 import type { AnyPublication } from "@tape.xyz/lens";
 import { PublicationDocument } from "@tape.xyz/lens";
 import { apolloClient } from "@tape.xyz/lens/apollo";
-import React from "react";
 
 import Custom404 from "@/components/Custom404";
 import Publication from "@/components/Publication";

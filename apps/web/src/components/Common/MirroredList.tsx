@@ -12,7 +12,6 @@ import {
 import { Spinner, UserOutline } from "@tape.xyz/ui";
 import Link from "next/link";
 import type { FC } from "react";
-import React from "react";
 import { useInView } from "react-cool-inview";
 
 import { NoDataFound } from "@/components/UIElements/NoDataFound";

@@ -3,7 +3,6 @@ import type { HandleInfo, OwnedHandlesRequest } from "@tape.xyz/lens";
 import { useOwnedHandlesQuery } from "@tape.xyz/lens";
 import { Spinner } from "@tape.xyz/ui";
 import Link from "next/link";
-import React from "react";
 import { useInView } from "react-cool-inview";
 import { useAccount } from "wagmi";
 

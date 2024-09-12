@@ -3,7 +3,7 @@ import { TAPE_APP_NAME, TAPE_EMBED_URL } from "@tape.xyz/constants";
 import { EVENTS } from "@tape.xyz/generic";
 import { CodeOutline, CopyOutline, Modal, Tooltip } from "@tape.xyz/ui";
 import type { FC } from "react";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import useSw from "@/hooks/useSw";
 

@@ -9,7 +9,7 @@ import {
 } from "@tape.xyz/lens";
 import { Button, Select, SelectItem, Spinner } from "@tape.xyz/ui";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useSendTransaction, useWaitForTransactionReceipt } from "wagmi";
 

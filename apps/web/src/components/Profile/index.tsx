@@ -8,7 +8,7 @@ import {
 import type { Profile, ProfileRequest } from "@tape.xyz/lens";
 import { useProfileQuery } from "@tape.xyz/lens";
 import { useRouter } from "next/router";
-import React, { memo, useEffect } from "react";
+import { memo, useEffect } from "react";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
 

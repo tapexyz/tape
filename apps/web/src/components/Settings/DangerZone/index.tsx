@@ -3,7 +3,6 @@ import {
   getProfile,
   getProfilePicture,
 } from "@tape.xyz/generic";
-import React from "react";
 
 import Badge from "@/components/Common/Badge";
 import HoverableProfile from "@/components/Common/HoverableProfile";

@@ -19,7 +19,7 @@ import {
   AccordionTrigger,
   VerifiedSolid,
 } from "@tape.xyz/ui";
-import React, { useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { useSignTypedData, useWriteContract } from "wagmi";
 

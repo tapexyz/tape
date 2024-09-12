@@ -24,7 +24,7 @@ import {
   Tooltip,
 } from "@tape.xyz/ui";
 import type { FC, RefObject } from "react";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { isAddress } from "viem";
 
 import { NoDataFound } from "@/components/UIElements/NoDataFound";

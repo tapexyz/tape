@@ -10,7 +10,6 @@ import type { Profile } from "@tape.xyz/lens";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@tape.xyz/ui";
 import Link from "next/link";
 import type { FC, ReactElement } from "react";
-import React from "react";
 
 import Stats from "@/components/Profile/BasicInfo/Stats";
 import useProfileStore from "@/lib/store/idb/profile";

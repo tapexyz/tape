@@ -1,6 +1,5 @@
 import { tw } from "@tape.xyz/browser";
 import { STATIC_ASSETS } from "@tape.xyz/constants";
-import React from "react";
 
 type Props = {
   text?: string;

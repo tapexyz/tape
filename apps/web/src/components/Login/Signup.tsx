@@ -27,7 +27,7 @@ import {
 } from "@tape.xyz/ui";
 import Link from "next/link";
 import type { FC } from "react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { formatUnits } from "viem";

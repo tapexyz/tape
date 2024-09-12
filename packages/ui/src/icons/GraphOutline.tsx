@@ -1,5 +1,4 @@
 import type { SVGProps } from "react";
-import React from "react";
 
 export const GraphOutline = (props: SVGProps<SVGSVGElement>) => (
   <svg

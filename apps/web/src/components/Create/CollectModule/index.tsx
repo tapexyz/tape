@@ -6,7 +6,7 @@ import {
   SplitOutline,
   Tooltip,
 } from "@tape.xyz/ui";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import useAppStore from "@/lib/store";
 

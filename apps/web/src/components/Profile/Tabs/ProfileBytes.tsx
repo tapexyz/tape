@@ -19,7 +19,6 @@ import {
 import { Spinner } from "@tape.xyz/ui";
 import Link from "next/link";
 import type { FC } from "react";
-import React from "react";
 import { useInView } from "react-cool-inview";
 
 import PublicationOptions from "@/components/Common/Publication/PublicationOptions";

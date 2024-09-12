@@ -1,7 +1,7 @@
 import { EVENTS } from "@tape.xyz/generic";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 import Logo from "@/components/Common/Logo";
 import MetaTags from "@/components/Common/MetaTags";

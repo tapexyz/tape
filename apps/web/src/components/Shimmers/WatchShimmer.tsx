@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 
 import SuggestedShimmer from "./SuggestedShimmer";
 import { CardShimmer } from "./VideoCardShimmer";

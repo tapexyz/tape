@@ -1,6 +1,6 @@
 import { EVENTS } from "@tape.xyz/generic";
 import { Button, Callout, CheckOutline, WarningOutline } from "@tape.xyz/ui";
-import React, { memo, useMemo } from "react";
+import { memo, useMemo } from "react";
 import type { Connector } from "wagmi";
 import { useAccount, useConnect } from "wagmi";
 

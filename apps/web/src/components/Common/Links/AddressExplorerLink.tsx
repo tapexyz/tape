@@ -1,7 +1,6 @@
 import { POLYGONSCAN_URL } from "@tape.xyz/constants";
 import Link from "next/link";
 import type { ReactElement } from "react";
-import React from "react";
 
 const AddressExplorerLink = ({
   address,

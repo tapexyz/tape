@@ -6,7 +6,7 @@ import {
   sanitizeDStorageUrl,
 } from "@tape.xyz/generic";
 import { Badge, Input, Tooltip } from "@tape.xyz/ui";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { formatTimeFromSeconds } from "@/lib/formatTime";
 import useAppStore from "@/lib/store";

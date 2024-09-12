@@ -1,6 +1,5 @@
 import { TAPE_APP_NAME, WC_PROJECT_ID } from "@tape.xyz/constants";
 import type { FC, ReactNode } from "react";
-import React from "react";
 import { http, WagmiProvider, createConfig } from "wagmi";
 import { polygon, polygonAmoy } from "wagmi/chains";
 import { coinbaseWallet, injected, walletConnect } from "wagmi/connectors";

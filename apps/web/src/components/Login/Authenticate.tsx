@@ -22,7 +22,7 @@ import {
   WarningOutline,
 } from "@tape.xyz/ui";
 import { useRouter } from "next/router";
-import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { useAccount, useSignMessage } from "wagmi";
 

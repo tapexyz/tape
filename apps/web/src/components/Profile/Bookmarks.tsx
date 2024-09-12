@@ -16,7 +16,6 @@ import {
 } from "@tape.xyz/lens";
 import { Spinner } from "@tape.xyz/ui";
 import type { FC } from "react";
-import React from "react";
 import { useInView } from "react-cool-inview";
 
 import MetaTags from "@/components/Common/MetaTags";

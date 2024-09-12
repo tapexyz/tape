@@ -1,5 +1,4 @@
 import { tw } from "@tape.xyz/browser";
-import React from "react";
 
 export const CardShimmer = ({ rounded = true }: { rounded?: boolean }) => {
   return (

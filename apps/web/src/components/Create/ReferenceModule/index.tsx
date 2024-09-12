@@ -1,6 +1,5 @@
 import type { ReferenceModuleType } from "@tape.xyz/lens/custom-types";
 import { Select, SelectItem } from "@tape.xyz/ui";
-import React from "react";
 
 import useAppStore from "@/lib/store";
 

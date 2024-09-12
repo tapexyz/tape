@@ -12,7 +12,7 @@ import {
   useFeedQuery,
 } from "@tape.xyz/lens";
 import { Spinner } from "@tape.xyz/ui";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useInView } from "react-cool-inview";
 import Custom500 from "src/pages/500";
 

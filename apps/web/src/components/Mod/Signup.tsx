@@ -11,7 +11,7 @@ import {
 } from "@tape.xyz/constants";
 import { useGenerateLensApiRelayAddressQuery } from "@tape.xyz/lens";
 import { Button, Input } from "@tape.xyz/ui";
-import React, { useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { formatUnits } from "viem";
 import { useBalance, useReadContract, useWriteContract } from "wagmi";

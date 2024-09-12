@@ -1,6 +1,6 @@
 import type { UnknownOpenActionType } from "@tape.xyz/lens/custom-types";
 import { Button, Checkbox, ChevronRightOutline, Modal } from "@tape.xyz/ui";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import useAppStore from "@/lib/store";
 

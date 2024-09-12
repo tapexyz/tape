@@ -8,10 +8,10 @@ import { AUTH_ROUTES, OWNER_ONLY_ROUTES } from "@tape.xyz/constants";
 import { getIsProfileOwner, trimify } from "@tape.xyz/generic";
 import type { Profile } from "@tape.xyz/lens";
 import { useCurrentProfileQuery } from "@tape.xyz/lens";
-import { useRouter } from "next/router";
 import { useTheme } from "next-themes";
+import { useRouter } from "next/router";
 import type { FC, ReactNode } from "react";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { useAccount } from "wagmi";
 

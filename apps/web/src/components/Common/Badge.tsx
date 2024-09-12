@@ -2,7 +2,6 @@ import { tw } from "@tape.xyz/browser";
 import { MISUSED_CHANNELS } from "@tape.xyz/constants";
 import { InfoSolid, Tooltip, VerifiedSolid } from "@tape.xyz/ui";
 import type { FC } from "react";
-import React from "react";
 
 import useVerifiedStore from "@/lib/store/idb/verified";
 

@@ -10,7 +10,6 @@ import type { PrimaryPublication, VideoMetadataV3 } from "@tape.xyz/lens";
 import { HeartOutline } from "@tape.xyz/ui";
 import Link from "next/link";
 import type { FC } from "react";
-import React from "react";
 
 import { getShortHandTime } from "@/lib/formatTime";
 

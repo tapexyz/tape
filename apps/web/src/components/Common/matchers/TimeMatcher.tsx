@@ -1,7 +1,7 @@
 import { Matcher } from "interweave";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import { createElement } from "react";
 
 import { convertTimeToSeconds } from "@/lib/formatTime";
 
@@ -16,7 +16,7 @@ const TimeLink = ({ ...props }: any) => {
 
 export class TimeMatcher extends Matcher {
   replaceWith(match: string, props: any) {
-    return React.createElement(TimeLink, props, match);
+    return createElement(TimeLink, props, match);
   }
 
   asTag(): string {

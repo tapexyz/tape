@@ -40,7 +40,7 @@ import { useApolloClient } from "@tape.xyz/lens/apollo";
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
 import { Button, Input, TextArea } from "@tape.xyz/ui";
 import type { Dispatch, FC } from "react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { v4 as uuidv4 } from "uuid";

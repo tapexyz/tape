@@ -1,5 +1,4 @@
 import { Spinner } from "@tape.xyz/ui";
-import React from "react";
 
 const SettingsShimmer = () => {
   return (

@@ -2,7 +2,6 @@ import { IS_MAINNET } from "@tape.xyz/constants";
 import { Callout, WarningOutline } from "@tape.xyz/ui";
 import Link from "next/link";
 import type { FC } from "react";
-import React from "react";
 
 const getUniswapURL = (amount: number, outputCurrency: string): string => {
   return `https://app.uniswap.org/#/swap?exactField=output&exactAmount=${amount}&outputCurrency=${outputCurrency}&chain=${

@@ -1,6 +1,5 @@
 import { tw } from "@tape.xyz/browser";
 import type { SVGProps } from "react";
-import React from "react";
 
 export const ThreeDotsOutline = (props: SVGProps<SVGSVGElement>) => (
   <svg

@@ -6,8 +6,8 @@ import {
   SIGN_IN_REQUIRED,
 } from "@tape.xyz/constants";
 import {
-  checkLensManagerPermissions,
   EVENTS,
+  checkLensManagerPermissions,
   getProfile,
   getSignature,
 } from "@tape.xyz/generic";
@@ -20,7 +20,7 @@ import {
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
 import { Button } from "@tape.xyz/ui";
 import type { FC } from "react";
-import React, { useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { useSignTypedData, useWriteContract } from "wagmi";
 

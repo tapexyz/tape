@@ -1,7 +1,6 @@
 import { STATIC_ASSETS } from "@tape.xyz/constants";
-import Link from "next/link";
 import { useTheme } from "next-themes";
-import React from "react";
+import Link from "next/link";
 
 const Logo = () => {
   const { resolvedTheme } = useTheme();

@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 
 import { THUMBNAIL_GENERATE_COUNT } from "@/components/Create/ChooseThumbnail";
 

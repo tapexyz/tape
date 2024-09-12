@@ -1,5 +1,4 @@
 import type { Profile } from "@tape.xyz/lens";
-import React from "react";
 
 import MetaTags from "@/components/Common/MetaTags";
 

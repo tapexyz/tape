@@ -5,7 +5,6 @@ import {
 } from "@tape.xyz/constants";
 import { Button } from "@tape.xyz/ui";
 import Link from "next/link";
-import React from "react";
 
 import { Countdown } from "@/components/UIElements/CountDown";
 import SignalWaveGraphic from "@/components/UIElements/SignalWaveGraphic";

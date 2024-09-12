@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 
 const WhatsPoppingSectionShimmer = () => {
   const cards = useMemo(() => Array(7).fill(1), []);

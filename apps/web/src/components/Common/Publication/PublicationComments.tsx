@@ -16,7 +16,6 @@ import {
 import { CustomCommentsFilterEnum } from "@tape.xyz/lens/custom-types";
 import { CommentOutline, Spinner } from "@tape.xyz/ui";
 import type { FC } from "react";
-import React from "react";
 import { useInView } from "react-cool-inview";
 
 import Alert from "@/components/Common/Alert";

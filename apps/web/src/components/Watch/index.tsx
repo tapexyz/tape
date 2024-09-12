@@ -9,7 +9,7 @@ import type { AnyPublication } from "@tape.xyz/lens";
 import { usePublicationQuery } from "@tape.xyz/lens";
 import { CustomCommentsFilterEnum } from "@tape.xyz/lens/custom-types";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
 

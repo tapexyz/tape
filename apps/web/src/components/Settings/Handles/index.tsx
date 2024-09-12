@@ -1,5 +1,3 @@
-import React from "react";
-
 import MetaTags from "@/components/Common/MetaTags";
 
 import List from "./List";

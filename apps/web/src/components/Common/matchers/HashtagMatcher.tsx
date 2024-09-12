@@ -1,6 +1,6 @@
 import { Matcher } from "interweave";
 import Link from "next/link";
-import React from "react";
+import { createElement } from "react";
 
 const Hashtag = ({ ...props }: any) => {
   return (
@@ -12,7 +12,7 @@ const Hashtag = ({ ...props }: any) => {
 
 export class HashtagMatcher extends Matcher {
   replaceWith(match: string, props: any) {
-    return React.createElement(Hashtag, props, match);
+    return createElement(Hashtag, props, match);
   }
 
   asTag(): string {

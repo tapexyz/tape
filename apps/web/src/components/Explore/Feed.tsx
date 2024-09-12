@@ -13,8 +13,8 @@ import type {
 } from "@tape.xyz/lens";
 import {
   CustomFiltersType,
-  ExplorePublicationsOrderByType,
   ExplorePublicationType,
+  ExplorePublicationsOrderByType,
   LimitType,
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery,
@@ -26,7 +26,7 @@ import {
   MirrorOutline,
   Spinner,
 } from "@tape.xyz/ui";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useInView } from "react-cool-inview";
 
 import Timeline from "@/components/Home/Timeline";

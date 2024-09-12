@@ -10,8 +10,8 @@ import {
   TAPE_APP_ID,
 } from "@tape.xyz/constants";
 import {
-  checkLensManagerPermissions,
   EVENTS,
+  checkLensManagerPermissions,
   getIsSensitiveContent,
   getProfileCoverPicture,
   getProfilePictureUri,
@@ -42,7 +42,7 @@ import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
 import { Button, VideoPlayer } from "@tape.xyz/ui";
 import Link from "next/link";
 import type { FC } from "react";
-import React, { memo } from "react";
+import { memo } from "react";
 import toast from "react-hot-toast";
 import { useSignTypedData, useWriteContract } from "wagmi";
 

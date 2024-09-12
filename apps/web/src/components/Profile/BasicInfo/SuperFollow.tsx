@@ -23,7 +23,7 @@ import {
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
 import { Button, Modal } from "@tape.xyz/ui";
 import type { FC } from "react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import {
   useSendTransaction,

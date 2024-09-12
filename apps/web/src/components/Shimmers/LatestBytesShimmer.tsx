@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 
 const LatestBytesShimmer = ({ count = 15 }: { count?: number }) => {
   const cards = useMemo(() => Array(count).fill(1), [count]);

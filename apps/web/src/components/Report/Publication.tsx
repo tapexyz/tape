@@ -10,7 +10,7 @@ import { useReportPublicationMutation } from "@tape.xyz/lens";
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
 import { Button, Select, SelectItem } from "@tape.xyz/ui";
 import type { FC } from "react";
-import React, { useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 
 import MetaTags from "@/components/Common/MetaTags";

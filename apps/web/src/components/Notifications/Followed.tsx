@@ -6,7 +6,6 @@ import {
 import type { FollowNotification, Profile } from "@tape.xyz/lens";
 import { FollowOutline } from "@tape.xyz/ui";
 import type { FC } from "react";
-import React from "react";
 
 import HoverableProfile from "@/components/Common/HoverableProfile";
 

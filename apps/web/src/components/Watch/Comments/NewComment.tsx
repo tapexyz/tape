@@ -11,8 +11,8 @@ import {
   TAPE_WEBSITE_URL,
 } from "@tape.xyz/constants";
 import {
-  checkLensManagerPermissions,
   EVENTS,
+  checkLensManagerPermissions,
   getProfile,
   getPublication,
   getPublicationData,
@@ -28,10 +28,10 @@ import type {
 } from "@tape.xyz/lens";
 import {
   PublicationDocument,
-  useBroadcastOnchainMutation,
   useBroadcastOnMomokaMutation,
-  useCommentOnchainMutation,
+  useBroadcastOnchainMutation,
   useCommentOnMomokaMutation,
+  useCommentOnchainMutation,
   useCreateMomokaCommentTypedDataMutation,
   useCreateOnchainCommentTypedDataMutation,
   usePublicationLazyQuery,
@@ -40,7 +40,7 @@ import { useApolloClient } from "@tape.xyz/lens/apollo";
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
 import { Button } from "@tape.xyz/ui";
 import type { FC } from "react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { v4 as uuidv4 } from "uuid";

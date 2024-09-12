@@ -20,7 +20,7 @@ import {
   useSearchPublicationsLazyQuery,
 } from "@tape.xyz/lens";
 import { Input, SearchOutline, Spinner } from "@tape.xyz/ui";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { NoDataFound } from "@/components/UIElements/NoDataFound";
 import useSw from "@/hooks/useSw";

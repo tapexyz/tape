@@ -11,7 +11,7 @@ import {
   Modal,
 } from "@tape.xyz/ui";
 import type { FC, ReactNode } from "react";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import CollectPublication from "./Collect";
 import UnknownOpenAction from "./Unknown";

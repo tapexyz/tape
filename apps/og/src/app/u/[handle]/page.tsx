@@ -9,7 +9,6 @@ import type { Profile } from "@tape.xyz/lens";
 import { ProfileDocument } from "@tape.xyz/lens";
 import { apolloClient } from "@tape.xyz/lens/apollo";
 import type { Metadata } from "next";
-import React from "react";
 
 import common from "@/common";
 

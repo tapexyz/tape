@@ -1,5 +1,3 @@
-import React from "react";
-
 import CommentItemShimmer from "./CommentItemShimmer";
 
 const CommentsShimmer = () => {

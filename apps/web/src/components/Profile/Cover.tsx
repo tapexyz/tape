@@ -11,7 +11,6 @@ import {
 import type { Profile } from "@tape.xyz/lens";
 import { Badge as BadgeUI, Tooltip } from "@tape.xyz/ui";
 import type { FC } from "react";
-import React from "react";
 import { useReadContract } from "wagmi";
 
 import { getReadableDateWithTime, getTimeAgo } from "@/lib/formatTime";

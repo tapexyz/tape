@@ -7,7 +7,7 @@ import type { Profile } from "@tape.xyz/lens";
 import { LimitType, useMutualFollowersQuery } from "@tape.xyz/lens";
 import { Modal } from "@tape.xyz/ui";
 import type { FC } from "react";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import HoverableProfile from "@/components/Common/HoverableProfile";
 import BubblesShimmer from "@/components/Shimmers/BubblesShimmer";

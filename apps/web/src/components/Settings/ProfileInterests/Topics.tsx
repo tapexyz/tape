@@ -1,8 +1,8 @@
 import { tw } from "@tape.xyz/browser";
 import { EVENTS, sanitizeProfileInterests } from "@tape.xyz/generic";
 import type {
-  ProfileInterestsRequest,
   ProfileInterestTypes,
+  ProfileInterestsRequest,
 } from "@tape.xyz/lens";
 import {
   useAddProfileInterestsMutation,
@@ -11,7 +11,7 @@ import {
 } from "@tape.xyz/lens";
 import { useApolloClient } from "@tape.xyz/lens/apollo";
 import { Spinner } from "@tape.xyz/ui";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 import useSw from "@/hooks/useSw";
 import useProfileStore from "@/lib/store/idb/profile";

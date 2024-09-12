@@ -8,7 +8,7 @@ import type { FollowersRequest, Profile, ProfileStats } from "@tape.xyz/lens";
 import { LimitType, useFollowersQuery } from "@tape.xyz/lens";
 import { Modal, Spinner } from "@tape.xyz/ui";
 import type { FC } from "react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useInView } from "react-cool-inview";
 
 import HoverableProfile from "@/components/Common/HoverableProfile";

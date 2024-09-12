@@ -3,7 +3,7 @@ import { WMATIC_TOKEN_ADDRESS } from "@tape.xyz/constants";
 import type { CollectModuleType } from "@tape.xyz/lens/custom-types";
 import { Button, Input, Select, SelectItem } from "@tape.xyz/ui";
 import type { Dispatch, FC } from "react";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { isAddress } from "viem";
 import type { z } from "zod";

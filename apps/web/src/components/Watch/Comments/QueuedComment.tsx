@@ -15,7 +15,6 @@ import type { QueuedCommentType } from "@tape.xyz/lens/custom-types";
 import { Tooltip } from "@tape.xyz/ui";
 import Link from "next/link";
 import type { FC } from "react";
-import React from "react";
 
 import Badge from "@/components/Common/Badge";
 import InterweaveContent from "@/components/Common/InterweaveContent";

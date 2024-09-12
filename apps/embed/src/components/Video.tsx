@@ -14,7 +14,7 @@ import type { PrimaryPublication } from "@tape.xyz/lens";
 import { PlayOutline, VideoPlayer } from "@tape.xyz/ui";
 import { useSearchParams } from "next/navigation";
 import type { FC } from "react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Tower } from "@/tower";
 

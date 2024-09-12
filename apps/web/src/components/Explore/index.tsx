@@ -1,5 +1,5 @@
 import { EVENTS } from "@tape.xyz/generic";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 import CategoryFilters from "@/components/Common/CategoryFilters";
 import MetaTags from "@/components/Common/MetaTags";

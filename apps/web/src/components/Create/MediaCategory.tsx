@@ -1,7 +1,6 @@
 import { CREATOR_VIDEO_CATEGORIES } from "@tape.xyz/constants";
 import { getCategoryByTag } from "@tape.xyz/generic";
 import { Select, SelectItem } from "@tape.xyz/ui";
-import React from "react";
 
 import useAppStore from "@/lib/store";
 

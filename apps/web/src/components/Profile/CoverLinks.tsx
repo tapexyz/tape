@@ -2,9 +2,8 @@ import { STATIC_ASSETS } from "@tape.xyz/constants";
 import { getValueFromKeyInAttributes, imageCdn } from "@tape.xyz/generic";
 import type { ProfileMetadata } from "@tape.xyz/lens";
 import { GlobeOutline, LocationOutline } from "@tape.xyz/ui";
-import Link from "next/link";
 import { useTheme } from "next-themes";
-import React from "react";
+import Link from "next/link";
 
 const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
   const { resolvedTheme } = useTheme();

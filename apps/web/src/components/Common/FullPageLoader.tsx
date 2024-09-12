@@ -1,6 +1,5 @@
 import { STATIC_ASSETS } from "@tape.xyz/constants";
 import { useTheme } from "next-themes";
-import React from "react";
 
 import MetaTags from "./MetaTags";
 

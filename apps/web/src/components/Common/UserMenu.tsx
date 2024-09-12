@@ -32,7 +32,7 @@ import {
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useAccount } from "wagmi";
 
 import useSw from "@/hooks/useSw";

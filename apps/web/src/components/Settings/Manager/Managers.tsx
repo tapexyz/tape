@@ -20,7 +20,7 @@ import {
 } from "@tape.xyz/lens";
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
 import { Button, ExternalOutline, Input, Modal, Spinner } from "@tape.xyz/ui";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useInView } from "react-cool-inview";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";

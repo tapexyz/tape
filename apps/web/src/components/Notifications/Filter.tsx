@@ -1,7 +1,6 @@
 import { tw } from "@tape.xyz/browser";
 import { CustomNotificationsFilterEnum } from "@tape.xyz/lens/custom-types";
 import { CogOutline, DropdownMenu, DropdownMenuItem } from "@tape.xyz/ui";
-import React from "react";
 
 import usePersistStore from "@/lib/store/persist";
 

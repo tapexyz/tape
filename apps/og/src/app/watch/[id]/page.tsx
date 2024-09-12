@@ -16,7 +16,6 @@ import type { AnyPublication } from "@tape.xyz/lens";
 import { PublicationDocument } from "@tape.xyz/lens";
 import { apolloClient } from "@tape.xyz/lens/apollo";
 import type { Metadata } from "next";
-import React from "react";
 
 import common from "@/common";
 import { getCollectModuleMetadata } from "@/other-metadata";

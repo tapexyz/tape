@@ -2,7 +2,6 @@ import "../styles/index.css";
 
 import { tapeFont } from "@tape.xyz/browser/font";
 import type { AppProps } from "next/app";
-import React from "react";
 
 import Providers from "@/components/Common/Providers";
 

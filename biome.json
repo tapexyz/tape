@@ -30,7 +30,11 @@
         "noNonNullAssertion": "off"
       },
       "correctness": {
-        "useExhaustiveDependencies": "off"
+        "useExhaustiveDependencies": "off",
+        "noUnusedImports": {
+          "fix": "safe",
+          "level": "error"
+        }
       },
       "suspicious": {
         "noExplicitAny": "off"

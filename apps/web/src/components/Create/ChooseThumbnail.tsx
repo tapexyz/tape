@@ -2,7 +2,7 @@ import { generateVideoThumbnails, tw } from "@tape.xyz/browser";
 import { logger } from "@tape.xyz/generic";
 import { AddImageOutline, CheckOutline, Spinner } from "@tape.xyz/ui";
 import type { ChangeEvent, FC } from "react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import ThumbnailsShimmer from "@/components/Shimmers/ThumbnailsShimmer";
 import useAppStore from "@/lib/store";

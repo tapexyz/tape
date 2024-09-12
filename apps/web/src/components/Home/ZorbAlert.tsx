@@ -2,7 +2,6 @@ import { STATIC_ASSETS, TAPE_APP_NAME } from "@tape.xyz/constants";
 import { imageCdn } from "@tape.xyz/generic";
 import { Button } from "@tape.xyz/ui";
 import Link from "next/link";
-import React from "react";
 
 const ZorbAlert = () => {
   return (

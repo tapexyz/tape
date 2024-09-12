@@ -1,5 +1,5 @@
 import { tw } from "@tape.xyz/browser";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 
 import VideoCardShimmer from "./VideoCardShimmer";
 

@@ -1,7 +1,7 @@
 import * as PrimitiveSwitch from "@radix-ui/react-switch";
 import { tw } from "@tape.xyz/browser";
 import type { ElementRef } from "react";
-import React, { forwardRef, useId } from "react";
+import { forwardRef, useId } from "react";
 
 type Props = PrimitiveSwitch.SwitchProps & {
   className?: string;

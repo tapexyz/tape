@@ -6,7 +6,7 @@ import {
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
 import { Button } from "@tape.xyz/ui";
 import type { Dispatch, FC } from "react";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useSendTransaction, useWaitForTransactionReceipt } from "wagmi";
 

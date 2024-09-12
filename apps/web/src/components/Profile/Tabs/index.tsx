@@ -3,7 +3,6 @@ import type { Profile } from "@tape.xyz/lens";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@tape.xyz/ui";
 import { useRouter } from "next/router";
 import type { FC } from "react";
-import React from "react";
 
 import useSw from "@/hooks/useSw";
 

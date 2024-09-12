@@ -18,7 +18,7 @@ import {
 } from "@tape.xyz/ui";
 import Link from "next/link";
 import type { FC } from "react";
-import React, { memo, useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 
 import InterweaveContent from "@/components/Common/InterweaveContent";
 import useAppStore from "@/lib/store";

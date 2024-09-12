@@ -17,7 +17,6 @@ import {
 } from "@tape.xyz/lens";
 import { Spinner } from "@tape.xyz/ui";
 import { useRouter } from "next/router";
-import React from "react";
 import { useInView } from "react-cool-inview";
 import Custom404 from "src/pages/404";
 
