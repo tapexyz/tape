@@ -25,7 +25,6 @@ export * from "./functions/getShouldUploadVideo";
 export * from "./functions/getSignature";
 export * from "./functions/getThumbnailUrl";
 export * from "./functions/getUploadedMediaType";
-export * from "./functions/getZoraChainInfo";
 export * from "./functions/imageCdn";
 export * from "./functions/isOpenActionAllowed";
 export * from "./functions/isWatchable";
