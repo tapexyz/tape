@@ -19,7 +19,7 @@ export const Spinner = ({ className }: { className?: string }) => (
       />
     </path>
   </svg>
-)
+);
 
 export const Success = ({ className }: { className?: string }) => (
   <svg
@@ -47,7 +47,7 @@ export const Success = ({ className }: { className?: string }) => (
       </clipPath>
     </defs>
   </svg>
-)
+);
 
 export const Warning = ({ className }: { className?: string }) => (
   <svg
@@ -62,4 +62,4 @@ export const Warning = ({ className }: { className?: string }) => (
       clipRule="evenodd"
     />
   </svg>
-)
+);

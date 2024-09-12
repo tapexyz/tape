@@ -1,28 +1,28 @@
-import { TAPE_APP_NAME } from '@tape.xyz/constants'
+import { TAPE_APP_NAME } from "@tape.xyz/constants";
 import {
   checkLensManagerPermissions,
-  getIsProfileOwner
-} from '@tape.xyz/generic'
-import React from 'react'
-import { useAccount } from 'wagmi'
+  getIsProfileOwner,
+} from "@tape.xyz/generic";
+import React from "react";
+import { useAccount } from "wagmi";
 
-import ToggleLensManager from '@/components/Settings/Manager/LensManager/ToggleLensManager'
-import SignalWaveGraphic from '@/components/UIElements/SignalWaveGraphic'
-import useProfileStore from '@/lib/store/idb/profile'
+import ToggleLensManager from "@/components/Settings/Manager/LensManager/ToggleLensManager";
+import SignalWaveGraphic from "@/components/UIElements/SignalWaveGraphic";
+import useProfileStore from "@/lib/store/idb/profile";
 
 const LensManagerAlert = () => {
-  const { address } = useAccount()
-  const activeProfile = useProfileStore((state) => state.activeProfile)
+  const { address } = useAccount();
+  const activeProfile = useProfileStore((state) => state.activeProfile);
 
-  const isOwner = activeProfile && getIsProfileOwner(activeProfile, address)
-  const { canUseLensManager } = checkLensManagerPermissions(activeProfile)
+  const isOwner = activeProfile && getIsProfileOwner(activeProfile, address);
+  const { canUseLensManager } = checkLensManagerPermissions(activeProfile);
 
   const getDescription = () => {
-    return `Enable your Lens manager for seamless interaction with ${TAPE_APP_NAME}, allowing for faster and easier transactions without the need for signing.`
-  }
+    return `Enable your Lens manager for seamless interaction with ${TAPE_APP_NAME}, allowing for faster and easier transactions without the need for signing.`;
+  };
 
   if (!activeProfile || canUseLensManager || !isOwner) {
-    return null
+    return null;
   }
 
   return (
@@ -40,7 +40,7 @@ const LensManagerAlert = () => {
 
       <SignalWaveGraphic />
     </div>
-  )
-}
+  );
+};
 
-export default LensManagerAlert
+export default LensManagerAlert;

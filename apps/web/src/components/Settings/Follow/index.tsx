@@ -1,14 +1,14 @@
-import type { Profile } from '@tape.xyz/lens'
-import React from 'react'
+import type { Profile } from "@tape.xyz/lens";
+import React from "react";
 
-import MetaTags from '@/components/Common/MetaTags'
+import MetaTags from "@/components/Common/MetaTags";
 
-import FeeFollow from './FeeFollow'
-import RevertFollow from './RevertFollow'
+import FeeFollow from "./FeeFollow";
+import RevertFollow from "./RevertFollow";
 
 type Props = {
-  profile: Profile
-}
+  profile: Profile;
+};
 
 const FollowSettings = ({ profile }: Props) => {
   return (
@@ -19,7 +19,7 @@ const FollowSettings = ({ profile }: Props) => {
         <RevertFollow profile={profile} />
       </div>
     </>
-  )
-}
+  );
+};
 
-export default FollowSettings
+export default FollowSettings;

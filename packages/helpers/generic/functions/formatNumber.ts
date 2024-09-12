@@ -1,12 +1,15 @@
 export const formatNumber = (num: number) => {
-  if (num < 0) {
-    num = Math.abs(num)
+  let numberToFormat = num;
+  if (numberToFormat < 0) {
+    numberToFormat = Math.abs(num);
   }
-  if (num > 999 && num < 1000000) {
-    return `${(num / 1000).toPrecision(3)}k`
-  } else if (num > 1000000) {
-    return `${(num / 1000000).toPrecision(3)}m`
-  } else if (num < 1000) {
-    return num
+  if (numberToFormat > 999 && numberToFormat < 1000000) {
+    return `${(numberToFormat / 1000).toPrecision(3)}k`;
   }
-}
+  if (numberToFormat > 1000000) {
+    return `${(numberToFormat / 1000000).toPrecision(3)}m`;
+  }
+  if (numberToFormat < 1000) {
+    return numberToFormat;
+  }
+};

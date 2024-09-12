@@ -1,29 +1,29 @@
-import { getProfile } from '@tape.xyz/generic'
-import type { MirrorablePublication } from '@tape.xyz/lens'
-import { TriStateValue } from '@tape.xyz/lens'
+import { getProfile } from "@tape.xyz/generic";
+import type { MirrorablePublication } from "@tape.xyz/lens";
+import { TriStateValue } from "@tape.xyz/lens";
 import {
   CollectOutline,
   MirrorOutline,
   Modal,
   ThreeDotsOutline,
-  TipOutline
-} from '@tape.xyz/ui'
-import type { FC } from 'react'
-import React, { useState } from 'react'
+  TipOutline,
+} from "@tape.xyz/ui";
+import type { FC } from "react";
+import React, { useState } from "react";
 
-import MirrorPublication from '@/components/Common/MirrorPublication'
-import PublicationOptions from '@/components/Common/Publication/PublicationOptions'
+import MirrorPublication from "@/components/Common/MirrorPublication";
+import PublicationOptions from "@/components/Common/Publication/PublicationOptions";
 
-import OpenActions from '../../Watch/OpenActions'
-import TipForm from '../../Watch/TipForm'
-import PublicationReaction from './PublicationReaction'
+import OpenActions from "../../Watch/OpenActions";
+import TipForm from "../../Watch/TipForm";
+import PublicationReaction from "./PublicationReaction";
 
 type Props = {
-  publication: MirrorablePublication
-}
+  publication: MirrorablePublication;
+};
 
 const PublicationActions: FC<Props> = ({ publication }) => {
-  const [showTip, setShowTip] = useState(false)
+  const [showTip, setShowTip] = useState(false);
   return (
     <div className="mt-4 flex justify-end space-x-1">
       <div className="tape-border flex items-center justify-end overflow-hidden rounded-full bg-gray-100 dark:bg-gray-900">
@@ -36,6 +36,7 @@ const PublicationActions: FC<Props> = ({ publication }) => {
         {publication.operations.canComment !== TriStateValue.No ? (
           <>
             <button
+              type="button"
               onClick={() => setShowTip(true)}
               className="flex items-center space-x-1 px-4 py-1 hover:bg-gray-200 dark:hover:bg-gray-800"
             >
@@ -53,7 +54,10 @@ const PublicationActions: FC<Props> = ({ publication }) => {
           </>
         ) : null}
         <MirrorPublication video={publication}>
-          <button className="flex items-center space-x-1 px-4 py-1 hover:bg-gray-200 dark:hover:bg-gray-800">
+          <button
+            type="button"
+            className="flex items-center space-x-1 px-4 py-1 hover:bg-gray-200 dark:hover:bg-gray-800"
+          >
             <MirrorOutline className="size-4 flex-none" />
             <span>Mirror</span>
           </button>
@@ -66,12 +70,15 @@ const PublicationActions: FC<Props> = ({ publication }) => {
         </OpenActions>
       </div>
       <PublicationOptions publication={publication}>
-        <button className="tape-border flex items-center space-x-1 rounded-full bg-gray-100 p-2 hover:bg-gray-200 dark:bg-gray-900 dark:hover:bg-gray-800">
+        <button
+          type="button"
+          className="tape-border flex items-center space-x-1 rounded-full bg-gray-100 p-2 hover:bg-gray-200 dark:bg-gray-900 dark:hover:bg-gray-800"
+        >
           <ThreeDotsOutline className="size-4" />
         </button>
       </PublicationOptions>
     </div>
-  )
-}
+  );
+};
 
-export default PublicationActions
+export default PublicationActions;

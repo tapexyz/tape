@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const CommentItemShimmer = () => {
   return (
@@ -21,7 +21,7 @@ const CommentItemShimmer = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CommentItemShimmer
+export default CommentItemShimmer;

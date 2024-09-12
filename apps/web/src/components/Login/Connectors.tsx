@@ -1,51 +1,51 @@
-import { EVENTS } from '@tape.xyz/generic'
-import { Button, Callout, CheckOutline, WarningOutline } from '@tape.xyz/ui'
-import React, { memo, useMemo } from 'react'
-import type { Connector } from 'wagmi'
-import { useAccount, useConnect } from 'wagmi'
+import { EVENTS } from "@tape.xyz/generic";
+import { Button, Callout, CheckOutline, WarningOutline } from "@tape.xyz/ui";
+import React, { memo, useMemo } from "react";
+import type { Connector } from "wagmi";
+import { useAccount, useConnect } from "wagmi";
 
-import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
-import useSw from '@/hooks/useSw'
-import useProfileStore from '@/lib/store/idb/profile'
+import useHandleWrongNetwork from "@/hooks/useHandleWrongNetwork";
+import useSw from "@/hooks/useSw";
+import useProfileStore from "@/lib/store/idb/profile";
 
-import Authenticate from './Authenticate'
+import Authenticate from "./Authenticate";
 
 const Connectors = () => {
-  const { addEventToQueue } = useSw()
-  const { activeProfile } = useProfileStore()
-  const handleWrongNetwork = useHandleWrongNetwork()
+  const { addEventToQueue } = useSw();
+  const { activeProfile } = useProfileStore();
+  const handleWrongNetwork = useHandleWrongNetwork();
 
-  const { connector: connected } = useAccount()
-  const { connectors, connectAsync, isPending, error } = useConnect()
+  const { connector: connected } = useAccount();
+  const { connectors, connectAsync, isPending, error } = useConnect();
 
   const onChooseConnector = async (connector: Connector) => {
     try {
-      await handleWrongNetwork()
-      await connectAsync({ connector })
-      addEventToQueue(EVENTS.AUTH.CONNECT_WALLET, { connector: connector.id })
+      await handleWrongNetwork();
+      await connectAsync({ connector });
+      addEventToQueue(EVENTS.AUTH.CONNECT_WALLET, { connector: connector.id });
     } catch {}
-  }
+  };
 
   const getConnectorName = (connector: Connector) => {
     switch (connector.id) {
-      case 'injected':
-        return 'Browser Wallet'
-      case 'walletConnect':
-        return 'Other Wallets'
+      case "injected":
+        return "Browser Wallet";
+      case "walletConnect":
+        return "Other Wallets";
       default:
-        return connector.name
+        return connector.name;
     }
-  }
+  };
 
   const filteredConnectors = useMemo(() => {
     return connectors.filter(
       (connector, index, self) =>
-        self.findIndex((c) => c.type === connector.type) === index
-    )
-  }, [connectors])
+        self.findIndex((c) => c.type === connector.type) === index,
+    );
+  }, [connectors]);
 
   if (activeProfile?.id) {
-    return <Authenticate />
+    return <Authenticate />;
   }
 
   return (
@@ -69,11 +69,11 @@ const Connectors = () => {
       <Authenticate />
       {error?.message ? (
         <Callout variant="danger" icon={<WarningOutline className="size-4" />}>
-          {error?.message ?? 'Failed to connect'}
+          {error?.message ?? "Failed to connect"}
         </Callout>
       ) : null}
     </div>
-  )
-}
+  );
+};
 
-export default memo(Connectors)
+export default memo(Connectors);

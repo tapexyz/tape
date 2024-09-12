@@ -1,18 +1,19 @@
 type ReturnType = {
-  id: string
-  role: string
-  authorizationId: string
-  iat: number
-  exp: number
-}
+  id: string;
+  role: string;
+  authorizationId: string;
+  iat: number;
+  exp: number;
+};
 
 const decoded = (str: string): string =>
-  Buffer.from(str, 'base64').toString('binary')
+  Buffer.from(str, "base64").toString("binary");
 
 export const parseJwt = (token: string): ReturnType => {
   try {
-    return JSON.parse(decoded(token.split('.')[1]))
+    const splited = token.split(".")[1] ?? "";
+    return JSON.parse(decoded(splited));
   } catch (error) {
-    return { id: '', role: '', authorizationId: '', iat: 0, exp: 0 }
+    return { id: "", role: "", authorizationId: "", iat: 0, exp: 0 };
   }
-}
+};

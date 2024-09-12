@@ -1,32 +1,32 @@
-import { LocalIDBStore } from '@tape.xyz/lens/custom-types'
-import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { LocalIDBStore } from "@tape.xyz/lens/custom-types";
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
-import createIdbStorage from '@/lib/createIdbStorage'
+import createIdbStorage from "@/lib/createIdbStorage";
 
 type Token = {
-  address: string
-  decimals: number
-  name: string
-  symbol: string
-}
+  address: string;
+  decimals: number;
+  name: string;
+  symbol: string;
+};
 
 interface State {
-  allowedTokens: Token[]
-  setAllowedTokens: (allowedTokens: Token[]) => void
+  allowedTokens: Token[];
+  setAllowedTokens: (allowedTokens: Token[]) => void;
 }
 
 const useAllowedTokensStore = create(
   persist<State>(
     (set) => ({
       allowedTokens: [],
-      setAllowedTokens: (allowedTokens) => set({ allowedTokens })
+      setAllowedTokens: (allowedTokens) => set({ allowedTokens }),
     }),
     {
       name: LocalIDBStore.ALLOWED_TOKENS_STORE,
-      storage: createIdbStorage()
-    }
-  )
-)
+      storage: createIdbStorage(),
+    },
+  ),
+);
 
-export default useAllowedTokensStore
+export default useAllowedTokensStore;

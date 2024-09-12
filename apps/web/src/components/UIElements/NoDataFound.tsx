@@ -1,24 +1,24 @@
-import { tw } from '@tape.xyz/browser'
-import { STATIC_ASSETS } from '@tape.xyz/constants'
-import React from 'react'
+import { tw } from "@tape.xyz/browser";
+import { STATIC_ASSETS } from "@tape.xyz/constants";
+import React from "react";
 
 type Props = {
-  text?: string
-  withImage?: boolean
-  isCenter?: boolean
-  className?: string
-}
+  text?: string;
+  withImage?: boolean;
+  isCenter?: boolean;
+  className?: string;
+};
 
 export const NoDataFound = ({
-  text = 'Zero trace!',
+  text = "Zero trace!",
   withImage = false,
   isCenter = false,
-  className = ''
+  className = "",
 }: Props) => {
   return (
     <div
-      className={tw('flex flex-col space-y-6 rounded-lg p-6', className, {
-        'items-center justify-center': isCenter
+      className={tw("flex flex-col space-y-6 rounded-lg p-6", className, {
+        "items-center justify-center": isCenter,
       })}
     >
       {withImage && (
@@ -31,12 +31,12 @@ export const NoDataFound = ({
         />
       )}
       <div
-        className={tw('text-sm font-medium', {
-          'text-center': isCenter
+        className={tw("text-sm font-medium", {
+          "text-center": isCenter,
         })}
       >
         {text}
       </div>
     </div>
-  )
-}
+  );
+};

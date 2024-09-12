@@ -1,66 +1,65 @@
-import { EVENTS } from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
-import { useProfileQuery } from '@tape.xyz/lens'
-import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
-import Custom404 from 'src/pages/404'
-import Custom500 from 'src/pages/500'
+import { EVENTS } from "@tape.xyz/generic";
+import type { Profile } from "@tape.xyz/lens";
+import { useProfileQuery } from "@tape.xyz/lens";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
+import Custom404 from "src/pages/404";
+import Custom500 from "src/pages/500";
 
-import MetaTags from '@/components/Common/MetaTags'
-import SettingsShimmer from '@/components/Shimmers/SettingsShimmer'
-import useSw from '@/hooks/useSw'
-import useProfileStore from '@/lib/store/idb/profile'
+import MetaTags from "@/components/Common/MetaTags";
+import SettingsShimmer from "@/components/Shimmers/SettingsShimmer";
+import useSw from "@/hooks/useSw";
+import useProfileStore from "@/lib/store/idb/profile";
 
-import Allowance from './Allowance'
-import BasicInfo from './BasicInfo'
-import Blocked from './Blocked'
-import DangerZone from './DangerZone'
-import FollowSettings from './Follow'
-import Handles from './Handles'
-import ProfileManager from './Manager'
-import ProfileInterests from './ProfileInterests'
-import Sessions from './Sessions'
-import SettingsSidebar from './SettingsSidebar'
+import Allowance from "./Allowance";
+import BasicInfo from "./BasicInfo";
+import Blocked from "./Blocked";
+import DangerZone from "./DangerZone";
+import FollowSettings from "./Follow";
+import Handles from "./Handles";
+import ProfileManager from "./Manager";
+import ProfileInterests from "./ProfileInterests";
+import Sessions from "./Sessions";
+import SettingsSidebar from "./SettingsSidebar";
 
-export const SETTINGS_FOLLOW = '/settings/follow'
-export const SETTINGS_HANDLES = '/settings/handles'
-export const SETTINGS_INTERESTS = '/settings/interests'
-export const SETTINGS_ALLOWANCE = '/settings/allowance'
-export const SETTINGS_MANAGER = '/settings/manager'
-export const SETTINGS_SESSIONS = '/settings/sessions'
-export const SETTINGS_BLOCKED = '/settings/blocked'
-export const SETTINGS_DANGER_ZONE = '/settings/danger'
-export const SETTINGS = '/settings'
+export const SETTINGS_FOLLOW = "/settings/follow";
+export const SETTINGS_HANDLES = "/settings/handles";
+export const SETTINGS_INTERESTS = "/settings/interests";
+export const SETTINGS_ALLOWANCE = "/settings/allowance";
+export const SETTINGS_MANAGER = "/settings/manager";
+export const SETTINGS_SESSIONS = "/settings/sessions";
+export const SETTINGS_BLOCKED = "/settings/blocked";
+export const SETTINGS_DANGER_ZONE = "/settings/danger";
+export const SETTINGS = "/settings";
 
 const Settings = () => {
-  const router = useRouter()
-  const { activeProfile } = useProfileStore()
-  const { addEventToQueue } = useSw()
+  const router = useRouter();
+  const { activeProfile } = useProfileStore();
+  const { addEventToQueue } = useSw();
 
   useEffect(() => {
-    addEventToQueue(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.SETTINGS })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    addEventToQueue(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.SETTINGS });
+  }, []);
 
   const { data, loading, error } = useProfileQuery({
     variables: {
-      request: { forProfileId: activeProfile?.id }
+      request: { forProfileId: activeProfile?.id },
     },
-    skip: !activeProfile?.id
-  })
+    skip: !activeProfile?.id,
+  });
 
   if (error) {
-    return <Custom500 />
+    return <Custom500 />;
   }
   if (loading) {
-    return <SettingsShimmer />
+    return <SettingsShimmer />;
   }
 
   if (!data?.profile) {
-    return <Custom404 />
+    return <Custom404 />;
   }
 
-  const profile = data?.profile as Profile
+  const profile = data?.profile as Profile;
 
   return (
     <>
@@ -86,7 +85,7 @@ const Settings = () => {
         </div>
       ) : null}
     </>
-  )
-}
+  );
+};
 
-export default Settings
+export default Settings;

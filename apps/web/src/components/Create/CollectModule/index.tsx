@@ -1,25 +1,25 @@
-import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
+import type { CollectModuleType } from "@tape.xyz/lens/custom-types";
 import {
   Button,
   ChevronRightOutline,
   Modal,
   SplitOutline,
-  Tooltip
-} from '@tape.xyz/ui'
-import React, { useState } from 'react'
+  Tooltip,
+} from "@tape.xyz/ui";
+import React, { useState } from "react";
 
-import useAppStore from '@/lib/store'
+import useAppStore from "@/lib/store";
 
-import ChargeQuestion from './ChargeQuestion'
-import CollectDuration from './CollectDuration'
-import EditionSize from './EditionSize'
-import FeeCollectForm from './FeeCollectForm'
-import PermissionQuestion from './PermissionQuestion'
+import ChargeQuestion from "./ChargeQuestion";
+import CollectDuration from "./CollectDuration";
+import EditionSize from "./EditionSize";
+import FeeCollectForm from "./FeeCollectForm";
+import PermissionQuestion from "./PermissionQuestion";
 
 const CollectModule = () => {
-  const [showModal, setShowModal] = useState(false)
-  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
-  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
+  const [showModal, setShowModal] = useState(false);
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia);
+  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia);
   // const setPersistedCollectModule = useCollectStore(
   //   (state) => state.setCollectModule
   // )
@@ -27,31 +27,31 @@ const CollectModule = () => {
   // const setSaveAsDefault = useCollectStore((state) => state.setSaveAsDefault)
 
   const setCollectType = (data: CollectModuleType) => {
-    const collectModule = { ...uploadedMedia.collectModule, ...data }
-    setUploadedMedia({ collectModule })
+    const collectModule = { ...uploadedMedia.collectModule, ...data };
+    setUploadedMedia({ collectModule });
     // if (saveAsDefault) {
     //   setPersistedCollectModule(collectModule)
     // }
-  }
+  };
 
   const getSelectedCollectType = () => {
-    const { followerOnlyCollect } = uploadedMedia.collectModule
-    const { timeLimitEnabled } = uploadedMedia.collectModule
-    const { collectLimitEnabled } = uploadedMedia.collectModule
-    const { isFeeCollect } = uploadedMedia.collectModule
-    const { collectLimit } = uploadedMedia.collectModule
-    const { timeLimit } = uploadedMedia.collectModule
-    const { multiRecipients } = uploadedMedia.collectModule
+    const { followerOnlyCollect } = uploadedMedia.collectModule;
+    const { timeLimitEnabled } = uploadedMedia.collectModule;
+    const { collectLimitEnabled } = uploadedMedia.collectModule;
+    const { isFeeCollect } = uploadedMedia.collectModule;
+    const { collectLimit } = uploadedMedia.collectModule;
+    const { timeLimit } = uploadedMedia.collectModule;
+    const { multiRecipients } = uploadedMedia.collectModule;
     if (uploadedMedia.collectModule.isRevertCollect) {
-      return `No one can collect this publication`
+      return "No one can collect this publication";
     }
     return (
       <div className="flex items-center space-x-1">
         <span>
-          {followerOnlyCollect ? `Only followers` : `Anyone`} can collect{' '}
-          {collectLimitEnabled ? `the ${collectLimit} editions` : ''}{' '}
-          {isFeeCollect ? `for set price` : `for free`}{' '}
-          {timeLimitEnabled ? `within ${timeLimit} days` : ''}
+          {followerOnlyCollect ? "Only followers" : "Anyone"} can collect{" "}
+          {collectLimitEnabled ? `the ${collectLimit} editions` : ""}{" "}
+          {isFeeCollect ? "for set price" : "for free"}{" "}
+          {timeLimitEnabled ? `within ${timeLimit} days` : ""}
         </span>
         {uploadedMedia.collectModule.isMultiRecipientFeeCollect &&
         multiRecipients?.length ? (
@@ -64,8 +64,8 @@ const CollectModule = () => {
           </Tooltip>
         ) : null}
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <div className="mt-2 pb-2">
@@ -122,7 +122,7 @@ const CollectModule = () => {
                       // if (saveAsDefault) {
                       //   setPersistedCollectModule(uploadedMedia.collectModule)
                       // }
-                      setShowModal(false)
+                      setShowModal(false);
                     }}
                   >
                     Set Collect Type
@@ -134,7 +134,7 @@ const CollectModule = () => {
         </div>
       </Modal>
     </div>
-  )
-}
+  );
+};
 
-export default CollectModule
+export default CollectModule;

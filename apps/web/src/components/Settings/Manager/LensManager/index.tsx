@@ -1,19 +1,19 @@
-import { TAPE_APP_NAME } from '@tape.xyz/constants'
-import React from 'react'
+import { TAPE_APP_NAME } from "@tape.xyz/constants";
+import React from "react";
 
-import useProfileStore from '@/lib/store/idb/profile'
+import useProfileStore from "@/lib/store/idb/profile";
 
-import ToggleLensManager from './ToggleLensManager'
+import ToggleLensManager from "./ToggleLensManager";
 
 const LensManager = () => {
-  const activeProfile = useProfileStore((state) => state.activeProfile)
+  const activeProfile = useProfileStore((state) => state.activeProfile);
 
   const getDescription = () => {
     if (!activeProfile?.signless) {
-      return `Enable your Lens manager for seamless interaction with ${TAPE_APP_NAME}, allowing for faster and easier transactions without the need for signing.`
+      return `Enable your Lens manager for seamless interaction with ${TAPE_APP_NAME}, allowing for faster and easier transactions without the need for signing.`;
     }
-    return `Lens manager helps interact with ${TAPE_APP_NAME} without signing any of your transactions.`
-  }
+    return `Lens manager helps interact with ${TAPE_APP_NAME} without signing any of your transactions.`;
+  };
 
   return (
     <div className="flex flex-wrap items-center justify-between">
@@ -25,7 +25,7 @@ const LensManager = () => {
         <ToggleLensManager />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default LensManager
+export default LensManager;

@@ -1,29 +1,29 @@
-import { canUploadedToIpfs } from '@tape.xyz/generic'
-import React, { useEffect } from 'react'
+import { canUploadedToIpfs } from "@tape.xyz/generic";
+import React, { useEffect } from "react";
 
-import useAppStore from '@/lib/store'
-import useProfileStore from '@/lib/store/idb/profile'
+import useAppStore from "@/lib/store";
+import useProfileStore from "@/lib/store/idb/profile";
 
-import IrysInfo from './IrysInfo'
+import IrysInfo from "./IrysInfo";
 
 const UploadMethod = () => {
-  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
-  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
-  const activeProfile = useProfileStore((state) => state.activeProfile)
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia);
+  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia);
+  const activeProfile = useProfileStore((state) => state.activeProfile);
 
   const canUploadToIpfs = canUploadedToIpfs(
     uploadedMedia.file?.size || 0,
-    activeProfile
-  )
+    activeProfile,
+  );
 
   useEffect(() => {
     if (!canUploadToIpfs) {
-      setUploadedMedia({ isUploadToIpfs: false })
+      setUploadedMedia({ isUploadToIpfs: false });
     }
-  }, [canUploadToIpfs, setUploadedMedia])
+  }, [canUploadToIpfs, setUploadedMedia]);
 
   if (canUploadToIpfs) {
-    return null
+    return null;
   }
 
   return (
@@ -34,7 +34,7 @@ const UploadMethod = () => {
       </span>
       <IrysInfo />
     </div>
-  )
-}
+  );
+};
 
-export default UploadMethod
+export default UploadMethod;

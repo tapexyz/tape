@@ -1,86 +1,86 @@
-import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
+import { LENSHUB_PROXY_ABI } from "@tape.xyz/abis";
 import {
   LENSHUB_PROXY_ADDRESS,
-  REQUESTING_SIGNATURE_MESSAGE
-} from '@tape.xyz/constants'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Button } from '@tape.xyz/ui'
-import React, { useEffect, useState } from 'react'
-import toast from 'react-hot-toast'
-import Custom404 from 'src/pages/404'
-import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+  REQUESTING_SIGNATURE_MESSAGE,
+} from "@tape.xyz/constants";
+import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
+import { Button } from "@tape.xyz/ui";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import Custom404 from "src/pages/404";
+import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 
-import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
-import { signOut } from '@/lib/store/auth'
-import useProfileStore from '@/lib/store/idb/profile'
+import useHandleWrongNetwork from "@/hooks/useHandleWrongNetwork";
+import { signOut } from "@/lib/store/auth";
+import useProfileStore from "@/lib/store/idb/profile";
 
 const Delete = () => {
-  const activeProfile = useProfileStore((state) => state.activeProfile)
-  const handleWrongNetwork = useHandleWrongNetwork()
-  const guardianEnabled = activeProfile?.guardian?.protected
+  const activeProfile = useProfileStore((state) => state.activeProfile);
+  const handleWrongNetwork = useHandleWrongNetwork();
+  const guardianEnabled = activeProfile?.guardian?.protected;
 
-  const [loading, setLoading] = useState(false)
-  const [txnHash, setTxnHash] = useState<`0x${string}`>()
+  const [loading, setLoading] = useState(false);
+  const [txnHash, setTxnHash] = useState<`0x${string}`>();
 
   const onError = (error: CustomErrorWithData) => {
-    setLoading(false)
-    toast.error(error?.data?.message ?? error?.message)
-  }
+    setLoading(false);
+    toast.error(error?.data?.message ?? error?.message);
+  };
 
   const { writeContractAsync } = useWriteContract({
     mutation: {
       onError,
-      onSuccess: (txnHash) => setTxnHash(txnHash)
-    }
-  })
+      onSuccess: (txnHash) => setTxnHash(txnHash),
+    },
+  });
 
   const { isError, isSuccess, error } = useWaitForTransactionReceipt({
     query: {
-      enabled: txnHash && txnHash.length > 0
+      enabled: txnHash && txnHash.length > 0,
     },
 
-    hash: txnHash
-  })
+    hash: txnHash,
+  });
 
   useEffect(() => {
     if (isError) {
-      onError(error)
+      onError(error);
     }
     if (isSuccess) {
-      signOut()
-      setLoading(false)
-      toast.success(`Profile deleted`)
-      location.href = '/'
+      signOut();
+      setLoading(false);
+      toast.success("Profile deleted");
+      location.href = "/";
     }
-  }, [isError, isSuccess, error])
+  }, [isError, isSuccess, error]);
 
   const isCooldownEnded = () => {
-    const cooldownDate = activeProfile?.guardian?.cooldownEndsOn
-    return new Date(cooldownDate).getTime() < Date.now()
-  }
+    const cooldownDate = activeProfile?.guardian?.cooldownEndsOn;
+    return new Date(cooldownDate).getTime() < Date.now();
+  };
 
   const onClickDelete = async () => {
     if (guardianEnabled || !isCooldownEnded()) {
-      return toast.error('Profile Guardian enabled')
+      return toast.error("Profile Guardian enabled");
     }
-    await handleWrongNetwork()
+    await handleWrongNetwork();
 
-    setLoading(true)
+    setLoading(true);
     try {
-      toast.loading(REQUESTING_SIGNATURE_MESSAGE)
+      toast.loading(REQUESTING_SIGNATURE_MESSAGE);
       await writeContractAsync({
         address: LENSHUB_PROXY_ADDRESS,
         abi: LENSHUB_PROXY_ABI,
-        functionName: 'burn',
-        args: [activeProfile?.id]
-      })
+        functionName: "burn",
+        args: [activeProfile?.id],
+      });
     } catch {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   if (!activeProfile) {
-    return <Custom404 />
+    return <Custom404 />;
   }
 
   return (
@@ -103,7 +103,7 @@ const Delete = () => {
         </Button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Delete
+export default Delete;

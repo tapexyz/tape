@@ -1,74 +1,74 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
-import { useCopyToClipboard } from '@tape.xyz/browser'
+import { zodResolver } from "@hookform/resolvers/zod";
+import { LENSHUB_PROXY_ABI } from "@tape.xyz/abis";
+import { useCopyToClipboard } from "@tape.xyz/browser";
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
-  WMATIC_TOKEN_ADDRESS
-} from '@tape.xyz/constants'
+  WMATIC_TOKEN_ADDRESS,
+} from "@tape.xyz/constants";
 import {
   checkLensManagerPermissions,
   getProfile,
   getSignature,
-  shortenAddress
-} from '@tape.xyz/generic'
+  shortenAddress,
+} from "@tape.xyz/generic";
 import type {
   CreateSetFollowModuleBroadcastItemResult,
   FeeFollowModuleSettings,
-  Profile
-} from '@tape.xyz/lens'
+  Profile,
+} from "@tape.xyz/lens";
 import {
   useBroadcastOnchainMutation,
   useCreateSetFollowModuleTypedDataMutation,
-  useProfileFollowModuleQuery
-} from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+  useProfileFollowModuleQuery,
+} from "@tape.xyz/lens";
+import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
 import {
   Button,
   Input,
   Select,
   SelectItem,
   Spinner,
-  Tooltip
-} from '@tape.xyz/ui'
-import React, { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
-import { useSignTypedData, useWriteContract } from 'wagmi'
-import type { z } from 'zod'
-import { number, object, string } from 'zod'
+  Tooltip,
+} from "@tape.xyz/ui";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useSignTypedData, useWriteContract } from "wagmi";
+import type { z } from "zod";
+import { number, object, string } from "zod";
 
-import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
-import usePendingTxn from '@/hooks/usePendingTxn'
-import useProfileStore from '@/lib/store/idb/profile'
-import useAllowedTokensStore from '@/lib/store/idb/tokens'
-import useNonceStore from '@/lib/store/nonce'
+import useHandleWrongNetwork from "@/hooks/useHandleWrongNetwork";
+import usePendingTxn from "@/hooks/usePendingTxn";
+import useProfileStore from "@/lib/store/idb/profile";
+import useAllowedTokensStore from "@/lib/store/idb/tokens";
+import useNonceStore from "@/lib/store/nonce";
 
 type Props = {
-  profile: Profile
-}
+  profile: Profile;
+};
 
 const formSchema = object({
-  recipient: string().length(42, { message: 'Enter valid ethereum address' }),
+  recipient: string().length(42, { message: "Enter valid ethereum address" }),
   amount: number()
-    .nonnegative({ message: 'Amount should to greater than zero' })
-    .refine((n) => n > 0, { message: 'Amount should be greater than 0' }),
-  token: string().length(42, { message: 'Select valid token' })
-})
-type FormData = z.infer<typeof formSchema>
+    .nonnegative({ message: "Amount should to greater than zero" })
+    .refine((n) => n > 0, { message: "Amount should be greater than 0" }),
+  token: string().length(42, { message: "Select valid token" }),
+});
+type FormData = z.infer<typeof formSchema>;
 
 const FeeFollow = ({ profile }: Props) => {
-  const [copy] = useCopyToClipboard()
+  const [copy] = useCopyToClipboard();
 
-  const [loading, setLoading] = useState(false)
-  const [showForm, setShowForm] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [showForm, setShowForm] = useState(false);
 
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
-  const allowedTokens = useAllowedTokensStore((state) => state.allowedTokens)
-  const handleWrongNetwork = useHandleWrongNetwork()
-  const { activeProfile } = useProfileStore()
-  const { canBroadcast } = checkLensManagerPermissions(activeProfile)
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
+  const allowedTokens = useAllowedTokensStore((state) => state.allowedTokens);
+  const handleWrongNetwork = useHandleWrongNetwork();
+  const { activeProfile } = useProfileStore();
+  const { canBroadcast } = checkLensManagerPermissions(activeProfile);
 
   const {
     register,
@@ -76,111 +76,110 @@ const FeeFollow = ({ profile }: Props) => {
     getValues,
     setValue,
     watch,
-    formState: { errors }
+    formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       recipient: getProfile(profile).address,
       amount: 2,
-      token: WMATIC_TOKEN_ADDRESS
-    }
-  })
+      token: WMATIC_TOKEN_ADDRESS,
+    },
+  });
 
   const onError = (error: CustomErrorWithData) => {
-    toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
-    setLoading(false)
-  }
+    toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE);
+    setLoading(false);
+  };
 
   const {
     data: followModuleData,
     refetch,
-    loading: moduleLoading
+    loading: moduleLoading,
   } = useProfileFollowModuleQuery({
     variables: { request: { forProfileId: profile?.id } },
     skip: !profile?.id,
     notifyOnNetworkStatusChange: true,
     onCompleted: ({ profile }) => {
       const activeFollowModule =
-        profile?.followModule as FeeFollowModuleSettings
-      setShowForm(activeFollowModule ? false : true)
-    }
-  })
+        profile?.followModule as FeeFollowModuleSettings;
+      setShowForm(!activeFollowModule);
+    },
+  });
   const activeFollowModule = followModuleData?.profile
-    ?.followModule as FeeFollowModuleSettings
+    ?.followModule as FeeFollowModuleSettings;
 
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError }
-  })
+    mutation: { onError },
+  });
 
   const [broadcast, { data: broadcastData }] = useBroadcastOnchainMutation({
-    onError
-  })
+    onError,
+  });
 
   const { data: txHash, writeContractAsync } = useWriteContract({
     mutation: {
-      onError
-    }
-  })
+      onError,
+    },
+  });
 
   const write = async ({ args }: { args: any[] }) => {
     return await writeContractAsync({
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
-      functionName: 'setFollowModule',
-      args
-    })
-  }
+      functionName: "setFollowModule",
+      args,
+    });
+  };
 
   const { indexed } = usePendingTxn({
     txHash,
     txId:
-      broadcastData?.broadcastOnchain.__typename === 'RelaySuccess'
+      broadcastData?.broadcastOnchain.__typename === "RelaySuccess"
         ? broadcastData?.broadcastOnchain?.txId
-        : undefined
-  })
+        : undefined,
+  });
 
   useEffect(() => {
     if (indexed) {
-      setLoading(false)
-      refetch()
-      toast.success('Follow settings updated')
+      setLoading(false);
+      refetch();
+      toast.success("Follow settings updated");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [indexed])
+  }, [indexed]);
 
   const [createSetFollowModuleTypedData] =
     useCreateSetFollowModuleTypedDataMutation({
       onCompleted: async ({ createSetFollowModuleTypedData }) => {
         const { typedData, id } =
-          createSetFollowModuleTypedData as CreateSetFollowModuleBroadcastItemResult
+          createSetFollowModuleTypedData as CreateSetFollowModuleBroadcastItemResult;
         const { profileId, followModule, followModuleInitData } =
-          typedData.value
-        const args = [profileId, followModule, followModuleInitData]
+          typedData.value;
+        const args = [profileId, followModule, followModuleInitData];
         try {
-          toast.loading(REQUESTING_SIGNATURE_MESSAGE)
+          toast.loading(REQUESTING_SIGNATURE_MESSAGE);
           if (canBroadcast) {
-            const signature = await signTypedDataAsync(getSignature(typedData))
-            setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+            const signature = await signTypedDataAsync(getSignature(typedData));
+            setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
             const { data } = await broadcast({
-              variables: { request: { id, signature } }
-            })
-            if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return await write({ args })
+              variables: { request: { id, signature } },
+            });
+            if (data?.broadcastOnchain?.__typename === "RelayError") {
+              return await write({ args });
             }
-            return
+            return;
           }
-          return await write({ args })
+          return await write({ args });
         } catch {
-          setLoading(false)
+          setLoading(false);
         }
       },
-      onError
-    })
+      onError,
+    });
 
   const updateFeeFollow = async (disable: boolean) => {
-    await handleWrongNetwork()
+    await handleWrongNetwork();
 
-    setLoading(true)
+    setLoading(true);
     return await createSetFollowModuleTypedData({
       variables: {
         options: { overrideSigNonce: lensHubOnchainSigNonce },
@@ -190,20 +189,20 @@ const FeeFollow = ({ profile }: Props) => {
             : {
                 feeFollowModule: {
                   amount: {
-                    currency: getValues('token'),
-                    value: getValues('amount').toString()
+                    currency: getValues("token"),
+                    value: getValues("amount").toString(),
                   },
-                  recipient: getValues('recipient')
-                }
-              }
-        }
-      }
-    })
-  }
+                  recipient: getValues("recipient"),
+                },
+              },
+        },
+      },
+    });
+  };
 
   const onSubmitForm = () => {
-    updateFeeFollow(false)
-  }
+    updateFeeFollow(false);
+  };
 
   return (
     <>
@@ -227,7 +226,7 @@ const FeeFollow = ({ profile }: Props) => {
             <div>
               <span>Amount</span>
               <h6 className="text-xl font-bold">
-                {activeFollowModule.amount?.value}{' '}
+                {activeFollowModule.amount?.value}{" "}
                 {activeFollowModule.amount?.asset?.symbol}
               </h6>
             </div>
@@ -257,9 +256,9 @@ const FeeFollow = ({ profile }: Props) => {
             <div>
               <div className="mb-1 text-sm font-medium">Currency</div>
               <Select
-                value={watch('token')}
-                onValueChange={(value) => setValue('token', value)}
-                defaultValue={allowedTokens[0].address}
+                value={watch("token")}
+                onValueChange={(value) => setValue("token", value)}
+                defaultValue={allowedTokens[0]?.address}
               >
                 {allowedTokens?.map(({ address, name }) => (
                   <SelectItem key={address} value={address}>
@@ -281,7 +280,7 @@ const FeeFollow = ({ profile }: Props) => {
                 placeholder="10"
                 autoComplete="off"
                 error={errors.amount?.message}
-                {...register('amount', { valueAsNumber: true })}
+                {...register("amount", { valueAsNumber: true })}
               />
             </div>
             <div>
@@ -290,7 +289,7 @@ const FeeFollow = ({ profile }: Props) => {
                 placeholder="0x00..."
                 autoComplete="off"
                 error={errors.recipient?.message}
-                {...register('recipient')}
+                {...register("recipient")}
               />
             </div>
           </div>
@@ -320,7 +319,7 @@ const FeeFollow = ({ profile }: Props) => {
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
-export default FeeFollow
+export default FeeFollow;

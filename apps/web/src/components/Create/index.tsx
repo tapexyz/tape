@@ -1,16 +1,16 @@
 import type {
   MediaVideoMimeType,
   MetadataAttribute,
-  VideoOptions
-} from '@lens-protocol/metadata'
+  VideoOptions,
+} from "@lens-protocol/metadata";
 import {
   MetadataAttributeType,
   PublicationContentWarning,
   shortVideo,
-  video
-} from '@lens-protocol/metadata'
-import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
-import { getUserLocale, uploadToIPFS } from '@tape.xyz/browser'
+  video,
+} from "@lens-protocol/metadata";
+import { LENSHUB_PROXY_ABI } from "@tape.xyz/abis";
+import { getUserLocale, uploadToIPFS } from "@tape.xyz/browser";
 import {
   ERROR_MESSAGE,
   IRYS_CONNECT_MESSAGE,
@@ -19,107 +19,107 @@ import {
   REQUESTING_SIGNATURE_MESSAGE,
   TAPE_APP_ID,
   TAPE_APP_NAME,
-  TAPE_WEBSITE_URL
-} from '@tape.xyz/constants'
+  TAPE_WEBSITE_URL,
+} from "@tape.xyz/constants";
 import {
+  EVENTS,
   canUploadedToIpfs,
   checkLensManagerPermissions,
-  EVENTS,
   getIsSuspendedProfile,
   getProfile,
   getSignature,
   getUploadedMediaType,
   logger,
   trimify,
-  uploadToAr
-} from '@tape.xyz/generic'
+  uploadToAr,
+} from "@tape.xyz/generic";
 import type {
   CreateMomokaPostEip712TypedData,
   CreateOnchainPostEip712TypedData,
   OnchainPostRequest,
   Profile,
-  ReferenceModuleInput
-} from '@tape.xyz/lens'
+  ReferenceModuleInput,
+} from "@tape.xyz/lens";
 import {
   ReferenceModuleType,
-  useBroadcastOnchainMutation,
   useBroadcastOnMomokaMutation,
+  useBroadcastOnchainMutation,
   useCreateMomokaPostTypedDataMutation,
   useCreateOnchainPostTypedDataMutation,
+  usePostOnMomokaMutation,
   usePostOnchainMutation,
-  usePostOnMomokaMutation
-} from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
-import toast from 'react-hot-toast'
-import { v4 as uuidv4 } from 'uuid'
+} from "@tape.xyz/lens";
+import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
+import toast from "react-hot-toast";
+import { v4 as uuidv4 } from "uuid";
 import {
   useAccount,
   useSignTypedData,
   useWalletClient,
-  useWriteContract
-} from 'wagmi'
+  useWriteContract,
+} from "wagmi";
 
-import MetaTags from '@/components/Common/MetaTags'
-import useSw from '@/hooks/useSw'
-import { getCollectModuleInput } from '@/lib/getCollectModuleInput'
-import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@/lib/store'
-import useProfileStore from '@/lib/store/idb/profile'
-import useNonceStore from '@/lib/store/nonce'
-import usePersistStore from '@/lib/store/persist'
+import MetaTags from "@/components/Common/MetaTags";
+import useSw from "@/hooks/useSw";
+import { getCollectModuleInput } from "@/lib/getCollectModuleInput";
+import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from "@/lib/store";
+import useProfileStore from "@/lib/store/idb/profile";
+import useNonceStore from "@/lib/store/nonce";
+import usePersistStore from "@/lib/store/persist";
 
-import ProfileSuspended from '../Common/ProfileSuspended'
-import type { VideoFormData } from './Details'
-import Details from './Details'
+import ProfileSuspended from "../Common/ProfileSuspended";
+import type { VideoFormData } from "./Details";
+import Details from "./Details";
 
 const CreateSteps = () => {
-  const getIrysInstance = useAppStore((state) => state.getIrysInstance)
-  const setIrysData = useAppStore((state) => state.setIrysData)
-  const irysData = useAppStore((state) => state.irysData)
-  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
-  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
+  const getIrysInstance = useAppStore((state) => state.getIrysInstance);
+  const setIrysData = useAppStore((state) => state.setIrysData);
+  const irysData = useAppStore((state) => state.irysData);
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia);
+  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia);
   const activeProfile = useProfileStore(
-    (state) => state.activeProfile
-  ) as Profile
+    (state) => state.activeProfile,
+  ) as Profile;
 
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
-  const { queuedVideos, setQueuedVideos } = usePersistStore()
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
+  const { queuedVideos, setQueuedVideos } = usePersistStore();
 
-  const { address } = useAccount()
-  const router = useRouter()
-  const { data: walletClient } = useWalletClient()
-  const { addEventToQueue } = useSw()
+  const { address } = useAccount();
+  const router = useRouter();
+  const { data: walletClient } = useWalletClient();
+  const { addEventToQueue } = useSw();
 
   const { canUseLensManager, canBroadcast } =
-    checkLensManagerPermissions(activeProfile)
+    checkLensManagerPermissions(activeProfile);
 
   const degreesOfSeparation = uploadedMedia.referenceModule
-    ?.degreesOfSeparationReferenceModule?.degreesOfSeparation as number
+    ?.degreesOfSeparationReferenceModule?.degreesOfSeparation as number;
   const enabledReferenceModule = uploadedMedia.referenceModule
     ?.degreesOfSeparationReferenceModule
     ? ReferenceModuleType.DegreesOfSeparationReferenceModule
     : uploadedMedia.referenceModule.followerOnlyReferenceModule
       ? ReferenceModuleType.FollowerOnlyReferenceModule
-      : null
+      : null;
 
   const resetToDefaults = () => {
-    setUploadedMedia(UPLOADED_VIDEO_FORM_DEFAULTS)
-  }
+    setUploadedMedia(UPLOADED_VIDEO_FORM_DEFAULTS);
+  };
 
   const redirectToChannelPage = () => {
-    resetToDefaults()
+    resetToDefaults();
     router.push(
       uploadedMedia.isByteVideo
         ? `${getProfile(activeProfile)?.link}?tab=bytes`
-        : `${getProfile(activeProfile)?.link}`
-    )
-  }
+        : `${getProfile(activeProfile)?.link}`,
+    );
+  };
 
   const redirectToWatchPage = (pubId: string) => {
-    resetToDefaults()
-    router.push(`/watch/${pubId}`)
-  }
+    resetToDefaults();
+    router.push(`/watch/${pubId}`);
+  };
 
   const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
     if (txn.txnHash || txn.txnId) {
@@ -128,197 +128,196 @@ const CreateSteps = () => {
           thumbnailUrl: uploadedMedia.thumbnail,
           title: uploadedMedia.title,
           txnId: txn.txnId,
-          txnHash: txn.txnHash
+          txnHash: txn.txnHash,
         },
-        ...(queuedVideos || [])
-      ])
+        ...(queuedVideos || []),
+      ]);
     }
-    redirectToChannelPage()
-  }
+    redirectToChannelPage();
+  };
 
   useEffect(() => {
-    addEventToQueue(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.UPLOAD })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    addEventToQueue(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.UPLOAD });
+  }, []);
 
   const stopLoading = () => {
     setUploadedMedia({
-      buttonText: 'Post Now',
-      loading: false
-    })
-  }
+      buttonText: "Post Now",
+      loading: false,
+    });
+  };
 
   const onError = (error: CustomErrorWithData) => {
-    stopLoading()
-    toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
-    logger.error('[Create Publication]', error)
-  }
+    stopLoading();
+    toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE);
+    logger.error("[Create Publication]", error);
+  };
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
-    if (__typename === 'RelayError') {
-      return
+  const onCompleted = (__typename?: "RelayError" | "RelaySuccess") => {
+    if (__typename === "RelayError") {
+      return;
     }
     addEventToQueue(EVENTS.PUBLICATION.NEW_POST, {
       video_format: uploadedMedia.mediaType,
-      video_type: uploadedMedia.isByteVideo ? 'SHORT_FORM' : 'LONG_FORM',
+      video_type: uploadedMedia.isByteVideo ? "SHORT_FORM" : "LONG_FORM",
       publication_state: uploadedMedia.collectModule.isRevertCollect
-        ? 'MOMOKA'
-        : 'ON_CHAIN',
-      video_storage: uploadedMedia.isUploadToIpfs ? 'IPFS' : 'ARWEAVE',
+        ? "MOMOKA"
+        : "ON_CHAIN",
+      video_storage: uploadedMedia.isUploadToIpfs ? "IPFS" : "ARWEAVE",
       publication_collect_module: uploadedMedia.collectModule,
       publication_reference_module: enabledReferenceModule,
       publication_reference_module_degrees_of_separation: uploadedMedia
         .referenceModule.degreesOfSeparationReferenceModule
         ? degreesOfSeparation
         : null,
-      user_id: activeProfile?.id
-    })
-    return stopLoading()
-  }
+      user_id: activeProfile?.id,
+    });
+    return stopLoading();
+  };
 
   const initIrys = async () => {
     if (walletClient && address && !irysData.instance) {
-      toast.loading(IRYS_CONNECT_MESSAGE)
-      const instance = await getIrysInstance(walletClient)
+      toast.loading(IRYS_CONNECT_MESSAGE);
+      const instance = await getIrysInstance(walletClient);
       if (instance) {
-        setIrysData({ instance })
+        setIrysData({ instance });
       }
     }
-  }
+  };
 
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError }
-  })
+    mutation: { onError },
+  });
 
   const { writeContractAsync } = useWriteContract({
     mutation: {
       onSuccess: (txnHash) => {
         if (txnHash) {
-          setToQueue({ txnHash })
+          setToQueue({ txnHash });
         }
-        stopLoading()
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+        stopLoading();
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
       },
       onError: (error) => {
-        onError(error)
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
-      }
-    }
-  })
+        onError(error);
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+      },
+    },
+  });
 
   const write = async ({ args }: { args: any[] }) => {
     return await writeContractAsync({
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
-      functionName: 'post',
-      args
-    })
-  }
+      functionName: "post",
+      args,
+    });
+  };
 
   const getSignatureFromTypedData = async (
-    data: CreateMomokaPostEip712TypedData | CreateOnchainPostEip712TypedData
+    data: CreateMomokaPostEip712TypedData | CreateOnchainPostEip712TypedData,
   ) => {
-    toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-    const signature = await signTypedDataAsync(getSignature(data))
-    return signature
-  }
+    toast.loading(REQUESTING_SIGNATURE_MESSAGE);
+    const signature = await signTypedDataAsync(getSignature(data));
+    return signature;
+  };
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) => {
-      onCompleted(broadcastOnchain.__typename)
-      if (broadcastOnchain.__typename === 'RelaySuccess') {
-        const txnId = broadcastOnchain?.txId
-        setToQueue({ txnId })
+      onCompleted(broadcastOnchain.__typename);
+      if (broadcastOnchain.__typename === "RelaySuccess") {
+        const txnId = broadcastOnchain?.txId;
+        setToQueue({ txnId });
       }
-    }
-  })
+    },
+  });
 
   const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
     onCompleted: ({ broadcastOnMomoka }) => {
-      if (broadcastOnMomoka.__typename === 'CreateMomokaPublicationResult') {
-        redirectToWatchPage(broadcastOnMomoka?.id)
+      if (broadcastOnMomoka.__typename === "CreateMomokaPublicationResult") {
+        redirectToWatchPage(broadcastOnMomoka?.id);
       }
-    }
-  })
+    },
+  });
 
   const [createOnchainPostTypedData] = useCreateOnchainPostTypedDataMutation({
     onCompleted: async ({ createOnchainPostTypedData }) => {
-      const { typedData, id } = createOnchainPostTypedData
+      const { typedData, id } = createOnchainPostTypedData;
       try {
         if (canBroadcast) {
-          const signature = await getSignatureFromTypedData(typedData)
+          const signature = await getSignatureFromTypedData(typedData);
           const { data } = await broadcastOnchain({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcastOnchain?.__typename === 'RelayError') {
-            return await write({ args: [typedData.value] })
+            variables: { request: { id, signature } },
+          });
+          if (data?.broadcastOnchain?.__typename === "RelayError") {
+            return await write({ args: [typedData.value] });
           }
-          return
+          return;
         }
-        return await write({ args: [typedData.value] })
+        return await write({ args: [typedData.value] });
       } catch {
         setUploadedMedia({
-          buttonText: 'Post Now',
-          loading: false
-        })
+          buttonText: "Post Now",
+          loading: false,
+        });
       }
     },
-    onError
-  })
+    onError,
+  });
 
   const [postOnchain] = usePostOnchainMutation({
     onError,
     onCompleted: ({ postOnchain }) => {
-      if (postOnchain.__typename === 'RelaySuccess') {
-        onCompleted(postOnchain.__typename)
-        setToQueue({ txnId: postOnchain.txId })
+      if (postOnchain.__typename === "RelaySuccess") {
+        onCompleted(postOnchain.__typename);
+        setToQueue({ txnId: postOnchain.txId });
       }
-    }
-  })
+    },
+  });
 
   const [createMomokaPostTypedData] = useCreateMomokaPostTypedDataMutation({
     onCompleted: async ({ createMomokaPostTypedData }) => {
-      const { typedData, id } = createMomokaPostTypedData
+      const { typedData, id } = createMomokaPostTypedData;
       try {
         if (canBroadcast) {
-          const signature = await getSignatureFromTypedData(typedData)
+          const signature = await getSignatureFromTypedData(typedData);
           const { data } = await broadcastOnMomoka({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
-            return write({ args: [typedData.value] })
+            variables: { request: { id, signature } },
+          });
+          if (data?.broadcastOnMomoka?.__typename === "RelayError") {
+            return write({ args: [typedData.value] });
           }
-          return
+          return;
         }
-        return write({ args: [typedData.value] })
+        return write({ args: [typedData.value] });
       } catch {
         setUploadedMedia({
-          buttonText: 'Post Now',
-          loading: false
-        })
+          buttonText: "Post Now",
+          loading: false,
+        });
       }
     },
-    onError
-  })
+    onError,
+  });
 
   const [postOnMomoka] = usePostOnMomokaMutation({
     onError,
     onCompleted: ({ postOnMomoka }) => {
-      if (postOnMomoka.__typename === 'CreateMomokaPublicationResult') {
-        redirectToWatchPage(postOnMomoka.id)
+      if (postOnMomoka.__typename === "CreateMomokaPublicationResult") {
+        redirectToWatchPage(postOnMomoka.id);
       }
-    }
-  })
+    },
+  });
 
   const createPost = async (metadataUri: string) => {
     setUploadedMedia({
-      buttonText: 'Posting...',
-      loading: true
-    })
+      buttonText: "Posting...",
+      loading: true,
+    });
 
-    const isRestricted = Boolean(degreesOfSeparation)
+    const isRestricted = Boolean(degreesOfSeparation);
 
-    const { isRevertCollect } = uploadedMedia.collectModule
+    const { isRevertCollect } = uploadedMedia.collectModule;
 
     if (isRevertCollect) {
       // MOMOKA
@@ -326,19 +325,19 @@ const CreateSteps = () => {
         return await postOnMomoka({
           variables: {
             request: {
-              contentURI: metadataUri
-            }
-          }
-        })
+              contentURI: metadataUri,
+            },
+          },
+        });
       }
 
       return await createMomokaPostTypedData({
         variables: {
           request: {
-            contentURI: metadataUri
-          }
-        }
-      })
+            contentURI: metadataUri,
+          },
+        },
+      });
     }
 
     // ON-CHAIN
@@ -346,12 +345,12 @@ const CreateSteps = () => {
       commentsRestricted: isRestricted,
       mirrorsRestricted: isRestricted,
       degreesOfSeparation: degreesOfSeparation ?? 0,
-      quotesRestricted: isRestricted
-    }
+      quotesRestricted: isRestricted,
+    };
     const referenceModule: ReferenceModuleInput = uploadedMedia.referenceModule
       ?.followerOnlyReferenceModule
       ? { followerOnlyReferenceModule: true }
-      : { degreesOfSeparationReferenceModule: referenceModuleDegrees }
+      : { degreesOfSeparationReferenceModule: referenceModuleDegrees };
 
     const request: OnchainPostRequest = {
       contentURI: metadataUri,
@@ -361,59 +360,59 @@ const CreateSteps = () => {
           ...(uploadedMedia?.unknownOpenAction && {
             unknownOpenAction: {
               address: uploadedMedia.unknownOpenAction.address,
-              data: uploadedMedia.unknownOpenAction.data
-            }
-          })
-        }
+              data: uploadedMedia.unknownOpenAction.data,
+            },
+          }),
+        },
       ],
-      referenceModule
-    }
+      referenceModule,
+    };
     if (canUseLensManager) {
       return await postOnchain({
-        variables: { request }
-      })
+        variables: { request },
+      });
     }
     return await createOnchainPostTypedData({
       variables: {
         options: { overrideSigNonce: lensHubOnchainSigNonce },
-        request
-      }
-    })
-  }
+        request,
+      },
+    });
+  };
 
   const constructVideoMetadata = async () => {
     const attributes: MetadataAttribute[] = [
       {
         type: MetadataAttributeType.STRING,
-        key: 'category',
-        value: uploadedMedia.mediaCategory.tag
+        key: "category",
+        value: uploadedMedia.mediaCategory.tag,
       },
       {
         type: MetadataAttributeType.STRING,
-        key: 'creator',
-        value: `${getProfile(activeProfile)?.slug}`
+        key: "creator",
+        value: `${getProfile(activeProfile)?.slug}`,
       },
       {
         type: MetadataAttributeType.STRING,
-        key: 'app',
-        value: TAPE_WEBSITE_URL
-      }
-    ]
+        key: "app",
+        value: TAPE_WEBSITE_URL,
+      },
+    ];
 
-    const profileSlug = getProfile(activeProfile)?.slug
+    const profileSlug = getProfile(activeProfile)?.slug;
     const publicationMetadata: VideoOptions = {
       video: {
         item: uploadedMedia.dUrl,
         type: getUploadedMediaType(
-          uploadedMedia.mediaType
+          uploadedMedia.mediaType,
         ) as MediaVideoMimeType,
         altTag: trimify(uploadedMedia.title),
         attributes,
         cover: uploadedMedia.thumbnail,
         ...(Boolean(uploadedMedia.durationInSeconds) && {
-          duration: uploadedMedia.durationInSeconds
+          duration: uploadedMedia.durationInSeconds,
         }),
-        license: uploadedMedia.mediaLicense
+        license: uploadedMedia.mediaLicense,
       },
       appId: TAPE_APP_ID,
       id: uuidv4(),
@@ -428,160 +427,162 @@ const CreateSteps = () => {
         external_url: `${TAPE_WEBSITE_URL}/u/${profileSlug}`,
         image: uploadedMedia.thumbnail,
         name: uploadedMedia.title,
-        description: trimify(uploadedMedia.description)
-      }
-    }
+        description: trimify(uploadedMedia.description),
+      },
+    };
 
     if (uploadedMedia.isSensitiveContent) {
-      publicationMetadata.contentWarning = PublicationContentWarning.SENSITIVE
+      publicationMetadata.contentWarning = PublicationContentWarning.SENSITIVE;
     }
 
-    const shortVideoMetadata = shortVideo(publicationMetadata)
-    const longVideoMetadata = video(publicationMetadata)
+    const shortVideoMetadata = shortVideo(publicationMetadata);
+    const longVideoMetadata = video(publicationMetadata);
     const metadataUri = await uploadToAr(
-      uploadedMedia.isByteVideo ? shortVideoMetadata : longVideoMetadata
-    )
-    await createPost(metadataUri)
-  }
+      uploadedMedia.isByteVideo ? shortVideoMetadata : longVideoMetadata,
+    );
+    await createPost(metadataUri);
+  };
 
   const create = async ({ dUrl }: { dUrl: string }) => {
     try {
       setUploadedMedia({
-        buttonText: 'Storing metadata...',
-        loading: true
-      })
-      uploadedMedia.dUrl = dUrl
-      await constructVideoMetadata()
+        buttonText: "Storing metadata...",
+        loading: true,
+      });
+      uploadedMedia.dUrl = dUrl;
+      await constructVideoMetadata();
     } catch (error: any) {
-      onError(error)
+      onError(error);
     }
-  }
+  };
 
   const uploadVideoToIpfs = async () => {
     const result = await uploadToIPFS(
       uploadedMedia.file as File,
       (percentCompleted) => {
         setUploadedMedia({
-          buttonText: 'Uploading...',
+          buttonText: "Uploading...",
           loading: true,
-          percent: percentCompleted
-        })
-      }
-    )
+          percent: percentCompleted,
+        });
+      },
+    );
     if (!result.url) {
-      stopLoading()
-      return toast.error('IPFS Upload failed')
+      stopLoading();
+      return toast.error("IPFS Upload failed");
     }
     setUploadedMedia({
       percent: 100,
-      dUrl: result.url
-    })
+      dUrl: result.url,
+    });
     return await create({
-      dUrl: result.url
-    })
-  }
+      dUrl: result.url,
+    });
+  };
 
   const uploadToIrys = async () => {
     if (!irysData.instance) {
-      stopLoading()
-      return await initIrys()
+      stopLoading();
+      return await initIrys();
     }
     if (!uploadedMedia.stream) {
-      stopLoading()
-      return toast.error('Media not uploaded correctly')
+      stopLoading();
+      return toast.error("Media not uploaded correctly");
     }
-    if (parseFloat(irysData.balance) < parseFloat(irysData.estimatedPrice)) {
-      stopLoading()
-      return toast.error('Insufficient storage balance')
+    if (
+      Number.parseFloat(irysData.balance) <
+      Number.parseFloat(irysData.estimatedPrice)
+    ) {
+      stopLoading();
+      return toast.error("Insufficient storage balance");
     }
     try {
       setUploadedMedia({
         loading: true,
-        buttonText: 'Uploading...'
-      })
-      const { instance } = irysData
+        buttonText: "Uploading...",
+      });
+      const { instance } = irysData;
       const tags = [
-        { name: 'Content-Type', value: uploadedMedia.mediaType },
-        { name: 'App-Name', value: TAPE_APP_NAME },
-        { name: 'Profile-Id', value: activeProfile?.id },
+        { name: "Content-Type", value: uploadedMedia.mediaType },
+        { name: "App-Name", value: TAPE_APP_NAME },
+        { name: "Profile-Id", value: activeProfile?.id },
         // ANS-110 standard
-        { name: 'Title', value: trimify(uploadedMedia.title) },
-        { name: 'Type', value: uploadedMedia.type.toLowerCase() },
-        { name: 'Topic', value: uploadedMedia.mediaCategory.name },
+        { name: "Title", value: trimify(uploadedMedia.title) },
+        { name: "Type", value: uploadedMedia.type.toLowerCase() },
+        { name: "Topic", value: uploadedMedia.mediaCategory.name },
         {
-          name: 'Description',
-          value: trimify(uploadedMedia.description)
-        }
-      ]
-      const fileSize = uploadedMedia?.file?.size as number
-      const uploader = instance.uploader.chunkedUploader
-      const chunkSize = 10000000 // 10 MB
-      uploader.setChunkSize(chunkSize)
+          name: "Description",
+          value: trimify(uploadedMedia.description),
+        },
+      ];
+      const fileSize = uploadedMedia?.file?.size as number;
+      const uploader = instance.uploader.chunkedUploader;
+      const chunkSize = 10000000; // 10 MB
+      uploader.setChunkSize(chunkSize);
       if (fileSize < chunkSize) {
-        toast.loading(REQUESTING_SIGNATURE_MESSAGE, { duration: 8000 })
+        toast.loading(REQUESTING_SIGNATURE_MESSAGE, { duration: 8000 });
       }
-      uploader.on('chunkUpload', (chunkInfo) => {
-        const expectedChunks = Math.floor(fileSize / chunkSize)
+      uploader.on("chunkUpload", (chunkInfo: any) => {
+        const expectedChunks = Math.floor(fileSize / chunkSize);
         if (expectedChunks === chunkInfo.id) {
-          toast.loading(REQUESTING_SIGNATURE_MESSAGE, { duration: 8000 })
+          toast.loading(REQUESTING_SIGNATURE_MESSAGE, { duration: 8000 });
         }
         const percentCompleted = Math.round(
-          (chunkInfo.totalUploaded * 100) / fileSize
-        )
+          (chunkInfo.totalUploaded * 100) / fileSize,
+        );
         setUploadedMedia({
           loading: true,
-          percent: percentCompleted
-        })
-      })
+          percent: percentCompleted,
+        });
+      });
       const upload = uploader.uploadData(uploadedMedia.stream as any, {
-        tags
-      })
-      const response = await upload
+        tags,
+      });
+      const response = await upload;
       setUploadedMedia({
         loading: false,
-        dUrl: `${IRYS_GATEWAY_URL}/${response.data.id}`
-      })
+        dUrl: `${IRYS_GATEWAY_URL}/${response.data.id}`,
+      });
       return await create({
-        dUrl: `${IRYS_GATEWAY_URL}/${response.data.id}`
-      })
+        dUrl: `${IRYS_GATEWAY_URL}/${response.data.id}`,
+      });
     } catch (error) {
-      toast.error('Failed to upload media to Arweave')
-      logger.error('[Error Irys Upload Media]', error)
-      return stopLoading()
+      toast.error("Failed to upload media to Arweave");
+      logger.error("[Error Irys Upload Media]", error);
+      return stopLoading();
     }
-  }
+  };
 
   const onUpload = async (data: VideoFormData & { thumbnail: string }) => {
-    uploadedMedia.title = data.title
-    uploadedMedia.loading = true
-    uploadedMedia.description = data.description
-    uploadedMedia.isSensitiveContent = data.isSensitiveContent
-    uploadedMedia.thumbnail = data.thumbnail
-    setUploadedMedia({ ...uploadedMedia })
+    uploadedMedia.title = data.title;
+    uploadedMedia.loading = true;
+    uploadedMedia.description = data.description;
+    uploadedMedia.isSensitiveContent = data.isSensitiveContent;
+    uploadedMedia.thumbnail = data.thumbnail;
+    setUploadedMedia({ ...uploadedMedia });
     // Upload video directly from source without uploading again
     if (
       uploadedMedia.dUrl?.length &&
-      (uploadedMedia.dUrl.includes('ar://') ||
-        uploadedMedia.dUrl.includes('ipfs://'))
+      (uploadedMedia.dUrl.includes("ar://") ||
+        uploadedMedia.dUrl.includes("ipfs://"))
     ) {
       return await create({
-        dUrl: uploadedMedia.dUrl
-      })
+        dUrl: uploadedMedia.dUrl,
+      });
     }
     if (
       canUploadedToIpfs(uploadedMedia.file?.size || 0, activeProfile) &&
       uploadedMedia.isUploadToIpfs
     ) {
-      return await uploadVideoToIpfs()
-    } else {
-      await uploadToIrys()
+      return await uploadVideoToIpfs();
     }
-  }
+    await uploadToIrys();
+  };
 
-  const isSuspended = getIsSuspendedProfile(activeProfile.id)
+  const isSuspended = getIsSuspendedProfile(activeProfile.id);
 
   if (isSuspended) {
-    return <ProfileSuspended />
+    return <ProfileSuspended />;
   }
 
   return (
@@ -589,7 +590,7 @@ const CreateSteps = () => {
       <MetaTags title="Create" />
       <Details onCancel={resetToDefaults} onUpload={onUpload} />
     </div>
-  )
-}
+  );
+};
 
-export default CreateSteps
+export default CreateSteps;

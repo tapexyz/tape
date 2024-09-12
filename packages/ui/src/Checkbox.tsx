@@ -1,27 +1,27 @@
-import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
-import { tw } from '@tape.xyz/browser'
-import type { ElementRef } from 'react'
-import React, { forwardRef, useId } from 'react'
+import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
+import { tw } from "@tape.xyz/browser";
+import type { ElementRef } from "react";
+import React, { forwardRef, useId } from "react";
 
-import { CheckOutline } from './icons'
+import { CheckOutline } from "./icons";
 
 type Props = CheckboxPrimitive.CheckboxProps & {
-  className?: string
-  label?: string
-  size?: 'sm' | 'md' | 'lg'
-}
+  className?: string;
+  label?: string;
+  size?: "sm" | "md" | "lg";
+};
 
 export const Checkbox = forwardRef<
   ElementRef<typeof CheckboxPrimitive.Root>,
   Props
->(({ size = 'md', className, label, ...props }, ref) => {
-  const id = useId()
+>(({ size = "md", className, label, ...props }, ref) => {
+  const id = useId();
 
   const sizeClasses = {
-    'size-3': size === 'sm',
-    'size-4': size === 'md',
-    'size-5': size === 'lg'
-  }
+    "size-3": size === "sm",
+    "size-4": size === "md",
+    "size-5": size === "lg",
+  };
 
   return (
     <form>
@@ -29,8 +29,8 @@ export const Checkbox = forwardRef<
         <CheckboxPrimitive.Root
           className={tw(
             className,
-            'tape-border flex appearance-none items-center justify-center rounded outline-none',
-            sizeClasses
+            "tape-border flex appearance-none items-center justify-center rounded outline-none",
+            sizeClasses,
           )}
           defaultChecked
           ref={ref}
@@ -38,13 +38,13 @@ export const Checkbox = forwardRef<
           {...props}
         >
           <CheckboxPrimitive.Indicator>
-            <CheckOutline className={tw(sizeClasses, 'p-[3px]')} />
+            <CheckOutline className={tw(sizeClasses, "p-[3px]")} />
           </CheckboxPrimitive.Indicator>
         </CheckboxPrimitive.Root>
         <label
           className={tw(
-            'font-medium leading-none',
-            size === 'lg' ? 'text-base' : 'text-sm'
+            "font-medium leading-none",
+            size === "lg" ? "text-base" : "text-sm",
           )}
           htmlFor={id}
         >
@@ -52,7 +52,7 @@ export const Checkbox = forwardRef<
         </label>
       </div>
     </form>
-  )
-})
+  );
+});
 
-Checkbox.displayName = 'Checkbox'
+Checkbox.displayName = "Checkbox";

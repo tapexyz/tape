@@ -1,19 +1,19 @@
 import {
   COMMON_REGEX,
   LEGACY_LENS_HANDLE_SUFFIX,
-  LENS_NAMESPACE_PREFIX
-} from '@tape.xyz/constants'
-import { Matcher } from 'interweave'
-import Link from 'next/link'
-import React from 'react'
+  LENS_NAMESPACE_PREFIX,
+} from "@tape.xyz/constants";
+import { Matcher } from "interweave";
+import Link from "next/link";
+import React from "react";
 
-import type { MentionProps } from './utils'
+import type { MentionProps } from "./utils";
 
 const ProfileLink = ({ ...props }: any) => {
-  const namespace = props.display?.slice(1) as string
+  const namespace = props.display?.slice(1) as string;
   const handle = namespace
-    .replace(LENS_NAMESPACE_PREFIX, '')
-    .replace(LEGACY_LENS_HANDLE_SUFFIX, '')
+    .replace(LENS_NAMESPACE_PREFIX, "")
+    .replace(LEGACY_LENS_HANDLE_SUFFIX, "");
 
   return (
     <Link
@@ -22,16 +22,16 @@ const ProfileLink = ({ ...props }: any) => {
     >
       @{handle}
     </Link>
-  )
-}
+  );
+};
 
 export class MentionMatcher extends Matcher<MentionProps> {
   replaceWith(match: string, props: MentionProps) {
-    return React.createElement(ProfileLink, props, match)
+    return React.createElement(ProfileLink, props, match);
   }
 
   asTag(): string {
-    return 'a'
+    return "a";
   }
 
   match(value: string) {
@@ -40,9 +40,9 @@ export class MentionMatcher extends Matcher<MentionProps> {
       COMMON_REGEX.MENTION_MATCHER_REGEX,
       (matches) => {
         return {
-          display: matches[0]
-        }
-      }
-    )
+          display: matches[0],
+        };
+      },
+    );
   }
 }

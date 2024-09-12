@@ -1,26 +1,26 @@
-import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
-import type { HandleInfo, OwnedHandlesRequest } from '@tape.xyz/lens'
-import { useOwnedHandlesQuery } from '@tape.xyz/lens'
-import { Spinner } from '@tape.xyz/ui'
-import Link from 'next/link'
-import React from 'react'
-import { useInView } from 'react-cool-inview'
-import { useAccount } from 'wagmi'
+import { INFINITE_SCROLL_ROOT_MARGIN } from "@tape.xyz/constants";
+import type { HandleInfo, OwnedHandlesRequest } from "@tape.xyz/lens";
+import { useOwnedHandlesQuery } from "@tape.xyz/lens";
+import { Spinner } from "@tape.xyz/ui";
+import Link from "next/link";
+import React from "react";
+import { useInView } from "react-cool-inview";
+import { useAccount } from "wagmi";
 
-import { NoDataFound } from '@/components/UIElements/NoDataFound'
+import { NoDataFound } from "@/components/UIElements/NoDataFound";
 
 const List = () => {
-  const { address } = useAccount()
+  const { address } = useAccount();
 
-  const request: OwnedHandlesRequest = { for: address }
+  const request: OwnedHandlesRequest = { for: address };
   const { data, loading, error, fetchMore } = useOwnedHandlesQuery({
     variables: {
-      request
+      request,
     },
-    skip: !address
-  })
-  const ownedHandles = data?.ownedHandles.items as HandleInfo[]
-  const pageInfo = data?.ownedHandles.pageInfo
+    skip: !address,
+  });
+  const ownedHandles = data?.ownedHandles.items as HandleInfo[];
+  const pageInfo = data?.ownedHandles.pageInfo;
 
   const { observe } = useInView({
     threshold: 0.25,
@@ -30,12 +30,12 @@ const List = () => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next
-          }
-        }
-      })
-    }
-  })
+            cursor: pageInfo?.next,
+          },
+        },
+      });
+    },
+  });
 
   return (
     <div>
@@ -56,7 +56,7 @@ const List = () => {
               >
                 {handle.fullHandle}
               </Link>
-              <p>{handle.linkedTo?.nftTokenId ?? 'No profile attached'}</p>
+              <p>{handle.linkedTo?.nftTokenId ?? "No profile attached"}</p>
             </div>
           </div>
         ))}
@@ -67,7 +67,7 @@ const List = () => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default List
+export default List;

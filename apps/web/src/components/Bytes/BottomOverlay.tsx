@@ -3,22 +3,22 @@ import {
   getLennyPicture,
   getProfile,
   getProfilePicture,
-  getPublicationData
-} from '@tape.xyz/generic'
-import type { MirrorablePublication } from '@tape.xyz/lens'
-import Link from 'next/link'
-import type { FC } from 'react'
-import React from 'react'
+  getPublicationData,
+} from "@tape.xyz/generic";
+import type { MirrorablePublication } from "@tape.xyz/lens";
+import Link from "next/link";
+import type { FC } from "react";
+import React from "react";
 
-import Badge from '@/components/Common/Badge'
-import FollowActions from '@/components/Common/FollowActions'
+import Badge from "@/components/Common/Badge";
+import FollowActions from "@/components/Common/FollowActions";
 
 type Props = {
-  video: MirrorablePublication
-}
+  video: MirrorablePublication;
+};
 
 const BottomOverlay: FC<Props> = ({ video }) => {
-  const profile = video.by
+  const profile = video.by;
 
   return (
     <div className="rounded-b-large absolute bottom-0 left-0 right-0 z-[1] bg-gradient-to-b from-transparent to-black px-3 pb-3 pt-5">
@@ -32,12 +32,12 @@ const BottomOverlay: FC<Props> = ({ video }) => {
             className="flex flex-none cursor-pointer items-center space-x-2"
           >
             <img
-              src={getProfilePicture(profile, 'AVATAR')}
+              src={getProfilePicture(profile, "AVATAR")}
               className="size-9 rounded-full"
               alt={getProfile(video.by)?.slug}
               draggable={false}
               onError={({ currentTarget }) => {
-                currentTarget.src = getLennyPicture(profile?.id)
+                currentTarget.src = getLennyPicture(profile?.id);
               }}
             />
             <div className="flex min-w-0 flex-col items-start text-white">
@@ -59,7 +59,7 @@ const BottomOverlay: FC<Props> = ({ video }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default BottomOverlay
+export default BottomOverlay;

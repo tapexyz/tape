@@ -4,13 +4,12 @@
   "license": "AGPL-3.0",
   "main": "./index.ts",
   "scripts": {
-    "lint": "eslint . --ext .js,.ts,.tsx",
-    "typecheck": "tsc --pretty",
-    "format:check": "prettier --check \"**/*.{ts,tsx,md,json,css}\"",
-    "format": "prettier --write \"**/*.{ts,tsx,md,json,css}\""
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "typecheck": "tsc --pretty --noEmit"
   },
   "dependencies": {
-    "@livepeer/react": "^3.1.9",
+    "@livepeer/react": "3.1.9",
     "@radix-ui/react-accordion": "^1.2.0",
     "@radix-ui/react-checkbox": "^1.1.1",
     "@radix-ui/react-dialog": "^1.1.1",
@@ -29,10 +28,10 @@
   },
   "devDependencies": {
     "@tape.xyz/browser": "workspace:*",
-    "@tape.xyz/config": "workspace:*",
     "@tape.xyz/constants": "workspace:*",
     "@tape.xyz/generic": "workspace:*",
+    "@tape.xyz/tsconfig": "workspace:*",
     "@types/react": "^18.3.5",
-    "typescript": "5.6.2"
+    "typescript": "^5.6.2"
   }
 }

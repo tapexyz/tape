@@ -2,20 +2,20 @@ import {
   formatNumber,
   getLennyPicture,
   getProfile,
-  getProfilePicture
-} from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
-import { UserOutline } from '@tape.xyz/ui'
-import Link from 'next/link'
-import type { FC } from 'react'
-import React from 'react'
+  getProfilePicture,
+} from "@tape.xyz/generic";
+import type { Profile } from "@tape.xyz/lens";
+import { UserOutline } from "@tape.xyz/ui";
+import Link from "next/link";
+import type { FC } from "react";
+import React from "react";
 
-import Badge from '../Badge'
+import Badge from "../Badge";
 
 interface Props {
-  results: Profile[]
-  loading: boolean
-  clearSearch: () => void
+  results: Profile[];
+  loading: boolean;
+  clearSearch: () => void;
 }
 
 const Profiles: FC<Props> = ({ results, loading, clearSearch }) => {
@@ -36,11 +36,11 @@ const Profiles: FC<Props> = ({ results, loading, clearSearch }) => {
               <div className="inline-flex w-3/4 items-center space-x-2">
                 <img
                   className="size-5 rounded-full"
-                  src={getProfilePicture(profile, 'AVATAR')}
+                  src={getProfilePicture(profile, "AVATAR")}
                   draggable={false}
                   alt="pfp"
                   onError={({ currentTarget }) => {
-                    currentTarget.src = getLennyPicture(profile?.id)
+                    currentTarget.src = getLennyPicture(profile?.id);
                   }}
                 />
                 <div className="flex items-center space-x-1">
@@ -69,7 +69,7 @@ const Profiles: FC<Props> = ({ results, loading, clearSearch }) => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Profiles
+export default Profiles;

@@ -1,26 +1,26 @@
-import type { MirrorablePublication } from '@tape.xyz/lens'
+import type { MirrorablePublication } from "@tape.xyz/lens";
 import {
   CollectOutline,
   CommentOutline,
   MirrorOutline,
-  Modal
-} from '@tape.xyz/ui'
-import type { FC } from 'react'
-import React, { useState } from 'react'
+  Modal,
+} from "@tape.xyz/ui";
+import type { FC } from "react";
+import React, { useState } from "react";
 
-import MirrorPublication from '@/components/Common/MirrorPublication'
-import PublicationOptions from '@/components/Common/Publication/PublicationOptions'
-import PublicationReaction from '@/components/Common/Publication/PublicationReaction'
-import OpenActions from '@/components/Watch/OpenActions'
+import MirrorPublication from "@/components/Common/MirrorPublication";
+import PublicationOptions from "@/components/Common/Publication/PublicationOptions";
+import PublicationReaction from "@/components/Common/Publication/PublicationReaction";
+import OpenActions from "@/components/Watch/OpenActions";
 
-import ByteComments from './ByteComments'
+import ByteComments from "./ByteComments";
 
 type Props = {
-  video: MirrorablePublication
-}
+  video: MirrorablePublication;
+};
 
 const ByteActions: FC<Props> = ({ video }) => {
-  const [showCommentsModal, setShowCommentsModal] = useState(false)
+  const [showCommentsModal, setShowCommentsModal] = useState(false);
 
   return (
     <div className="flex w-16 flex-col items-center justify-between">
@@ -38,11 +38,15 @@ const ByteActions: FC<Props> = ({ video }) => {
         </div>
         <div className="space-y-4 py-2">
           <div className="w-full text-center">
-            <button className="w-7" onClick={() => setShowCommentsModal(true)}>
+            <button
+              type="button"
+              className="w-7"
+              onClick={() => setShowCommentsModal(true)}
+            >
               <div className="flex flex-col items-center text-black dark:text-white">
                 <CommentOutline className="size-5" />
                 <span className="pt-1 text-xs">
-                  {video.stats.comments || 'Wdyt'}
+                  {video.stats.comments || "Wdyt"}
                 </span>
               </div>
             </button>
@@ -56,11 +60,11 @@ const ByteActions: FC<Props> = ({ video }) => {
           </div>
           <div className="w-full text-center">
             <MirrorPublication video={video}>
-              <button className="w-7">
+              <button type="button" className="w-7">
                 <div className="flex flex-col items-center">
                   <MirrorOutline className="size-5" />
                   <span className="pt-1 text-xs">
-                    {video.stats?.mirrors || 'Mirror'}
+                    {video.stats?.mirrors || "Mirror"}
                   </span>
                 </div>
               </button>
@@ -68,11 +72,11 @@ const ByteActions: FC<Props> = ({ video }) => {
           </div>
           <OpenActions publication={video}>
             <div className="w-full text-center">
-              <button className="w-7">
+              <button type="button" className="w-7">
                 <div className="flex flex-col items-center">
                   <CollectOutline className="size-5" />
                   <span className="pt-1 text-xs">
-                    {video.stats?.countOpenActions || 'Collect'}
+                    {video.stats?.countOpenActions || "Collect"}
                   </span>
                 </div>
               </button>
@@ -81,7 +85,7 @@ const ByteActions: FC<Props> = ({ video }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ByteActions
+export default ByteActions;

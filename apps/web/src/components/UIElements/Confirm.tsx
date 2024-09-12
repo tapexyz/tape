@@ -1,19 +1,19 @@
-import { Button, Modal } from '@tape.xyz/ui'
-import type { Dispatch, FC } from 'react'
-import React from 'react'
+import { Button, Modal } from "@tape.xyz/ui";
+import type { Dispatch, FC } from "react";
+import React from "react";
 
 type Props = {
-  showConfirm: boolean
-  setShowConfirm: Dispatch<boolean>
-  action: () => void
-  loading?: boolean
-}
+  showConfirm: boolean;
+  setShowConfirm: Dispatch<boolean>;
+  action: () => void;
+  loading?: boolean;
+};
 
 const Confirm: FC<Props> = ({
   showConfirm,
   setShowConfirm,
   action,
-  loading
+  loading,
 }) => {
   return (
     <Modal
@@ -35,7 +35,7 @@ const Confirm: FC<Props> = ({
         </div>
       </div>
     </Modal>
-  )
-}
+  );
+};
 
-export default Confirm
+export default Confirm;

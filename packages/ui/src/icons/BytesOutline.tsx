@@ -1,5 +1,5 @@
-import type { SVGProps } from 'react'
-import React from 'react'
+import type { SVGProps } from "react";
+import React from "react";
 
 export const BytesOutline = (props: SVGProps<SVGSVGElement>) => (
   <svg
@@ -15,4 +15,4 @@ export const BytesOutline = (props: SVGProps<SVGSVGElement>) => (
       fill="currentColor"
     />
   </svg>
-)
+);

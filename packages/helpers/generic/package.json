@@ -4,10 +4,9 @@
   "license": "AGPL-3.0",
   "main": "index.ts",
   "scripts": {
-    "lint": "eslint . --ext .js,.ts,.tsx",
-    "typecheck": "tsc --pretty",
-    "format:check": "prettier --check \"**/*.{ts,tsx,md,json,css}\"",
-    "format": "prettier --write \"**/*.{ts,tsx,md,json,css}\""
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "typecheck": "tsc --pretty --noEmit"
   },
   "dependencies": {
     "@lens-protocol/metadata": "^1.2.0",
@@ -15,7 +14,7 @@
     "viem": "^2.21.5"
   },
   "devDependencies": {
-    "@tape.xyz/config": "workspace:*",
+    "@tape.xyz/tsconfig": "workspace:*",
     "@tape.xyz/constants": "workspace:*",
     "@tape.xyz/lens": "workspace:*",
     "@types/node": "^22.5.4",

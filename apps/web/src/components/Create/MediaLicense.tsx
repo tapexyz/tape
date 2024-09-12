@@ -1,12 +1,12 @@
-import { MetadataLicenseType } from '@lens-protocol/metadata'
-import { Select, SelectItem } from '@tape.xyz/ui'
-import React from 'react'
+import { MetadataLicenseType } from "@lens-protocol/metadata";
+import { Select, SelectItem } from "@tape.xyz/ui";
+import React from "react";
 
-import useAppStore from '@/lib/store'
+import useAppStore from "@/lib/store";
 
 const MediaLicense = () => {
-  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
-  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia);
+  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia);
 
   return (
     <div className="flex-1 space-y-1">
@@ -31,7 +31,7 @@ const MediaLicense = () => {
         </SelectItem>
       </Select>
     </div>
-  )
-}
+  );
+};
 
-export default MediaLicense
+export default MediaLicense;

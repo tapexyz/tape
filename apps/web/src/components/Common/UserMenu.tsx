@@ -1,16 +1,16 @@
-import { ADMIN_IDS } from '@tape.xyz/constants'
+import { ADMIN_IDS } from "@tape.xyz/constants";
 import {
   EVENTS,
   getLennyPicture,
   getProfile,
-  getProfilePicture
-} from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
+  getProfilePicture,
+} from "@tape.xyz/generic";
+import type { Profile } from "@tape.xyz/lens";
 import {
   LimitType,
   useProfilesManagedQuery,
-  useRevokeAuthenticationMutation
-} from '@tape.xyz/lens'
+  useRevokeAuthenticationMutation,
+} from "@tape.xyz/lens";
 import {
   BookmarkOutline,
   ChevronRightOutline,
@@ -27,61 +27,61 @@ import {
   MoonOutline,
   SunOutline,
   SwitchProfileOutline,
-  UserOutline
-} from '@tape.xyz/ui'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useTheme } from 'next-themes'
-import React, { useMemo } from 'react'
-import { useAccount } from 'wagmi'
+  UserOutline,
+} from "@tape.xyz/ui";
+import { useTheme } from "next-themes";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { useMemo } from "react";
+import { useAccount } from "wagmi";
 
-import useSw from '@/hooks/useSw'
-import getCurrentSession from '@/lib/getCurrentSession'
-import { signOut } from '@/lib/store/auth'
-import useProfileStore from '@/lib/store/idb/profile'
+import useSw from "@/hooks/useSw";
+import getCurrentSession from "@/lib/getCurrentSession";
+import { signOut } from "@/lib/store/auth";
+import useProfileStore from "@/lib/store/idb/profile";
 
-import Badge from './Badge'
+import Badge from "./Badge";
 
 const UserMenu = () => {
-  const { theme, setTheme } = useTheme()
-  const { push, asPath } = useRouter()
-  const { address } = useAccount()
-  const { activeProfile } = useProfileStore()
-  const { addEventToQueue } = useSw()
+  const { theme, setTheme } = useTheme();
+  const { push, asPath } = useRouter();
+  const { address } = useAccount();
+  const { activeProfile } = useProfileStore();
+  const { addEventToQueue } = useSw();
 
   const { data } = useProfilesManagedQuery({
     variables: {
       request: { for: address, includeOwned: true, limit: LimitType.Fifty },
-      lastLoggedInProfileRequest: { for: address }
+      lastLoggedInProfileRequest: { for: address },
     },
-    skip: !address
-  })
+    skip: !address,
+  });
   const profilesManagedWithoutActiveProfile = useMemo(() => {
     if (!data?.profilesManaged?.items) {
-      return []
+      return [];
     }
     return data.profilesManaged.items.filter(
-      (p) => p.id !== activeProfile?.id
-    ) as Profile[]
-  }, [data?.profilesManaged, activeProfile])
+      (p) => p.id !== activeProfile?.id,
+    ) as Profile[];
+  }, [data?.profilesManaged, activeProfile]);
 
-  const isAdmin = ADMIN_IDS.includes(activeProfile?.id)
+  const isAdmin = ADMIN_IDS.includes(activeProfile?.id);
 
-  const [revokeAuthentication, { loading }] = useRevokeAuthenticationMutation()
+  const [revokeAuthentication, { loading }] = useRevokeAuthenticationMutation();
 
   const onClickSignout = async () => {
-    const { authorizationId } = getCurrentSession()
+    const { authorizationId } = getCurrentSession();
     if (authorizationId) {
       await revokeAuthentication({
         variables: {
-          request: { authorizationId }
-        }
-      })
+          request: { authorizationId },
+        },
+      });
     }
-    signOut()
-    addEventToQueue(EVENTS.AUTH.SIGN_OUT)
-    location.reload()
-  }
+    signOut();
+    addEventToQueue(EVENTS.AUTH.SIGN_OUT);
+    location.reload();
+  };
 
   return (
     <DropdownMenu
@@ -89,11 +89,11 @@ const UserMenu = () => {
         <div className="ring-brand-500 size-[34px] rounded-full hover:ring-2">
           <img
             className="h-full w-full flex-none rounded-full object-cover"
-            src={getProfilePicture(activeProfile, 'AVATAR')}
+            src={getProfilePicture(activeProfile, "AVATAR")}
             alt={getProfile(activeProfile)?.displayName}
             draggable={false}
             onError={({ currentTarget }) => {
-              currentTarget.src = getLennyPicture(activeProfile?.id)
+              currentTarget.src = getLennyPicture(activeProfile?.id);
             }}
           />
         </div>
@@ -103,11 +103,11 @@ const UserMenu = () => {
         <Link href={getProfile(activeProfile)?.link}>
           <div className="flex items-center gap-2 px-2 py-1 pb-3">
             <img
-              src={getProfilePicture(activeProfile, 'AVATAR')}
+              src={getProfilePicture(activeProfile, "AVATAR")}
               alt={getProfile(activeProfile)?.displayName}
               className="h-8 w-8 rounded-full"
               onError={({ currentTarget }) => {
-                currentTarget.src = getLennyPicture(activeProfile?.id)
+                currentTarget.src = getLennyPicture(activeProfile?.id);
               }}
             />
             <p className="line-clamp-1 font-semibold">
@@ -116,7 +116,7 @@ const UserMenu = () => {
           </div>
         </Link>
         {isAdmin && (
-          <DropdownMenuItem onClick={() => push('/mod')}>
+          <DropdownMenuItem onClick={() => push("/mod")}>
             <div className="flex items-center gap-2">
               <GraphOutline className="size-4" />
               <p className="whitespace-nowrap">Mod</p>
@@ -133,7 +133,7 @@ const UserMenu = () => {
                 <p className="whitespace-nowrap">My Profile</p>
               </div>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => push('/bookmarks')}>
+            <DropdownMenuItem onClick={() => push("/bookmarks")}>
               <div className="flex items-center gap-2">
                 <BookmarkOutline className="size-4" />
                 <p className="whitespace-nowrap">Bookmarks</p>
@@ -167,8 +167,8 @@ const UserMenu = () => {
                                 alt={getProfile(activeProfile)?.displayName}
                                 onError={({ currentTarget }) => {
                                   currentTarget.src = getLennyPicture(
-                                    profile?.id
-                                  )
+                                    profile?.id,
+                                  );
                                 }}
                                 draggable={false}
                               />
@@ -180,7 +180,7 @@ const UserMenu = () => {
                               </div>
                             </div>
                           </DropdownMenuItem>
-                        )
+                        ),
                     )}
                   </DropdownMenuSubContent>
                 </DropdownMenuPortal>
@@ -188,7 +188,7 @@ const UserMenu = () => {
             ) : null}
           </>
         )}
-        <DropdownMenuItem onClick={() => push('/settings')}>
+        <DropdownMenuItem onClick={() => push("/settings")}>
           <div className="flex items-center gap-2">
             <CogOutline className="size-4" />
             <p className="whitespace-nowrap">My Settings</p>
@@ -197,21 +197,21 @@ const UserMenu = () => {
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onClick={() => {
-            const selected = theme === 'dark' ? 'light' : 'dark'
-            setTheme(selected)
+            const selected = theme === "dark" ? "light" : "dark";
+            setTheme(selected);
             addEventToQueue(EVENTS.SYSTEM.TOGGLE_THEME, {
-              selected_theme: selected
-            })
+              selected_theme: selected,
+            });
           }}
         >
           <div className="flex items-center gap-2">
-            {theme === 'dark' ? (
+            {theme === "dark" ? (
               <SunOutline className="size-4" />
             ) : (
               <MoonOutline className="size-4" />
             )}
             <p className="whitespace-nowrap">
-              {theme === 'light' ? `Switch to Dark` : `Switch to Light`}
+              {theme === "light" ? "Switch to Dark" : "Switch to Light"}
             </p>
           </div>
         </DropdownMenuItem>
@@ -223,7 +223,7 @@ const UserMenu = () => {
         </DropdownMenuItem>
       </div>
     </DropdownMenu>
-  )
-}
+  );
+};
 
-export default UserMenu
+export default UserMenu;

@@ -1,3 +1,3 @@
-import Bytes from '@/components/Bytes'
+import Bytes from "@/components/Bytes";
 
-export default Bytes
+export default Bytes;

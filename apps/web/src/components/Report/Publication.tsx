@@ -1,63 +1,63 @@
-import { ERROR_MESSAGE } from '@tape.xyz/constants'
+import { ERROR_MESSAGE } from "@tape.xyz/constants";
 import {
   EVENTS,
   getProfile,
   getPublication,
-  getPublicationData
-} from '@tape.xyz/generic'
-import type { AnyPublication } from '@tape.xyz/lens'
-import { useReportPublicationMutation } from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Button, Select, SelectItem } from '@tape.xyz/ui'
-import type { FC } from 'react'
-import React, { useState } from 'react'
-import toast from 'react-hot-toast'
+  getPublicationData,
+} from "@tape.xyz/generic";
+import type { AnyPublication } from "@tape.xyz/lens";
+import { useReportPublicationMutation } from "@tape.xyz/lens";
+import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
+import { Button, Select, SelectItem } from "@tape.xyz/ui";
+import type { FC } from "react";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
 
-import MetaTags from '@/components/Common/MetaTags'
-import useSw from '@/hooks/useSw'
+import MetaTags from "@/components/Common/MetaTags";
+import useSw from "@/hooks/useSw";
 
 type Props = {
-  publication: AnyPublication
-  close?: () => void
-}
+  publication: AnyPublication;
+  close?: () => void;
+};
 
 const ReportPublication: FC<Props> = ({ publication, close }) => {
-  const targetPublication = getPublication(publication)
-  const [reason, setReason] = useState('SPAM-FAKE_ENGAGEMENT')
-  const { addEventToQueue } = useSw()
+  const targetPublication = getPublication(publication);
+  const [reason, setReason] = useState("SPAM-FAKE_ENGAGEMENT");
+  const { addEventToQueue } = useSw();
 
   const [createReport, { loading: reporting }] = useReportPublicationMutation({
     onError: (error: CustomErrorWithData) => {
-      toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
+      toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE);
     },
     onCompleted: () => {
-      toast.success(`Publication reported.`)
+      toast.success("Publication reported.");
       addEventToQueue(EVENTS.PUBLICATION.REPORT, {
         publication_id: targetPublication.id,
-        publication_type: targetPublication.__typename?.toLowerCase()
-      })
-    }
-  })
+        publication_type: targetPublication.__typename?.toLowerCase(),
+      });
+    },
+  });
 
   const getReasonType = (type: string) => {
-    if (type === 'ILLEGAL') {
-      return 'illegalReason'
+    if (type === "ILLEGAL") {
+      return "illegalReason";
     }
-    if (type === 'FRAUD') {
-      return 'fraudReason'
+    if (type === "FRAUD") {
+      return "fraudReason";
     }
-    if (type === 'SENSITIVE') {
-      return 'sensitiveReason'
+    if (type === "SENSITIVE") {
+      return "sensitiveReason";
     }
-    if (type === 'SPAM') {
-      return 'spamReason'
+    if (type === "SPAM") {
+      return "spamReason";
     }
-    return 'illegalReason'
-  }
+    return "illegalReason";
+  };
 
   const onReport = async () => {
-    const type = reason.split('-')[0]
-    const subReason = reason.split('-')[1]
+    const type = reason.split("-")[0] ?? "";
+    const subReason = reason.split("-")[1];
     await createReport({
       variables: {
         request: {
@@ -65,19 +65,19 @@ const ReportPublication: FC<Props> = ({ publication, close }) => {
           reason: {
             [getReasonType(type)]: {
               reason: type,
-              subreason: subReason
-            }
+              subreason: subReason,
+            },
           },
-          additionalComments: `${type} - ${subReason}`
-        }
-      }
-    })
-    close?.()
-  }
+          additionalComments: `${type} - ${subReason}`,
+        },
+      },
+    });
+    close?.();
+  };
 
   return (
     <>
-      <MetaTags title={`Report Publication`} />
+      <MetaTags title={"Report Publication"} />
       <div className="flex justify-center">
         <div className="w-full">
           <h1>{getPublicationData(targetPublication.metadata)?.title}</h1>
@@ -130,7 +130,7 @@ const ReportPublication: FC<Props> = ({ publication, close }) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default ReportPublication
+export default ReportPublication;

@@ -1,11 +1,11 @@
-import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
-import Link from 'next/link'
-import type { FC } from 'react'
-import React from 'react'
+import { STATIC_ASSETS, TAPE_APP_NAME } from "@tape.xyz/constants";
+import Link from "next/link";
+import type { FC } from "react";
+import React from "react";
 
 type Props = {
-  commentId: string
-}
+  commentId: string;
+};
 
 const VideoComment: FC<Props> = ({ commentId }) => {
   return (
@@ -24,6 +24,6 @@ const VideoComment: FC<Props> = ({ commentId }) => {
         <span>Watch Video</span>
       </Link>
     </div>
-  )
-}
-export default VideoComment
+  );
+};
+export default VideoComment;

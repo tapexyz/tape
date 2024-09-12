@@ -1,8 +1,8 @@
-import React from 'react'
+import React from "react";
 
-import MetaTags from '@/components/Common/MetaTags'
+import MetaTags from "@/components/Common/MetaTags";
 
-import List from './List'
+import List from "./List";
 
 const Blocked = () => {
   return (
@@ -17,7 +17,7 @@ const Blocked = () => {
       </div>
       <List />
     </>
-  )
-}
+  );
+};
 
-export default Blocked
+export default Blocked;

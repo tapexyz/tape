@@ -1,53 +1,57 @@
 import {
   getLennyPicture,
   getProfile,
-  getProfilePicture
-} from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
-import { LimitType, useMutualFollowersQuery } from '@tape.xyz/lens'
-import { Modal } from '@tape.xyz/ui'
-import type { FC } from 'react'
-import React, { useState } from 'react'
+  getProfilePicture,
+} from "@tape.xyz/generic";
+import type { Profile } from "@tape.xyz/lens";
+import { LimitType, useMutualFollowersQuery } from "@tape.xyz/lens";
+import { Modal } from "@tape.xyz/ui";
+import type { FC } from "react";
+import React, { useState } from "react";
 
-import HoverableProfile from '@/components/Common/HoverableProfile'
-import BubblesShimmer from '@/components/Shimmers/BubblesShimmer'
-import useProfileStore from '@/lib/store/idb/profile'
+import HoverableProfile from "@/components/Common/HoverableProfile";
+import BubblesShimmer from "@/components/Shimmers/BubblesShimmer";
+import useProfileStore from "@/lib/store/idb/profile";
 
-import MutualFollowers from './MutualFollowers'
+import MutualFollowers from "./MutualFollowers";
 
 type Props = {
-  viewing: string
-  showSeparator?: boolean
-}
+  viewing: string;
+  showSeparator?: boolean;
+};
 
 const Bubbles: FC<Props> = ({ viewing, showSeparator }) => {
-  const { activeProfile } = useProfileStore()
-  const [showModal, setShowModal] = useState(false)
+  const { activeProfile } = useProfileStore();
+  const [showModal, setShowModal] = useState(false);
 
   const { data, loading } = useMutualFollowersQuery({
     variables: {
       request: {
         observer: activeProfile?.id,
         viewing,
-        limit: LimitType.Ten
-      }
+        limit: LimitType.Ten,
+      },
     },
-    skip: !viewing || !activeProfile?.id
-  })
+    skip: !viewing || !activeProfile?.id,
+  });
 
-  const mutualFollowers = data?.mutualFollowers?.items as Profile[]
+  const mutualFollowers = data?.mutualFollowers?.items as Profile[];
 
   if (loading) {
-    return <BubblesShimmer />
+    return <BubblesShimmer />;
   }
 
   if (!mutualFollowers?.length) {
-    return null
+    return null;
   }
 
   return (
     <>
-      <button onClick={() => setShowModal(true)} className="flex items-center">
+      <button
+        type="button"
+        onClick={() => setShowModal(true)}
+        className="flex items-center"
+      >
         {showSeparator && <span className="middot px-1" />}
         <div className="flex items-center gap-1">
           <span className="flex cursor-pointer -space-x-1.5">
@@ -55,11 +59,11 @@ const Bubbles: FC<Props> = ({ viewing, showSeparator }) => {
               <HoverableProfile profile={profile} key={profile?.id}>
                 <img
                   className="size-7 flex-none rounded-full border bg-white dark:border-gray-700/80"
-                  src={getProfilePicture(profile, 'AVATAR')}
+                  src={getProfilePicture(profile, "AVATAR")}
                   draggable={false}
                   alt={getProfile(profile)?.slug}
                   onError={({ currentTarget }) => {
-                    currentTarget.src = getLennyPicture(profile?.id)
+                    currentTarget.src = getLennyPicture(profile?.id);
                   }}
                 />
               </HoverableProfile>
@@ -85,7 +89,7 @@ const Bubbles: FC<Props> = ({ viewing, showSeparator }) => {
         </div>
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default Bubbles
+export default Bubbles;

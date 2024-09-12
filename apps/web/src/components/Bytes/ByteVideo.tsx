@@ -5,93 +5,92 @@ import {
   getShouldUploadVideo,
   getThumbnailUrl,
   imageCdn,
-  sanitizeDStorageUrl
-} from '@tape.xyz/generic'
-import type { AnyPublication } from '@tape.xyz/lens'
-import { VideoPlayer } from '@tape.xyz/ui'
-import type { FC } from 'react'
-import React, { useEffect, useRef } from 'react'
+  sanitizeDStorageUrl,
+} from "@tape.xyz/generic";
+import type { AnyPublication } from "@tape.xyz/lens";
+import { VideoPlayer } from "@tape.xyz/ui";
+import type { FC } from "react";
+import React, { useEffect, useRef } from "react";
 
-import MetaTags from '@/components/Common/MetaTags'
-import useProfileStore from '@/lib/store/idb/profile'
+import MetaTags from "@/components/Common/MetaTags";
+import useProfileStore from "@/lib/store/idb/profile";
 
-import BottomOverlay from './BottomOverlay'
-import ByteActions from './ByteActions'
-import TopOverlay from './TopOverlay'
+import BottomOverlay from "./BottomOverlay";
+import ByteActions from "./ByteActions";
+import TopOverlay from "./TopOverlay";
 
 type Props = {
-  video: AnyPublication
-  currentViewingId: string
-  intersectionCallback: (id: string) => void
-}
+  video: AnyPublication;
+  currentViewingId: string;
+  intersectionCallback: (id: string) => void;
+};
 
 const ByteVideo: FC<Props> = ({
   video,
   currentViewingId,
-  intersectionCallback
+  intersectionCallback,
 }) => {
-  const videoRef = useRef<HTMLMediaElement>()
-  const intersectionRef = useRef<HTMLDivElement>(null)
-  const targetPublication = getPublication(video)
+  const videoRef = useRef<HTMLMediaElement>();
+  const intersectionRef = useRef<HTMLDivElement>(null);
+  const targetPublication = getPublication(video);
 
-  const { activeProfile } = useProfileStore()
+  const { activeProfile } = useProfileStore();
   const thumbnailUrl = imageCdn(
     sanitizeDStorageUrl(getThumbnailUrl(targetPublication.metadata, true)),
-    'THUMBNAIL_V'
-  )
+    "THUMBNAIL_V",
+  );
 
   const playVideo = () => {
     if (!videoRef.current) {
-      return
+      return;
     }
-    videoRef.current.currentTime = 0
-    videoRef.current.volume = 1
-    videoRef.current.autoplay = true
-    videoRef.current?.play().catch(() => {})
-  }
+    videoRef.current.currentTime = 0;
+    videoRef.current.volume = 1;
+    videoRef.current.autoplay = true;
+    videoRef.current?.play().catch(() => {});
+  };
 
   const observer = new IntersectionObserver((data) => {
-    if (data[0].target.id && data[0].isIntersecting) {
-      intersectionCallback(data[0].target.id)
-      const nextUrl = `${location.origin}/bytes/${targetPublication?.id}`
-      history.replaceState({ path: nextUrl }, '', nextUrl)
+    if (data[0]?.target.id && data[0].isIntersecting) {
+      intersectionCallback(data[0].target.id);
+      const nextUrl = `${location.origin}/bytes/${targetPublication?.id}`;
+      history.replaceState({ path: nextUrl }, "", nextUrl);
     }
-  })
+  });
 
   useEffect(() => {
     if (intersectionRef.current) {
-      observer.observe(intersectionRef.current)
+      observer.observe(intersectionRef.current);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
   const pauseVideo = () => {
     if (!videoRef.current) {
-      return
+      return;
     }
-    videoRef.current.volume = 0
-    videoRef.current?.pause()
-    videoRef.current.autoplay = false
-  }
+    videoRef.current.volume = 0;
+    videoRef.current?.pause();
+    videoRef.current.autoplay = false;
+  };
 
   const onClickVideo = () => {
     if (videoRef.current?.paused) {
-      playVideo()
+      playVideo();
     } else {
-      pauseVideo()
+      pauseVideo();
     }
-  }
+  };
 
   const refCallback = (ref: HTMLMediaElement) => {
     if (!ref) {
-      return
+      return;
     }
-    videoRef.current = ref
-    playVideo()
-  }
+    videoRef.current = ref;
+    playVideo();
+  };
 
   if (!video) {
-    return null
+    return null;
   }
 
   return (
@@ -116,7 +115,7 @@ const ByteVideo: FC<Props> = ({
               muted: currentViewingId !== targetPublication.id,
               loop: true,
               loadingSpinner: true,
-              isCurrentlyShown: currentViewingId === video.id
+              isCurrentlyShown: currentViewingId === video.id,
             }}
             shouldUpload={getShouldUploadVideo(targetPublication)}
           />
@@ -126,7 +125,7 @@ const ByteVideo: FC<Props> = ({
       </div>
       <ByteActions video={targetPublication} />
     </div>
-  )
-}
+  );
+};
 
-export default React.memo(ByteVideo)
+export default React.memo(ByteVideo);

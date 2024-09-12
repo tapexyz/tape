@@ -1,25 +1,25 @@
-import { LocalIDBStore } from '@tape.xyz/lens/custom-types'
-import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { LocalIDBStore } from "@tape.xyz/lens/custom-types";
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
-import createIdbStorage from '@/lib/createIdbStorage'
+import createIdbStorage from "@/lib/createIdbStorage";
 
 interface State {
-  verifiedProfiles: string[]
-  setVerifiedProfiles: (verifiedProfiles: string[]) => void
+  verifiedProfiles: string[];
+  setVerifiedProfiles: (verifiedProfiles: string[]) => void;
 }
 
 const useVerifiedStore = create(
   persist<State>(
     (set) => ({
       verifiedProfiles: [],
-      setVerifiedProfiles: (verifiedProfiles) => set({ verifiedProfiles })
+      setVerifiedProfiles: (verifiedProfiles) => set({ verifiedProfiles }),
     }),
     {
       name: LocalIDBStore.VERIFIED_STORE,
-      storage: createIdbStorage()
-    }
-  )
-)
+      storage: createIdbStorage(),
+    },
+  ),
+);
 
-export default useVerifiedStore
+export default useVerifiedStore;

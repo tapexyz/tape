@@ -1,31 +1,31 @@
-import { useCopyToClipboard } from '@tape.xyz/browser'
-import { STATIC_ASSETS, TAPE_WEBSITE_URL } from '@tape.xyz/constants'
-import { EVENTS, getSharableLink, imageCdn } from '@tape.xyz/generic'
-import type { PrimaryPublication } from '@tape.xyz/lens'
-import { CopyOutline, MirrorOutline, Tooltip } from '@tape.xyz/ui'
-import Link from 'next/link'
-import { useTheme } from 'next-themes'
-import type { FC } from 'react'
+import { useCopyToClipboard } from "@tape.xyz/browser";
+import { STATIC_ASSETS, TAPE_WEBSITE_URL } from "@tape.xyz/constants";
+import { EVENTS, getSharableLink, imageCdn } from "@tape.xyz/generic";
+import type { PrimaryPublication } from "@tape.xyz/lens";
+import { CopyOutline, MirrorOutline, Tooltip } from "@tape.xyz/ui";
+import Link from "next/link";
+import { useTheme } from "next-themes";
+import type { FC } from "react";
 
-import useSw from '@/hooks/useSw'
+import useSw from "@/hooks/useSw";
 
-import EmbedMedia from '../EmbedMedia'
-import MirrorPublication from '../MirrorPublication'
+import EmbedMedia from "../EmbedMedia";
+import MirrorPublication from "../MirrorPublication";
 
 type Props = {
-  publication: PrimaryPublication
-}
+  publication: PrimaryPublication;
+};
 
 const Share: FC<Props> = ({ publication }) => {
-  const [copy] = useCopyToClipboard()
-  const { resolvedTheme } = useTheme()
-  const { addEventToQueue } = useSw()
-  const url = `${TAPE_WEBSITE_URL}/watch/${publication.id}`
+  const [copy] = useCopyToClipboard();
+  const { resolvedTheme } = useTheme();
+  const { addEventToQueue } = useSw();
+  const url = `${TAPE_WEBSITE_URL}/watch/${publication.id}`;
 
   const onCopyVideoUrl = async () => {
-    await copy(url)
-    addEventToQueue(EVENTS.PUBLICATION.PERMALINK)
-  }
+    await copy(url);
+    addEventToQueue(EVENTS.PUBLICATION.PERMALINK);
+  };
 
   return (
     <div>
@@ -41,12 +41,12 @@ const Share: FC<Props> = ({ publication }) => {
           target="_blank"
           rel="noreferrer"
           onClick={() => addEventToQueue(EVENTS.PUBLICATION.SHARE.HEY)}
-          href={getSharableLink('hey', publication)}
+          href={getSharableLink("hey", publication)}
         >
           <img
             src={imageCdn(
               `${STATIC_ASSETS}/images/social/hey-logo.svg`,
-              'AVATAR_LG'
+              "AVATAR_LG",
             )}
             className="size-10 max-w-none"
             loading="eager"
@@ -59,15 +59,15 @@ const Share: FC<Props> = ({ publication }) => {
           className="rounded-full"
           target="_blank"
           rel="noreferrer"
-          href={getSharableLink('x', publication)}
+          href={getSharableLink("x", publication)}
           onClick={() => addEventToQueue(EVENTS.PUBLICATION.SHARE.X)}
         >
           <div className="rounded-full bg-gray-200 p-3 dark:bg-gray-800">
-            {resolvedTheme === 'dark' ? (
+            {resolvedTheme === "dark" ? (
               <img
                 src={imageCdn(
                   `${STATIC_ASSETS}/images/social/x-white.png`,
-                  'AVATAR'
+                  "AVATAR",
                 )}
                 className="size-4"
                 height={16}
@@ -79,7 +79,7 @@ const Share: FC<Props> = ({ publication }) => {
               <img
                 src={imageCdn(
                   `${STATIC_ASSETS}/images/social/x-black.png`,
-                  'AVATAR'
+                  "AVATAR",
                 )}
                 className="size-4"
                 height={16}
@@ -91,7 +91,7 @@ const Share: FC<Props> = ({ publication }) => {
           </div>
         </Link>
         <Link
-          href={getSharableLink('reddit', publication)}
+          href={getSharableLink("reddit", publication)}
           onClick={() => addEventToQueue(EVENTS.PUBLICATION.SHARE.REDDIT)}
           target="_blank"
           rel="noreferrer"
@@ -99,7 +99,7 @@ const Share: FC<Props> = ({ publication }) => {
           <img
             src={imageCdn(
               `${STATIC_ASSETS}/images/social/reddit-logo.webp`,
-              'AVATAR_LG'
+              "AVATAR_LG",
             )}
             className="size-10 max-w-none rounded-full"
             loading="eager"
@@ -108,7 +108,7 @@ const Share: FC<Props> = ({ publication }) => {
           />
         </Link>
         <Link
-          href={getSharableLink('linkedin', publication)}
+          href={getSharableLink("linkedin", publication)}
           target="_blank"
           onClick={() => addEventToQueue(EVENTS.PUBLICATION.SHARE.LINKEDIN)}
           rel="noreferrer"
@@ -116,7 +116,7 @@ const Share: FC<Props> = ({ publication }) => {
           <img
             src={imageCdn(
               `${STATIC_ASSETS}/images/social/linkedin-logo.png`,
-              'AVATAR_LG'
+              "AVATAR_LG",
             )}
             loading="eager"
             alt="linkedin"
@@ -129,6 +129,7 @@ const Share: FC<Props> = ({ publication }) => {
         <div className="select-all truncate text-sm">{url}</div>
         <Tooltip content="Copy" placement="top">
           <button
+            type="button"
             className="ml-2 hover:opacity-60 focus:outline-none"
             onClick={() => onCopyVideoUrl()}
           >
@@ -137,7 +138,7 @@ const Share: FC<Props> = ({ publication }) => {
         </Tooltip>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Share
+export default Share;

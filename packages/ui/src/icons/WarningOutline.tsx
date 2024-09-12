@@ -1,5 +1,5 @@
-import type { SVGProps } from 'react'
-import React from 'react'
+import type { SVGProps } from "react";
+import React from "react";
 
 export const WarningOutline = (props: SVGProps<SVGSVGElement>) => (
   <svg
@@ -23,4 +23,4 @@ export const WarningOutline = (props: SVGProps<SVGSVGElement>) => (
       fill="currentColor"
     />
   </svg>
-)
+);

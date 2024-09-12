@@ -1,36 +1,36 @@
-import { useRef } from 'react'
+import { useRef } from "react";
 import {
   type StateSnapshot,
   Virtuoso,
-  type VirtuosoHandle
-} from 'react-virtuoso'
+  type VirtuosoHandle,
+} from "react-virtuoso";
 
 type VirtuosoHelperProps<T> = {
-  data: T[]
-  itemContent: (index: number, item: T) => React.ReactNode
-  endReached: () => void
-  hasNextPage: boolean
-  restoreScroll?: boolean
-}
+  data: T[];
+  itemContent: (index: number, item: T) => React.ReactNode;
+  endReached: () => void;
+  hasNextPage: boolean;
+  restoreScroll?: boolean;
+};
 
-let virtuosoState: StateSnapshot = { ranges: [], scrollTop: 0 }
+let virtuosoState: StateSnapshot = { ranges: [], scrollTop: 0 };
 
 export const Virtualized = <T,>({
   data,
   itemContent,
   endReached,
   hasNextPage,
-  restoreScroll = false
+  restoreScroll = false,
 }: VirtuosoHelperProps<T>) => {
-  const virtuoso = useRef<VirtuosoHandle>(null)
+  const virtuoso = useRef<VirtuosoHandle>(null);
 
   const onScrolling = (scrolling: boolean) => {
     if (!scrolling && virtuoso?.current) {
       virtuoso.current.getState((state: StateSnapshot) => {
-        virtuosoState = { ...state }
-      })
+        virtuosoState = { ...state };
+      });
     }
-  }
+  };
 
   return (
     <Virtuoso
@@ -45,5 +45,5 @@ export const Virtualized = <T,>({
       isScrolling={restoreScroll ? onScrolling : undefined}
       restoreStateFrom={restoreScroll ? virtuosoState : undefined}
     />
-  )
-}
+  );
+};

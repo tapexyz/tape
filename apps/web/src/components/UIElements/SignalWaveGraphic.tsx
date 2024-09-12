@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const SignalWaveGraphic = () => {
   return (
@@ -11,7 +11,7 @@ const SignalWaveGraphic = () => {
       <div className="absolute size-20 rounded-full border-2 border-black opacity-30 dark:border-white" />
       <div className="absolute size-10 rounded-full border-2 border-black opacity-40 dark:border-white" />
     </div>
-  )
-}
+  );
+};
 
-export default SignalWaveGraphic
+export default SignalWaveGraphic;

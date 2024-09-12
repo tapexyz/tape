@@ -1,39 +1,39 @@
-import Picker from '@emoji-mart/react'
-import { STATIC_ASSETS } from '@tape.xyz/constants'
+import Picker from "@emoji-mart/react";
+import { STATIC_ASSETS } from "@tape.xyz/constants";
 import {
   EmojiOutline,
   Popover,
   PopoverContent,
-  PopoverTrigger
-} from '@tape.xyz/ui'
-import axios from 'axios'
-import { useTheme } from 'next-themes'
-import type { FC } from 'react'
-import React, { useEffect, useState } from 'react'
+  PopoverTrigger,
+} from "@tape.xyz/ui";
+import axios from "axios";
+import { useTheme } from "next-themes";
+import type { FC } from "react";
+import React, { useEffect, useState } from "react";
 
 type EmojiData = {
-  aliases: Object
-  categories: Object[]
-  emojis: Object
-  sheet: Object
-}
+  aliases: Record<string, any>;
+  categories: Record<string, any>[];
+  emojis: Record<string, any>;
+  sheet: Record<string, any>;
+};
 
 type Props = {
-  onEmojiSelect: (emoji: string) => void
-}
+  onEmojiSelect: (emoji: string) => void;
+};
 
 const EmojiPicker: FC<Props> = ({ onEmojiSelect }) => {
-  const [data, setData] = useState<EmojiData>()
-  const { resolvedTheme } = useTheme()
+  const [data, setData] = useState<EmojiData>();
+  const { resolvedTheme } = useTheme();
 
   const fetchEmojiData = async () => {
-    const response = await axios.get(`${STATIC_ASSETS}/data/emoji.json`)
-    setData(response.data)
-  }
+    const response = await axios.get(`${STATIC_ASSETS}/data/emoji.json`);
+    setData(response.data);
+  };
 
   useEffect(() => {
-    fetchEmojiData()
-  }, [])
+    fetchEmojiData();
+  }, []);
 
   return (
     <Popover>
@@ -52,17 +52,17 @@ const EmojiPicker: FC<Props> = ({ onEmojiSelect }) => {
             onEmojiSelect(data.native)
           }
           emojiButtonColors={[
-            'rgba(155,223,88,.7)',
-            'rgba(149,211,254,.7)',
-            'rgba(247,233,34,.7)',
-            'rgba(238,166,252,.7)',
-            'rgba(255,213,143,.7)',
-            'rgba(211,209,255,.7)'
+            "rgba(155,223,88,.7)",
+            "rgba(149,211,254,.7)",
+            "rgba(247,233,34,.7)",
+            "rgba(238,166,252,.7)",
+            "rgba(255,213,143,.7)",
+            "rgba(211,209,255,.7)",
           ]}
         />
       </PopoverContent>
     </Popover>
-  )
-}
+  );
+};
 
-export default EmojiPicker
+export default EmojiPicker;

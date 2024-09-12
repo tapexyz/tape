@@ -1,19 +1,24 @@
-import React, { useMemo } from 'react'
+import React, { useMemo } from "react";
 
-import SuggestedShimmer from './SuggestedShimmer'
-import { CardShimmer } from './VideoCardShimmer'
+import SuggestedShimmer from "./SuggestedShimmer";
+import { CardShimmer } from "./VideoCardShimmer";
 
 export const SuggestedVideosShimmer = () => {
-  const cards = useMemo(() => Array(16).fill(1), [])
+  const cards = useMemo(() => Array(16).fill(1), []);
 
   return (
     <div className="col-span-1 space-y-2">
       {cards.map((i, idx) => (
-        <SuggestedShimmer key={`${i}_${idx}`} />
+        <SuggestedShimmer
+          key={`${i}_${
+            // biome-ignore lint/suspicious/noArrayIndexKey: <v3>
+            idx
+          }`}
+        />
       ))}
     </div>
-  )
-}
+  );
+};
 
 export const WatchShimmer = () => {
   return (
@@ -38,5 +43,5 @@ export const WatchShimmer = () => {
       </div>
       <SuggestedVideosShimmer />
     </div>
-  )
-}
+  );
+};

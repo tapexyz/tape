@@ -1,27 +1,27 @@
-import { tw } from '@tape.xyz/browser'
-import { formatNumber } from '@tape.xyz/generic'
-import type { FC } from 'react'
-import React from 'react'
+import { tw } from "@tape.xyz/browser";
+import { formatNumber } from "@tape.xyz/generic";
+import type { FC } from "react";
+import React from "react";
 
-import Badge from '@/components/Common/Badge'
+import Badge from "@/components/Common/Badge";
 
 type Props = {
-  className?: string
-  pfp: string
-  handle: string
-  id: string
-  followers: number
-}
+  className?: string;
+  pfp: string;
+  handle: string;
+  id: string;
+  followers: number;
+};
 
 const ProfileSuggestion: FC<Props> = ({
   className,
   pfp,
   handle,
   id,
-  followers
+  followers,
 }) => {
   return (
-    <div className={tw('flex space-x-2 truncate px-1.5 py-1.5', className)}>
+    <div className={tw("flex space-x-2 truncate px-1.5 py-1.5", className)}>
       <img
         src={pfp}
         className="mt-1 size-8 rounded-full"
@@ -38,7 +38,7 @@ const ProfileSuggestion: FC<Props> = ({
         </span>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProfileSuggestion
+export default ProfileSuggestion;

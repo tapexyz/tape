@@ -1,10 +1,9 @@
-import type BaseWebIrys from '@irys/web-upload/dist/types/base'
-import { useIsMounted } from '@tape.xyz/browser'
+import { useIsMounted } from "@tape.xyz/browser";
 import {
   POLYGON_CHAIN_ID,
-  REQUESTING_SIGNATURE_MESSAGE
-} from '@tape.xyz/constants'
-import { EVENTS, logger } from '@tape.xyz/generic'
+  REQUESTING_SIGNATURE_MESSAGE,
+} from "@tape.xyz/constants";
+import { EVENTS, logger } from "@tape.xyz/generic";
 import {
   Button,
   Callout,
@@ -14,164 +13,163 @@ import {
   RefreshOutline,
   Tooltip,
   WalletOutline,
-  WarningOutline
-} from '@tape.xyz/ui'
-import React, { useEffect, useState } from 'react'
-import toast from 'react-hot-toast'
-import { formatEther, formatUnits } from 'viem'
-import { useAccount, useBalance, useWalletClient } from 'wagmi'
+  WarningOutline,
+} from "@tape.xyz/ui";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { formatEther, formatUnits } from "viem";
+import { useAccount, useBalance, useWalletClient } from "wagmi";
 
-import useSw from '@/hooks/useSw'
-import useAppStore from '@/lib/store'
+import useSw from "@/hooks/useSw";
+import useAppStore from "@/lib/store";
+import type BaseWebIrys from "@irys/web-upload/esm/base";
 
 const IrysInfo = () => {
-  const isMounted = useIsMounted()
-  const { address } = useAccount()
-  const { data: walletClient } = useWalletClient()
-  const { addEventToQueue } = useSw()
+  const isMounted = useIsMounted();
+  const { address } = useAccount();
+  const { data: walletClient } = useWalletClient();
+  const { addEventToQueue } = useSw();
 
   const { data: userBalance } = useBalance({
     address,
     chainId: POLYGON_CHAIN_ID,
     query: {
       enabled: Boolean(address),
-      refetchInterval: 2000
-    }
-  })
+      refetchInterval: 2000,
+    },
+  });
   const formattedUserBalance = formatUnits(
     userBalance?.value ?? BigInt(0),
-    userBalance?.decimals as number
-  )
+    userBalance?.decimals as number,
+  );
 
-  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
-  const getIrysInstance = useAppStore((state) => state.getIrysInstance)
-  const irysData = useAppStore((state) => state.irysData)
-  const setIrysData = useAppStore((state) => state.setIrysData)
-  const [fetchingBalance, setFetchingBalance] = useState(false)
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia);
+  const getIrysInstance = useAppStore((state) => state.getIrysInstance);
+  const irysData = useAppStore((state) => state.irysData);
+  const setIrysData = useAppStore((state) => state.setIrysData);
+  const [fetchingBalance, setFetchingBalance] = useState(false);
 
   const estimatePrice = async (irys: BaseWebIrys) => {
     if (!uploadedMedia.stream) {
-      return toast.error('Upload cost estimation failed')
+      return toast.error("Upload cost estimation failed");
     }
-    return await irys.getPrice(uploadedMedia.stream?.size)
-  }
+    return await irys.getPrice(uploadedMedia.stream?.size);
+  };
 
   const fetchBalance = async (irys?: BaseWebIrys) => {
-    setFetchingBalance(true)
+    setFetchingBalance(true);
     try {
-      const instance = irys || irysData.instance
+      const instance = irys || irysData.instance;
       if (address && instance) {
-        const balance = await instance.getBalance(address)
-        const price = await estimatePrice(instance)
+        const balance = await instance.getBalance(address);
+        const price = await estimatePrice(instance);
         setIrysData({
           balance: formatEther(BigInt(balance.toString())),
-          estimatedPrice: formatEther(BigInt(price.toString()))
-        })
+          estimatedPrice: formatEther(BigInt(price.toString())),
+        });
       }
-      setFetchingBalance(false)
+      setFetchingBalance(false);
     } catch (error) {
-      setFetchingBalance(false)
-      logger.error('[Error Fetch Irys Balance]', error)
+      setFetchingBalance(false);
+      logger.error("[Error Fetch Irys Balance]", error);
     }
-  }
+  };
 
   const initIrys = async () => {
     if (walletClient && address && !irysData.instance) {
-      const irys = await getIrysInstance(walletClient)
+      const irys = await getIrysInstance(walletClient);
       if (irys) {
-        setIrysData({ instance: irys })
-        await fetchBalance(irys)
+        setIrysData({ instance: irys });
+        await fetchBalance(irys);
       }
     }
-  }
+  };
 
   useEffect(() => {
     if (walletClient && isMounted()) {
-      initIrys().catch((error) => logger.error('[Error Init Irys]', error))
+      initIrys().catch((error) => logger.error("[Error Init Irys]", error));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [walletClient, isMounted()])
+  }, [walletClient, isMounted()]);
 
   useEffect(() => {
     if (irysData.instance && isMounted()) {
-      fetchBalance(irysData.instance).catch(() => {})
+      fetchBalance(irysData.instance).catch(() => {});
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [irysData.instance])
+  }, [irysData.instance]);
 
   const depositToIrys = async () => {
     if (!irysData.instance) {
-      return await initIrys()
+      return await initIrys();
     }
     if (!irysData.deposit) {
-      return toast.error('Enter deposit amount')
+      return toast.error("Enter deposit amount");
     }
-    const depositAmount = parseFloat(irysData.deposit)
-    const fundValue = irysData.instance.utils.toAtomic(depositAmount)
+    const depositAmount = Number.parseFloat(irysData.deposit);
+    const fundValue = irysData.instance.utils.toAtomic(depositAmount);
     if (!fundValue || Number(fundValue) < 1) {
-      return toast.error('Invalid deposit amount')
+      return toast.error("Invalid deposit amount");
     }
 
     if (
       formattedUserBalance &&
-      parseFloat(formattedUserBalance) < depositAmount
+      Number.parseFloat(formattedUserBalance) < depositAmount
     ) {
       return toast.error(
-        `Insufficient funds in your wallet, you have ${formattedUserBalance} POL.`
-      )
+        `Insufficient funds in your wallet, you have ${formattedUserBalance} POL.`,
+      );
     }
-    setIrysData({ depositing: true })
+    setIrysData({ depositing: true });
 
     try {
-      const fundResult = await irysData.instance.fund(fundValue)
+      const fundResult = await irysData.instance.fund(fundValue);
       if (fundResult) {
         toast.success(
-          `Deposit of ${irysData.instance.utils.fromAtomic(fundResult?.quantity)} POL is done and it will be reflected in few seconds.`
-        )
-        addEventToQueue(EVENTS.DEPOSIT_POL)
+          `Deposit of ${irysData.instance.utils.fromAtomic(fundResult?.quantity)} POL is done and it will be reflected in few seconds.`,
+        );
+        addEventToQueue(EVENTS.DEPOSIT_POL);
       }
     } catch (error) {
-      toast.error('Failed to deposit storage balance')
-      logger.error('[Error Irys Deposit]', error)
+      toast.error("Failed to deposit storage balance");
+      logger.error("[Error Irys Deposit]", error);
     } finally {
-      await fetchBalance()
+      await fetchBalance();
       setIrysData({
         deposit: null,
         showDeposit: false,
-        depositing: false
-      })
+        depositing: false,
+      });
     }
-  }
+  };
 
   const onRefreshBalance = async () => {
     if (!irysData.instance) {
-      return await initIrys()
+      return await initIrys();
     }
-    await fetchBalance()
-  }
+    await fetchBalance();
+  };
 
   const onWithdrawBalance = async () => {
     if (!irysData.instance) {
-      return await initIrys()
+      return await initIrys();
     }
 
     try {
-      toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-      const withdrawBalanceResult = await irysData.instance.withdrawAll()
+      toast.loading(REQUESTING_SIGNATURE_MESSAGE);
+      const withdrawBalanceResult = await irysData.instance.withdrawAll();
       if (withdrawBalanceResult.tx_id) {
         toast.success(
-          `Withdraw of ${Number(irysData.balance).toFixed(2)} POL is done and it will be reflected in few seconds.`
-        )
-        await fetchBalance()
-        addEventToQueue(EVENTS.WITHDRAW_POL)
+          `Withdraw of ${Number(irysData.balance).toFixed(2)} POL is done and it will be reflected in few seconds.`,
+        );
+        await fetchBalance();
+        addEventToQueue(EVENTS.WITHDRAW_POL);
       }
     } catch (error) {
-      logger.error('[Error Irys Withdraw]', error)
-      toast.error('Failed to withdraw storage balance')
+      logger.error("[Error Irys Withdraw]", error);
+      toast.error("Failed to withdraw storage balance");
     }
-  }
+  };
 
-  const isEnoughBalanceAvailable = irysData.estimatedPrice < irysData.balance
+  const isEnoughBalanceAvailable = irysData.estimatedPrice < irysData.balance;
 
   return (
     <div className="mt-4 w-full space-y-4">
@@ -226,7 +224,7 @@ const IrysInfo = () => {
               variant="secondary"
               onClick={() =>
                 setIrysData({
-                  showDeposit: !irysData.showDeposit
+                  showDeposit: !irysData.showDeposit,
                 })
               }
             >
@@ -261,9 +259,9 @@ const IrysInfo = () => {
               className="py-1.5 md:py-2"
               autoComplete="off"
               min={0}
-              value={irysData.deposit ?? ''}
+              value={irysData.deposit ?? ""}
               onChange={(e) => {
-                setIrysData({ deposit: e.target.value })
+                setIrysData({ deposit: e.target.value });
               }}
             />
             <Button
@@ -279,7 +277,7 @@ const IrysInfo = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default IrysInfo
+export default IrysInfo;

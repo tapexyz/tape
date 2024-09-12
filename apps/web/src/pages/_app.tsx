@@ -1,10 +1,10 @@
-import '../styles/index.css'
+import "../styles/index.css";
 
-import { tapeFont } from '@tape.xyz/browser/font'
-import type { AppProps } from 'next/app'
-import React from 'react'
+import { tapeFont } from "@tape.xyz/browser/font";
+import type { AppProps } from "next/app";
+import React from "react";
 
-import Providers from '@/components/Common/Providers'
+import Providers from "@/components/Common/Providers";
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
@@ -16,7 +16,7 @@ const App = ({ Component, pageProps }: AppProps) => {
       `}</style>
       <Component {...pageProps} />
     </Providers>
-  )
-}
+  );
+};
 
-export default App
+export default App;

@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react";
 
-import ButtonShimmer from './ButtonShimmer'
-import TimelineShimmer from './TimelineShimmer'
+import ButtonShimmer from "./ButtonShimmer";
+import TimelineShimmer from "./TimelineShimmer";
 
 const ProfilePageShimmer = () => {
   return (
@@ -31,7 +31,7 @@ const ProfilePageShimmer = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default ProfilePageShimmer
+export default ProfilePageShimmer;

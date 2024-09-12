@@ -1,36 +1,36 @@
 import type {
   QueuedCommentType,
-  QueuedVideoType
-} from '@tape.xyz/lens/custom-types'
+  QueuedVideoType,
+} from "@tape.xyz/lens/custom-types";
 import {
   CustomNotificationsFilterEnum,
-  LocalStore
-} from '@tape.xyz/lens/custom-types'
-import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+  LocalStore,
+} from "@tape.xyz/lens/custom-types";
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface AppPerisistState {
-  lastOpenedNotificationId: string
-  setLastOpenedNotificationId: (id: string) => void
-  latestNotificationId: string
-  setLatestNotificationId: (id: string) => void
-  queuedVideos: QueuedVideoType[]
-  queuedComments: QueuedCommentType[]
-  selectedNotificationsFilter: CustomNotificationsFilterEnum
-  setQueuedComments: (queuedComments: QueuedCommentType[]) => void
-  setQueuedVideos: (queuedVideos: QueuedVideoType[]) => void
+  lastOpenedNotificationId: string;
+  setLastOpenedNotificationId: (id: string) => void;
+  latestNotificationId: string;
+  setLatestNotificationId: (id: string) => void;
+  queuedVideos: QueuedVideoType[];
+  queuedComments: QueuedCommentType[];
+  selectedNotificationsFilter: CustomNotificationsFilterEnum;
+  setQueuedComments: (queuedComments: QueuedCommentType[]) => void;
+  setQueuedVideos: (queuedVideos: QueuedVideoType[]) => void;
   setSelectedNotificationsFilter: (
-    filter: CustomNotificationsFilterEnum
-  ) => void
+    filter: CustomNotificationsFilterEnum,
+  ) => void;
 }
 
 export const usePersistStore = create(
   persist<AppPerisistState>(
     (set) => ({
-      latestNotificationId: '',
+      latestNotificationId: "",
       setLatestNotificationId: (latestNotificationId) =>
         set({ latestNotificationId }),
-      lastOpenedNotificationId: '',
+      lastOpenedNotificationId: "",
       setLastOpenedNotificationId: (id) =>
         set({ lastOpenedNotificationId: id }),
       queuedComments: [],
@@ -40,12 +40,12 @@ export const usePersistStore = create(
       selectedNotificationsFilter:
         CustomNotificationsFilterEnum.ALL_NOTIFICATIONS,
       setSelectedNotificationsFilter: (selectedNotificationsFilter) =>
-        set({ selectedNotificationsFilter })
+        set({ selectedNotificationsFilter }),
     }),
     {
-      name: LocalStore.TAPE_STORE
-    }
-  )
-)
+      name: LocalStore.TAPE_STORE,
+    },
+  ),
+);
 
-export default usePersistStore
+export default usePersistStore;

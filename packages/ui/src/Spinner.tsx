@@ -1,25 +1,25 @@
-import { tw } from '@tape.xyz/browser'
-import type { FC } from 'react'
-import React from 'react'
+import { tw } from "@tape.xyz/browser";
+import type { FC } from "react";
+import React from "react";
 
 type Props = {
-  size?: 'sm' | 'md'
-  className?: string
-}
+  size?: "sm" | "md";
+  className?: string;
+};
 
-export const Spinner: FC<Props> = ({ size = 'md', className }) => {
+export const Spinner: FC<Props> = ({ size = "md", className }) => {
   return (
     <div className="border-0">
       <div className="grid justify-items-center space-y-2">
         <svg
           role="status"
           className={tw(
-            'animate-spin fill-black text-gray-400 dark:fill-white',
+            "animate-spin fill-black text-gray-400 dark:fill-white",
             className,
             {
-              'size-5': size === 'md',
-              'size-3.5': size === 'sm'
-            }
+              "size-5": size === "md",
+              "size-3.5": size === "sm",
+            },
           )}
           viewBox="0 0 100 101"
           fill="none"
@@ -36,5 +36,5 @@ export const Spinner: FC<Props> = ({ size = 'md', className }) => {
         </svg>
       </div>
     </div>
-  )
-}
+  );
+};

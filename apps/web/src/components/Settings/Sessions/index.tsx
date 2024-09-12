@@ -1,8 +1,8 @@
-import React from 'react'
+import React from "react";
 
-import MetaTags from '@/components/Common/MetaTags'
+import MetaTags from "@/components/Common/MetaTags";
 
-import List from './List'
+import List from "./List";
 
 const Sessions = () => {
   return (
@@ -19,7 +19,7 @@ const Sessions = () => {
       </div>
       <List />
     </>
-  )
-}
+  );
+};
 
-export default Sessions
+export default Sessions;

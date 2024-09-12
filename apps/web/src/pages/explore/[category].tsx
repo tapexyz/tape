@@ -1,3 +1,3 @@
-import ExploreCategory from '@/components/Explore/Category'
+import ExploreCategory from "@/components/Explore/Category";
 
-export default ExploreCategory
+export default ExploreCategory;

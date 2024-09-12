@@ -1,21 +1,21 @@
-import { tw } from '@tape.xyz/browser'
-import { trimify } from '@tape.xyz/generic'
-import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
-import { Button, Input } from '@tape.xyz/ui'
-import type { FC } from 'react'
-import React, { useState } from 'react'
+import { tw } from "@tape.xyz/browser";
+import { trimify } from "@tape.xyz/generic";
+import type { CollectModuleType } from "@tape.xyz/lens/custom-types";
+import { Button, Input } from "@tape.xyz/ui";
+import type { FC } from "react";
+import React, { useState } from "react";
 
-import useAppStore from '@/lib/store'
+import useAppStore from "@/lib/store";
 
 type Props = {
-  setCollectType: (data: CollectModuleType) => void
-}
+  setCollectType: (data: CollectModuleType) => void;
+};
 
 const EditionSize: FC<Props> = ({ setCollectType }) => {
-  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia);
   const [showSizePicker, setShowSizePicker] = useState(
-    uploadedMedia.collectModule.collectLimitEnabled
-  )
+    uploadedMedia.collectModule.collectLimitEnabled,
+  );
 
   return (
     <div className="space-y-1">
@@ -27,13 +27,13 @@ const EditionSize: FC<Props> = ({ setCollectType }) => {
             onClick={() => {
               setCollectType({
                 isSimpleCollect: true,
-                collectLimitEnabled: false
-              })
-              setShowSizePicker(false)
+                collectLimitEnabled: false,
+              });
+              setShowSizePicker(false);
             }}
             className={tw(
               !uploadedMedia.collectModule.collectLimitEnabled &&
-                'border-brand-500'
+                "border-brand-500",
             )}
             variant="secondary"
           >
@@ -46,13 +46,13 @@ const EditionSize: FC<Props> = ({ setCollectType }) => {
             onClick={() => {
               setCollectType({
                 isSimpleCollect: true,
-                collectLimitEnabled: true
-              })
-              setShowSizePicker(true)
+                collectLimitEnabled: true,
+              });
+              setShowSizePicker(true);
             }}
             className={tw(
               uploadedMedia.collectModule.collectLimitEnabled &&
-                'border-brand-500'
+                "border-brand-500",
             )}
             variant="secondary"
           >
@@ -68,19 +68,20 @@ const EditionSize: FC<Props> = ({ setCollectType }) => {
             suffix="editions"
             min="0"
             onBlur={(e) => {
-              const { value } = e.target
+              const { value } = e.target;
               setCollectType({
                 collectLimit:
                   !trimify(value) || Number(value) <= 0
-                    ? '0'
-                    : String(parseInt(value))
-              })
+                    ? "0"
+                    : String(Number.parseInt(value)),
+              });
             }}
             onChange={(e) => {
-              const { value } = e.target
+              const { value } = e.target;
               setCollectType({
-                collectLimit: Number(value) <= 0 ? '' : String(parseInt(value))
-              })
+                collectLimit:
+                  Number(value) <= 0 ? "" : String(Number.parseInt(value)),
+              });
             }}
             value={uploadedMedia.collectModule.collectLimit}
             autoComplete="off"
@@ -88,7 +89,7 @@ const EditionSize: FC<Props> = ({ setCollectType }) => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default EditionSize
+export default EditionSize;

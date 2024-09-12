@@ -7,10 +7,9 @@
     "dev:cron": "tsx --watch src/index.ts",
     "build": "tsc",
     "start": "tsx src/index.ts",
-    "lint": "eslint . --ext .js,.ts,.tsx",
-    "typecheck": "tsc --pretty",
-    "format:check": "prettier --check \"**/*.{ts,tsx,md,json,css}\"",
-    "format": "prettier --write \"**/*.{ts,tsx,md,json,css}\""
+    "lint": "biome lint",
+    "format": "biome format --write .",
+    "typecheck": "tsc --pretty --noEmit"
   },
   "license": "AGPL-3.0",
   "dependencies": {
@@ -18,12 +17,12 @@
     "node-cron": "^3.0.3"
   },
   "devDependencies": {
-    "@tape.xyz/config": "workspace:*",
     "@tape.xyz/constants": "workspace:*",
     "@tape.xyz/server": "workspace:*",
+    "@tape.xyz/tsconfig": "workspace:*",
     "@types/node": "^22.5.4",
     "@types/node-cron": "^3.0.11",
     "tsx": "^4.19.0",
-    "typescript": "5.6.2"
+    "typescript": "^5.6.2"
   }
 }

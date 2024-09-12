@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react";
 
-import CommentItemShimmer from './CommentItemShimmer'
+import CommentItemShimmer from "./CommentItemShimmer";
 
 const CommentsShimmer = () => {
   return (
@@ -8,7 +8,7 @@ const CommentsShimmer = () => {
       <CommentItemShimmer />
       <CommentItemShimmer />
     </div>
-  )
-}
+  );
+};
 
-export default CommentsShimmer
+export default CommentsShimmer;

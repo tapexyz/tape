@@ -2,38 +2,38 @@ import {
   formatNumber,
   getLennyPicture,
   getProfile,
-  getProfilePicture
-} from '@tape.xyz/generic'
-import type { FollowersRequest, Profile, ProfileStats } from '@tape.xyz/lens'
-import { LimitType, useFollowersQuery } from '@tape.xyz/lens'
-import { Modal, Spinner } from '@tape.xyz/ui'
-import type { FC } from 'react'
-import React, { useState } from 'react'
-import { useInView } from 'react-cool-inview'
+  getProfilePicture,
+} from "@tape.xyz/generic";
+import type { FollowersRequest, Profile, ProfileStats } from "@tape.xyz/lens";
+import { LimitType, useFollowersQuery } from "@tape.xyz/lens";
+import { Modal, Spinner } from "@tape.xyz/ui";
+import type { FC } from "react";
+import React, { useState } from "react";
+import { useInView } from "react-cool-inview";
 
-import HoverableProfile from '@/components/Common/HoverableProfile'
-import { NoDataFound } from '@/components/UIElements/NoDataFound'
+import HoverableProfile from "@/components/Common/HoverableProfile";
+import { NoDataFound } from "@/components/UIElements/NoDataFound";
 
 type Props = {
-  stats: ProfileStats
-  profileId: string
-}
+  stats: ProfileStats;
+  profileId: string;
+};
 
 const Followers: FC<Props> = ({ stats, profileId }) => {
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(false);
 
   const request: FollowersRequest = {
     of: profileId,
-    limit: LimitType.Fifty
-  }
+    limit: LimitType.Fifty,
+  };
 
   const { data, loading, fetchMore } = useFollowersQuery({
     variables: { request },
-    skip: !profileId
-  })
+    skip: !profileId,
+  });
 
-  const followers = data?.followers?.items as Profile[]
-  const pageInfo = data?.followers?.pageInfo
+  const followers = data?.followers?.items as Profile[];
+  const pageInfo = data?.followers?.pageInfo;
 
   const { observe } = useInView({
     onEnter: async () => {
@@ -41,16 +41,17 @@ const Followers: FC<Props> = ({ stats, profileId }) => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next
-          }
-        }
-      })
-    }
-  })
+            cursor: pageInfo?.next,
+          },
+        },
+      });
+    },
+  });
 
   return (
     <>
       <button
+        type="button"
         className="flex items-end gap-1"
         onClick={() => setShowModal(true)}
       >
@@ -79,12 +80,12 @@ const Followers: FC<Props> = ({ stats, profileId }) => {
                     profile={profile}
                     pfp={
                       <img
-                        src={getProfilePicture(profile, 'AVATAR')}
+                        src={getProfilePicture(profile, "AVATAR")}
                         className="size-5 rounded-full"
                         draggable={false}
                         alt={getProfile(profile)?.displayName}
                         onError={({ currentTarget }) => {
-                          currentTarget.src = getLennyPicture(profile?.id)
+                          currentTarget.src = getLennyPicture(profile?.id);
                         }}
                       />
                     }
@@ -101,7 +102,7 @@ const Followers: FC<Props> = ({ stats, profileId }) => {
         </div>
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default Followers
+export default Followers;

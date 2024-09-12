@@ -2,19 +2,22 @@ import {
   getLennyPicture,
   getProfile,
   getProfilePicture,
-  getPublicationData
-} from '@tape.xyz/generic'
-import type { ProfileReactedResult, ReactionNotification } from '@tape.xyz/lens'
-import { HeartOutline } from '@tape.xyz/ui'
-import Link from 'next/link'
-import type { FC } from 'react'
-import React from 'react'
+  getPublicationData,
+} from "@tape.xyz/generic";
+import type {
+  ProfileReactedResult,
+  ReactionNotification,
+} from "@tape.xyz/lens";
+import { HeartOutline } from "@tape.xyz/ui";
+import Link from "next/link";
+import type { FC } from "react";
+import React from "react";
 
-import HoverableProfile from '@/components/Common/HoverableProfile'
+import HoverableProfile from "@/components/Common/HoverableProfile";
 
 type Props = {
-  notification: ReactionNotification
-}
+  notification: ReactionNotification;
+};
 
 const Reactions: FC<Props> = ({ notification: { publication, reactions } }) => {
   return (
@@ -28,9 +31,9 @@ const Reactions: FC<Props> = ({ notification: { publication, reactions } }) => {
             <HoverableProfile profile={profile} key={profile?.id}>
               <img
                 className="size-7 rounded-full border dark:border-gray-700/80"
-                src={getProfilePicture(profile, 'AVATAR')}
+                src={getProfilePicture(profile, "AVATAR")}
                 onError={({ currentTarget }) => {
-                  currentTarget.src = getLennyPicture(profile?.id)
+                  currentTarget.src = getLennyPicture(profile?.id);
                 }}
                 alt={getProfile(profile)?.displayName}
                 draggable={false}
@@ -47,7 +50,7 @@ const Reactions: FC<Props> = ({ notification: { publication, reactions } }) => {
         </Link>
       </div>
     </span>
-  )
-}
+  );
+};
 
-export default Reactions
+export default Reactions;

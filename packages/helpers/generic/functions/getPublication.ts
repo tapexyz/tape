@@ -1,29 +1,28 @@
-import type { AnyPublication, PrimaryPublication } from '@tape.xyz/lens'
+import type { AnyPublication, PrimaryPublication } from "@tape.xyz/lens";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export type Typename<T = string> = { [key in '__typename']?: T }
+export type Typename<T = string> = { [key in "__typename"]?: T };
 
 export type PickByTypename<
   T extends Typename,
-  P extends T['__typename'] | undefined
+  P extends T["__typename"] | undefined,
 > = T extends {
-  __typename?: P
+  __typename?: P;
 }
   ? T
-  : never
+  : never;
 
 export const isMirrorPublication = <T extends AnyPublication>(
-  publication: T
-): publication is PickByTypename<T, 'Mirror'> =>
-  publication.__typename === 'Mirror'
+  publication: T,
+): publication is PickByTypename<T, "Mirror"> =>
+  publication.__typename === "Mirror";
 
 export const getPublication = (
-  publication: AnyPublication
+  publication: AnyPublication,
 ): PrimaryPublication => {
   if (!publication) {
-    return publication
+    return publication;
   }
-  const isMirror = isMirrorPublication(publication)
+  const isMirror = isMirrorPublication(publication);
 
-  return isMirror ? publication?.mirrorOn : publication
-}
+  return isMirror ? publication?.mirrorOn : publication;
+};

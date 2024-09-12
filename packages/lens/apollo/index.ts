@@ -3,44 +3,44 @@ import {
   ApolloClient,
   ApolloLink,
   ApolloProvider,
+  HttpLink,
+  InMemoryCache,
   from,
   fromPromise,
   gql,
-  HttpLink,
-  InMemoryCache,
   toPromise,
   useApolloClient,
   useLazyQuery,
-  useQuery
-} from '@apollo/client'
-import { RetryLink } from '@apollo/client/link/retry'
-import { LENS_API_URL } from '@tape.xyz/constants'
+  useQuery,
+} from "@apollo/client";
+import { RetryLink } from "@apollo/client/link/retry";
+import { LENS_API_URL } from "@tape.xyz/constants";
 
-import cache from './cache'
+import cache from "./cache";
 
 const retryLink = new RetryLink({
   delay: {
-    initial: 100
+    initial: 100,
   },
   attempts: {
     max: 2,
-    retryIf: (error) => Boolean(error)
-  }
-})
+    retryIf: (error) => Boolean(error),
+  },
+});
 
 const httpLink = new HttpLink({
   uri: LENS_API_URL,
-  fetchOptions: 'no-cors',
-  fetch
-})
+  fetchOptions: "no-cors",
+  fetch,
+});
 
 const apolloClient = (authLink?: ApolloLink) =>
   new ApolloClient({
     link: authLink
       ? from([authLink, retryLink, httpLink])
       : from([retryLink, httpLink]),
-    cache
-  })
+    cache,
+  });
 
 export {
   ApolloCache,
@@ -53,5 +53,5 @@ export {
   toPromise,
   useApolloClient,
   useLazyQuery,
-  useQuery
-}
+  useQuery,
+};

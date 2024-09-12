@@ -1,6 +1,3 @@
 {
-  "extends": "@tape.xyz/config/base.tsconfig.json",
-  "compilerOptions": {
-    "module": "commonjs"
-  }
+  "extends": "@tape.xyz/tsconfig/base.json"
 }

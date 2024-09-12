@@ -3,33 +3,33 @@ import {
   INFINITE_SCROLL_ROOT_MARGIN,
   IS_MAINNET,
   LENSTUBE_BYTES_APP_ID,
-  TAPE_APP_ID
-} from '@tape.xyz/constants'
-import type { PrimaryPublication, PublicationsRequest } from '@tape.xyz/lens'
+  TAPE_APP_ID,
+} from "@tape.xyz/constants";
+import type { PrimaryPublication, PublicationsRequest } from "@tape.xyz/lens";
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   PublicationType,
-  usePublicationsQuery
-} from '@tape.xyz/lens'
-import { Spinner } from '@tape.xyz/ui'
-import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
-import { useInView } from 'react-cool-inview'
+  usePublicationsQuery,
+} from "@tape.xyz/lens";
+import { Spinner } from "@tape.xyz/ui";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
+import { useInView } from "react-cool-inview";
 
-import { SuggestedVideosShimmer } from '@/components/Shimmers/WatchShimmer'
-import useCuratedProfiles from '@/lib/store/idb/curated'
-import useProfileStore from '@/lib/store/idb/profile'
+import { SuggestedVideosShimmer } from "@/components/Shimmers/WatchShimmer";
+import useCuratedProfiles from "@/lib/store/idb/curated";
+import useProfileStore from "@/lib/store/idb/profile";
 
-import SuggestedVideoCard from './SuggestedVideoCard'
+import SuggestedVideoCard from "./SuggestedVideoCard";
 
 const SuggestedVideos = () => {
   const {
-    query: { id }
-  } = useRouter()
+    query: { id },
+  } = useRouter();
 
-  const { activeProfile } = useProfileStore()
-  const curatedProfiles = useCuratedProfiles((state) => state.curatedProfiles)
+  const { activeProfile } = useProfileStore();
+  const curatedProfiles = useCuratedProfiles((state) => state.curatedProfiles);
 
   const request: PublicationsRequest = {
     where: {
@@ -37,27 +37,27 @@ const SuggestedVideos = () => {
         mainContentFocus: [PublicationMetadataMainFocusType.Video],
         publishedOn: IS_MAINNET
           ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
-          : undefined
+          : undefined,
       },
       publicationTypes: [PublicationType.Post],
-      from: curatedProfiles
+      from: curatedProfiles,
     },
-    limit: LimitType.Fifty
-  }
+    limit: LimitType.Fifty,
+  };
 
   const { data, loading, error, fetchMore, refetch } = usePublicationsQuery({
     variables: {
-      request
+      request,
     },
-    skip: !curatedProfiles?.length
-  })
+    skip: !curatedProfiles?.length,
+  });
 
-  const videos = data?.publications?.items as PrimaryPublication[]
-  const pageInfo = data?.publications?.pageInfo
+  const videos = data?.publications?.items as PrimaryPublication[];
+  const pageInfo = data?.publications?.pageInfo;
 
   useEffect(() => {
-    refetch()
-  }, [id, refetch])
+    refetch();
+  }, [id, refetch]);
 
   const { observe } = useInView({
     rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
@@ -66,13 +66,13 @@ const SuggestedVideos = () => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next
+            cursor: pageInfo?.next,
           },
-          channelId: activeProfile?.id ?? null
-        }
-      })
-    }
-  })
+          channelId: activeProfile?.id ?? null,
+        },
+      });
+    },
+  });
 
   return (
     <>
@@ -85,7 +85,7 @@ const SuggestedVideos = () => {
                 !video.isHidden &&
                 video.id !== id && (
                   <SuggestedVideoCard video={video} key={video?.id} />
-                )
+                ),
             )}
           </div>
           {pageInfo?.next && (
@@ -96,7 +96,7 @@ const SuggestedVideos = () => {
         </div>
       ) : null}
     </>
-  )
-}
+  );
+};
 
-export default SuggestedVideos
+export default SuggestedVideos;

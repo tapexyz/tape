@@ -1,20 +1,20 @@
-import type { CodegenConfig } from '@graphql-codegen/cli'
-import { LensEndpoint } from '@tape.xyz/constants'
+import type { CodegenConfig } from "@graphql-codegen/cli";
+import { LensEndpoint } from "@tape.xyz/constants";
 
 const config: CodegenConfig = {
   schema: LensEndpoint.Staging,
-  documents: 'documents/**/*.graphql',
+  documents: "documents/**/*.graphql",
   generates: {
-    'gql/generated/': {
-      preset: 'client',
+    "gql/generated/": {
+      preset: "client",
       config: {
-        documentMode: 'string'
-      }
-    }
+        documentMode: "string",
+      },
+    },
   },
   hooks: {
-    afterAllFileWrite: ['eslint --fix', 'prettier --write']
-  }
-}
+    afterAllFileWrite: ["biome format --write ."],
+  },
+};
 
-export default config
+export default config;

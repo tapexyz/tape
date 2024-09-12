@@ -1,10 +1,10 @@
-import { ThemeProvider as NextTheme } from 'next-themes'
-import { type FC, type ReactNode } from 'react'
-import React from 'react'
+import { ThemeProvider as NextTheme } from "next-themes";
+import type { FC, ReactNode } from "react";
+import React from "react";
 
 type Props = {
-  children: ReactNode
-}
+  children: ReactNode;
+};
 
 const ThemeProvider: FC<Props> = ({ children }) => {
   return (
@@ -16,7 +16,7 @@ const ThemeProvider: FC<Props> = ({ children }) => {
     >
       {children}
     </NextTheme>
-  )
-}
+  );
+};
 
-export default ThemeProvider
+export default ThemeProvider;

@@ -1,3 +1,7 @@
 {
-  "extends": "@tape.xyz/config/base.tsconfig.json"
+  "extends": "@tape.xyz/tsconfig/base.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Node"
+  }
 }

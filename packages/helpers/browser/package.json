@@ -5,10 +5,9 @@
   "main": "./index.ts",
   "scripts": {
     "build:sw": "tsc worker/sw.ts --outDir ../../../apps/web/public",
-    "lint": "eslint . --ext .js,.ts,.tsx",
-    "typecheck": "tsc --pretty",
-    "format:check": "prettier --check \"**/*.{ts,tsx,md,json,css}\"",
-    "format": "prettier --write \"**/*.{ts,tsx,md,json,css}\"",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "typecheck": "tsc --pretty --noEmit",
     "postinstall": "pnpm build:sw"
   },
   "dependencies": {
@@ -25,7 +24,7 @@
     "uuid": "^10.0.0"
   },
   "devDependencies": {
-    "@tape.xyz/config": "workspace:*",
+    "@tape.xyz/tsconfig": "workspace:*",
     "@tape.xyz/constants": "workspace:*",
     "@tape.xyz/generic": "workspace:*",
     "@tape.xyz/lens": "workspace:*",

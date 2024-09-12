@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react";
 
-import ButtonShimmer from './ButtonShimmer'
+import ButtonShimmer from "./ButtonShimmer";
 
 const ChannelCardShimmer = () => {
   return (
@@ -18,7 +18,7 @@ const ChannelCardShimmer = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ChannelCardShimmer
+export default ChannelCardShimmer;

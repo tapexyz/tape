@@ -1,52 +1,54 @@
-import { tw } from '@tape.xyz/browser'
-import { FEATURE_FLAGS } from '@tape.xyz/constants'
+import { tw } from "@tape.xyz/browser";
+import { FEATURE_FLAGS } from "@tape.xyz/constants";
 import {
   formatBytes,
   getIsFeatureEnabled,
-  sanitizeDStorageUrl
-} from '@tape.xyz/generic'
-import { Badge, Input, Tooltip } from '@tape.xyz/ui'
-import React, { useEffect, useRef, useState } from 'react'
+  sanitizeDStorageUrl,
+} from "@tape.xyz/generic";
+import { Badge, Input, Tooltip } from "@tape.xyz/ui";
+import React, { useEffect, useRef, useState } from "react";
 
-import { formatTimeFromSeconds } from '@/lib/formatTime'
-import useAppStore from '@/lib/store'
-import useProfileStore from '@/lib/store/idb/profile'
+import { formatTimeFromSeconds } from "@/lib/formatTime";
+import useAppStore from "@/lib/store";
+import useProfileStore from "@/lib/store/idb/profile";
 
-import ChooseThumbnail from './ChooseThumbnail'
-import UploadMethod from './UploadMethod'
+import ChooseThumbnail from "./ChooseThumbnail";
+import UploadMethod from "./UploadMethod";
 
 const SelectedMedia = () => {
-  const mediaRef = useRef<HTMLVideoElement>(null)
-  const [loading, setLoading] = useState(true)
-  const [interacted, setInteracted] = useState(false)
-  const activeProfile = useProfileStore((state) => state.activeProfile)
-  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
-  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
+  const mediaRef = useRef<HTMLVideoElement>(null);
+  const [loading, setLoading] = useState(true);
+  const [interacted, setInteracted] = useState(false);
+  const activeProfile = useProfileStore((state) => state.activeProfile);
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia);
+  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia);
 
   const onDataLoaded = () => {
-    if (mediaRef.current?.duration && mediaRef.current?.duration !== Infinity) {
+    if (
+      mediaRef.current?.duration &&
+      mediaRef.current?.duration !== Number.POSITIVE_INFINITY
+    ) {
       setUploadedMedia({
         durationInSeconds: mediaRef.current.duration
           ? Math.ceil(mediaRef.current.duration)
-          : 0
-      })
+          : 0,
+      });
     }
-    setLoading(false)
-  }
+    setLoading(false);
+  };
 
   useEffect(() => {
     if (mediaRef.current) {
-      mediaRef.current.onloadeddata = onDataLoaded
+      mediaRef.current.onloadeddata = onDataLoaded;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mediaRef])
+  }, [mediaRef]);
 
   const onClickVideo = () => {
-    setInteracted(true)
+    setInteracted(true);
     mediaRef.current?.paused
       ? mediaRef.current?.play()
-      : mediaRef.current?.pause()
-  }
+      : mediaRef.current?.pause();
+  };
 
   return (
     <div className="flex flex-col">
@@ -65,6 +67,7 @@ const SelectedMedia = () => {
           autoPlay={interacted}
           muted={!interacted}
           onClick={() => onClickVideo()}
+          onKeyDown={() => onClickVideo()}
           src={uploadedMedia.preview}
         />
 
@@ -81,7 +84,7 @@ const SelectedMedia = () => {
                 <span className="space-x-1 whitespace-nowrap">
                   <span>
                     {formatTimeFromSeconds(
-                      String(uploadedMedia.durationInSeconds)
+                      String(uploadedMedia.durationInSeconds),
                     )}
                   </span>
                   <span>({formatBytes(uploadedMedia.file?.size)})</span>
@@ -101,13 +104,13 @@ const SelectedMedia = () => {
                 <div className="absolute bottom-0 w-full overflow-hidden bg-gray-200">
                   <div
                     className={tw(
-                      'h-[6px]',
+                      "h-[6px]",
                       uploadedMedia.percent !== 0
-                        ? 'bg-brand-500'
-                        : 'bg-gray-300 dark:bg-gray-800'
+                        ? "bg-brand-500"
+                        : "bg-gray-300 dark:bg-gray-800",
                     )}
                     style={{
-                      width: `${uploadedMedia.percent}%`
+                      width: `${uploadedMedia.percent}%`,
                     }}
                   />
                 </div>
@@ -118,7 +121,7 @@ const SelectedMedia = () => {
       </div>
       {getIsFeatureEnabled(
         FEATURE_FLAGS.POST_WITH_SOURCE_URL,
-        activeProfile?.id
+        activeProfile?.id,
       ) && (
         <div className="mt-4">
           <Input
@@ -128,7 +131,7 @@ const SelectedMedia = () => {
             value={uploadedMedia.dUrl}
             onChange={(e) =>
               setUploadedMedia({
-                dUrl: e.target.value
+                dUrl: e.target.value,
               })
             }
           />
@@ -141,7 +144,7 @@ const SelectedMedia = () => {
         <UploadMethod />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SelectedMedia
+export default SelectedMedia;

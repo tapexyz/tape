@@ -1,30 +1,30 @@
-import { LocalIDBStore } from '@tape.xyz/lens/custom-types'
-import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { LocalIDBStore } from "@tape.xyz/lens/custom-types";
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
-import createIdbStorage from '@/lib/createIdbStorage'
+import createIdbStorage from "@/lib/createIdbStorage";
 
 type Toggles = {
-  suspended: boolean
-  limited: boolean
-}
+  suspended: boolean;
+  limited: boolean;
+};
 
 interface State {
-  toggles: Toggles
-  setToggles: (toggles: Toggles) => void
+  toggles: Toggles;
+  setToggles: (toggles: Toggles) => void;
 }
 
 const useProfileTogglesStore = create(
   persist<State>(
     (set) => ({
       toggles: { suspended: false, limited: false },
-      setToggles: (toggles) => set({ toggles })
+      setToggles: (toggles) => set({ toggles }),
     }),
     {
       name: LocalIDBStore.TOGGLES_STORE,
-      storage: createIdbStorage()
-    }
-  )
-)
+      storage: createIdbStorage(),
+    },
+  ),
+);
 
-export default useProfileTogglesStore
+export default useProfileTogglesStore;

@@ -1,24 +1,24 @@
-'use client'
+"use client";
 
-import { LivepeerConfig } from '@livepeer/react'
-import { getLivepeerClient, setFingerprint, tapeFont } from '@tape.xyz/browser'
-import { getPublication } from '@tape.xyz/generic'
-import type { AnyPublication } from '@tape.xyz/lens'
-import type { FC } from 'react'
-import React, { useEffect } from 'react'
+import { LivepeerConfig } from "@livepeer/react";
+import { getLivepeerClient, setFingerprint, tapeFont } from "@tape.xyz/browser";
+import { getPublication } from "@tape.xyz/generic";
+import type { AnyPublication } from "@tape.xyz/lens";
+import type { FC } from "react";
+import React, { useEffect } from "react";
 
-import Video from './Video'
+import Video from "./Video";
 
 type Props = {
-  publication: AnyPublication
-}
+  publication: AnyPublication;
+};
 
 const Publication: FC<Props> = ({ publication }) => {
   useEffect(() => {
-    setFingerprint()
-  }, [])
+    setFingerprint();
+  }, []);
 
-  const target = getPublication(publication)
+  const target = getPublication(publication);
 
   return (
     <div className={tapeFont.className}>
@@ -26,7 +26,7 @@ const Publication: FC<Props> = ({ publication }) => {
         <Video video={target} />
       </LivepeerConfig>
     </div>
-  )
-}
+  );
+};
 
-export default Publication
+export default Publication;

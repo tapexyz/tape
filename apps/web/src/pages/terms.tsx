@@ -1,6 +1,6 @@
-import { TAPE_APP_NAME } from '@tape.xyz/constants'
-import Link from 'next/link'
-import React from 'react'
+import { TAPE_APP_NAME } from "@tape.xyz/constants";
+import Link from "next/link";
+import React from "react";
 
 const terms = () => {
   return (
@@ -96,7 +96,7 @@ const terms = () => {
             transparent blockchain, you should not engage with our Site to
             create and manage a User Content on the lens protocol. You are
             solely responsible for the safekeeping of the private key associated
-            with the blockchain address used to interact with the Lens Protocol.{' '}
+            with the blockchain address used to interact with the Lens Protocol.{" "}
             <b>
               The transactions on blockchain including transfer of tokens and
               data attached to it are permanent and cannot be undone.
@@ -296,7 +296,7 @@ const terms = () => {
           <p>
             <b>Disclaimer</b>: We are not responsible for the User Content
             posted by users on our Site and do not have control over the
-            materials that are made available through the Site.{' '}
+            materials that are made available through the Site.{" "}
             <b>
               We will comply with takedown notices and take steps to prevent
               repeat infringers, but we do not assume any liability for material
@@ -402,13 +402,13 @@ const terms = () => {
           </p>
           <h2>14. Contact Information</h2>
           <p>
-            Questions about the Terms should be sent to us at{' '}
+            Questions about the Terms should be sent to us at{" "}
             <Link href="mailto:terms@tape.xyz">terms@tape.xyz</Link>.
           </p>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default terms
+export default terms;

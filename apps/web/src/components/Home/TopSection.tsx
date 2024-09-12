@@ -1,17 +1,17 @@
-import React, { useRef } from 'react'
+import React, { useRef } from "react";
 
-import HorizontalScroller from '@/components/Common/HorizontalScroller'
-import useProfileStore from '@/lib/store/idb/profile'
+import HorizontalScroller from "@/components/Common/HorizontalScroller";
+import useProfileStore from "@/lib/store/idb/profile";
 
-import GitcoinAlert from './GitcoinAlert'
-import LatestBytes from './LatestBytes'
-import LensManagerAlert from './LensManagerAlert'
-import WelcomeAlert from './WelcomeAlert'
-import ZorbAlert from './ZorbAlert'
+import GitcoinAlert from "./GitcoinAlert";
+import LatestBytes from "./LatestBytes";
+import LensManagerAlert from "./LensManagerAlert";
+import WelcomeAlert from "./WelcomeAlert";
+import ZorbAlert from "./ZorbAlert";
 
 const TopSection = () => {
-  const sectionRef = useRef<HTMLDivElement>(null)
-  const { activeProfile } = useProfileStore()
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { activeProfile } = useProfileStore();
 
   return (
     <div className="flex flex-col">
@@ -27,7 +27,7 @@ const TopSection = () => {
         <LatestBytes />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default TopSection
+export default TopSection;

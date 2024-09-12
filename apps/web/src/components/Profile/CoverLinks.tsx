@@ -1,26 +1,29 @@
-import { STATIC_ASSETS } from '@tape.xyz/constants'
-import { getValueFromKeyInAttributes, imageCdn } from '@tape.xyz/generic'
-import type { ProfileMetadata } from '@tape.xyz/lens'
-import { GlobeOutline, LocationOutline } from '@tape.xyz/ui'
-import Link from 'next/link'
-import { useTheme } from 'next-themes'
-import React from 'react'
+import { STATIC_ASSETS } from "@tape.xyz/constants";
+import { getValueFromKeyInAttributes, imageCdn } from "@tape.xyz/generic";
+import type { ProfileMetadata } from "@tape.xyz/lens";
+import { GlobeOutline, LocationOutline } from "@tape.xyz/ui";
+import Link from "next/link";
+import { useTheme } from "next-themes";
+import React from "react";
 
 const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
-  const { resolvedTheme } = useTheme()
-  const location = getValueFromKeyInAttributes(metadata?.attributes, 'location')
-  const website = getValueFromKeyInAttributes(metadata?.attributes, 'website')
-  const youtube = getValueFromKeyInAttributes(metadata?.attributes, 'youtube')
-  const spotify = getValueFromKeyInAttributes(metadata?.attributes, 'spotify')
-  const x = getValueFromKeyInAttributes(metadata?.attributes, 'x')
+  const { resolvedTheme } = useTheme();
+  const location = getValueFromKeyInAttributes(
+    metadata?.attributes,
+    "location",
+  );
+  const website = getValueFromKeyInAttributes(metadata?.attributes, "website");
+  const youtube = getValueFromKeyInAttributes(metadata?.attributes, "youtube");
+  const spotify = getValueFromKeyInAttributes(metadata?.attributes, "spotify");
+  const x = getValueFromKeyInAttributes(metadata?.attributes, "x");
 
   return (
     <div className="flex space-x-2">
       {website && (
         <Link
           href={`https://${website
-            ?.replace('https://', '')
-            .replace('http://', '')}`}
+            ?.replace("https://", "")
+            .replace("http://", "")}`}
           target="_blank"
           rel="noreferer noreferrer"
           className="rounded-lg bg-white bg-opacity-80 p-1.5 dark:bg-gray-900"
@@ -41,8 +44,8 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
       {spotify && (
         <Link
           href={`https://open.spotify.com/${spotify
-            ?.replace('https://open.spotify.com/', '')
-            .replace('http://open.spotify.com/', '')}`}
+            ?.replace("https://open.spotify.com/", "")
+            .replace("http://open.spotify.com/", "")}`}
           target="_blank"
           rel="noreferer noreferrer"
           className="rounded-lg bg-white bg-opacity-80 p-1.5 dark:bg-gray-900"
@@ -50,7 +53,7 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
           <img
             src={imageCdn(
               `${STATIC_ASSETS}/images/social/spotify.png`,
-              'AVATAR'
+              "AVATAR",
             )}
             className="size-4 object-contain"
             height={16}
@@ -63,8 +66,8 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
       {youtube && (
         <Link
           href={`https://youtube.com/${youtube
-            ?.replace('https://youtube.com/', '')
-            .replace('http://youtube.com/', '')}`}
+            ?.replace("https://youtube.com/", "")
+            .replace("http://youtube.com/", "")}`}
           target="_blank"
           rel="noreferer noreferrer"
           className="rounded-lg bg-white bg-opacity-80 p-1.5 dark:bg-gray-900"
@@ -82,17 +85,17 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
       {x && (
         <Link
           href={`https://x.com/${x
-            ?.replace('https://twitter.com/', '')
-            .replace('http://twitter.com/', '')}`}
+            ?.replace("https://twitter.com/", "")
+            .replace("http://twitter.com/", "")}`}
           target="_blank"
           rel="noreferer noreferrer"
           className="flex items-center justify-center rounded-lg bg-white bg-opacity-80 p-1.5 dark:bg-gray-900"
         >
-          {resolvedTheme === 'dark' ? (
+          {resolvedTheme === "dark" ? (
             <img
               src={imageCdn(
                 `${STATIC_ASSETS}/images/social/x-white.png`,
-                'AVATAR'
+                "AVATAR",
               )}
               className="size-3.5"
               height={16}
@@ -104,7 +107,7 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
             <img
               src={imageCdn(
                 `${STATIC_ASSETS}/images/social/x-black.png`,
-                'AVATAR'
+                "AVATAR",
               )}
               className="size-3.5"
               height={16}
@@ -116,7 +119,7 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
         </Link>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default CoverLinks
+export default CoverLinks;

@@ -1,5 +1,5 @@
 {
-  "extends": "@tape.xyz/config/base.tsconfig.json",
+  "extends": "@tape.xyz/tsconfig/base.json",
   "compilerOptions": {
     "outDir": "./dist",
     "target": "ESNext",

@@ -2,19 +2,19 @@ import {
   getLennyPicture,
   getProfile,
   getProfilePicture,
-  getPublicationData
-} from '@tape.xyz/generic'
-import type { MirrorNotification, ProfileMirrorResult } from '@tape.xyz/lens'
-import { MirrorOutline } from '@tape.xyz/ui'
-import Link from 'next/link'
-import type { FC } from 'react'
-import React from 'react'
+  getPublicationData,
+} from "@tape.xyz/generic";
+import type { MirrorNotification, ProfileMirrorResult } from "@tape.xyz/lens";
+import { MirrorOutline } from "@tape.xyz/ui";
+import Link from "next/link";
+import type { FC } from "react";
+import React from "react";
 
-import HoverableProfile from '@/components/Common/HoverableProfile'
+import HoverableProfile from "@/components/Common/HoverableProfile";
 
 type Props = {
-  notification: MirrorNotification
-}
+  notification: MirrorNotification;
+};
 
 const Mirrored: FC<Props> = ({ notification: { mirrors, publication } }) => {
   return (
@@ -28,11 +28,11 @@ const Mirrored: FC<Props> = ({ notification: { mirrors, publication } }) => {
             <HoverableProfile profile={profile} key={profile?.id}>
               <img
                 className="size-7 rounded-full border dark:border-gray-700/80"
-                src={getProfilePicture(profile, 'AVATAR')}
+                src={getProfilePicture(profile, "AVATAR")}
                 draggable={false}
                 alt={getProfile(profile)?.displayName}
                 onError={({ currentTarget }) => {
-                  currentTarget.src = getLennyPicture(profile?.id)
+                  currentTarget.src = getLennyPicture(profile?.id);
                 }}
               />
             </HoverableProfile>
@@ -47,7 +47,7 @@ const Mirrored: FC<Props> = ({ notification: { mirrors, publication } }) => {
         </Link>
       </div>
     </span>
-  )
-}
+  );
+};
 
-export default Mirrored
+export default Mirrored;

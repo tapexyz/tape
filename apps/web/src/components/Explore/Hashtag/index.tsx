@@ -3,32 +3,32 @@ import {
   INFINITE_SCROLL_ROOT_MARGIN,
   IS_MAINNET,
   LENSTUBE_BYTES_APP_ID,
-  TAPE_APP_ID
-} from '@tape.xyz/constants'
+  TAPE_APP_ID,
+} from "@tape.xyz/constants";
 import type {
   PrimaryPublication,
-  PublicationSearchRequest
-} from '@tape.xyz/lens'
+  PublicationSearchRequest,
+} from "@tape.xyz/lens";
 import {
   CustomFiltersType,
   LimitType,
   PublicationMetadataMainFocusType,
-  useSearchPublicationsQuery
-} from '@tape.xyz/lens'
-import { Spinner } from '@tape.xyz/ui'
-import { useRouter } from 'next/router'
-import React from 'react'
-import { useInView } from 'react-cool-inview'
-import Custom404 from 'src/pages/404'
+  useSearchPublicationsQuery,
+} from "@tape.xyz/lens";
+import { Spinner } from "@tape.xyz/ui";
+import { useRouter } from "next/router";
+import React from "react";
+import { useInView } from "react-cool-inview";
+import Custom404 from "src/pages/404";
 
-import MetaTags from '@/components/Common/MetaTags'
-import Timeline from '@/components/Home/Timeline'
-import TimelineShimmer from '@/components/Shimmers/TimelineShimmer'
-import { NoDataFound } from '@/components/UIElements/NoDataFound'
+import MetaTags from "@/components/Common/MetaTags";
+import Timeline from "@/components/Home/Timeline";
+import TimelineShimmer from "@/components/Shimmers/TimelineShimmer";
+import { NoDataFound } from "@/components/UIElements/NoDataFound";
 
 const ExploreHashtag = () => {
-  const { query } = useRouter()
-  const hashtag = query.hashtag as string
+  const { query } = useRouter();
+  const hashtag = query.hashtag as string;
 
   const request: PublicationSearchRequest = {
     where: {
@@ -36,24 +36,24 @@ const ExploreHashtag = () => {
         publishedOn: IS_MAINNET
           ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
           : undefined,
-        mainContentFocus: [PublicationMetadataMainFocusType.Video]
+        mainContentFocus: [PublicationMetadataMainFocusType.Video],
       },
-      customFilters: [CustomFiltersType.Gardeners]
+      customFilters: [CustomFiltersType.Gardeners],
     },
     query: hashtag,
-    limit: LimitType.Fifty
-  }
+    limit: LimitType.Fifty,
+  };
 
   const { data, loading, error, fetchMore } = useSearchPublicationsQuery({
     variables: {
-      request
+      request,
     },
-    skip: !hashtag
-  })
+    skip: !hashtag,
+  });
 
   const videos = data?.searchPublications
-    ?.items as unknown as PrimaryPublication[]
-  const pageInfo = data?.searchPublications?.pageInfo
+    ?.items as unknown as PrimaryPublication[];
+  const pageInfo = data?.searchPublications?.pageInfo;
 
   const { observe } = useInView({
     rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
@@ -62,15 +62,15 @@ const ExploreHashtag = () => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next
-          }
-        }
-      })
-    }
-  })
+            cursor: pageInfo?.next,
+          },
+        },
+      });
+    },
+  });
 
   if (!hashtag) {
-    return <Custom404 />
+    return <Custom404 />;
   }
 
   return (
@@ -81,7 +81,7 @@ const ExploreHashtag = () => {
         <div className="my-4">
           {loading && <TimelineShimmer />}
           {videos?.length === 0 && (
-            <NoDataFound isCenter withImage text={`No videos found`} />
+            <NoDataFound isCenter withImage text="No videos found" />
           )}
           {!error && !loading && (
             <>
@@ -96,7 +96,7 @@ const ExploreHashtag = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default ExploreHashtag
+export default ExploreHashtag;

@@ -1,123 +1,123 @@
 export const CREATOR_VIDEO_CATEGORIES = [
   {
-    name: 'People & Blogs',
-    tag: 'people'
+    name: "People & Blogs",
+    tag: "people",
   },
-  { name: 'Music', tag: 'music' },
+  { name: "Music", tag: "music" },
   {
-    name: 'Podcast',
-    tag: 'podcast'
-  },
-  {
-    name: 'Arts',
-    tag: 'arts'
+    name: "Podcast",
+    tag: "podcast",
   },
   {
-    name: 'Hobbies & Interests',
-    tag: 'interests'
+    name: "Arts",
+    tag: "arts",
   },
   {
-    name: 'Comedy',
-    tag: 'comedy'
+    name: "Hobbies & Interests",
+    tag: "interests",
   },
   {
-    name: 'Health & Fitness',
-    tag: 'health'
+    name: "Comedy",
+    tag: "comedy",
   },
   {
-    name: 'Lens Ecosystem',
-    tag: 'lens'
+    name: "Health & Fitness",
+    tag: "health",
   },
   {
-    name: 'Food & Cooking',
-    tag: 'food'
+    name: "Lens Ecosystem",
+    tag: "lens",
   },
   {
-    name: 'Education',
-    tag: 'education'
+    name: "Food & Cooking",
+    tag: "food",
   },
   {
-    name: 'Books & Literature',
-    tag: 'literature'
+    name: "Education",
+    tag: "education",
   },
   {
-    name: 'Entertainment',
-    tag: 'entertainment'
+    name: "Books & Literature",
+    tag: "literature",
   },
   {
-    name: 'Home & Garden',
-    tag: 'garden'
+    name: "Entertainment",
+    tag: "entertainment",
   },
   {
-    name: 'Crypto currency',
-    tag: 'crypto'
+    name: "Home & Garden",
+    tag: "garden",
   },
   {
-    name: 'Film & Animation',
-    tag: 'film'
+    name: "Crypto currency",
+    tag: "crypto",
   },
   {
-    name: 'Business',
-    tag: 'business'
+    name: "Film & Animation",
+    tag: "film",
   },
   {
-    name: 'Family & Parenting',
-    tag: 'family'
+    name: "Business",
+    tag: "business",
   },
   {
-    name: 'Gaming',
-    tag: 'gaming'
+    name: "Family & Parenting",
+    tag: "family",
   },
   {
-    name: 'Blockchain',
-    tag: 'blockchain'
+    name: "Gaming",
+    tag: "gaming",
   },
   {
-    name: 'Howto & Style',
-    tag: 'howto'
+    name: "Blockchain",
+    tag: "blockchain",
   },
   {
-    name: 'News & Politics',
-    tag: 'news'
+    name: "Howto & Style",
+    tag: "howto",
   },
   {
-    name: 'Nonprofits & Activism',
-    tag: 'nonprofits'
+    name: "News & Politics",
+    tag: "news",
   },
   {
-    name: 'Promotions',
-    tag: 'promotions'
+    name: "Nonprofits & Activism",
+    tag: "nonprofits",
   },
   {
-    name: 'Pets & Animals',
-    tag: 'pets'
+    name: "Promotions",
+    tag: "promotions",
   },
   {
-    name: 'Wellness',
-    tag: 'wellness'
+    name: "Pets & Animals",
+    tag: "pets",
   },
   {
-    name: 'Science & Technology',
-    tag: 'technology'
+    name: "Wellness",
+    tag: "wellness",
   },
   {
-    name: 'Sports',
-    tag: 'sports'
+    name: "Science & Technology",
+    tag: "technology",
   },
   {
-    name: 'Career',
-    tag: 'career'
+    name: "Sports",
+    tag: "sports",
   },
   {
-    name: 'Travel & Events',
-    tag: 'travel'
+    name: "Career",
+    tag: "career",
   },
   {
-    name: 'Gadgets',
-    tag: 'gadgets'
+    name: "Travel & Events",
+    tag: "travel",
   },
   {
-    name: 'Autos & Vehicles',
-    tag: 'vehicles'
-  }
-]
+    name: "Gadgets",
+    tag: "gadgets",
+  },
+  {
+    name: "Autos & Vehicles",
+    tag: "vehicles",
+  },
+];

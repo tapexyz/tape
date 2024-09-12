@@ -1,15 +1,15 @@
-'use client'
-import { motion } from 'framer-motion'
-import React, { memo } from 'react'
+"use client";
+import { motion } from "framer-motion";
+import React, { memo } from "react";
 
 const paths = [
-  'M-366 -205C-366 -205 -298 200 166 327C630 454 698 859 698 859',
-  'M-310 -269C-310 -269 -242 136 222 263C686 390 754 795 754 795',
-  'M-254 -333C-254 -333 -186 72 278 199C742 326 810 731 810 731',
-  'M-198 -397C-198 -397 -130 8 334 135C798 262 866 667 866 667',
-  'M-142 -461C-142 -461 -74 -56 390 71C861 190 929 595 929 595',
-  'M-86 -525C-86 -525 -18 -120 446 7C917 126 985 531 985 531'
-]
+  "M-366 -205C-366 -205 -298 200 166 327C630 454 698 859 698 859",
+  "M-310 -269C-310 -269 -242 136 222 263C686 390 754 795 754 795",
+  "M-254 -333C-254 -333 -186 72 278 199C742 326 810 731 810 731",
+  "M-198 -397C-198 -397 -130 8 334 135C798 262 866 667 866 667",
+  "M-142 -461C-142 -461 -74 -56 390 71C861 190 929 595 929 595",
+  "M-86 -525C-86 -525 -18 -120 446 7C917 126 985 531 985 531",
+];
 
 const BackgroundComets = () => {
   return (
@@ -24,7 +24,7 @@ const BackgroundComets = () => {
       >
         {paths.map((path, index) => (
           <motion.path
-            key={index}
+            key={path}
             d={path}
             stroke={`url(#linearGradient-${index})`}
             strokeOpacity="0.4"
@@ -32,25 +32,25 @@ const BackgroundComets = () => {
           />
         ))}
         <defs>
-          {paths.map((_path, index) => (
+          {paths.map((path, index) => (
             <motion.linearGradient
               id={`linearGradient-${index}`}
               x1="100%"
               x2="100%"
               y1="100%"
               y2="100%"
-              key={`gradient-${index}`}
+              key={`gradient-${path}`}
               animate={{
-                x1: ['0%', '100%'],
-                x2: ['0%', '95%'],
-                y1: ['0%', '100%'],
-                y2: ['0%', `${93 + Math.random() * 8}%`]
+                x1: ["0%", "100%"],
+                x2: ["0%", "95%"],
+                y1: ["0%", "100%"],
+                y2: ["0%", `${93 + Math.random() * 8}%`],
               }}
               transition={{
                 duration: Math.random() * 10 + 15,
-                ease: 'easeOut',
-                repeat: Infinity,
-                delay: Math.random() * 10
+                ease: "easeOut",
+                repeat: Number.POSITIVE_INFINITY,
+                delay: Math.random() * 10,
               }}
             >
               <stop stopColor="#FF5733" stopOpacity="0" />
@@ -75,7 +75,7 @@ const BackgroundComets = () => {
         </defs>
       </svg>
     </div>
-  )
-}
+  );
+};
 
-export default memo(BackgroundComets)
+export default memo(BackgroundComets);

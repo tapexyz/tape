@@ -1,6 +1,6 @@
-import { getPublication } from '@tape.xyz/generic'
-import isOpenActionAllowed from '@tape.xyz/generic/functions/isOpenActionAllowed'
-import { type AnyPublication, type OpenActionModule } from '@tape.xyz/lens'
+import { getPublication } from "@tape.xyz/generic";
+import isOpenActionAllowed from "@tape.xyz/generic/functions/isOpenActionAllowed";
+import type { AnyPublication, OpenActionModule } from "@tape.xyz/lens";
 import {
   Accordion,
   AccordionContent,
@@ -8,32 +8,32 @@ import {
   AccordionTrigger,
   Button,
   CollectOutline,
-  Modal
-} from '@tape.xyz/ui'
-import type { FC, ReactNode } from 'react'
-import React, { useState } from 'react'
+  Modal,
+} from "@tape.xyz/ui";
+import type { FC, ReactNode } from "react";
+import React, { useState } from "react";
 
-import CollectPublication from './Collect'
-import UnknownOpenAction from './Unknown'
+import CollectPublication from "./Collect";
+import UnknownOpenAction from "./Unknown";
 
 type Props = {
-  publication: AnyPublication
-  text?: string
-  children?: ReactNode
-}
+  publication: AnyPublication;
+  text?: string;
+  children?: ReactNode;
+};
 
 const OpenActions: FC<Props> = ({ publication, text, children }) => {
-  const [showActionModal, setShowActionModal] = useState(false)
-  const targetPublication = getPublication(publication)
-  const openActions = targetPublication.openActionModules
-  const hasOpenActions = (targetPublication.openActionModules?.length || 0) > 0
+  const [showActionModal, setShowActionModal] = useState(false);
+  const targetPublication = getPublication(publication);
+  const openActions = targetPublication.openActionModules;
+  const hasOpenActions = (targetPublication.openActionModules?.length || 0) > 0;
 
   const renderAction = (action: OpenActionModule) => {
     switch (action.__typename) {
-      case 'SimpleCollectOpenActionSettings':
-      case 'MultirecipientFeeCollectOpenActionSettings':
-      case 'LegacySimpleCollectModuleSettings':
-      case 'LegacyMultirecipientFeeCollectModuleSettings':
+      case "SimpleCollectOpenActionSettings":
+      case "MultirecipientFeeCollectOpenActionSettings":
+      case "LegacySimpleCollectModuleSettings":
+      case "LegacyMultirecipientFeeCollectModuleSettings":
         return (
           <AccordionItem
             value="item-1"
@@ -49,30 +49,32 @@ const OpenActions: FC<Props> = ({ publication, text, children }) => {
               />
             </AccordionContent>
           </AccordionItem>
-        )
-      case 'UnknownOpenActionModuleSettings':
+        );
+      case "UnknownOpenActionModuleSettings":
         return (
           <UnknownOpenAction
             action={action}
             publicationId={targetPublication.id}
           />
-        )
+        );
       default:
-        break
+        break;
     }
-  }
+  };
 
   const canAct =
-    hasOpenActions && isOpenActionAllowed(targetPublication.openActionModules)
+    hasOpenActions && isOpenActionAllowed(targetPublication.openActionModules);
 
   if (!canAct) {
-    return null
+    return null;
   }
 
   return (
     <>
       {children ? (
-        <button onClick={() => setShowActionModal(true)}>{children}</button>
+        <button type="button" onClick={() => setShowActionModal(true)}>
+          {children}
+        </button>
       ) : (
         <Button
           onClick={() => setShowActionModal(true)}
@@ -98,14 +100,14 @@ const OpenActions: FC<Props> = ({ publication, text, children }) => {
             defaultValue="item-1"
             collapsible
           >
-            {openActions?.map((action, i) => {
-              return <div key={i}>{renderAction(action)}</div>
+            {openActions?.map((action) => {
+              return <div key={action.type}>{renderAction(action)}</div>;
             })}
           </Accordion>
         </div>
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default OpenActions
+export default OpenActions;

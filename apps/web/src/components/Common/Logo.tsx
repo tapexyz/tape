@@ -1,14 +1,14 @@
-import { STATIC_ASSETS } from '@tape.xyz/constants'
-import Link from 'next/link'
-import { useTheme } from 'next-themes'
-import React from 'react'
+import { STATIC_ASSETS } from "@tape.xyz/constants";
+import Link from "next/link";
+import { useTheme } from "next-themes";
+import React from "react";
 
 const Logo = () => {
-  const { resolvedTheme } = useTheme()
+  const { resolvedTheme } = useTheme();
 
   return (
     <Link href="/" className="inline-flex">
-      {resolvedTheme === 'dark' ? (
+      {resolvedTheme === "dark" ? (
         <img
           src={`${STATIC_ASSETS}/brand/logo-with-text-light.webp`}
           className="-mb-0.5 h-6"
@@ -28,7 +28,7 @@ const Logo = () => {
         />
       )}
     </Link>
-  )
-}
+  );
+};
 
-export default Logo
+export default Logo;

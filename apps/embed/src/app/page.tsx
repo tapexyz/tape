@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
-import { TAPE_APP_DESCRIPTION, TAPE_APP_NAME } from '@tape.xyz/constants'
-import React from 'react'
+import { TAPE_APP_DESCRIPTION, TAPE_APP_NAME } from "@tape.xyz/constants";
+import React from "react";
 
 const Home = () => {
   return (
@@ -9,7 +9,7 @@ const Home = () => {
       <div>{TAPE_APP_NAME}</div>
       <p>{TAPE_APP_DESCRIPTION}</p>
     </main>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

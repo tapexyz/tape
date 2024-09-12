@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const SuggestedShimmer = () => {
   return (
@@ -12,7 +12,7 @@ const SuggestedShimmer = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SuggestedShimmer
+export default SuggestedShimmer;

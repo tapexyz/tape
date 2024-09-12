@@ -5,13 +5,12 @@
   "license": "AGPL-3.0",
   "main": "index.ts",
   "scripts": {
-    "lint": "eslint . --ext .js,.ts,.tsx",
-    "typecheck": "tsc --pretty",
-    "format:check": "prettier --check \"**/*.{ts,tsx,md,json,css}\"",
-    "format": "prettier --write \"**/*.{ts,tsx,md,json,css}\""
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "typecheck": "tsc --pretty --noEmit"
   },
   "devDependencies": {
-    "@tape.xyz/config": "workspace:*",
+    "@tape.xyz/tsconfig": "workspace:*",
     "@types/node": "^22.5.4",
     "typescript": "^5.6.2"
   }

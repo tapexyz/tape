@@ -1,15 +1,15 @@
-import { useState } from 'react'
+import { useState } from "react";
 
 export const useDragAndDrop = () => {
-  const [dragOver, setDragOver] = useState(false)
-  const [fileDropError, setFileDropError] = useState('')
+  const [dragOver, setDragOver] = useState(false);
+  const [fileDropError, setFileDropError] = useState("");
 
   const onDragOver = (e: React.SyntheticEvent) => {
-    e.preventDefault()
-    setDragOver(true)
-  }
+    e.preventDefault();
+    setDragOver(true);
+  };
 
-  const onDragLeave = () => setDragOver(false)
+  const onDragLeave = () => setDragOver(false);
 
   return {
     dragOver,
@@ -17,6 +17,6 @@ export const useDragAndDrop = () => {
     onDragOver,
     onDragLeave,
     fileDropError,
-    setFileDropError
-  }
-}
+    setFileDropError,
+  };
+};

@@ -1,7 +1,7 @@
-import { tw } from '@tape.xyz/browser'
-import { motion, useAnimation } from 'framer-motion'
-import type { ComponentProps } from 'react'
-import React, { forwardRef, useEffect, useId } from 'react'
+import { tw } from "@tape.xyz/browser";
+import { motion, useAnimation } from "framer-motion";
+import type { ComponentProps } from "react";
+import React, { forwardRef, useEffect, useId } from "react";
 
 const ShakeAnimation = {
   hidden: { marginLeft: 0 },
@@ -9,34 +9,33 @@ const ShakeAnimation = {
     marginLeft: [0, 2, -2, 0],
     transition: {
       duration: 0.2,
-      ease: 'easeInOut'
-    }
-  }
-}
+      ease: "easeInOut",
+    },
+  },
+};
 
-interface TextAreaProps extends Omit<ComponentProps<'textarea'>, 'prefix'> {
-  label?: string
-  info?: string
-  error?: string
-  showError?: boolean
+interface TextAreaProps extends Omit<ComponentProps<"textarea">, "prefix"> {
+  label?: string;
+  info?: string;
+  error?: string;
+  showError?: boolean;
 }
 
 export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
   ({ className, label, error, ...props }, ref) => {
-    const id = useId()
-    const controls = useAnimation()
+    const id = useId();
+    const controls = useAnimation();
 
     const handleErrorAlert = () => {
       if (error?.length) {
-        return controls.start('shake')
+        return controls.start("shake");
       }
-      controls.start('hidden')
-    }
+      controls.start("hidden");
+    };
 
     useEffect(() => {
-      handleErrorAlert()
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [error])
+      handleErrorAlert();
+    }, [error]);
 
     return (
       <label className="w-full" htmlFor={id}>
@@ -52,9 +51,9 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
         >
           <textarea
             className={tw(
-              { 'placeholder:text-red-500': error },
-              'w-full rounded-lg border-none bg-gray-100 px-3 py-2 focus:outline-none dark:bg-gray-900',
-              className
+              { "placeholder:text-red-500": error },
+              "w-full rounded-lg border-none bg-gray-100 px-3 py-2 focus:outline-none dark:bg-gray-900",
+              className,
             )}
             id={id}
             ref={ref}
@@ -63,8 +62,8 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
         </motion.div>
         {error ? <p className="text-sm text-red-500">{error}</p> : null}
       </label>
-    )
-  }
-)
+    );
+  },
+);
 
-TextArea.displayName = 'TextArea'
+TextArea.displayName = "TextArea";

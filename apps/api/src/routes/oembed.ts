@@ -1,48 +1,48 @@
-import { zValidator } from '@hono/zod-validator'
-import { CACHE_CONTROL, ERROR_MESSAGE } from '@tape.xyz/constants'
-import { Hono } from 'hono'
-import { parseHTML } from 'linkedom'
-import { object, string } from 'zod'
+import { zValidator } from "@hono/zod-validator";
+import { CACHE_CONTROL, ERROR_MESSAGE } from "@tape.xyz/constants";
+import { Hono } from "hono";
+import { parseHTML } from "linkedom";
+import { object, string } from "zod";
 
-import extractOgTags from '@/helpers/oembed/extractOgTags'
-import { COMMON_REGEX } from '@/helpers/oembed/regex'
+import extractOgTags from "@/helpers/oembed/extractOgTags";
+import { COMMON_REGEX } from "@/helpers/oembed/regex";
 
-const app = new Hono()
+const app = new Hono();
 
 const validationSchema = object({
   url: string().url(),
-  format: string().optional()
-})
+  format: string().optional(),
+});
 
-app.get('/', zValidator('query', validationSchema), async (c) => {
+app.get("/", zValidator("query", validationSchema), async (c) => {
   try {
-    const reqUrl = c.req.url.replace(/&amp;/g, '&')
-    const reqUrlParams = new URL(reqUrl).searchParams
+    const reqUrl = c.req.url.replace(/&amp;/g, "&");
+    const reqUrlParams = new URL(reqUrl).searchParams;
 
-    let url = reqUrlParams.get('url') as string
-    const format = reqUrlParams.get('format') as string
+    let url = reqUrlParams.get("url") as string;
+    const format = reqUrlParams.get("format") as string;
 
     if (COMMON_REGEX.TAPE_WATCH.test(url)) {
       // Fetch metatags directly from tape.xyz
-      const path = new URL(url).pathname
-      url = `https://og.tape.xyz${path}`
+      const path = new URL(url).pathname;
+      url = `https://og.tape.xyz${path}`;
     }
 
     // Fetch metatags from URL
     const response = await fetch(url, {
-      headers: { 'User-Agent': 'bot' }
-    })
-    const html = await response.text()
-    const { document } = parseHTML(html)
+      headers: { "User-Agent": "bot" },
+    });
+    const html = await response.text();
+    const { document } = parseHTML(html);
 
-    const ogData = await extractOgTags(document)
+    const ogData = await extractOgTags(document);
 
-    if (format === 'json') {
-      return c.json(ogData)
+    if (format === "json") {
+      return c.json(ogData);
     }
 
-    if (format === 'xml') {
-      c.res.headers.set('Content-Type', 'application/xml')
+    if (format === "xml") {
+      c.res.headers.set("Content-Type", "application/xml");
       return c.body(`<?xml version="1.0" encoding="utf-8"?>
         <oembed>
           <title>${ogData.title}</title>
@@ -58,15 +58,15 @@ app.get('/', zValidator('query', validationSchema), async (c) => {
           <thumbnail_width>${ogData.thumbnail_width}</thumbnail_width>
           <thumbnail_url>${ogData.thumbnail_url}</thumbnail_url>
           <html>${ogData.html}</html>
-        </oembed>`)
+        </oembed>`);
     }
 
-    c.header('Cache-Control', CACHE_CONTROL.FOR_ONE_WEEK)
-    return c.json({ success: true, og: ogData })
+    c.header("Cache-Control", CACHE_CONTROL.FOR_ONE_WEEK);
+    return c.json({ success: true, og: ogData });
   } catch (error) {
-    console.error('[OEMBED] Error:', error)
-    return c.json({ success: false, message: ERROR_MESSAGE })
+    console.error("[OEMBED] Error:", error);
+    return c.json({ success: false, message: ERROR_MESSAGE });
   }
-})
+});
 
-export default app
+export default app;

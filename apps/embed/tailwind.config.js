@@ -1,12 +1,12 @@
-const base = require('@tape.xyz/ui/tailwind-preset')
+const base = require("@tape.xyz/ui/tailwind-preset");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   ...base,
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx}',
-    './src/components/**/*.{js,ts,jsx,tsx}',
-    '../../packages/ui/src/**/*.{ts,tsx}'
+    "./src/pages/**/*.{js,ts,jsx,tsx}",
+    "./src/components/**/*.{js,ts,jsx,tsx}",
+    "../../packages/ui/src/**/*.{ts,tsx}",
   ],
-  plugins: [require('@tailwindcss/aspect-ratio')]
-}
+  plugins: [require("@tailwindcss/aspect-ratio")],
+};

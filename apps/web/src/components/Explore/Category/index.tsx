@@ -3,38 +3,38 @@ import {
   INFINITE_SCROLL_ROOT_MARGIN,
   IS_MAINNET,
   LENSTUBE_BYTES_APP_ID,
-  TAPE_APP_ID
-} from '@tape.xyz/constants'
-import { getCategoryName } from '@tape.xyz/generic'
+  TAPE_APP_ID,
+} from "@tape.xyz/constants";
+import { getCategoryName } from "@tape.xyz/generic";
 import type {
   ExplorePublicationRequest,
-  PrimaryPublication
-} from '@tape.xyz/lens'
+  PrimaryPublication,
+} from "@tape.xyz/lens";
 import {
   CustomFiltersType,
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
   LimitType,
   PublicationMetadataMainFocusType,
-  useExplorePublicationsQuery
-} from '@tape.xyz/lens'
-import { Spinner } from '@tape.xyz/ui'
-import { useRouter } from 'next/router'
-import React from 'react'
-import { useInView } from 'react-cool-inview'
-import Custom404 from 'src/pages/404'
+  useExplorePublicationsQuery,
+} from "@tape.xyz/lens";
+import { Spinner } from "@tape.xyz/ui";
+import { useRouter } from "next/router";
+import React from "react";
+import { useInView } from "react-cool-inview";
+import Custom404 from "src/pages/404";
 
-import MetaTags from '@/components/Common/MetaTags'
-import Timeline from '@/components/Home/Timeline'
-import TimelineShimmer from '@/components/Shimmers/TimelineShimmer'
-import { NoDataFound } from '@/components/UIElements/NoDataFound'
-import { getUnixTimestampNDaysAgo } from '@/lib/formatTime'
+import MetaTags from "@/components/Common/MetaTags";
+import Timeline from "@/components/Home/Timeline";
+import TimelineShimmer from "@/components/Shimmers/TimelineShimmer";
+import { NoDataFound } from "@/components/UIElements/NoDataFound";
+import { getUnixTimestampNDaysAgo } from "@/lib/formatTime";
 
-const since = getUnixTimestampNDaysAgo(30)
+const since = getUnixTimestampNDaysAgo(30);
 
 const ExploreCategory = () => {
-  const { query } = useRouter()
-  const categoryName = query.category as string
+  const { query } = useRouter();
+  const categoryName = query.category as string;
 
   const request: ExplorePublicationRequest = {
     where: {
@@ -45,24 +45,24 @@ const ExploreCategory = () => {
         mainContentFocus: [PublicationMetadataMainFocusType.Video],
         publishedOn: IS_MAINNET
           ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
-          : undefined
+          : undefined,
       },
-      since
+      since,
     },
     orderBy: ExplorePublicationsOrderByType.Latest,
-    limit: LimitType.Fifty
-  }
+    limit: LimitType.Fifty,
+  };
 
   const { data, loading, error, fetchMore } = useExplorePublicationsQuery({
     variables: {
-      request
+      request,
     },
-    skip: !query.category
-  })
+    skip: !query.category,
+  });
 
   const videos = data?.explorePublications
-    ?.items as unknown as PrimaryPublication[]
-  const pageInfo = data?.explorePublications?.pageInfo
+    ?.items as unknown as PrimaryPublication[];
+  const pageInfo = data?.explorePublications?.pageInfo;
 
   const { observe } = useInView({
     rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
@@ -71,19 +71,19 @@ const ExploreCategory = () => {
         variables: {
           request: {
             cursor: pageInfo?.next,
-            ...request
-          }
-        }
-      })
-    }
-  })
+            ...request,
+          },
+        },
+      });
+    },
+  });
   if (!query.category) {
-    return <Custom404 />
+    return <Custom404 />;
   }
 
   return (
     <>
-      <MetaTags title={categoryName?.toString() || ''} />
+      <MetaTags title={categoryName?.toString() || ""} />
       <div>
         <h1 className="font-bold capitalize md:text-2xl">
           {getCategoryName(categoryName)}
@@ -91,7 +91,7 @@ const ExploreCategory = () => {
         <div className="my-4">
           {loading && <TimelineShimmer />}
           {videos?.length === 0 && (
-            <NoDataFound isCenter withImage text={`No videos found`} />
+            <NoDataFound isCenter withImage text={"No videos found"} />
           )}
           {!error && !loading && (
             <>
@@ -106,7 +106,7 @@ const ExploreCategory = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default ExploreCategory
+export default ExploreCategory;

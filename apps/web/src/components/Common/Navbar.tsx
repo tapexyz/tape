@@ -1,32 +1,32 @@
-import { tw } from '@tape.xyz/browser'
+import { tw } from "@tape.xyz/browser";
 import {
   BellOutline,
   Button,
   ChevronDownOutline,
-  DropdownMenu
-} from '@tape.xyz/ui'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import React from 'react'
+  DropdownMenu,
+} from "@tape.xyz/ui";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React from "react";
 
-import useProfileStore from '@/lib/store/idb/profile'
-import usePersistStore from '@/lib/store/persist'
+import useProfileStore from "@/lib/store/idb/profile";
+import usePersistStore from "@/lib/store/persist";
 
-import Logo from './Logo'
-import GlobalSearch from './Search/GlobalSearch'
-import TapeMenu from './TapeMenu'
-import UserMenu from './UserMenu'
+import Logo from "./Logo";
+import GlobalSearch from "./Search/GlobalSearch";
+import TapeMenu from "./TapeMenu";
+import UserMenu from "./UserMenu";
 
 const Navbar = () => {
-  const { pathname, asPath } = useRouter()
+  const { pathname, asPath } = useRouter();
 
-  const isActivePath = (path: string) => pathname === path
-  const { activeProfile } = useProfileStore()
+  const isActivePath = (path: string) => pathname === path;
+  const { activeProfile } = useProfileStore();
   const {
     latestNotificationId,
     setLastOpenedNotificationId,
-    lastOpenedNotificationId
-  } = usePersistStore()
+    lastOpenedNotificationId,
+  } = usePersistStore();
 
   return (
     <div className="ultrawide:px-8 laptop:px-6 fixed top-0 z-10 flex h-14 w-full items-center bg-white/80 px-4 backdrop-blur-2xl dark:bg-black/80">
@@ -44,9 +44,9 @@ const Navbar = () => {
           <Link
             href="/"
             className={tw(
-              isActivePath('/')
-                ? 'font-bold'
-                : 'text-dust font-medium hover:opacity-90'
+              isActivePath("/")
+                ? "font-bold"
+                : "text-dust font-medium hover:opacity-90",
             )}
           >
             Home
@@ -54,9 +54,9 @@ const Navbar = () => {
           <Link
             href="/bytes"
             className={tw(
-              isActivePath('/bytes')
-                ? 'font-bold'
-                : 'text-dust font-medium hover:opacity-90'
+              isActivePath("/bytes")
+                ? "font-bold"
+                : "text-dust font-medium hover:opacity-90",
             )}
           >
             Bytes
@@ -64,9 +64,9 @@ const Navbar = () => {
           <Link
             href="/feed"
             className={tw(
-              isActivePath('/feed')
-                ? 'font-bold'
-                : 'text-dust font-medium hover:opacity-90'
+              isActivePath("/feed")
+                ? "font-bold"
+                : "text-dust font-medium hover:opacity-90",
             )}
           >
             Feed
@@ -79,7 +79,7 @@ const Navbar = () => {
               <Link
                 onClick={() => {
                   if (latestNotificationId) {
-                    setLastOpenedNotificationId(latestNotificationId)
+                    setLastOpenedNotificationId(latestNotificationId);
                   }
                 }}
                 href="/notifications"
@@ -105,7 +105,7 @@ const Navbar = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

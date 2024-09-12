@@ -1,98 +1,97 @@
-import { POLYGONSCAN_URL, WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
-import { shortenAddress } from '@tape.xyz/generic'
-import type { ApprovedAllowanceAmountResult } from '@tape.xyz/lens'
+import { POLYGONSCAN_URL, WMATIC_TOKEN_ADDRESS } from "@tape.xyz/constants";
+import { shortenAddress } from "@tape.xyz/generic";
+import type { ApprovedAllowanceAmountResult } from "@tape.xyz/lens";
 import {
   FollowModuleType,
   OpenActionModuleType,
   useApprovedModuleAllowanceAmountQuery,
-  useGenerateModuleCurrencyApprovalDataLazyQuery
-} from '@tape.xyz/lens'
-import { Button, Select, SelectItem, Spinner } from '@tape.xyz/ui'
-import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
-import toast from 'react-hot-toast'
-import { useSendTransaction, useWaitForTransactionReceipt } from 'wagmi'
+  useGenerateModuleCurrencyApprovalDataLazyQuery,
+} from "@tape.xyz/lens";
+import { Button, Select, SelectItem, Spinner } from "@tape.xyz/ui";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { useSendTransaction, useWaitForTransactionReceipt } from "wagmi";
 
-import { VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS } from '@/components/Watch/OpenActions/verified-contracts'
-import { getCollectModuleConfig } from '@/lib/getCollectModuleInput'
-import useProfileStore from '@/lib/store/idb/profile'
-import useAllowedTokensStore from '@/lib/store/idb/tokens'
+import { VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS } from "@/components/Watch/OpenActions/verified-contracts";
+import { getCollectModuleConfig } from "@/lib/getCollectModuleInput";
+import useProfileStore from "@/lib/store/idb/profile";
+import useAllowedTokensStore from "@/lib/store/idb/tokens";
 
 const ModuleItem = ({
   moduleItem,
   currency,
-  onSuccess
+  onSuccess,
 }: {
-  moduleItem: ApprovedAllowanceAmountResult
-  currency: string
-  onSuccess: () => void
+  moduleItem: ApprovedAllowanceAmountResult;
+  currency: string;
+  onSuccess: () => void;
 }) => {
-  const [loadingModule, setLoadingModule] = useState('')
+  const [loadingModule, setLoadingModule] = useState("");
 
   const [generateAllowanceQuery] =
-    useGenerateModuleCurrencyApprovalDataLazyQuery()
+    useGenerateModuleCurrencyApprovalDataLazyQuery();
 
   const { data: hash, sendTransaction } = useSendTransaction({
     mutation: {
       onError: (error) => {
-        toast.error(error?.message)
-        setLoadingModule('')
-      }
-    }
-  })
+        toast.error(error?.message);
+        setLoadingModule("");
+      },
+    },
+  });
 
   const { isSuccess, error, isError } = useWaitForTransactionReceipt({
     hash,
     query: {
-      enabled: hash && hash.length > 0
-    }
-  })
+      enabled: hash && hash.length > 0,
+    },
+  });
 
   useEffect(() => {
     if (isError) {
-      toast.error(error?.message)
-      setLoadingModule('')
+      toast.error(error?.message);
+      setLoadingModule("");
     }
     if (isSuccess) {
-      onSuccess()
-      toast.success(`Allowance updated`)
-      setLoadingModule('')
+      onSuccess();
+      toast.success("Allowance updated");
+      setLoadingModule("");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isError, isSuccess, error])
+  }, [isError, isSuccess, error]);
 
   const handleClick = async (
     isAllow: boolean,
-    module: ApprovedAllowanceAmountResult
+    module: ApprovedAllowanceAmountResult,
   ) => {
     try {
-      setLoadingModule(module.moduleName)
+      setLoadingModule(module.moduleName);
       const isUnknownModule =
-        module.moduleName === OpenActionModuleType.UnknownOpenActionModule
+        module.moduleName === OpenActionModuleType.UnknownOpenActionModule;
       const { data: allowanceData } = await generateAllowanceQuery({
         variables: {
           request: {
             allowance: {
               currency,
-              value: isAllow ? Number.MAX_SAFE_INTEGER.toString() : '0'
+              value: isAllow ? Number.MAX_SAFE_INTEGER.toString() : "0",
             },
             module: {
               [getCollectModuleConfig(module).type]: isUnknownModule
                 ? module.moduleContract.address
-                : module.moduleName
-            }
-          }
-        }
-      })
-      const generated = allowanceData?.generateModuleCurrencyApprovalData
+                : module.moduleName,
+            },
+          },
+        },
+      });
+      const generated = allowanceData?.generateModuleCurrencyApprovalData;
       sendTransaction?.({
         to: generated?.to,
-        data: generated?.data
-      })
+        data: generated?.data,
+      });
     } catch {
-      setLoadingModule('')
+      setLoadingModule("");
     }
-  }
+  };
 
   return (
     <div
@@ -115,7 +114,7 @@ const ModuleItem = ({
         </p>
       </div>
       <div className="ml-2 flex flex-none items-center space-x-2">
-        {parseFloat(moduleItem?.allowance.value) === 0 ? (
+        {Number.parseFloat(moduleItem?.allowance.value) === 0 ? (
           <Button
             disabled={loadingModule === moduleItem.moduleName}
             loading={loadingModule === moduleItem.moduleName}
@@ -135,18 +134,18 @@ const ModuleItem = ({
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 const ModuleAllowance = () => {
-  const { activeProfile } = useProfileStore()
-  const [currency, setCurrency] = useState(WMATIC_TOKEN_ADDRESS)
-  const allowedTokens = useAllowedTokensStore((state) => state.allowedTokens)
+  const { activeProfile } = useProfileStore();
+  const [currency, setCurrency] = useState(WMATIC_TOKEN_ADDRESS);
+  const allowedTokens = useAllowedTokensStore((state) => state.allowedTokens);
 
   const {
     data: commonAllowancesData,
     refetch: refetchCommonApproved,
-    loading: gettingSettings
+    loading: gettingSettings,
   } = useApprovedModuleAllowanceAmountQuery({
     variables: {
       request: {
@@ -156,28 +155,28 @@ const ModuleAllowance = () => {
           OpenActionModuleType.SimpleCollectOpenActionModule,
           OpenActionModuleType.MultirecipientFeeCollectOpenActionModule,
           OpenActionModuleType.LegacySimpleCollectModule,
-          OpenActionModuleType.LegacyMultirecipientFeeCollectModule
-        ]
-      }
+          OpenActionModuleType.LegacyMultirecipientFeeCollectModule,
+        ],
+      },
     },
     skip: !activeProfile?.id,
-    fetchPolicy: 'no-cache'
-  })
+    fetchPolicy: "no-cache",
+  });
 
   const {
     data: unKnownActAllowancesData,
     refetch: refetchUnknownActApproved,
-    loading: gettingUnknownActSettings
+    loading: gettingUnknownActSettings,
   } = useApprovedModuleAllowanceAmountQuery({
     variables: {
       request: {
         currencies: [currency],
-        unknownOpenActionModules: [VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS.TIP]
-      }
+        unknownOpenActionModules: [VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS.TIP],
+      },
     },
     skip: !activeProfile?.id,
-    fetchPolicy: 'no-cache'
-  })
+    fetchPolicy: "no-cache",
+  });
 
   return (
     <div>
@@ -194,7 +193,7 @@ const ModuleAllowance = () => {
             <Select
               value={currency}
               onValueChange={(value) => setCurrency(value)}
-              defaultValue={allowedTokens[0].address}
+              defaultValue={allowedTokens[0]?.address}
             >
               {allowedTokens?.map((token) => (
                 <SelectItem key={token.address} value={token.address}>
@@ -217,11 +216,11 @@ const ModuleAllowance = () => {
                 moduleItem={moduleItem}
                 currency={currency}
                 onSuccess={() => {
-                  refetchCommonApproved()
-                  refetchUnknownActApproved()
+                  refetchCommonApproved();
+                  refetchUnknownActApproved();
                 }}
               />
-            )
+            ),
           )}
         {unKnownActAllowancesData?.approvedModuleAllowanceAmount.length ? (
           <h6 className="text-brand-500 mb-2 mt-4 font-medium">Open Actions</h6>
@@ -234,15 +233,15 @@ const ModuleAllowance = () => {
                 moduleItem={moduleItem}
                 currency={currency}
                 onSuccess={() => {
-                  refetchCommonApproved()
-                  refetchUnknownActApproved()
+                  refetchCommonApproved();
+                  refetchUnknownActApproved();
                 }}
               />
-            )
+            ),
           )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ModuleAllowance
+export default ModuleAllowance;

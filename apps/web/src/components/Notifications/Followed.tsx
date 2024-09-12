@@ -1,18 +1,18 @@
 import {
   getLennyPicture,
   getProfile,
-  getProfilePicture
-} from '@tape.xyz/generic'
-import type { FollowNotification, Profile } from '@tape.xyz/lens'
-import { FollowOutline } from '@tape.xyz/ui'
-import type { FC } from 'react'
-import React from 'react'
+  getProfilePicture,
+} from "@tape.xyz/generic";
+import type { FollowNotification, Profile } from "@tape.xyz/lens";
+import { FollowOutline } from "@tape.xyz/ui";
+import type { FC } from "react";
+import React from "react";
 
-import HoverableProfile from '@/components/Common/HoverableProfile'
+import HoverableProfile from "@/components/Common/HoverableProfile";
 
 type Props = {
-  notification: FollowNotification
-}
+  notification: FollowNotification;
+};
 
 const Followed: FC<Props> = ({ notification: { followers } }) => {
   return (
@@ -26,11 +26,11 @@ const Followed: FC<Props> = ({ notification: { followers } }) => {
             <HoverableProfile profile={profile} key={profile?.id}>
               <img
                 className="size-7 rounded-full border dark:border-gray-700/80"
-                src={getProfilePicture(profile, 'AVATAR')}
+                src={getProfilePicture(profile, "AVATAR")}
                 draggable={false}
                 alt={getProfile(profile)?.displayName}
                 onError={({ currentTarget }) => {
-                  currentTarget.src = getLennyPicture(profile?.id)
+                  currentTarget.src = getLennyPicture(profile?.id);
                 }}
               />
             </HoverableProfile>
@@ -39,7 +39,7 @@ const Followed: FC<Props> = ({ notification: { followers } }) => {
         <div className="py-2">followed you</div>
       </div>
     </span>
-  )
-}
+  );
+};
 
-export default Followed
+export default Followed;

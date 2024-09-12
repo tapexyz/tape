@@ -1,12 +1,18 @@
-import React, { useMemo } from 'react'
+import React, { useMemo } from "react";
 
 const WhatsPoppingSectionShimmer = () => {
-  const cards = useMemo(() => Array(7).fill(1), [])
+  const cards = useMemo(() => Array(7).fill(1), []);
 
   return (
     <div className="relative mb-3 flex items-start space-x-4">
       {cards.map((i, idx) => (
-        <div className="w-72 rounded-xl" key={`${i}_${idx}`}>
+        <div
+          className="w-72 rounded-xl"
+          key={`${i}_${
+            // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+            idx
+          }`}
+        >
           <div className="animate-shimmer flex flex-col space-x-2">
             <div className="aspect-w-16 aspect-h-9 rounded-xl bg-gray-200 dark:bg-gray-800" />
             <div className="flex space-x-2 py-3">
@@ -26,7 +32,7 @@ const WhatsPoppingSectionShimmer = () => {
         </div>
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default WhatsPoppingSectionShimmer
+export default WhatsPoppingSectionShimmer;

@@ -1,21 +1,21 @@
-import { tw } from '@tape.xyz/browser'
-import { MISUSED_CHANNELS } from '@tape.xyz/constants'
-import { InfoSolid, Tooltip, VerifiedSolid } from '@tape.xyz/ui'
-import type { FC } from 'react'
-import React from 'react'
+import { tw } from "@tape.xyz/browser";
+import { MISUSED_CHANNELS } from "@tape.xyz/constants";
+import { InfoSolid, Tooltip, VerifiedSolid } from "@tape.xyz/ui";
+import type { FC } from "react";
+import React from "react";
 
-import useVerifiedStore from '@/lib/store/idb/verified'
+import useVerifiedStore from "@/lib/store/idb/verified";
 
 type Props = {
-  id: string
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-  color?: string
-}
+  id: string;
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
+  color?: string;
+};
 
-const Badge: FC<Props> = ({ id, size = 'sm', color }) => {
-  const verifiedProfiles = useVerifiedStore((state) => state.verifiedProfiles)
-  const isVerified = verifiedProfiles.includes(id)
-  const misused = MISUSED_CHANNELS.find((c) => c.id === id)
+const Badge: FC<Props> = ({ id, size = "sm", color }) => {
+  const verifiedProfiles = useVerifiedStore((state) => state.verifiedProfiles);
+  const isVerified = verifiedProfiles.includes(id);
+  const misused = MISUSED_CHANNELS.find((c) => c.id === id);
 
   return (
     <>
@@ -24,15 +24,15 @@ const Badge: FC<Props> = ({ id, size = 'sm', color }) => {
           <span>
             <VerifiedSolid
               className={tw(
-                'text-brand-500 -mb-0.5 ml-0.5',
+                "text-brand-500 -mb-0.5 ml-0.5",
                 {
-                  'size-2.5': size === 'xs',
-                  'size-3': size === 'sm',
-                  'size-3.5': size === 'md',
-                  'size-4': size === 'lg',
-                  'size-5': size === 'xl'
+                  "size-2.5": size === "xs",
+                  "size-3": size === "sm",
+                  "size-3.5": size === "md",
+                  "size-4": size === "lg",
+                  "size-5": size === "xl",
                 },
-                color
+                color,
               )}
             />
           </span>
@@ -43,21 +43,21 @@ const Badge: FC<Props> = ({ id, size = 'sm', color }) => {
           <span>
             <InfoSolid
               className={tw(
-                'ml-0.5 text-red-500',
+                "ml-0.5 text-red-500",
                 {
-                  'size-2.5': size === 'xs',
-                  'size-3': size === 'sm',
-                  'size-3.5': size === 'md',
-                  'size-4': size === 'lg'
+                  "size-2.5": size === "xs",
+                  "size-3": size === "sm",
+                  "size-3.5": size === "md",
+                  "size-4": size === "lg",
                 },
-                color
+                color,
               )}
             />
           </span>
         </Tooltip>
       )}
     </>
-  )
-}
+  );
+};
 
-export default Badge
+export default Badge;

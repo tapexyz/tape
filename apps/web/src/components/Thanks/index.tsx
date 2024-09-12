@@ -1,6 +1,6 @@
-import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
-import Link from 'next/link'
-import React from 'react'
+import { STATIC_ASSETS, TAPE_APP_NAME } from "@tape.xyz/constants";
+import Link from "next/link";
+import React from "react";
 
 const Thanks = () => {
   return (
@@ -63,7 +63,7 @@ const Thanks = () => {
         </Link>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Thanks
+export default Thanks;
