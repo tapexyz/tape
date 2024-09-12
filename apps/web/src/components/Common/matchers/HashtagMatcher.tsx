@@ -20,7 +20,6 @@ export class HashtagMatcher extends Matcher {
   }
 
   match(value: string) {
-    // biome-ignore lint/suspicious/noMisleadingCharacterClass: v3
     return this.doMatch(value, /\B#[\w&-i̇]+/, (matches) => {
       return {
         display: matches[0],

@@ -19,12 +19,7 @@ const TimelineShimmer = ({
       )}
     >
       {cards.map((i, idx) => (
-        <VideoCardShimmer
-          key={`${i}_${
-            // biome-ignore lint/suspicious/noArrayIndexKey: <v3>
-            idx
-          }`}
-        />
+        <VideoCardShimmer key={`${i}_${idx}`} />
       ))}
     </div>
   );

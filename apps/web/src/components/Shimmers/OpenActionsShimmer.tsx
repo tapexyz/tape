@@ -12,13 +12,7 @@ const OpenActionsShimmer = () => {
         </div>
         <div className="laptop:grid-cols-4 grid-col-1 grid gap-x-4 gap-y-2 md:grid-cols-2 md:gap-y-8 2xl:grid-cols-5">
           {cards.map((i, idx) => (
-            <div
-              className="w-full rounded-xl"
-              key={`${i}_${
-                // biome-ignore lint/suspicious/noArrayIndexKey: v3
-                idx
-              }`}
-            >
+            <div className="w-full rounded-xl" key={`${i}_${idx}`}>
               <div className="animate-shimmer flex flex-col">
                 <div className="aspect-w-16 aspect-h-9 rounded-xl bg-gray-200 dark:bg-gray-800" />
                 <div className="flex space-x-2 py-3">

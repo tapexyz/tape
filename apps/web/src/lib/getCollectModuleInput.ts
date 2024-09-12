@@ -50,7 +50,6 @@ export const getCollectModuleInput = (
 
   if (updatedRecipients?.length) {
     let adjustments = 0;
-    // biome-ignore lint/complexity/noForEach: <explanation>
     updatedRecipients.forEach((recipient) => {
       if (
         // Check if the recipient has a split of 0

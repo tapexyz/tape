@@ -8,12 +8,7 @@ const CategoriesShimmer = () => {
   return (
     <div className="my-1 hidden gap-4 sm:grid-cols-2 md:grid md:grid-cols-4 lg:grid-cols-7">
       {cards.map((i, idx) => (
-        <CategoryItemShimmer
-          key={`${i}_${
-            // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-            idx
-          }`}
-        />
+        <CategoryItemShimmer key={`${i}_${idx}`} />
       ))}
     </div>
   );

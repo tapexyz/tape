@@ -9,12 +9,7 @@ export const SuggestedVideosShimmer = () => {
   return (
     <div className="col-span-1 space-y-2">
       {cards.map((i, idx) => (
-        <SuggestedShimmer
-          key={`${i}_${
-            // biome-ignore lint/suspicious/noArrayIndexKey: <v3>
-            idx
-          }`}
-        />
+        <SuggestedShimmer key={`${i}_${idx}`} />
       ))}
     </div>
   );

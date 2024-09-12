@@ -42,7 +42,6 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
         THUMBNAIL_GENERATE_COUNT,
       );
       const thumbnailList: Thumbnail[] = [];
-      // biome-ignore lint/complexity/noForEach: <v3>
       thumbnailArray.forEach((thumbnailBlob) => {
         thumbnailList.push({
           blobUrl: thumbnailBlob,

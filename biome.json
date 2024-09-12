@@ -37,7 +37,12 @@
         }
       },
       "suspicious": {
-        "noExplicitAny": "off"
+        "noExplicitAny": "warn",
+        "noMisleadingCharacterClass": "warn",
+        "noArrayIndexKey": "warn"
+      },
+      "complexity": {
+        "noForEach": "warn"
       }
     }
   },
