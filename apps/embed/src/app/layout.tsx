@@ -1,4 +1,4 @@
-import "../styles/index.css";
+import "./globals.css";
 
 import { TAPE_APP_DESCRIPTION, TAPE_APP_NAME } from "@tape.xyz/constants";
 import type { Metadata } from "next";
