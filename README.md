@@ -1,9 +1,5 @@
 <div align="center">
     <img src="https://static.tape.xyz/brand/og.png" alt="banner">
-    <br/>
-    <br/>
-    <p>social media platform</p>
-    <a href="https://tape.xyz">tape.xyz</a>
 </div>
 <br>
 <div align="center">
@@ -28,29 +24,29 @@
 </div>
 <br>
 
-## 📽️ About
+## 📼 Tape
 
-**Tape** is a social-media platform.
+an open video-sharing platform.
 
 ## 💪 Community
 
 For a place to have open discussions on features, voice your ideas, or get help with general questions please visit our community at [Discord](https://tape.xyz/discord).
 
-## 🔭 What's inside?
+## 🔍 What's inside?
 
 This monorepo uses [Pnpm](https://pnpm.io/) as a package manager. It includes the following apps and packages:
 
-### 🏗️ Apps
+#### 🌐 Apps
 
 | Name    | Description                    |
 | ------- | ------------------------------ |
 | `web`   | Frontend application           |
 | `embed` | Embed Video Player             |
 | `cron`  | Cron jobs for background tasks |
-| `api`   | Backend server                 |
+| `api`   | Backend application            |
 | `og`    | Open graph meta tags generator |
 
-### 📦 Packages
+#### 📦 Packages
 
 | Name        | Description                               |
 | ----------- | ----------------------------------------- |
@@ -58,9 +54,9 @@ This monorepo uses [Pnpm](https://pnpm.io/) as a package manager. It includes th
 | `config`    | Shared lint config                        |
 | `constants` | Constants for the entire application      |
 | `contracts` | Permissionless signup contracts           |
-| `helpers`   | Collection of browser and generic helpers |
-| `lens`      | Everything related to Lens                |
-| `ui`        | UI components                             |
+| `helpers`   | Collection of client and generic helpers  |
+| `lens`      | Everything related to lens indexer        |
+| `ui`        | Web UI components                         |
 
 ## 🆕 Getting Started
 
