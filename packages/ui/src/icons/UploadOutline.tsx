@@ -1,5 +1,4 @@
-import type { SVGProps } from 'react'
-import React from 'react'
+import type { SVGProps } from "react";
 
 export const UploadOutline = (props: SVGProps<SVGSVGElement>) => (
   <svg
@@ -17,4 +16,4 @@ export const UploadOutline = (props: SVGProps<SVGSVGElement>) => (
       fill="currentColor"
     />
   </svg>
-)
+);

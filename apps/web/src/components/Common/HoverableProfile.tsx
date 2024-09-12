@@ -4,29 +4,28 @@ import {
   getProfileCoverPicture,
   getProfilePicture,
   imageCdn,
-  sanitizeDStorageUrl
-} from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '@tape.xyz/ui'
-import Link from 'next/link'
-import type { FC, ReactElement } from 'react'
-import React from 'react'
+  sanitizeDStorageUrl,
+} from "@tape.xyz/generic";
+import type { Profile } from "@tape.xyz/lens";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@tape.xyz/ui";
+import Link from "next/link";
+import type { FC, ReactElement } from "react";
 
-import Stats from '@/components/Profile/BasicInfo/Stats'
-import useProfileStore from '@/lib/store/idb/profile'
+import Stats from "@/components/Profile/BasicInfo/Stats";
+import useProfileStore from "@/lib/store/idb/profile";
 
-import Badge from './Badge'
-import FollowActions from './FollowActions'
+import Badge from "./Badge";
+import FollowActions from "./FollowActions";
 
 type Props = {
-  profile: Profile
-  children?: ReactElement
-  pfp?: ReactElement
-}
+  profile: Profile;
+  children?: ReactElement;
+  pfp?: ReactElement;
+};
 
 const HoverableProfile: FC<Props> = ({ profile, children, pfp }) => {
-  const activeProfile = useProfileStore((state) => state.activeProfile)
-  const isMyProfile = activeProfile?.id === profile.id
+  const activeProfile = useProfileStore((state) => state.activeProfile);
+  const isMyProfile = activeProfile?.id === profile.id;
 
   return (
     <HoverCard>
@@ -46,19 +45,19 @@ const HoverableProfile: FC<Props> = ({ profile, children, pfp }) => {
           <div
             style={{
               backgroundImage: `url(${imageCdn(
-                sanitizeDStorageUrl(getProfileCoverPicture(profile, true))
-              )})`
+                sanitizeDStorageUrl(getProfileCoverPicture(profile, true)),
+              )})`,
             }}
             className="bg-brand-500 relative h-24 w-full bg-cover bg-center bg-no-repeat"
           >
             <div className="absolute bottom-3 left-3 flex-none">
               <img
                 className="size-10 rounded-lg border-2 border-white bg-white object-cover dark:bg-gray-900"
-                src={getProfilePicture(profile, 'AVATAR')}
+                src={getProfilePicture(profile, "AVATAR")}
                 alt={getProfile(activeProfile)?.displayName}
                 draggable={false}
                 onError={({ currentTarget }) => {
-                  currentTarget.src = getLennyPicture(profile?.id)
+                  currentTarget.src = getLennyPicture(profile?.id);
                 }}
               />
             </div>
@@ -88,7 +87,7 @@ const HoverableProfile: FC<Props> = ({ profile, children, pfp }) => {
         </div>
       </HoverCardContent>
     </HoverCard>
-  )
-}
+  );
+};
 
-export default HoverableProfile
+export default HoverableProfile;

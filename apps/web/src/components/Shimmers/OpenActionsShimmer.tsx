@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react'
+import { useMemo } from "react";
 
 const OpenActionsShimmer = () => {
-  const cards = useMemo(() => Array(10).fill(1), [])
+  const cards = useMemo(() => Array(10).fill(1), []);
   return (
     <>
       <div className="animate-shimmer my-3">
@@ -35,7 +35,7 @@ const OpenActionsShimmer = () => {
       </div>
       <hr className="border-theme my-8 border-opacity-10 dark:border-gray-800" />
     </>
-  )
-}
+  );
+};
 
-export default OpenActionsShimmer
+export default OpenActionsShimmer;

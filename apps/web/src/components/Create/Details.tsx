@@ -1,52 +1,51 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { getFileFromDataURL, tw, uploadToIPFS } from '@tape.xyz/browser'
-import { checkIsBytesVideo } from '@tape.xyz/generic'
-import type { IPFSUploadResult } from '@tape.xyz/lens/custom-types'
-import { Button, Switch, Tooltip } from '@tape.xyz/ui'
-import type { FC } from 'react'
-import React from 'react'
-import { useForm } from 'react-hook-form'
-import { toast } from 'react-hot-toast'
-import type { z } from 'zod'
-import { boolean, object, string } from 'zod'
+import { zodResolver } from "@hookform/resolvers/zod";
+import { getFileFromDataURL, tw, uploadToIPFS } from "@tape.xyz/browser";
+import { checkIsBytesVideo } from "@tape.xyz/generic";
+import type { IPFSUploadResult } from "@tape.xyz/lens/custom-types";
+import { Button, Switch, Tooltip } from "@tape.xyz/ui";
+import type { FC } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
+import type { z } from "zod";
+import { boolean, object, string } from "zod";
 
-import EmojiPicker from '@/components/UIElements/EmojiPicker'
-import InputMentions from '@/components/UIElements/InputMentions'
-import useAppStore from '@/lib/store'
+import EmojiPicker from "@/components/UIElements/EmojiPicker";
+import InputMentions from "@/components/UIElements/InputMentions";
+import useAppStore from "@/lib/store";
 
-import CollectModule from './CollectModule'
-import DropZone from './DropZone'
-import MediaCategory from './MediaCategory'
-import MediaLicense from './MediaLicense'
-import ReferenceModule from './ReferenceModule'
-import SelectedMedia from './SelectedMedia'
+import CollectModule from "./CollectModule";
+import DropZone from "./DropZone";
+import MediaCategory from "./MediaCategory";
+import MediaLicense from "./MediaLicense";
+import ReferenceModule from "./ReferenceModule";
+import SelectedMedia from "./SelectedMedia";
 
 const formSchema = object({
   title: string()
     .trim()
-    .min(5, { message: `Title should be atleast 5 characters` })
-    .max(100, { message: `Title should not exceed 100 characters` }),
+    .min(5, { message: "Title should be atleast 5 characters" })
+    .max(100, { message: "Title should not exceed 100 characters" }),
   description: string()
     .trim()
-    .min(5, { message: `Description should be atleast 5 characters` })
-    .max(5000, { message: `Description should not exceed 5000 characters` }),
-  isSensitiveContent: boolean()
-})
+    .min(5, { message: "Description should be atleast 5 characters" })
+    .max(5000, { message: "Description should not exceed 5000 characters" }),
+  isSensitiveContent: boolean(),
+});
 
-export type VideoFormData = z.infer<typeof formSchema>
+export type VideoFormData = z.infer<typeof formSchema>;
 
 type Props = {
-  onUpload: (data: VideoFormData & { thumbnail: string }) => void
-  onCancel: () => void
-}
+  onUpload: (data: VideoFormData & { thumbnail: string }) => void;
+  onCancel: () => void;
+};
 
 const Details: FC<Props> = ({ onUpload, onCancel }) => {
-  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
-  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia);
+  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia);
   // const saveAsDefault = useCollectStore((state) => state.saveAsDefault)
   // const persistedCollectModule = useCollectStore((state) => state.collectModule)
 
-  const isByteSizeVideo = checkIsBytesVideo(uploadedMedia.durationInSeconds)
+  const isByteSizeVideo = checkIsBytesVideo(uploadedMedia.durationInSeconds);
 
   const {
     handleSubmit,
@@ -54,50 +53,50 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
     formState: { errors },
     setValue,
     watch,
-    clearErrors
+    clearErrors,
   } = useForm<VideoFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       isSensitiveContent: uploadedMedia.isSensitiveContent ?? false,
       title: uploadedMedia.title,
-      description: uploadedMedia.description
-    }
-  })
+      description: uploadedMedia.description,
+    },
+  });
 
   const onSubmitForm = (data: VideoFormData) => {
     if (!uploadedMedia.file) {
-      return toast.error(`Please choose a media to upload`)
+      return toast.error("Please choose a media to upload");
     }
-    setUploadedMedia({ uploadingThumbnail: true })
+    setUploadedMedia({ uploadingThumbnail: true });
     return getFileFromDataURL(
       uploadedMedia.thumbnailBlobUrl,
-      'thumbnail.jpeg',
+      "thumbnail.jpeg",
       async (file) => {
         if (!file) {
-          toast.error(`Please upload a custom thumbnail`)
-          return ''
+          toast.error("Please upload a custom thumbnail");
+          return "";
         }
-        const result: IPFSUploadResult = await uploadToIPFS(file)
+        const result: IPFSUploadResult = await uploadToIPFS(file);
         if (!result.url) {
-          toast.error(`Failed to upload thumbnail`)
+          toast.error("Failed to upload thumbnail");
         }
         setUploadedMedia({
           thumbnail: result.url,
-          thumbnailType: file.type || 'image/jpeg',
+          thumbnailType: file.type || "image/jpeg",
           uploadingThumbnail: false,
-          buttonText: 'Uploading...'
-        })
-        onUpload({ ...data, thumbnail: result.url })
-      }
-    )
-  }
+          buttonText: "Uploading...",
+        });
+        onUpload({ ...data, thumbnail: result.url });
+      },
+    );
+  };
 
   const toggleUploadAsByte = (enable: boolean) => {
     if (isByteSizeVideo && enable) {
-      return setUploadedMedia({ isByteVideo: true })
+      return setUploadedMedia({ isByteVideo: true });
     }
-    setUploadedMedia({ isByteVideo: false })
-  }
+    setUploadedMedia({ isByteVideo: false });
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmitForm)}>
@@ -113,10 +112,10 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               placeholder="Title that describes your content"
               autoComplete="off"
               error={errors.title?.message}
-              value={watch('title')}
+              value={watch("title")}
               onContentChange={(value) => {
-                setValue('title', value)
-                clearErrors('title')
+                setValue("title", value);
+                clearErrors("title");
               }}
             />
             <div className="relative mt-4">
@@ -125,10 +124,10 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 placeholder="Describe more about your content, can also be @profile, #hashtags or chapters (00:20 - Intro)"
                 autoComplete="off"
                 error={errors.description?.message}
-                value={watch('description')}
+                value={watch("description")}
                 onContentChange={(value) => {
-                  setValue('description', value)
-                  clearErrors('description')
+                  setValue("description", value);
+                  clearErrors("description");
                 }}
                 rows={6}
               />
@@ -136,8 +135,8 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 <EmojiPicker
                   onEmojiSelect={(emoji) =>
                     setValue(
-                      'description',
-                      `${getValues('description')}${emoji}`
+                      "description",
+                      `${getValues("description")}${emoji}`,
                     )
                   }
                 />
@@ -145,13 +144,13 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               <div className="absolute right-1 top-0 mt-1 flex items-center justify-end">
                 <span
                   className={tw(
-                    'text-xs',
-                    watch('description')?.length > 5000
-                      ? 'text-red-500 opacity-100'
-                      : 'opacity-70'
+                    "text-xs",
+                    watch("description")?.length > 5000
+                      ? "text-red-500 opacity-100"
+                      : "opacity-70",
                   )}
                 >
-                  {watch('description')?.length}/5000
+                  {watch("description")?.length}/5000
                 </span>
               </div>
             </div>
@@ -169,10 +168,10 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 onCheckedChange={(canCollect) => {
                   const collectModuleData = {
                     ...(uploadedMedia.collectModule && {
-                      ...uploadedMedia.collectModule
+                      ...uploadedMedia.collectModule,
                     }),
-                    isRevertCollect: !canCollect
-                  }
+                    isRevertCollect: !canCollect,
+                  };
                   // const collectModule = saveAsDefault
                   //   ? {
                   //       ...(persistedCollectModule && {
@@ -181,7 +180,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                   //       isRevertCollect: !canCollect
                   //     } ?? collectModuleData
                   //   : collectModuleData
-                  setUploadedMedia({ collectModule: collectModuleData })
+                  setUploadedMedia({ collectModule: collectModuleData });
                 }}
               />
               {!uploadedMedia.collectModule.isRevertCollect && (
@@ -206,15 +205,15 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               {uploadedMedia.hasOpenActions && <OpenActionSettings />}
             </div> */}
 
-            {uploadedMedia.file && uploadedMedia.type === 'VIDEO' ? (
+            {uploadedMedia.file && uploadedMedia.type === "VIDEO" ? (
               <Tooltip
                 visible={!isByteSizeVideo}
                 content="Please note that only videos under 2 minutes in length can be uploaded as bytes"
               >
                 <div
                   className={tw(
-                    'mt-2',
-                    !isByteSizeVideo && 'cursor-not-allowed opacity-50'
+                    "mt-2",
+                    !isByteSizeVideo && "cursor-not-allowed opacity-50",
                   )}
                 >
                   <Switch
@@ -229,9 +228,9 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
             <div className="mt-2">
               <Switch
                 label="Sensitive content for a general audience"
-                checked={Boolean(watch('isSensitiveContent'))}
+                checked={Boolean(watch("isSensitiveContent"))}
                 onCheckedChange={(value) =>
-                  setValue('isSensitiveContent', value)
+                  setValue("isSensitiveContent", value)
                 }
               />
             </div>
@@ -264,12 +263,12 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
           type="submit"
         >
           {uploadedMedia.uploadingThumbnail
-            ? 'Uploading poster...'
+            ? "Uploading poster..."
             : uploadedMedia.buttonText}
         </Button>
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default Details
+export default Details;

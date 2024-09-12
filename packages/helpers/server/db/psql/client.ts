@@ -1,5 +1,5 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from "@prisma/client";
 
-const psql = new PrismaClient({ log: ['info'] })
+const psql = new PrismaClient({ log: ["info"] });
 
-export { psql }
+export { psql };

@@ -1,16 +1,15 @@
-import { STATIC_ASSETS } from '@tape.xyz/constants'
-import { useTheme } from 'next-themes'
-import React from 'react'
+import { STATIC_ASSETS } from "@tape.xyz/constants";
+import { useTheme } from "next-themes";
 
-import MetaTags from './MetaTags'
+import MetaTags from "./MetaTags";
 
 const FullPageLoader = () => {
-  const { resolvedTheme } = useTheme()
+  const { resolvedTheme } = useTheme();
 
   return (
     <div className="grid h-screen place-items-center">
       <MetaTags />
-      {resolvedTheme === 'dark' ? (
+      {resolvedTheme === "dark" ? (
         <img
           src={`${STATIC_ASSETS}/brand/logo-with-text-light.webp`}
           className="h-10"
@@ -30,7 +29,7 @@ const FullPageLoader = () => {
         />
       )}
     </div>
-  )
-}
+  );
+};
 
-export default FullPageLoader
+export default FullPageLoader;

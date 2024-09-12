@@ -1,1 +1,1 @@
-export const trimify = (value: string): string => value?.trim()
+export const trimify = (value: string): string => value?.trim();

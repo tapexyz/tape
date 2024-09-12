@@ -1,10 +1,10 @@
-import { tw } from '@tape.xyz/browser'
+import { tw } from "@tape.xyz/browser";
 import {
   getLennyPicture,
   getProfile,
   getProfilePicture,
-  getPublicationData
-} from '@tape.xyz/generic'
+  getPublicationData,
+} from "@tape.xyz/generic";
 import {
   type Comment,
   CommentRankingFilterType,
@@ -12,46 +12,46 @@ import {
   LimitType,
   type Profile,
   type PublicationsRequest,
-  usePublicationsQuery
-} from '@tape.xyz/lens'
+  usePublicationsQuery,
+} from "@tape.xyz/lens";
 import {
   ChevronDownOutline,
   ChevronUpOutline,
-  ReplyOutline
-} from '@tape.xyz/ui'
-import Link from 'next/link'
-import type { FC } from 'react'
-import React, { useEffect, useState } from 'react'
+  ReplyOutline,
+} from "@tape.xyz/ui";
+import Link from "next/link";
+import type { FC } from "react";
+import { useEffect, useState } from "react";
 
-import Badge from '@/components/Common/Badge'
-import InterweaveContent from '@/components/Common/InterweaveContent'
-import CommentsShimmer from '@/components/Shimmers/CommentsShimmer'
-import { getShortHandTime } from '@/lib/formatTime'
+import Badge from "@/components/Common/Badge";
+import InterweaveContent from "@/components/Common/InterweaveContent";
+import CommentsShimmer from "@/components/Shimmers/CommentsShimmer";
+import { getShortHandTime } from "@/lib/formatTime";
 
-import PublicationReaction from '../../Common/Publication/PublicationReaction'
-import CommentMedia from './CommentMedia'
-import CommentOptions from './CommentOptions'
+import PublicationReaction from "../../Common/Publication/PublicationReaction";
+import CommentMedia from "./CommentMedia";
+import CommentOptions from "./CommentOptions";
 
 type ReplyContentProps = {
-  comment: Comment
-}
+  comment: Comment;
+};
 
 const ReplyContent: FC<ReplyContentProps> = ({ comment }) => {
-  const [clamped, setClamped] = useState(false)
-  const [showMore, setShowMore] = useState(false)
+  const [clamped, setClamped] = useState(false);
+  const [showMore, setShowMore] = useState(false);
 
-  const content = getPublicationData(comment?.metadata)?.content || ''
+  const content = getPublicationData(comment?.metadata)?.content || "";
 
   useEffect(() => {
     if (content && content.trim().length > 500) {
-      setClamped(true)
-      setShowMore(true)
+      setClamped(true);
+      setShowMore(true);
     }
-  }, [content])
+  }, [content]);
 
   return (
     <>
-      <div className={tw({ 'line-clamp-2': clamped })}>
+      <div className={tw({ "line-clamp-2": clamped })}>
         <InterweaveContent content={content} />
       </div>
       {showMore && (
@@ -75,13 +75,13 @@ const ReplyContent: FC<ReplyContentProps> = ({ comment }) => {
       )}
       <CommentMedia comment={comment} />
     </>
-  )
-}
+  );
+};
 
 type Props = {
-  comment: Comment
-  replyTo: (profile: Profile) => void
-}
+  comment: Comment;
+  replyTo: (profile: Profile) => void;
+};
 
 const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
   const request: PublicationsRequest = {
@@ -91,42 +91,42 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
       commentOn: {
         id: comment.id,
         ranking: {
-          filter: CommentRankingFilterType.All
-        }
-      }
-    }
-  }
+          filter: CommentRankingFilterType.All,
+        },
+      },
+    },
+  };
 
   const { data, loading, error, fetchMore } = usePublicationsQuery({
     variables: { request },
-    skip: !comment.id
-  })
+    skip: !comment.id,
+  });
 
-  const comments = data?.publications?.items as unknown as Comment[]
-  const pageInfo = data?.publications?.pageInfo
-  const hasMore = comments?.length > 10
+  const comments = data?.publications?.items as unknown as Comment[];
+  const pageInfo = data?.publications?.pageInfo;
+  const hasMore = comments?.length > 10;
 
   const loadMore = async () => {
     await fetchMore({
       variables: {
         request: {
           ...request,
-          cursor: pageInfo?.next
-        }
-      }
-    })
-  }
+          cursor: pageInfo?.next,
+        },
+      },
+    });
+  };
 
   if (loading) {
-    return <CommentsShimmer />
+    return <CommentsShimmer />;
   }
 
   if (error) {
-    return null
+    return null;
   }
 
   return (
-    <div className={tw(comments.length && 'space-y-6')}>
+    <div className={tw(comments.length && "space-y-6")}>
       {comments?.map(
         (comment) =>
           !comment.isHidden && (
@@ -137,12 +137,12 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
                   className="mr-3 mt-0.5 flex-none"
                 >
                   <img
-                    src={getProfilePicture(comment.by, 'AVATAR')}
+                    src={getProfilePicture(comment.by, "AVATAR")}
                     className="size-8 rounded-full"
                     draggable={false}
                     alt={getProfile(comment.by)?.slug}
                     onError={({ currentTarget }) => {
-                      currentTarget.src = getLennyPicture(comment.by?.id)
+                      currentTarget.src = getLennyPicture(comment.by?.id);
                     }}
                   />
                 </Link>
@@ -165,10 +165,11 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
                     <div className="mt-2 flex gap-4">
                       <PublicationReaction publication={comment} />
                       <button
+                        type="button"
                         className="flex items-center space-x-1 focus:outline-none"
                         onClick={() => replyTo(comment.by)}
                       >
-                        <ReplyOutline className="size-3.5" />{' '}
+                        <ReplyOutline className="size-3.5" />{" "}
                         <span className="text-xs">Reply</span>
                       </button>
                     </div>
@@ -179,10 +180,11 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
                 <CommentOptions comment={comment} />
               </div>
             </div>
-          )
+          ),
       )}
       {pageInfo?.next && hasMore ? (
         <button
+          type="button"
           className="group flex w-full items-baseline space-x-2 text-center text-sm"
           onClick={loadMore}
         >
@@ -193,7 +195,7 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
         </button>
       ) : null}
     </div>
-  )
-}
+  );
+};
 
-export default CommentReplies
+export default CommentReplies;

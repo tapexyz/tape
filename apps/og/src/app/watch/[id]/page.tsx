@@ -4,62 +4,61 @@ import {
   TAPE_EMBED_URL,
   TAPE_WEBSITE_URL,
   TAPE_X_HANDLE,
-  WORKER_OEMBED_URL
-} from '@tape.xyz/constants'
+  WORKER_OEMBED_URL,
+} from "@tape.xyz/constants";
 import {
   getProfile,
   getPublication,
   getPublicationData,
-  truncate
-} from '@tape.xyz/generic'
-import type { AnyPublication } from '@tape.xyz/lens'
-import { PublicationDocument } from '@tape.xyz/lens'
-import { apolloClient } from '@tape.xyz/lens/apollo'
-import type { Metadata } from 'next'
-import React from 'react'
+  truncate,
+} from "@tape.xyz/generic";
+import type { AnyPublication } from "@tape.xyz/lens";
+import { PublicationDocument } from "@tape.xyz/lens";
+import { apolloClient } from "@tape.xyz/lens/apollo";
+import type { Metadata } from "next";
 
-import common from '@/common'
-import { getCollectModuleMetadata } from '@/other-metadata'
+import common from "@/common";
+import { getCollectModuleMetadata } from "@/other-metadata";
 
 type Props = {
-  params: { id: string }
-}
+  params: { id: string };
+};
 
-const client = apolloClient()
+const client = apolloClient();
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = params
+  const { id } = params;
   const { data } = await client.query({
     query: PublicationDocument,
-    variables: { request: { forId: id } }
-  })
+    variables: { request: { forId: id } },
+  });
 
   if (!data.publication) {
-    return common
+    return common;
   }
 
-  const publication = data.publication as AnyPublication
-  const targetPublication = getPublication(publication)
-  const { by: profile, metadata, isHidden } = targetPublication
+  const publication = data.publication as AnyPublication;
+  const targetPublication = getPublication(publication);
+  const { by: profile, metadata, isHidden } = targetPublication;
 
   if (isHidden) {
-    return common
+    return common;
   }
 
-  const publicationTitle = getPublicationData(metadata)?.title || ''
+  const publicationTitle = getPublicationData(metadata)?.title || "";
   const publicationContent = truncate(
-    getPublicationData(metadata)?.content || '',
-    200
-  )
+    getPublicationData(metadata)?.content || "",
+    200,
+  );
   const publicationCover =
-    getPublicationData(metadata)?.asset?.cover || OG_IMAGE
-  const duration = getPublicationData(metadata)?.asset?.duration
+    getPublicationData(metadata)?.asset?.cover || OG_IMAGE;
+  const duration = getPublicationData(metadata)?.asset?.duration;
 
   const title = `${publicationTitle} by ${
     getProfile(profile).slugWithPrefix
-  } • ${TAPE_APP_NAME}`
-  const embedUrl = `${TAPE_EMBED_URL}/${targetPublication.id}`
-  const pageUrl = new URL(`${TAPE_WEBSITE_URL}/watch/${targetPublication.id}`)
+  } • ${TAPE_APP_NAME}`;
+  const embedUrl = `${TAPE_EMBED_URL}/${targetPublication.id}`;
+  const pageUrl = new URL(`${TAPE_WEBSITE_URL}/watch/${targetPublication.id}`);
 
   return {
     title,
@@ -69,7 +68,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title,
       description: publicationContent,
-      type: 'video.episode',
+      type: "video.episode",
       images: [publicationCover],
       siteName: TAPE_APP_NAME,
       videos: [embedUrl],
@@ -77,42 +76,42 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: pageUrl,
       tags: [
         ...(Array.isArray(metadata.tags) ? metadata.tags : []),
-        'tape',
-        'video',
-        'episode',
-        'watch',
+        "tape",
+        "video",
+        "episode",
+        "watch",
         title,
-        getProfile(profile).displayName
+        getProfile(profile).displayName,
       ],
-      releaseDate: targetPublication.createdAt
+      releaseDate: targetPublication.createdAt,
     },
     twitter: {
       title,
       description: publicationContent,
-      card: 'player',
+      card: "player",
       images: [publicationCover],
       site: `@${TAPE_X_HANDLE}`,
       players: {
         playerUrl: embedUrl,
         streamUrl: embedUrl,
         height: 720,
-        width: 1280
-      }
+        width: 1280,
+      },
     },
     other: {
-      ...getCollectModuleMetadata(targetPublication)
+      ...getCollectModuleMetadata(targetPublication),
     },
     alternates: {
       canonical: pageUrl,
       types: {
-        'application/json+oembed': `${WORKER_OEMBED_URL}?url=${pageUrl}&format=json`,
-        'text/xml+oembed': `${WORKER_OEMBED_URL}?url=${pageUrl}&format=xml`,
-        title: publicationTitle
-      }
-    }
-  }
+        "application/json+oembed": `${WORKER_OEMBED_URL}?url=${pageUrl}&format=json`,
+        "text/xml+oembed": `${WORKER_OEMBED_URL}?url=${pageUrl}&format=xml`,
+        title: publicationTitle,
+      },
+    },
+  };
 }
 
 export default function Page({ params }: Props) {
-  return <div>{params.id}</div>
+  return <div>{params.id}</div>;
 }

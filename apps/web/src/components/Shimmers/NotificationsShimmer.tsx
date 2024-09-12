@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react'
+import { useMemo } from "react";
 
 const NotificationsShimmer = () => {
-  const notifications = useMemo(() => Array(20).fill(1), [])
+  const notifications = useMemo(() => Array(20).fill(1), []);
 
   return (
     <div className="animate-shimmer space-y-4">
@@ -18,7 +18,7 @@ const NotificationsShimmer = () => {
         </div>
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default NotificationsShimmer
+export default NotificationsShimmer;

@@ -1,102 +1,101 @@
-import { tw, useAverageColor } from '@tape.xyz/browser'
-import { STATIC_ASSETS } from '@tape.xyz/constants'
+import { tw, useAverageColor } from "@tape.xyz/browser";
+import { STATIC_ASSETS } from "@tape.xyz/constants";
 import {
   getLennyPicture,
   getProfile,
   getProfilePicture,
   imageCdn,
-  sanitizeDStorageUrl
-} from '@tape.xyz/generic'
+  sanitizeDStorageUrl,
+} from "@tape.xyz/generic";
 import {
   PublicationDocument,
   usePublicationQuery,
-  useTxIdToTxHashQuery
-} from '@tape.xyz/lens'
-import { useApolloClient } from '@tape.xyz/lens/apollo'
-import type { QueuedVideoType } from '@tape.xyz/lens/custom-types'
-import { Tooltip } from '@tape.xyz/ui'
-import type { FC } from 'react'
-import React from 'react'
+  useTxIdToTxHashQuery,
+} from "@tape.xyz/lens";
+import { useApolloClient } from "@tape.xyz/lens/apollo";
+import type { QueuedVideoType } from "@tape.xyz/lens/custom-types";
+import { Tooltip } from "@tape.xyz/ui";
+import type { FC } from "react";
 
-import usePendingTxn from '@/hooks/usePendingTxn'
-import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@/lib/store'
-import useProfileStore from '@/lib/store/idb/profile'
-import usePersistStore from '@/lib/store/persist'
+import usePendingTxn from "@/hooks/usePendingTxn";
+import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from "@/lib/store";
+import useProfileStore from "@/lib/store/idb/profile";
+import usePersistStore from "@/lib/store/persist";
 
-import Badge from '../Badge'
+import Badge from "../Badge";
 
 type Props = {
-  queuedVideo: QueuedVideoType
-}
+  queuedVideo: QueuedVideoType;
+};
 
 const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
-  const { activeProfile } = useProfileStore()
-  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
-  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
-  const queuedVideos = usePersistStore((state) => state.queuedVideos)
-  const setQueuedVideos = usePersistStore((state) => state.setQueuedVideos)
+  const { activeProfile } = useProfileStore();
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia);
+  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia);
+  const queuedVideos = usePersistStore((state) => state.queuedVideos);
+  const setQueuedVideos = usePersistStore((state) => state.setQueuedVideos);
 
-  const { cache } = useApolloClient()
+  const { cache } = useApolloClient();
 
   const thumbnailUrl = imageCdn(
     uploadedMedia.isSensitiveContent
       ? `${STATIC_ASSETS}/images/sensor-blur.webp`
       : sanitizeDStorageUrl(queuedVideo.thumbnailUrl),
-    uploadedMedia.isByteVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
-  )
+    uploadedMedia.isByteVideo ? "THUMBNAIL_V" : "THUMBNAIL",
+  );
   const { color: backgroundColor } = useAverageColor(
     thumbnailUrl,
-    uploadedMedia.isByteVideo
-  )
+    uploadedMedia.isByteVideo,
+  );
 
   const removeFromQueue = () => {
-    setUploadedMedia(UPLOADED_VIDEO_FORM_DEFAULTS)
+    setUploadedMedia(UPLOADED_VIDEO_FORM_DEFAULTS);
     if (!queuedVideo.txnId) {
       return setQueuedVideos(
-        queuedVideos.filter((q) => q.txnHash !== queuedVideo.txnHash)
-      )
+        queuedVideos.filter((q) => q.txnHash !== queuedVideo.txnHash),
+      );
     }
-    setQueuedVideos(queuedVideos.filter((q) => q.txnId !== queuedVideo.txnId))
-  }
+    setQueuedVideos(queuedVideos.filter((q) => q.txnId !== queuedVideo.txnId));
+  };
 
   const { indexed } = usePendingTxn({
-    txId: queuedVideo.txnId
-  })
+    txId: queuedVideo.txnId,
+  });
 
   const { data: txHashData } = useTxIdToTxHashQuery({
     variables: {
-      for: queuedVideo.txnId
+      for: queuedVideo.txnId,
     },
-    skip: !indexed || !queuedVideo.txnId?.length
-  })
+    skip: !indexed || !queuedVideo.txnId?.length,
+  });
 
   const { stopPolling } = usePublicationQuery({
     variables: {
-      request: { forTxHash: txHashData?.txIdToTxHash || queuedVideo.txnHash }
+      request: { forTxHash: txHashData?.txIdToTxHash || queuedVideo.txnHash },
     },
     skip: !txHashData?.txIdToTxHash?.length && !queuedVideo.txnHash?.length,
     pollInterval: 1000,
     notifyOnNetworkStatusChange: true,
     onCompleted: (data) => {
       if (data?.publication?.txHash) {
-        stopPolling()
+        stopPolling();
         cache.modify({
           fields: {
             publications() {
               cache.writeQuery({
                 data: { publication: data?.publication },
-                query: PublicationDocument
-              })
-            }
-          }
-        })
-        removeFromQueue()
+                query: PublicationDocument,
+              });
+            },
+          },
+        });
+        removeFromQueue();
       }
-    }
-  })
+    },
+  });
 
   if (!queuedVideo?.txnId && !queuedVideo?.txnHash) {
-    return null
+    return null;
   }
 
   return (
@@ -106,11 +105,11 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
           <img
             src={thumbnailUrl}
             className={tw(
-              'h-full w-full bg-gray-100 object-center md:rounded-xl lg:h-full lg:w-full dark:bg-gray-900',
-              uploadedMedia.isByteVideo ? 'object-contain' : 'object-cover'
+              "h-full w-full bg-gray-100 object-center md:rounded-xl lg:h-full lg:w-full dark:bg-gray-900",
+              uploadedMedia.isByteVideo ? "object-contain" : "object-cover",
             )}
             style={{
-              backgroundColor: backgroundColor && `${backgroundColor}95`
+              backgroundColor: backgroundColor && `${backgroundColor}95`,
             }}
             alt="thumbnail"
             draggable={false}
@@ -121,11 +120,11 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
         <div className="flex items-start space-x-2.5">
           <img
             className="size-8 rounded-full"
-            src={getProfilePicture(activeProfile, 'AVATAR')}
+            src={getProfilePicture(activeProfile, "AVATAR")}
             alt={getProfile(activeProfile)?.slug}
             draggable={false}
             onError={({ currentTarget }) => {
-              currentTarget.src = getLennyPicture(activeProfile?.id)
+              currentTarget.src = getLennyPicture(activeProfile?.id);
             }}
           />
           <div className="grid flex-1">
@@ -153,7 +152,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default QueuedVideo
+export default QueuedVideo;

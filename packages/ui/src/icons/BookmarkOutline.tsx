@@ -1,5 +1,4 @@
-import type { SVGProps } from 'react'
-import React from 'react'
+import type { SVGProps } from "react";
 
 export const BookmarkOutline = (props: SVGProps<SVGSVGElement>) => (
   <svg
@@ -19,4 +18,4 @@ export const BookmarkOutline = (props: SVGProps<SVGSVGElement>) => (
       fill="currentColor"
     />
   </svg>
-)
+);

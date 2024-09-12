@@ -1,20 +1,19 @@
-import { tw } from '@tape.xyz/browser'
-import React from 'react'
+import { tw } from "@tape.xyz/browser";
 
 export const CardShimmer = ({ rounded = true }: { rounded?: boolean }) => {
   return (
-    <div className={tw('w-full', rounded && 'rounded-xl')}>
+    <div className={tw("w-full", rounded && "rounded-xl")}>
       <div className="animate-shimmer flex flex-col space-x-2">
         <div
           className={tw(
-            'aspect-w-16 aspect-h-9 bg-gray-200 dark:bg-gray-800',
-            rounded && 'rounded-large'
+            "aspect-w-16 aspect-h-9 bg-gray-200 dark:bg-gray-800",
+            rounded && "rounded-large",
           )}
         />
       </div>
     </div>
-  )
-}
+  );
+};
 
 const VideoCardShimmer = () => {
   return (
@@ -30,7 +29,7 @@ const VideoCardShimmer = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default VideoCardShimmer
+export default VideoCardShimmer;

@@ -1,13 +1,12 @@
-import { CREATOR_VIDEO_CATEGORIES } from '@tape.xyz/constants'
-import { getCategoryByTag } from '@tape.xyz/generic'
-import { Select, SelectItem } from '@tape.xyz/ui'
-import React from 'react'
+import { CREATOR_VIDEO_CATEGORIES } from "@tape.xyz/constants";
+import { getCategoryByTag } from "@tape.xyz/generic";
+import { Select, SelectItem } from "@tape.xyz/ui";
 
-import useAppStore from '@/lib/store'
+import useAppStore from "@/lib/store";
 
 const MediaCategory = () => {
-  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
-  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia);
+  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia);
   return (
     <div className="flex-1 space-y-1">
       <span className="text-sm font-medium">Category</span>
@@ -25,7 +24,7 @@ const MediaCategory = () => {
         ))}
       </Select>
     </div>
-  )
-}
+  );
+};
 
-export default MediaCategory
+export default MediaCategory;

@@ -1,4 +1,4 @@
-import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
+import { INFINITE_SCROLL_ROOT_MARGIN } from "@tape.xyz/constants";
 import {
   formatNumber,
   getLennyPicture,
@@ -6,32 +6,31 @@ import {
   getProfileCoverPicture,
   getProfilePicture,
   imageCdn,
-  sanitizeDStorageUrl
-} from '@tape.xyz/generic'
-import type { Profile, ProfilesManagedRequest } from '@tape.xyz/lens'
-import { useProfilesManagedQuery } from '@tape.xyz/lens'
-import { Spinner } from '@tape.xyz/ui'
-import Link from 'next/link'
-import React from 'react'
-import { useInView } from 'react-cool-inview'
+  sanitizeDStorageUrl,
+} from "@tape.xyz/generic";
+import type { Profile, ProfilesManagedRequest } from "@tape.xyz/lens";
+import { useProfilesManagedQuery } from "@tape.xyz/lens";
+import { Spinner } from "@tape.xyz/ui";
+import Link from "next/link";
+import { useInView } from "react-cool-inview";
 
-import Badge from '@/components/Common/Badge'
-import { NoDataFound } from '@/components/UIElements/NoDataFound'
-import useProfileStore from '@/lib/store/idb/profile'
+import Badge from "@/components/Common/Badge";
+import { NoDataFound } from "@/components/UIElements/NoDataFound";
+import useProfileStore from "@/lib/store/idb/profile";
 
 const Managing = () => {
   const activeProfile = useProfileStore(
-    (state) => state.activeProfile
-  ) as Profile
-  const { address } = getProfile(activeProfile)
+    (state) => state.activeProfile,
+  ) as Profile;
+  const { address } = getProfile(activeProfile);
 
-  const request: ProfilesManagedRequest = { for: address }
+  const request: ProfilesManagedRequest = { for: address };
   const { data, loading, error, fetchMore } = useProfilesManagedQuery({
     variables: { request, lastLoggedInProfileRequest: { for: address } },
-    skip: !address
-  })
-  const profilesManaged = data?.profilesManaged.items as Profile[]
-  const pageInfo = data?.profilesManaged?.pageInfo
+    skip: !address,
+  });
+  const profilesManaged = data?.profilesManaged.items as Profile[];
+  const pageInfo = data?.profilesManaged?.pageInfo;
 
   const { observe } = useInView({
     threshold: 0.25,
@@ -41,12 +40,12 @@ const Managing = () => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next
-          }
-        }
-      })
-    }
-  })
+            cursor: pageInfo?.next,
+          },
+        },
+      });
+    },
+  });
 
   return (
     <div>
@@ -66,19 +65,21 @@ const Managing = () => {
                 <div
                   style={{
                     backgroundImage: `url(${imageCdn(
-                      sanitizeDStorageUrl(getProfileCoverPicture(profile, true))
-                    )})`
+                      sanitizeDStorageUrl(
+                        getProfileCoverPicture(profile, true),
+                      ),
+                    )})`,
                   }}
                   className="bg-brand-500 relative h-20 w-full bg-cover bg-center bg-no-repeat"
                 >
                   <div className="absolute bottom-3 left-3 flex-none">
                     <img
                       className="size-10 rounded-full border-2 border-white bg-white object-cover dark:bg-gray-900"
-                      src={getProfilePicture(profile, 'AVATAR')}
+                      src={getProfilePicture(profile, "AVATAR")}
                       alt={getProfile(profile)?.displayName}
                       draggable={false}
                       onError={({ currentTarget }) => {
-                        currentTarget.src = getLennyPicture(profile?.id)
+                        currentTarget.src = getLennyPicture(profile?.id);
                       }}
                     />
                   </div>
@@ -111,7 +112,7 @@ const Managing = () => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Managing
+export default Managing;

@@ -3,22 +3,21 @@ import {
   getProfile,
   getProfilePicture,
   getPublication,
-  getPublicationData
-} from '@tape.xyz/generic'
-import type { ActedNotification, OpenActionProfileActed } from '@tape.xyz/lens'
-import { CollectOutline } from '@tape.xyz/ui'
-import Link from 'next/link'
-import type { FC } from 'react'
-import React from 'react'
+  getPublicationData,
+} from "@tape.xyz/generic";
+import type { ActedNotification, OpenActionProfileActed } from "@tape.xyz/lens";
+import { CollectOutline } from "@tape.xyz/ui";
+import Link from "next/link";
+import type { FC } from "react";
 
-import HoverableProfile from '@/components/Common/HoverableProfile'
+import HoverableProfile from "@/components/Common/HoverableProfile";
 
 type Props = {
-  notification: ActedNotification
-}
+  notification: ActedNotification;
+};
 
 const Acted: FC<Props> = ({ notification: { publication, actions } }) => {
-  const targetPublication = getPublication(publication)
+  const targetPublication = getPublication(publication);
 
   return (
     <span className="flex space-x-4">
@@ -31,11 +30,11 @@ const Acted: FC<Props> = ({ notification: { publication, actions } }) => {
             <HoverableProfile profile={by} key={by?.id}>
               <img
                 className="size-7 rounded-full border dark:border-gray-700/80"
-                src={getProfilePicture(by, 'AVATAR')}
+                src={getProfilePicture(by, "AVATAR")}
                 draggable={false}
                 alt={getProfile(by)?.slug}
                 onError={({ currentTarget }) => {
-                  currentTarget.src = getLennyPicture(by?.id)
+                  currentTarget.src = getLennyPicture(by?.id);
                 }}
               />
             </HoverableProfile>
@@ -50,7 +49,7 @@ const Acted: FC<Props> = ({ notification: { publication, actions } }) => {
         </Link>
       </div>
     </span>
-  )
-}
+  );
+};
 
-export default Acted
+export default Acted;

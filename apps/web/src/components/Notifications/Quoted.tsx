@@ -2,20 +2,19 @@ import {
   getLennyPicture,
   getProfile,
   getProfilePicture,
-  getPublicationData
-} from '@tape.xyz/generic'
-import type { QuoteNotification } from '@tape.xyz/lens'
-import { QuoteOutline } from '@tape.xyz/ui'
-import Link from 'next/link'
-import type { FC } from 'react'
-import React from 'react'
+  getPublicationData,
+} from "@tape.xyz/generic";
+import type { QuoteNotification } from "@tape.xyz/lens";
+import { QuoteOutline } from "@tape.xyz/ui";
+import Link from "next/link";
+import type { FC } from "react";
 
-import HoverableProfile from '@/components/Common/HoverableProfile'
-import { getShortHandTime } from '@/lib/formatTime'
+import HoverableProfile from "@/components/Common/HoverableProfile";
+import { getShortHandTime } from "@/lib/formatTime";
 
 type Props = {
-  notification: QuoteNotification
-}
+  notification: QuoteNotification;
+};
 
 const Quoted: FC<Props> = ({ notification: { quote } }) => {
   return (
@@ -29,11 +28,11 @@ const Quoted: FC<Props> = ({ notification: { quote } }) => {
             <HoverableProfile profile={quote.by} key={quote.by?.id}>
               <img
                 className="size-7 rounded-full border dark:border-gray-700/80"
-                src={getProfilePicture(quote.by, 'AVATAR')}
+                src={getProfilePicture(quote.by, "AVATAR")}
                 draggable={false}
                 alt={getProfile(quote.by)?.displayName}
                 onError={({ currentTarget }) => {
-                  currentTarget.src = getLennyPicture(quote.by?.id)
+                  currentTarget.src = getLennyPicture(quote.by?.id);
                 }}
               />
             </HoverableProfile>
@@ -51,7 +50,7 @@ const Quoted: FC<Props> = ({ notification: { quote } }) => {
         {getShortHandTime(quote.createdAt)}
       </span>
     </div>
-  )
-}
+  );
+};
 
-export default Quoted
+export default Quoted;

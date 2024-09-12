@@ -1,9 +1,8 @@
-import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
-import { Button } from '@tape.xyz/ui'
-import Link from 'next/link'
-import React from 'react'
+import { STATIC_ASSETS, TAPE_APP_NAME } from "@tape.xyz/constants";
+import { Button } from "@tape.xyz/ui";
+import Link from "next/link";
 
-import MetaTags from '@/components/Common/MetaTags'
+import MetaTags from "@/components/Common/MetaTags";
 
 const Custom500 = () => {
   return (
@@ -29,7 +28,7 @@ const Custom500 = () => {
         </Link>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Custom500
+export default Custom500;

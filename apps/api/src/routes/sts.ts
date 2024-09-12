@@ -1,13 +1,13 @@
-import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts'
+import { AssumeRoleCommand, STSClient } from "@aws-sdk/client-sts";
 import {
   ERROR_MESSAGE,
   EVER_BUCKET_NAME,
   EVER_ENDPOINT,
-  EVER_REGION
-} from '@tape.xyz/constants'
-import { Hono } from 'hono'
+  EVER_REGION,
+} from "@tape.xyz/constants";
+import { Hono } from "hono";
 
-const app = new Hono()
+const app = new Hono();
 
 const params = {
   DurationSeconds: 3600,
@@ -26,40 +26,40 @@ const params = {
         ]
       }
     ]
-  }`
-}
+  }`,
+};
 
-const { EVER_ACCESS_KEY, EVER_ACCESS_SECRET } = process.env
+const { EVER_ACCESS_KEY, EVER_ACCESS_SECRET } = process.env;
 
 const stsClient = new STSClient({
   endpoint: EVER_ENDPOINT,
   region: EVER_REGION,
   credentials: {
     accessKeyId: EVER_ACCESS_KEY,
-    secretAccessKey: EVER_ACCESS_SECRET
-  }
-})
+    secretAccessKey: EVER_ACCESS_SECRET,
+  },
+});
 
-app.get('/', async (c) => {
+app.get("/", async (c) => {
   try {
     const data = await stsClient.send(
       new AssumeRoleCommand({
         ...params,
         RoleArn: undefined,
-        RoleSessionName: undefined
-      })
-    )
+        RoleSessionName: undefined,
+      }),
+    );
 
     return c.json({
       success: true,
       accessKeyId: data.Credentials?.AccessKeyId,
       secretAccessKey: data.Credentials?.SecretAccessKey,
-      sessionToken: data.Credentials?.SessionToken
-    })
+      sessionToken: data.Credentials?.SessionToken,
+    });
   } catch (error) {
-    console.error('[STS] Error:', error)
-    return c.json({ success: false, message: ERROR_MESSAGE })
+    console.error("[STS] Error:", error);
+    return c.json({ success: false, message: ERROR_MESSAGE });
   }
-})
+});
 
-export default app
+export default app;

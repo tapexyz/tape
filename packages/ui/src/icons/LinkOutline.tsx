@@ -1,5 +1,4 @@
-import type { SVGProps } from 'react'
-import React from 'react'
+import type { SVGProps } from "react";
 
 export const LinkOutline = (props: SVGProps<SVGSVGElement>) => (
   <svg
@@ -21,4 +20,4 @@ export const LinkOutline = (props: SVGProps<SVGSVGElement>) => (
       fill="currentColor"
     />
   </svg>
-)
+);

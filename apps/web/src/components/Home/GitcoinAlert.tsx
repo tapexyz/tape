@@ -1,18 +1,17 @@
 import {
   GITCOIN_LIVE_ROUND,
   SHOW_GITCOIN_BANNER,
-  TAPE_APP_NAME
-} from '@tape.xyz/constants'
-import { Button } from '@tape.xyz/ui'
-import Link from 'next/link'
-import React from 'react'
+  TAPE_APP_NAME,
+} from "@tape.xyz/constants";
+import { Button } from "@tape.xyz/ui";
+import Link from "next/link";
 
-import { Countdown } from '@/components/UIElements/CountDown'
-import SignalWaveGraphic from '@/components/UIElements/SignalWaveGraphic'
+import { Countdown } from "@/components/UIElements/CountDown";
+import SignalWaveGraphic from "@/components/UIElements/SignalWaveGraphic";
 
 const GitcoinAlert = () => {
   if (!SHOW_GITCOIN_BANNER) {
-    return null
+    return null;
   }
 
   return (
@@ -30,8 +29,8 @@ const GitcoinAlert = () => {
         <span className="space-y-4">
           <div className="text-3xl">GG{GITCOIN_LIVE_ROUND} is Live</div>
           <p className="md:text-md max-w-2xl text-sm lg:text-lg">
-            Support {TAPE_APP_NAME} on{' '}
-            <span className="font-medium">Gitcoin Grants</span> Round{' '}
+            Support {TAPE_APP_NAME} on{" "}
+            <span className="font-medium">Gitcoin Grants</span> Round{" "}
             {GITCOIN_LIVE_ROUND}
           </p>
 
@@ -45,7 +44,7 @@ const GitcoinAlert = () => {
 
       <SignalWaveGraphic />
     </div>
-  )
-}
+  );
+};
 
-export default GitcoinAlert
+export default GitcoinAlert;

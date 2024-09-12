@@ -1,20 +1,19 @@
-import { Interweave } from 'interweave'
-import React from 'react'
+import { Interweave } from "interweave";
 
-import { EmailMatcher } from './matchers/EmailMatcher'
-import { HashtagMatcher } from './matchers/HashtagMatcher'
-import { MentionMatcher } from './matchers/MentionMatcher'
-import { TimeMatcher } from './matchers/TimeMatcher'
-import { UrlMatcher } from './matchers/UrlMatcher'
+import { EmailMatcher } from "./matchers/EmailMatcher";
+import { HashtagMatcher } from "./matchers/HashtagMatcher";
+import { MentionMatcher } from "./matchers/MentionMatcher";
+import { TimeMatcher } from "./matchers/TimeMatcher";
+import { UrlMatcher } from "./matchers/UrlMatcher";
 
 const InterweaveContent = ({ content }: { content: string }) => {
   const matchers = [
-    new TimeMatcher('time'),
-    new HashtagMatcher('hashtag'),
-    new EmailMatcher('email'),
-    new MentionMatcher('mention'),
-    new UrlMatcher('url')
-  ]
+    new TimeMatcher("time"),
+    new HashtagMatcher("hashtag"),
+    new EmailMatcher("email"),
+    new MentionMatcher("mention"),
+    new UrlMatcher("url"),
+  ];
   return (
     <span className="interweave-content">
       <Interweave
@@ -24,7 +23,7 @@ const InterweaveContent = ({ content }: { content: string }) => {
         matchers={matchers}
       />
     </span>
-  )
-}
+  );
+};
 
-export default InterweaveContent
+export default InterweaveContent;

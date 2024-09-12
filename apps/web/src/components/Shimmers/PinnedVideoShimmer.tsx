@@ -1,6 +1,4 @@
-import React from 'react'
-
-import { CardShimmer } from './VideoCardShimmer'
+import { CardShimmer } from "./VideoCardShimmer";
 
 const PinnedVideoShimmer = () => {
   return (
@@ -28,7 +26,7 @@ const PinnedVideoShimmer = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PinnedVideoShimmer
+export default PinnedVideoShimmer;

@@ -8,29 +8,27 @@
     "build": "next build",
     "export": "next export",
     "start": "pnpm build && next start --port 4784",
-    "lint": "eslint . --ext .js,.ts,.tsx",
-    "typecheck": "tsc --pretty",
-    "format:check": "prettier --check \"**/*.{ts,tsx,md,json,css}\"",
-    "format": "prettier --write \"**/*.{ts,tsx,md,json,css}\""
+    "lint": "biome lint",
+    "typecheck": "tsc --pretty --noEmit"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.54.1",
     "framer-motion": "^11.5.3",
     "next": "14.2.9",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-virtuoso": "^4.10.4"
   },
   "devDependencies": {
     "@tanstack/react-query-devtools": "^5.54.1",
-    "@tape.xyz/config": "workspace:*",
     "@tape.xyz/constants": "workspace:*",
     "@tape.xyz/generic": "workspace:*",
     "@tape.xyz/lens": "workspace:*",
+    "@tape.xyz/tsconfig": "workspace:*",
     "@tape.xyz/ui": "workspace:*",
     "@types/node": "^22.5.4",
-    "@types/react": "18.3.5",
-    "@types/react-dom": "18.3.0",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
     "postcss": "^8.4.45",
     "tailwindcss": "^3.4.10",
     "typescript": "^5.6.2"

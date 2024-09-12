@@ -1,13 +1,11 @@
 {
-  "extends": "@tape.xyz/config/base.tsconfig.json",
+  "extends": "@tape.xyz/tsconfig/base.json",
   "compilerOptions": {
     "outDir": "./dist",
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "node",
-    "esModuleInterop": true,
     "noEmit": false,
-    "strict": true,
     "lib": ["esnext"],
     "jsx": "react-jsx",
     "types": ["node"],

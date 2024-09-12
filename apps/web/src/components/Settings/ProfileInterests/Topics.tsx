@@ -1,68 +1,67 @@
-import { tw } from '@tape.xyz/browser'
-import { EVENTS, sanitizeProfileInterests } from '@tape.xyz/generic'
+import { tw } from "@tape.xyz/browser";
+import { EVENTS, sanitizeProfileInterests } from "@tape.xyz/generic";
 import type {
+  ProfileInterestTypes,
   ProfileInterestsRequest,
-  ProfileInterestTypes
-} from '@tape.xyz/lens'
+} from "@tape.xyz/lens";
 import {
   useAddProfileInterestsMutation,
   useProfileInterestsOptionsQuery,
-  useRemoveProfileInterestsMutation
-} from '@tape.xyz/lens'
-import { useApolloClient } from '@tape.xyz/lens/apollo'
-import { Spinner } from '@tape.xyz/ui'
-import React, { useEffect } from 'react'
+  useRemoveProfileInterestsMutation,
+} from "@tape.xyz/lens";
+import { useApolloClient } from "@tape.xyz/lens/apollo";
+import { Spinner } from "@tape.xyz/ui";
+import { useEffect } from "react";
 
-import useSw from '@/hooks/useSw'
-import useProfileStore from '@/lib/store/idb/profile'
+import useSw from "@/hooks/useSw";
+import useProfileStore from "@/lib/store/idb/profile";
 
-const MAX_TOPICS_ALLOWED = 12
+const MAX_TOPICS_ALLOWED = 12;
 
 const Topics = () => {
-  const activeProfile = useProfileStore((state) => state.activeProfile)
-  const { addEventToQueue } = useSw()
+  const activeProfile = useProfileStore((state) => state.activeProfile);
+  const { addEventToQueue } = useSw();
 
   useEffect(() => {
-    addEventToQueue(EVENTS.PROFILE_INTERESTS.VIEW)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    addEventToQueue(EVENTS.PROFILE_INTERESTS.VIEW);
+  }, []);
 
-  const { cache } = useApolloClient()
+  const { cache } = useApolloClient();
   const { data, loading } = useProfileInterestsOptionsQuery({
     variables: { request: { forProfileId: activeProfile?.id } },
-    skip: !activeProfile?.id
-  })
-  const [addProfileInterests] = useAddProfileInterestsMutation()
-  const [removeProfileInterests] = useRemoveProfileInterestsMutation()
+    skip: !activeProfile?.id,
+  });
+  const [addProfileInterests] = useAddProfileInterestsMutation();
+  const [removeProfileInterests] = useRemoveProfileInterestsMutation();
 
   const updateCache = (interests: string[]) => {
     cache.modify({
       id: `Profile:${activeProfile?.id}`,
-      fields: { interests: () => interests }
-    })
-  }
+      fields: { interests: () => interests },
+    });
+  };
 
-  const interestsData = data?.profileInterestsOptions as ProfileInterestTypes[]
-  const selectedTopics = data?.profile?.interests ?? []
+  const interestsData = data?.profileInterestsOptions as ProfileInterestTypes[];
+  const selectedTopics = data?.profile?.interests ?? [];
 
   const onSelectTopic = (topic: ProfileInterestTypes) => {
     try {
       const request: ProfileInterestsRequest = {
-        interests: [topic]
-      }
+        interests: [topic],
+      };
       if (!selectedTopics?.includes(topic)) {
-        const interests = [...selectedTopics, topic]
-        updateCache(interests)
-        addEventToQueue(EVENTS.PROFILE_INTERESTS.ADD)
-        return addProfileInterests({ variables: { request } })
+        const interests = [...selectedTopics, topic];
+        updateCache(interests);
+        addEventToQueue(EVENTS.PROFILE_INTERESTS.ADD);
+        return addProfileInterests({ variables: { request } });
       }
-      const topics = [...selectedTopics]
-      topics.splice(topics.indexOf(topic), 1)
-      updateCache(topics)
-      addEventToQueue(EVENTS.PROFILE_INTERESTS.REMOVE)
-      removeProfileInterests({ variables: { request } })
+      const topics = [...selectedTopics];
+      topics.splice(topics.indexOf(topic), 1);
+      updateCache(topics);
+      addEventToQueue(EVENTS.PROFILE_INTERESTS.REMOVE);
+      removeProfileInterests({ variables: { request } });
     } catch {}
-  }
+  };
 
   return (
     <div className="flex flex-col space-y-3">
@@ -75,12 +74,12 @@ const Topics = () => {
               <button
                 type="button"
                 className={tw(
-                  'tape-border flex items-center justify-between rounded-md px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50',
+                  "tape-border flex items-center justify-between rounded-md px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50",
                   {
-                    '!border-brand-500 text-brand-500': selectedTopics.includes(
-                      category.id
-                    )
-                  }
+                    "!border-brand-500 text-brand-500": selectedTopics.includes(
+                      category.id,
+                    ),
+                  },
                 )}
                 disabled={
                   !selectedTopics.includes(category.id) &&
@@ -99,25 +98,25 @@ const Topics = () => {
                       selectedTopics.length === MAX_TOPICS_ALLOWED
                     }
                     className={tw(
-                      'tape-border flex items-center justify-between rounded-md px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50',
+                      "tape-border flex items-center justify-between rounded-md px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50",
                       {
-                        '!border-brand-500 text-brand-500':
-                          selectedTopics.includes(subCategory.id)
-                      }
+                        "!border-brand-500 text-brand-500":
+                          selectedTopics.includes(subCategory.id),
+                      },
                     )}
                     key={subCategory.id}
                     onClick={() => onSelectTopic(subCategory.id)}
                   >
                     {subCategory.label}
                   </button>
-                )
+                ),
               )}
             </div>
           </div>
-        )
+        ),
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Topics
+export default Topics;

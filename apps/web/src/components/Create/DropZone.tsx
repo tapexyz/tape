@@ -1,81 +1,88 @@
-import { tw, useDragAndDrop } from '@tape.xyz/browser'
+import { tw, useDragAndDrop } from "@tape.xyz/browser";
 import {
   ALLOWED_UPLOAD_MIME_TYPES,
   CREATOR_VIDEO_CATEGORIES,
-  IPFS_FREE_UPLOAD_LIMIT
-} from '@tape.xyz/constants'
-import { canUploadedToIpfs, logger } from '@tape.xyz/generic'
-import { Button, UploadOutline } from '@tape.xyz/ui'
-import fileReaderStream from 'filereader-stream'
-import React from 'react'
-import toast from 'react-hot-toast'
+  IPFS_FREE_UPLOAD_LIMIT,
+} from "@tape.xyz/constants";
+import { canUploadedToIpfs, logger } from "@tape.xyz/generic";
+import { Button, UploadOutline } from "@tape.xyz/ui";
+import fileReaderStream from "filereader-stream";
+import type React from "react";
+import toast from "react-hot-toast";
 
-import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
-import useAppStore from '@/lib/store'
-import useProfileStore from '@/lib/store/idb/profile'
+import useHandleWrongNetwork from "@/hooks/useHandleWrongNetwork";
+import useAppStore from "@/lib/store";
+import useProfileStore from "@/lib/store/idb/profile";
 
 const DropZone = () => {
-  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
-  const activeProfile = useProfileStore((state) => state.activeProfile)
-  const handleWrongNetwork = useHandleWrongNetwork()
+  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia);
+  const activeProfile = useProfileStore((state) => state.activeProfile);
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const {
     setDragOver,
     onDragOver,
     onDragLeave,
     fileDropError,
-    setFileDropError
-  } = useDragAndDrop()
+    setFileDropError,
+  } = useDragAndDrop();
 
   const handleUploadedMedia = async (file: File) => {
-    await handleWrongNetwork()
+    await handleWrongNetwork();
 
     try {
       if (file) {
-        const preview = URL.createObjectURL(file)
-        const isUploadToIpfs = canUploadedToIpfs(file?.size || 0, activeProfile)
+        const preview = URL.createObjectURL(file);
+        const isUploadToIpfs = canUploadedToIpfs(
+          file?.size || 0,
+          activeProfile,
+        );
         setUploadedMedia({
           stream: fileReaderStream(file),
           preview,
           mediaType: file?.type,
           file,
-          type: 'VIDEO',
+          type: "VIDEO",
           mediaCategory: CREATOR_VIDEO_CATEGORIES[0],
-          isUploadToIpfs
-        })
+          isUploadToIpfs,
+        });
       }
     } catch (error) {
-      toast.error('Error uploading file')
-      logger.error('[Error Upload Media]', error)
+      toast.error("Error uploading file");
+      logger.error("[Error Upload Media]", error);
     }
-  }
+  };
 
   const validateFile = (file: File) => {
     if (!ALLOWED_UPLOAD_MIME_TYPES.includes(file?.type)) {
-      const errorMessage = `Media format (${file?.type}) not supported`
-      toast.error(errorMessage)
-      return setFileDropError(errorMessage)
+      const errorMessage = `Media format (${file?.type}) not supported`;
+      toast.error(errorMessage);
+      return setFileDropError(errorMessage);
     }
-    handleUploadedMedia(file)
-  }
+    handleUploadedMedia(file);
+  };
 
   const onDrop = (e: React.DragEvent<HTMLLabelElement>) => {
-    e.preventDefault()
-    setDragOver(false)
-    validateFile(e?.dataTransfer?.files[0])
-  }
+    e.preventDefault();
+    setDragOver(false);
+    const file = e?.dataTransfer?.files[0];
+    if (file) {
+      validateFile(file);
+    }
+  };
 
   const onChooseFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.length) {
-      validateFile(e?.target?.files[0])
+    const file = e?.target?.files?.[0];
+    if (file) {
+      validateFile(file);
     }
-  }
+  };
 
   return (
     <div className="relative flex w-full flex-1 flex-col">
       <label
         className={tw(
-          'tape-border rounded-medium grid h-full w-full place-content-center place-items-center p-10 text-center focus:outline-none md:p-20'
+          "tape-border rounded-medium grid h-full w-full place-content-center place-items-center p-10 text-center focus:outline-none md:p-20",
         )}
         htmlFor="dropMedia"
         onDragOver={onDragOver}
@@ -87,7 +94,7 @@ const DropZone = () => {
           className="hidden"
           onChange={onChooseFile}
           id="dropMedia"
-          accept={ALLOWED_UPLOAD_MIME_TYPES.join(',')}
+          accept={ALLOWED_UPLOAD_MIME_TYPES.join(",")}
         />
         <span className="mb-6 flex justify-center opacity-80">
           <UploadOutline className="size-10" />
@@ -96,7 +103,7 @@ const DropZone = () => {
           <div className="space-y-4">
             <p className="text-2xl md:text-4xl">Drag and drop</p>
             <p>
-              Select multimedia from your device. (Recommended {'<'}
+              Select multimedia from your device. (Recommended {"<"}
               {IPFS_FREE_UPLOAD_LIMIT / 1000}GB)
             </p>
           </div>
@@ -109,7 +116,7 @@ const DropZone = () => {
                   onChange={onChooseFile}
                   type="file"
                   className="hidden"
-                  accept={ALLOWED_UPLOAD_MIME_TYPES.join(',')}
+                  accept={ALLOWED_UPLOAD_MIME_TYPES.join(",")}
                 />
               </label>
             </Button>
@@ -120,7 +127,7 @@ const DropZone = () => {
         </span>
       </label>
     </div>
-  )
-}
+  );
+};
 
-export default DropZone
+export default DropZone;

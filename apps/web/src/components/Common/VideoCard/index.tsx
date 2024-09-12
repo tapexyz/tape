@@ -1,33 +1,32 @@
-import { LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
+import { LENSTUBE_BYTES_APP_ID } from "@tape.xyz/constants";
 import {
   formatNumber,
   getLennyPicture,
   getProfile,
   getProfilePicture,
-  getPublicationData
-} from '@tape.xyz/generic'
-import type { PrimaryPublication, VideoMetadataV3 } from '@tape.xyz/lens'
-import { HeartOutline } from '@tape.xyz/ui'
-import Link from 'next/link'
-import type { FC } from 'react'
-import React from 'react'
+  getPublicationData,
+} from "@tape.xyz/generic";
+import type { PrimaryPublication, VideoMetadataV3 } from "@tape.xyz/lens";
+import { HeartOutline } from "@tape.xyz/ui";
+import Link from "next/link";
+import type { FC } from "react";
 
-import { getShortHandTime } from '@/lib/formatTime'
+import { getShortHandTime } from "@/lib/formatTime";
 
-import HoverableProfile from '../HoverableProfile'
-import PublicationOptions from '../Publication/PublicationOptions'
-import ThumbnailImage from './ThumbnailImage'
-import ThumbnailOverlays from './ThumbnailOverlays'
+import HoverableProfile from "../HoverableProfile";
+import PublicationOptions from "../Publication/PublicationOptions";
+import ThumbnailImage from "./ThumbnailImage";
+import ThumbnailOverlays from "./ThumbnailOverlays";
 
 type Props = {
-  video: PrimaryPublication
-}
+  video: PrimaryPublication;
+};
 
 const VideoCard: FC<Props> = ({ video }) => {
-  const isBytes = video.publishedOn?.id === LENSTUBE_BYTES_APP_ID
+  const isBytes = video.publishedOn?.id === LENSTUBE_BYTES_APP_ID;
 
-  const href = isBytes ? `/bytes/${video.id}` : `/watch/${video.id}`
-  const metadata = video.metadata as VideoMetadataV3
+  const href = isBytes ? `/bytes/${video.id}` : `/watch/${video.id}`;
+  const metadata = video.metadata as VideoMetadataV3;
 
   return (
     <div className="group">
@@ -40,12 +39,12 @@ const VideoCard: FC<Props> = ({ video }) => {
       <div className="py-2">
         <div className="flex gap-2">
           <img
-            src={getProfilePicture(video.by, 'AVATAR')}
+            src={getProfilePicture(video.by, "AVATAR")}
             className="size-8 rounded-full"
             alt={getProfile(video.by)?.displayName}
             draggable={false}
             onError={({ currentTarget }) => {
-              currentTarget.src = getLennyPicture(video.by?.id)
+              currentTarget.src = getLennyPicture(video.by?.id);
             }}
           />
 
@@ -73,7 +72,7 @@ const VideoCard: FC<Props> = ({ video }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default VideoCard
+export default VideoCard;

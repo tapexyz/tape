@@ -1,20 +1,20 @@
 import {
   IMAGE_TRANSFORMATIONS,
   IS_PRODUCTION,
-  LENS_IMAGEKIT_SNAPSHOT_URL
-} from '@tape.xyz/constants'
+  LENS_IMAGEKIT_SNAPSHOT_URL,
+} from "@tape.xyz/constants";
 
 export const imageCdn = (
   url: string,
-  type?: keyof typeof IMAGE_TRANSFORMATIONS
+  type?: keyof typeof IMAGE_TRANSFORMATIONS,
 ): string => {
   if (!url) {
-    return url
+    return url;
   }
 
   return type && IS_PRODUCTION
     ? `${LENS_IMAGEKIT_SNAPSHOT_URL}/${IMAGE_TRANSFORMATIONS[type]}/${url}`
-    : url
+    : url;
 
   // if (url.includes(LENS_IMAGEKIT_SNAPSHOT_URL)) {
   //   const splitedUrl = url.split('/')
@@ -26,4 +26,4 @@ export const imageCdn = (
   // }
 
   // return url
-}
+};

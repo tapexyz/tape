@@ -1,8 +1,7 @@
 {
-  "extends": "@tape.xyz/config/react.tsconfig.json",
+  "extends": "@tape.xyz/tsconfig/nextjs.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "noEmit": true,
     "paths": {
       "@/*": ["./src/*"]
     },
@@ -20,5 +19,6 @@
     "**/*.tsx",
     "src/styles/index.css",
     ".next/types/**/*.ts"
-  ]
+  ],
+  "exclude": ["node_modules"]
 }

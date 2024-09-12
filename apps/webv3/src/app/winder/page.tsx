@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
-import { Button } from './_components/button'
-import { Tabs } from './_components/tabs'
+import { Button } from "./_components/button";
+import { Tabs } from "./_components/tabs";
 
 export default function WinderPage() {
   return (
@@ -15,5 +15,5 @@ export default function WinderPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

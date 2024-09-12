@@ -3,27 +3,26 @@ import {
   STATIC_ASSETS,
   TAPE_APP_DESCRIPTION,
   TAPE_APP_NAME,
-  TAPE_X_HANDLE
-} from '@tape.xyz/constants'
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import type { FC } from 'react'
-import React from 'react'
+  TAPE_X_HANDLE,
+} from "@tape.xyz/constants";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import type { FC } from "react";
 
 type Props = {
-  title?: string
-}
+  title?: string;
+};
 
 const MetaTags: FC<Props> = (props) => {
-  const router = useRouter()
-  const { title } = props
+  const router = useRouter();
+  const { title } = props;
 
   const meta = {
     title: title ? `${title} • ${TAPE_APP_NAME}` : TAPE_APP_NAME,
     description: TAPE_APP_DESCRIPTION,
     image: OG_IMAGE,
-    type: 'website'
-  }
+    type: "website",
+  };
 
   return (
     <Head>
@@ -54,7 +53,7 @@ const MetaTags: FC<Props> = (props) => {
       <link rel="preconnect" href={STATIC_ASSETS} />
       <link rel="dns-prefetch" href={STATIC_ASSETS} />
     </Head>
-  )
-}
+  );
+};
 
-export default MetaTags
+export default MetaTags;

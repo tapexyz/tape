@@ -1,20 +1,20 @@
-import { ADMIN_IDS } from '@tape.xyz/constants'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@tape.xyz/ui'
-import React, { useState } from 'react'
-import Custom404 from 'src/pages/404'
+import { ADMIN_IDS } from "@tape.xyz/constants";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@tape.xyz/ui";
+import { useState } from "react";
+import Custom404 from "src/pages/404";
 
-import MetaTags from '@/components/Common/MetaTags'
-import useProfileStore from '@/lib/store/idb/profile'
+import MetaTags from "@/components/Common/MetaTags";
+import useProfileStore from "@/lib/store/idb/profile";
 
-import Recents from './Recents'
-import Signup from './Signup'
+import Recents from "./Recents";
+import Signup from "./Signup";
 
 const Mod = () => {
-  const { activeProfile } = useProfileStore()
-  const [activeTab, setActiveTab] = useState('signup')
+  const { activeProfile } = useProfileStore();
+  const [activeTab, setActiveTab] = useState("signup");
 
   if (!ADMIN_IDS.includes(activeProfile?.id)) {
-    return <Custom404 />
+    return <Custom404 />;
   }
 
   return (
@@ -26,7 +26,7 @@ const Mod = () => {
             <TabsTrigger
               className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
               onClick={() => {
-                setActiveTab('signup')
+                setActiveTab("signup");
               }}
               value="signup"
             >
@@ -35,7 +35,7 @@ const Mod = () => {
             <TabsTrigger
               className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
               onClick={() => {
-                setActiveTab('videos')
+                setActiveTab("videos");
               }}
               value="videos"
             >
@@ -52,7 +52,7 @@ const Mod = () => {
         </Tabs>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Mod
+export default Mod;

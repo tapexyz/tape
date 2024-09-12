@@ -1,20 +1,20 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import type { ProfileOptions } from '@lens-protocol/metadata'
+import { zodResolver } from "@hookform/resolvers/zod";
+import type { ProfileOptions } from "@lens-protocol/metadata";
 import {
   MetadataAttributeType,
-  profile as profileMetadata
-} from '@lens-protocol/metadata'
-import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
-import { tw, uploadToIPFS } from '@tape.xyz/browser'
+  profile as profileMetadata,
+} from "@lens-protocol/metadata";
+import { LENSHUB_PROXY_ABI } from "@tape.xyz/abis";
+import { tw, uploadToIPFS } from "@tape.xyz/browser";
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
-  TAPE_APP_ID
-} from '@tape.xyz/constants'
+  TAPE_APP_ID,
+} from "@tape.xyz/constants";
 import {
-  checkLensManagerPermissions,
   EVENTS,
+  checkLensManagerPermissions,
   getProfileCoverPicture,
   getProfilePicture,
   getSignature,
@@ -23,40 +23,46 @@ import {
   logger,
   sanitizeDStorageUrl,
   trimify,
-  uploadToAr
-} from '@tape.xyz/generic'
-import type { OnchainSetProfileMetadataRequest, Profile } from '@tape.xyz/lens'
+  uploadToAr,
+} from "@tape.xyz/generic";
+import type { OnchainSetProfileMetadataRequest, Profile } from "@tape.xyz/lens";
 import {
   useBroadcastOnchainMutation,
   useCreateOnchainSetProfileMetadataTypedDataMutation,
-  useSetProfileMetadataMutation
-} from '@tape.xyz/lens'
+  useSetProfileMetadataMutation,
+} from "@tape.xyz/lens";
 import type {
   CustomErrorWithData,
-  IPFSUploadResult
-} from '@tape.xyz/lens/custom-types'
-import { AddImageOutline, Button, Input, Spinner, TextArea } from '@tape.xyz/ui'
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
-import { useSignTypedData, useWriteContract } from 'wagmi'
-import type { z } from 'zod'
-import { object, string, union } from 'zod'
+  IPFSUploadResult,
+} from "@tape.xyz/lens/custom-types";
+import {
+  AddImageOutline,
+  Button,
+  Input,
+  Spinner,
+  TextArea,
+} from "@tape.xyz/ui";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useSignTypedData, useWriteContract } from "wagmi";
+import type { z } from "zod";
+import { object, string, union } from "zod";
 
-import EmojiPicker from '@/components/UIElements/EmojiPicker'
-import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
-import useSw from '@/hooks/useSw'
+import EmojiPicker from "@/components/UIElements/EmojiPicker";
+import useHandleWrongNetwork from "@/hooks/useHandleWrongNetwork";
+import useSw from "@/hooks/useSw";
 
 type Props = {
-  profile: Profile
-}
+  profile: Profile;
+};
 
 const formSchema = object({
   displayName: string().max(30, {
-    message: 'Name should not exceed 30 characters'
+    message: "Name should not exceed 30 characters",
   }),
   description: string().max(500, {
-    message: 'Description should not exceed 500 characters'
+    message: "Description should not exceed 500 characters",
   }),
   x: string(),
   youtube: string(),
@@ -64,234 +70,234 @@ const formSchema = object({
   spotify: string(),
   website: union([
     string().url({
-      message: 'Invalid website URL'
+      message: "Invalid website URL",
     }),
-    string().max(0)
-  ])
-})
-type FormData = z.infer<typeof formSchema> & { coverImage?: string }
+    string().max(0),
+  ]),
+});
+type FormData = z.infer<typeof formSchema> & { coverImage?: string };
 
 const BasicInfo = ({ profile }: Props) => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [coverImage, setCoverImage] = useState<string>(
-    profile.metadata?.coverPicture?.raw.uri
-  )
+    profile.metadata?.coverPicture?.raw.uri,
+  );
   const [selectedPfp, setSelectedPfp] = useState<string | null>(
-    profile.metadata?.picture?.__typename === 'ImageSet'
+    profile.metadata?.picture?.__typename === "ImageSet"
       ? profile.metadata?.picture.raw.uri
-      : null
-  )
-  const [uploading, setUploading] = useState({ pfp: false, cover: false })
-  const handleWrongNetwork = useHandleWrongNetwork()
+      : null,
+  );
+  const [uploading, setUploading] = useState({ pfp: false, cover: false });
+  const handleWrongNetwork = useHandleWrongNetwork();
   const { canUseLensManager, canBroadcast } =
-    checkLensManagerPermissions(profile)
-  const { addEventToQueue } = useSw()
+    checkLensManagerPermissions(profile);
+  const { addEventToQueue } = useSw();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     getValues,
-    setValue
+    setValue,
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      displayName: profile.metadata?.displayName ?? '',
-      description: profile.metadata?.bio ?? '',
+      displayName: profile.metadata?.displayName ?? "",
+      description: profile.metadata?.bio ?? "",
       location: getValueFromKeyInAttributes(
         profile.metadata?.attributes,
-        'location'
+        "location",
       ),
-      x: getValueFromKeyInAttributes(profile.metadata?.attributes, 'x'),
+      x: getValueFromKeyInAttributes(profile.metadata?.attributes, "x"),
       youtube: getValueFromKeyInAttributes(
         profile.metadata?.attributes,
-        'youtube'
+        "youtube",
       ),
       spotify: getValueFromKeyInAttributes(
         profile.metadata?.attributes,
-        'spotify'
+        "spotify",
       ),
       website: getValueFromKeyInAttributes(
         profile.metadata?.attributes,
-        'website'
-      )
-    }
-  })
+        "website",
+      ),
+    },
+  });
 
   const onError = (error: CustomErrorWithData) => {
-    toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
-    setLoading(false)
-  }
+    toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE);
+    setLoading(false);
+  };
 
   const onCompleted = (
-    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
+    __typename?: "RelayError" | "RelaySuccess" | "LensProfileManagerRelayError",
   ) => {
     if (
-      __typename === 'RelayError' ||
-      __typename === 'LensProfileManagerRelayError'
+      __typename === "RelayError" ||
+      __typename === "LensProfileManagerRelayError"
     ) {
-      return
+      return;
     }
-    setLoading(false)
-    toast.success('Profile updated')
-    addEventToQueue(EVENTS.PROFILE.UPDATE)
-  }
+    setLoading(false);
+    toast.success("Profile updated");
+    addEventToQueue(EVENTS.PROFILE.UPDATE);
+  };
 
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError }
-  })
+    mutation: { onError },
+  });
 
   const { writeContractAsync } = useWriteContract({
     mutation: {
       onError,
-      onSuccess: () => onCompleted()
-    }
-  })
+      onSuccess: () => onCompleted(),
+    },
+  });
 
   const write = async ({ args }: { args: any[] }) => {
     return await writeContractAsync({
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
-      functionName: 'setProfileMetadataURI',
-      args
-    })
-  }
+      functionName: "setProfileMetadataURI",
+      args,
+    });
+  };
 
   const [broadcast] = useBroadcastOnchainMutation({
     onError,
     onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename)
-  })
+      onCompleted(broadcastOnchain.__typename),
+  });
 
   const [createOnchainSetProfileMetadataTypedData] =
     useCreateOnchainSetProfileMetadataTypedDataMutation({
       onCompleted: async ({ createOnchainSetProfileMetadataTypedData }) => {
-        const { typedData, id } = createOnchainSetProfileMetadataTypedData
-        const { profileId, metadataURI } = typedData.value
-        const args = [profileId, metadataURI]
+        const { typedData, id } = createOnchainSetProfileMetadataTypedData;
+        const { profileId, metadataURI } = typedData.value;
+        const args = [profileId, metadataURI];
         try {
-          toast.loading(REQUESTING_SIGNATURE_MESSAGE)
+          toast.loading(REQUESTING_SIGNATURE_MESSAGE);
           if (canBroadcast) {
-            const signature = await signTypedDataAsync(getSignature(typedData))
+            const signature = await signTypedDataAsync(getSignature(typedData));
             const { data } = await broadcast({
-              variables: { request: { id, signature } }
-            })
-            if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return await write({ args })
+              variables: { request: { id, signature } },
+            });
+            if (data?.broadcastOnchain?.__typename === "RelayError") {
+              return await write({ args });
             }
-            return
+            return;
           }
-          return await write({ args })
+          return await write({ args });
         } catch {
-          setLoading(false)
+          setLoading(false);
         }
       },
-      onError
-    })
+      onError,
+    });
 
   const [setProfileMetadata] = useSetProfileMetadataMutation({
     onCompleted: ({ setProfileMetadata }) =>
       onCompleted(setProfileMetadata.__typename),
-    onError
-  })
+    onError,
+  });
 
   const otherAttributes =
     profile.metadata?.attributes
       ?.filter(
         (attr) =>
-          !['website', 'location', 'x', 'youtube', 'spotify', 'app'].includes(
-            attr.key
-          )
+          !["website", "location", "x", "youtube", "spotify", "app"].includes(
+            attr.key,
+          ),
       )
       .map(({ key, value, type }) => ({
         key,
         value,
-        type: MetadataAttributeType[type] as any
-      })) ?? []
+        type: MetadataAttributeType[type] as any,
+      })) ?? [];
 
   const onSaveBasicInfo = async (data: FormData) => {
-    await handleWrongNetwork()
+    await handleWrongNetwork();
 
     try {
-      setLoading(true)
+      setLoading(true);
       const metadata: ProfileOptions = {
         attributes: [
           ...otherAttributes,
           {
             type: MetadataAttributeType.STRING,
-            key: 'website',
-            value: data.website
+            key: "website",
+            value: data.website,
           },
           {
             type: MetadataAttributeType.STRING,
-            key: 'location',
-            value: data.location
+            key: "location",
+            value: data.location,
           },
           {
             type: MetadataAttributeType.STRING,
-            key: 'x',
-            value: data.x
+            key: "x",
+            value: data.x,
           },
           {
             type: MetadataAttributeType.STRING,
-            key: 'youtube',
-            value: data.youtube
+            key: "youtube",
+            value: data.youtube,
           },
           {
             type: MetadataAttributeType.STRING,
-            key: 'spotify',
-            value: data.spotify
+            key: "spotify",
+            value: data.spotify,
           },
           {
             type: MetadataAttributeType.STRING,
-            key: 'app',
-            value: TAPE_APP_ID
-          }
-        ]
-      }
+            key: "app",
+            value: TAPE_APP_ID,
+          },
+        ],
+      };
       metadata.attributes = metadata.attributes?.filter(
-        (m) => Boolean(trimify(m.key)) && Boolean(trimify(m.value))
-      )
+        (m) => Boolean(trimify(m.key)) && Boolean(trimify(m.value)),
+      );
       if (trimify(data.description)) {
-        metadata.bio = trimify(data.description)
+        metadata.bio = trimify(data.description);
       }
       if (selectedPfp && Boolean(selectedPfp)) {
-        metadata.picture = selectedPfp
+        metadata.picture = selectedPfp;
       }
       if (coverImage && Boolean(coverImage)) {
-        metadata.coverPicture = coverImage
+        metadata.coverPicture = coverImage;
       }
       if (trimify(data.displayName)) {
-        metadata.name = trimify(data.displayName)
+        metadata.name = trimify(data.displayName);
       }
 
-      const metadataUri = await uploadToAr(profileMetadata(metadata))
+      const metadataUri = await uploadToAr(profileMetadata(metadata));
       const request: OnchainSetProfileMetadataRequest = {
-        metadataURI: metadataUri
-      }
+        metadataURI: metadataUri,
+      };
 
       if (canUseLensManager) {
         const { data } = await setProfileMetadata({
-          variables: { request }
-        })
+          variables: { request },
+        });
         if (
           data?.setProfileMetadata?.__typename ===
-          'LensProfileManagerRelayError'
+          "LensProfileManagerRelayError"
         ) {
           return await createOnchainSetProfileMetadataTypedData({
-            variables: { request }
-          })
+            variables: { request },
+          });
         }
-        return
+        return;
       }
       return await createOnchainSetProfileMetadataTypedData({
-        variables: { request }
-      })
+        variables: { request },
+      });
     } catch (error) {
-      setLoading(false)
-      logger.error('[On Save Basic Info]', error)
+      setLoading(false);
+      logger.error("[On Save Basic Info]", error);
     }
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSaveBasicInfo)} className="w-full">
@@ -306,7 +312,7 @@ const BasicInfo = ({ profile }: Props) => {
             sanitizeDStorageUrl(coverImage) ||
             imageCdn(
               sanitizeDStorageUrl(getProfileCoverPicture(profile, true)),
-              'THUMBNAIL'
+              "THUMBNAIL",
             )
           }
           className="rounded-small bg-brand-500 h-48 w-full object-cover object-center md:h-56"
@@ -324,12 +330,12 @@ const BasicInfo = ({ profile }: Props) => {
                 className="hidden w-full"
                 onChange={async (e) => {
                   if (e.target.files?.length) {
-                    setUploading({ cover: true, pfp: false })
-                    const result: IPFSUploadResult = await uploadToIPFS(
-                      e.target.files[0]
-                    )
-                    setCoverImage(result.url)
-                    setUploading({ cover: false, pfp: false })
+                    setUploading({ cover: true, pfp: false });
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    const result: IPFSUploadResult = await uploadToIPFS(file);
+                    setCoverImage(result.url);
+                    setUploading({ cover: false, pfp: false });
                   }
                 }}
               />
@@ -342,7 +348,7 @@ const BasicInfo = ({ profile }: Props) => {
               src={
                 selectedPfp
                   ? sanitizeDStorageUrl(selectedPfp)
-                  : getProfilePicture(profile, 'AVATAR_LG')
+                  : getProfilePicture(profile, "AVATAR_LG")
               }
               className="size-32 rounded-full border-2 object-cover"
               draggable={false}
@@ -351,8 +357,8 @@ const BasicInfo = ({ profile }: Props) => {
             <label
               htmlFor="choosePfp"
               className={tw(
-                'invisible absolute top-0 grid size-32 cursor-pointer place-items-center rounded-full bg-white bg-opacity-70 backdrop-blur-lg group-hover:visible dark:bg-black',
-                { visible: uploading.pfp }
+                "invisible absolute top-0 grid size-32 cursor-pointer place-items-center rounded-full bg-white bg-opacity-70 backdrop-blur-lg group-hover:visible dark:bg-black",
+                { visible: uploading.pfp },
               )}
             >
               {uploading.pfp ? (
@@ -367,12 +373,12 @@ const BasicInfo = ({ profile }: Props) => {
                 className="hidden w-full"
                 onChange={async (e) => {
                   if (e.target.files?.length) {
-                    setUploading({ cover: false, pfp: true })
-                    const { url }: IPFSUploadResult = await uploadToIPFS(
-                      e.target.files[0]
-                    )
-                    setSelectedPfp(url)
-                    setUploading({ cover: false, pfp: false })
+                    setUploading({ cover: false, pfp: true });
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    const { url }: IPFSUploadResult = await uploadToIPFS(file);
+                    setSelectedPfp(url);
+                    setUploading({ cover: false, pfp: false });
                   }
                 }}
               />
@@ -386,7 +392,7 @@ const BasicInfo = ({ profile }: Props) => {
           label="Name"
           placeholder="John Doe"
           error={errors.displayName?.message}
-          {...register('displayName')}
+          {...register("displayName")}
         />
       </div>
       <div className="relative mt-4">
@@ -395,12 +401,12 @@ const BasicInfo = ({ profile }: Props) => {
           rows={5}
           placeholder="More about you and what you do!"
           error={errors.description?.message}
-          {...register('description')}
+          {...register("description")}
         />
         <div className="absolute bottom-1.5 right-2">
           <EmojiPicker
             onEmojiSelect={(emoji) =>
-              setValue('description', `${getValues('description')}${emoji}`)
+              setValue("description", `${getValues("description")}${emoji}`)
             }
           />
         </div>
@@ -410,7 +416,7 @@ const BasicInfo = ({ profile }: Props) => {
           label="Website"
           placeholder="https://johndoe.xyz"
           error={errors.website?.message}
-          {...register('website')}
+          {...register("website")}
         />
       </div>
       <div className="mt-4">
@@ -419,7 +425,7 @@ const BasicInfo = ({ profile }: Props) => {
           placeholder="channel"
           error={errors.youtube?.message}
           prefix="https://youtube.com/"
-          {...register('youtube')}
+          {...register("youtube")}
         />
       </div>
       <div className="mt-4">
@@ -428,7 +434,7 @@ const BasicInfo = ({ profile }: Props) => {
           placeholder="artist/6xl0mjD1B4paRyfPDUOynf"
           error={errors.spotify?.message}
           prefix="https://open.spotify.com/"
-          {...register('spotify')}
+          {...register("spotify")}
         />
       </div>
       <div className="mt-4">
@@ -437,7 +443,7 @@ const BasicInfo = ({ profile }: Props) => {
           placeholder="profile"
           error={errors.x?.message}
           prefix="https://x.com/"
-          {...register('x')}
+          {...register("x")}
         />
       </div>
       <div className="mt-4">
@@ -445,7 +451,7 @@ const BasicInfo = ({ profile }: Props) => {
           label="Location"
           placeholder="Cybertron"
           error={errors.location?.message}
-          {...register('location')}
+          {...register("location")}
         />
       </div>
       <div className="mt-6 flex justify-end">
@@ -454,7 +460,7 @@ const BasicInfo = ({ profile }: Props) => {
         </Button>
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default BasicInfo
+export default BasicInfo;

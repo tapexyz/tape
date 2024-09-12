@@ -1,11 +1,10 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@tape.xyz/ui'
-import React from 'react'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@tape.xyz/ui";
 
-import MetaTags from '@/components/Common/MetaTags'
+import MetaTags from "@/components/Common/MetaTags";
 
-import LensManager from './LensManager'
-import Managers from './Managers'
-import Managing from './Managing'
+import LensManager from "./LensManager";
+import Managers from "./Managers";
+import Managing from "./Managing";
 
 const ProfileManager = () => {
   return (
@@ -48,7 +47,7 @@ const ProfileManager = () => {
       <hr className="border-[0.5px] border-gray-200 dark:border-gray-800" />
       <LensManager />
     </div>
-  )
-}
+  );
+};
 
-export default ProfileManager
+export default ProfileManager;

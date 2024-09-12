@@ -1,14 +1,13 @@
-import { POLYGONSCAN_URL } from '@tape.xyz/constants'
-import Link from 'next/link'
-import type { ReactElement } from 'react'
-import React from 'react'
+import { POLYGONSCAN_URL } from "@tape.xyz/constants";
+import Link from "next/link";
+import type { ReactElement } from "react";
 
 const TokenExplorerLink = ({
   address,
-  children
+  children,
 }: {
-  address: string
-  children: ReactElement
+  address: string;
+  children: ReactElement;
 }) => {
   return (
     <Link
@@ -18,7 +17,7 @@ const TokenExplorerLink = ({
     >
       {children}
     </Link>
-  )
-}
+  );
+};
 
-export default TokenExplorerLink
+export default TokenExplorerLink;

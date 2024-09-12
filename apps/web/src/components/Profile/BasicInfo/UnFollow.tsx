@@ -1,154 +1,157 @@
-import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
+import { LENSHUB_PROXY_ABI } from "@tape.xyz/abis";
 import {
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
-  SIGN_IN_REQUIRED
-} from '@tape.xyz/constants'
+  SIGN_IN_REQUIRED,
+} from "@tape.xyz/constants";
 import {
-  checkLensManagerPermissions,
   EVENTS,
+  checkLensManagerPermissions,
   getProfile,
-  getSignature
-} from '@tape.xyz/generic'
-import type { CreateUnfollowBroadcastItemResult, Profile } from '@tape.xyz/lens'
+  getSignature,
+} from "@tape.xyz/generic";
+import type {
+  CreateUnfollowBroadcastItemResult,
+  Profile,
+} from "@tape.xyz/lens";
 import {
   useBroadcastOnchainMutation,
   useCreateUnfollowTypedDataMutation,
-  useUnfollowMutation
-} from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Button } from '@tape.xyz/ui'
-import type { FC } from 'react'
-import React, { useState } from 'react'
-import toast from 'react-hot-toast'
-import { useSignTypedData, useWriteContract } from 'wagmi'
+  useUnfollowMutation,
+} from "@tape.xyz/lens";
+import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
+import { Button } from "@tape.xyz/ui";
+import type { FC } from "react";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useSignTypedData, useWriteContract } from "wagmi";
 
-import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
-import useSw from '@/hooks/useSw'
-import useProfileStore from '@/lib/store/idb/profile'
-import useNonceStore from '@/lib/store/nonce'
+import useHandleWrongNetwork from "@/hooks/useHandleWrongNetwork";
+import useSw from "@/hooks/useSw";
+import useProfileStore from "@/lib/store/idb/profile";
+import useNonceStore from "@/lib/store/nonce";
 
 type Props = {
-  profile: Profile
-  onUnSubscribe: () => void
-}
+  profile: Profile;
+  onUnSubscribe: () => void;
+};
 
 const UnFollow: FC<Props> = ({ profile, onUnSubscribe }) => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
-  const { addEventToQueue } = useSw()
-  const { activeProfile } = useProfileStore()
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
+  const { addEventToQueue } = useSw();
+  const { activeProfile } = useProfileStore();
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
   const { canUseLensManager, canBroadcast } =
-    checkLensManagerPermissions(activeProfile)
+    checkLensManagerPermissions(activeProfile);
 
-  const handleWrongNetwork = useHandleWrongNetwork()
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const onError = (error: CustomErrorWithData) => {
-    toast.error(error?.data?.message ?? error?.message)
-    setLoading(false)
-  }
-  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
-    if (__typename === 'RelayError') {
-      return
+    toast.error(error?.data?.message ?? error?.message);
+    setLoading(false);
+  };
+  const onCompleted = (__typename?: "RelayError" | "RelaySuccess") => {
+    if (__typename === "RelayError") {
+      return;
     }
 
-    setLoading(false)
-    onUnSubscribe()
-    toast.success(`Unfollowed ${getProfile(profile)?.displayName}`)
+    setLoading(false);
+    onUnSubscribe();
+    toast.success(`Unfollowed ${getProfile(profile)?.displayName}`);
     addEventToQueue(EVENTS.PROFILE.UNFOLLOW, {
       profile_id: profile.id,
-      profile_name: getProfile(profile)?.slug
-    })
-  }
+      profile_name: getProfile(profile)?.slug,
+    });
+  };
 
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError }
-  })
+    mutation: { onError },
+  });
 
   const [broadcast] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) =>
       onCompleted(broadcastOnchain.__typename),
-    onError
-  })
+    onError,
+  });
 
   const { writeContractAsync } = useWriteContract({
     mutation: {
       onSuccess: () => onCompleted(),
-      onError
-    }
-  })
+      onError,
+    },
+  });
 
   const write = async ({ args }: { args: any[] }) => {
     return await writeContractAsync({
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
-      functionName: 'burn',
-      args
-    })
-  }
+      functionName: "burn",
+      args,
+    });
+  };
 
   const [createUnfollowTypedData] = useCreateUnfollowTypedDataMutation({
     onCompleted: async ({ createUnfollowTypedData }) => {
       const { typedData, id } =
-        createUnfollowTypedData as CreateUnfollowBroadcastItemResult
-      const { idsOfProfilesToUnfollow, unfollowerProfileId } = typedData.value
-      const args = [unfollowerProfileId, idsOfProfilesToUnfollow]
+        createUnfollowTypedData as CreateUnfollowBroadcastItemResult;
+      const { idsOfProfilesToUnfollow, unfollowerProfileId } = typedData.value;
+      const args = [unfollowerProfileId, idsOfProfilesToUnfollow];
       try {
-        toast.loading(REQUESTING_SIGNATURE_MESSAGE)
+        toast.loading(REQUESTING_SIGNATURE_MESSAGE);
         if (canBroadcast) {
-          const signature = await signTypedDataAsync(getSignature(typedData))
-          setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+          const signature = await signTypedDataAsync(getSignature(typedData));
+          setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
           const { data } = await broadcast({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcastOnchain?.__typename === 'RelayError') {
-            return await write({ args })
+            variables: { request: { id, signature } },
+          });
+          if (data?.broadcastOnchain?.__typename === "RelayError") {
+            return await write({ args });
           }
-          return
+          return;
         }
-        return await write({ args })
+        return await write({ args });
       } catch {
-        setLoading(false)
+        setLoading(false);
       }
     },
-    onError
-  })
+    onError,
+  });
 
   const [unFollowMutation] = useUnfollowMutation({
     onCompleted: () => onCompleted(),
-    onError
-  })
+    onError,
+  });
 
   const unfollow = async () => {
     if (!activeProfile?.id) {
-      return toast.error(SIGN_IN_REQUIRED)
+      return toast.error(SIGN_IN_REQUIRED);
     }
-    await handleWrongNetwork()
+    await handleWrongNetwork();
 
-    setLoading(true)
+    setLoading(true);
     if (canUseLensManager) {
       return await unFollowMutation({
         variables: {
           request: {
-            unfollow: [profile.id]
-          }
-        }
-      })
+            unfollow: [profile.id],
+          },
+        },
+      });
     }
     return createUnfollowTypedData({
       variables: {
         options: { overrideSigNonce: lensHubOnchainSigNonce },
-        request: { unfollow: [profile?.id] }
-      }
-    })
-  }
+        request: { unfollow: [profile?.id] },
+      },
+    });
+  };
 
   return (
     <Button loading={loading} disabled={loading} onClick={() => unfollow()}>
       Unfollow
     </Button>
-  )
-}
+  );
+};
 
-export default UnFollow
+export default UnFollow;

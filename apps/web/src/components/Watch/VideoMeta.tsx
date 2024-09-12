@@ -1,24 +1,24 @@
 import {
   getLennyPicture,
   getProfile,
-  getProfilePicture
-} from '@tape.xyz/generic'
-import type { PrimaryPublication } from '@tape.xyz/lens'
-import { CollectOutline, MirrorOutline, Modal } from '@tape.xyz/ui'
-import type { FC } from 'react'
-import { useState } from 'react'
+  getProfilePicture,
+} from "@tape.xyz/generic";
+import type { PrimaryPublication } from "@tape.xyz/lens";
+import { CollectOutline, MirrorOutline, Modal } from "@tape.xyz/ui";
+import type { FC } from "react";
+import { useState } from "react";
 
-import CollectorsList from '@/components/Common/CollectorsList'
-import HoverableProfile from '@/components/Common/HoverableProfile'
-import MirroredList from '@/components/Common/MirroredList'
+import CollectorsList from "@/components/Common/CollectorsList";
+import HoverableProfile from "@/components/Common/HoverableProfile";
+import MirroredList from "@/components/Common/MirroredList";
 
 type Props = {
-  video: PrimaryPublication
-}
+  video: PrimaryPublication;
+};
 
 const VideoMeta: FC<Props> = ({ video }) => {
-  const [showCollectsModal, setShowCollectsModal] = useState(false)
-  const [showMirrorsModal, setShowMirrorsModal] = useState(false)
+  const [showCollectsModal, setShowCollectsModal] = useState(false);
+  const [showMirrorsModal, setShowMirrorsModal] = useState(false);
 
   return (
     <div className="mt-2 flex flex-wrap items-center">
@@ -26,12 +26,12 @@ const VideoMeta: FC<Props> = ({ video }) => {
         profile={video.by}
         pfp={
           <img
-            src={getProfilePicture(video.by, 'AVATAR')}
+            src={getProfilePicture(video.by, "AVATAR")}
             className="size-5 rounded-full"
             draggable={false}
             alt={getProfile(video.by)?.displayName}
             onError={({ currentTarget }) => {
-              currentTarget.src = getLennyPicture(video.by?.id)
+              currentTarget.src = getLennyPicture(video.by?.id);
             }}
           />
         }
@@ -79,7 +79,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default VideoMeta
+export default VideoMeta;

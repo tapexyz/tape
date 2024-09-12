@@ -1,6 +1,5 @@
-import { tw } from '@tape.xyz/browser'
-import type { SVGProps } from 'react'
-import React from 'react'
+import { tw } from "@tape.xyz/browser";
+import type { SVGProps } from "react";
 
 export const ThreeDotsOutline = (props: SVGProps<SVGSVGElement>) => (
   <svg
@@ -8,7 +7,7 @@ export const ThreeDotsOutline = (props: SVGProps<SVGSVGElement>) => (
     viewBox="0 0 20 6"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className={tw(props.className, 'rotate-90')}
+    className={tw(props.className, "rotate-90")}
   >
     <path
       fillRule="evenodd"
@@ -29,4 +28,4 @@ export const ThreeDotsOutline = (props: SVGProps<SVGSVGElement>) => (
       fill="currentColor"
     />
   </svg>
-)
+);

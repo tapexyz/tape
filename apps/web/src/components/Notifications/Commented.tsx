@@ -2,20 +2,19 @@ import {
   getLennyPicture,
   getProfile,
   getProfilePicture,
-  getPublicationData
-} from '@tape.xyz/generic'
-import type { CommentNotification } from '@tape.xyz/lens'
-import { CommentOutline } from '@tape.xyz/ui'
-import Link from 'next/link'
-import type { FC } from 'react'
-import React from 'react'
+  getPublicationData,
+} from "@tape.xyz/generic";
+import type { CommentNotification } from "@tape.xyz/lens";
+import { CommentOutline } from "@tape.xyz/ui";
+import Link from "next/link";
+import type { FC } from "react";
 
-import HoverableProfile from '@/components/Common/HoverableProfile'
-import { getShortHandTime } from '@/lib/formatTime'
+import HoverableProfile from "@/components/Common/HoverableProfile";
+import { getShortHandTime } from "@/lib/formatTime";
 
 type Props = {
-  notification: CommentNotification
-}
+  notification: CommentNotification;
+};
 
 const Commented: FC<Props> = ({ notification: { comment } }) => {
   return (
@@ -29,11 +28,11 @@ const Commented: FC<Props> = ({ notification: { comment } }) => {
             <HoverableProfile profile={comment.by} key={comment.by?.id}>
               <img
                 className="size-7 rounded-full border dark:border-gray-700/80"
-                src={getProfilePicture(comment.by, 'AVATAR')}
+                src={getProfilePicture(comment.by, "AVATAR")}
                 draggable={false}
                 alt={getProfile(comment.by)?.slug}
                 onError={({ currentTarget }) => {
-                  currentTarget.src = getLennyPicture(comment.by?.id)
+                  currentTarget.src = getLennyPicture(comment.by?.id);
                 }}
               />
             </HoverableProfile>
@@ -51,7 +50,7 @@ const Commented: FC<Props> = ({ notification: { comment } }) => {
         {getShortHandTime(comment.createdAt)}
       </span>
     </div>
-  )
-}
+  );
+};
 
-export default Commented
+export default Commented;

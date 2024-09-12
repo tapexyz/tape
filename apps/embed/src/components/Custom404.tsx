@@ -1,5 +1,4 @@
-import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
-import React from 'react'
+import { STATIC_ASSETS, TAPE_APP_NAME } from "@tape.xyz/constants";
 
 const Custom404 = () => {
   return (
@@ -16,7 +15,7 @@ const Custom404 = () => {
       <h1 className="text-4xl font-bold">404</h1>
       <div className="mb-6">This publication could not be found.</div>
     </div>
-  )
-}
+  );
+};
 
-export default Custom404
+export default Custom404;

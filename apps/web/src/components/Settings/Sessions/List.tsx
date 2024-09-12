@@ -1,10 +1,10 @@
-import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
-import type { ApprovedAuthenticationRequest } from '@tape.xyz/lens'
+import { INFINITE_SCROLL_ROOT_MARGIN } from "@tape.xyz/constants";
+import type { ApprovedAuthenticationRequest } from "@tape.xyz/lens";
 import {
   LimitType,
   useApprovedAuthenticationsQuery,
-  useRevokeAuthenticationMutation
-} from '@tape.xyz/lens'
+  useRevokeAuthenticationMutation,
+} from "@tape.xyz/lens";
 import {
   Accordion,
   AccordionContent,
@@ -12,38 +12,38 @@ import {
   AccordionTrigger,
   Button,
   ChevronDownOutline,
-  Spinner
-} from '@tape.xyz/ui'
-import React, { useState } from 'react'
-import { useInView } from 'react-cool-inview'
-import toast from 'react-hot-toast'
+  Spinner,
+} from "@tape.xyz/ui";
+import { useState } from "react";
+import { useInView } from "react-cool-inview";
+import toast from "react-hot-toast";
 
-import { NoDataFound } from '@/components/UIElements/NoDataFound'
-import { getReadableDateWithTime } from '@/lib/formatTime'
-import useProfileStore from '@/lib/store/idb/profile'
+import { NoDataFound } from "@/components/UIElements/NoDataFound";
+import { getReadableDateWithTime } from "@/lib/formatTime";
+import useProfileStore from "@/lib/store/idb/profile";
 
 const List = () => {
-  const [revokingSessionId, setRevokingSessionId] = useState('')
-  const { activeProfile } = useProfileStore()
+  const [revokingSessionId, setRevokingSessionId] = useState("");
+  const { activeProfile } = useProfileStore();
 
   const onError = (error: any) => {
-    setRevokingSessionId('')
-    toast.error(error)
-  }
+    setRevokingSessionId("");
+    toast.error(error);
+  };
 
   const onCompleted = () => {
-    setRevokingSessionId('')
-    toast.success('Session revoked successfully!')
-  }
+    setRevokingSessionId("");
+    toast.success("Session revoked successfully!");
+  };
 
-  const request: ApprovedAuthenticationRequest = { limit: LimitType.Fifty }
+  const request: ApprovedAuthenticationRequest = { limit: LimitType.Fifty };
   const { data, loading, error, fetchMore } = useApprovedAuthenticationsQuery({
     variables: { request },
-    skip: !activeProfile?.id
-  })
-  const sessions = data?.approvedAuthentications?.items
+    skip: !activeProfile?.id,
+  });
+  const sessions = data?.approvedAuthentications?.items;
 
-  const pageInfo = data?.approvedAuthentications?.pageInfo
+  const pageInfo = data?.approvedAuthentications?.pageInfo;
 
   const { observe } = useInView({
     threshold: 0.25,
@@ -53,39 +53,39 @@ const List = () => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next
-          }
-        }
-      })
-    }
-  })
+            cursor: pageInfo?.next,
+          },
+        },
+      });
+    },
+  });
 
   const [revokeAuthentication] = useRevokeAuthenticationMutation({
     onCompleted,
     onError,
     update: (cache) => {
-      cache.evict({ id: 'ROOT_QUERY' })
-    }
-  })
+      cache.evict({ id: "ROOT_QUERY" });
+    },
+  });
 
   if (loading) {
-    return <Spinner className="my-20" />
+    return <Spinner className="my-20" />;
   }
 
   if (!sessions?.length || error) {
-    return <NoDataFound withImage isCenter />
+    return <NoDataFound withImage isCenter />;
   }
 
   const revoke = async (authorizationId: string) => {
     try {
-      setRevokingSessionId(authorizationId)
+      setRevokingSessionId(authorizationId);
       return await revokeAuthentication({
-        variables: { request: { authorizationId } }
-      })
+        variables: { request: { authorizationId } },
+      });
     } catch (error) {
-      onError(error)
+      onError(error);
     }
-  }
+  };
 
   return (
     <Accordion type="single" className="w-full space-y-3" collapsible>
@@ -110,7 +110,7 @@ const List = () => {
             <AccordionContent className="pt-5">
               <div className="flex items-center justify-between">
                 <p>
-                  {session.browser}, created at{' '}
+                  {session.browser}, created at{" "}
                   {getReadableDateWithTime(session.createdAt)}
                 </p>
                 <Button
@@ -124,7 +124,7 @@ const List = () => {
               </div>
             </AccordionContent>
           </AccordionItem>
-        )
+        );
       })}
       {pageInfo?.next && (
         <span ref={observe} className="flex justify-center p-10">
@@ -132,7 +132,7 @@ const List = () => {
         </span>
       )}
     </Accordion>
-  )
-}
+  );
+};
 
-export default List
+export default List;

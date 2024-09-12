@@ -2,24 +2,23 @@ import {
   getLennyPicture,
   getProfile,
   getProfilePicture,
-  getPublicationData
-} from '@tape.xyz/generic'
-import type { MentionNotification } from '@tape.xyz/lens'
-import { MentionOutline } from '@tape.xyz/ui'
-import Link from 'next/link'
-import type { FC } from 'react'
-import React from 'react'
+  getPublicationData,
+} from "@tape.xyz/generic";
+import type { MentionNotification } from "@tape.xyz/lens";
+import { MentionOutline } from "@tape.xyz/ui";
+import Link from "next/link";
+import type { FC } from "react";
 
-import HoverableProfile from '@/components/Common/HoverableProfile'
-import { getShortHandTime } from '@/lib/formatTime'
+import HoverableProfile from "@/components/Common/HoverableProfile";
+import { getShortHandTime } from "@/lib/formatTime";
 
 type Props = {
-  notification: MentionNotification
-}
+  notification: MentionNotification;
+};
 
 const Mentioned: FC<Props> = ({ notification: { publication } }) => {
   const videoId =
-    publication.__typename === 'Comment' ? publication.root.id : publication.id
+    publication.__typename === "Comment" ? publication.root.id : publication.id;
   return (
     <div className="flex justify-between">
       <span className="flex space-x-4">
@@ -31,11 +30,11 @@ const Mentioned: FC<Props> = ({ notification: { publication } }) => {
             <HoverableProfile profile={publication.by} key={publication.by?.id}>
               <img
                 className="size-7 rounded-full border dark:border-gray-700/80"
-                src={getProfilePicture(publication.by, 'AVATAR')}
+                src={getProfilePicture(publication.by, "AVATAR")}
                 draggable={false}
                 alt={getProfile(publication.by)?.displayName}
                 onError={({ currentTarget }) => {
-                  currentTarget.src = getLennyPicture(publication.by?.id)
+                  currentTarget.src = getLennyPicture(publication.by?.id);
                 }}
               />
             </HoverableProfile>
@@ -53,7 +52,7 @@ const Mentioned: FC<Props> = ({ notification: { publication } }) => {
         {getShortHandTime(publication.createdAt)}
       </span>
     </div>
-  )
-}
+  );
+};
 
-export default Mentioned
+export default Mentioned;

@@ -1,7 +1,6 @@
-import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
-import { Button } from '@tape.xyz/ui'
-import Link from 'next/link'
-import React from 'react'
+import { STATIC_ASSETS, TAPE_APP_NAME } from "@tape.xyz/constants";
+import { Button } from "@tape.xyz/ui";
+import Link from "next/link";
 
 const WelcomeAlert = () => {
   return (
@@ -26,7 +25,7 @@ const WelcomeAlert = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default WelcomeAlert
+export default WelcomeAlert;

@@ -1,6 +1,5 @@
-import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
-import Document, { Head, Html, Main, NextScript } from 'next/document'
-import React from 'react'
+import { STATIC_ASSETS, TAPE_APP_NAME } from "@tape.xyz/constants";
+import Document, { Head, Html, Main, NextScript } from "next/document";
 
 class AppDocument extends Document {
   render() {
@@ -55,8 +54,8 @@ class AppDocument extends Document {
           <NextScript />
         </body>
       </Html>
-    )
+    );
   }
 }
 
-export default AppDocument
+export default AppDocument;

@@ -1,6 +1,5 @@
-import { TAPE_APP_NAME } from '@tape.xyz/constants'
-import Link from 'next/link'
-import React from 'react'
+import { TAPE_APP_NAME } from "@tape.xyz/constants";
+import Link from "next/link";
 
 const privacy = () => {
   return (
@@ -49,7 +48,7 @@ const privacy = () => {
           <h2>2. Information Collection</h2>
           <div>
             We may collect the following information about you when you use the
-            Site:{' '}
+            Site:{" "}
             <li>
               Information you provide such as feedback, question and issues
               reports.
@@ -126,7 +125,7 @@ const privacy = () => {
               signals. Accordingly, unless and until the law is interpreted to
               require us to do so, we do not monitor or take action with respect
               to “Do Not Track” signals. For more information on “Do Not Track,”
-              visit{' '}
+              visit{" "}
               <Link href="https://allaboutdnt.com" target="_blank">
                 https://allaboutdnt.com.
               </Link>
@@ -160,13 +159,13 @@ const privacy = () => {
           <p>
             If you have any questions or comments about this Privacy Policy, our
             data practices, or our compliance with applicable law, please
-            contact us at{' '}
+            contact us at{" "}
             <Link href="mailto:privacy@tape.xyz">privacy@tape.xyz</Link>.
           </p>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default privacy
+export default privacy;

@@ -1,11 +1,10 @@
-import type { SVGProps } from 'react'
-import React from 'react'
+import type { SVGProps } from "react";
 
 export const SplitOutline = ({
   outline = true,
   ...props
 }: SVGProps<SVGSVGElement> & {
-  outline: boolean
+  outline: boolean;
 }) => (
   <svg
     {...props}
@@ -28,4 +27,4 @@ export const SplitOutline = ({
       fill="currentColor"
     />
   </svg>
-)
+);

@@ -1,3 +1,3 @@
-import Feed from '@/components/Feed'
+import Feed from "@/components/Feed";
 
-export default Feed
+export default Feed;

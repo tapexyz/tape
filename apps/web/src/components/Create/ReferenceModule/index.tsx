@@ -1,35 +1,36 @@
-import type { ReferenceModuleType } from '@tape.xyz/lens/custom-types'
-import { Select, SelectItem } from '@tape.xyz/ui'
-import React from 'react'
+import type { ReferenceModuleType } from "@tape.xyz/lens/custom-types";
+import { Select, SelectItem } from "@tape.xyz/ui";
 
-import useAppStore from '@/lib/store'
+import useAppStore from "@/lib/store";
 
 const ReferenceModule = () => {
-  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
-  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia);
+  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia);
 
   const setReferenceType = (data: ReferenceModuleType) => {
     setUploadedMedia({
-      referenceModule: { ...uploadedMedia.collectModule, ...data }
-    })
-  }
+      referenceModule: { ...uploadedMedia.collectModule, ...data },
+    });
+  };
 
   const getSelectedReferenceTypeValue = () => {
     const followerOnlyReferenceModule =
-      uploadedMedia?.referenceModule?.followerOnlyReferenceModule
+      uploadedMedia?.referenceModule?.followerOnlyReferenceModule;
     const degreesOfSeparationReferenceModule =
-      uploadedMedia?.referenceModule?.degreesOfSeparationReferenceModule
+      uploadedMedia?.referenceModule?.degreesOfSeparationReferenceModule;
     if (!followerOnlyReferenceModule && !degreesOfSeparationReferenceModule) {
-      return 'ANYONE'
-    } else if (followerOnlyReferenceModule) {
-      return 'FOLLOWERS'
-    } else if (
+      return "ANYONE";
+    }
+    if (followerOnlyReferenceModule) {
+      return "FOLLOWERS";
+    }
+    if (
       degreesOfSeparationReferenceModule &&
       degreesOfSeparationReferenceModule.degreesOfSeparation < 5
     ) {
-      return 'FRIENDS_OF_FRIENDS'
+      return "FRIENDS_OF_FRIENDS";
     }
-  }
+  };
 
   return (
     <div className="flex-1 space-y-1">
@@ -41,17 +42,17 @@ const ReferenceModule = () => {
         value={getSelectedReferenceTypeValue()}
         onValueChange={(value) => {
           setReferenceType({
-            followerOnlyReferenceModule: value === 'FOLLOWERS',
+            followerOnlyReferenceModule: value === "FOLLOWERS",
             degreesOfSeparationReferenceModule:
-              value === 'FRIENDS_OF_FRIENDS'
+              value === "FRIENDS_OF_FRIENDS"
                 ? {
                     commentsRestricted: true,
                     mirrorsRestricted: true,
                     quotesRestricted: true,
-                    degreesOfSeparation: 4
+                    degreesOfSeparation: 4,
                   }
-                : null
-          })
+                : null,
+          });
         }}
       >
         <SelectItem value="ANYONE">Anyone</SelectItem>
@@ -59,7 +60,7 @@ const ReferenceModule = () => {
         <SelectItem value="FRIENDS_OF_FRIENDS">Friends of Friends</SelectItem>
       </Select>
     </div>
-  )
-}
+  );
+};
 
-export default ReferenceModule
+export default ReferenceModule;

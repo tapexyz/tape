@@ -1,65 +1,64 @@
 import {
   FALLBACK_THUMBNAIL_URL,
   LENSTUBE_BYTES_APP_ID,
-  TAPE_APP_ID
-} from '@tape.xyz/constants'
+  TAPE_APP_ID,
+} from "@tape.xyz/constants";
 import {
   getLennyPicture,
   getProfile,
   getProfilePicture,
   getPublicationData,
   getThumbnailUrl,
-  imageCdn
-} from '@tape.xyz/generic'
-import type { PrimaryPublication, PublicationsRequest } from '@tape.xyz/lens'
+  imageCdn,
+} from "@tape.xyz/generic";
+import type { PrimaryPublication, PublicationsRequest } from "@tape.xyz/lens";
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   PublicationType,
-  usePublicationsQuery
-} from '@tape.xyz/lens'
-import Link from 'next/link'
-import React from 'react'
+  usePublicationsQuery,
+} from "@tape.xyz/lens";
+import Link from "next/link";
 
-import Badge from '@/components/Common/Badge'
-import HoverableProfile from '@/components/Common/HoverableProfile'
-import LatestBytesShimmer from '@/components/Shimmers/LatestBytesShimmer'
-import useCuratedProfiles from '@/lib/store/idb/curated'
+import Badge from "@/components/Common/Badge";
+import HoverableProfile from "@/components/Common/HoverableProfile";
+import LatestBytesShimmer from "@/components/Shimmers/LatestBytesShimmer";
+import useCuratedProfiles from "@/lib/store/idb/curated";
 
 const LatestBytes = () => {
-  const curatedProfiles = useCuratedProfiles((state) => state.curatedProfiles)
+  const curatedProfiles = useCuratedProfiles((state) => state.curatedProfiles);
 
   const request: PublicationsRequest = {
     where: {
       metadata: {
         mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo],
-        publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID]
+        publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID],
       },
       publicationTypes: [PublicationType.Post],
-      from: curatedProfiles
+      from: curatedProfiles,
     },
-    limit: LimitType.Fifty
-  }
+    limit: LimitType.Fifty,
+  };
 
   const { data, error, loading } = usePublicationsQuery({
     variables: { request },
-    skip: !curatedProfiles?.length
-  })
+    skip: !curatedProfiles?.length,
+  });
 
-  const bytes = data?.publications?.items as PrimaryPublication[]
+  const bytes = data?.publications?.items as PrimaryPublication[];
 
   if (loading) {
-    return <LatestBytesShimmer />
+    return <LatestBytesShimmer />;
   }
 
   if (!bytes?.length || error) {
-    return null
+    return null;
   }
 
   return (
     <>
       {bytes.map((byte) => {
-        const thumbnailUrl = getThumbnailUrl(byte.metadata)
+        const thumbnailUrl = getThumbnailUrl(byte.metadata);
         return (
           <div className="flex flex-col" key={byte.id}>
             <Link
@@ -68,13 +67,13 @@ const LatestBytes = () => {
             >
               <img
                 className="h-full object-cover"
-                src={thumbnailUrl ? imageCdn(thumbnailUrl, 'THUMBNAIL_V') : ''}
+                src={thumbnailUrl ? imageCdn(thumbnailUrl, "THUMBNAIL_V") : ""}
                 alt="thumbnail"
                 height={1000}
                 width={600}
                 draggable={false}
                 onError={({ currentTarget }) => {
-                  currentTarget.src = FALLBACK_THUMBNAIL_URL
+                  currentTarget.src = FALLBACK_THUMBNAIL_URL;
                 }}
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-transparent to-black px-4 py-2">
@@ -91,13 +90,13 @@ const LatestBytes = () => {
                 >
                   <img
                     className="size-4 rounded-full bg-gray-200 dark:bg-gray-800"
-                    src={getProfilePicture(byte.by, 'AVATAR')}
+                    src={getProfilePicture(byte.by, "AVATAR")}
                     height={50}
                     width={50}
                     alt={`${getProfile(byte.by)?.slug}'s PFP`}
                     draggable={false}
                     onError={({ currentTarget }) => {
-                      currentTarget.src = getLennyPicture(byte.by?.id)
+                      currentTarget.src = getLennyPicture(byte.by?.id);
                     }}
                   />
                   <span className="flex items-center space-x-1 font-medium">
@@ -108,10 +107,10 @@ const LatestBytes = () => {
               </HoverableProfile>
             </span>
           </div>
-        )
+        );
       })}
     </>
-  )
-}
+  );
+};
 
-export default LatestBytes
+export default LatestBytes;

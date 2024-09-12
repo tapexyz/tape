@@ -1,39 +1,42 @@
-import { tw, useAverageColor } from '@tape.xyz/browser'
+import { tw, useAverageColor } from "@tape.xyz/browser";
 import {
   FALLBACK_THUMBNAIL_URL,
   LENSTUBE_BYTES_APP_ID,
-  STATIC_ASSETS
-} from '@tape.xyz/constants'
+  STATIC_ASSETS,
+} from "@tape.xyz/constants";
 import {
   formatNumber,
   getIsSensitiveContent,
   getPublicationData,
   getThumbnailUrl,
-  imageCdn
-} from '@tape.xyz/generic'
-import type { MirrorablePublication } from '@tape.xyz/lens'
-import { CommentOutline, HeartOutline } from '@tape.xyz/ui'
-import Link from 'next/link'
-import type { FC } from 'react'
-import React from 'react'
+  imageCdn,
+} from "@tape.xyz/generic";
+import type { MirrorablePublication } from "@tape.xyz/lens";
+import { CommentOutline, HeartOutline } from "@tape.xyz/ui";
+import Link from "next/link";
+import type { FC } from "react";
+import { memo } from "react";
 
-import HoverableProfile from '@/components/Common/HoverableProfile'
-import PublicationOptions from '@/components/Common/Publication/PublicationOptions'
-import { formatTimeFromSeconds, getShortHandTime } from '@/lib/formatTime'
+import HoverableProfile from "@/components/Common/HoverableProfile";
+import PublicationOptions from "@/components/Common/Publication/PublicationOptions";
+import { formatTimeFromSeconds, getShortHandTime } from "@/lib/formatTime";
 
 type Props = {
-  video: MirrorablePublication
-}
+  video: MirrorablePublication;
+};
 
 const SuggestedVideoCard: FC<Props> = ({ video }) => {
-  const isBytesVideo = video.publishedOn?.id === LENSTUBE_BYTES_APP_ID
-  const isSensitiveContent = getIsSensitiveContent(video.metadata)
+  const isBytesVideo = video.publishedOn?.id === LENSTUBE_BYTES_APP_ID;
+  const isSensitiveContent = getIsSensitiveContent(video.metadata);
   const thumbnailUrl = isSensitiveContent
     ? `${STATIC_ASSETS}/images/sensor-blur.webp`
-    : getThumbnailUrl(video.metadata, true)
+    : getThumbnailUrl(video.metadata, true);
 
-  const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
-  const videoDuration = getPublicationData(video.metadata)?.asset?.duration
+  const { color: backgroundColor } = useAverageColor(
+    thumbnailUrl,
+    isBytesVideo,
+  );
+  const videoDuration = getPublicationData(video.metadata)?.asset?.duration;
 
   return (
     <div className="group flex justify-between">
@@ -46,18 +49,18 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
             <div className="relative">
               <img
                 className={tw(
-                  'h-24 w-44 bg-gray-300 object-center dark:bg-gray-700',
-                  isBytesVideo ? 'object-contain' : 'object-cover'
+                  "h-24 w-44 bg-gray-300 object-center dark:bg-gray-700",
+                  isBytesVideo ? "object-contain" : "object-cover",
                 )}
                 src={imageCdn(
                   thumbnailUrl,
-                  isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
+                  isBytesVideo ? "THUMBNAIL_V" : "THUMBNAIL",
                 )}
                 style={{ backgroundColor: `${backgroundColor}95` }}
                 alt="thumbnail"
                 draggable={false}
                 onError={({ currentTarget }) => {
-                  currentTarget.src = FALLBACK_THUMBNAIL_URL
+                  currentTarget.src = FALLBACK_THUMBNAIL_URL;
                 }}
               />
               {!isSensitiveContent && videoDuration ? (
@@ -76,7 +79,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
               <Link
                 href={`/watch/${video.id}`}
                 className="line-clamp-2 font-medium"
-                title={getPublicationData(video.metadata)?.title ?? ''}
+                title={getPublicationData(video.metadata)?.title ?? ""}
               >
                 {getPublicationData(video.metadata)?.title}
               </Link>
@@ -104,7 +107,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
         <PublicationOptions publication={video} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default React.memo(SuggestedVideoCard)
+export default memo(SuggestedVideoCard);

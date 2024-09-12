@@ -1,5 +1,3 @@
-import React from 'react'
-
 const CardBorders = () => {
   return (
     <>
@@ -19,7 +17,7 @@ const CardBorders = () => {
       <div className="absolute -right-[1px] -top-44 h-44 w-[1px] bg-gradient-to-t from-[#00000020] to-transparent dark:from-[#ffffff20]" />
       <div className="absolute -right-44 -top-[1px] h-[1px] w-44 bg-gradient-to-r from-[#00000020] to-transparent dark:from-[#ffffff20]" />
     </>
-  )
-}
+  );
+};
 
-export default CardBorders
+export default CardBorders;

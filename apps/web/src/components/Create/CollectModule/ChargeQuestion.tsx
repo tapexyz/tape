@@ -1,17 +1,16 @@
-import { tw } from '@tape.xyz/browser'
-import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
-import { Button } from '@tape.xyz/ui'
-import type { FC } from 'react'
-import React from 'react'
+import { tw } from "@tape.xyz/browser";
+import type { CollectModuleType } from "@tape.xyz/lens/custom-types";
+import { Button } from "@tape.xyz/ui";
+import type { FC } from "react";
 
-import useAppStore from '@/lib/store'
+import useAppStore from "@/lib/store";
 
 type Props = {
-  setCollectType: (data: CollectModuleType) => void
-}
+  setCollectType: (data: CollectModuleType) => void;
+};
 
 const ChargeQuestion: FC<Props> = ({ setCollectType }) => {
-  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia);
 
   return (
     <div className="space-y-1">
@@ -21,14 +20,14 @@ const ChargeQuestion: FC<Props> = ({ setCollectType }) => {
           <Button
             type="button"
             className={tw(
-              !uploadedMedia.collectModule.isFeeCollect && 'border-brand-500'
+              !uploadedMedia.collectModule.isFeeCollect && "border-brand-500",
             )}
             variant="secondary"
             onClick={() =>
               setCollectType({
                 isSimpleCollect: true,
                 isMultiRecipientFeeCollect: false,
-                isFeeCollect: false
+                isFeeCollect: false,
               })
             }
           >
@@ -39,14 +38,14 @@ const ChargeQuestion: FC<Props> = ({ setCollectType }) => {
           <Button
             type="button"
             className={tw(
-              uploadedMedia.collectModule.isFeeCollect && 'border-brand-500'
+              uploadedMedia.collectModule.isFeeCollect && "border-brand-500",
             )}
             variant="secondary"
             onClick={() =>
               setCollectType({
                 isSimpleCollect: false,
                 isMultiRecipientFeeCollect: true,
-                isFeeCollect: true
+                isFeeCollect: true,
               })
             }
           >
@@ -55,7 +54,7 @@ const ChargeQuestion: FC<Props> = ({ setCollectType }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ChargeQuestion
+export default ChargeQuestion;

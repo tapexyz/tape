@@ -1,8 +1,7 @@
-import { Button } from '@tape.xyz/ui'
-import Link from 'next/link'
-import React from 'react'
+import { Button } from "@tape.xyz/ui";
+import Link from "next/link";
 
-import MetaTags from '@/components/Common/MetaTags'
+import MetaTags from "@/components/Common/MetaTags";
 
 const ProfileSuspended = () => {
   return (
@@ -14,7 +13,7 @@ const ProfileSuspended = () => {
         <Button>Go Home</Button>
       </Link>
     </div>
-  )
-}
+  );
+};
 
-export default ProfileSuspended
+export default ProfileSuspended;

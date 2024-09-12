@@ -1,24 +1,23 @@
 import {
   getLennyPicture,
   getProfile,
-  getProfilePicture
-} from '@tape.xyz/generic'
-import React from 'react'
+  getProfilePicture,
+} from "@tape.xyz/generic";
 
-import Badge from '@/components/Common/Badge'
-import HoverableProfile from '@/components/Common/HoverableProfile'
-import MetaTags from '@/components/Common/MetaTags'
-import Stats from '@/components/Profile/BasicInfo/Stats'
-import useProfileStore from '@/lib/store/idb/profile'
+import Badge from "@/components/Common/Badge";
+import HoverableProfile from "@/components/Common/HoverableProfile";
+import MetaTags from "@/components/Common/MetaTags";
+import Stats from "@/components/Profile/BasicInfo/Stats";
+import useProfileStore from "@/lib/store/idb/profile";
 
-import Delete from './Delete'
-import Guardian from './Guardian'
+import Delete from "./Delete";
+import Guardian from "./Guardian";
 
 const DangerZone = () => {
-  const activeProfile = useProfileStore((state) => state.activeProfile)
+  const activeProfile = useProfileStore((state) => state.activeProfile);
 
   if (!activeProfile) {
-    return null
+    return null;
   }
 
   return (
@@ -29,12 +28,12 @@ const DangerZone = () => {
           <div className="mr-3 mt-0.5 flex-none">
             <HoverableProfile profile={activeProfile}>
               <img
-                src={getProfilePicture(activeProfile, 'AVATAR')}
+                src={getProfilePicture(activeProfile, "AVATAR")}
                 className="size-10 rounded-full"
                 alt={getProfile(activeProfile)?.displayName}
                 draggable={false}
                 onError={({ currentTarget }) => {
-                  currentTarget.src = getLennyPicture(activeProfile?.id)
+                  currentTarget.src = getLennyPicture(activeProfile?.id);
                 }}
               />
             </HoverableProfile>
@@ -56,7 +55,7 @@ const DangerZone = () => {
       <Guardian />
       <Delete />
     </>
-  )
-}
+  );
+};
 
-export default DangerZone
+export default DangerZone;

@@ -1,22 +1,22 @@
-import { tw } from '@tape.xyz/browser'
-import { trimify } from '@tape.xyz/generic'
-import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
-import { Button, Input } from '@tape.xyz/ui'
-import type { FC } from 'react'
-import React, { useState } from 'react'
+import { tw } from "@tape.xyz/browser";
+import { trimify } from "@tape.xyz/generic";
+import type { CollectModuleType } from "@tape.xyz/lens/custom-types";
+import { Button, Input } from "@tape.xyz/ui";
+import type { FC } from "react";
+import { useState } from "react";
 
-import useAppStore from '@/lib/store'
+import useAppStore from "@/lib/store";
 
 type Props = {
-  setCollectType: (data: CollectModuleType) => void
-}
+  setCollectType: (data: CollectModuleType) => void;
+};
 
 const CollectDuration: FC<Props> = ({ setCollectType }) => {
-  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia);
 
   const [showDayPicker, setShowDayPicker] = useState(
-    uploadedMedia.collectModule.timeLimitEnabled
-  )
+    uploadedMedia.collectModule.timeLimitEnabled,
+  );
   return (
     <div className="space-y-1">
       <span className="text-sm font-medium">Collect duration</span>
@@ -27,14 +27,14 @@ const CollectDuration: FC<Props> = ({ setCollectType }) => {
             variant="secondary"
             className={tw(
               !uploadedMedia.collectModule.timeLimitEnabled &&
-                'border-brand-500'
+                "border-brand-500",
             )}
             onClick={() => {
               setCollectType({
                 timeLimitEnabled: false,
-                isSimpleCollect: true
-              })
-              setShowDayPicker(false)
+                isSimpleCollect: true,
+              });
+              setShowDayPicker(false);
             }}
           >
             Forever
@@ -46,12 +46,13 @@ const CollectDuration: FC<Props> = ({ setCollectType }) => {
             onClick={() => {
               setCollectType({
                 timeLimitEnabled: true,
-                isSimpleCollect: true
-              })
-              setShowDayPicker(true)
+                isSimpleCollect: true,
+              });
+              setShowDayPicker(true);
             }}
             className={tw(
-              uploadedMedia.collectModule.timeLimitEnabled && 'border-brand-500'
+              uploadedMedia.collectModule.timeLimitEnabled &&
+                "border-brand-500",
             )}
             variant="secondary"
           >
@@ -65,16 +66,16 @@ const CollectDuration: FC<Props> = ({ setCollectType }) => {
             type="number"
             min="1"
             onBlur={(e) => {
-              const { value } = e.target
+              const { value } = e.target;
               setCollectType({
-                timeLimit: !trimify(value) || Number(value) <= 0 ? '1' : value
-              })
+                timeLimit: !trimify(value) || Number(value) <= 0 ? "1" : value,
+              });
             }}
             onChange={(e) => {
-              const { value } = e.target
+              const { value } = e.target;
               setCollectType({
-                timeLimit: Number(value) <= 0 ? '' : value
-              })
+                timeLimit: Number(value) <= 0 ? "" : value,
+              });
             }}
             value={uploadedMedia.collectModule.timeLimit}
             placeholder="Number of days"
@@ -83,7 +84,7 @@ const CollectDuration: FC<Props> = ({ setCollectType }) => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default CollectDuration
+export default CollectDuration;

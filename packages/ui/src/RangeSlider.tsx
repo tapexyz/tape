@@ -1,11 +1,11 @@
-import * as SliderPrimitive from '@radix-ui/react-slider'
-import { tw } from '@tape.xyz/browser'
-import type { ElementRef } from 'react'
-import React, { forwardRef } from 'react'
+import * as SliderPrimitive from "@radix-ui/react-slider";
+import { tw } from "@tape.xyz/browser";
+import type { ElementRef } from "react";
+import { forwardRef } from "react";
 
 type RangeSliderProps = SliderPrimitive.SliderProps & {
-  className?: string
-}
+  className?: string;
+};
 
 export const RangeSlider = forwardRef<
   ElementRef<typeof SliderPrimitive.Root>,
@@ -14,8 +14,8 @@ export const RangeSlider = forwardRef<
   return (
     <SliderPrimitive.Root
       className={tw(
-        'relative flex h-5 w-full touch-none select-none items-center',
-        className
+        "relative flex h-5 w-full touch-none select-none items-center",
+        className,
       )}
       max={100}
       step={1}
@@ -29,7 +29,7 @@ export const RangeSlider = forwardRef<
         {props.value}
       </SliderPrimitive.Thumb>
     </SliderPrimitive.Root>
-  )
-})
+  );
+});
 
-RangeSlider.displayName = 'RangeSlider'
+RangeSlider.displayName = "RangeSlider";

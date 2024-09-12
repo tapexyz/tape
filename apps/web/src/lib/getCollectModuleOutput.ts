@@ -1,24 +1,24 @@
-import type { OpenActionModule } from '@tape.xyz/lens'
+import type { OpenActionModule } from "@tape.xyz/lens";
 
 export const getCollectModuleOutput = (openActionModule: OpenActionModule) => {
   const output = {
     collectLimit: 0,
     amount: {
-      fiat: '',
-      value: '',
-      assetAddress: '',
-      assetDecimals: '',
-      assetSymbol: ''
+      fiat: "",
+      value: "",
+      assetAddress: "",
+      assetDecimals: "",
+      assetSymbol: "",
     },
-    recipient: '',
+    recipient: "",
     recipients: [],
     referralFee: 0,
-    endsAt: '',
-    followerOnly: false
-  }
+    endsAt: "",
+    followerOnly: false,
+  };
   switch (openActionModule.__typename) {
-    case 'SimpleCollectOpenActionSettings':
-    case 'LegacySimpleCollectModuleSettings':
+    case "SimpleCollectOpenActionSettings":
+    case "LegacySimpleCollectModuleSettings":
       return {
         ...output,
         collectLimit: openActionModule.collectLimit,
@@ -27,15 +27,15 @@ export const getCollectModuleOutput = (openActionModule: OpenActionModule) => {
           assetSymbol: openActionModule.amount?.asset.symbol,
           assetAddress: openActionModule.amount?.asset.contract.address,
           assetDecimals: openActionModule.amount?.asset.decimals,
-          fiat: openActionModule.amount?.asFiat?.value ?? '0'
+          fiat: openActionModule.amount?.asFiat?.value ?? "0",
         },
         recipient: openActionModule.recipient,
         referralFee: openActionModule.referralFee,
         endsAt: openActionModule.endsAt,
-        followerOnly: openActionModule.followerOnly
-      }
-    case 'MultirecipientFeeCollectOpenActionSettings':
-    case 'LegacyMultirecipientFeeCollectModuleSettings':
+        followerOnly: openActionModule.followerOnly,
+      };
+    case "MultirecipientFeeCollectOpenActionSettings":
+    case "LegacyMultirecipientFeeCollectModuleSettings":
       return {
         ...output,
         collectLimit: openActionModule.collectLimit,
@@ -44,14 +44,14 @@ export const getCollectModuleOutput = (openActionModule: OpenActionModule) => {
           assetSymbol: openActionModule.amount?.asset.symbol,
           assetAddress: openActionModule.amount?.asset.contract.address,
           assetDecimals: openActionModule.amount?.asset.decimals,
-          fiat: openActionModule.amount?.asFiat?.value ?? 0
+          fiat: openActionModule.amount?.asFiat?.value ?? 0,
         },
         recipients: openActionModule.recipients,
         referralFee: openActionModule.referralFee,
         endsAt: openActionModule.endsAt,
-        followerOnly: openActionModule.followerOnly
-      }
+        followerOnly: openActionModule.followerOnly,
+      };
     default:
-      break
+      break;
   }
-}
+};

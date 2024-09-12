@@ -1,66 +1,66 @@
-import { tw } from '@tape.xyz/browser'
+import { tw } from "@tape.xyz/browser";
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
   IS_MAINNET,
   LENSTUBE_BYTES_APP_ID,
-  TAPE_APP_ID
-} from '@tape.xyz/constants'
-import { EVENTS } from '@tape.xyz/generic'
+  TAPE_APP_ID,
+} from "@tape.xyz/constants";
+import { EVENTS } from "@tape.xyz/generic";
 import type {
   ExplorePublicationRequest,
-  PrimaryPublication
-} from '@tape.xyz/lens'
+  PrimaryPublication,
+} from "@tape.xyz/lens";
 import {
   CustomFiltersType,
-  ExplorePublicationsOrderByType,
   ExplorePublicationType,
+  ExplorePublicationsOrderByType,
   LimitType,
   PublicationMetadataMainFocusType,
-  useExplorePublicationsQuery
-} from '@tape.xyz/lens'
+  useExplorePublicationsQuery,
+} from "@tape.xyz/lens";
 import {
   Button,
   CommentOutline,
   FireOutline,
   MirrorOutline,
-  Spinner
-} from '@tape.xyz/ui'
-import React, { useState } from 'react'
-import { useInView } from 'react-cool-inview'
+  Spinner,
+} from "@tape.xyz/ui";
+import { useState } from "react";
+import { useInView } from "react-cool-inview";
 
-import Timeline from '@/components/Home/Timeline'
-import TimelineShimmer from '@/components/Shimmers/TimelineShimmer'
-import { NoDataFound } from '@/components/UIElements/NoDataFound'
-import useSw from '@/hooks/useSw'
-import { getUnixTimestampNDaysAgo } from '@/lib/formatTime'
-import useAppStore from '@/lib/store'
+import Timeline from "@/components/Home/Timeline";
+import TimelineShimmer from "@/components/Shimmers/TimelineShimmer";
+import { NoDataFound } from "@/components/UIElements/NoDataFound";
+import useSw from "@/hooks/useSw";
+import { getUnixTimestampNDaysAgo } from "@/lib/formatTime";
+import useAppStore from "@/lib/store";
 
 const initialCriteria = {
   trending: true,
   popular: false,
-  interesting: false
-}
+  interesting: false,
+};
 
-const since = getUnixTimestampNDaysAgo(30)
+const since = getUnixTimestampNDaysAgo(30);
 
 const ExploreFeed = () => {
-  const [activeCriteria, setActiveCriteria] = useState(initialCriteria)
-  const activeTagFilter = useAppStore((state) => state.activeTagFilter)
-  const { addEventToQueue } = useSw()
+  const [activeCriteria, setActiveCriteria] = useState(initialCriteria);
+  const activeTagFilter = useAppStore((state) => state.activeTagFilter);
+  const { addEventToQueue } = useSw();
 
   const getCriteria = () => {
     if (activeCriteria.trending) {
-      return ExplorePublicationsOrderByType.TopCollectedOpenAction
+      return ExplorePublicationsOrderByType.TopCollectedOpenAction;
     }
     if (activeCriteria.popular) {
-      return ExplorePublicationsOrderByType.TopCommented
+      return ExplorePublicationsOrderByType.TopCommented;
     }
     if (activeCriteria.interesting) {
-      return ExplorePublicationsOrderByType.TopMirrored
+      return ExplorePublicationsOrderByType.TopMirrored;
     }
-    return ExplorePublicationsOrderByType.TopCollectedOpenAction
-  }
+    return ExplorePublicationsOrderByType.TopCollectedOpenAction;
+  };
 
   const request: ExplorePublicationRequest = {
     where: {
@@ -68,27 +68,27 @@ const ExploreFeed = () => {
       publicationTypes: [ExplorePublicationType.Post],
       metadata: {
         tags:
-          activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
+          activeTagFilter !== "all" ? { oneOf: [activeTagFilter] } : undefined,
         mainContentFocus: [PublicationMetadataMainFocusType.Video],
         publishedOn: IS_MAINNET
           ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
-          : undefined
+          : undefined,
       },
-      since
+      since,
     },
     orderBy: getCriteria(),
-    limit: LimitType.Fifty
-  }
+    limit: LimitType.Fifty,
+  };
 
   const { data, loading, error, fetchMore } = useExplorePublicationsQuery({
     variables: {
-      request
-    }
-  })
+      request,
+    },
+  });
 
   const videos = data?.explorePublications
-    ?.items as unknown as PrimaryPublication[]
-  const pageInfo = data?.explorePublications?.pageInfo
+    ?.items as unknown as PrimaryPublication[];
+  const pageInfo = data?.explorePublications?.pageInfo;
 
   const { observe } = useInView({
     rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
@@ -97,24 +97,24 @@ const ExploreFeed = () => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next
-          }
-        }
-      })
-    }
-  })
+            cursor: pageInfo?.next,
+          },
+        },
+      });
+    },
+  });
 
   return (
     <div className="laptop:pt-6 pt-4">
       <div className="flex space-x-2">
         <Button
           variant="secondary"
-          className={tw(activeCriteria.trending && 'border-brand-500')}
+          className={tw(activeCriteria.trending && "border-brand-500")}
           onClick={() => {
-            setActiveCriteria({ ...initialCriteria })
+            setActiveCriteria({ ...initialCriteria });
             addEventToQueue(EVENTS.PAGEVIEW, {
-              page: EVENTS.PAGE_VIEW.EXPLORE_TRENDING
-            })
+              page: EVENTS.PAGE_VIEW.EXPLORE_TRENDING,
+            });
           }}
           icon={<FireOutline className="size-5" />}
         >
@@ -122,16 +122,16 @@ const ExploreFeed = () => {
         </Button>
         <Button
           variant="secondary"
-          className={tw(activeCriteria.popular && 'border-brand-500')}
+          className={tw(activeCriteria.popular && "border-brand-500")}
           onClick={() => {
             setActiveCriteria({
               ...initialCriteria,
               popular: true,
-              trending: false
-            })
+              trending: false,
+            });
             addEventToQueue(EVENTS.PAGEVIEW, {
-              page: EVENTS.PAGE_VIEW.EXPLORE_POPULAR
-            })
+              page: EVENTS.PAGE_VIEW.EXPLORE_POPULAR,
+            });
           }}
           icon={<CommentOutline className="size-5" />}
         >
@@ -139,16 +139,16 @@ const ExploreFeed = () => {
         </Button>
         <Button
           variant="secondary"
-          className={tw(activeCriteria.interesting && 'border-brand-500')}
+          className={tw(activeCriteria.interesting && "border-brand-500")}
           onClick={() => {
             setActiveCriteria({
               ...initialCriteria,
               interesting: true,
-              trending: false
-            })
+              trending: false,
+            });
             addEventToQueue(EVENTS.PAGEVIEW, {
-              page: EVENTS.PAGE_VIEW.EXPLORE_INTERESTING
-            })
+              page: EVENTS.PAGE_VIEW.EXPLORE_INTERESTING,
+            });
           }}
           icon={<MirrorOutline className="size-5" />}
         >
@@ -173,7 +173,7 @@ const ExploreFeed = () => {
         ) : null}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ExploreFeed
+export default ExploreFeed;

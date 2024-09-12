@@ -1,17 +1,17 @@
-import type { Config } from 'tailwindcss'
-const base = require('@tape.xyz/ui/tailwind-preset')
+import type { Config } from "tailwindcss";
+const base = require("@tape.xyz/ui/tailwind-preset");
 
 const config: Config = {
   ...base,
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}'
+    "./src/pages/**/*.{ts,tsx}",
+    "./src/components/**/*.{ts,tsx}",
+    "./src/app/**/*.{ts,tsx}",
   ],
   theme: {
-    extend: {}
+    extend: {},
   },
-  plugins: []
-}
+  plugins: [],
+};
 
-export default config
+export default config;

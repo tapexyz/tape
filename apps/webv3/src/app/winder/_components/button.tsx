@@ -1,14 +1,14 @@
-import { AnimatePresence, motion } from 'framer-motion'
-import { useState } from 'react'
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 
-import { Spinner, Success, Warning } from './icons'
+import { Spinner, Success, Warning } from "./icons";
 
 export const Button = () => {
-  const [state, setState] = useState<'idle' | 'loading' | 'warning'>('idle')
+  const [state, setState] = useState<"idle" | "loading" | "warning">("idle");
 
   const getIcon = () => {
     switch (state) {
-      case 'loading':
+      case "loading":
         return (
           <motion.span
             key={state}
@@ -18,8 +18,8 @@ export const Button = () => {
           >
             <Spinner className="mr-1.5 size-5" />
           </motion.span>
-        )
-      case 'warning':
+        );
+      case "warning":
         return (
           <motion.span
             key={state}
@@ -30,14 +30,14 @@ export const Button = () => {
               x: [0, -2, 2, -2, 2, 0],
               transition: {
                 scale: { duration: 0.2 },
-                x: { delay: 0.5, duration: 0.3 }
-              }
+                x: { delay: 0.5, duration: 0.3 },
+              },
             }}
             exit={{ scale: 0, opacity: 0 }}
           >
             <Warning className="mr-1.5 size-5" />
           </motion.span>
-        )
+        );
       default:
         return (
           <motion.span
@@ -48,48 +48,48 @@ export const Button = () => {
           >
             <Success className="mr-1.5 size-5" />
           </motion.span>
-        )
+        );
     }
-  }
+  };
 
   const onClickBtn = () => {
-    setState('loading')
+    setState("loading");
     setTimeout(() => {
-      setState('warning')
+      setState("warning");
       setTimeout(() => {
-        setState('loading')
+        setState("loading");
         setTimeout(() => {
-          setState('idle')
+          setState("idle");
           setTimeout(() => {
-            onClickBtn()
-          }, 4000)
-        }, 1800)
-      }, 1800)
-    }, 1800)
-  }
+            onClickBtn();
+          }, 4000);
+        }, 1800);
+      }, 1800);
+    }, 1800);
+  };
 
   const bgColor =
-    state === 'warning'
-      ? '#FFE3E1'
-      : state === 'loading'
-        ? '#E6F4FF'
-        : '#DCF4DE'
+    state === "warning"
+      ? "#FFE3E1"
+      : state === "loading"
+        ? "#E6F4FF"
+        : "#DCF4DE";
   const textColor =
-    state === 'warning'
-      ? '#FF424A'
-      : state === 'loading'
-        ? '#40A3EF'
-        : '#38C65C'
+    state === "warning"
+      ? "#FF424A"
+      : state === "loading"
+        ? "#40A3EF"
+        : "#38C65C";
 
   return (
     <motion.button
       initial={{
         backgroundColor: bgColor,
-        color: textColor
+        color: textColor,
       }}
       animate={{
         backgroundColor: bgColor,
-        color: textColor
+        color: textColor,
       }}
       className="flex items-center overflow-hidden rounded-full px-5 py-2.5 text-lg font-semibold"
       onClick={() => onClickBtn()}
@@ -100,12 +100,12 @@ export const Button = () => {
 
       <div className="flex items-center gap-1">
         <AnimatePresence mode="popLayout" initial={false}>
-          {state === 'loading' ? (
+          {state === "loading" ? (
             <motion.span
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -30 }}
-              transition={{ type: 'spring', duration: 0.4 }}
+              transition={{ type: "spring", duration: 0.4 }}
             >
               Analyzing
             </motion.span>
@@ -113,18 +113,18 @@ export const Button = () => {
         </AnimatePresence>
         <motion.span
           layout
-          transition={{ type: 'spring', duration: 0.4, bounce: 0.2 }}
+          transition={{ type: "spring", duration: 0.4, bounce: 0.2 }}
         >
           Transaction
         </motion.span>
         <AnimatePresence mode="popLayout" initial={false}>
-          {state === 'warning' ? (
+          {state === "warning" ? (
             <motion.span
               initial={{ opacity: 0, x: 50 }}
               animate={{
                 opacity: 1,
                 x: 0,
-                transition: { duration: 0.2 }
+                transition: { duration: 0.2 },
               }}
               exit={{ opacity: 0, x: 50 }}
               transition={{ duration: 0.3 }}
@@ -134,16 +134,16 @@ export const Button = () => {
           ) : null}
         </AnimatePresence>
         <AnimatePresence mode="popLayout" initial={false}>
-          {state === 'idle' ? (
+          {state === "idle" ? (
             <motion.span
               initial={{ opacity: 0, x: 50 }}
               animate={{
                 opacity: 1,
                 x: 0,
-                transition: { duration: 0.2 }
+                transition: { duration: 0.2 },
               }}
               exit={{ opacity: 0, x: 50, transition: { duration: 0.4 } }}
-              transition={{ duration: 0.3, type: 'spring' }}
+              transition={{ duration: 0.3, type: "spring" }}
             >
               Safe
             </motion.span>
@@ -151,5 +151,5 @@ export const Button = () => {
         </AnimatePresence>
       </div>
     </motion.button>
-  )
-}
+  );
+};

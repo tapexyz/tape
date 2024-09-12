@@ -1,58 +1,58 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
+import { zodResolver } from "@hookform/resolvers/zod";
+import { LENSHUB_PROXY_ABI } from "@tape.xyz/abis";
 import {
   ERROR_MESSAGE,
   INFINITE_SCROLL_ROOT_MARGIN,
   LENSHUB_PROXY_ADDRESS,
-  REQUESTING_SIGNATURE_MESSAGE
-} from '@tape.xyz/constants'
+  REQUESTING_SIGNATURE_MESSAGE,
+} from "@tape.xyz/constants";
 import {
   checkLensManagerPermissions,
   getSignature,
-  shortenAddress
-} from '@tape.xyz/generic'
-import type { ProfileManagersRequest } from '@tape.xyz/lens'
+  shortenAddress,
+} from "@tape.xyz/generic";
+import type { ProfileManagersRequest } from "@tape.xyz/lens";
 import {
   ChangeProfileManagerActionType,
   useBroadcastOnchainMutation,
   useCreateChangeProfileManagersTypedDataMutation,
-  useProfileManagersQuery
-} from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Button, ExternalOutline, Input, Modal, Spinner } from '@tape.xyz/ui'
-import React, { useEffect, useMemo, useState } from 'react'
-import { useInView } from 'react-cool-inview'
-import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
-import { isAddress } from 'viem'
-import { useSignTypedData, useWriteContract } from 'wagmi'
-import { object, string, type z } from 'zod'
+  useProfileManagersQuery,
+} from "@tape.xyz/lens";
+import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
+import { Button, ExternalOutline, Input, Modal, Spinner } from "@tape.xyz/ui";
+import { useEffect, useMemo, useState } from "react";
+import { useInView } from "react-cool-inview";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { isAddress } from "viem";
+import { useSignTypedData, useWriteContract } from "wagmi";
+import { object, string, type z } from "zod";
 
-import AddressExplorerLink from '@/components/Common/Links/AddressExplorerLink'
-import { NoDataFound } from '@/components/UIElements/NoDataFound'
-import { useDid } from '@/hooks/useDid'
-import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
-import usePendingTxn from '@/hooks/usePendingTxn'
-import useProfileStore from '@/lib/store/idb/profile'
-import useNonceStore from '@/lib/store/nonce'
+import AddressExplorerLink from "@/components/Common/Links/AddressExplorerLink";
+import { NoDataFound } from "@/components/UIElements/NoDataFound";
+import { useDid } from "@/hooks/useDid";
+import useHandleWrongNetwork from "@/hooks/useHandleWrongNetwork";
+import usePendingTxn from "@/hooks/usePendingTxn";
+import useProfileStore from "@/lib/store/idb/profile";
+import useNonceStore from "@/lib/store/nonce";
 
 const formSchema = object({
   address: string().refine((addr) => isAddress(addr), {
-    message: 'Invalid address'
-  })
-})
-type FormData = z.infer<typeof formSchema>
+    message: "Invalid address",
+  }),
+});
+type FormData = z.infer<typeof formSchema>;
 
 const Entry = ({
   address,
   removingAddress,
-  onRemove
+  onRemove,
 }: {
-  address: string
-  removingAddress: string
-  onRemove: (address: string) => void
+  address: string;
+  removingAddress: string;
+  onRemove: (address: string) => void;
 }) => {
-  const { did } = useDid({ address })
+  const { did } = useDid({ address });
   return (
     <div
       key={address}
@@ -76,146 +76,145 @@ const Entry = ({
         Remove
       </Button>
     </div>
-  )
-}
+  );
+};
 
 const Managers = () => {
-  const [submitting, setSubmitting] = useState(false)
-  const [removingAddress, setRemovingAddress] = useState('')
-  const [showModal, setShowModal] = useState(false)
+  const [submitting, setSubmitting] = useState(false);
+  const [removingAddress, setRemovingAddress] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors }
+    formState: { errors },
   } = useForm<FormData>({
-    resolver: zodResolver(formSchema)
-  })
+    resolver: zodResolver(formSchema),
+  });
 
-  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
-  const activeProfile = useProfileStore((state) => state.activeProfile)
-  const handleWrongNetwork = useHandleWrongNetwork()
-  const { canBroadcast } = checkLensManagerPermissions(activeProfile)
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
+  const activeProfile = useProfileStore((state) => state.activeProfile);
+  const handleWrongNetwork = useHandleWrongNetwork();
+  const { canBroadcast } = checkLensManagerPermissions(activeProfile);
 
-  const request: ProfileManagersRequest = { for: activeProfile?.id }
+  const request: ProfileManagersRequest = { for: activeProfile?.id };
   const { data, refetch, error, loading, fetchMore } = useProfileManagersQuery({
     variables: { request },
-    skip: !activeProfile?.id
-  })
+    skip: !activeProfile?.id,
+  });
   const profileManagersWithoutLensManager = useMemo(() => {
     if (!data?.profileManagers?.items) {
-      return []
+      return [];
     }
-    return data.profileManagers.items.filter((m) => !m.isLensManager)
-  }, [data?.profileManagers])
+    return data.profileManagers.items.filter((m) => !m.isLensManager);
+  }, [data?.profileManagers]);
 
-  const pageInfo = data?.profileManagers?.pageInfo
+  const pageInfo = data?.profileManagers?.pageInfo;
 
   const onError = (error: CustomErrorWithData) => {
-    toast.error(error?.message ?? ERROR_MESSAGE)
-    setSubmitting(false)
-    setRemovingAddress('')
-  }
+    toast.error(error?.message ?? ERROR_MESSAGE);
+    setSubmitting(false);
+    setRemovingAddress("");
+  };
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
-    if (__typename === 'RelayError') {
-      return
+  const onCompleted = (__typename?: "RelayError" | "RelaySuccess") => {
+    if (__typename === "RelayError") {
+      return;
     }
 
-    reset()
-    refetch()
-    setRemovingAddress('')
-    setShowModal(false)
-    setSubmitting(false)
-  }
+    reset();
+    refetch();
+    setRemovingAddress("");
+    setShowModal(false);
+    setSubmitting(false);
+  };
 
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError }
-  })
+    mutation: { onError },
+  });
 
   const { writeContractAsync, data: writeHash } = useWriteContract({
     mutation: {
       onSuccess: () => {
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
       },
       onError: (error) => {
-        onError(error)
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
-      }
-    }
-  })
+        onError(error);
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+      },
+    },
+  });
 
   const write = async ({ args }: { args: any[] }) => {
     return await writeContractAsync({
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
-      functionName: 'changeDelegatedExecutorsConfig',
-      args
-    })
-  }
+      functionName: "changeDelegatedExecutorsConfig",
+      args,
+    });
+  };
 
   const [broadcast, { data: broadcastData }] = useBroadcastOnchainMutation({
     onError,
     onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename)
-  })
+      onCompleted(broadcastOnchain.__typename),
+  });
 
   const { indexed } = usePendingTxn({
     txHash: writeHash,
-    ...(broadcastData?.broadcastOnchain.__typename === 'RelaySuccess' && {
-      txId: broadcastData?.broadcastOnchain?.txId
-    })
-  })
+    ...(broadcastData?.broadcastOnchain.__typename === "RelaySuccess" && {
+      txId: broadcastData?.broadcastOnchain?.txId,
+    }),
+  });
 
   useEffect(() => {
     if (indexed) {
-      onCompleted()
+      onCompleted();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [indexed])
+  }, [indexed]);
 
   const [toggleLensManager] = useCreateChangeProfileManagersTypedDataMutation({
     onCompleted: async ({ createChangeProfileManagersTypedData }) => {
-      const { id, typedData } = createChangeProfileManagersTypedData
+      const { id, typedData } = createChangeProfileManagersTypedData;
       const {
         delegatorProfileId,
         delegatedExecutors,
         approvals,
         configNumber,
-        switchToGivenConfig
-      } = typedData.value
+        switchToGivenConfig,
+      } = typedData.value;
       const args = [
         delegatorProfileId,
         delegatedExecutors,
         approvals,
         configNumber,
-        switchToGivenConfig
-      ]
+        switchToGivenConfig,
+      ];
       try {
-        toast.loading(REQUESTING_SIGNATURE_MESSAGE)
+        toast.loading(REQUESTING_SIGNATURE_MESSAGE);
         if (canBroadcast) {
-          const signature = await signTypedDataAsync(getSignature(typedData))
+          const signature = await signTypedDataAsync(getSignature(typedData));
           const { data } = await broadcast({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return await write({ args })
+            variables: { request: { id, signature } },
+          });
+          if (data?.broadcastOnchain.__typename === "RelayError") {
+            return await write({ args });
           }
-          return
+          return;
         }
-        return await write({ args })
+        return await write({ args });
       } catch {
-        setSubmitting(false)
+        setSubmitting(false);
       }
     },
-    onError
-  })
+    onError,
+  });
 
   const addManager = async ({ address }: FormData) => {
-    await handleWrongNetwork()
+    await handleWrongNetwork();
 
-    setSubmitting(true)
+    setSubmitting(true);
     return await toggleLensManager({
       variables: {
         options: { overrideSigNonce: lensHubOnchainSigNonce },
@@ -223,18 +222,18 @@ const Managers = () => {
           changeManagers: [
             {
               address,
-              action: ChangeProfileManagerActionType.Add
-            }
-          ]
-        }
-      }
-    })
-  }
+              action: ChangeProfileManagerActionType.Add,
+            },
+          ],
+        },
+      },
+    });
+  };
 
   const removeManager = async (address: string) => {
-    await handleWrongNetwork()
+    await handleWrongNetwork();
 
-    setRemovingAddress(address)
+    setRemovingAddress(address);
     return await toggleLensManager({
       variables: {
         options: { overrideSigNonce: lensHubOnchainSigNonce },
@@ -242,13 +241,13 @@ const Managers = () => {
           changeManagers: [
             {
               address,
-              action: ChangeProfileManagerActionType.Remove
-            }
-          ]
-        }
-      }
-    })
-  }
+              action: ChangeProfileManagerActionType.Remove,
+            },
+          ],
+        },
+      },
+    });
+  };
 
   const { observe } = useInView({
     threshold: 0.25,
@@ -258,12 +257,12 @@ const Managers = () => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next
-          }
-        }
-      })
-    }
-  })
+            cursor: pageInfo?.next,
+          },
+        },
+      });
+    },
+  });
 
   return (
     <div>
@@ -282,14 +281,14 @@ const Managers = () => {
               label="Address"
               placeholder="0x00..."
               error={errors.address?.message}
-              {...register('address')}
+              {...register("address")}
             />
             <div className="mt-4 flex justify-end gap-2">
               <Button
                 type="button"
                 onClick={() => {
-                  reset()
-                  setShowModal(false)
+                  reset();
+                  setShowModal(false);
                 }}
                 variant="secondary"
               >
@@ -326,7 +325,7 @@ const Managers = () => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Managers
+export default Managers;

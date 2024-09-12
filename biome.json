@@ -1,0 +1,52 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "organizeImports": {
+    "enabled": true
+  },
+  "files": {
+    "ignore": [
+      "**/.next/**",
+      "**/dist/**",
+      "**/artifacts/**",
+      "**/node_modules/**",
+      "**/.git/**",
+      "**/.github/**",
+      "sw.js",
+      "**/cache/**",
+      ".openzeppelin",
+      "packages/tsconfig",
+      "**/generated/**",
+      "generated.ts"
+    ]
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "a11y": {
+        "noSvgWithoutTitle": "off"
+      },
+      "style": {
+        "noNonNullAssertion": "off"
+      },
+      "correctness": {
+        "useExhaustiveDependencies": "off",
+        "noUnusedImports": {
+          "fix": "safe",
+          "level": "error"
+        }
+      },
+      "suspicious": {
+        "noExplicitAny": "warn",
+        "noMisleadingCharacterClass": "warn",
+        "noArrayIndexKey": "warn"
+      },
+      "complexity": {
+        "noForEach": "warn"
+      }
+    }
+  },
+  "formatter": {
+    "indentStyle": "space"
+  }
+}

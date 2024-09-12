@@ -1,11 +1,10 @@
-import type { SVGProps } from 'react'
-import React from 'react'
+import type { SVGProps } from "react";
 
 export const TimesOutline = ({
   outlined = true,
   ...props
 }: SVGProps<SVGSVGElement> & {
-  outlined?: boolean
+  outlined?: boolean;
 }) => (
   <svg
     {...props}
@@ -37,4 +36,4 @@ export const TimesOutline = ({
       />
     )}
   </svg>
-)
+);

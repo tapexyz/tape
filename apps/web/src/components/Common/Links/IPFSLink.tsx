@@ -1,14 +1,13 @@
-import { IPFS_GATEWAY_URL } from '@tape.xyz/constants'
-import Link from 'next/link'
-import type { ReactElement } from 'react'
-import React from 'react'
+import { IPFS_GATEWAY_URL } from "@tape.xyz/constants";
+import Link from "next/link";
+import type { ReactElement } from "react";
 
 const IPFSLink = ({
   hash,
-  children
+  children,
 }: {
-  hash: string
-  children: ReactElement
+  hash: string;
+  children: ReactElement;
 }) => {
   return (
     <Link
@@ -18,7 +17,7 @@ const IPFSLink = ({
     >
       {children}
     </Link>
-  )
-}
+  );
+};
 
-export default IPFSLink
+export default IPFSLink;

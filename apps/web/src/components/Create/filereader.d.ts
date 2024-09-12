@@ -1,1 +1,1 @@
-declare module 'filereader-stream'
+declare module "filereader-stream";

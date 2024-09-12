@@ -1,23 +1,23 @@
-import { FollowModuleType, type Profile } from '@tape.xyz/lens'
-import type { FC } from 'react'
-import React, { useEffect, useState } from 'react'
+import { FollowModuleType, type Profile } from "@tape.xyz/lens";
+import type { FC } from "react";
+import { useEffect, useState } from "react";
 
-import Follow from '@/components/Profile/BasicInfo/Follow'
-import SuperFollow from '@/components/Profile/BasicInfo/SuperFollow'
-import UnFollow from '@/components/Profile/BasicInfo/UnFollow'
+import Follow from "@/components/Profile/BasicInfo/Follow";
+import SuperFollow from "@/components/Profile/BasicInfo/SuperFollow";
+import UnFollow from "@/components/Profile/BasicInfo/UnFollow";
 
 type Props = {
-  profile: Profile
-}
+  profile: Profile;
+};
 
 const FollowActions: FC<Props> = ({ profile }) => {
-  const isFollowedByMe = profile?.operations.isFollowedByMe.value
-  const [subscriber, setSubscriber] = useState(isFollowedByMe)
-  const followModule = profile?.followModule?.type
+  const isFollowedByMe = profile?.operations.isFollowedByMe.value;
+  const [subscriber, setSubscriber] = useState(isFollowedByMe);
+  const followModule = profile?.followModule?.type;
 
   useEffect(() => {
-    setSubscriber(isFollowedByMe)
-  }, [isFollowedByMe])
+    setSubscriber(isFollowedByMe);
+  }, [isFollowedByMe]);
 
   return subscriber ? (
     <UnFollow profile={profile} onUnSubscribe={() => setSubscriber(false)} />
@@ -25,7 +25,7 @@ const FollowActions: FC<Props> = ({ profile }) => {
     <SuperFollow profile={profile} onJoin={() => setSubscriber(true)} />
   ) : !followModule ? (
     <Follow profile={profile} onSubscribe={() => setSubscriber(true)} />
-  ) : null
-}
+  ) : null;
+};
 
-export default FollowActions
+export default FollowActions;

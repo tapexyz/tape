@@ -1,9 +1,9 @@
-import { omitKey } from './omitKey'
+import { omitKey } from "./omitKey";
 
 interface TypedData {
-  domain: Record<string, any>
-  types: Record<string, any>
-  value: Record<string, any>
+  domain: Record<string, any>;
+  types: Record<string, any>;
+  value: Record<string, any>;
 }
 
 /**
@@ -13,19 +13,19 @@ interface TypedData {
  * @returns An object containing the three parts of the typed data.
  */
 export const getSignature = (
-  typedData: TypedData
+  typedData: TypedData,
 ): {
-  primaryType: string
-  domain: Record<string, any>
-  types: Record<string, any>
-  message: Record<string, any>
+  primaryType: string;
+  domain: Record<string, any>;
+  types: Record<string, any>;
+  message: Record<string, any>;
 } => {
-  const { domain, types, value } = typedData
+  const { domain, types, value } = typedData;
 
   return {
-    primaryType: Object.keys(omitKey(types, '__typename'))[0],
-    domain: omitKey(domain, '__typename'),
-    types: omitKey(types, '__typename'),
-    message: omitKey(value, '__typename')
-  }
-}
+    primaryType: Object.keys(omitKey(types, "__typename"))[0]!,
+    domain: omitKey(domain, "__typename"),
+    types: omitKey(types, "__typename"),
+    message: omitKey(value, "__typename"),
+  };
+};

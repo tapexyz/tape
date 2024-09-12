@@ -1,31 +1,31 @@
-import type { Maybe, PublicationMetadataMedia } from '@tape.xyz/lens'
+import type { Maybe, PublicationMetadataMedia } from "@tape.xyz/lens";
 
 export const getAttachmentsData = (
-  attachments?: Maybe<PublicationMetadataMedia[]>
+  attachments?: Maybe<PublicationMetadataMedia[]>,
 ): any => {
   if (!attachments) {
-    return []
+    return [];
   }
 
   return attachments.map((attachment) => {
     switch (attachment.__typename) {
-      case 'PublicationMetadataMediaImage':
+      case "PublicationMetadataMediaImage":
         return {
           uri: attachment.image.optimized?.uri,
-          type: 'Image'
-        }
-      case 'PublicationMetadataMediaVideo':
+          type: "Image",
+        };
+      case "PublicationMetadataMediaVideo":
         return {
           uri: attachment.video.optimized?.uri,
-          type: 'Video'
-        }
-      case 'PublicationMetadataMediaAudio':
+          type: "Video",
+        };
+      case "PublicationMetadataMediaAudio":
         return {
           uri: attachment.audio.optimized?.uri,
-          type: 'Audio'
-        }
+          type: "Audio",
+        };
       default:
-        return []
+        return [];
     }
-  })
-}
+  });
+};

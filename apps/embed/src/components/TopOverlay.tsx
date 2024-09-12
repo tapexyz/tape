@@ -1,53 +1,53 @@
-import { useCopyToClipboard } from '@tape.xyz/browser'
+import { useCopyToClipboard } from "@tape.xyz/browser";
 import {
   STATIC_ASSETS,
   TAPE_APP_NAME,
-  TAPE_WEBSITE_URL
-} from '@tape.xyz/constants'
+  TAPE_WEBSITE_URL,
+} from "@tape.xyz/constants";
 import {
   EVENTS,
   getLennyPicture,
   getProfile,
   getProfilePicture,
-  getPublicationData
-} from '@tape.xyz/generic'
-import type { PrimaryPublication } from '@tape.xyz/lens'
-import { CopyOutline } from '@tape.xyz/ui'
-import Link from 'next/link'
-import type { FC } from 'react'
-import React, { useEffect, useState } from 'react'
+  getPublicationData,
+} from "@tape.xyz/generic";
+import type { PrimaryPublication } from "@tape.xyz/lens";
+import { CopyOutline } from "@tape.xyz/ui";
+import Link from "next/link";
+import type { FC } from "react";
+import { useEffect, useState } from "react";
 
-import { Tower } from '@/tower'
+import { Tower } from "@/tower";
 
 type OverlayProps = {
-  playerRef: HTMLMediaElement | undefined
-  video: PrimaryPublication
-}
+  playerRef: HTMLMediaElement | undefined;
+  video: PrimaryPublication;
+};
 
 const TopOverlay: FC<OverlayProps> = ({ playerRef, video }) => {
-  const [showVideoOverlay, setShowVideoOverlay] = useState(true)
-  const [copy] = useCopyToClipboard()
+  const [showVideoOverlay, setShowVideoOverlay] = useState(true);
+  const [copy] = useCopyToClipboard();
 
   useEffect(() => {
     if (playerRef) {
       playerRef.onpause = () => {
-        setShowVideoOverlay(true)
-      }
+        setShowVideoOverlay(true);
+      };
       playerRef.onplay = () => {
-        setShowVideoOverlay(false)
-      }
+        setShowVideoOverlay(false);
+      };
     }
-  }, [playerRef])
+  }, [playerRef]);
 
   const onCopyVideoUrl = async () => {
-    await copy(`${TAPE_WEBSITE_URL}/watch/${video.id}`)
-    Tower.track(EVENTS.EMBED_VIDEO.CLICK_COPY_URL)
-  }
+    await copy(`${TAPE_WEBSITE_URL}/watch/${video.id}`);
+    Tower.track(EVENTS.EMBED_VIDEO.CLICK_COPY_URL);
+  };
 
   return (
     <div
       className={`${
-        showVideoOverlay ? 'visible' : 'invisible'
+        showVideoOverlay ? "visible" : "invisible"
       } transition-all duration-200 ease-in-out group-hover:visible`}
     >
       <div className="absolute top-0 z-10 w-full text-white">
@@ -62,10 +62,10 @@ const TopOverlay: FC<OverlayProps> = ({ playerRef, video }) => {
               }
             >
               <img
-                src={getProfilePicture(video.by, 'AVATAR')}
+                src={getProfilePicture(video.by, "AVATAR")}
                 className="size-9 rounded-full"
                 onError={({ currentTarget }) => {
-                  currentTarget.src = getLennyPicture(video.by?.id)
+                  currentTarget.src = getLennyPicture(video.by?.id);
                 }}
                 alt={getProfile(video.by)?.slug}
                 draggable={false}
@@ -97,6 +97,7 @@ const TopOverlay: FC<OverlayProps> = ({ playerRef, video }) => {
             </div>
           </div>
           <button
+            type="button"
             onClick={() => onCopyVideoUrl()}
             className="invisible rounded-full bg-black/50 p-3 transition-all duration-200 ease-in-out group-hover:visible"
           >
@@ -123,7 +124,7 @@ const TopOverlay: FC<OverlayProps> = ({ playerRef, video }) => {
         </Link>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default TopOverlay
+export default TopOverlay;

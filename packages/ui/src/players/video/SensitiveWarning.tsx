@@ -1,9 +1,8 @@
-import type { FC } from 'react'
-import React from 'react'
+import type { FC } from "react";
 
 type Props = {
-  acceptWarning: () => void
-}
+  acceptWarning: () => void;
+};
 
 const SensitiveWarning: FC<Props> = ({ acceptWarning }) => {
   return (
@@ -24,7 +23,7 @@ const SensitiveWarning: FC<Props> = ({ acceptWarning }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SensitiveWarning
+export default SensitiveWarning;

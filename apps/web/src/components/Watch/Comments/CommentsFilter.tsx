@@ -1,12 +1,11 @@
-import { tw } from '@tape.xyz/browser'
-import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
-import { DropdownMenu, DropdownMenuItem, SortOutline } from '@tape.xyz/ui'
-import React from 'react'
+import { tw } from "@tape.xyz/browser";
+import { CustomCommentsFilterEnum } from "@tape.xyz/lens/custom-types";
+import { DropdownMenu, DropdownMenuItem, SortOutline } from "@tape.xyz/ui";
 
-import useCommentStore from '@/lib/store/comment'
+import useCommentStore from "@/lib/store/comment";
 
 const CommentsFilter = () => {
-  const { selectedCommentFilter, setSelectedCommentFilter } = useCommentStore()
+  const { selectedCommentFilter, setSelectedCommentFilter } = useCommentStore();
 
   return (
     <DropdownMenu trigger={<SortOutline className="size-5" />}>
@@ -17,9 +16,9 @@ const CommentsFilter = () => {
       >
         <p
           className={tw(
-            'whitespace-nowrap',
+            "whitespace-nowrap",
             selectedCommentFilter ===
-              CustomCommentsFilterEnum.RELEVANT_COMMENTS && 'font-bold'
+              CustomCommentsFilterEnum.RELEVANT_COMMENTS && "font-bold",
           )}
         >
           Relevant
@@ -32,16 +31,16 @@ const CommentsFilter = () => {
       >
         <p
           className={tw(
-            'whitespace-nowrap',
+            "whitespace-nowrap",
             selectedCommentFilter ===
-              CustomCommentsFilterEnum.NEWEST_COMMENTS && 'font-bold'
+              CustomCommentsFilterEnum.NEWEST_COMMENTS && "font-bold",
           )}
         >
           Newest first
         </p>
       </DropdownMenuItem>
     </DropdownMenu>
-  )
-}
+  );
+};
 
-export default CommentsFilter
+export default CommentsFilter;

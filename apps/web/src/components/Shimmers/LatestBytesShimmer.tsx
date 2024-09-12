@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react'
+import { useMemo } from "react";
 
 const LatestBytesShimmer = ({ count = 15 }: { count?: number }) => {
-  const cards = useMemo(() => Array(count).fill(1), [count])
+  const cards = useMemo(() => Array(count).fill(1), [count]);
   return (
     <div className="animate-shimmer">
       <div className="no-scrollbar relative mb-8 flex items-start space-x-4 overflow-x-auto scroll-smooth">
@@ -12,7 +12,7 @@ const LatestBytesShimmer = ({ count = 15 }: { count?: number }) => {
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default LatestBytesShimmer
+export default LatestBytesShimmer;

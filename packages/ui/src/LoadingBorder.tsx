@@ -3,9 +3,10 @@ import {
   useAnimationFrame,
   useMotionTemplate,
   useMotionValue,
-  useTransform
-} from 'framer-motion'
-import React, { useRef } from 'react'
+  useTransform,
+} from "framer-motion";
+import type React from "react";
+import { useRef } from "react";
 
 const LoadingBorder = ({
   rx,
@@ -14,33 +15,33 @@ const LoadingBorder = ({
   duration = 2000,
   ...otherProps
 }: {
-  children: React.ReactNode
-  duration?: number
-  rx?: string
-  ry?: string
-  [key: string]: any
+  children: React.ReactNode;
+  duration?: number;
+  rx?: string;
+  ry?: string;
+  [key: string]: any;
 }) => {
-  const pathRef = useRef<SVGRectElement>(null)
-  const progress = useMotionValue<number>(0)
+  const pathRef = useRef<SVGRectElement>(null);
+  const progress = useMotionValue<number>(0);
 
   useAnimationFrame((time) => {
-    const length = pathRef.current?.getTotalLength()
+    const length = pathRef.current?.getTotalLength();
     if (length) {
-      const pxPerMillisecond = length / duration
-      progress.set((time * pxPerMillisecond) % length)
+      const pxPerMillisecond = length / duration;
+      progress.set((time * pxPerMillisecond) % length);
     }
-  })
+  });
 
   const x = useTransform(
     progress,
-    (val) => pathRef.current?.getPointAtLength(val).x
-  )
+    (val) => pathRef.current?.getPointAtLength(val).x,
+  );
   const y = useTransform(
     progress,
-    (val) => pathRef.current?.getPointAtLength(val).y
-  )
+    (val) => pathRef.current?.getPointAtLength(val).y,
+  );
 
-  const transform = useMotionTemplate`translateX(${x}px) translateY(${y}px) translateX(-50%) translateY(-50%)`
+  const transform = useMotionTemplate`translateX(${x}px) translateY(${y}px) translateX(-50%) translateY(-50%)`;
 
   return (
     <>
@@ -63,17 +64,17 @@ const LoadingBorder = ({
       </svg>
       <motion.div
         style={{
-          position: 'absolute',
+          position: "absolute",
           top: 0,
           left: 0,
-          display: 'inline-block',
-          transform
+          display: "inline-block",
+          transform,
         }}
       >
         {children}
       </motion.div>
     </>
-  )
-}
+  );
+};
 
-export default LoadingBorder
+export default LoadingBorder;

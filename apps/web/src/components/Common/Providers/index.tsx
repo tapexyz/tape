@@ -1,41 +1,40 @@
-import { LivepeerConfig } from '@livepeer/react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { getLivepeerClient } from '@tape.xyz/browser'
-import { apolloClient, ApolloProvider } from '@tape.xyz/lens/apollo'
-import { useRouter } from 'next/router'
-import type { ReactNode } from 'react'
-import React from 'react'
+import { LivepeerConfig } from "@livepeer/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { getLivepeerClient } from "@tape.xyz/browser";
+import { ApolloProvider, apolloClient } from "@tape.xyz/lens/apollo";
+import { useRouter } from "next/router";
+import type { ReactNode } from "react";
 
-import authLink from '@/lib/authLink'
+import authLink from "@/lib/authLink";
 
-import ErrorBoundary from '../ErrorBoundary'
-import Layout from '../Layout'
-import CuratedProfilesProvider from './CuratedProfilesProvider'
-import ServiceWorkerProvider from './ServiceWorkerProvider'
-import SubscriptionProvider from './SubscriptionProvider'
-import ThemeProvider from './ThemeProvider'
-import TogglesProvider from './TogglesProvider'
-import Web3Provider from './Web3Provider'
+import ErrorBoundary from "../ErrorBoundary";
+import Layout from "../Layout";
+import CuratedProfilesProvider from "./CuratedProfilesProvider";
+import ServiceWorkerProvider from "./ServiceWorkerProvider";
+import SubscriptionProvider from "./SubscriptionProvider";
+import ThemeProvider from "./ThemeProvider";
+import TogglesProvider from "./TogglesProvider";
+import Web3Provider from "./Web3Provider";
 
-const NO_TOP_NAV_PATHS = ['/login']
+const NO_TOP_NAV_PATHS = ["/login"];
 const NO_PADDING_PATHS = [
-  '/u/[[...handle]]',
-  '/profile/[id]',
-  '/login',
-  '/bytes',
-  '/bytes/[id]',
-  '/404',
-  '/500'
-]
+  "/u/[[...handle]]",
+  "/profile/[id]",
+  "/login",
+  "/bytes",
+  "/bytes/[id]",
+  "/404",
+  "/500",
+];
 
-const apolloQueryClient = apolloClient(authLink)
-const livepeerClient = getLivepeerClient()
+const apolloQueryClient = apolloClient(authLink);
+const livepeerClient = getLivepeerClient();
 const reactQueryClient = new QueryClient({
-  defaultOptions: { queries: { refetchOnWindowFocus: false } }
-})
+  defaultOptions: { queries: { refetchOnWindowFocus: false } },
+});
 
 const Providers = ({ children }: { children: ReactNode }) => {
-  const { pathname } = useRouter()
+  const { pathname } = useRouter();
 
   return (
     <ErrorBoundary>
@@ -61,7 +60,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
         </Web3Provider>
       </ServiceWorkerProvider>
     </ErrorBoundary>
-  )
-}
+  );
+};
 
-export default Providers
+export default Providers;
