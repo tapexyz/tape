@@ -1,7 +1,8 @@
 declare namespace NodeJS {
   interface ProcessEnv {
     REDIS_URL: string;
-    PSQL_DATABASE_URL: string;
+    TAPE_DATABASE_URL: string;
+    INDEXER_DATABASE_URL: string;
     CLICKHOUSE_URL: string;
     CLICKHOUSE_PASSWORD: string;
     S3_ACCESS_KEY_ID: string;

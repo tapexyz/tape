@@ -1,5 +1,6 @@
 declare namespace NodeJS {
   interface ProcessEnv {
-    PSQL_DATABASE_URL: string;
+    TAPE_DATABASE_URL: string;
+    INDEXER_DATABASE_URL: string;
   }
 }

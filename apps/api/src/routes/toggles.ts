@@ -1,6 +1,6 @@
 import { zValidator } from "@hono/zod-validator";
 import { CACHE_CONTROL, ERROR_MESSAGE, REDIS_KEYS } from "@tape.xyz/constants";
-import { psql, REDIS_EXPIRY, rGet, rSet } from "@tape.xyz/server";
+import { REDIS_EXPIRY, rGet, rSet, tapeDb } from "@tape.xyz/server";
 import { Hono } from "hono";
 import { object, string } from "zod";
 
@@ -27,7 +27,7 @@ app.get(
     console.info("CACHE MISS");
 
     try {
-      const result = await psql.profile.findUnique({
+      const result = await tapeDb.profile.findUnique({
         where: {
           profileId,
         },
