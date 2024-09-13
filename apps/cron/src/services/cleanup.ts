@@ -25,7 +25,7 @@ const s3Client = new S3({
 
 const cleanup4Ever = async (): Promise<void> => {
   try {
-    const daysToSubtract = 15;
+    const daysToSubtract = 10;
     const dateDaysAgo = new Date(
       Date.now() - daysToSubtract * 24 * 60 * 60 * 1000,
     );
