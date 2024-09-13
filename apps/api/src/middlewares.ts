@@ -16,7 +16,7 @@ export const ipRestriction = async (c: Context, next: Next) => {
   const ua = c.req.header("User-Agent");
   const ip = getIp(c.req);
   console.info(
-    `[${c.req.method}] method from [${origin ?? ua}] with with ip [${ip}] to [${c.req.path}]`,
+    `[${c.req.method}] method from [${origin ?? ua}] with ip [${ip}] to [${c.req.path}]`,
   );
   //   if (origin && !allowedOrigins.includes(origin)) {
   //     return c.text('Forbidden', 403)
