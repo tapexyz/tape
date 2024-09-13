@@ -140,6 +140,7 @@ export const REDIS_KEYS = {
   TOWER_EVENTS: "towerEvents",
   ALLOWED_TOKENS: "allowedTokens",
   CURATED_PROFILES: "curatedProfiles",
+  CURATED_PUBLICATIONS: "curatedPublications",
   PROFILE_TOGGLES: "profileToggles",
   VERIFIED_PROFILES: "verifiedProfiles",
 };

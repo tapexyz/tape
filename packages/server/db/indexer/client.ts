@@ -14,6 +14,7 @@ const initOptions: pgp.IInitOptions = {
 
 const indexerDb = pgp(initOptions)({
   connectionString: process.env.INDEXER_DATABASE_URL,
+  port: 6432,
   max: 20,
 });
 
