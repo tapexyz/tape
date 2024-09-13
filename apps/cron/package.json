@@ -7,7 +7,6 @@
     "dev:cron": "tsx --watch src/index.ts",
     "build": "tsc",
     "start": "tsx src/index.ts",
-    "lint": "biome lint",
     "typecheck": "tsc --pretty --noEmit"
   },
   "license": "AGPL-3.0",

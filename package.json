@@ -11,12 +11,11 @@
     "codegen": "pnpm -r --parallel run codegen",
     "codegenv3": "pnpm -r --parallel run codegenv3",
     "prepare": "husky",
-    "lint:repo:fix": "pnpm dlx sherif@latest --fix",
-    "lint:repo": "pnpm dlx sherif@latest",
-    "lint": "pnpm -r --parallel run lint && pnpm lint:repo",
     "typecheck": "pnpm -r --parallel run typecheck",
-    "format:check": "biome format .",
-    "format": "biome check --write . && biome format --write ."
+    "dep:check": "pnpm dlx sherif@latest",
+    "dep:fix": "pnpm dlx sherif@latest --fix",
+    "biome:check": "biome check . && pnpm typecheck && pnpm dep:check",
+    "biome:fix": "biome check --write . && pnpm dep:fix"
   },
   "devDependencies": {
     "@biomejs/biome": "1.8.3",

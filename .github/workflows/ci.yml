@@ -30,10 +30,7 @@ jobs:
           run: pnpm install
           
         - name: Check Lint, Typecheck, and Format 💅🏻
-          run: |
-            pnpm lint &
-            pnpm typecheck &
-            pnpm format:check
+          run: pnpm biome:check
           shell: bash
 
         - name: Run Build 🔨

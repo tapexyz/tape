@@ -5,7 +5,6 @@
   "license": "AGPL-3.0",
   "main": "index.ts",
   "scripts": {
-    "lint": "biome check .",
     "typecheck": "tsc --pretty --noEmit"
   },
   "devDependencies": {

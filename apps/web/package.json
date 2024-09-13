@@ -8,7 +8,6 @@
     "build": "next build",
     "export": "next export",
     "start": "pnpm build && next start --port 4783",
-    "lint": "biome lint",
     "typecheck": "tsc --pretty --noEmit"
   },
   "dependencies": {
