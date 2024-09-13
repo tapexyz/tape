@@ -9,7 +9,7 @@ const MediaLicense = () => {
 
   return (
     <div className="flex-1 space-y-1">
-      <span className="text-sm font-medium">License</span>
+      <span className="font-medium text-sm">License</span>
       <Select
         value={uploadedMedia.mediaLicense}
         onValueChange={(mediaLicense: MetadataLicenseType) =>

@@ -18,7 +18,7 @@ const Custom404 = () => {
             alt={TAPE_APP_NAME}
           />
         </div>
-        <h1 className="text-4xl font-bold">404</h1>
+        <h1 className="font-bold text-4xl">404</h1>
         <div className="mb-6">This page could not be found.</div>
         <Link href="/">
           <Button>Go Home</Button>

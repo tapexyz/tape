@@ -2,7 +2,7 @@ import { CardShimmer } from "./VideoCardShimmer";
 
 const PinnedVideoShimmer = () => {
   return (
-    <div className="mb-4 mt-6">
+    <div className="mt-6 mb-4">
       <div className="mb-4 h-6 w-44 rounded-md bg-gray-200 dark:bg-gray-800" />
       <div className="mb-5 hidden grid-cols-3 lg:grid">
         <div className="col-span-1">

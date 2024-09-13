@@ -17,7 +17,7 @@ const LensManager = () => {
   return (
     <div className="flex flex-wrap items-center justify-between">
       <div className="mb-2 space-y-2">
-        <h1 className="text-brand-400 text-xl font-bold">Lens Manager</h1>
+        <h1 className="font-bold text-brand-400 text-xl">Lens Manager</h1>
         <p className="opacity-80">{getDescription()}</p>
       </div>
       <div className="mt-3 flex justify-end">

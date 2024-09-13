@@ -46,7 +46,7 @@ const List = () => {
         {ownedHandles?.map((handle) => (
           <div
             key={handle.id}
-            className="tape-border rounded-small flex items-center space-x-2 p-5"
+            className="tape-border flex items-center space-x-2 rounded-small p-5"
           >
             <div className="flex flex-col">
               <Link

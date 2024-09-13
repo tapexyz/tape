@@ -56,7 +56,7 @@ const Entry = ({
   return (
     <div
       key={address}
-      className="tape-border rounded-small flex items-center justify-between px-4 py-3"
+      className="tape-border flex items-center justify-between rounded-small px-4 py-3"
     >
       <div>
         <span className="font-bold">{did || shortenAddress(address)}</span>

@@ -37,9 +37,9 @@ const OpenActions: FC<Props> = ({ publication, text, children }) => {
         return (
           <AccordionItem
             value="item-1"
-            className="rounded-small group border dark:border-gray-700"
+            className="group rounded-small border dark:border-gray-700"
           >
-            <AccordionTrigger className="bg-brand-50/50 dark:bg-brand-950/30 rounded-small w-full px-4 py-3 text-left">
+            <AccordionTrigger className="w-full rounded-small bg-brand-50/50 px-4 py-3 text-left dark:bg-brand-950/30">
               <h6 className="font-bold">Collect publication</h6>
             </AccordionTrigger>
             <AccordionContent className="p-3">

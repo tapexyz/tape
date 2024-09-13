@@ -5,15 +5,15 @@ import Link from "next/link";
 
 const ZorbAlert = () => {
   return (
-    <div className="tape-border rounded-large ultrawide:h-[400px] relative flex h-[350px] w-[300px] flex-none overflow-hidden">
-      <div className="to-brand-500 via-brand-500/90 absolute inset-0 z-[1] h-full w-full bg-gradient-to-b from-transparent" />
+    <div className="tape-border relative flex h-[350px] ultrawide:h-[400px] w-[300px] flex-none overflow-hidden rounded-large">
+      <div className="absolute inset-0 z-[1] h-full w-full bg-gradient-to-b from-transparent via-brand-500/90 to-brand-500" />
       <img
         src={imageCdn(`${STATIC_ASSETS}/images/zorb.png`, "SQUARE")}
         className="absolute inset-0 size-full object-cover"
         alt="cover"
       />
-      <div className="ultrawide:p-8 relative z-[2] flex h-full flex-col justify-end space-y-4 p-4 text-left text-white md:p-6">
-        <div className="text-3xl font-bold">
+      <div className="relative z-[2] flex h-full flex-col justify-end space-y-4 p-4 ultrawide:p-8 text-left text-white md:p-6">
+        <div className="font-bold text-3xl">
           Mint your free {TAPE_APP_NAME} Zorb!
         </div>
         <div className="flex">

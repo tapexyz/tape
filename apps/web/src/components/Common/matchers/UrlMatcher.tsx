@@ -20,7 +20,7 @@ const Url = ({ children, url, ...props }: UrlProps) => {
   return href?.includes("tape.xyz/watch") || href?.includes("tape.xyz/u") ? (
     <Link
       href={href}
-      className="inline-flex items-center space-x-1 rounded-full bg-gray-200 px-2 text-sm font-medium dark:bg-gray-800"
+      className="inline-flex items-center space-x-1 rounded-full bg-gray-200 px-2 font-medium text-sm dark:bg-gray-800"
     >
       <img
         src={imageCdn(`${STATIC_ASSETS}/brand/logo.svg`, "SQUARE")}

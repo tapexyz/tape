@@ -30,7 +30,7 @@ export const NoDataFound = ({
         />
       )}
       <div
-        className={tw("text-sm font-medium", {
+        className={tw("font-medium text-sm", {
           "text-center": isCenter,
         })}
       >

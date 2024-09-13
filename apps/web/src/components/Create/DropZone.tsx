@@ -82,7 +82,7 @@ const DropZone = () => {
     <div className="relative flex w-full flex-1 flex-col">
       <label
         className={tw(
-          "tape-border rounded-medium grid h-full w-full place-content-center place-items-center p-10 text-center focus:outline-none md:p-20",
+          "tape-border grid h-full w-full place-content-center place-items-center rounded-medium p-10 text-center focus:outline-none md:p-20",
         )}
         htmlFor="dropMedia"
         onDragOver={onDragOver}

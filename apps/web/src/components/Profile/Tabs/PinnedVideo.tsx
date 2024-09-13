@@ -235,8 +235,8 @@ const PinnedVideo: FC<Props> = ({ id }) => {
   );
 
   return (
-    <div className="mb-4 mt-6">
-      <h1 className="text-brand-400 pb-4 text-xl font-bold">Featured</h1>
+    <div className="mt-6 mb-4">
+      <h1 className="pb-4 font-bold text-brand-400 text-xl">Featured</h1>
       <div className="grid gap-5 overflow-hidden md:grid-cols-2 lg:grid-cols-3">
         <div className="overflow-hidden rounded-xl">
           <VideoPlayer
@@ -256,7 +256,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <Link
-                className="inline break-words text-lg font-medium"
+                className="inline break-words font-medium text-lg"
                 href={`/watch/${pinnedPublication.id}`}
                 title={
                   getPublicationData(pinnedPublication.metadata)?.title ?? ""
@@ -267,7 +267,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
               {isVideoOwner && (
                 <Button
                   variant="danger"
-                  className="invisible hover:!bg-red-200 group-hover:visible dark:hover:!bg-red-800"
+                  className="hover:!bg-red-200 dark:hover:!bg-red-800 invisible group-hover:visible"
                   onClick={() => unpinVideo()}
                 >
                   Unpin
@@ -290,7 +290,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
             </p>
           </div>
           <Link
-            className="text-brand-500 font-medium"
+            className="font-medium text-brand-500"
             href={`/watch/${pinnedPublication.id}`}
           >
             Watch video

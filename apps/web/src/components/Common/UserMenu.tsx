@@ -86,7 +86,7 @@ const UserMenu = () => {
   return (
     <DropdownMenu
       trigger={
-        <div className="ring-brand-500 size-[34px] rounded-full hover:ring-2">
+        <div className="size-[34px] rounded-full ring-brand-500 hover:ring-2">
           <img
             className="h-full w-full flex-none rounded-full object-cover"
             src={getProfilePicture(activeProfile, "AVATAR")}

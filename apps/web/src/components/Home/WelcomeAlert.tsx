@@ -4,17 +4,17 @@ import Link from "next/link";
 
 const WelcomeAlert = () => {
   return (
-    <div className="tape-border rounded-large ultrawide:h-[400px] relative flex h-[350px] w-[500px] flex-none overflow-hidden">
-      <div className="bg-brand-400 absolute inset-0 h-full w-full" />
-      <div className="from-brand-600 absolute inset-0 h-full w-full bg-gradient-to-b to-transparent" />
+    <div className="tape-border relative flex h-[350px] ultrawide:h-[400px] w-[500px] flex-none overflow-hidden rounded-large">
+      <div className="absolute inset-0 h-full w-full bg-brand-400" />
+      <div className="absolute inset-0 h-full w-full bg-gradient-to-b from-brand-600 to-transparent" />
       <img
         src={`${STATIC_ASSETS}/brand/transparent-bg-large.svg`}
-        className="ultrawide:px-8 ultrawide:-top-10 absolute -top-20 px-4 md:px-6"
+        className="ultrawide:-top-10 -top-20 absolute px-4 ultrawide:px-8 md:px-6"
         alt="cover"
       />
-      <div className="ultrawide:p-8 relative flex h-full flex-col justify-end space-y-4 p-4 text-left text-white md:p-6">
-        <div className="text-3xl font-bold">Welcome to {TAPE_APP_NAME}</div>
-        <p className="md:text-md max-w-2xl text-sm lg:text-lg">
+      <div className="relative flex h-full flex-col justify-end space-y-4 p-4 ultrawide:p-8 text-left text-white md:p-6">
+        <div className="font-bold text-3xl">Welcome to {TAPE_APP_NAME}</div>
+        <p className="max-w-2xl text-sm md:text-md lg:text-lg">
           Discover the new era of media sharing on Lens with {TAPE_APP_NAME}. A
           decentralized, user-centric approach to online media.
         </p>

@@ -169,17 +169,17 @@ const Bytes = () => {
           <Spinner />
         </span>
       )}
-      <div className="laptop:right-6 ultrawide:right-8 bottom-3 right-4 hidden flex-col space-y-2 md:absolute md:flex">
+      <div className="laptop:right-6 right-4 ultrawide:right-8 bottom-3 hidden flex-col space-y-2 md:absolute md:flex">
         <button
           type="button"
-          className="bg-gallery rounded-full p-3 focus:outline-none dark:bg-gray-800"
+          className="rounded-full bg-gallery p-3 focus:outline-none dark:bg-gray-800"
           onClick={() => slider?.prev()}
         >
           <ChevronUpOutline className="size-5" />
         </button>
         <button
           type="button"
-          className="bg-gallery rounded-full p-3 focus:outline-none dark:bg-gray-800"
+          className="rounded-full bg-gallery p-3 focus:outline-none dark:bg-gray-800"
           onClick={() => slider?.next()}
         >
           <ChevronDownOutline className="size-5" />

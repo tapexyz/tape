@@ -25,7 +25,7 @@ const Login = () => {
       <div className="grid h-full w-full place-items-center">
         <BackgroundComets />
 
-        <div className="ultrawide:p-8 laptop:p-6 fixed top-0 z-10 flex h-16 w-full items-center justify-between p-4">
+        <div className="fixed top-0 z-10 flex h-16 w-full items-center justify-between laptop:p-6 p-4 ultrawide:p-8">
           <Link href="/">
             <Logo />
           </Link>
@@ -34,7 +34,7 @@ const Login = () => {
         <div className="tape-border container relative z-10 mx-auto max-w-md bg-white bg-opacity-50 p-10 backdrop-blur-sm dark:bg-inherit">
           <CardBorders />
           <div className="mb-6">
-            <h2 className="text-2xl font-bold">Welcome back</h2>
+            <h2 className="font-bold text-2xl">Welcome back</h2>
             <p>Discover the new era of media sharing with Tape.</p>
           </div>
           <Connectors />

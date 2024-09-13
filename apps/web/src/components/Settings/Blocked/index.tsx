@@ -7,7 +7,7 @@ const Blocked = () => {
     <>
       <MetaTags title="Blocked Profiles" />
       <div className="mb-5 space-y-2">
-        <h1 className="text-brand-400 text-xl font-bold">Blocked Profiles</h1>
+        <h1 className="font-bold text-brand-400 text-xl">Blocked Profiles</h1>
         <p className="text opacity-80">
           Here is a list of profiles that you have been blocked. You have the
           option to unblock them whenever you wish.

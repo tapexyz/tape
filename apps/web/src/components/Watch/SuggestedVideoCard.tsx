@@ -41,7 +41,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
   return (
     <div className="group flex justify-between">
       <div className="flex justify-between">
-        <div className="rounded-small flex-none overflow-hidden">
+        <div className="flex-none overflow-hidden rounded-small">
           <Link
             href={`/watch/${video.id}`}
             className="cursor-pointer rounded-md"
@@ -65,7 +65,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
               />
               {!isSensitiveContent && videoDuration ? (
                 <div>
-                  <span className="absolute bottom-1 right-1 rounded bg-black px-1 text-[10px] text-white">
+                  <span className="absolute right-1 bottom-1 rounded bg-black px-1 text-[10px] text-white">
                     {formatTimeFromSeconds(String(videoDuration))}
                   </span>
                 </div>

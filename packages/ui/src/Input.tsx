@@ -45,7 +45,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <label className="w-full" htmlFor={id}>
         {label ? (
-          <div className="mb-1 flex items-center space-x-1.5 text-sm font-medium text-gray-800 dark:text-gray-200">
+          <div className="mb-1 flex items-center space-x-1.5 font-medium text-gray-800 text-sm dark:text-gray-200">
             {label}
           </div>
         ) : null}
@@ -86,7 +86,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           ) : null}
         </div>
         {error && showError ? (
-          <p className="p-1 text-xs font-medium text-red-500">{error}</p>
+          <p className="p-1 font-medium text-red-500 text-xs">{error}</p>
         ) : null}
       </label>
     );

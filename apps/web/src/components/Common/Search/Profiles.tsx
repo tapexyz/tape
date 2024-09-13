@@ -23,7 +23,7 @@ const Profiles: FC<Props> = ({ results, loading, clearSearch }) => {
       {results?.map((profile: Profile) => (
         <div
           key={profile.id}
-          className="hover:bg-gallery dark:hover:bg-smoke relative cursor-default select-none rounded-md pl-3 pr-4"
+          className="relative cursor-default select-none rounded-md pr-4 pl-3 hover:bg-gallery dark:hover:bg-smoke"
         >
           <Link
             onClick={() => clearSearch()}

@@ -34,7 +34,7 @@ const ReferenceModule = () => {
 
   return (
     <div className="flex-1 space-y-1">
-      <span className="text-sm font-medium">
+      <span className="font-medium text-sm">
         Who can comment, quote and mirror?
       </span>
 

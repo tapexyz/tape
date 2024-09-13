@@ -92,7 +92,7 @@ const List = () => {
       {sessions?.map((session) => {
         return (
           <AccordionItem
-            className="bg-brand-50 dark:bg-brand-950/30 rounded-small group p-5"
+            className="group rounded-small bg-brand-50 p-5 dark:bg-brand-950/30"
             key={session.authorizationId}
             value={session.authorizationId}
           >

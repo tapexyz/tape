@@ -97,7 +97,7 @@ const ByteVideo: FC<Props> = ({
     <div className="keen-slider__slide flex snap-center justify-center focus-visible:outline-none md:ml-16 md:pb-2">
       <MetaTags title={getPublicationData(targetPublication.metadata)?.title} />
       <div className="relative">
-        <div className="rounded-large ultrawide:w-[650px] flex h-full w-[calc(100vw-80px)] items-center overflow-hidden bg-black md:w-[450px]">
+        <div className="flex h-full ultrawide:w-[650px] w-[calc(100vw-80px)] items-center overflow-hidden rounded-large bg-black md:w-[450px]">
           <div
             className="absolute top-[50%]"
             ref={intersectionRef}

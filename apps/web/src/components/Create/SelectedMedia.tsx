@@ -52,7 +52,7 @@ const SelectedMedia = () => {
 
   return (
     <div className="flex flex-col">
-      <div className="md:rounded-large rounded-small relative w-full cursor-pointer overflow-hidden border dark:border-gray-800">
+      <div className="relative w-full cursor-pointer overflow-hidden rounded-small border md:rounded-large dark:border-gray-800">
         <video
           ref={mediaRef}
           className="aspect-[16/9] w-full object-cover"
@@ -75,7 +75,7 @@ const SelectedMedia = () => {
           <>
             <Badge
               onClick={() => onClickVideo()}
-              className="absolute bottom-3 right-2"
+              className="absolute right-2 bottom-3"
             >
               Play/Pause
             </Badge>
@@ -93,7 +93,7 @@ const SelectedMedia = () => {
             </Badge>
             {uploadedMedia.durationInSeconds === 0 &&
             uploadedMedia.file?.size ? (
-              <Badge className="absolute right-3 top-3 bg-red-500 text-white">
+              <Badge className="absolute top-3 right-3 bg-red-500 text-white">
                 <span className="whitespace-nowrap font-bold">
                   Only media files longer than 1 second are allowed
                 </span>

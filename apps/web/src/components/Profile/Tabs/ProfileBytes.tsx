@@ -75,7 +75,7 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
   return (
     <div className="w-full">
       {!error && !loading && (
-        <div className="laptop:grid-cols-5 grid grid-cols-2 justify-center gap-2 md:grid-cols-3">
+        <div className="grid grid-cols-2 laptop:grid-cols-5 justify-center gap-2 md:grid-cols-3">
           {bytes.map((byte) => {
             const thumbnailUrl = imageCdn(
               getThumbnailUrl(byte.metadata),
@@ -85,7 +85,7 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
               <Link
                 key={byte.id}
                 href={`/bytes/${byte.id}`}
-                className="hover:border-brand-500 rounded-large tape-border relative aspect-[9/16] w-full flex-none place-self-center overflow-hidden md:h-[400px]"
+                className="tape-border relative aspect-[9/16] w-full flex-none place-self-center overflow-hidden rounded-large hover:border-brand-500 md:h-[400px]"
               >
                 <img
                   className="h-full w-full object-cover"
@@ -96,14 +96,14 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
                     currentTarget.src = FALLBACK_THUMBNAIL_URL;
                   }}
                 />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-transparent to-black px-4 py-2">
+                <div className="absolute right-0 bottom-0 left-0 bg-gradient-to-b from-transparent to-black px-4 py-2">
                   <h1 className="line-clamp-2 break-words font-bold text-white">
                     {getPublicationData(byte.metadata)?.title}
                   </h1>
                 </div>
                 <div
                   role="button"
-                  className="absolute right-2 top-2 z-[1] rounded-full bg-white p-1.5 dark:bg-black"
+                  className="absolute top-2 right-2 z-[1] rounded-full bg-white p-1.5 dark:bg-black"
                   onClick={(e) => e.preventDefault()}
                   onKeyDown={(e) => e.preventDefault()}
                 >

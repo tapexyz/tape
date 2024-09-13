@@ -24,7 +24,7 @@ const Commented: FC<Props> = ({ notification: { comment } }) => {
           <CommentOutline className="size-5" />
         </div>
         <div>
-          <span className="flex -space-x-1.5">
+          <span className="-space-x-1.5 flex">
             <HoverableProfile profile={comment.by} key={comment.by?.id}>
               <img
                 className="size-7 rounded-full border dark:border-gray-700/80"
@@ -40,7 +40,7 @@ const Commented: FC<Props> = ({ notification: { comment } }) => {
           <div className="py-2">commented on your publication</div>
           <Link
             href={`/watch/${comment.root.id}`}
-            className="text-dust line-clamp-2 font-medium"
+            className="line-clamp-2 font-medium text-dust"
           >
             {getPublicationData(comment.metadata)?.content}
           </Link>

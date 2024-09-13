@@ -118,7 +118,7 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
       <div className="flex items-start justify-between">
         <Link
           href={getProfile(activeProfile)?.link}
-          className="mr-3 mt-0.5 flex-none"
+          className="mt-0.5 mr-3 flex-none"
         >
           <img
             src={getProfilePicture(activeProfile, "AVATAR")}
@@ -134,7 +134,7 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
           <span className="mb-1 flex items-center space-x-1">
             <Link
               href={getProfile(activeProfile)?.link}
-              className="flex items-center space-x-1 text-sm font-medium"
+              className="flex items-center space-x-1 font-medium text-sm"
             >
               <span>{getProfile(activeProfile)?.slug}</span>
               <Badge id={activeProfile.id} />
@@ -147,8 +147,8 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
         <div className="p-2">
           <Tooltip content="Indexing" placement="top">
             <span className="relative flex size-2 items-center justify-center">
-              <span className="bg-brand-400 absolute inline-flex size-2 animate-ping rounded-full opacity-75" />
-              <span className="bg-brand-500 relative inline-flex size-1.5 rounded-full" />
+              <span className="absolute inline-flex size-2 animate-ping rounded-full bg-brand-400 opacity-75" />
+              <span className="relative inline-flex size-1.5 rounded-full bg-brand-500" />
             </span>
           </Tooltip>
         </div>

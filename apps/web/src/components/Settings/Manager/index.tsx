@@ -12,7 +12,7 @@ const ProfileManager = () => {
       <MetaTags title="Manager" />
 
       <div className="mb-2 space-y-2">
-        <h1 className="text-brand-400 text-xl font-bold">Profile Manager</h1>
+        <h1 className="font-bold text-brand-400 text-xl">Profile Manager</h1>
         <p className="opacity-80">
           Allows a profile to authorize specific addresses to handle its social
           operations.
@@ -21,20 +21,20 @@ const ProfileManager = () => {
       <Tabs defaultValue="managers">
         <TabsList>
           <TabsTrigger
-            className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
+            className="rounded-t-lg border-black px-4 py-1.5 font-medium text-sm data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
             value="managers"
           >
             Managers
           </TabsTrigger>
           <TabsTrigger
-            className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
+            className="rounded-t-lg border-black px-4 py-1.5 font-medium text-sm data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
             value="managing"
           >
             Managing
           </TabsTrigger>
         </TabsList>
 
-        <div className="pb-2 pt-3">
+        <div className="pt-3 pb-2">
           <TabsContent value="managers">
             <Managers />
           </TabsContent>

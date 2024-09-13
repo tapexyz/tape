@@ -15,7 +15,7 @@ const Home: NextPage = () => {
   }, []);
 
   return (
-    <div className="max-w-screen-ultrawide container mx-auto">
+    <div className="container mx-auto max-w-screen-ultrawide">
       <TopSection />
       <Feed />
     </div>

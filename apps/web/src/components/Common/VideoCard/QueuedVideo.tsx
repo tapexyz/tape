@@ -101,7 +101,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
   return (
     <div className="cursor-wait">
       <Tooltip content="Indexing, please wait..." placement="top">
-        <div className="aspect-w-16 aspect-h-9 relative overflow-hidden">
+        <div className="relative aspect-h-9 aspect-w-16 overflow-hidden">
           <img
             src={thumbnailUrl}
             className={tw(
@@ -130,7 +130,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
           <div className="grid flex-1">
             <div className="flex w-full min-w-0 items-start justify-between space-x-1.5 pb-1">
               <span
-                className="ultrawide:line-clamp-1 ultrawide:break-all line-clamp-2 break-words font-bold"
+                className="line-clamp-2 ultrawide:line-clamp-1 break-words ultrawide:break-all font-bold"
                 title={queuedVideo.title}
               >
                 {queuedVideo.title}
@@ -138,8 +138,8 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
               <div className="p-1">
                 <Tooltip content="Indexing" placement="top">
                   <span className="relative flex size-2 items-center justify-center">
-                    <span className="bg-brand-500 absolute inline-flex size-2 animate-ping rounded-full opacity-75" />
-                    <span className="bg-brand-500 relative inline-flex size-1.5 rounded-full" />
+                    <span className="absolute inline-flex size-2 animate-ping rounded-full bg-brand-500 opacity-75" />
+                    <span className="relative inline-flex size-1.5 rounded-full bg-brand-500" />
                   </span>
                 </Tooltip>
               </div>

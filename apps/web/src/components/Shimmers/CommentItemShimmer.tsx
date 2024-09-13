@@ -1,6 +1,6 @@
 const CommentItemShimmer = () => {
   return (
-    <div className="animate-shimmer flex flex-col space-x-2">
+    <div className="flex animate-shimmer flex-col space-x-2">
       <div className="flex space-x-2">
         <div className="size-8 rounded-full bg-gray-200 dark:bg-gray-800" />
         <div className="flex-1 space-y-2 py-1">

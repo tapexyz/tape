@@ -24,7 +24,7 @@ const Quoted: FC<Props> = ({ notification: { quote } }) => {
           <QuoteOutline className="size-5" />
         </div>
         <div>
-          <span className="flex -space-x-1.5">
+          <span className="-space-x-1.5 flex">
             <HoverableProfile profile={quote.by} key={quote.by?.id}>
               <img
                 className="size-7 rounded-full border dark:border-gray-700/80"
@@ -40,7 +40,7 @@ const Quoted: FC<Props> = ({ notification: { quote } }) => {
           <div className="py-2">quoted your publication</div>
           <Link
             href={`/watch/${quote.id}`}
-            className="text-dust line-clamp-2 font-medium"
+            className="line-clamp-2 font-medium text-dust"
           >
             {getPublicationData(quote.metadata)?.content}
           </Link>

@@ -3,8 +3,8 @@ import { STATIC_ASSETS, TAPE_WEBSITE_URL } from "@tape.xyz/constants";
 import { EVENTS, getSharableLink, imageCdn } from "@tape.xyz/generic";
 import type { PrimaryPublication } from "@tape.xyz/lens";
 import { CopyOutline, MirrorOutline, Tooltip } from "@tape.xyz/ui";
-import Link from "next/link";
 import { useTheme } from "next-themes";
+import Link from "next/link";
 import type { FC } from "react";
 
 import useSw from "@/hooks/useSw";

@@ -108,7 +108,7 @@ const GlobalSearch = () => {
   );
 
   const Content = () => (
-    <div className="laptop:w-[800px] absolute -top-[18px] right-0 z-20 w-[500px] rounded-full">
+    <div className="-top-[18px] absolute right-0 z-20 laptop:w-[800px] w-[500px] rounded-full">
       <Input
         autoFocus
         type="search"
@@ -119,7 +119,7 @@ const GlobalSearch = () => {
       />
       <div
         className={tw(
-          "rounded-medium tape-border no-scrollbar top-10 z-10 mt-1 w-full overflow-y-auto bg-white text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none md:absolute dark:bg-black",
+          "tape-border no-scrollbar top-10 z-10 mt-1 w-full overflow-y-auto rounded-medium bg-white text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none md:absolute dark:bg-black",
           { hidden: debouncedValue.length === 0 },
         )}
       >

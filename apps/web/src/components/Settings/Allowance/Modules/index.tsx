@@ -181,7 +181,7 @@ const ModuleAllowance = () => {
   return (
     <div>
       <div className="space-y-2">
-        <h1 className="text-brand-400 text-xl font-bold">Allowance</h1>
+        <h1 className="font-bold text-brand-400 text-xl">Allowance</h1>
         <p className="opacity-80">
           These are the collect modules which you allowed / need to allow to use
           collect feature. You can allow and revoke access anytime.
@@ -223,7 +223,7 @@ const ModuleAllowance = () => {
             ),
           )}
         {unKnownActAllowancesData?.approvedModuleAllowanceAmount.length ? (
-          <h6 className="text-brand-500 mb-2 mt-4 font-medium">Open Actions</h6>
+          <h6 className="mt-4 mb-2 font-medium text-brand-500">Open Actions</h6>
         ) : null}
         {!gettingUnknownActSettings &&
           unKnownActAllowancesData?.approvedModuleAllowanceAmount?.map(

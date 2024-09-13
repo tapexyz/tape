@@ -76,7 +76,7 @@ const ProfileVideos: FC<Props> = ({ profile }) => {
   }
 
   return !error && !loading ? (
-    <div className="laptop:grid-cols-4 grid-col-1 grid gap-x-4 gap-y-2 md:grid-cols-3 md:gap-y-6">
+    <div className="grid-col-1 grid laptop:grid-cols-4 gap-x-4 gap-y-2 md:grid-cols-3 md:gap-y-6">
       {queuedVideos?.map((queuedVideo) => (
         <QueuedVideo
           key={queuedVideo?.thumbnailUrl}

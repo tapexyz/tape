@@ -189,16 +189,16 @@ const UnknownOpenAction = ({
 
   if (loading || !metadata) {
     return (
-      <div className="animate-shimmer h-[70px] rounded-lg bg-gray-200 dark:bg-gray-800" />
+      <div className="h-[70px] animate-shimmer rounded-lg bg-gray-200 dark:bg-gray-800" />
     );
   }
 
   return (
     <AccordionItem
       value="item-2"
-      className="rounded-small group border dark:border-gray-700"
+      className="group rounded-small border dark:border-gray-700"
     >
-      <AccordionTrigger className="bg-brand-50/50 dark:bg-brand-950/30 rounded-small w-full px-4 py-3 text-left">
+      <AccordionTrigger className="w-full rounded-small bg-brand-50/50 px-4 py-3 text-left dark:bg-brand-950/30">
         <div className="flex items-center space-x-1 font-bold">
           <span>{metadata?.title || "Unknown action"}</span>
           {module?.moduleMetadata?.verified && (

@@ -21,7 +21,7 @@ export const Tabs = () => {
               key={activeTab}
               layoutId="tab-indicator"
               transition={{ duration: 0.3, bounce: 0, type: "spring" }}
-              className="absolute inset-0 -z-10 rounded-full bg-gray-100"
+              className="-z-10 absolute inset-0 rounded-full bg-gray-100"
             />
           ) : null}
           <span className="relative">{item}</span>

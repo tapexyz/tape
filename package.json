@@ -16,7 +16,7 @@
     "lint": "pnpm -r --parallel run lint && pnpm lint:repo",
     "typecheck": "pnpm -r --parallel run typecheck",
     "format:check": "biome format .",
-    "format": "biome format --write ."
+    "format": "biome check --write . && biome format --write ."
   },
   "devDependencies": {
     "@biomejs/biome": "1.8.3",

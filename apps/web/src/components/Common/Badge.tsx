@@ -23,7 +23,7 @@ const Badge: FC<Props> = ({ id, size = "sm", color }) => {
           <span>
             <VerifiedSolid
               className={tw(
-                "text-brand-500 -mb-0.5 ml-0.5",
+                "-mb-0.5 ml-0.5 text-brand-500",
                 {
                   "size-2.5": size === "xs",
                   "size-3": size === "sm",

@@ -14,7 +14,7 @@ const PermissionQuestion: FC<Props> = ({ setCollectType }) => {
 
   return (
     <div className="space-y-1">
-      <span className="text-sm font-medium">Who can collect?</span>
+      <span className="font-medium text-sm">Who can collect?</span>
       <div className="flex flex-wrap gap-1.5 md:flex-nowrap">
         <div className="flex-1">
           <Button

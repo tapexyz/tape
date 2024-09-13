@@ -25,7 +25,7 @@ const Acted: FC<Props> = ({ notification: { publication, actions } }) => {
         <CollectOutline className="size-5" />
       </div>
       <div>
-        <span className="flex -space-x-1.5">
+        <span className="-space-x-1.5 flex">
           {actions.slice(0, 30).map(({ by }: OpenActionProfileActed) => (
             <HoverableProfile profile={by} key={by?.id}>
               <img
@@ -43,7 +43,7 @@ const Acted: FC<Props> = ({ notification: { publication, actions } }) => {
         <div className="py-2">acted on your publication</div>
         <Link
           href={`/watch/${publication.id}`}
-          className="text-dust line-clamp-2 font-medium"
+          className="line-clamp-2 font-medium text-dust"
         >
           {getPublicationData(targetPublication.metadata)?.content}
         </Link>

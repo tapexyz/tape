@@ -60,7 +60,7 @@ const Managing = () => {
             {profilesManaged?.map((profile) => (
               <div
                 key={profile.id}
-                className="tape-border rounded-small overflow-hidden"
+                className="tape-border overflow-hidden rounded-small"
               >
                 <div
                   style={{
@@ -70,7 +70,7 @@ const Managing = () => {
                       ),
                     )})`,
                   }}
-                  className="bg-brand-500 relative h-20 w-full bg-cover bg-center bg-no-repeat"
+                  className="relative h-20 w-full bg-brand-500 bg-center bg-cover bg-no-repeat"
                 >
                   <div className="absolute bottom-3 left-3 flex-none">
                     <img
@@ -89,7 +89,7 @@ const Managing = () => {
                     href={getProfile(profile)?.link}
                     className="flex items-center space-x-1"
                   >
-                    <span className="text-2xl font-bold leading-tight">
+                    <span className="font-bold text-2xl leading-tight">
                       {getProfile(profile)?.slug}
                     </span>
                     <Badge id={profile?.id} size="lg" />

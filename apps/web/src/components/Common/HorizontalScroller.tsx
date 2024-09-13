@@ -25,7 +25,7 @@ const HorizontalScroller: FC<Props> = ({ heading, sectionRef }) => {
         <button
           type="button"
           onClick={() => scroll(-scrollOffset)}
-          className="hover:bg-gallery dark:hover:bg-smoke rounded-full p-2 backdrop-blur-xl focus:outline-none"
+          className="rounded-full p-2 backdrop-blur-xl hover:bg-gallery focus:outline-none dark:hover:bg-smoke"
         >
           <ChevronLeftOutline className="size-4" />
           <span className="sr-only">Scroll Left</span>
@@ -33,7 +33,7 @@ const HorizontalScroller: FC<Props> = ({ heading, sectionRef }) => {
         <button
           type="button"
           onClick={() => scroll(scrollOffset)}
-          className="hover:bg-gallery dark:hover:bg-smoke rounded-full p-2 backdrop-blur-xl focus:outline-none"
+          className="rounded-full p-2 backdrop-blur-xl hover:bg-gallery focus:outline-none dark:hover:bg-smoke"
         >
           <ChevronRightOutline className="size-4" />
           <span className="sr-only">Scroll Right</span>

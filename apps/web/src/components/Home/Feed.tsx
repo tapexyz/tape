@@ -62,7 +62,7 @@ const Feed = ({ showFilter = true }: { showFilter?: boolean }) => {
   });
 
   return (
-    <div className="laptop:pt-6 space-y-4 pt-4">
+    <div className="space-y-4 laptop:pt-6 pt-4">
       {showFilter && <CategoryFilters />}
       <div>
         {loading && <TimelineShimmer />}

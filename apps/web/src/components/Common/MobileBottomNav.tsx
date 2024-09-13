@@ -15,12 +15,12 @@ const MobileBottomNav = () => {
   const isActivePath = (path: string) => router.pathname === path;
 
   return (
-    <div className="pb-safe sticky inset-x-0 bottom-0 z-10 border-t-[0.5px] border-gray-300 bg-white/90 backdrop-blur-xl md:hidden dark:border-gray-700 dark:bg-black/90">
+    <div className="sticky inset-x-0 bottom-0 z-10 border-gray-300 border-t-[0.5px] bg-white/90 pb-safe backdrop-blur-xl md:hidden dark:border-gray-700 dark:bg-black/90">
       <div className="grid grid-cols-5 py-3">
         <Link
           href="/"
           className={tw(
-            "flex w-full flex-col items-center justify-center space-y-0.5 bg-transparent text-sm font-medium text-gray-700 md:grid dark:text-gray-100 dark:hover:text-gray-100",
+            "flex w-full flex-col items-center justify-center space-y-0.5 bg-transparent font-medium text-gray-700 text-sm md:grid dark:text-gray-100 dark:hover:text-gray-100",
             isActivePath("/") ? "opacity-100" : "opacity-70",
           )}
         >
@@ -30,7 +30,7 @@ const MobileBottomNav = () => {
         <Link
           href="/bytes"
           className={tw(
-            "flex w-full flex-col items-center justify-center space-y-0.5 bg-transparent text-sm font-medium text-gray-700 md:grid dark:text-gray-100 dark:hover:text-gray-100",
+            "flex w-full flex-col items-center justify-center space-y-0.5 bg-transparent font-medium text-gray-700 text-sm md:grid dark:text-gray-100 dark:hover:text-gray-100",
             isActivePath("/bytes") ? "opacity-100" : "opacity-70",
           )}
         >
@@ -40,7 +40,7 @@ const MobileBottomNav = () => {
         <Link
           href="/create"
           className={tw(
-            "flex w-full flex-col items-center justify-center bg-transparent text-sm font-medium text-gray-700 md:grid dark:text-gray-100 dark:hover:text-gray-100",
+            "flex w-full flex-col items-center justify-center bg-transparent font-medium text-gray-700 text-sm md:grid dark:text-gray-100 dark:hover:text-gray-100",
             isActivePath("/create") ? "opacity-100" : "opacity-70",
           )}
         >
@@ -50,7 +50,7 @@ const MobileBottomNav = () => {
         <Link
           href="/notifications"
           className={tw(
-            "flex w-full flex-col items-center justify-center space-y-0.5 bg-transparent text-sm font-medium text-gray-700 md:grid dark:text-gray-100 dark:hover:text-gray-100",
+            "flex w-full flex-col items-center justify-center space-y-0.5 bg-transparent font-medium text-gray-700 text-sm md:grid dark:text-gray-100 dark:hover:text-gray-100",
             isActivePath("/explore") ? "opacity-100" : "opacity-70",
           )}
         >
@@ -60,7 +60,7 @@ const MobileBottomNav = () => {
         <Link
           href="/feed"
           className={tw(
-            "flex w-full flex-col items-center justify-center space-y-0.5 bg-transparent text-sm font-medium text-gray-700 md:grid dark:text-gray-100 dark:hover:text-gray-100",
+            "flex w-full flex-col items-center justify-center space-y-0.5 bg-transparent font-medium text-gray-700 text-sm md:grid dark:text-gray-100 dark:hover:text-gray-100",
             isActivePath("/feed") ? "opacity-100" : "opacity-70",
           )}
         >

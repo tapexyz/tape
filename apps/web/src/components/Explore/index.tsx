@@ -15,7 +15,7 @@ const Explore = () => {
   }, []);
 
   return (
-    <div className="max-w-screen-ultrawide container mx-auto">
+    <div className="container mx-auto max-w-screen-ultrawide">
       <MetaTags title="Explore" />
       <CategoryFilters heading="Everything" />
       <ExploreFeed />

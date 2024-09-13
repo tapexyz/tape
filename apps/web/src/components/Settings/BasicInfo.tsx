@@ -303,7 +303,7 @@ const BasicInfo = ({ profile }: Props) => {
     <form onSubmit={handleSubmit(onSaveBasicInfo)} className="w-full">
       <div className="relative w-full flex-none">
         {uploading.cover && (
-          <div className="rounded-small absolute z-10 flex h-full w-full items-center justify-center bg-black opacity-40">
+          <div className="absolute z-10 flex h-full w-full items-center justify-center rounded-small bg-black opacity-40">
             <Spinner />
           </div>
         )}
@@ -315,11 +315,11 @@ const BasicInfo = ({ profile }: Props) => {
               "THUMBNAIL",
             )
           }
-          className="rounded-small bg-brand-500 h-48 w-full object-cover object-center md:h-56"
+          className="h-48 w-full rounded-small bg-brand-500 object-cover object-center md:h-56"
           draggable={false}
           alt="No cover found"
         />
-        <div className="absolute bottom-2 right-2 cursor-pointer text-sm">
+        <div className="absolute right-2 bottom-2 cursor-pointer text-sm">
           <Button type="button" variant="secondary">
             <label htmlFor="chooseCover" className="cursor-pointer p-3">
               Choose Cover
@@ -403,7 +403,7 @@ const BasicInfo = ({ profile }: Props) => {
           error={errors.description?.message}
           {...register("description")}
         />
-        <div className="absolute bottom-1.5 right-2">
+        <div className="absolute right-2 bottom-1.5">
           <EmojiPicker
             onEmojiSelect={(emoji) =>
               setValue("description", `${getValues("description")}${emoji}`)

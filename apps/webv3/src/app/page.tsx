@@ -1,4 +1,4 @@
-import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 
 import { Feed } from "@/components/home/feed";
 import { publicationsQuery } from "@/components/home/queries";

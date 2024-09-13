@@ -7,7 +7,7 @@ const Handles = () => {
     <div>
       <MetaTags title="Owned Handles" />
       <div className="mb-5 space-y-2">
-        <h1 className="text-brand-400 text-xl font-bold">Owned Handles</h1>
+        <h1 className="font-bold text-brand-400 text-xl">Owned Handles</h1>
         <p className="text opacity-80">
           List of handles with profile owned by the connected address.
         </p>

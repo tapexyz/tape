@@ -15,10 +15,10 @@ const GitcoinAlert = () => {
   }
 
   return (
-    <div className="tape-border rounded-large ultrawide:h-[400px] relative flex h-[350px] w-[500px] flex-none overflow-hidden">
-      <div className="dark:to-bunker absolute inset-0 h-full w-full bg-gradient-to-b from-gray-100 dark:from-gray-900" />
+    <div className="tape-border relative flex h-[350px] ultrawide:h-[400px] w-[500px] flex-none overflow-hidden rounded-large">
+      <div className="absolute inset-0 h-full w-full bg-gradient-to-b from-gray-100 dark:from-gray-900 dark:to-bunker" />
 
-      <div className="ultrawide:p-8 relative flex h-full flex-col justify-between p-4 text-left md:p-6">
+      <div className="relative flex h-full flex-col justify-between p-4 ultrawide:p-8 text-left md:p-6">
         <span className="font-bold">
           <Countdown
             timestamp="2024-08-21T23:59:00+00:00"
@@ -28,7 +28,7 @@ const GitcoinAlert = () => {
 
         <span className="space-y-4">
           <div className="text-3xl">GG{GITCOIN_LIVE_ROUND} is Live</div>
-          <p className="md:text-md max-w-2xl text-sm lg:text-lg">
+          <p className="max-w-2xl text-sm md:text-md lg:text-lg">
             Support {TAPE_APP_NAME} on{" "}
             <span className="font-medium">Gitcoin Grants</span> Round{" "}
             {GITCOIN_LIVE_ROUND}

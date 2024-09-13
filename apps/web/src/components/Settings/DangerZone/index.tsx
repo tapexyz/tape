@@ -25,7 +25,7 @@ const DangerZone = () => {
       <MetaTags title="Danger Zone" />
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center">
-          <div className="mr-3 mt-0.5 flex-none">
+          <div className="mt-0.5 mr-3 flex-none">
             <HoverableProfile profile={activeProfile}>
               <img
                 src={getProfilePicture(activeProfile, "AVATAR")}

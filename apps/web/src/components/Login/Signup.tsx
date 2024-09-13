@@ -283,7 +283,7 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
           <span>Have an account?</span>
           <button
             type="button"
-            className="text-brand-500 font-bold"
+            className="font-bold text-brand-500"
             onClick={() => setShowSignup(false)}
           >
             Login

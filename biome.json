@@ -43,6 +43,13 @@
       },
       "complexity": {
         "noForEach": "warn"
+      },
+      "nursery": {
+        "useSortedClasses": {
+          "fix": "safe",
+          "level": "error",
+          "options": {}
+        }
       }
     }
   },

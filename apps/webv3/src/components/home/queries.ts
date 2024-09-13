@@ -1,11 +1,11 @@
 import { infiniteQueryOptions } from "@tanstack/react-query";
 import { TAPE_APP_ID } from "@tape.xyz/constants";
 import {
-  execute,
   LimitType,
   PublicationMetadataMainFocusType,
-  PublicationsDocument,
   PublicationType,
+  PublicationsDocument,
+  execute,
 } from "@tape.xyz/lens/gql";
 
 export const publicationsQuery = infiniteQueryOptions({

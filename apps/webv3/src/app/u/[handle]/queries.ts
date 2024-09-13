@@ -1,5 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import { execute, ProfileDocument } from "@tape.xyz/lens/gql";
+import { ProfileDocument, execute } from "@tape.xyz/lens/gql";
 
 export const profileQuery = (handle: string) =>
   queryOptions({

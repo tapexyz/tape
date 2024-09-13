@@ -256,7 +256,7 @@ const Authenticate = () => {
             )}
             <button
               type="button"
-              className="text-brand-500 font-bold"
+              className="font-bold text-brand-500"
               onClick={() => setShowSignup(true)}
             >
               Sign up

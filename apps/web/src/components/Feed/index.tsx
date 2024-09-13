@@ -76,7 +76,7 @@ const Feed = () => {
   }
 
   return (
-    <div className="max-w-screen-ultrawide container mx-auto">
+    <div className="container mx-auto max-w-screen-ultrawide">
       <MetaTags title="Your Feed" />
       <CategoryFilters heading="Your Feed" />
       {loading && <TimelineShimmer className="laptop:pt-6 pt-4" />}
@@ -90,7 +90,7 @@ const Feed = () => {
       ) : null}
       {!error && !loading && (
         <>
-          <div className="laptop:pt-6 ultrawide:grid-cols-6 grid-col-1 desktop:grid-cols-4 tablet:grid-cols-3 grid gap-x-4 gap-y-2 pt-4 md:gap-y-6">
+          <div className="grid-col-1 grid desktop:grid-cols-4 tablet:grid-cols-3 ultrawide:grid-cols-6 gap-x-4 gap-y-2 laptop:pt-6 pt-4 md:gap-y-6">
             {feedItems?.map((feedItem: FeedItem) => {
               const video = feedItem.root;
               return (

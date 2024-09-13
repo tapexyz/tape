@@ -26,7 +26,7 @@ const Mentioned: FC<Props> = ({ notification: { publication } }) => {
           <MentionOutline className="size-5" />
         </div>
         <div>
-          <span className="flex -space-x-1.5">
+          <span className="-space-x-1.5 flex">
             <HoverableProfile profile={publication.by} key={publication.by?.id}>
               <img
                 className="size-7 rounded-full border dark:border-gray-700/80"
@@ -42,7 +42,7 @@ const Mentioned: FC<Props> = ({ notification: { publication } }) => {
           <div className="py-2">mentioned you</div>
           <Link
             href={`/watch/${videoId}`}
-            className="text-dust line-clamp-2 font-medium"
+            className="line-clamp-2 font-medium text-dust"
           >
             {getPublicationData(publication.metadata)?.content}
           </Link>

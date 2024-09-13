@@ -48,7 +48,7 @@ const HoverableProfile: FC<Props> = ({ profile, children, pfp }) => {
                 sanitizeDStorageUrl(getProfileCoverPicture(profile, true)),
               )})`,
             }}
-            className="bg-brand-500 relative h-24 w-full bg-cover bg-center bg-no-repeat"
+            className="relative h-24 w-full bg-brand-500 bg-center bg-cover bg-no-repeat"
           >
             <div className="absolute bottom-3 left-3 flex-none">
               <img
@@ -61,7 +61,7 @@ const HoverableProfile: FC<Props> = ({ profile, children, pfp }) => {
                 }}
               />
             </div>
-            <div className="absolute bottom-3 right-3 flex-none">
+            <div className="absolute right-3 bottom-3 flex-none">
               {!profile.operations.isFollowedByMe.value && !isMyProfile ? (
                 <FollowActions profile={profile} />
               ) : null}
@@ -73,7 +73,7 @@ const HoverableProfile: FC<Props> = ({ profile, children, pfp }) => {
             href={getProfile(profile)?.link}
             className="flex items-center space-x-1"
           >
-            <span className="truncate text-xl font-bold">
+            <span className="truncate font-bold text-xl">
               {getProfile(profile)?.displayName}
             </span>
             <Badge id={profile?.id} size="lg" />

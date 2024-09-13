@@ -29,7 +29,7 @@ const ProfileSuggestion: FC<Props> = ({
       />
       <div className="overflow-hidden">
         <div className="flex items-center space-x-0.5">
-          <p className="truncate text-sm font-medium leading-4">{handle}</p>
+          <p className="truncate font-medium text-sm leading-4">{handle}</p>
           <Badge id={id} size="xs" />
         </div>
         <span className="text-xs opacity-80">

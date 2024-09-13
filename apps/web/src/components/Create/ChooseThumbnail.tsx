@@ -128,7 +128,7 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
             />
             {selectedThumbnailIndex === idx && (
               <div className="absolute inset-0 grid place-items-center bg-gray-800 bg-opacity-50">
-                <CheckOutline className="text-brand-500 size-4" />
+                <CheckOutline className="size-4 text-brand-500" />
               </div>
             )}
             {uploadedMedia.uploadingThumbnail &&

@@ -432,7 +432,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
         <span className="w-1/2 truncate">
           {(errors.tipQuantity || errors.message) && (
             <div>
-              <p className="text-xs font-medium text-red-500">
+              <p className="font-medium text-red-500 text-xs">
                 {errors?.tipQuantity?.message || errors?.message?.message}
               </p>
             </div>

@@ -54,7 +54,7 @@ const Bubbles: FC<Props> = ({ viewing, showSeparator }) => {
       >
         {showSeparator && <span className="middot px-1" />}
         <div className="flex items-center gap-1">
-          <span className="flex cursor-pointer -space-x-1.5">
+          <span className="-space-x-1.5 flex cursor-pointer">
             {mutualFollowers.slice(0, 3)?.map((profile: Profile) => (
               <HoverableProfile profile={profile} key={profile?.id}>
                 <img

@@ -22,7 +22,7 @@ const Mirrored: FC<Props> = ({ notification: { mirrors, publication } }) => {
         <MirrorOutline className="size-5" />
       </div>
       <div>
-        <span className="flex -space-x-1.5">
+        <span className="-space-x-1.5 flex">
           {mirrors.slice(0, 30).map(({ profile }: ProfileMirrorResult) => (
             <HoverableProfile profile={profile} key={profile?.id}>
               <img
@@ -40,7 +40,7 @@ const Mirrored: FC<Props> = ({ notification: { mirrors, publication } }) => {
         <div className="py-2">mirrored your publication</div>
         <Link
           href={`/watch/${publication.id}`}
-          className="text-dust line-clamp-2 font-medium"
+          className="line-clamp-2 font-medium text-dust"
         >
           {getPublicationData(publication.metadata)?.content}
         </Link>

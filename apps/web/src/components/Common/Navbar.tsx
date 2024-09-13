@@ -28,7 +28,7 @@ const Navbar = () => {
   } = usePersistStore();
 
   return (
-    <div className="ultrawide:px-8 laptop:px-6 fixed top-0 z-10 flex h-14 w-full items-center bg-white/80 px-4 backdrop-blur-2xl dark:bg-black/80">
+    <div className="fixed top-0 z-10 flex h-14 w-full items-center bg-white/80 laptop:px-6 px-4 ultrawide:px-8 backdrop-blur-2xl dark:bg-black/80">
       <div className="flex w-full items-center justify-between">
         <div className="flex items-center space-x-2 md:w-1/5">
           <Logo />
@@ -45,7 +45,7 @@ const Navbar = () => {
             className={tw(
               isActivePath("/")
                 ? "font-bold"
-                : "text-dust font-medium hover:opacity-90",
+                : "font-medium text-dust hover:opacity-90",
             )}
           >
             Home
@@ -55,7 +55,7 @@ const Navbar = () => {
             className={tw(
               isActivePath("/bytes")
                 ? "font-bold"
-                : "text-dust font-medium hover:opacity-90",
+                : "font-medium text-dust hover:opacity-90",
             )}
           >
             Bytes
@@ -65,7 +65,7 @@ const Navbar = () => {
             className={tw(
               isActivePath("/feed")
                 ? "font-bold"
-                : "text-dust font-medium hover:opacity-90",
+                : "font-medium text-dust hover:opacity-90",
             )}
           >
             Feed
@@ -88,7 +88,7 @@ const Navbar = () => {
                   <BellOutline className="size-3.5" />
                 </div>
                 {lastOpenedNotificationId !== latestNotificationId ? (
-                  <span className="absolute right-0.5 top-0 h-2 w-2 rounded-full bg-red-500" />
+                  <span className="absolute top-0 right-0.5 h-2 w-2 rounded-full bg-red-500" />
                 ) : null}
               </Link>
               <Link href="/create" className="hidden md:block">

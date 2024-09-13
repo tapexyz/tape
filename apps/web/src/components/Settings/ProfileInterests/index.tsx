@@ -9,7 +9,7 @@ const ProfileInterests = () => {
     <>
       <MetaTags title="Profile Interests" />
       <div className="mb-5 space-y-2">
-        <h1 className="text-brand-400 text-xl font-bold">Interests</h1>
+        <h1 className="font-bold text-brand-400 text-xl">Interests</h1>
         <p className="text opacity-80">
           There is so much good content on {TAPE_APP_NAME}, it may be hard to
           find what&apos;s most relevant to you from time to time. That&apos;s

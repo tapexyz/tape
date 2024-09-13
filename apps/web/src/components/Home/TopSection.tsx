@@ -18,7 +18,7 @@ const TopSection = () => {
       <HorizontalScroller sectionRef={sectionRef} heading="New & Trending" />
       <div
         ref={sectionRef}
-        className="no-scrollbar laptop:pt-6 relative flex items-start space-x-4 overflow-x-auto overflow-y-hidden scroll-smooth pt-4"
+        className="no-scrollbar relative flex items-start space-x-4 overflow-x-auto overflow-y-hidden scroll-smooth laptop:pt-6 pt-4"
       >
         {!activeProfile?.id && <WelcomeAlert />}
         <GitcoinAlert />

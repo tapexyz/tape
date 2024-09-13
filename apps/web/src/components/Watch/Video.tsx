@@ -51,7 +51,7 @@ const RenderPlayer = memo(({ video }: { video: PrimaryPublication }) => {
   };
 
   return (
-    <div className="rounded-large overflow-hidden">
+    <div className="overflow-hidden rounded-large">
       <VideoPlayer
         address={activeProfile?.ownedBy.address}
         refCallback={refCallback}

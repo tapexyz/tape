@@ -6,16 +6,16 @@ const privacy = () => {
     <div className="relative overflow-hidden py-[5rem]">
       <div className="px-2">
         <div className="relative mx-auto max-w-4xl pb-24 text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl dark:text-slate-100">
+          <h1 className="font-bold text-4xl text-slate-900 tracking-tight sm:text-5xl dark:text-slate-100">
             Privacy policy
           </h1>
-          <p className="mt-4 text-base leading-7 text-slate-600 dark:text-slate-400">
+          <p className="mt-4 text-base text-slate-600 leading-7 dark:text-slate-400">
             Last updated on Oct 31, 2023
           </p>
         </div>
       </div>
       <div className="relative px-2">
-        <div className="prose-sm md:prose prose-slate dark:prose-invert prose-a:font-bold prose-a:text-brand-500 hover:prose-a:text-brand-600 mx-auto max-w-4xl">
+        <div className="prose-sm md:prose prose-slate dark:prose-invert mx-auto max-w-4xl prose-a:font-bold prose-a:text-brand-500 hover:prose-a:text-brand-600">
           <h2>1. Overview</h2>
           <p>
             By accessing the Site, you agree to not only this Privacy Policy,

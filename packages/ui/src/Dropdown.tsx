@@ -97,7 +97,7 @@ export const DropdownMenuItem = forwardRef<
     <DropdownMenuPrimitive.Item
       className={tw(
         sizeClasses,
-        "relative select-none items-center space-x-2 rounded-md leading-none data-[disabled]:pointer-events-none data-[highlighted]:bg-gray-200 data-[highlighted]:outline-none dark:hover:bg-gray-800 dark:data-[highlighted]:bg-gray-800",
+        "relative select-none items-center space-x-2 rounded-md leading-none data-[disabled]:pointer-events-none data-[highlighted]:bg-gray-200 data-[highlighted]:outline-none dark:data-[highlighted]:bg-gray-800 dark:hover:bg-gray-800",
         className,
       )}
       ref={ref}

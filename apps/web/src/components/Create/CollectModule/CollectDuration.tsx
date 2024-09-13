@@ -19,7 +19,7 @@ const CollectDuration: FC<Props> = ({ setCollectType }) => {
   );
   return (
     <div className="space-y-1">
-      <span className="text-sm font-medium">Collect duration</span>
+      <span className="font-medium text-sm">Collect duration</span>
       <div className="flex flex-wrap gap-1.5 md:flex-nowrap">
         <div className="flex-1">
           <Button

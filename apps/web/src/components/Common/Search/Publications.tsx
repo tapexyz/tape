@@ -36,7 +36,7 @@ const Publications: FC<Props> = ({ results, loading, clearSearch }) => {
         return (
           <div
             key={publication.id}
-            className="hover:bg-gallery dark:hover:bg-smoke relative cursor-default select-none rounded-md pl-3 pr-4"
+            className="relative cursor-default select-none rounded-md pr-4 pl-3 hover:bg-gallery dark:hover:bg-smoke"
           >
             <Link
               href={`/watch/${publication?.id}`}
@@ -64,7 +64,7 @@ const Publications: FC<Props> = ({ results, loading, clearSearch }) => {
                   <p className="line-clamp-1 font-medium">
                     {getPublicationData(publication.metadata)?.title}
                   </p>
-                  <p className="text-dust line-clamp-2">
+                  <p className="line-clamp-2 text-dust">
                     {getPublicationData(publication.metadata)?.content}
                   </p>
                 </div>

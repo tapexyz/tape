@@ -105,7 +105,7 @@ const TopOverlay: FC<OverlayProps> = ({ playerRef, video }) => {
           </button>
         </div>
       </div>
-      <div className="absolute bottom-2 right-0 md:bottom-4">
+      <div className="absolute right-0 bottom-2 md:bottom-4">
         <Link
           className="flex items-center space-x-1.5 rounded-l-full bg-black/50 px-3 py-1.5 text-white"
           title={`Watch on ${TAPE_APP_NAME}`}

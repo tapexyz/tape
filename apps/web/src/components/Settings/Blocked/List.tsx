@@ -209,7 +209,7 @@ const List = () => {
       {blockedProfiles.map((profile) => (
         <div
           key={profile.id}
-          className="tape-border rounded-small overflow-hidden"
+          className="tape-border overflow-hidden rounded-small"
         >
           <div
             style={{
@@ -217,7 +217,7 @@ const List = () => {
                 sanitizeDStorageUrl(getProfileCoverPicture(profile, true)),
               )})`,
             }}
-            className="bg-brand-500 relative h-20 w-full bg-cover bg-center bg-no-repeat"
+            className="relative h-20 w-full bg-brand-500 bg-center bg-cover bg-no-repeat"
           >
             <div className="absolute bottom-2 left-2 flex-none">
               <img
@@ -230,7 +230,7 @@ const List = () => {
                 }}
               />
             </div>
-            <div className="absolute bottom-2 right-2 flex-none">
+            <div className="absolute right-2 bottom-2 flex-none">
               <Button
                 onClick={() => onClickUnblock(profile.id)}
                 disabled={unblockingProfileId === profile.id}
@@ -239,12 +239,12 @@ const List = () => {
               </Button>
             </div>
           </div>
-          <div className="p-2 pl-4 pt-2.5">
+          <div className="p-2 pt-2.5 pl-4">
             <Link
               href={getProfile(profile)?.link}
               className="flex items-center space-x-1"
             >
-              <span className="text-2xl font-bold leading-tight">
+              <span className="font-bold text-2xl leading-tight">
                 {getProfile(profile)?.slug}
               </span>
               <Badge id={profile?.id} size="lg" />

@@ -2,10 +2,10 @@ import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
 import {
   CommentRankingFilterType,
   CustomFiltersType,
-  execute,
   LimitType,
   PublicationDocument,
   PublicationsDocument,
+  execute,
 } from "@tape.xyz/lens/gql";
 
 export const publicationQuery = (id: string) =>

@@ -24,7 +24,7 @@ export const Callout: FC<Props> = ({
     <div
       className={tw(
         variantClasses,
-        "flex space-x-2 rounded-lg p-3 text-sm font-medium",
+        "flex space-x-2 rounded-lg p-3 font-medium text-sm",
         className,
       )}
     >

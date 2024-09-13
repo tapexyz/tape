@@ -145,7 +145,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
   return (
     <div className="space-y-1">
       <div className="flex items-center">
-        <span className="text-sm font-medium">Split revenue</span>
+        <span className="font-medium text-sm">Split revenue</span>
         <Tooltip content="Split collect revenue with anyone" placement="top">
           <span>
             <InfoOutline className="mx-1 size-3 opacity-70" />
@@ -205,7 +205,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
                       pfp={getProfilePicture(profile, "AVATAR")}
                       handle={getProfile(profile).slug}
                       followers={profile.stats.followers}
-                      className="hover:bg-brand-50 text-left dark:hover:bg-black"
+                      className="text-left hover:bg-brand-50 dark:hover:bg-black"
                     />
                   </button>
                 ))}
@@ -235,7 +235,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
           <button
             type="button"
             className={tw(
-              "rounded border border-gray-700 px-1 text-[10px] font-bold uppercase tracking-wider opacity-70 dark:border-gray-300",
+              "rounded border border-gray-700 px-1 font-bold text-[10px] uppercase tracking-wider opacity-70 dark:border-gray-300",
               splitRecipients.length >= 4 && "invisible",
             )}
             onClick={() => addRecipient()}
@@ -246,7 +246,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
         {splitRecipients?.length > 1 && (
           <button
             type="button"
-            className="rounded border border-gray-700 px-1 text-[10px] font-bold uppercase tracking-wider opacity-70 dark:border-gray-300"
+            className="rounded border border-gray-700 px-1 font-bold text-[10px] uppercase tracking-wider opacity-70 dark:border-gray-300"
             onClick={() => splitEvenly()}
           >
             Split evenly

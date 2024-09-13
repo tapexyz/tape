@@ -91,7 +91,7 @@ export const Button = () => {
         backgroundColor: bgColor,
         color: textColor,
       }}
-      className="flex items-center overflow-hidden rounded-full px-5 py-2.5 text-lg font-semibold"
+      className="flex items-center overflow-hidden rounded-full px-5 py-2.5 font-semibold text-lg"
       onClick={() => onClickBtn()}
     >
       <AnimatePresence mode="popLayout" initial={false}>

@@ -131,7 +131,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 }}
                 rows={6}
               />
-              <div className="absolute right-2 top-8">
+              <div className="absolute top-8 right-2">
                 <EmojiPicker
                   onEmojiSelect={(emoji) =>
                     setValue(
@@ -141,7 +141,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                   }
                 />
               </div>
-              <div className="absolute right-1 top-0 mt-1 flex items-center justify-end">
+              <div className="absolute top-0 right-1 mt-1 flex items-center justify-end">
                 <span
                   className={tw(
                     "text-xs",

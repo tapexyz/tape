@@ -182,11 +182,11 @@ const IrysInfo = () => {
         <span className="font-medium">Estimated cost to upload</span>
         <div className="flex justify-between">
           {!fetchingBalance ? (
-            <span className="text-lg font-bold">
+            <span className="font-bold text-lg">
               {Number(irysData.estimatedPrice).toFixed(2)} POL
             </span>
           ) : (
-            <span className="animate-shimmer mt-[6px] h-[22px] w-1/2 rounded-lg bg-gray-200 dark:bg-gray-700" />
+            <span className="mt-[6px] h-[22px] w-1/2 animate-shimmer rounded-lg bg-gray-200 dark:bg-gray-700" />
           )}
         </div>
       </div>
@@ -241,11 +241,11 @@ const IrysInfo = () => {
         </div>
         <div className="flex justify-between">
           {!fetchingBalance ? (
-            <span className="text-lg font-bold">
+            <span className="font-bold text-lg">
               {Number(irysData.balance).toFixed(2)} POL
             </span>
           ) : (
-            <span className="animate-shimmer mt-[6px] h-[22px] w-1/2 rounded-lg bg-gray-200 dark:bg-gray-700" />
+            <span className="mt-[6px] h-[22px] w-1/2 animate-shimmer rounded-lg bg-gray-200 dark:bg-gray-700" />
           )}
         </div>
       </div>

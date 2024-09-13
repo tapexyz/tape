@@ -1,4 +1,4 @@
-import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { LENS_NAMESPACE_PREFIX } from "@tape.xyz/constants";
 import { getProfile, getProfilePicture } from "@tape.xyz/generic";
 import type { Profile as ProfileType } from "@tape.xyz/lens/gql";

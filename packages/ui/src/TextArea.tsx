@@ -40,7 +40,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
     return (
       <label className="w-full" htmlFor={id}>
         {label ? (
-          <div className="mb-1 flex items-center space-x-1.5 text-sm font-medium text-gray-800 dark:text-gray-200">
+          <div className="mb-1 flex items-center space-x-1.5 font-medium text-gray-800 text-sm dark:text-gray-200">
             {label}
           </div>
         ) : null}
@@ -60,7 +60,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
             {...props}
           />
         </motion.div>
-        {error ? <p className="text-sm text-red-500">{error}</p> : null}
+        {error ? <p className="text-red-500 text-sm">{error}</p> : null}
       </label>
     );
   },

@@ -167,7 +167,7 @@ const FeeCollectForm: FC<Props> = ({ setCollectType, setShowModal }) => {
         className="flex items-center justify-between pt-4"
         ref={submitContainerRef}
       >
-        <span className="text-sm font-medium text-red-500">
+        <span className="font-medium text-red-500 text-sm">
           {validationError}
         </span>
         <Button type="button" onClick={() => handleSubmit(validateInputs)()}>

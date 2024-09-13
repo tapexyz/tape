@@ -9,7 +9,7 @@ const MediaCategory = () => {
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia);
   return (
     <div className="flex-1 space-y-1">
-      <span className="text-sm font-medium">Category</span>
+      <span className="font-medium text-sm">Category</span>
 
       <Select
         value={uploadedMedia.mediaCategory.tag}

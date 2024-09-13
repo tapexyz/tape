@@ -84,15 +84,15 @@ const Delete = () => {
   }
 
   return (
-    <div className="tape-border rounded-medium dark:bg-cod mb-4 bg-white">
+    <div className="tape-border mb-4 rounded-medium bg-white dark:bg-cod">
       <div className="space-y-2 p-5">
-        <h1 className="text-xl font-bold text-red-500">Delete Profile</h1>
+        <h1 className="font-bold text-red-500 text-xl">Delete Profile</h1>
         <p>
           Delete your profile and its data.
           <span className="ml-1 text-red-500">It can not be reverted</span>
         </p>
       </div>
-      <div className="rounded-b-medium flex justify-end border-b-0 bg-red-100 px-5 py-3 dark:bg-red-900/20">
+      <div className="flex justify-end rounded-b-medium border-b-0 bg-red-100 px-5 py-3 dark:bg-red-900/20">
         <Button
           variant="danger"
           disabled={loading}

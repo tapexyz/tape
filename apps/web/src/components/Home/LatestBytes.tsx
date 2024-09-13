@@ -63,7 +63,7 @@ const LatestBytes = () => {
           <div className="flex flex-col" key={byte.id}>
             <Link
               href={`/bytes/${byte.id}`}
-              className="ultrawide:w-[260px] rounded-large ultrawide:h-[400px] relative aspect-[9/16] h-[350px] w-[220px] flex-none overflow-hidden"
+              className="relative aspect-[9/16] h-[350px] ultrawide:h-[400px] ultrawide:w-[260px] w-[220px] flex-none overflow-hidden rounded-large"
             >
               <img
                 className="h-full object-cover"
@@ -76,7 +76,7 @@ const LatestBytes = () => {
                   currentTarget.src = FALLBACK_THUMBNAIL_URL;
                 }}
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-transparent to-black px-4 py-2">
+              <div className="absolute right-0 bottom-0 left-0 bg-gradient-to-b from-transparent to-black px-4 py-2">
                 <h1 className="line-clamp-2 break-all font-bold text-white">
                   {getPublicationData(byte.metadata)?.title}
                 </h1>

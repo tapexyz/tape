@@ -148,7 +148,7 @@ const InputMentions: FC<TextAreaProps> = ({
           ref={resultsRef}
           style={dropdownStyle}
           onKeyDown={popoverHandleKeyDown}
-          className="rounded-medium tape-border absolute z-10 mt-10 space-y-1 bg-white p-1.5 dark:bg-black"
+          className="tape-border absolute z-10 mt-10 space-y-1 rounded-medium bg-white p-1.5 dark:bg-black"
         >
           {loading ? (
             <Spinner />
@@ -164,8 +164,8 @@ const InputMentions: FC<TextAreaProps> = ({
                   type="button"
                   onClick={() => handleProfileClick(profile)}
                   className={tw(
-                    "hover:dark:bg-smoke hover:bg-gallery w-full rounded-lg text-left",
-                    index === selectedIndex && "dark:bg-smoke bg-gallery",
+                    "w-full rounded-lg text-left hover:bg-gallery hover:dark:bg-smoke",
+                    index === selectedIndex && "bg-gallery dark:bg-smoke",
                   )}
                 >
                   <ProfileSuggestion

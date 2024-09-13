@@ -36,12 +36,12 @@ export const Modal: FC<Props> = ({
           onPointerDownOutside={(e) => (locked ? e.preventDefault() : null)}
           className={tw(
             sizeClasses,
-            "tape-border fixed left-[50%] top-[50%] z-10 max-h-[85vh] w-[90vw] translate-x-[-50%] translate-y-[-50%] space-y-4 rounded-xl bg-white p-5 focus:outline-none dark:bg-black",
+            "tape-border fixed top-[50%] left-[50%] z-10 max-h-[85vh] w-[90vw] translate-x-[-50%] translate-y-[-50%] space-y-4 rounded-xl bg-white p-5 focus:outline-none dark:bg-black",
           )}
         >
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <Dialog.Title className="text-lg font-semibold">
+              <Dialog.Title className="font-semibold text-lg">
                 {title}
               </Dialog.Title>
               {!locked && (

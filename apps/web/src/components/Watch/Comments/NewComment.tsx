@@ -404,10 +404,10 @@ const NewComment: FC<Props> = ({
             setValue("comment", value);
             clearErrors("comment");
           }}
-          className="w-full !pb-1"
+          className="!pb-1 w-full"
         />
         {!hideEmojiPicker && (
-          <div className="absolute right-2 top-2">
+          <div className="absolute top-2 right-2">
             <EmojiPicker
               onEmojiSelect={(emoji) =>
                 setValue("comment", `${getValues("comment")}${emoji}`)

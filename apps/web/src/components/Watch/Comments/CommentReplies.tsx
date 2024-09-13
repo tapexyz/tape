@@ -134,7 +134,7 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
               <div className="flex w-full items-start">
                 <Link
                   href={getProfile(comment.by)?.link}
-                  className="mr-3 mt-0.5 flex-none"
+                  className="mt-0.5 mr-3 flex-none"
                 >
                   <img
                     src={getProfilePicture(comment.by, "AVATAR")}

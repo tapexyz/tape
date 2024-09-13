@@ -6,7 +6,7 @@ import {
   POLYGON_RPC_URLS,
 } from "@tape.xyz/constants";
 import { Hono } from "hono";
-import { createPublicClient, fallback, http } from "viem";
+import { http, createPublicClient, fallback } from "viem";
 import { polygon } from "viem/chains";
 import { object, string } from "zod";
 

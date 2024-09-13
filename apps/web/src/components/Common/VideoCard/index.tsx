@@ -31,7 +31,7 @@ const VideoCard: FC<Props> = ({ video }) => {
   return (
     <div className="group">
       <Link href={href}>
-        <div className="rounded-medium tape-border relative aspect-[16/9] overflow-hidden">
+        <div className="tape-border relative aspect-[16/9] overflow-hidden rounded-medium">
           <ThumbnailImage video={video} />
           <ThumbnailOverlays video={video} />
         </div>
@@ -53,7 +53,7 @@ const VideoCard: FC<Props> = ({ video }) => {
               <Link className="line-clamp-2 break-words font-bold" href={href}>
                 {getPublicationData(metadata)?.title}
               </Link>
-              <div className="flex pr-1 pt-1">
+              <div className="flex pt-1 pr-1">
                 <PublicationOptions publication={video} />
               </div>
             </div>

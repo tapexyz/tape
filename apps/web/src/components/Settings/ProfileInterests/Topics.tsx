@@ -69,7 +69,7 @@ const Topics = () => {
       {sanitizeProfileInterests(interestsData)?.map(
         ({ category, subCategories }) => (
           <div className="w-full space-y-2" key={category.id}>
-            <h2 className="text-sm font-bold capitalize">{category.label}</h2>
+            <h2 className="font-bold text-sm capitalize">{category.label}</h2>
             <div className="flex flex-wrap items-center gap-2">
               <button
                 type="button"

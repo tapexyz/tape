@@ -30,7 +30,7 @@ export const Tooltip = ({
       content={content}
       arrow={false}
       theme={resolvedTheme === "dark" ? "translucent" : "light"}
-      className={tw("hidden !rounded-lg !font-normal", {
+      className={tw("!rounded-lg !font-normal hidden", {
         "sm:block": visible,
       })}
     >

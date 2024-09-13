@@ -99,9 +99,9 @@ const Guardian: FC = () => {
   };
 
   return (
-    <div className="tape-border rounded-medium dark:bg-cod mb-4 bg-white">
+    <div className="tape-border mb-4 rounded-medium bg-white dark:bg-cod">
       <div className="space-y-2 p-5">
-        <h1 className="text-xl font-bold text-red-500">
+        <h1 className="font-bold text-red-500 text-xl">
           Disable profile guardian
         </h1>
         <p>
@@ -126,7 +126,7 @@ const Guardian: FC = () => {
 
       <div
         className={tw(
-          "rounded-b-medium flex border-b-0 bg-red-100 px-5 py-3 dark:bg-red-900/20",
+          "flex rounded-b-medium border-b-0 bg-red-100 px-5 py-3 dark:bg-red-900/20",
           isCooldownEnded() ? "justify-end" : "justify-between",
         )}
       >

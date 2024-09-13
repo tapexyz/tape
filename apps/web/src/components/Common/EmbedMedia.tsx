@@ -59,7 +59,7 @@ const EmbedMedia: FC<Props> = ({ publicationId }) => {
             <Tooltip content="Copy Code" placement="top">
               <button
                 type="button"
-                className="absolute right-2 top-2 rounded p-1 hover:bg-gray-100 dark:hover:bg-gray-900"
+                className="absolute top-2 right-2 rounded p-1 hover:bg-gray-100 dark:hover:bg-gray-900"
                 onClick={() => onCopyCode()}
               >
                 <CopyOutline className="size-4" />

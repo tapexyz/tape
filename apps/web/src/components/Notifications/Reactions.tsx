@@ -25,7 +25,7 @@ const Reactions: FC<Props> = ({ notification: { publication, reactions } }) => {
         <HeartOutline className="size-5" />
       </div>
       <div>
-        <span className="flex -space-x-1.5">
+        <span className="-space-x-1.5 flex">
           {reactions.slice(0, 30).map(({ profile }: ProfileReactedResult) => (
             <HoverableProfile profile={profile} key={profile?.id}>
               <img
@@ -43,7 +43,7 @@ const Reactions: FC<Props> = ({ notification: { publication, reactions } }) => {
         <div className="py-2">reacted to your publication</div>
         <Link
           href={`/watch/${publication.id}`}
-          className="text-dust line-clamp-2 font-medium"
+          className="line-clamp-2 font-medium text-dust"
         >
           {getPublicationData(publication.metadata)?.title}
         </Link>

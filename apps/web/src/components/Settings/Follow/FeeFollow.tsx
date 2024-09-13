@@ -207,7 +207,7 @@ const FeeFollow = ({ profile }: Props) => {
   return (
     <>
       <div className="mb-5 space-y-2">
-        <h1 className="text-brand-400 text-xl font-bold">Grow with Lens</h1>
+        <h1 className="font-bold text-brand-400 text-xl">Grow with Lens</h1>
         <p className="text opacity-80">
           You can set up a follow fee for your profile and provide exclusive
           offers and perks to the followers, also people can pay and support
@@ -225,14 +225,14 @@ const FeeFollow = ({ profile }: Props) => {
           <div className="grid gap-y-4 md:grid-cols-3">
             <div>
               <span>Amount</span>
-              <h6 className="text-xl font-bold">
+              <h6 className="font-bold text-xl">
                 {activeFollowModule.amount?.value}{" "}
                 {activeFollowModule.amount?.asset?.symbol}
               </h6>
             </div>
             <div>
               <span>Asset</span>
-              <h6 className="text-xl font-bold">
+              <h6 className="font-bold text-xl">
                 {activeFollowModule.amount?.asset?.name}
               </h6>
             </div>
@@ -240,7 +240,7 @@ const FeeFollow = ({ profile }: Props) => {
               <span>Recipient</span>
               <Tooltip content="Copy Address" placement="top">
                 <Button onClick={() => copy(activeFollowModule.recipient)}>
-                  <span className="block text-xl font-bold outline-none">
+                  <span className="block font-bold text-xl outline-none">
                     {shortenAddress(activeFollowModule.recipient, 6)}
                   </span>
                 </Button>
@@ -252,9 +252,9 @@ const FeeFollow = ({ profile }: Props) => {
 
       {showForm && !moduleLoading ? (
         <form onSubmit={handleSubmit(onSubmitForm)}>
-          <div className="laptop:w-1/2 flex flex-col gap-4">
+          <div className="flex laptop:w-1/2 flex-col gap-4">
             <div>
-              <div className="mb-1 text-sm font-medium">Currency</div>
+              <div className="mb-1 font-medium text-sm">Currency</div>
               <Select
                 value={watch("token")}
                 onValueChange={(value) => setValue("token", value)}
@@ -267,7 +267,7 @@ const FeeFollow = ({ profile }: Props) => {
                 ))}
               </Select>
               {errors.token?.message && (
-                <div className="mx-1 mt-1 text-xs font-medium text-red-500">
+                <div className="mx-1 mt-1 font-medium text-red-500 text-xs">
                   {errors.token?.message}
                 </div>
               )}
