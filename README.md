@@ -48,15 +48,17 @@ This monorepo uses [Pnpm](https://pnpm.io/) as a package manager. It includes th
 
 #### 📦 Packages
 
-| Name        | Description                               |
-| ----------- | ----------------------------------------- |
-| `abis`      | Contract Interfaces                       |
-| `config`    | Shared lint config                        |
-| `constants` | Constants for the entire application      |
-| `contracts` | Permissionless signup contracts           |
-| `helpers`   | Collection of client and generic helpers  |
-| `lens`      | Everything related to lens indexer        |
-| `ui`        | Web UI components                         |
+| Name        | Description                          |
+| ----------- | ------------------------------------ |
+| `abis`      | Contract Interfaces                  |
+| `config`    | Shared lint config                   |
+| `constants` | Constants for the entire application |
+| `contracts` | Permissionless signup contracts      |
+| `generic`   | Collection of generic helpers        |
+| `server`    | Collection of server helpers         |
+| `browser`   | Collection of client helpers         |
+| `lens`      | Everything related to lens indexer   |
+| `ui`        | Web UI components                    |
 
 ## 🆕 Getting Started
 
