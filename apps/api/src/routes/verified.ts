@@ -1,5 +1,5 @@
 import { CACHE_CONTROL, ERROR_MESSAGE, REDIS_KEYS } from "@tape.xyz/constants";
-import { psql, REDIS_EXPIRY, rGet, rSet } from "@tape.xyz/server";
+import { REDIS_EXPIRY, rGet, rSet, tapeDb } from "@tape.xyz/server";
 import { Hono } from "hono";
 
 const app = new Hono();
@@ -15,7 +15,7 @@ app.get("/", async (c) => {
     }
     console.info("CACHE MISS");
 
-    const results = await psql.profile.findMany({
+    const results = await tapeDb.profile.findMany({
       where: {
         isVerified: true,
       },

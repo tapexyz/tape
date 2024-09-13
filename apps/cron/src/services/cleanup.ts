@@ -9,7 +9,7 @@ import {
   EVER_ENDPOINT,
   EVER_REGION,
 } from "@tape.xyz/constants";
-import { psql } from "@tape.xyz/server";
+import { tapeDb } from "@tape.xyz/server";
 
 const { EVER_ACCESS_KEY, EVER_ACCESS_SECRET } = process.env;
 
@@ -91,7 +91,7 @@ const cleanup4Ever = async (): Promise<void> => {
 
 const vacuumPostgres = async (): Promise<void> => {
   try {
-    await psql.$queryRaw`VACUUM`;
+    await tapeDb.$queryRaw`VACUUM`;
     console.log("[cron] Postgres vacuum completed");
   } catch (error) {
     console.error("[cron] Error Postgres vacuum", error);

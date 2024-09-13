@@ -1,5 +1,5 @@
 import { CACHE_CONTROL, ERROR_MESSAGE, REDIS_KEYS } from "@tape.xyz/constants";
-import { psql, REDIS_EXPIRY, rGet, rSet } from "@tape.xyz/server";
+import { REDIS_EXPIRY, rGet, rSet, tapeDb } from "@tape.xyz/server";
 import { Hono } from "hono";
 
 const app = new Hono();
@@ -16,7 +16,7 @@ app.get("/profiles", async (c) => {
     console.info("CACHE MISS");
 
     const results: { profileId: string }[] =
-      await psql.$queryRaw`SELECT "profileId" FROM "Profile" WHERE "isCurated" = TRUE ORDER BY RANDOM() LIMIT 50;`;
+      await tapeDb.$queryRaw`SELECT "profileId" FROM "Profile" WHERE "isCurated" = TRUE ORDER BY RANDOM() LIMIT 50;`;
 
     const ids = results.map(({ profileId }) => profileId);
 
