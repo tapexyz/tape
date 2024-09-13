@@ -4,7 +4,6 @@
   "license": "AGPL-3.0",
   "main": "index.ts",
   "scripts": {
-    "lint": "biome check .",
     "typecheck": "tsc --pretty --noEmit",
     "tape:migrate": "prisma migrate dev --schema ./db/tape/schema.prisma",
     "prisma:generate": "prisma generate --schema ./db/tape/schema.prisma",

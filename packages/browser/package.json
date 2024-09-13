@@ -5,7 +5,6 @@
   "main": "./index.ts",
   "scripts": {
     "build:sw": "tsc worker/sw.ts --outDir ../../apps/web/public",
-    "lint": "biome check .",
     "typecheck": "tsc --pretty --noEmit",
     "postinstall": "pnpm build:sw"
   },

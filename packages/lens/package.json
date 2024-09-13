@@ -7,7 +7,6 @@
   "scripts": {
     "codegen": "graphql-codegen",
     "codegenv3": "graphql-codegen --config codegenv3.ts",
-    "lint": "biome check .",
     "typecheck": "tsc --pretty --noEmit"
   },
   "dependencies": {

@@ -4,7 +4,6 @@
   "author": "sasicodes",
   "license": "AGPL-3.0",
   "scripts": {
-    "lint": "biome check .",
     "typecheck": "tsc --pretty --noEmit"
   },
   "devDependencies": {
