@@ -1,4 +1,9 @@
-import { ALLOWED_APP_IDS, REDIS_KEYS, TAPE_APP_ID } from "@tape.xyz/constants";
+import {
+  ALLOWED_APP_IDS,
+  LENSTUBE_BYTES_APP_ID,
+  REDIS_KEYS,
+  TAPE_APP_ID,
+} from "@tape.xyz/constants";
 import { REDIS_EXPIRY, indexerDb, rSet, tapeDb } from "@tape.xyz/server";
 
 type MainFocus = "VIDEO" | "SHORT_VIDEO";
@@ -35,7 +40,7 @@ const curatePublications = async (mainFocus: MainFocus) => {
 
       while (hasNextPage) {
         const offset = (page - 1) * limit;
-        const apps = [TAPE_APP_ID, ...ALLOWED_APP_IDS];
+        const apps = [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS];
         const skipPubIds = Array.from(alreadyQueried);
 
         const results: { publication_id: string }[] = await indexerDb.query(
