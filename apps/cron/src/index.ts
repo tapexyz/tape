@@ -4,7 +4,6 @@ import cron from "node-cron";
 
 import { backupEventsToS3 } from "./services/backup/events";
 import { cleanup4Ever, vacuumPostgres } from "./services/cleanup";
-import { curatePublications } from "./services/curate";
 import { flushEvents } from "./services/events";
 import { wakeClickHouse } from "./services/wake";
 
@@ -35,8 +34,7 @@ cron.schedule("0 0 * * *", async () => {
 });
 
 // Schedule the curatePublications function to run every 5 hour
-cron.schedule("0 */5 * * *", async () => {
-  console.log("[cron] Curating publications", new Date());
-  await curatePublications("VIDEO");
-  await curatePublications("SHORT_VIDEO");
-});
+// cron.schedule("0 */5 * * *", async () => {
+//   console.log("[cron] Curating publications", new Date());
+//   await curatePublications("VIDEO");
+// });

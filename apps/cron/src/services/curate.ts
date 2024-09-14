@@ -76,6 +76,7 @@ const curatePublications = async (mainFocus: MainFocus) => {
         );
 
         const pubIds = results.map(({ publication_id }) => publication_id);
+        console.log(`[curate] Found ${pubIds.length} publications`);
         for (const pubId of pubIds) {
           alreadyQueried.add(pubId);
         }
