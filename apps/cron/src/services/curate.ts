@@ -1,10 +1,11 @@
 import { ALLOWED_APP_IDS, REDIS_KEYS, TAPE_APP_ID } from "@tape.xyz/constants";
 import { REDIS_EXPIRY, indexerDb, rSet, tapeDb } from "@tape.xyz/server";
 
-const curatedPublications = async () => {
+const curatePublications = async () => {
   try {
-    let page = 1;
     const limit = 50;
+    let pageNumber = 1;
+    let bufferedItems: string[] = [];
 
     const profiles = await tapeDb.profile.findMany({
       select: { profileId: true },
@@ -13,25 +14,27 @@ const curatedPublications = async () => {
     const profileIds = profiles.map(({ profileId }) => profileId);
     console.log(`[curate] Found ${profileIds.length} curated profiles`);
 
-    const batchSize = 100;
     const batches = [];
+    const batchSize = 50;
     for (let i = 0; i < profileIds.length; i += batchSize) {
       batches.push(profileIds.slice(i, i + batchSize));
     }
-    for (const batch of batches) {
+
+    for (let batchIndex = 0; batchIndex < batches.length; batchIndex++) {
+      const batch = batches[batchIndex] as string[];
+
       console.log(
-        `[curate] Processing batch with ${batch.length} profile IDs...`,
+        `[curate] Processing page ${pageNumber}, batch ${batchIndex + 1} with ${batch.length} profiles`,
       );
+
+      let page = 1;
       let hasNextPage = true;
       const alreadyQueried = new Set<string>();
 
       while (hasNextPage) {
         const offset = (page - 1) * limit;
-        const cacheKey = `${REDIS_KEYS.CURATED_PUBLICATIONS}:${page}`;
-        const appIds = [ALLOWED_APP_IDS, TAPE_APP_ID];
-        const skipPubIds = alreadyQueried.size
-          ? Array.from(alreadyQueried)
-          : [""];
+        const apps = [TAPE_APP_ID, ...ALLOWED_APP_IDS];
+        const skipPubIds = Array.from(alreadyQueried);
 
         const results: { publication_id: string }[] = await indexerDb.query(
           `
@@ -48,39 +51,42 @@ const curatedPublications = async () => {
               AND pv.is_hidden = FALSE
               AND pv.parent_publication_id IS NULL
               AND pv.app IN ($1:csv)
-              AND pv.publication_id NOT IN ($3:csv)
+              ${skipPubIds.length ? "AND pv.publication_id NOT IN ($3:csv)" : ""}
           )
           SELECT
-            nh.tld,
-            nh.local_name,
-            rp.profile_id,
-            rp.publication_id,
-            pr.content_uri,
-            pm.main_content_focus
+            rp.publication_id
           FROM
             ranked_publications rp
           JOIN
-            publication.record pr ON rp.publication_id = pr.publication_id
-          JOIN
             publication.metadata pm ON rp.publication_id = pm.publication_id
-          JOIN
-            namespace.handle_link nhl ON rp.profile_id = nhl.token_id
-          JOIN
-            namespace.handle nh ON nhl.handle_id = nh.handle_id
           WHERE
             rp.rn <= $4
+            AND pm.main_content_focus = 'VIDEO'
           ORDER BY rp.rn
           LIMIT $4 OFFSET $5;
         `,
-          [appIds, profileIds, skipPubIds, limit, offset],
+          [apps, batch, skipPubIds, limit, offset],
         );
 
-        for (const { publication_id } of results) {
-          alreadyQueried.add(publication_id);
+        const pubIds = results.map(({ publication_id }) => publication_id);
+        for (const pubId of pubIds) {
+          alreadyQueried.add(pubId);
         }
 
         if (results.length) {
-          await rSet(cacheKey, JSON.stringify(results), REDIS_EXPIRY.HALF_DAY);
+          bufferedItems.push(...pubIds);
+
+          while (bufferedItems.length >= limit) {
+            const itemsToCache = bufferedItems.slice(0, limit);
+            const cacheKey = `${REDIS_KEYS.CURATED_PUBLICATIONS}:${pageNumber}`;
+            console.log(
+              `[curate] Caching ${itemsToCache.length} publications for page ${pageNumber}`,
+            );
+            await rSet(cacheKey, JSON.stringify(pubIds), REDIS_EXPIRY.HALF_DAY);
+
+            bufferedItems = bufferedItems.slice(limit);
+            pageNumber++;
+          }
         }
 
         if (results.length < limit) {
@@ -90,10 +96,24 @@ const curatedPublications = async () => {
         }
       }
     }
-    console.log("[curate] Done curating publications");
+
+    if (bufferedItems.length > 0) {
+      // Cache the remaining items as a new page
+      const cacheKey = `${REDIS_KEYS.CURATED_PUBLICATIONS}:${pageNumber}`;
+      console.log(
+        `[curate] Caching remaining ${bufferedItems.length} publications for page ${pageNumber}`,
+      );
+      await rSet(
+        cacheKey,
+        JSON.stringify(bufferedItems),
+        REDIS_EXPIRY.HALF_DAY,
+      );
+    }
+
+    console.log("[curate] Done curating publications 🎉");
   } catch (error) {
     console.error("[curate] Error curating publications:", error);
   }
 };
 
-export { curatedPublications };
+export { curatePublications };
