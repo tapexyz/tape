@@ -34,8 +34,9 @@ cron.schedule("0 0 * * *", async () => {
   await cleanup4Ever();
 });
 
-// Schedule the curatePublications function to run every 4 hour
-cron.schedule("0 */4 * * *", async () => {
+// Schedule the curatePublications function to run every 5 hour
+cron.schedule("0 */5 * * *", async () => {
   console.log("[cron] Curating publications", new Date());
-  await curatePublications();
+  await curatePublications("VIDEO");
+  await curatePublications("SHORT_VIDEO");
 });

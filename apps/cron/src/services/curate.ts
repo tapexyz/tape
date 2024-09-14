@@ -1,7 +1,9 @@
 import { ALLOWED_APP_IDS, REDIS_KEYS, TAPE_APP_ID } from "@tape.xyz/constants";
 import { REDIS_EXPIRY, indexerDb, rSet, tapeDb } from "@tape.xyz/server";
 
-const curatePublications = async () => {
+type MainFocus = "VIDEO" | "SHORT_VIDEO";
+
+const curatePublications = async (mainFocus: MainFocus) => {
   try {
     const limit = 50;
     let pageNumber = 1;
@@ -60,12 +62,12 @@ const curatePublications = async () => {
           JOIN
             publication.metadata pm ON rp.publication_id = pm.publication_id
           WHERE
-            rp.rn <= $4
-            AND pm.main_content_focus = 'VIDEO'
+            rp.rn <= $5
+            AND pm.main_content_focus = $4
           ORDER BY rp.rn
-          LIMIT $4 OFFSET $5;
+          LIMIT $5 OFFSET $6;
         `,
-          [apps, batch, skipPubIds, limit, offset],
+          [apps, batch, skipPubIds, mainFocus, limit, offset],
         );
 
         const pubIds = results.map(({ publication_id }) => publication_id);
@@ -78,7 +80,7 @@ const curatePublications = async () => {
 
           while (bufferedItems.length >= limit) {
             const itemsToCache = bufferedItems.slice(0, limit);
-            const cacheKey = `${REDIS_KEYS.CURATED_PUBLICATIONS}:${pageNumber}`;
+            const cacheKey = `${REDIS_KEYS.CURATED_PUBLICATIONS}:${mainFocus}:${pageNumber}`;
             console.log(
               `[curate] Caching ${itemsToCache.length} publications for page ${pageNumber}`,
             );
@@ -99,7 +101,7 @@ const curatePublications = async () => {
 
     if (bufferedItems.length > 0) {
       // Cache the remaining items as a new page
-      const cacheKey = `${REDIS_KEYS.CURATED_PUBLICATIONS}:${pageNumber}`;
+      const cacheKey = `${REDIS_KEYS.CURATED_PUBLICATIONS}:${mainFocus}:${pageNumber}`;
       console.log(
         `[curate] Caching remaining ${bufferedItems.length} publications for page ${pageNumber}`,
       );
@@ -110,9 +112,12 @@ const curatePublications = async () => {
       );
     }
 
-    console.log("[curate] Done curating publications 🎉");
+    console.log(`[curate] [${mainFocus}] Done curating publications 🎉`);
   } catch (error) {
-    console.error("[curate] Error curating publications:", error);
+    console.error(
+      `[curate] [${mainFocus}] Error curating publications:`,
+      error,
+    );
   }
 };
 
