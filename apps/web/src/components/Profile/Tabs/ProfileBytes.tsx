@@ -102,7 +102,6 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
                   </h1>
                 </div>
                 <div
-                  role="button"
                   className="absolute top-2 right-2 z-[1] rounded-full bg-white p-1.5 dark:bg-black"
                   onClick={(e) => e.preventDefault()}
                   onKeyDown={(e) => e.preventDefault()}
