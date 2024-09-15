@@ -70,9 +70,7 @@ const Bubbles: FC<Props> = ({ viewing, showSeparator }) => {
             ))}
             {mutualFollowers.length > 4 && (
               <div className="flex size-7 flex-none items-center justify-center rounded-full border border-gray-300 bg-gray-200 dark:border-gray-600 dark:bg-gray-800">
-                <span role="img" className="text-sm">
-                  👀
-                </span>
+                <span className="text-sm">👀</span>
               </div>
             )}
           </span>

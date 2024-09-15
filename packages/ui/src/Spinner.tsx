@@ -11,7 +11,6 @@ export const Spinner: FC<Props> = ({ size = "md", className }) => {
     <div className="border-0">
       <div className="grid justify-items-center space-y-2">
         <svg
-          role="status"
           className={tw(
             "animate-spin fill-black text-gray-400 dark:fill-white",
             className,

@@ -40,7 +40,7 @@ body {
 }
 
 .middot:after {
-  content: '•';
+  content: "•";
   @apply mx-1.5 flex text-[10px] opacity-60;
 }
 
@@ -52,7 +52,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type='number'] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
