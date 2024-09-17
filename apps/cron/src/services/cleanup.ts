@@ -9,7 +9,7 @@ import {
   EVER_ENDPOINT,
   EVER_REGION,
 } from "@tape.xyz/constants";
-import { tapeDb } from "@tape.xyz/server";
+import { clickhouseClient, tapeDb } from "@tape.xyz/server";
 
 const { EVER_ACCESS_KEY, EVER_ACCESS_SECRET } = process.env;
 
@@ -98,4 +98,35 @@ const vacuumPostgres = async (): Promise<void> => {
   }
 };
 
-export { cleanup4Ever, vacuumPostgres };
+const cleanupClickhouse = async (): Promise<void> => {
+  const queries = [
+    "OPTIMIZE TABLE events;",
+    "TRUNCATE TABLE system.processors_profile_log;",
+    "TRUNCATE TABLE system.asynchronous_metric_log;",
+    "TRUNCATE TABLE system.asynchronous_metric_log_0;",
+    "TRUNCATE TABLE system.query_log;",
+    "TRUNCATE TABLE system.query_log_0;",
+    "TRUNCATE TABLE system.metric_log;",
+    "TRUNCATE TABLE system.metric_log_0;",
+    "TRUNCATE TABLE system.metric_log_1;",
+    "TRUNCATE TABLE system.trace_log;",
+    "TRUNCATE TABLE system.trace_log_0;",
+    "TRUNCATE TABLE system.opentelemetry_span_log;",
+    "TRUNCATE TABLE system.part_log;",
+    "TRUNCATE TABLE system.part_log_0;",
+    "TRUNCATE TABLE system.blob_storage_log;",
+    "TRUNCATE TABLE system.query_views_log;",
+    "ALTER TABLE events DELETE WHERE url NOT LIKE '%tape.xyz%';",
+  ];
+
+  try {
+    await Promise.all(
+      queries.map((query) => clickhouseClient.command({ query })),
+    );
+    console.log("[cron] Clickhouse cleanup completed");
+  } catch (error) {
+    console.error("[cron] Error Clickhouse cleanup", error);
+  }
+};
+
+export { cleanup4Ever, vacuumPostgres, cleanupClickhouse };

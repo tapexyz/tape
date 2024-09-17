@@ -3,7 +3,11 @@ import "dotenv/config";
 import cron from "node-cron";
 
 import { backupEventsToS3 } from "./services/backup/events";
-import { cleanup4Ever, vacuumPostgres } from "./services/cleanup";
+import {
+  cleanup4Ever,
+  cleanupClickhouse,
+  vacuumPostgres,
+} from "./services/cleanup";
 import { flushEvents } from "./services/events";
 import { wakeClickHouse } from "./services/wake";
 
@@ -31,6 +35,12 @@ cron.schedule("0 0 * * 0", async () => {
 cron.schedule("0 0 * * *", async () => {
   console.log("[cron] Cleaning up 4ever", new Date());
   await cleanup4Ever();
+});
+
+// Schedule the cleanupClickhouse function to run every day
+cron.schedule("0 0 * * *", async () => {
+  console.log("[cron] Cleaning up Clickhouse", new Date());
+  await cleanupClickhouse();
 });
 
 // Schedule the curatePublications function to run every 5 hour
