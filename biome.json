@@ -11,11 +11,11 @@
       "**/node_modules/**",
       "**/.git/**",
       "**/.github/**",
-      "sw.js",
+      "**/generated/**",
       "**/cache/**",
       ".openzeppelin",
+      "sw.js",
       "packages/tsconfig",
-      "**/generated/**",
       "generated.ts"
     ]
   },

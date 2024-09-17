@@ -12,17 +12,17 @@
   },
   "dependencies": {
     "@aws-sdk/client-sts": "3.651.1",
-    "@hono/node-server": "^1.12.2",
+    "@hono/node-server": "^1.13.0",
     "@hono/zod-validator": "^0.2.2",
-    "@irys/upload": "^0.0.6",
-    "@irys/upload-ethereum": "^0.0.6",
+    "@irys/upload": "^0.0.7",
+    "@irys/upload-ethereum": "^0.0.7",
     "@lens-protocol/metadata": "^1.2.0",
     "@prisma/client": "^5.19.1",
     "base64url": "^3.0.1",
-    "hono": "^4.5.8",
+    "hono": "^4.6.2",
     "linkedom": "^0.18.4",
     "ua-parser-js": "2.0.0-beta.3",
-    "viem": "^2.21.7",
+    "viem": "^2.21.8",
     "zod": "^3.23.8"
   },
   "devDependencies": {
