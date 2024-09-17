@@ -115,7 +115,6 @@ const cleanupClickhouse = async (): Promise<void> => {
     "TRUNCATE TABLE system.part_log;",
     "TRUNCATE TABLE system.part_log_0;",
     "TRUNCATE TABLE system.blob_storage_log;",
-    "TRUNCATE TABLE system.query_views_log;",
     "ALTER TABLE events DELETE WHERE url NOT LIKE '%tape.xyz%';",
   ];
 
