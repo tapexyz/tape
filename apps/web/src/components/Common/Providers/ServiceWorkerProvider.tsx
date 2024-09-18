@@ -10,7 +10,6 @@ import { getCurrentDateTime } from "@/lib/formatTime";
 const ServiceWorkerProvider: FC<{ children: ReactNode }> = ({ children }) => {
   useEffect(() => {
     if ("serviceWorker" in navigator) {
-      console.log("[SW] ⚙︎ Registering service worker");
       navigator.serviceWorker.getRegistrations().then((registrations) => {
         for (const registration of registrations) {
           registration.unregister();
