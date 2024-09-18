@@ -58,8 +58,6 @@ const VideoMeta: FC<Props> = ({ video }) => {
             <MirroredList videoId={video.id} />
           </div>
         </Modal>
-
-        {/* <ViewCount cid={getPublicationMediaCid(video.metadata)} /> */}
         <button
           type="button"
           onClick={() => setShowCollectsModal(true)}

@@ -5,7 +5,6 @@ declare namespace NodeJS {
     LOGTAIL_API_KEY: string;
     IP_API_KEY: string;
     WALLET_PRIVATE_KEY: string;
-    LIVEPEER_API_TOKEN: string;
     TAPE_DATABASE_URL: string;
     INDEXER_DATABASE_URL: string;
     REDIS_URL: string;
