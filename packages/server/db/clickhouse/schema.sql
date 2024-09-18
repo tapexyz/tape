@@ -25,3 +25,24 @@ PARTITION BY toYYYYMM(created)
 ORDER BY created
 TTL created + INTERVAL 1 YEAR
 SETTINGS index_granularity = 8192;
+
+-- Trails
+CREATE TABLE trails (
+  action LowCardinality(String),
+  action_item_id LowCardinality(String),
+  acted DateTime DEFAULT now(),
+) ENGINE = MergeTree()
+PARTITION BY toYYYYMM(acted)
+ORDER BY acted
+SETTINGS index_granularity = 8192;
+
+-- Action Item Counts
+CREATE MATERIALIZED VIEW total_trails_by_action_item_id_mv
+ENGINE = SummingMergeTree()
+ORDER BY action_item_id
+AS
+SELECT
+    action_item_id,
+    count() AS item_count
+FROM trails
+GROUP BY action_item_id;
