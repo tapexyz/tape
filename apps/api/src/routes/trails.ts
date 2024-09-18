@@ -2,7 +2,7 @@ import { zValidator } from "@hono/zod-validator";
 import { CACHE_CONTROL, ERROR_MESSAGE } from "@tape.xyz/constants";
 import { clickhouseClient } from "@tape.xyz/server";
 import { Hono } from "hono";
-import { object, string, z } from "zod";
+import { object, string } from "zod";
 
 const app = new Hono();
 
@@ -35,11 +35,11 @@ app.get("/", zValidator("query", getValidationSchema), async (c) => {
   }
 });
 
-const validationSchema = object({
-  pid: string(),
-  action: z.enum(["media_play", "profile_view"])
-});
-type RequestInput = z.infer<typeof validationSchema>;
+// const validationSchema = object({
+//   pid: string(),
+//   action: z.enum(["media_play", "profile_view"])
+// });
+// type RequestInput = z.infer<typeof validationSchema>;
 
 // app.post("/", zValidator("json", validationSchema), async (c) => {
 //   try {
