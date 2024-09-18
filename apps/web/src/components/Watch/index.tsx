@@ -3,7 +3,7 @@ import {
   getIsSuspendedProfile,
   getPublication,
   getPublicationData,
-  isWatchable,
+  isWatchable
 } from "@tape.xyz/generic";
 import type { AnyPublication } from "@tape.xyz/lens";
 import { usePublicationQuery } from "@tape.xyz/lens";
@@ -27,13 +27,13 @@ import Video from "./Video";
 
 const VideoDetails = () => {
   const {
-    query: { id, t: time },
+    query: { id, t: time }
   } = useRouter();
   const { addEventToQueue } = useSw();
 
   const setVideoWatchTime = useAppStore((state) => state.setVideoWatchTime);
   const selectedCommentFilter = useCommentStore(
-    (state) => state.selectedCommentFilter,
+    (state) => state.selectedCommentFilter
   );
 
   useEffect(() => {
@@ -46,9 +46,9 @@ const VideoDetails = () => {
 
   const { data, error, loading } = usePublicationQuery({
     variables: {
-      request: { forId: id },
+      request: { forId: id }
     },
-    skip: !id,
+    skip: !id
   });
 
   if (loading || !data) {

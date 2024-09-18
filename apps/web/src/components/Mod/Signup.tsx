@@ -1,13 +1,13 @@
 import {
   LENS_PERMISSIONLESS_CREATOR_ABI,
-  TAPE_SIGNUP_PROXY_ABI,
+  TAPE_SIGNUP_PROXY_ABI
 } from "@tape.xyz/abis";
 import { tw } from "@tape.xyz/browser";
 import {
   LENS_PERMISSIONLESS_CREATOR_ADDRESS,
   POLYGON_CHAIN_ID,
   TAPE_SIGNUP_PROXY_ADDRESS,
-  ZERO_ADDRESS,
+  ZERO_ADDRESS
 } from "@tape.xyz/constants";
 import { useGenerateLensApiRelayAddressQuery } from "@tape.xyz/lens";
 import { Button, Input } from "@tape.xyz/ui";
@@ -21,7 +21,7 @@ const Signup = () => {
   const [newMint, setNewMint] = useState({ handle: "", address: "" });
 
   const { data: relayerAddressData } = useGenerateLensApiRelayAddressQuery({
-    fetchPolicy: "no-cache",
+    fetchPolicy: "no-cache"
   });
   const delegatedExecutor = relayerAddressData?.generateLensAPIRelayAddress;
 
@@ -30,7 +30,7 @@ const Signup = () => {
     address: LENS_PERMISSIONLESS_CREATOR_ADDRESS,
     args: [TAPE_SIGNUP_PROXY_ADDRESS],
     functionName: "getCreditBalance",
-    query: { refetchInterval: 2000 },
+    query: { refetchInterval: 2000 }
   });
   const credits = String(data);
 
@@ -38,21 +38,21 @@ const Signup = () => {
     abi: TAPE_SIGNUP_PROXY_ABI,
     address: TAPE_SIGNUP_PROXY_ADDRESS,
     functionName: "totalCountViaCard",
-    query: { refetchInterval: 2000 },
+    query: { refetchInterval: 2000 }
   });
   const { data: totalCountViaCrypto } = useReadContract({
     abi: TAPE_SIGNUP_PROXY_ABI,
     address: TAPE_SIGNUP_PROXY_ADDRESS,
     functionName: "totalCountViaCrypto",
-    query: { refetchInterval: 2000 },
+    query: { refetchInterval: 2000 }
   });
 
   const { data: contractBalance } = useBalance({
     address: TAPE_SIGNUP_PROXY_ADDRESS,
     chainId: POLYGON_CHAIN_ID,
     query: {
-      refetchInterval: 2000,
-    },
+      refetchInterval: 2000
+    }
   });
   const balance =
     contractBalance &&
@@ -68,8 +68,8 @@ const Signup = () => {
       onError: (error) => {
         toast.error(error.message);
         setLoading(false);
-      },
-    },
+      }
+    }
   });
 
   const withdraw = async () => {
@@ -78,7 +78,7 @@ const Signup = () => {
       await writeContractAsync({
         abi: TAPE_SIGNUP_PROXY_ABI,
         address: TAPE_SIGNUP_PROXY_ADDRESS,
-        functionName: "withdrawFunds",
+        functionName: "withdrawFunds"
       });
     } catch {}
   };
@@ -91,9 +91,9 @@ const Signup = () => {
         args: [
           [newMint.address, ZERO_ADDRESS, "0x"],
           newMint.handle,
-          [delegatedExecutor],
+          [delegatedExecutor]
         ],
-        functionName: "createProfileWithHandle",
+        functionName: "createProfileWithHandle"
       });
     } catch {}
   };
@@ -104,7 +104,7 @@ const Signup = () => {
         <div
           className={tw(
             "tape-border flex w-full flex-col space-y-1 rounded-lg px-4 py-3",
-            { "animate-shimmer bg-red-200": Number(credits) < 3000 },
+            { "animate-shimmer bg-red-200": Number(credits) < 3000 }
           )}
         >
           <span>🤝 Contract Credits</span>

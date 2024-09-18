@@ -4,7 +4,7 @@ import {
   BytesOutline,
   FeedOutline,
   HomeOutline,
-  PlusOutline,
+  PlusOutline
 } from "@tape.xyz/ui";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -21,7 +21,7 @@ const MobileBottomNav = () => {
           href="/"
           className={tw(
             "flex w-full flex-col items-center justify-center space-y-0.5 bg-transparent font-medium text-gray-700 text-sm md:grid dark:text-gray-100 dark:hover:text-gray-100",
-            isActivePath("/") ? "opacity-100" : "opacity-70",
+            isActivePath("/") ? "opacity-100" : "opacity-70"
           )}
         >
           <HomeOutline className="size-5" />
@@ -31,7 +31,7 @@ const MobileBottomNav = () => {
           href="/bytes"
           className={tw(
             "flex w-full flex-col items-center justify-center space-y-0.5 bg-transparent font-medium text-gray-700 text-sm md:grid dark:text-gray-100 dark:hover:text-gray-100",
-            isActivePath("/bytes") ? "opacity-100" : "opacity-70",
+            isActivePath("/bytes") ? "opacity-100" : "opacity-70"
           )}
         >
           <BytesOutline className="size-5" />
@@ -41,7 +41,7 @@ const MobileBottomNav = () => {
           href="/create"
           className={tw(
             "flex w-full flex-col items-center justify-center bg-transparent font-medium text-gray-700 text-sm md:grid dark:text-gray-100 dark:hover:text-gray-100",
-            isActivePath("/create") ? "opacity-100" : "opacity-70",
+            isActivePath("/create") ? "opacity-100" : "opacity-70"
           )}
         >
           <PlusOutline className="size-9" />
@@ -51,7 +51,7 @@ const MobileBottomNav = () => {
           href="/notifications"
           className={tw(
             "flex w-full flex-col items-center justify-center space-y-0.5 bg-transparent font-medium text-gray-700 text-sm md:grid dark:text-gray-100 dark:hover:text-gray-100",
-            isActivePath("/explore") ? "opacity-100" : "opacity-70",
+            isActivePath("/explore") ? "opacity-100" : "opacity-70"
           )}
         >
           <BellOutline className="size-5" />
@@ -61,7 +61,7 @@ const MobileBottomNav = () => {
           href="/feed"
           className={tw(
             "flex w-full flex-col items-center justify-center space-y-0.5 bg-transparent font-medium text-gray-700 text-sm md:grid dark:text-gray-100 dark:hover:text-gray-100",
-            isActivePath("/feed") ? "opacity-100" : "opacity-70",
+            isActivePath("/feed") ? "opacity-100" : "opacity-70"
           )}
         >
           <FeedOutline className="size-5" />

@@ -1,14 +1,14 @@
 import {
   getLennyPicture,
   getProfile,
-  getProfilePicture,
+  getProfilePicture
 } from "@tape.xyz/generic";
 import {
   LensTransactionStatusType,
   PublicationDocument,
   useLensTransactionStatusQuery,
   usePublicationLazyQuery,
-  useTxIdToTxHashLazyQuery,
+  useTxIdToTxHashLazyQuery
 } from "@tape.xyz/lens";
 import { useApolloClient } from "@tape.xyz/lens/apollo";
 import type { QueuedCommentType } from "@tape.xyz/lens/custom-types";
@@ -35,11 +35,11 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
   const removeFromQueue = () => {
     if (!queuedComment.txnId) {
       return setQueuedComments(
-        queuedComments.filter((q) => q.txnHash !== queuedComment.txnHash),
+        queuedComments.filter((q) => q.txnHash !== queuedComment.txnHash)
       );
     }
     setQueuedComments(
-      queuedComments.filter((q) => q.txnId !== queuedComment.txnId),
+      queuedComments.filter((q) => q.txnId !== queuedComment.txnId)
     );
   };
 
@@ -51,25 +51,25 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
             publications() {
               cache.writeQuery({
                 data: { publication: data?.publication },
-                query: PublicationDocument,
+                query: PublicationDocument
               });
-            },
-          },
+            }
+          }
         });
         removeFromQueue();
       }
-    },
+    }
   });
 
   const getCommentByTxnId = async () => {
     const { data } = await getTxnHash({
       variables: {
-        for: queuedComment?.txnId,
-      },
+        for: queuedComment?.txnId
+      }
     });
     if (data?.txIdToTxHash) {
       getPublication({
-        variables: { request: { forTxHash: data?.txIdToTxHash } },
+        variables: { request: { forTxHash: data?.txIdToTxHash } }
       });
     }
   };
@@ -78,8 +78,8 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
     variables: {
       request: {
         forTxId: queuedComment?.txnId,
-        forTxHash: queuedComment?.txnHash,
-      },
+        forTxHash: queuedComment?.txnHash
+      }
     },
     skip: !queuedComment?.txnId?.length && !queuedComment?.txnHash?.length,
     pollInterval: 1000,
@@ -100,13 +100,13 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
         if (queuedComment.txnHash) {
           return getPublication({
             variables: {
-              request: { forTxHash: queuedComment.txnHash },
-            },
+              request: { forTxHash: queuedComment.txnHash }
+            }
           });
         }
         await getCommentByTxnId();
       }
-    },
+    }
   });
 
   if ((!queuedComment?.txnId && !queuedComment?.txnHash) || !activeProfile) {

@@ -18,13 +18,13 @@ const useProfileTogglesStore = create(
   persist<State>(
     (set) => ({
       toggles: { suspended: false, limited: false },
-      setToggles: (toggles) => set({ toggles }),
+      setToggles: (toggles) => set({ toggles })
     }),
     {
       name: LocalIDBStore.TOGGLES_STORE,
-      storage: createIdbStorage(),
-    },
-  ),
+      storage: createIdbStorage()
+    }
+  )
 );
 
 export default useProfileTogglesStore;

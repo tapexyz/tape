@@ -3,11 +3,11 @@ import type {
   LiveStreamMetadata,
   ProfileMetadata,
   TextOnlyMetadata,
-  VideoMetadata,
+  VideoMetadata
 } from "@lens-protocol/metadata";
 import {
   IRYS_GATEWAY_URL,
-  WORKER_IRYS_METADATA_UPLOAD_URL,
+  WORKER_IRYS_METADATA_UPLOAD_URL
 } from "@tape.xyz/constants";
 import axios from "axios";
 
@@ -19,7 +19,7 @@ export const uploadToAr = async (
     | ProfileMetadata
     | TextOnlyMetadata
     | LinkMetadata
-    | LiveStreamMetadata,
+    | LiveStreamMetadata
 ): Promise<string> => {
   try {
     const response = await axios.post(WORKER_IRYS_METADATA_UPLOAD_URL, data);

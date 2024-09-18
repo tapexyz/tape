@@ -5,7 +5,7 @@ import {
   LimitType,
   PublicationDocument,
   PublicationsDocument,
-  execute,
+  execute
 } from "@tape.xyz/lens/gql";
 
 export const publicationQuery = (id: string) =>
@@ -14,9 +14,9 @@ export const publicationQuery = (id: string) =>
     queryFn: () =>
       execute(PublicationDocument, {
         request: {
-          forId: id,
-        },
-      }),
+          forId: id
+        }
+      })
   });
 
 export const commentsQuery = (id: string) =>
@@ -28,14 +28,14 @@ export const commentsQuery = (id: string) =>
           where: {
             commentOn: {
               id,
-              ranking: { filter: CommentRankingFilterType.Relevant },
+              ranking: { filter: CommentRankingFilterType.Relevant }
             },
-            customFilters: [CustomFiltersType.Gardeners],
+            customFilters: [CustomFiltersType.Gardeners]
           },
           limit: LimitType.Ten,
-          cursor: pageParam,
-        },
+          cursor: pageParam
+        }
       }),
     initialPageParam: null,
-    getNextPageParam: (lastPage) => lastPage.publications.pageInfo.next,
+    getNextPageParam: (lastPage) => lastPage.publications.pageInfo.next
   });

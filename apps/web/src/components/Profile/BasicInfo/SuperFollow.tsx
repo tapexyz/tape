@@ -3,13 +3,13 @@ import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
-  SIGN_IN_REQUIRED,
+  SIGN_IN_REQUIRED
 } from "@tape.xyz/constants";
 import {
   EVENTS,
   checkLensManagerPermissions,
   getProfile,
-  getSignature,
+  getSignature
 } from "@tape.xyz/generic";
 import type { FeeFollowModuleSettings, Profile } from "@tape.xyz/lens";
 import {
@@ -18,7 +18,7 @@ import {
   useBroadcastOnchainMutation,
   useCreateFollowTypedDataMutation,
   useGenerateModuleCurrencyApprovalDataLazyQuery,
-  useProfileFollowModuleQuery,
+  useProfileFollowModuleQuery
 } from "@tape.xyz/lens";
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
 import { Button, Modal } from "@tape.xyz/ui";
@@ -29,7 +29,7 @@ import {
   useSendTransaction,
   useSignTypedData,
   useWaitForTransactionReceipt,
-  useWriteContract,
+  useWriteContract
 } from "wagmi";
 
 import useSw from "@/hooks/useSw";
@@ -67,25 +67,25 @@ const SuperFollow: FC<Props> = ({ profile, onJoin }) => {
     setLoading(false);
     addEventToQueue(EVENTS.PROFILE.SUPER_FOLLOW, {
       profile_id: profile.id,
-      profile_name: getProfile(profile)?.slug,
+      profile_name: getProfile(profile)?.slug
     });
   };
 
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError },
+    mutation: { onError }
   });
 
   const { writeContractAsync } = useWriteContract({
     mutation: {
       onSuccess: () => onCompleted(),
-      onError,
-    },
+      onError
+    }
   });
 
   const [broadcast] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) =>
       onCompleted(broadcastOnchain.__typename),
-    onError,
+    onError
   });
 
   const write = async ({ args }: { args: any[] }) => {
@@ -93,13 +93,13 @@ const SuperFollow: FC<Props> = ({ profile, onJoin }) => {
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
       functionName: "follow",
-      args,
+      args
     });
   };
 
   const { data: followModuleData } = useProfileFollowModuleQuery({
     variables: { request: { forProfileId: profile?.id } },
-    skip: !profile?.id,
+    skip: !profile?.id
   });
 
   const followModule = followModuleData?.profile
@@ -112,30 +112,30 @@ const SuperFollow: FC<Props> = ({ profile, onJoin }) => {
         currencies: followModule?.amount?.asset?.contract.address,
         followModules: [FollowModuleType.FeeFollowModule],
         openActionModules: [],
-        referenceModules: [],
-      },
+        referenceModules: []
+      }
     },
     skip: !followModule?.amount?.asset?.contract.address || !activeProfile?.id,
     onCompleted: ({ approvedModuleAllowanceAmount }) => {
       if (approvedModuleAllowanceAmount[0]) {
         setIsAllowed(
           Number.parseFloat(approvedModuleAllowanceAmount[0].allowance.value) >
-            amount,
+            amount
         );
       }
-    },
+    }
   });
 
   const { data: txnHash, sendTransaction } = useSendTransaction({
     mutation: {
       onError: (error: CustomErrorWithData) => {
         toast.error(error?.data?.message ?? error?.message);
-      },
-    },
+      }
+    }
   });
 
   const { isSuccess } = useWaitForTransactionReceipt({
-    hash: txnHash,
+    hash: txnHash
   });
 
   useEffect(() => {
@@ -151,13 +151,13 @@ const SuperFollow: FC<Props> = ({ profile, onJoin }) => {
         followerProfileId,
         idsOfProfilesToFollow,
         followTokenIds,
-        datas,
+        datas
       } = typedData.value;
       const args = [
         followerProfileId,
         idsOfProfilesToFollow,
         followTokenIds,
-        datas,
+        datas
       ];
       try {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE);
@@ -165,7 +165,7 @@ const SuperFollow: FC<Props> = ({ profile, onJoin }) => {
           const signature = await signTypedDataAsync(getSignature(typedData));
           setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
           const { data } = await broadcast({
-            variables: { request: { id, signature } },
+            variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain.__typename === "RelayError") {
             return await write({ args });
@@ -177,7 +177,7 @@ const SuperFollow: FC<Props> = ({ profile, onJoin }) => {
         setLoading(false);
       }
     },
-    onError,
+    onError
   });
 
   const [generateAllowanceQuery] =
@@ -190,18 +190,18 @@ const SuperFollow: FC<Props> = ({ profile, onJoin }) => {
         request: {
           allowance: {
             currency: followModule?.amount.asset.contract.address,
-            value: Number.MAX_SAFE_INTEGER.toString(),
+            value: Number.MAX_SAFE_INTEGER.toString()
           },
           module: {
-            followModule: FollowModuleType.FeeFollowModule,
-          },
-        },
-      },
+            followModule: FollowModuleType.FeeFollowModule
+          }
+        }
+      }
     });
     const generated = allowanceData?.generateModuleCurrencyApprovalData;
     sendTransaction?.({
       to: generated?.to,
-      data: generated?.data,
+      data: generated?.data
     });
   };
 
@@ -211,7 +211,7 @@ const SuperFollow: FC<Props> = ({ profile, onJoin }) => {
     }
     if (!isAllowed) {
       return toast.error(
-        `Goto Settings -> Allowance and allow fee follow module for ${followModule?.amount?.asset?.symbol}.`,
+        `Goto Settings -> Allowance and allow fee follow module for ${followModule?.amount?.asset?.symbol}.`
       );
     }
     setLoading(true);
@@ -226,14 +226,14 @@ const SuperFollow: FC<Props> = ({ profile, onJoin }) => {
                 feeFollowModule: {
                   amount: {
                     currency: followModule?.amount.asset.contract.address,
-                    value: followModule?.amount.value,
-                  },
-                },
-              },
-            },
-          ],
-        },
-      },
+                    value: followModule?.amount.value
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
     });
   };
 

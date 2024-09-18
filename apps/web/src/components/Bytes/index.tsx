@@ -2,20 +2,20 @@ import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
   IS_MAINNET,
-  TAPE_APP_ID,
+  TAPE_APP_ID
 } from "@tape.xyz/constants";
 import { EVENTS } from "@tape.xyz/generic";
 import type {
   AnyPublication,
   PrimaryPublication,
-  PublicationsRequest,
+  PublicationsRequest
 } from "@tape.xyz/lens";
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   PublicationType,
   usePublicationLazyQuery,
-  usePublicationsLazyQuery,
+  usePublicationsLazyQuery
 } from "@tape.xyz/lens";
 import { ChevronDownOutline, ChevronUpOutline, Spinner } from "@tape.xyz/ui";
 import { useKeenSlider } from "keen-slider/react";
@@ -40,32 +40,32 @@ const Bytes = () => {
   const [sliderRef, { current: slider }] = useKeenSlider(
     {
       vertical: true,
-      slides: { perView: 1, spacing: 10 },
+      slides: { perView: 1, spacing: 10 }
     },
-    [WheelControls, KeyboardControls],
+    [WheelControls, KeyboardControls]
   );
 
   const request: PublicationsRequest = {
     where: {
       metadata: {
         mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo],
-        publishedOn: IS_MAINNET ? [TAPE_APP_ID, ...ALLOWED_APP_IDS] : undefined,
+        publishedOn: IS_MAINNET ? [TAPE_APP_ID, ...ALLOWED_APP_IDS] : undefined
       },
       publicationTypes: [PublicationType.Post],
-      from: curatedProfiles,
+      from: curatedProfiles
     },
-    limit: LimitType.Fifty,
+    limit: LimitType.Fifty
   };
 
   const [
     fetchPublication,
-    { data: singleByteData, loading: singleByteLoading },
+    { data: singleByteData, loading: singleByteLoading }
   ] = usePublicationLazyQuery();
 
   const [fetchAllBytes, { data, loading, error, fetchMore }] =
     usePublicationsLazyQuery({
       variables: {
-        request,
+        request
       },
       onCompleted: ({ publications }) => {
         const items = publications?.items as unknown as AnyPublication[];
@@ -74,7 +74,7 @@ const Bytes = () => {
           const nextUrl = `${location.origin}/bytes/${items[0]?.id}`;
           history.pushState({ path: nextUrl }, "", nextUrl);
         }
-      },
+      }
     });
 
   const bytes = data?.publications?.items as unknown as AnyPublication[];
@@ -88,10 +88,10 @@ const Bytes = () => {
     }
     await fetchPublication({
       variables: {
-        request: { forId: publicationId },
+        request: { forId: publicationId }
       },
       onCompleted: () => (curatedProfiles?.length ? fetchAllBytes() : null),
-      fetchPolicy: "network-only",
+      fetchPolicy: "network-only"
     });
   };
 
@@ -110,11 +110,11 @@ const Bytes = () => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next,
-          },
-        },
+            cursor: pageInfo?.next
+          }
+        }
       });
-    },
+    }
   });
 
   if (loading || singleByteLoading) {
@@ -161,7 +161,7 @@ const Bytes = () => {
                 intersectionCallback={(id) => setCurrentViewingId(id)}
                 key={`${video?.id}_${index}`}
               />
-            ),
+            )
         )}
       </div>
       {pageInfo?.next && (

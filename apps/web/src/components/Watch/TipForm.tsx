@@ -8,7 +8,7 @@ import {
   SIGN_IN_REQUIRED,
   STATIC_ASSETS,
   TAPE_APP_ID,
-  TAPE_WEBSITE_URL,
+  TAPE_WEBSITE_URL
 } from "@tape.xyz/constants";
 import {
   EVENTS,
@@ -19,12 +19,12 @@ import {
   getSignature,
   imageCdn,
   logger,
-  uploadToAr,
+  uploadToAr
 } from "@tape.xyz/generic";
 import type {
   AnyPublication,
   CreateMomokaCommentEip712TypedData,
-  CreateOnchainCommentEip712TypedData,
+  CreateOnchainCommentEip712TypedData
 } from "@tape.xyz/lens";
 import {
   PublicationDocument,
@@ -34,7 +34,7 @@ import {
   useCommentOnchainMutation,
   useCreateMomokaCommentTypedDataMutation,
   useCreateOnchainCommentTypedDataMutation,
-  usePublicationLazyQuery,
+  usePublicationLazyQuery
 } from "@tape.xyz/lens";
 import { useApolloClient } from "@tape.xyz/lens/apollo";
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
@@ -63,7 +63,7 @@ const formSchema = object({
     .nonnegative({ message: "Tip should to greater than zero" })
     .max(100, { message: "Tip should be less than or equal to 100 MATIC" })
     .refine((n) => n > 0, { message: "Tip should be greater than 0 MATIC" }),
-  message: string().min(1, { message: "Tip message is requried" }),
+  message: string().min(1, { message: "Tip message is requried" })
 });
 type FormData = z.infer<typeof formSchema>;
 
@@ -76,13 +76,13 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
     handleSubmit,
     getValues,
     watch,
-    formState: { errors, isValid },
+    formState: { errors, isValid }
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       tipQuantity: 1,
-      message: "Thanks for creating this content!",
-    },
+      message: "Thanks for creating this content!"
+    }
   });
   const watchTipQuantity = watch("tipQuantity", 1);
 
@@ -102,10 +102,10 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
   };
 
   const { sendTransactionAsync } = useSendTransaction({
-    mutation: { onError },
+    mutation: { onError }
   });
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError },
+    mutation: { onError }
   });
 
   const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
@@ -115,9 +115,9 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
           comment: getValues("message"),
           txnId: txn.txnId,
           txnHash: txn.txnHash,
-          pubId: targetVideo.id,
+          pubId: targetVideo.id
         },
-        ...(queuedComments || []),
+        ...(queuedComments || [])
       ]);
     }
   };
@@ -132,7 +132,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
     addEventToQueue(EVENTS.PUBLICATION.NEW_COMMENT, {
       publication_id: targetVideo.id,
       comment_type: "tip",
-      publication_state: targetVideo.momoka?.proof ? "MOMOKA" : "ON_CHAIN",
+      publication_state: targetVideo.momoka?.proof ? "MOMOKA" : "ON_CHAIN"
     });
   };
 
@@ -141,8 +141,8 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
       onError,
       onSuccess: (hash) => {
         setToQueue({ txnHash: hash });
-      },
-    },
+      }
+    }
   });
 
   const write = async ({ args }: { args: any[] }) => {
@@ -150,7 +150,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
       functionName: "comment",
-      args,
+      args
     });
   };
 
@@ -160,9 +160,9 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
     const { data } = await getComment({
       variables: {
         request: {
-          forId: commentId,
-        },
-      },
+          forId: commentId
+        }
+      }
     });
     if (data?.publication) {
       cache.modify({
@@ -170,10 +170,10 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
           publications() {
             cache.writeQuery({
               data: { publication: data?.publication },
-              query: PublicationDocument,
+              query: PublicationDocument
             });
-          },
-        },
+          }
+        }
       });
     }
   };
@@ -181,7 +181,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
   const getSignatureFromTypedData = async (
     data:
       | CreateMomokaCommentEip712TypedData
-      | CreateOnchainCommentEip712TypedData,
+      | CreateOnchainCommentEip712TypedData
   ) => {
     toast.loading(REQUESTING_SIGNATURE_MESSAGE);
     const signature = await signTypedDataAsync(getSignature(data));
@@ -195,7 +195,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
         const txnId = broadcastOnchain?.txId;
         setToQueue({ txnId });
       }
-    },
+    }
   });
 
   const [createOnchainCommentTypedData] =
@@ -207,7 +207,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
           if (canBroadcast) {
             const signature = await getSignatureFromTypedData(typedData);
             const { data } = await broadcastOnchain({
-              variables: { request: { id, signature } },
+              variables: { request: { id, signature } }
             });
             if (data?.broadcastOnchain?.__typename === "RelayError") {
               return await write({ args });
@@ -217,7 +217,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
           return await write({ args });
         } catch {}
       },
-      onError,
+      onError
     });
 
   const [commentOnchain] = useCommentOnchainMutation({
@@ -227,7 +227,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
         onCompleted(commentOnchain.__typename);
         setToQueue({ txnId: commentOnchain.txId });
       }
-    },
+    }
   });
 
   const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
@@ -235,7 +235,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
       if (broadcastOnMomoka.__typename === "CreateMomokaPublicationResult") {
         fetchAndCacheComment(broadcastOnMomoka?.id);
       }
-    },
+    }
   });
 
   const [createMomokaCommentTypedData] =
@@ -247,7 +247,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
           if (canBroadcast) {
             const signature = await getSignatureFromTypedData(typedData);
             const { data } = await broadcastOnMomoka({
-              variables: { request: { id, signature } },
+              variables: { request: { id, signature } }
             });
             if (data?.broadcastOnMomoka?.__typename === "RelayError") {
               return await write({ args });
@@ -257,7 +257,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
           return await write({ args });
         } catch {}
       },
-      onError,
+      onError
     });
 
   const [commentOnMomoka] = useCommentOnMomokaMutation({
@@ -266,7 +266,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
       if (commentOnMomoka.__typename === "CreateMomokaPublicationResult") {
         fetchAndCacheComment(commentOnMomoka.id);
       }
-    },
+    }
   });
 
   const submitComment = async (txnHash: string) => {
@@ -276,28 +276,28 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
         {
           type: MetadataAttributeType.STRING,
           key: "publication",
-          value: video.id,
+          value: video.id
         },
         {
           type: MetadataAttributeType.STRING,
           key: "creator",
-          value: `${getProfile(activeProfile)?.slug}`,
+          value: `${getProfile(activeProfile)?.slug}`
         },
         {
           type: MetadataAttributeType.STRING,
           key: "app",
-          value: TAPE_WEBSITE_URL,
+          value: TAPE_WEBSITE_URL
         },
         {
           type: MetadataAttributeType.STRING,
           key: "type",
-          value: "TIP",
+          value: "TIP"
         },
         {
           type: MetadataAttributeType.STRING,
           key: "hash",
-          value: txnHash,
-        },
+          value: txnHash
+        }
       ];
 
       const title = getPublicationData(targetVideo.metadata)?.title;
@@ -312,8 +312,8 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
           name: `${profileSlug}'s comment on video ${title}`,
           attributes,
           description: getValues("message"),
-          external_url: `${TAPE_WEBSITE_URL}/watch/${video?.id}`,
-        },
+          external_url: `${TAPE_WEBSITE_URL}/watch/${video?.id}`
+        }
       });
       const metadataUri = await uploadToAr(metadata);
 
@@ -324,9 +324,9 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
             variables: {
               request: {
                 contentURI: metadataUri,
-                commentOn: targetVideo.id,
-              },
-            },
+                commentOn: targetVideo.id
+              }
+            }
           });
         }
 
@@ -334,9 +334,9 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
           variables: {
             request: {
               contentURI: metadataUri,
-              commentOn: targetVideo.id,
-            },
-          },
+              commentOn: targetVideo.id
+            }
+          }
         });
       }
 
@@ -346,9 +346,9 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
           variables: {
             request: {
               commentOn: targetVideo.id,
-              contentURI: metadataUri,
-            },
-          },
+              contentURI: metadataUri
+            }
+          }
         });
       }
 
@@ -356,9 +356,9 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
         variables: {
           request: {
             commentOn: targetVideo.id,
-            contentURI: metadataUri,
-          },
-        },
+            contentURI: metadataUri
+          }
+        }
       });
     } catch (error) {
       logger.error("[NEW TIP ERROR]", error);
@@ -371,7 +371,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
     }
     if (video.momoka?.proof && !activeProfile?.sponsor) {
       return toast.error(
-        "Momoka is currently in beta - during this time certain actions are not available to all profiles.",
+        "Momoka is currently in beta - during this time certain actions are not available to all profiles."
       );
     }
     setLoading(true);
@@ -379,7 +379,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
     try {
       const hash = await sendTransactionAsync?.({
         to: targetVideo.by?.ownedBy.address,
-        value: BigInt(parseEther(amountToSend.toString())),
+        value: BigInt(parseEther(amountToSend.toString()))
       });
       if (hash) {
         await submitComment(hash);
@@ -398,7 +398,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
           <img
             src={imageCdn(
               `${STATIC_ASSETS}/images/raise-hand.png`,
-              "AVATAR_LG",
+              "AVATAR_LG"
             )}
             alt="Raising Hand"
             className="h-10"

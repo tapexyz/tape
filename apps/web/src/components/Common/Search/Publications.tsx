@@ -2,14 +2,14 @@ import { tw } from "@tape.xyz/browser";
 import {
   FALLBACK_THUMBNAIL_URL,
   LENSTUBE_BYTES_APP_ID,
-  STATIC_ASSETS,
+  STATIC_ASSETS
 } from "@tape.xyz/constants";
 import {
   getIsSensitiveContent,
   getPublication,
   getPublicationData,
   getThumbnailUrl,
-  imageCdn,
+  imageCdn
 } from "@tape.xyz/generic";
 import type { AnyPublication } from "@tape.xyz/lens";
 import Link from "next/link";
@@ -48,11 +48,11 @@ const Publications: FC<Props> = ({ results, loading, clearSearch }) => {
                 <img
                   className={tw(
                     "h-16 w-28 flex-none rounded-md bg-gray-300 object-center dark:bg-gray-700",
-                    isBytesVideo ? "object-contain" : "object-cover",
+                    isBytesVideo ? "object-contain" : "object-cover"
                   )}
                   src={imageCdn(
                     thumbnailUrl,
-                    isBytesVideo ? "THUMBNAIL_V" : "THUMBNAIL",
+                    isBytesVideo ? "THUMBNAIL_V" : "THUMBNAIL"
                   )}
                   alt="thumbnail"
                   draggable={false}

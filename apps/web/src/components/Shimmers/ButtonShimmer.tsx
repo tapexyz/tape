@@ -6,7 +6,7 @@ const ButtonShimmer = ({ className = "h-10" }: { className?: string }) => {
       <div
         className={tw(
           "w-full rounded-lg bg-gray-200 dark:bg-gray-800",
-          className,
+          className
         )}
       />
     </div>

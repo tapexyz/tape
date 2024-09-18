@@ -1,7 +1,7 @@
 import { useIsMounted } from "@tape.xyz/browser";
 import {
   POLYGON_CHAIN_ID,
-  REQUESTING_SIGNATURE_MESSAGE,
+  REQUESTING_SIGNATURE_MESSAGE
 } from "@tape.xyz/constants";
 import { EVENTS, logger } from "@tape.xyz/generic";
 import {
@@ -13,7 +13,7 @@ import {
   RefreshOutline,
   Tooltip,
   WalletOutline,
-  WarningOutline,
+  WarningOutline
 } from "@tape.xyz/ui";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -35,12 +35,12 @@ const IrysInfo = () => {
     chainId: POLYGON_CHAIN_ID,
     query: {
       enabled: Boolean(address),
-      refetchInterval: 2000,
-    },
+      refetchInterval: 2000
+    }
   });
   const formattedUserBalance = formatUnits(
     userBalance?.value ?? BigInt(0),
-    userBalance?.decimals as number,
+    userBalance?.decimals as number
   );
 
   const uploadedMedia = useAppStore((state) => state.uploadedMedia);
@@ -65,7 +65,7 @@ const IrysInfo = () => {
         const price = await estimatePrice(instance);
         setIrysData({
           balance: formatEther(BigInt(balance.toString())),
-          estimatedPrice: formatEther(BigInt(price.toString())),
+          estimatedPrice: formatEther(BigInt(price.toString()))
         });
       }
       setFetchingBalance(false);
@@ -115,7 +115,7 @@ const IrysInfo = () => {
       Number.parseFloat(formattedUserBalance) < depositAmount
     ) {
       return toast.error(
-        `Insufficient funds in your wallet, you have ${formattedUserBalance} POL.`,
+        `Insufficient funds in your wallet, you have ${formattedUserBalance} POL.`
       );
     }
     setIrysData({ depositing: true });
@@ -124,7 +124,7 @@ const IrysInfo = () => {
       const fundResult = await irysData.instance.fund(fundValue);
       if (fundResult) {
         toast.success(
-          `Deposit of ${irysData.instance.utils.fromAtomic(fundResult?.quantity)} POL is done and it will be reflected in few seconds.`,
+          `Deposit of ${irysData.instance.utils.fromAtomic(fundResult?.quantity)} POL is done and it will be reflected in few seconds.`
         );
         addEventToQueue(EVENTS.DEPOSIT_POL);
       }
@@ -136,7 +136,7 @@ const IrysInfo = () => {
       setIrysData({
         deposit: null,
         showDeposit: false,
-        depositing: false,
+        depositing: false
       });
     }
   };
@@ -158,7 +158,7 @@ const IrysInfo = () => {
       const withdrawBalanceResult = await irysData.instance.withdrawAll();
       if (withdrawBalanceResult.tx_id) {
         toast.success(
-          `Withdraw of ${Number(irysData.balance).toFixed(2)} POL is done and it will be reflected in few seconds.`,
+          `Withdraw of ${Number(irysData.balance).toFixed(2)} POL is done and it will be reflected in few seconds.`
         );
         await fetchBalance();
         addEventToQueue(EVENTS.WITHDRAW_POL);
@@ -224,7 +224,7 @@ const IrysInfo = () => {
               variant="secondary"
               onClick={() =>
                 setIrysData({
-                  showDeposit: !irysData.showDeposit,
+                  showDeposit: !irysData.showDeposit
                 })
               }
             >

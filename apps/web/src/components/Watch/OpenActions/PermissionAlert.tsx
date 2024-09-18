@@ -1,7 +1,7 @@
 import type { ApprovedAllowanceAmountResult } from "@tape.xyz/lens";
 import {
   OpenActionModuleType,
-  useGenerateModuleCurrencyApprovalDataLazyQuery,
+  useGenerateModuleCurrencyApprovalDataLazyQuery
 } from "@tape.xyz/lens";
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
 import { Button } from "@tape.xyz/ui";
@@ -21,7 +21,7 @@ type Props = {
 const PermissionAlert: FC<Props> = ({
   setIsAllowed,
   isAllowed,
-  allowanceModule,
+  allowanceModule
 }) => {
   const [generateAllowanceQuery, { loading }] =
     useGenerateModuleCurrencyApprovalDataLazyQuery();
@@ -29,27 +29,27 @@ const PermissionAlert: FC<Props> = ({
   const {
     data: txnHash,
     isPending: transactionLoading,
-    sendTransaction,
+    sendTransaction
   } = useSendTransaction({
     mutation: {
       onError: (error: CustomErrorWithData) => {
         toast.error(error?.data?.message ?? error?.message);
-      },
-    },
+      }
+    }
   });
   const {
     isLoading: waiting,
     isSuccess,
     isError,
-    error,
+    error
   } = useWaitForTransactionReceipt({
-    hash: txnHash,
+    hash: txnHash
   });
 
   useEffect(() => {
     if (isSuccess) {
       toast.success(
-        `Allowance ${isAllowed ? "disabled" : "enabled"} successfully!`,
+        `Allowance ${isAllowed ? "disabled" : "enabled"} successfully!`
       );
       setIsAllowed(!isAllowed);
     }
@@ -68,20 +68,20 @@ const PermissionAlert: FC<Props> = ({
         request: {
           allowance: {
             currency: allowanceModule?.allowance.asset.contract.address,
-            value: Number.MAX_SAFE_INTEGER.toString(),
+            value: Number.MAX_SAFE_INTEGER.toString()
           },
           module: {
             [getCollectModuleConfig(allowanceModule).type]: isUnknownModule
               ? allowanceModule.moduleContract.address
-              : allowanceModule.moduleName,
-          },
-        },
-      },
+              : allowanceModule.moduleName
+          }
+        }
+      }
     });
     const data = result?.data?.generateModuleCurrencyApprovalData;
     sendTransaction?.({
       to: data?.to,
-      data: data?.data,
+      data: data?.data
     });
   };
 

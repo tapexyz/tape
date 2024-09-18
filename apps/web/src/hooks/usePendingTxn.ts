@@ -1,6 +1,6 @@
 import {
   LensTransactionStatusType,
-  useLensTransactionStatusQuery,
+  useLensTransactionStatusQuery
 } from "@tape.xyz/lens";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -15,7 +15,7 @@ const usePendingTxn = ({ txHash, txId }: Props) => {
 
   const { data, loading, stopPolling } = useLensTransactionStatusQuery({
     variables: {
-      request: { forTxHash: txHash, forTxId: txId },
+      request: { forTxHash: txHash, forTxId: txId }
     },
     skip: !txHash && !txHash?.length && !txId && !txId?.length,
     pollInterval: 1000,
@@ -34,7 +34,7 @@ const usePendingTxn = ({ txHash, txId }: Props) => {
         stopPolling();
         setIndexed(true);
       }
-    },
+    }
   });
 
   useEffect(() => {
@@ -45,7 +45,7 @@ const usePendingTxn = ({ txHash, txId }: Props) => {
     data,
     indexed,
     loading,
-    error: data?.lensTransactionStatus?.reason,
+    error: data?.lensTransactionStatus?.reason
   };
 };
 

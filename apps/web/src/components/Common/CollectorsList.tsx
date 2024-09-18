@@ -2,13 +2,13 @@ import {
   formatNumber,
   getLennyPicture,
   getProfile,
-  getProfilePicture,
+  getProfilePicture
 } from "@tape.xyz/generic";
 import type { Profile, WhoActedOnPublicationRequest } from "@tape.xyz/lens";
 import {
   LimitType,
   OpenActionCategoryType,
-  useWhoActedOnPublicationQuery,
+  useWhoActedOnPublicationQuery
 } from "@tape.xyz/lens";
 import { Spinner, UserOutline } from "@tape.xyz/ui";
 import Link from "next/link";
@@ -27,15 +27,15 @@ type Props = {
 const CollectorsList: FC<Props> = ({ videoId }) => {
   const request: WhoActedOnPublicationRequest = {
     where: {
-      anyOf: [{ category: OpenActionCategoryType.Collect }],
+      anyOf: [{ category: OpenActionCategoryType.Collect }]
     },
     on: videoId,
-    limit: LimitType.Fifty,
+    limit: LimitType.Fifty
   };
 
   const { data, loading, fetchMore } = useWhoActedOnPublicationQuery({
     variables: { request },
-    skip: !videoId,
+    skip: !videoId
   });
 
   const collectors = data?.whoActedOnPublication?.items as Profile[];
@@ -47,11 +47,11 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next,
-          },
-        },
+            cursor: pageInfo?.next
+          }
+        }
       });
-    },
+    }
   });
 
   if (loading) {

@@ -18,18 +18,18 @@ export const Switch = forwardRef<
   const sizeClasses = {
     "h-4 w-7": size === "sm",
     "h-5 w-9": size === "md",
-    "h-6 w-12": size === "lg",
+    "h-6 w-12": size === "lg"
   };
 
   const thumbSizeClasses = {
     "size-3 data-[state=checked]:translate-x-[14px]": size === "sm",
     "size-4 data-[state=checked]:translate-x-[18px]": size === "md",
-    "size-5 data-[state=checked]:translate-x-[26px]": size === "lg",
+    "size-5 data-[state=checked]:translate-x-[26px]": size === "lg"
   };
 
   const labelSizeClasses = {
     "text-xs": size === "sm",
-    "text-lg": size === "lg",
+    "text-lg": size === "lg"
   };
 
   return (
@@ -38,7 +38,7 @@ export const Switch = forwardRef<
         className={tw(
           sizeClasses,
           "relative cursor-default rounded-full bg-gray-200 outline-none data-[state=checked]:bg-black dark:bg-gray-800",
-          className,
+          className
         )}
         id={id}
         ref={ref}
@@ -47,7 +47,7 @@ export const Switch = forwardRef<
         <PrimitiveSwitch.Thumb
           className={tw(
             thumbSizeClasses,
-            "block translate-x-0.5 rounded-full bg-white transition-transform duration-100 will-change-transform",
+            "block translate-x-0.5 rounded-full bg-white transition-transform duration-100 will-change-transform"
           )}
         />
       </PrimitiveSwitch.Root>

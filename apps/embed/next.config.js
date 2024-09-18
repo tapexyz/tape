@@ -5,17 +5,17 @@ const nextConfig = {
     "@tape.xyz/browser",
     "@tape.xyz/generic",
     "@tape.xyz/tsconfig",
-    "@tape.xyz/ui",
+    "@tape.xyz/ui"
   ],
   reactStrictMode: true,
   headers() {
     return [
       {
         source: "/(.*)",
-        headers: [{ key: "Cache-Control", value: "public, max-age=31536000" }],
-      },
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000" }]
+      }
     ];
-  },
+  }
 };
 
 module.exports = nextConfig;

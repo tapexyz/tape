@@ -3,7 +3,7 @@ import { tw } from "@tape.xyz/browser";
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  SIGN_IN_REQUIRED,
+  SIGN_IN_REQUIRED
 } from "@tape.xyz/constants";
 import type { Profile } from "@tape.xyz/lens";
 import { useProfileLazyQuery } from "@tape.xyz/lens";
@@ -23,22 +23,22 @@ const Guardian: FC = () => {
 
   const [loading, setLoading] = useState(false);
   const [guardianEnabled, setGuardianEnabled] = useState(
-    activeProfile?.guardian?.protected,
+    activeProfile?.guardian?.protected
   );
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const [fetchProfile] = useProfileLazyQuery({
     variables: {
       request: {
-        forHandle: activeProfile?.handle?.fullHandle,
-      },
+        forHandle: activeProfile?.handle?.fullHandle
+      }
     },
     fetchPolicy: "no-cache",
     onCompleted: ({ profile }) => {
       if (profile) {
         setActiveProfile(profile as Profile);
       }
-    },
+    }
   });
 
   const onError = (error: CustomErrorWithData) => {
@@ -48,15 +48,15 @@ const Guardian: FC = () => {
 
   const { data: txnHash, writeContractAsync } = useWriteContract({
     mutation: {
-      onError,
-    },
+      onError
+    }
   });
 
   const { isSuccess } = useWaitForTransactionReceipt({
     hash: txnHash,
     query: {
-      enabled: txnHash && txnHash.length > 0,
-    },
+      enabled: txnHash && txnHash.length > 0
+    }
   });
 
   useEffect(() => {
@@ -80,13 +80,13 @@ const Guardian: FC = () => {
         return await writeContractAsync({
           address: LENSHUB_PROXY_ADDRESS,
           abi: LENSHUB_PROXY_ABI,
-          functionName: "DANGER__disableTokenGuardian",
+          functionName: "DANGER__disableTokenGuardian"
         });
       }
       return await writeContractAsync({
         address: LENSHUB_PROXY_ADDRESS,
         abi: LENSHUB_PROXY_ABI,
-        functionName: "DANGER__disableTokenGuardian",
+        functionName: "DANGER__disableTokenGuardian"
       });
     } catch (error) {
       onError(error as any);
@@ -127,7 +127,7 @@ const Guardian: FC = () => {
       <div
         className={tw(
           "flex rounded-b-medium border-b-0 bg-red-100 px-5 py-3 dark:bg-red-900/20",
-          isCooldownEnded() ? "justify-end" : "justify-between",
+          isCooldownEnded() ? "justify-end" : "justify-between"
         )}
       >
         {!isCooldownEnded() && (

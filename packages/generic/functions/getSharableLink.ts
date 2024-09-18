@@ -2,7 +2,7 @@ import {
   HEY_WEBSITE_URL,
   TAPE_APP_NAME,
   TAPE_WEBSITE_URL,
-  TAPE_X_HANDLE,
+  TAPE_X_HANDLE
 } from "@tape.xyz/constants";
 import type { MirrorablePublication } from "@tape.xyz/lens";
 
@@ -12,7 +12,7 @@ type Link = "tape" | "hey" | "x" | "reddit" | "linkedin";
 
 export const getSharableLink = (
   link: Link,
-  publication: MirrorablePublication,
+  publication: MirrorablePublication
 ) => {
   const fullHandle = publication.by.handle?.fullHandle;
   const { metadata } = publication;
@@ -31,7 +31,7 @@ export const getSharableLink = (
     return encodeURI(
       `https://x.com/intent/tweet?url=${url}&text=${
         (getPublicationData(metadata)?.title as string) ?? ""
-      } by @${fullHandle}&via=${TAPE_X_HANDLE}&related=${TAPE_APP_NAME}&hashtags=${TAPE_APP_NAME}`,
+      } by @${fullHandle}&via=${TAPE_X_HANDLE}&related=${TAPE_APP_NAME}&hashtags=${TAPE_APP_NAME}`
     );
   }
   if (link === "reddit") {

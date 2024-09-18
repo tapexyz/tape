@@ -29,9 +29,9 @@ const Badge: FC<Props> = ({ id, size = "sm", color }) => {
                   "size-3": size === "sm",
                   "size-3.5": size === "md",
                   "size-4": size === "lg",
-                  "size-5": size === "xl",
+                  "size-5": size === "xl"
                 },
-                color,
+                color
               )}
             />
           </span>
@@ -47,9 +47,9 @@ const Badge: FC<Props> = ({ id, size = "sm", color }) => {
                   "size-2.5": size === "xs",
                   "size-3": size === "sm",
                   "size-3.5": size === "md",
-                  "size-4": size === "lg",
+                  "size-4": size === "lg"
                 },
-                color,
+                color
               )}
             />
           </span>

@@ -27,7 +27,7 @@ const WheelControls: KeenSliderPlugin = (slider) => {
   slider.on("created", () => {
     slider.container.setAttribute("tabindex", "0");
     slider.container.addEventListener("wheel", handleWheelEvent, {
-      passive: false,
+      passive: false
     });
     slider.container.addEventListener("mouseover", handleFocus);
   });

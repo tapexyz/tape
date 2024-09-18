@@ -17,11 +17,11 @@ app.get("/", async (c) => {
 
     const results = await tapeDb.profile.findMany({
       where: {
-        isVerified: true,
+        isVerified: true
       },
       select: {
-        profileId: true,
-      },
+        profileId: true
+      }
     });
 
     const ids = results.map(({ profileId }) => profileId);
@@ -29,7 +29,7 @@ app.get("/", async (c) => {
     await rSet(
       REDIS_KEYS.VERIFIED_PROFILES,
       JSON.stringify(ids),
-      REDIS_EXPIRY.ONE_DAY,
+      REDIS_EXPIRY.ONE_DAY
     );
     return c.json({ success: true, ids });
   } catch (error) {

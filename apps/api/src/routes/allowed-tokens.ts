@@ -20,13 +20,13 @@ app.get("/", async (c) => {
       address: item.address,
       decimals: item.decimals,
       name: item.name,
-      symbol: item.symbol,
+      symbol: item.symbol
     }));
 
     await rSet(
       REDIS_KEYS.ALLOWED_TOKENS,
       JSON.stringify(tokens),
-      REDIS_EXPIRY.ONE_DAY,
+      REDIS_EXPIRY.ONE_DAY
     );
     return c.json({ success: true, tokens });
   } catch (error) {

@@ -2,7 +2,7 @@ import {
   getLennyPicture,
   getProfile,
   getProfilePicture,
-  getPublicationData,
+  getPublicationData
 } from "@tape.xyz/generic";
 import type { MirrorNotification, ProfileMirrorResult } from "@tape.xyz/lens";
 import { MirrorOutline } from "@tape.xyz/ui";

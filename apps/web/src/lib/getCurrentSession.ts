@@ -9,7 +9,7 @@ const getCurrentSession = () => {
 
   return {
     profileId: currentSession?.id,
-    authorizationId: currentSession?.authorizationId,
+    authorizationId: currentSession?.authorizationId
   };
 };
 

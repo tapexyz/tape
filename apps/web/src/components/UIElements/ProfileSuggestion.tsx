@@ -17,7 +17,7 @@ const ProfileSuggestion: FC<Props> = ({
   pfp,
   handle,
   id,
-  followers,
+  followers
 }) => {
   return (
     <div className={tw("flex space-x-2 truncate px-1.5 py-1.5", className)}>

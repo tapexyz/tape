@@ -7,11 +7,11 @@ import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: TAPE_APP_NAME,
-  description: TAPE_APP_DESCRIPTION,
+  description: TAPE_APP_DESCRIPTION
 };
 
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) {

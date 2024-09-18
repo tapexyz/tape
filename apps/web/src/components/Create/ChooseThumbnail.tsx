@@ -31,7 +31,7 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
     }
     setSelectedThumbnailIndex(index);
     setUploadedMedia({
-      thumbnailBlobUrl: thumbnails[index]?.blobUrl,
+      thumbnailBlobUrl: thumbnails[index]?.blobUrl
     });
   };
 
@@ -39,13 +39,13 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
     try {
       const thumbnailArray = await generateVideoThumbnails(
         fileToGenerate,
-        THUMBNAIL_GENERATE_COUNT,
+        THUMBNAIL_GENERATE_COUNT
       );
       const thumbnailList: Thumbnail[] = [];
       thumbnailArray.forEach((thumbnailBlob) => {
         thumbnailList.push({
           blobUrl: thumbnailBlob,
-          mimeType: "image/jpeg",
+          mimeType: "image/jpeg"
         });
       });
       setThumbnails(thumbnailList);
@@ -60,7 +60,7 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
   useEffect(() => {
     if (file) {
       generateThumbnails(file).catch((error) =>
-        logger.error("[Error Generate Thumbnails from File]", error),
+        logger.error("[Error Generate Thumbnails from File]", error)
       );
     }
     return () => {
@@ -79,13 +79,13 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
       setThumbnails([
         {
           blobUrl: preview,
-          mimeType: file?.type || "image/jpeg",
+          mimeType: file?.type || "image/jpeg"
         },
-        ...thumbnails,
+        ...thumbnails
       ]);
       setUploadedMedia({
         thumbnailBlobUrl: preview,
-        thumbnailType: file.type || "image/jpeg",
+        thumbnailType: file.type || "image/jpeg"
       });
       setSelectedThumbnailIndex(0);
     }
@@ -120,7 +120,7 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
             <img
               className={tw(
                 "h-full w-full rounded-md",
-                uploadedMedia.isByteVideo ? "object-contain" : "object-cover",
+                uploadedMedia.isByteVideo ? "object-contain" : "object-cover"
               )}
               src={thumbnail.blobUrl}
               alt="thumbnail"

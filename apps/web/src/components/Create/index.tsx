@@ -1,13 +1,13 @@
 import type {
   MediaVideoMimeType,
   MetadataAttribute,
-  VideoOptions,
+  VideoOptions
 } from "@lens-protocol/metadata";
 import {
   MetadataAttributeType,
   PublicationContentWarning,
   shortVideo,
-  video,
+  video
 } from "@lens-protocol/metadata";
 import { LENSHUB_PROXY_ABI } from "@tape.xyz/abis";
 import { getUserLocale, uploadToIPFS } from "@tape.xyz/browser";
@@ -19,7 +19,7 @@ import {
   REQUESTING_SIGNATURE_MESSAGE,
   TAPE_APP_ID,
   TAPE_APP_NAME,
-  TAPE_WEBSITE_URL,
+  TAPE_WEBSITE_URL
 } from "@tape.xyz/constants";
 import {
   EVENTS,
@@ -31,14 +31,14 @@ import {
   getUploadedMediaType,
   logger,
   trimify,
-  uploadToAr,
+  uploadToAr
 } from "@tape.xyz/generic";
 import type {
   CreateMomokaPostEip712TypedData,
   CreateOnchainPostEip712TypedData,
   OnchainPostRequest,
   Profile,
-  ReferenceModuleInput,
+  ReferenceModuleInput
 } from "@tape.xyz/lens";
 import {
   ReferenceModuleType,
@@ -47,7 +47,7 @@ import {
   useCreateMomokaPostTypedDataMutation,
   useCreateOnchainPostTypedDataMutation,
   usePostOnMomokaMutation,
-  usePostOnchainMutation,
+  usePostOnchainMutation
 } from "@tape.xyz/lens";
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
 import { useRouter } from "next/router";
@@ -58,7 +58,7 @@ import {
   useAccount,
   useSignTypedData,
   useWalletClient,
-  useWriteContract,
+  useWriteContract
 } from "wagmi";
 
 import MetaTags from "@/components/Common/MetaTags";
@@ -80,7 +80,7 @@ const CreateSteps = () => {
   const uploadedMedia = useAppStore((state) => state.uploadedMedia);
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia);
   const activeProfile = useProfileStore(
-    (state) => state.activeProfile,
+    (state) => state.activeProfile
   ) as Profile;
 
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
@@ -112,7 +112,7 @@ const CreateSteps = () => {
     router.push(
       uploadedMedia.isByteVideo
         ? `${getProfile(activeProfile)?.link}?tab=bytes`
-        : `${getProfile(activeProfile)?.link}`,
+        : `${getProfile(activeProfile)?.link}`
     );
   };
 
@@ -128,9 +128,9 @@ const CreateSteps = () => {
           thumbnailUrl: uploadedMedia.thumbnail,
           title: uploadedMedia.title,
           txnId: txn.txnId,
-          txnHash: txn.txnHash,
+          txnHash: txn.txnHash
         },
-        ...(queuedVideos || []),
+        ...(queuedVideos || [])
       ]);
     }
     redirectToChannelPage();
@@ -143,7 +143,7 @@ const CreateSteps = () => {
   const stopLoading = () => {
     setUploadedMedia({
       buttonText: "Post Now",
-      loading: false,
+      loading: false
     });
   };
 
@@ -170,7 +170,7 @@ const CreateSteps = () => {
         .referenceModule.degreesOfSeparationReferenceModule
         ? degreesOfSeparation
         : null,
-      user_id: activeProfile?.id,
+      user_id: activeProfile?.id
     });
     return stopLoading();
   };
@@ -186,7 +186,7 @@ const CreateSteps = () => {
   };
 
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError },
+    mutation: { onError }
   });
 
   const { writeContractAsync } = useWriteContract({
@@ -201,8 +201,8 @@ const CreateSteps = () => {
       onError: (error) => {
         onError(error);
         setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
-      },
-    },
+      }
+    }
   });
 
   const write = async ({ args }: { args: any[] }) => {
@@ -210,12 +210,12 @@ const CreateSteps = () => {
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
       functionName: "post",
-      args,
+      args
     });
   };
 
   const getSignatureFromTypedData = async (
-    data: CreateMomokaPostEip712TypedData | CreateOnchainPostEip712TypedData,
+    data: CreateMomokaPostEip712TypedData | CreateOnchainPostEip712TypedData
   ) => {
     toast.loading(REQUESTING_SIGNATURE_MESSAGE);
     const signature = await signTypedDataAsync(getSignature(data));
@@ -229,7 +229,7 @@ const CreateSteps = () => {
         const txnId = broadcastOnchain?.txId;
         setToQueue({ txnId });
       }
-    },
+    }
   });
 
   const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
@@ -237,7 +237,7 @@ const CreateSteps = () => {
       if (broadcastOnMomoka.__typename === "CreateMomokaPublicationResult") {
         redirectToWatchPage(broadcastOnMomoka?.id);
       }
-    },
+    }
   });
 
   const [createOnchainPostTypedData] = useCreateOnchainPostTypedDataMutation({
@@ -247,7 +247,7 @@ const CreateSteps = () => {
         if (canBroadcast) {
           const signature = await getSignatureFromTypedData(typedData);
           const { data } = await broadcastOnchain({
-            variables: { request: { id, signature } },
+            variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain?.__typename === "RelayError") {
             return await write({ args: [typedData.value] });
@@ -258,11 +258,11 @@ const CreateSteps = () => {
       } catch {
         setUploadedMedia({
           buttonText: "Post Now",
-          loading: false,
+          loading: false
         });
       }
     },
-    onError,
+    onError
   });
 
   const [postOnchain] = usePostOnchainMutation({
@@ -272,7 +272,7 @@ const CreateSteps = () => {
         onCompleted(postOnchain.__typename);
         setToQueue({ txnId: postOnchain.txId });
       }
-    },
+    }
   });
 
   const [createMomokaPostTypedData] = useCreateMomokaPostTypedDataMutation({
@@ -282,7 +282,7 @@ const CreateSteps = () => {
         if (canBroadcast) {
           const signature = await getSignatureFromTypedData(typedData);
           const { data } = await broadcastOnMomoka({
-            variables: { request: { id, signature } },
+            variables: { request: { id, signature } }
           });
           if (data?.broadcastOnMomoka?.__typename === "RelayError") {
             return write({ args: [typedData.value] });
@@ -293,11 +293,11 @@ const CreateSteps = () => {
       } catch {
         setUploadedMedia({
           buttonText: "Post Now",
-          loading: false,
+          loading: false
         });
       }
     },
-    onError,
+    onError
   });
 
   const [postOnMomoka] = usePostOnMomokaMutation({
@@ -306,13 +306,13 @@ const CreateSteps = () => {
       if (postOnMomoka.__typename === "CreateMomokaPublicationResult") {
         redirectToWatchPage(postOnMomoka.id);
       }
-    },
+    }
   });
 
   const createPost = async (metadataUri: string) => {
     setUploadedMedia({
       buttonText: "Posting...",
-      loading: true,
+      loading: true
     });
 
     const isRestricted = Boolean(degreesOfSeparation);
@@ -325,18 +325,18 @@ const CreateSteps = () => {
         return await postOnMomoka({
           variables: {
             request: {
-              contentURI: metadataUri,
-            },
-          },
+              contentURI: metadataUri
+            }
+          }
         });
       }
 
       return await createMomokaPostTypedData({
         variables: {
           request: {
-            contentURI: metadataUri,
-          },
-        },
+            contentURI: metadataUri
+          }
+        }
       });
     }
 
@@ -345,7 +345,7 @@ const CreateSteps = () => {
       commentsRestricted: isRestricted,
       mirrorsRestricted: isRestricted,
       degreesOfSeparation: degreesOfSeparation ?? 0,
-      quotesRestricted: isRestricted,
+      quotesRestricted: isRestricted
     };
     const referenceModule: ReferenceModuleInput = uploadedMedia.referenceModule
       ?.followerOnlyReferenceModule
@@ -360,23 +360,23 @@ const CreateSteps = () => {
           ...(uploadedMedia?.unknownOpenAction && {
             unknownOpenAction: {
               address: uploadedMedia.unknownOpenAction.address,
-              data: uploadedMedia.unknownOpenAction.data,
-            },
-          }),
-        },
+              data: uploadedMedia.unknownOpenAction.data
+            }
+          })
+        }
       ],
-      referenceModule,
+      referenceModule
     };
     if (canUseLensManager) {
       return await postOnchain({
-        variables: { request },
+        variables: { request }
       });
     }
     return await createOnchainPostTypedData({
       variables: {
         options: { overrideSigNonce: lensHubOnchainSigNonce },
-        request,
-      },
+        request
+      }
     });
   };
 
@@ -385,18 +385,18 @@ const CreateSteps = () => {
       {
         type: MetadataAttributeType.STRING,
         key: "category",
-        value: uploadedMedia.mediaCategory.tag,
+        value: uploadedMedia.mediaCategory.tag
       },
       {
         type: MetadataAttributeType.STRING,
         key: "creator",
-        value: `${getProfile(activeProfile)?.slug}`,
+        value: `${getProfile(activeProfile)?.slug}`
       },
       {
         type: MetadataAttributeType.STRING,
         key: "app",
-        value: TAPE_WEBSITE_URL,
-      },
+        value: TAPE_WEBSITE_URL
+      }
     ];
 
     const profileSlug = getProfile(activeProfile)?.slug;
@@ -404,15 +404,15 @@ const CreateSteps = () => {
       video: {
         item: uploadedMedia.dUrl,
         type: getUploadedMediaType(
-          uploadedMedia.mediaType,
+          uploadedMedia.mediaType
         ) as MediaVideoMimeType,
         altTag: trimify(uploadedMedia.title),
         attributes,
         cover: uploadedMedia.thumbnail,
         ...(Boolean(uploadedMedia.durationInSeconds) && {
-          duration: uploadedMedia.durationInSeconds,
+          duration: uploadedMedia.durationInSeconds
         }),
-        license: uploadedMedia.mediaLicense,
+        license: uploadedMedia.mediaLicense
       },
       appId: TAPE_APP_ID,
       id: uuidv4(),
@@ -427,8 +427,8 @@ const CreateSteps = () => {
         external_url: `${TAPE_WEBSITE_URL}/u/${profileSlug}`,
         image: uploadedMedia.thumbnail,
         name: uploadedMedia.title,
-        description: trimify(uploadedMedia.description),
-      },
+        description: trimify(uploadedMedia.description)
+      }
     };
 
     if (uploadedMedia.isSensitiveContent) {
@@ -438,7 +438,7 @@ const CreateSteps = () => {
     const shortVideoMetadata = shortVideo(publicationMetadata);
     const longVideoMetadata = video(publicationMetadata);
     const metadataUri = await uploadToAr(
-      uploadedMedia.isByteVideo ? shortVideoMetadata : longVideoMetadata,
+      uploadedMedia.isByteVideo ? shortVideoMetadata : longVideoMetadata
     );
     await createPost(metadataUri);
   };
@@ -447,7 +447,7 @@ const CreateSteps = () => {
     try {
       setUploadedMedia({
         buttonText: "Storing metadata...",
-        loading: true,
+        loading: true
       });
       uploadedMedia.dUrl = dUrl;
       await constructVideoMetadata();
@@ -463,9 +463,9 @@ const CreateSteps = () => {
         setUploadedMedia({
           buttonText: "Uploading...",
           loading: true,
-          percent: percentCompleted,
+          percent: percentCompleted
         });
-      },
+      }
     );
     if (!result.url) {
       stopLoading();
@@ -473,10 +473,10 @@ const CreateSteps = () => {
     }
     setUploadedMedia({
       percent: 100,
-      dUrl: result.url,
+      dUrl: result.url
     });
     return await create({
-      dUrl: result.url,
+      dUrl: result.url
     });
   };
 
@@ -499,7 +499,7 @@ const CreateSteps = () => {
     try {
       setUploadedMedia({
         loading: true,
-        buttonText: "Uploading...",
+        buttonText: "Uploading..."
       });
       const { instance } = irysData;
       const tags = [
@@ -512,8 +512,8 @@ const CreateSteps = () => {
         { name: "Topic", value: uploadedMedia.mediaCategory.name },
         {
           name: "Description",
-          value: trimify(uploadedMedia.description),
-        },
+          value: trimify(uploadedMedia.description)
+        }
       ];
       const fileSize = uploadedMedia?.file?.size as number;
       const uploader = instance.uploader.chunkedUploader;
@@ -528,23 +528,23 @@ const CreateSteps = () => {
           toast.loading(REQUESTING_SIGNATURE_MESSAGE, { duration: 8000 });
         }
         const percentCompleted = Math.round(
-          (chunkInfo.totalUploaded * 100) / fileSize,
+          (chunkInfo.totalUploaded * 100) / fileSize
         );
         setUploadedMedia({
           loading: true,
-          percent: percentCompleted,
+          percent: percentCompleted
         });
       });
       const upload = uploader.uploadData(uploadedMedia.stream as any, {
-        tags,
+        tags
       });
       const response = await upload;
       setUploadedMedia({
         loading: false,
-        dUrl: `${IRYS_GATEWAY_URL}/${response.data.id}`,
+        dUrl: `${IRYS_GATEWAY_URL}/${response.data.id}`
       });
       return await create({
-        dUrl: `${IRYS_GATEWAY_URL}/${response.data.id}`,
+        dUrl: `${IRYS_GATEWAY_URL}/${response.data.id}`
       });
     } catch (error) {
       toast.error("Failed to upload media to Arweave");
@@ -567,7 +567,7 @@ const CreateSteps = () => {
         uploadedMedia.dUrl.includes("ipfs://"))
     ) {
       return await create({
-        dUrl: uploadedMedia.dUrl,
+        dUrl: uploadedMedia.dUrl
       });
     }
     if (

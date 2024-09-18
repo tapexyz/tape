@@ -4,7 +4,7 @@ import type { Profile } from "@tape.xyz/lens";
 import {
   CustomFiltersType,
   LimitType,
-  useSearchProfilesLazyQuery,
+  useSearchProfilesLazyQuery
 } from "@tape.xyz/lens";
 import { Spinner, TextArea } from "@tape.xyz/ui";
 import type { ComponentProps, FC } from "react";
@@ -70,10 +70,10 @@ const InputMentions: FC<TextAreaProps> = ({
             query: keyword,
             limit: LimitType.Ten,
             where: {
-              customFilters: [CustomFiltersType.Gardeners],
-            },
-          },
-        },
+              customFilters: [CustomFiltersType.Gardeners]
+            }
+          }
+        }
       });
     } catch {}
   };
@@ -94,11 +94,11 @@ const InputMentions: FC<TextAreaProps> = ({
     if (lastWord.startsWith("@") && lastWord.length > 3) {
       const coordinates = getCaretCoordinates(
         textareaRef.current,
-        event.target.selectionEnd,
+        event.target.selectionEnd
       );
       setDropdownStyle({
         top: `${coordinates.top - textareaRef.current.scrollTop}px`,
-        left: `${coordinates.left}px`,
+        left: `${coordinates.left}px`
       });
       setKeyword(lastWord);
       setShowPopover(true);
@@ -165,7 +165,7 @@ const InputMentions: FC<TextAreaProps> = ({
                   onClick={() => handleProfileClick(profile)}
                   className={tw(
                     "w-full rounded-lg text-left hover:bg-gallery hover:dark:bg-smoke",
-                    index === selectedIndex && "bg-gallery dark:bg-smoke",
+                    index === selectedIndex && "bg-gallery dark:bg-smoke"
                   )}
                 >
                   <ProfileSuggestion

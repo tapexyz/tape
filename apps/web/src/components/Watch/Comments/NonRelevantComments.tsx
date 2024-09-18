@@ -3,13 +3,13 @@ import type {
   AnyPublication,
   Comment,
   MirrorablePublication,
-  PublicationsRequest,
+  PublicationsRequest
 } from "@tape.xyz/lens";
 import {
   CommentRankingFilterType,
   CustomFiltersType,
   LimitType,
-  usePublicationsQuery,
+  usePublicationsQuery
 } from "@tape.xyz/lens";
 import { ChevronDownOutline, ChevronUpOutline, Spinner } from "@tape.xyz/ui";
 import type { FC } from "react";
@@ -35,14 +35,14 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
       commentOn: {
         id: video.id,
         ranking: {
-          filter: CommentRankingFilterType.NoneRelevant,
-        },
-      },
-    },
+          filter: CommentRankingFilterType.NoneRelevant
+        }
+      }
+    }
   };
 
   const { data, loading, fetchMore } = usePublicationsQuery({
-    variables: { request },
+    variables: { request }
   });
 
   const comments = data?.publications?.items as AnyPublication[];
@@ -55,11 +55,11 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next,
-          },
-        },
+            cursor: pageInfo?.next
+          }
+        }
       });
-    },
+    }
   });
 
   const onToggle = () => {
@@ -97,7 +97,7 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
                     key={`${comment?.id}_${comment.createdAt}`}
                     comment={comment as Comment}
                   />
-                ),
+                )
             )}
           </div>
           {pageInfo?.next && (

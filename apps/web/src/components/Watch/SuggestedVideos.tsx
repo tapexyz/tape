@@ -3,14 +3,14 @@ import {
   INFINITE_SCROLL_ROOT_MARGIN,
   IS_MAINNET,
   LENSTUBE_BYTES_APP_ID,
-  TAPE_APP_ID,
+  TAPE_APP_ID
 } from "@tape.xyz/constants";
 import type { PrimaryPublication, PublicationsRequest } from "@tape.xyz/lens";
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   PublicationType,
-  usePublicationsQuery,
+  usePublicationsQuery
 } from "@tape.xyz/lens";
 import { Spinner } from "@tape.xyz/ui";
 import { useRouter } from "next/router";
@@ -25,7 +25,7 @@ import SuggestedVideoCard from "./SuggestedVideoCard";
 
 const SuggestedVideos = () => {
   const {
-    query: { id },
+    query: { id }
   } = useRouter();
 
   const { activeProfile } = useProfileStore();
@@ -37,19 +37,19 @@ const SuggestedVideos = () => {
         mainContentFocus: [PublicationMetadataMainFocusType.Video],
         publishedOn: IS_MAINNET
           ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
-          : undefined,
+          : undefined
       },
       publicationTypes: [PublicationType.Post],
-      from: curatedProfiles,
+      from: curatedProfiles
     },
-    limit: LimitType.Fifty,
+    limit: LimitType.Fifty
   };
 
   const { data, loading, error, fetchMore, refetch } = usePublicationsQuery({
     variables: {
-      request,
+      request
     },
-    skip: !curatedProfiles?.length,
+    skip: !curatedProfiles?.length
   });
 
   const videos = data?.publications?.items as PrimaryPublication[];
@@ -66,12 +66,12 @@ const SuggestedVideos = () => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next,
+            cursor: pageInfo?.next
           },
-          channelId: activeProfile?.id ?? null,
-        },
+          channelId: activeProfile?.id ?? null
+        }
       });
-    },
+    }
   });
 
   return (
@@ -85,7 +85,7 @@ const SuggestedVideos = () => {
                 !video.isHidden &&
                 video.id !== id && (
                   <SuggestedVideoCard video={video} key={video?.id} />
-                ),
+                )
             )}
           </div>
           {pageInfo?.next && (

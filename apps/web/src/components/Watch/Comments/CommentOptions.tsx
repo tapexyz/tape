@@ -8,7 +8,7 @@ import {
   FlagOutline,
   Modal,
   ThreeDotsOutline,
-  TrashOutline,
+  TrashOutline
 } from "@tape.xyz/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -36,7 +36,7 @@ const CommentOptions: FC<Props> = ({ comment }) => {
     update(cache) {
       const normalizedId = cache.identify({
         id: comment?.id,
-        __typename: "Comment",
+        __typename: "Comment"
       });
       cache.evict({ id: normalizedId });
       cache.gc();
@@ -44,9 +44,9 @@ const CommentOptions: FC<Props> = ({ comment }) => {
     onCompleted: () => {
       toast.success("Comment deleted");
       addEventToQueue(EVENTS.PUBLICATION.DELETE, {
-        publication_type: comment.__typename?.toLowerCase(),
+        publication_type: comment.__typename?.toLowerCase()
       });
-    },
+    }
   });
 
   const onHideComment = async () => {

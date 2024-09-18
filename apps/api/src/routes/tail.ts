@@ -10,7 +10,7 @@ const logtailApiURL = "https://in.logs.betterstack.com";
 const validationSchema = object({
   source: string(),
   level: string().nullable().optional(),
-  message: string().nullable().optional(),
+  message: string().nullable().optional()
 });
 type RequestInput = z.infer<typeof validationSchema>;
 
@@ -23,9 +23,9 @@ app.post("/", zValidator("json", validationSchema), async (c) => {
       headers: {
         Authorization: `Bearer ${LOGTAIL_API_KEY}`,
         "Content-Type": "application/json",
-        "User-Agent": "Tape",
+        "User-Agent": "Tape"
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify(body)
     });
     if (!result.ok) {
       return c.json({ success: false, message: ERROR_MESSAGE });

@@ -5,7 +5,7 @@ import {
   getShouldUploadVideo,
   getThumbnailUrl,
   imageCdn,
-  sanitizeDStorageUrl,
+  sanitizeDStorageUrl
 } from "@tape.xyz/generic";
 import type { AnyPublication } from "@tape.xyz/lens";
 import { VideoPlayer } from "@tape.xyz/ui";
@@ -28,7 +28,7 @@ type Props = {
 const ByteVideo: FC<Props> = ({
   video,
   currentViewingId,
-  intersectionCallback,
+  intersectionCallback
 }) => {
   const videoRef = useRef<HTMLMediaElement>();
   const intersectionRef = useRef<HTMLDivElement>(null);
@@ -37,7 +37,7 @@ const ByteVideo: FC<Props> = ({
   const { activeProfile } = useProfileStore();
   const thumbnailUrl = imageCdn(
     sanitizeDStorageUrl(getThumbnailUrl(targetPublication.metadata, true)),
-    "THUMBNAIL_V",
+    "THUMBNAIL_V"
   );
 
   const playVideo = () => {
@@ -115,7 +115,7 @@ const ByteVideo: FC<Props> = ({
               muted: currentViewingId !== targetPublication.id,
               loop: true,
               loadingSpinner: true,
-              isCurrentlyShown: currentViewingId === video.id,
+              isCurrentlyShown: currentViewingId === video.id
             }}
             shouldUpload={getShouldUploadVideo(targetPublication)}
           />

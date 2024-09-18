@@ -13,13 +13,13 @@ const useCuratedProfiles = create(
   persist<State>(
     (set) => ({
       curatedProfiles: [],
-      setCuratedProfiles: (curatedProfiles) => set({ curatedProfiles }),
+      setCuratedProfiles: (curatedProfiles) => set({ curatedProfiles })
     }),
     {
       name: LocalIDBStore.ALLOWED_TOKENS_STORE,
-      storage: createIdbStorage(),
-    },
-  ),
+      storage: createIdbStorage()
+    }
+  )
 );
 
 export default useCuratedProfiles;

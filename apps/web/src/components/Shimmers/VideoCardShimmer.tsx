@@ -7,7 +7,7 @@ export const CardShimmer = ({ rounded = true }: { rounded?: boolean }) => {
         <div
           className={tw(
             "aspect-h-9 aspect-w-16 bg-gray-200 dark:bg-gray-800",
-            rounded && "rounded-large",
+            rounded && "rounded-large"
           )}
         />
       </div>

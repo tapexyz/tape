@@ -3,7 +3,7 @@ import { FEATURE_FLAGS } from "@tape.xyz/constants";
 import {
   formatBytes,
   getIsFeatureEnabled,
-  sanitizeDStorageUrl,
+  sanitizeDStorageUrl
 } from "@tape.xyz/generic";
 import { Badge, Input, Tooltip } from "@tape.xyz/ui";
 import { useEffect, useRef, useState } from "react";
@@ -31,7 +31,7 @@ const SelectedMedia = () => {
       setUploadedMedia({
         durationInSeconds: mediaRef.current.duration
           ? Math.ceil(mediaRef.current.duration)
-          : 0,
+          : 0
       });
     }
     setLoading(false);
@@ -84,7 +84,7 @@ const SelectedMedia = () => {
                 <span className="space-x-1 whitespace-nowrap">
                   <span>
                     {formatTimeFromSeconds(
-                      String(uploadedMedia.durationInSeconds),
+                      String(uploadedMedia.durationInSeconds)
                     )}
                   </span>
                   <span>({formatBytes(uploadedMedia.file?.size)})</span>
@@ -107,10 +107,10 @@ const SelectedMedia = () => {
                       "h-[6px]",
                       uploadedMedia.percent !== 0
                         ? "bg-brand-500"
-                        : "bg-gray-300 dark:bg-gray-800",
+                        : "bg-gray-300 dark:bg-gray-800"
                     )}
                     style={{
-                      width: `${uploadedMedia.percent}%`,
+                      width: `${uploadedMedia.percent}%`
                     }}
                   />
                 </div>
@@ -121,7 +121,7 @@ const SelectedMedia = () => {
       </div>
       {getIsFeatureEnabled(
         FEATURE_FLAGS.POST_WITH_SOURCE_URL,
-        activeProfile?.id,
+        activeProfile?.id
       ) && (
         <div className="mt-4">
           <Input
@@ -131,7 +131,7 @@ const SelectedMedia = () => {
             value={uploadedMedia.dUrl}
             onChange={(e) =>
               setUploadedMedia({
-                dUrl: e.target.value,
+                dUrl: e.target.value
               })
             }
           />

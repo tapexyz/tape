@@ -7,7 +7,7 @@ export const profileQuery = (handle: string) =>
     queryFn: () =>
       execute(ProfileDocument, {
         request: {
-          forHandle: handle,
-        },
-      }),
+          forHandle: handle
+        }
+      })
   });

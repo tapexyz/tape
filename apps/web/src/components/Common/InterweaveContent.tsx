@@ -12,7 +12,7 @@ const InterweaveContent = ({ content }: { content: string }) => {
     new HashtagMatcher("hashtag"),
     new EmailMatcher("email"),
     new MentionMatcher("mention"),
-    new UrlMatcher("url"),
+    new UrlMatcher("url")
   ];
   return (
     <span className="interweave-content">

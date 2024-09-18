@@ -9,9 +9,9 @@ const ShakeAnimation = {
     marginLeft: [0, 2, -2, 0],
     transition: {
       duration: 0.2,
-      ease: "easeInOut",
-    },
-  },
+      ease: "easeInOut"
+    }
+  }
 };
 
 interface TextAreaProps extends Omit<ComponentProps<"textarea">, "prefix"> {
@@ -53,7 +53,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
             className={tw(
               { "placeholder:text-red-500": error },
               "w-full rounded-lg border-none bg-gray-100 px-3 py-2 focus:outline-none dark:bg-gray-900",
-              className,
+              className
             )}
             id={id}
             ref={ref}
@@ -63,7 +63,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
         {error ? <p className="text-red-500 text-sm">{error}</p> : null}
       </label>
     );
-  },
+  }
 );
 
 TextArea.displayName = "TextArea";

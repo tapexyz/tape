@@ -2,7 +2,7 @@ import {
   formatNumber,
   getLennyPicture,
   getProfile,
-  getProfilePicture,
+  getProfilePicture
 } from "@tape.xyz/generic";
 import type { FollowingRequest, Profile, ProfileStats } from "@tape.xyz/lens";
 import { LimitType, useFollowingQuery } from "@tape.xyz/lens";
@@ -24,12 +24,12 @@ const Following: FC<Props> = ({ stats, profileId }) => {
 
   const request: FollowingRequest = {
     for: profileId,
-    limit: LimitType.Fifty,
+    limit: LimitType.Fifty
   };
 
   const { data, loading, fetchMore } = useFollowingQuery({
     variables: { request },
-    skip: !profileId,
+    skip: !profileId
   });
 
   const followings = data?.following?.items as Profile[];
@@ -41,11 +41,11 @@ const Following: FC<Props> = ({ stats, profileId }) => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next,
-          },
-        },
+            cursor: pageInfo?.next
+          }
+        }
       });
-    },
+    }
   });
 
   return (

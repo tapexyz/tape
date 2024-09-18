@@ -8,7 +8,7 @@ const paths = [
   "M-254 -333C-254 -333 -186 72 278 199C742 326 810 731 810 731",
   "M-198 -397C-198 -397 -130 8 334 135C798 262 866 667 866 667",
   "M-142 -461C-142 -461 -74 -56 390 71C861 190 929 595 929 595",
-  "M-86 -525C-86 -525 -18 -120 446 7C917 126 985 531 985 531",
+  "M-86 -525C-86 -525 -18 -120 446 7C917 126 985 531 985 531"
 ];
 
 const BackgroundComets = () => {
@@ -44,13 +44,13 @@ const BackgroundComets = () => {
                 x1: ["0%", "100%"],
                 x2: ["0%", "95%"],
                 y1: ["0%", "100%"],
-                y2: ["0%", `${93 + Math.random() * 8}%`],
+                y2: ["0%", `${93 + Math.random() * 8}%`]
               }}
               transition={{
                 duration: Math.random() * 10 + 15,
                 ease: "easeOut",
                 repeat: Number.POSITIVE_INFINITY,
-                delay: Math.random() * 10,
+                delay: Math.random() * 10
               }}
             >
               <stop stopColor="#FF5733" stopOpacity="0" />

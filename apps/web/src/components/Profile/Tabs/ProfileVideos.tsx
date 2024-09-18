@@ -2,14 +2,14 @@ import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
   IS_MAINNET,
-  TAPE_APP_ID,
+  TAPE_APP_ID
 } from "@tape.xyz/constants";
 import type { Post, Profile, PublicationsRequest } from "@tape.xyz/lens";
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   PublicationType,
-  usePublicationsQuery,
+  usePublicationsQuery
 } from "@tape.xyz/lens";
 import { Spinner } from "@tape.xyz/ui";
 import type { FC } from "react";
@@ -33,21 +33,21 @@ const ProfileVideos: FC<Props> = ({ profile }) => {
       metadata: {
         mainContentFocus: [
           PublicationMetadataMainFocusType.Video,
-          PublicationMetadataMainFocusType.Livestream,
+          PublicationMetadataMainFocusType.Livestream
         ],
-        publishedOn: IS_MAINNET ? [TAPE_APP_ID, ...ALLOWED_APP_IDS] : undefined,
+        publishedOn: IS_MAINNET ? [TAPE_APP_ID, ...ALLOWED_APP_IDS] : undefined
       },
       publicationTypes: [PublicationType.Post],
-      from: profile.id,
+      from: profile.id
     },
-    limit: LimitType.Fifty,
+    limit: LimitType.Fifty
   };
 
   const { data, loading, error, fetchMore } = usePublicationsQuery({
     variables: {
-      request,
+      request
     },
-    skip: !profile?.id,
+    skip: !profile?.id
   });
 
   const videos = data?.publications?.items as Post[];
@@ -60,11 +60,11 @@ const ProfileVideos: FC<Props> = ({ profile }) => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next,
-          },
-        },
+            cursor: pageInfo?.next
+          }
+        }
       });
-    },
+    }
   });
 
   if (loading) {

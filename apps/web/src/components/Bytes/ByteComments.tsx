@@ -12,7 +12,7 @@ type Props = {
 
 const ByteComments: FC<Props> = ({ video }) => {
   const selectedCommentFilter = useCommentStore(
-    (state) => state.selectedCommentFilter,
+    (state) => state.selectedCommentFilter
   );
 
   return (

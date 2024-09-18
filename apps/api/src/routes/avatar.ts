@@ -3,7 +3,7 @@ import { LENSHUB_PROXY_ABI } from "@tape.xyz/abis";
 import {
   CACHE_CONTROL,
   LENSHUB_PROXY_ADDRESS,
-  POLYGON_RPC_URLS,
+  POLYGON_RPC_URLS
 } from "@tape.xyz/constants";
 import { Hono } from "hono";
 import { http, createPublicClient, fallback } from "viem";
@@ -17,8 +17,8 @@ app.get(
   zValidator(
     "param",
     object({
-      profileId: string(),
-    }),
+      profileId: string()
+    })
   ),
   async (c) => {
     const { profileId } = c.req.param();
@@ -26,18 +26,18 @@ app.get(
     try {
       const client = createPublicClient({
         chain: polygon,
-        transport: fallback(POLYGON_RPC_URLS.map((rpc) => http(rpc))),
+        transport: fallback(POLYGON_RPC_URLS.map((rpc) => http(rpc)))
       });
 
       const data: any = await client.readContract({
         abi: LENSHUB_PROXY_ABI,
         address: LENSHUB_PROXY_ADDRESS,
         args: [profileId],
-        functionName: "tokenURI",
+        functionName: "tokenURI"
       });
 
       const jsonData = JSON.parse(
-        Buffer.from(data.split(",")[1], "base64").toString(),
+        Buffer.from(data.split(",")[1], "base64").toString()
       );
       const base64Image = jsonData.image.split(";base64,").pop();
       const svgImage = Buffer.from(base64Image, "base64").toString("utf-8");
@@ -50,7 +50,7 @@ app.get(
       console.error("[AVATAR] Error:", profileId, error?.message);
       return c.redirect(`https://cdn.stamp.fyi/avatar/${profileId}?s=300`);
     }
-  },
+  }
 );
 
 export default app;

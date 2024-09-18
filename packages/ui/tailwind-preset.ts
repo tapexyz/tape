@@ -6,26 +6,26 @@ module.exports = {
       keyframes: {
         shimmer: {
           "0%, 100%": {
-            opacity: 1,
+            opacity: 1
           },
           "50%": {
-            opacity: 0.5,
-          },
-        },
+            opacity: 0.5
+          }
+        }
       },
       animation: {
-        shimmer: "shimmer 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;",
+        shimmer: "shimmer 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;"
       },
       borderRadius: {
         small: "12px",
         medium: "16px",
-        large: "20px",
+        large: "20px"
       },
       screens: {
         tablet: "640px",
         laptop: "1024px",
         desktop: "1280px",
-        ultrawide: "1800px",
+        ultrawide: "1800px"
       },
       colors: {
         // card bg in dark
@@ -44,10 +44,10 @@ module.exports = {
           700: "#006da7",
           800: "#025b8a",
           900: "#084c72",
-          950: "#06304b",
-        },
-      },
-    },
+          950: "#06304b"
+        }
+      }
+    }
   },
-  variants: { extend: {} },
+  variants: { extend: {} }
 };

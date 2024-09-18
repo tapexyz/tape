@@ -14,7 +14,7 @@ type Props = {
 const EditionSize: FC<Props> = ({ setCollectType }) => {
   const uploadedMedia = useAppStore((state) => state.uploadedMedia);
   const [showSizePicker, setShowSizePicker] = useState(
-    uploadedMedia.collectModule.collectLimitEnabled,
+    uploadedMedia.collectModule.collectLimitEnabled
   );
 
   return (
@@ -27,13 +27,13 @@ const EditionSize: FC<Props> = ({ setCollectType }) => {
             onClick={() => {
               setCollectType({
                 isSimpleCollect: true,
-                collectLimitEnabled: false,
+                collectLimitEnabled: false
               });
               setShowSizePicker(false);
             }}
             className={tw(
               !uploadedMedia.collectModule.collectLimitEnabled &&
-                "border-brand-500",
+                "border-brand-500"
             )}
             variant="secondary"
           >
@@ -46,13 +46,13 @@ const EditionSize: FC<Props> = ({ setCollectType }) => {
             onClick={() => {
               setCollectType({
                 isSimpleCollect: true,
-                collectLimitEnabled: true,
+                collectLimitEnabled: true
               });
               setShowSizePicker(true);
             }}
             className={tw(
               uploadedMedia.collectModule.collectLimitEnabled &&
-                "border-brand-500",
+                "border-brand-500"
             )}
             variant="secondary"
           >
@@ -73,14 +73,14 @@ const EditionSize: FC<Props> = ({ setCollectType }) => {
                 collectLimit:
                   !trimify(value) || Number(value) <= 0
                     ? "0"
-                    : String(Number.parseInt(value)),
+                    : String(Number.parseInt(value))
               });
             }}
             onChange={(e) => {
               const { value } = e.target;
               setCollectType({
                 collectLimit:
-                  Number(value) <= 0 ? "" : String(Number.parseInt(value)),
+                  Number(value) <= 0 ? "" : String(Number.parseInt(value))
               });
             }}
             value={uploadedMedia.collectModule.collectLimit}

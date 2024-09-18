@@ -8,7 +8,7 @@ import {
   AccordionTrigger,
   Button,
   CollectOutline,
-  Modal,
+  Modal
 } from "@tape.xyz/ui";
 import type { FC, ReactNode } from "react";
 import { useState } from "react";

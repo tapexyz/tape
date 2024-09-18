@@ -4,20 +4,20 @@ import { checkLensManagerPermissions, getSignature } from "@tape.xyz/generic";
 import type {
   ActOnOpenActionLensManagerRequest,
   ModuleMetadata,
-  UnknownOpenActionModuleSettings,
+  UnknownOpenActionModuleSettings
 } from "@tape.xyz/lens";
 import {
   useActOnOpenActionMutation,
   useBroadcastOnchainMutation,
   useCreateActOnOpenActionTypedDataMutation,
-  useModuleMetadataQuery,
+  useModuleMetadataQuery
 } from "@tape.xyz/lens";
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
 import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-  VerifiedSolid,
+  VerifiedSolid
 } from "@tape.xyz/ui";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -32,7 +32,7 @@ import TipOpenAction from "./Tip";
 
 const UnknownOpenAction = ({
   action,
-  publicationId,
+  publicationId
 }: {
   action: UnknownOpenActionModuleSettings;
   publicationId: string;
@@ -45,7 +45,7 @@ const UnknownOpenAction = ({
   };
 
   const onCompleted = (
-    __typename?: "RelayError" | "RelaySuccess" | "LensProfileManagerRelayError",
+    __typename?: "RelayError" | "RelaySuccess" | "LensProfileManagerRelayError"
   ) => {
     if (
       __typename === "RelayError" ||
@@ -68,7 +68,7 @@ const UnknownOpenAction = ({
 
   const { data: module, loading } = useModuleMetadataQuery({
     variables: { request: { implementation: action?.contract.address } },
-    skip: !action?.contract.address,
+    skip: !action?.contract.address
   });
 
   const metadata = module?.moduleMetadata?.metadata;
@@ -82,8 +82,8 @@ const UnknownOpenAction = ({
       onError: (error) => {
         onError(error);
         setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
-      },
-    },
+      }
+    }
   });
 
   const write = async ({ args }: { args: any[] }) => {
@@ -91,13 +91,13 @@ const UnknownOpenAction = ({
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
       functionName: "act",
-      args,
+      args
     });
   };
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename),
+      onCompleted(broadcastOnchain.__typename)
   });
 
   const [createActOnOpenActionTypedData] =
@@ -109,7 +109,7 @@ const UnknownOpenAction = ({
           const signature = await signTypedDataAsync(getSignature(typedData));
           setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
           const { data } = await broadcastOnchain({
-            variables: { request: { id, signature } },
+            variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain.__typename === "RelayError") {
             return await write({ args });
@@ -118,17 +118,17 @@ const UnknownOpenAction = ({
         }
         return await write({ args });
       },
-      onError,
+      onError
     });
 
   const [actOnOpenAction] = useActOnOpenActionMutation({
     onCompleted: ({ actOnOpenAction }) =>
       onCompleted(actOnOpenAction.__typename),
-    onError,
+    onError
   });
 
   const actViaLensManager = async (
-    request: ActOnOpenActionLensManagerRequest,
+    request: ActOnOpenActionLensManagerRequest
   ) => {
     const { data, errors } = await actOnOpenAction({ variables: { request } });
 
@@ -153,9 +153,9 @@ const UnknownOpenAction = ({
       actOn: {
         unknownOpenAction: {
           address,
-          data,
-        },
-      },
+          data
+        }
+      }
     };
 
     if (canUseLensManager && action.signlessApproved) {
@@ -165,8 +165,8 @@ const UnknownOpenAction = ({
     return await createActOnOpenActionTypedData({
       variables: {
         options: { overrideSigNonce: lensHubOnchainSigNonce },
-        request: actOnRequest,
-      },
+        request: actOnRequest
+      }
     });
   };
 

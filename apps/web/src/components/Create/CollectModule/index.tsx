@@ -4,7 +4,7 @@ import {
   ChevronRightOutline,
   Modal,
   SplitOutline,
-  Tooltip,
+  Tooltip
 } from "@tape.xyz/ui";
 import { useState } from "react";
 

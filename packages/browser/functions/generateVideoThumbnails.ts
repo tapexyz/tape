@@ -3,7 +3,7 @@ import { logger } from "@tape.xyz/generic";
 
 const canvasImageFromVideo = (
   file: File,
-  currentTime: number,
+  currentTime: number
 ): Promise<string> => {
   return new Promise((resolve) => {
     const video = document.createElement("video");
@@ -28,7 +28,7 @@ const canvasImageFromVideo = (
 
 export const generateVideoThumbnails = (
   file: File,
-  count: number,
+  count: number
 ): Promise<string[]> => {
   return new Promise((resolve) => {
     try {

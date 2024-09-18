@@ -11,7 +11,7 @@ import {
   toPromise,
   useApolloClient,
   useLazyQuery,
-  useQuery,
+  useQuery
 } from "@apollo/client";
 import { RetryLink } from "@apollo/client/link/retry";
 import { LENS_API_URL } from "@tape.xyz/constants";
@@ -20,18 +20,18 @@ import cache from "./cache";
 
 const retryLink = new RetryLink({
   delay: {
-    initial: 100,
+    initial: 100
   },
   attempts: {
     max: 2,
-    retryIf: (error) => Boolean(error),
-  },
+    retryIf: (error) => Boolean(error)
+  }
 });
 
 const httpLink = new HttpLink({
   uri: LENS_API_URL,
   fetchOptions: "no-cors",
-  fetch,
+  fetch
 });
 
 const apolloClient = (authLink?: ApolloLink) =>
@@ -39,7 +39,7 @@ const apolloClient = (authLink?: ApolloLink) =>
     link: authLink
       ? from([authLink, retryLink, httpLink])
       : from([retryLink, httpLink]),
-    cache,
+    cache
   });
 
 export {
@@ -53,5 +53,5 @@ export {
   toPromise,
   useApolloClient,
   useLazyQuery,
-  useQuery,
+  useQuery
 };

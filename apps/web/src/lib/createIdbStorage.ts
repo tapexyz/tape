@@ -13,7 +13,7 @@ const idbReplacer = (_key: string, value: any) => {
   if (value instanceof Map) {
     return {
       dataType: "Map",
-      value: [...value],
+      value: [...value]
     };
   }
 
@@ -28,7 +28,7 @@ const createIdbStorage = () => {
     setItem: async (name: string, value: StorageValue<any>) => {
       const str = JSON.stringify({ state: { ...value.state } }, idbReplacer);
       return await set(name, str);
-    },
+    }
   };
 };
 

@@ -13,13 +13,13 @@ const useVerifiedStore = create(
   persist<State>(
     (set) => ({
       verifiedProfiles: [],
-      setVerifiedProfiles: (verifiedProfiles) => set({ verifiedProfiles }),
+      setVerifiedProfiles: (verifiedProfiles) => set({ verifiedProfiles })
     }),
     {
       name: LocalIDBStore.VERIFIED_STORE,
-      storage: createIdbStorage(),
-    },
-  ),
+      storage: createIdbStorage()
+    }
+  )
 );
 
 export default useVerifiedStore;

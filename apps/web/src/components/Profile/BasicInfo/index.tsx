@@ -6,25 +6,25 @@ import {
   MISUSED_CHANNELS,
   REQUESTING_SIGNATURE_MESSAGE,
   STATIC_ASSETS,
-  TAPE_WEBSITE_URL,
+  TAPE_WEBSITE_URL
 } from "@tape.xyz/constants";
 import {
   checkLensManagerPermissions,
   getProfile,
   getSignature,
-  trimify,
+  trimify
 } from "@tape.xyz/generic";
 import type {
   CreateBlockProfilesBroadcastItemResult,
   CreateUnblockProfilesBroadcastItemResult,
-  Profile,
+  Profile
 } from "@tape.xyz/lens";
 import {
   useBlockMutation,
   useBroadcastOnchainMutation,
   useCreateBlockProfilesTypedDataMutation,
   useCreateUnblockProfilesTypedDataMutation,
-  useUnblockMutation,
+  useUnblockMutation
 } from "@tape.xyz/lens";
 import { useApolloClient } from "@tape.xyz/lens/apollo";
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
@@ -39,7 +39,7 @@ import {
   ProfileBanOutline,
   ThreeDotsOutline,
   Tooltip,
-  WarningOutline,
+  WarningOutline
 } from "@tape.xyz/ui";
 import type { FC } from "react";
 import { useState } from "react";
@@ -88,9 +88,9 @@ const BasicInfo: FC<Props> = ({ profile }) => {
       fields: {
         operations: () => ({
           ...profile.operations,
-          isBlockedByMe: { value },
-        }),
-      },
+          isBlockedByMe: { value }
+        })
+      }
     });
   };
 
@@ -100,7 +100,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
   };
 
   const onCompleted = (
-    __typename?: "RelayError" | "RelaySuccess" | "LensProfileManagerRelayError",
+    __typename?: "RelayError" | "RelaySuccess" | "LensProfileManagerRelayError"
   ) => {
     if (
       __typename === "RelayError" ||
@@ -115,14 +115,14 @@ const BasicInfo: FC<Props> = ({ profile }) => {
   };
 
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError },
+    mutation: { onError }
   });
 
   const { writeContractAsync } = useWriteContract({
     mutation: {
       onSuccess: () => onCompleted(),
-      onError,
-    },
+      onError
+    }
   });
 
   const write = async ({ args }: { args: any[] }) => {
@@ -130,20 +130,20 @@ const BasicInfo: FC<Props> = ({ profile }) => {
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
       functionName: "setBlockStatus",
-      args,
+      args
     });
   };
 
   const [broadcast] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) =>
       onCompleted(broadcastOnchain.__typename),
-    onError,
+    onError
   });
 
   const broadcastTypedData = async (
     typedDataResult:
       | CreateBlockProfilesBroadcastItemResult
-      | CreateUnblockProfilesBroadcastItemResult,
+      | CreateUnblockProfilesBroadcastItemResult
   ) => {
     const { typedData, id } = typedDataResult;
     const { byProfileId, idsOfProfilesToSetBlockStatus, blockStatus } =
@@ -155,7 +155,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
         const signature = await signTypedDataAsync(getSignature(typedData));
         setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
         const { data } = await broadcast({
-          variables: { request: { id, signature } },
+          variables: { request: { id, signature } }
         });
         if (data?.broadcastOnchain.__typename === "RelayError") {
           return await write({ args });
@@ -172,14 +172,14 @@ const BasicInfo: FC<Props> = ({ profile }) => {
     onCompleted: ({ createBlockProfilesTypedData }) => {
       broadcastTypedData(createBlockProfilesTypedData);
     },
-    onError,
+    onError
   });
 
   const [createUnBlockTypedData] = useCreateUnblockProfilesTypedDataMutation({
     onCompleted: ({ createUnblockProfilesTypedData }) => {
       broadcastTypedData(createUnblockProfilesTypedData);
     },
-    onError,
+    onError
   });
 
   const [block] = useBlockMutation({
@@ -189,12 +189,12 @@ const BasicInfo: FC<Props> = ({ profile }) => {
         return await createBlockTypedData({
           variables: {
             options: { overrideSigNonce: lensHubOnchainSigNonce },
-            request: { profiles: [profile.id] },
-          },
+            request: { profiles: [profile.id] }
+          }
         });
       }
     },
-    onError,
+    onError
   });
   const [unBlock] = useUnblockMutation({
     onCompleted: async ({ unblock }) => {
@@ -203,12 +203,12 @@ const BasicInfo: FC<Props> = ({ profile }) => {
         return await createUnBlockTypedData({
           variables: {
             options: { overrideSigNonce: lensHubOnchainSigNonce },
-            request: { profiles: [profile.id] },
-          },
+            request: { profiles: [profile.id] }
+          }
         });
       }
     },
-    onError,
+    onError
   });
 
   const toggleBlockProfile = async () => {
@@ -217,18 +217,18 @@ const BasicInfo: FC<Props> = ({ profile }) => {
       return await unBlock({
         variables: {
           request: {
-            profiles: [profile.id],
-          },
-        },
+            profiles: [profile.id]
+          }
+        }
       });
     }
 
     await block({
       variables: {
         request: {
-          profiles: [profile.id],
-        },
-      },
+          profiles: [profile.id]
+        }
+      }
     });
     setLoading(false);
   };

@@ -2,7 +2,7 @@ import {
   getPublication,
   getPublicationMediaUrl,
   imageCdn,
-  sanitizeDStorageUrl,
+  sanitizeDStorageUrl
 } from "@tape.xyz/generic";
 import type { AnyPublication } from "@tape.xyz/lens";
 import { Modal } from "@tape.xyz/ui";

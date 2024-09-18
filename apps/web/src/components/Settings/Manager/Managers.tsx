@@ -4,19 +4,19 @@ import {
   ERROR_MESSAGE,
   INFINITE_SCROLL_ROOT_MARGIN,
   LENSHUB_PROXY_ADDRESS,
-  REQUESTING_SIGNATURE_MESSAGE,
+  REQUESTING_SIGNATURE_MESSAGE
 } from "@tape.xyz/constants";
 import {
   checkLensManagerPermissions,
   getSignature,
-  shortenAddress,
+  shortenAddress
 } from "@tape.xyz/generic";
 import type { ProfileManagersRequest } from "@tape.xyz/lens";
 import {
   ChangeProfileManagerActionType,
   useBroadcastOnchainMutation,
   useCreateChangeProfileManagersTypedDataMutation,
-  useProfileManagersQuery,
+  useProfileManagersQuery
 } from "@tape.xyz/lens";
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
 import { Button, ExternalOutline, Input, Modal, Spinner } from "@tape.xyz/ui";
@@ -38,15 +38,15 @@ import useNonceStore from "@/lib/store/nonce";
 
 const formSchema = object({
   address: string().refine((addr) => isAddress(addr), {
-    message: "Invalid address",
-  }),
+    message: "Invalid address"
+  })
 });
 type FormData = z.infer<typeof formSchema>;
 
 const Entry = ({
   address,
   removingAddress,
-  onRemove,
+  onRemove
 }: {
   address: string;
   removingAddress: string;
@@ -88,9 +88,9 @@ const Managers = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors }
   } = useForm<FormData>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema)
   });
 
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
@@ -101,7 +101,7 @@ const Managers = () => {
   const request: ProfileManagersRequest = { for: activeProfile?.id };
   const { data, refetch, error, loading, fetchMore } = useProfileManagersQuery({
     variables: { request },
-    skip: !activeProfile?.id,
+    skip: !activeProfile?.id
   });
   const profileManagersWithoutLensManager = useMemo(() => {
     if (!data?.profileManagers?.items) {
@@ -131,7 +131,7 @@ const Managers = () => {
   };
 
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError },
+    mutation: { onError }
   });
 
   const { writeContractAsync, data: writeHash } = useWriteContract({
@@ -142,8 +142,8 @@ const Managers = () => {
       onError: (error) => {
         onError(error);
         setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
-      },
-    },
+      }
+    }
   });
 
   const write = async ({ args }: { args: any[] }) => {
@@ -151,21 +151,21 @@ const Managers = () => {
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
       functionName: "changeDelegatedExecutorsConfig",
-      args,
+      args
     });
   };
 
   const [broadcast, { data: broadcastData }] = useBroadcastOnchainMutation({
     onError,
     onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename),
+      onCompleted(broadcastOnchain.__typename)
   });
 
   const { indexed } = usePendingTxn({
     txHash: writeHash,
     ...(broadcastData?.broadcastOnchain.__typename === "RelaySuccess" && {
-      txId: broadcastData?.broadcastOnchain?.txId,
-    }),
+      txId: broadcastData?.broadcastOnchain?.txId
+    })
   });
 
   useEffect(() => {
@@ -182,21 +182,21 @@ const Managers = () => {
         delegatedExecutors,
         approvals,
         configNumber,
-        switchToGivenConfig,
+        switchToGivenConfig
       } = typedData.value;
       const args = [
         delegatorProfileId,
         delegatedExecutors,
         approvals,
         configNumber,
-        switchToGivenConfig,
+        switchToGivenConfig
       ];
       try {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE);
         if (canBroadcast) {
           const signature = await signTypedDataAsync(getSignature(typedData));
           const { data } = await broadcast({
-            variables: { request: { id, signature } },
+            variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain.__typename === "RelayError") {
             return await write({ args });
@@ -208,7 +208,7 @@ const Managers = () => {
         setSubmitting(false);
       }
     },
-    onError,
+    onError
   });
 
   const addManager = async ({ address }: FormData) => {
@@ -222,11 +222,11 @@ const Managers = () => {
           changeManagers: [
             {
               address,
-              action: ChangeProfileManagerActionType.Add,
-            },
-          ],
-        },
-      },
+              action: ChangeProfileManagerActionType.Add
+            }
+          ]
+        }
+      }
     });
   };
 
@@ -241,11 +241,11 @@ const Managers = () => {
           changeManagers: [
             {
               address,
-              action: ChangeProfileManagerActionType.Remove,
-            },
-          ],
-        },
-      },
+              action: ChangeProfileManagerActionType.Remove
+            }
+          ]
+        }
+      }
     });
   };
 
@@ -257,11 +257,11 @@ const Managers = () => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next,
-          },
-        },
+            cursor: pageInfo?.next
+          }
+        }
       });
-    },
+    }
   });
 
   return (

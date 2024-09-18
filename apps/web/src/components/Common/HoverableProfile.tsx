@@ -4,7 +4,7 @@ import {
   getProfileCoverPicture,
   getProfilePicture,
   imageCdn,
-  sanitizeDStorageUrl,
+  sanitizeDStorageUrl
 } from "@tape.xyz/generic";
 import type { Profile } from "@tape.xyz/lens";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@tape.xyz/ui";
@@ -45,8 +45,8 @@ const HoverableProfile: FC<Props> = ({ profile, children, pfp }) => {
           <div
             style={{
               backgroundImage: `url(${imageCdn(
-                sanitizeDStorageUrl(getProfileCoverPicture(profile, true)),
-              )})`,
+                sanitizeDStorageUrl(getProfileCoverPicture(profile, true))
+              )})`
             }}
             className="relative h-24 w-full bg-brand-500 bg-center bg-cover bg-no-repeat"
           >

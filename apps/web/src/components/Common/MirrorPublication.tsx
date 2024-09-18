@@ -3,18 +3,18 @@ import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
-  SIGN_IN_REQUIRED,
+  SIGN_IN_REQUIRED
 } from "@tape.xyz/constants";
 import {
   EVENTS,
   checkLensManagerPermissions,
-  getSignature,
+  getSignature
 } from "@tape.xyz/generic";
 import type {
   CreateMomokaMirrorEip712TypedData,
   CreateOnchainMirrorEip712TypedData,
   MirrorablePublication,
-  MomokaMirrorRequest,
+  MomokaMirrorRequest
 } from "@tape.xyz/lens";
 import {
   useBroadcastOnMomokaMutation,
@@ -22,7 +22,7 @@ import {
   useCreateMomokaMirrorTypedDataMutation,
   useCreateOnchainMirrorTypedDataMutation,
   useMirrorOnMomokaMutation,
-  useMirrorOnchainMutation,
+  useMirrorOnchainMutation
 } from "@tape.xyz/lens";
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
 import type { FC } from "react";
@@ -47,7 +47,7 @@ const MirrorPublication: FC<Props> = ({
   video,
   children,
   onMirrorSuccess,
-  successToast = "Mirrored video across lens.",
+  successToast = "Mirrored video across lens."
 }) => {
   const [loading, setLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
@@ -72,12 +72,12 @@ const MirrorPublication: FC<Props> = ({
     toast.success(successToast);
     addEventToQueue(EVENTS.PUBLICATION.MIRROR, {
       publication_id: video.id,
-      publication_state: video.momoka?.proof ? "MOMOKA" : "ON_CHAIN",
+      publication_state: video.momoka?.proof ? "MOMOKA" : "ON_CHAIN"
     });
   };
 
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError },
+    mutation: { onError }
   });
 
   const { writeContractAsync } = useWriteContract({
@@ -89,8 +89,8 @@ const MirrorPublication: FC<Props> = ({
       onError: (error) => {
         onError(error);
         setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
-      },
-    },
+      }
+    }
   });
 
   const write = async ({ args }: { args: any[] }) => {
@@ -98,14 +98,12 @@ const MirrorPublication: FC<Props> = ({
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
       functionName: "mirror",
-      args,
+      args
     });
   };
 
   const getSignatureFromTypedData = async (
-    data:
-      | CreateMomokaMirrorEip712TypedData
-      | CreateOnchainMirrorEip712TypedData,
+    data: CreateMomokaMirrorEip712TypedData | CreateOnchainMirrorEip712TypedData
   ) => {
     toast.loading(REQUESTING_SIGNATURE_MESSAGE);
     const signature = await signTypedDataAsync(getSignature(data));
@@ -117,7 +115,7 @@ const MirrorPublication: FC<Props> = ({
       if (broadcastOnchain.__typename === "RelaySuccess") {
         onCompleted();
       }
-    },
+    }
   });
 
   const [createOnChainMirrorTypedData] =
@@ -128,7 +126,7 @@ const MirrorPublication: FC<Props> = ({
           if (canBroadcast) {
             const signature = await getSignatureFromTypedData(typedData);
             const { data } = await broadcastOnchain({
-              variables: { request: { id, signature } },
+              variables: { request: { id, signature } }
             });
             if (data?.broadcastOnchain?.__typename === "RelayError") {
               return await write({ args: [typedData.value] });
@@ -138,7 +136,7 @@ const MirrorPublication: FC<Props> = ({
           return await write({ args: [typedData.value] });
         } catch {}
       },
-      onError,
+      onError
     });
 
   const [mirrorOnChain] = useMirrorOnchainMutation({
@@ -148,20 +146,20 @@ const MirrorPublication: FC<Props> = ({
           variables: {
             options: { overrideSigNonce: lensHubOnchainSigNonce },
             request: {
-              mirrorOn: video.id,
-            },
-          },
+              mirrorOn: video.id
+            }
+          }
         });
       }
       onCompleted();
-    },
+    }
   });
 
   const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
     onCompleted: ({ broadcastOnMomoka }) => {
       if (broadcastOnMomoka.__typename === "CreateMomokaPublicationResult") {
       }
-    },
+    }
   });
 
   const [createMomokaMirrorTypedData] = useCreateMomokaMirrorTypedDataMutation({
@@ -171,7 +169,7 @@ const MirrorPublication: FC<Props> = ({
         if (canBroadcast) {
           const signature = await getSignatureFromTypedData(typedData);
           const { data } = await broadcastOnMomoka({
-            variables: { request: { id, signature } },
+            variables: { request: { id, signature } }
           });
           if (data?.broadcastOnMomoka?.__typename === "RelayError") {
             return write({ args: [typedData.value] });
@@ -181,11 +179,11 @@ const MirrorPublication: FC<Props> = ({
         return write({ args: [typedData.value] });
       } catch {}
     },
-    onError,
+    onError
   });
 
   const [mirrorOnMomoka] = useMirrorOnMomokaMutation({
-    onCompleted: () => onCompleted(),
+    onCompleted: () => onCompleted()
   });
 
   const mirrorPublication = async () => {
@@ -196,28 +194,28 @@ const MirrorPublication: FC<Props> = ({
 
     if (video.momoka?.proof && !activeProfile?.sponsor) {
       return toast.error(
-        "Momoka is currently in beta - during this time certain actions are not available to all profiles.",
+        "Momoka is currently in beta - during this time certain actions are not available to all profiles."
       );
     }
 
     try {
       setLoading(true);
       const request: MomokaMirrorRequest = {
-        mirrorOn: video.id,
+        mirrorOn: video.id
       };
       // MOMOKA
       if (video.momoka?.proof) {
         if (canUseLensManager) {
           return await mirrorOnMomoka({
             variables: {
-              request,
-            },
+              request
+            }
           });
         }
         return await createMomokaMirrorTypedData({
           variables: {
-            request,
-          },
+            request
+          }
         });
       }
 
@@ -225,15 +223,15 @@ const MirrorPublication: FC<Props> = ({
       if (canUseLensManager) {
         return await mirrorOnChain({
           variables: {
-            request,
-          },
+            request
+          }
         });
       }
       return await createOnChainMirrorTypedData({
         variables: {
           options: { overrideSigNonce: lensHubOnchainSigNonce },
-          request,
-        },
+          request
+        }
       });
     } catch {}
   };

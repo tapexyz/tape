@@ -16,7 +16,7 @@ export default async function Page({ params }: Props) {
   const { pubId } = params;
   const { data, error } = await client.query({
     query: PublicationDocument,
-    variables: { request: { forId: pubId } },
+    variables: { request: { forId: pubId } }
   });
 
   if (!data.publication || error) {

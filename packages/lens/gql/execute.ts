@@ -12,12 +12,12 @@ export const execute = async <TResult = any, TVariables = any>(
       headers: {
         "Content-Type": "application/json",
         "User-Agent": "tape.xyz",
-        Accept: "application/graphql-response+json",
+        Accept: "application/graphql-response+json"
       },
       body: JSON.stringify({
         query: query,
-        variables,
-      }),
+        variables
+      })
     });
 
     if (!response.ok) {

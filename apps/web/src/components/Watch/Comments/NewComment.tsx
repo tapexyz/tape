@@ -8,7 +8,7 @@ import {
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   TAPE_APP_ID,
-  TAPE_WEBSITE_URL,
+  TAPE_WEBSITE_URL
 } from "@tape.xyz/constants";
 import {
   EVENTS,
@@ -19,12 +19,12 @@ import {
   getSignature,
   logger,
   trimify,
-  uploadToAr,
+  uploadToAr
 } from "@tape.xyz/generic";
 import type {
   AnyPublication,
   CreateMomokaCommentEip712TypedData,
-  CreateOnchainCommentEip712TypedData,
+  CreateOnchainCommentEip712TypedData
 } from "@tape.xyz/lens";
 import {
   PublicationDocument,
@@ -34,7 +34,7 @@ import {
   useCommentOnchainMutation,
   useCreateMomokaCommentTypedDataMutation,
   useCreateOnchainCommentTypedDataMutation,
-  usePublicationLazyQuery,
+  usePublicationLazyQuery
 } from "@tape.xyz/lens";
 import { useApolloClient } from "@tape.xyz/lens/apollo";
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
@@ -68,7 +68,7 @@ const formSchema = object({
   comment: string({ required_error: "Enter valid comment" })
     .trim()
     .min(1, { message: "Enter valid comment" })
-    .max(5000, { message: "Comment should not exceed 5000 characters" }),
+    .max(5000, { message: "Comment should not exceed 5000 characters" })
 });
 type FormData = z.infer<typeof formSchema>;
 
@@ -77,7 +77,7 @@ const NewComment: FC<Props> = ({
   defaultValue = "",
   placeholder = "What do you think?",
   hideEmojiPicker = false,
-  resetReply,
+  resetReply
 }) => {
   const { cache } = useApolloClient();
   const [loading, setLoading] = useState(false);
@@ -99,12 +99,12 @@ const NewComment: FC<Props> = ({
     reset,
     watch,
     setValue,
-    getValues,
+    getValues
   } = useForm<FormData>({
     defaultValues: {
-      comment: defaultValue,
+      comment: defaultValue
     },
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema)
   });
   const { addEventToQueue } = useSw();
 
@@ -119,9 +119,9 @@ const NewComment: FC<Props> = ({
           comment: getValues("comment"),
           txnId: txn.txnId,
           txnHash: txn.txnHash,
-          pubId: targetVideo.id,
+          pubId: targetVideo.id
         },
-        ...(queuedComments || []),
+        ...(queuedComments || [])
       ]);
     }
   };
@@ -132,7 +132,7 @@ const NewComment: FC<Props> = ({
     }
     addEventToQueue(EVENTS.PUBLICATION.NEW_COMMENT, {
       publication_id: targetVideo.id,
-      publication_state: targetVideo.momoka?.proof ? "DATA_ONLY" : "ON_CHAIN",
+      publication_state: targetVideo.momoka?.proof ? "DATA_ONLY" : "ON_CHAIN"
     });
     reset();
     resetReply?.();
@@ -145,7 +145,7 @@ const NewComment: FC<Props> = ({
   };
 
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError },
+    mutation: { onError }
   });
 
   const { writeContractAsync } = useWriteContract({
@@ -160,8 +160,8 @@ const NewComment: FC<Props> = ({
       onError: (error) => {
         onError(error);
         setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
-      },
-    },
+      }
+    }
   });
 
   const write = async ({ args }: { args: any[] }) => {
@@ -169,7 +169,7 @@ const NewComment: FC<Props> = ({
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
       functionName: "comment",
-      args,
+      args
     });
   };
 
@@ -179,9 +179,9 @@ const NewComment: FC<Props> = ({
     const { data } = await getComment({
       variables: {
         request: {
-          forId: commentId,
-        },
-      },
+          forId: commentId
+        }
+      }
     });
     if (data?.publication) {
       cache.modify({
@@ -189,10 +189,10 @@ const NewComment: FC<Props> = ({
           publications() {
             cache.writeQuery({
               data: { publication: data?.publication },
-              query: PublicationDocument,
+              query: PublicationDocument
             });
-          },
-        },
+          }
+        }
       });
     }
   };
@@ -200,7 +200,7 @@ const NewComment: FC<Props> = ({
   const getSignatureFromTypedData = async (
     data:
       | CreateMomokaCommentEip712TypedData
-      | CreateOnchainCommentEip712TypedData,
+      | CreateOnchainCommentEip712TypedData
   ) => {
     toast.loading(REQUESTING_SIGNATURE_MESSAGE);
     const signature = await signTypedDataAsync(getSignature(data));
@@ -215,7 +215,7 @@ const NewComment: FC<Props> = ({
         setToQueue({ txnId });
       }
       onCompleted(broadcastOnchain.__typename);
-    },
+    }
   });
 
   const [createOnchainCommentTypedData] =
@@ -227,7 +227,7 @@ const NewComment: FC<Props> = ({
           if (canBroadcast) {
             const signature = await getSignatureFromTypedData(typedData);
             const { data } = await broadcastOnchain({
-              variables: { request: { id, signature } },
+              variables: { request: { id, signature } }
             });
             if (data?.broadcastOnchain?.__typename === "RelayError") {
               return await write({ args });
@@ -237,7 +237,7 @@ const NewComment: FC<Props> = ({
           return await write({ args });
         } catch {}
       },
-      onError,
+      onError
     });
 
   const [commentOnchain] = useCommentOnchainMutation({
@@ -247,7 +247,7 @@ const NewComment: FC<Props> = ({
         setToQueue({ txnId: commentOnchain.txId });
         onCompleted(commentOnchain.__typename);
       }
-    },
+    }
   });
 
   const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
@@ -256,7 +256,7 @@ const NewComment: FC<Props> = ({
         fetchAndCacheComment(broadcastOnMomoka?.id);
       }
       onCompleted();
-    },
+    }
   });
 
   const [createMomokaCommentTypedData] =
@@ -268,7 +268,7 @@ const NewComment: FC<Props> = ({
           if (canBroadcast) {
             const signature = await getSignatureFromTypedData(typedData);
             const { data } = await broadcastOnMomoka({
-              variables: { request: { id, signature } },
+              variables: { request: { id, signature } }
             });
             if (data?.broadcastOnMomoka?.__typename === "RelayError") {
               return await write({ args });
@@ -278,7 +278,7 @@ const NewComment: FC<Props> = ({
           return await write({ args });
         } catch {}
       },
-      onError,
+      onError
     });
 
   const [commentOnMomoka] = useCommentOnMomokaMutation({
@@ -288,13 +288,13 @@ const NewComment: FC<Props> = ({
         onCompleted();
         fetchAndCacheComment(commentOnMomoka.id);
       }
-    },
+    }
   });
 
   const submitComment = async (formData: FormData) => {
     if (video.momoka?.proof && !activeProfile?.sponsor) {
       return toast.error(
-        "Momoka is currently in beta - during this time certain actions are not available to all profiles.",
+        "Momoka is currently in beta - during this time certain actions are not available to all profiles."
       );
     }
     try {
@@ -305,18 +305,18 @@ const NewComment: FC<Props> = ({
         {
           type: MetadataAttributeType.STRING,
           key: "publication",
-          value: video.id,
+          value: video.id
         },
         {
           type: MetadataAttributeType.STRING,
           key: "creator",
-          value: `${getProfile(activeProfile)?.slug}`,
+          value: `${getProfile(activeProfile)?.slug}`
         },
         {
           type: MetadataAttributeType.STRING,
           key: "app",
-          value: TAPE_WEBSITE_URL,
-        },
+          value: TAPE_WEBSITE_URL
+        }
       ];
 
       const title = getPublicationData(targetVideo.metadata)?.title;
@@ -331,8 +331,8 @@ const NewComment: FC<Props> = ({
           name: `${profileSlug}'s comment on video ${title}`,
           attributes,
           description: trimify(formData.comment),
-          external_url: `${TAPE_WEBSITE_URL}/watch/${video?.id}`,
-        },
+          external_url: `${TAPE_WEBSITE_URL}/watch/${video?.id}`
+        }
       });
       const metadataUri = await uploadToAr(metadata);
 
@@ -343,9 +343,9 @@ const NewComment: FC<Props> = ({
             variables: {
               request: {
                 contentURI: metadataUri,
-                commentOn: video.id,
-              },
-            },
+                commentOn: video.id
+              }
+            }
           });
         }
 
@@ -353,9 +353,9 @@ const NewComment: FC<Props> = ({
           variables: {
             request: {
               contentURI: metadataUri,
-              commentOn: video.id,
-            },
-          },
+              commentOn: video.id
+            }
+          }
         });
       }
 
@@ -365,9 +365,9 @@ const NewComment: FC<Props> = ({
           variables: {
             request: {
               commentOn: targetVideo.id,
-              contentURI: metadataUri,
-            },
-          },
+              contentURI: metadataUri
+            }
+          }
         });
       }
 
@@ -376,9 +376,9 @@ const NewComment: FC<Props> = ({
           options: { overrideSigNonce: lensHubOnchainSigNonce },
           request: {
             commentOn: targetVideo.id,
-            contentURI: metadataUri,
-          },
-        },
+            contentURI: metadataUri
+          }
+        }
       });
     } catch (error) {
       logger.error("[NEW COMMENT ERROR]", error);

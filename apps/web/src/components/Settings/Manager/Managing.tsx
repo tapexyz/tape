@@ -6,7 +6,7 @@ import {
   getProfileCoverPicture,
   getProfilePicture,
   imageCdn,
-  sanitizeDStorageUrl,
+  sanitizeDStorageUrl
 } from "@tape.xyz/generic";
 import type { Profile, ProfilesManagedRequest } from "@tape.xyz/lens";
 import { useProfilesManagedQuery } from "@tape.xyz/lens";
@@ -20,14 +20,14 @@ import useProfileStore from "@/lib/store/idb/profile";
 
 const Managing = () => {
   const activeProfile = useProfileStore(
-    (state) => state.activeProfile,
+    (state) => state.activeProfile
   ) as Profile;
   const { address } = getProfile(activeProfile);
 
   const request: ProfilesManagedRequest = { for: address };
   const { data, loading, error, fetchMore } = useProfilesManagedQuery({
     variables: { request, lastLoggedInProfileRequest: { for: address } },
-    skip: !address,
+    skip: !address
   });
   const profilesManaged = data?.profilesManaged.items as Profile[];
   const pageInfo = data?.profilesManaged?.pageInfo;
@@ -40,11 +40,11 @@ const Managing = () => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next,
-          },
-        },
+            cursor: pageInfo?.next
+          }
+        }
       });
-    },
+    }
   });
 
   return (
@@ -65,10 +65,8 @@ const Managing = () => {
                 <div
                   style={{
                     backgroundImage: `url(${imageCdn(
-                      sanitizeDStorageUrl(
-                        getProfileCoverPicture(profile, true),
-                      ),
-                    )})`,
+                      sanitizeDStorageUrl(getProfileCoverPicture(profile, true))
+                    )})`
                   }}
                   className="relative h-20 w-full bg-brand-500 bg-center bg-cover bg-no-repeat"
                 >

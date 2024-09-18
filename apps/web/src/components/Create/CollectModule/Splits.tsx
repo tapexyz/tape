@@ -2,26 +2,26 @@ import { tw, useDebounce, useOutsideClick } from "@tape.xyz/browser";
 import {
   LENS_NAMESPACE_PREFIX,
   TAPE_ADMIN_ADDRESS,
-  TAPE_APP_NAME,
+  TAPE_APP_NAME
 } from "@tape.xyz/constants";
 import {
   getProfile,
   getProfilePicture,
   splitNumber,
-  trimify,
+  trimify
 } from "@tape.xyz/generic";
 import type { Profile, RecipientDataInput } from "@tape.xyz/lens";
 import {
   CustomFiltersType,
   LimitType,
-  useSearchProfilesLazyQuery,
+  useSearchProfilesLazyQuery
 } from "@tape.xyz/lens";
 import {
   InfoOutline,
   Input,
   Spinner,
   TimesOutline,
-  Tooltip,
+  Tooltip
 } from "@tape.xyz/ui";
 import type { FC, RefObject } from "react";
 import { useEffect, useRef, useState } from "react";
@@ -53,8 +53,8 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
       collectModule: {
         ...uploadedMedia.collectModule,
         multiRecipients,
-        isMultiRecipientFeeCollect: enabled,
-      },
+        isMultiRecipientFeeCollect: enabled
+      }
     });
   };
 
@@ -73,10 +73,10 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
             limit: LimitType.Ten,
             query: searchKeyword,
             where: {
-              customFilters: [CustomFiltersType.Gardeners],
-            },
-          },
-        },
+              customFilters: [CustomFiltersType.Gardeners]
+            }
+          }
+        }
       });
     }
   };
@@ -88,7 +88,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
   const onChangeSplit = (
     key: "recipient" | "split",
     value: string,
-    index: number,
+    index: number
   ) => {
     const splits = splitRecipients;
     const changedSplit = splits[index];
@@ -118,7 +118,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
     const splits = splitRecipients.map((splitRecipient, i) => {
       return {
         recipient: splitRecipient.recipient,
-        split: equalSplits[i] ?? 0,
+        split: equalSplits[i] ?? 0
       };
     });
     if (splits.length) {
@@ -193,7 +193,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
                       onChangeSplit(
                         "recipient",
                         getProfile(profile).address,
-                        i,
+                        i
                       );
                       setSearchKeyword("");
                     }}
@@ -236,7 +236,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
             type="button"
             className={tw(
               "rounded border border-gray-700 px-1 font-bold text-[10px] uppercase tracking-wider opacity-70 dark:border-gray-300",
-              splitRecipients.length >= 4 && "invisible",
+              splitRecipients.length >= 4 && "invisible"
             )}
             onClick={() => addRecipient()}
           >

@@ -6,10 +6,10 @@ import usePersistStore from "@/lib/store/persist";
 
 const NotificationsFilter = () => {
   const selectedNotificationsFilter = usePersistStore(
-    (state) => state.selectedNotificationsFilter,
+    (state) => state.selectedNotificationsFilter
   );
   const setSelectedNotificationsFilter = usePersistStore(
-    (state) => state.setSelectedNotificationsFilter,
+    (state) => state.setSelectedNotificationsFilter
   );
 
   return (
@@ -17,7 +17,7 @@ const NotificationsFilter = () => {
       <DropdownMenuItem
         onClick={() =>
           setSelectedNotificationsFilter(
-            CustomNotificationsFilterEnum.HIGH_SIGNAL,
+            CustomNotificationsFilterEnum.HIGH_SIGNAL
           )
         }
       >
@@ -25,7 +25,7 @@ const NotificationsFilter = () => {
           className={tw(
             "whitespace-nowrap",
             selectedNotificationsFilter ===
-              CustomNotificationsFilterEnum.HIGH_SIGNAL && "font-bold",
+              CustomNotificationsFilterEnum.HIGH_SIGNAL && "font-bold"
           )}
         >
           High signal
@@ -34,7 +34,7 @@ const NotificationsFilter = () => {
       <DropdownMenuItem
         onClick={() =>
           setSelectedNotificationsFilter(
-            CustomNotificationsFilterEnum.ALL_NOTIFICATIONS,
+            CustomNotificationsFilterEnum.ALL_NOTIFICATIONS
           )
         }
       >
@@ -42,7 +42,7 @@ const NotificationsFilter = () => {
           className={tw(
             "whitespace-nowrap",
             selectedNotificationsFilter ===
-              CustomNotificationsFilterEnum.ALL_NOTIFICATIONS && "font-bold",
+              CustomNotificationsFilterEnum.ALL_NOTIFICATIONS && "font-bold"
           )}
         >
           Show all

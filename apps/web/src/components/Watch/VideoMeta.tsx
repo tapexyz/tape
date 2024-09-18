@@ -1,7 +1,7 @@
 import {
   getLennyPicture,
   getProfile,
-  getProfilePicture,
+  getProfilePicture
 } from "@tape.xyz/generic";
 import type { PrimaryPublication } from "@tape.xyz/lens";
 import { CollectOutline, MirrorOutline, Modal } from "@tape.xyz/ui";

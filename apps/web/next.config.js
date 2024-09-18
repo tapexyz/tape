@@ -8,25 +8,25 @@ const moduleExports = {
     "@tape.xyz/lens",
     "@tape.xyz/browser",
     "@tape.xyz/generic",
-    "@tape.xyz/ui",
+    "@tape.xyz/ui"
   ],
   reactStrictMode: process.env.NODE_ENV === "production",
   rewrites() {
     return [
       {
         source: "/sitemaps/:match*",
-        destination: "https://static.tape.xyz/sitemaps/:match*",
+        destination: "https://static.tape.xyz/sitemaps/:match*"
       },
       {
         source: "/u/:match*",
         has: [{ key: "user-agent", type: "header", value: allowedBots }],
-        destination: "https://og.tape.xyz/u/:match*",
+        destination: "https://og.tape.xyz/u/:match*"
       },
       {
         source: "/watch/:match*",
         has: [{ key: "user-agent", type: "header", value: allowedBots }],
-        destination: "https://og.tape.xyz/watch/:match*",
-      },
+        destination: "https://og.tape.xyz/watch/:match*"
+      }
     ];
   },
   redirects() {
@@ -34,49 +34,49 @@ const moduleExports = {
       {
         source: "/channel/:handle(.+).lens",
         destination: "/u/:handle",
-        permanent: true,
+        permanent: true
       },
       {
         source: "/channel/:handle(.+).test",
         destination: "/u/:handle",
-        permanent: true,
+        permanent: true
       },
       {
         source: "/channel/:handle",
         destination: "/u/:handle",
-        permanent: true,
+        permanent: true
       },
       {
         source: "/channel/:namespace/:handle",
         destination: "/u/:namespace/:handle",
-        permanent: true,
+        permanent: true
       },
       {
         source: "/signup",
         destination: "/login?signup=true",
-        permanent: true,
+        permanent: true
       },
       {
         source: "/discord",
         destination: "https://discord.gg/lenstube-980882088783913010",
-        permanent: true,
+        permanent: true
       },
       {
         source: "/donate",
         destination: "https://giveth.io/project/tape",
-        permanent: true,
+        permanent: true
       },
       {
         source: "/gitcoin",
         destination: "https://explorer.gitcoin.co/#/round/10/44/13",
-        permanent: true,
+        permanent: true
       },
       {
         source: "/zorb",
         destination:
           "https://zora.co/collect/zora:0x3c753d866790b0511ab6139ba4eeba1dce194ee8/1?referrer=0x01d79BcEaEaaDfb8fD2F2f53005289CFcF483464",
-        permanent: true,
-      },
+        permanent: true
+      }
     ];
   },
   headers() {
@@ -86,14 +86,14 @@ const moduleExports = {
         headers: [
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "X-XSS-Protection", value: "1; mode=block" },
-          { key: "Referrer-Policy", value: "strict-origin" },
-        ],
+          { key: "Referrer-Policy", value: "strict-origin" }
+        ]
       },
       { source: "/terms", headers },
       { source: "/privacy", headers },
-      { source: "/thanks", headers },
+      { source: "/thanks", headers }
     ];
-  },
+  }
 };
 
 module.exports = moduleExports;

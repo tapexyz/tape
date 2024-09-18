@@ -24,13 +24,13 @@ const NO_PADDING_PATHS = [
   "/bytes",
   "/bytes/[id]",
   "/404",
-  "/500",
+  "/500"
 ];
 
 const apolloQueryClient = apolloClient(authLink);
 const livepeerClient = getLivepeerClient();
 const reactQueryClient = new QueryClient({
-  defaultOptions: { queries: { refetchOnWindowFocus: false } },
+  defaultOptions: { queries: { refetchOnWindowFocus: false } }
 });
 
 const Providers = ({ children }: { children: ReactNode }) => {

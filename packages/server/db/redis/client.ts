@@ -2,7 +2,7 @@ import type { RedisClientType } from "redis";
 import { createClient } from "redis";
 
 const redisClient: RedisClientType = createClient({
-  url: process.env.REDIS_URL,
+  url: process.env.REDIS_URL
 });
 
 const connectRedis = async () => {
@@ -17,10 +17,10 @@ const listenToRedis = () => {
   redisClient.on("connect", () => console.log("[REDIS] Connected to Redis"));
   redisClient.on("ready", () => console.log("[REDIS] Redis is ready"));
   redisClient.on("reconnecting", () =>
-    console.log("[REDIS] Redis is reconnecting"),
+    console.log("[REDIS] Redis is reconnecting")
   );
   redisClient.on("error", (error) =>
-    console.error("[REDIS] Redis error", error),
+    console.error("[REDIS] Redis error", error)
   );
   redisClient.on("end", () => console.log("[REDIS] Redis connection ended"));
 };
@@ -35,7 +35,7 @@ export enum REDIS_EXPIRY {
   THREE_HOURS = 3 * 60 * 60, // 3 hours in seconds
   SIX_HOURS = 6 * 60 * 60, // 6 hours in seconds
   HALF_DAY = 12 * 60 * 60, // 12 hours in seconds
-  ONE_DAY = 1 * 24 * 60 * 60, // 1 day in seconds
+  ONE_DAY = 1 * 24 * 60 * 60 // 1 day in seconds
 }
 
 /**
@@ -49,7 +49,7 @@ const rGet = async (key: string): Promise<string | null> => {
 const rSet = async (
   key: string,
   value: string,
-  expiry: number,
+  expiry: number
 ): Promise<string | null> => {
   if (expiry === REDIS_EXPIRY.FOREVER) {
     return await redisClient.set(key, value);

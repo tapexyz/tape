@@ -11,15 +11,15 @@ const cache = new InMemoryCache({
         feed: cursorBasedPagination(["request", ["where"]]),
         explorePublications: cursorBasedPagination([
           "request",
-          ["orderBy", "limit", "where"],
+          ["orderBy", "limit", "where"]
         ]),
         publicationsProfileBookmarks: cursorBasedPagination([
           "request",
-          ["orderBy", "limit", "where"],
+          ["orderBy", "limit", "where"]
         ]),
         publications: cursorBasedPagination([
           "request",
-          ["orderBy", "limit", "where"],
+          ["orderBy", "limit", "where"]
         ]),
         nfts: cursorBasedPagination(["request", ["limit", "where"]]),
         notifications: cursorBasedPagination(["request", ["where"]]),
@@ -27,32 +27,32 @@ const cache = new InMemoryCache({
         following: cursorBasedPagination(["request", ["limit", "for"]]),
         searchProfiles: cursorBasedPagination([
           "request",
-          ["limit", "query", "where"],
+          ["limit", "query", "where"]
         ]),
         searchPublications: cursorBasedPagination([
           "request",
-          ["limit", "query", "where"],
+          ["limit", "query", "where"]
         ]),
         profiles: cursorBasedPagination(["request", ["limit", "where"]]),
         whoCollectedPublication: cursorBasedPagination([
           "request",
-          ["limit", "where", "on"],
+          ["limit", "where", "on"]
         ]),
         mutualFollowersProfiles: cursorBasedPagination([
           "request",
-          ["limit", "viewing", "observer"],
+          ["limit", "viewing", "observer"]
         ]),
         whoActedOnPublication: cursorBasedPagination([
           "request",
-          ["where", "on"],
+          ["where", "on"]
         ]),
         whoHaveBlocked: cursorBasedPagination(["request", ["limit"]]),
         approvedAuthentication: cursorBasedPagination(["request", ["limit"]]),
         profileManagers: cursorBasedPagination(["request", ["cursor", "for"]]),
-        profilesManaged: cursorBasedPagination(["request", ["cursor", "for"]]),
-      },
-    },
-  },
+        profilesManaged: cursorBasedPagination(["request", ["cursor", "for"]])
+      }
+    }
+  }
 });
 
 export default cache;

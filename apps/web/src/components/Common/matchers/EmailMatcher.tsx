@@ -30,8 +30,8 @@ export class EmailMatcher extends Matcher<EmailProps> {
       email: matches[0],
       emailParts: {
         host: matches[2],
-        username: matches[1],
-      },
+        username: matches[1]
+      }
     })) as MatchResponse<EmailMatch>;
   }
 }

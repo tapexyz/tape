@@ -4,13 +4,13 @@ import {
   TAPE_EMBED_URL,
   TAPE_WEBSITE_URL,
   TAPE_X_HANDLE,
-  WORKER_OEMBED_URL,
+  WORKER_OEMBED_URL
 } from "@tape.xyz/constants";
 import {
   getProfile,
   getPublication,
   getPublicationData,
-  truncate,
+  truncate
 } from "@tape.xyz/generic";
 import type { AnyPublication } from "@tape.xyz/lens";
 import { PublicationDocument } from "@tape.xyz/lens";
@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = params;
   const { data } = await client.query({
     query: PublicationDocument,
-    variables: { request: { forId: id } },
+    variables: { request: { forId: id } }
   });
 
   if (!data.publication) {
@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const publicationTitle = getPublicationData(metadata)?.title || "";
   const publicationContent = truncate(
     getPublicationData(metadata)?.content || "",
-    200,
+    200
   );
   const publicationCover =
     getPublicationData(metadata)?.asset?.cover || OG_IMAGE;
@@ -81,9 +81,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         "episode",
         "watch",
         title,
-        getProfile(profile).displayName,
+        getProfile(profile).displayName
       ],
-      releaseDate: targetPublication.createdAt,
+      releaseDate: targetPublication.createdAt
     },
     twitter: {
       title,
@@ -95,20 +95,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         playerUrl: embedUrl,
         streamUrl: embedUrl,
         height: 720,
-        width: 1280,
-      },
+        width: 1280
+      }
     },
     other: {
-      ...getCollectModuleMetadata(targetPublication),
+      ...getCollectModuleMetadata(targetPublication)
     },
     alternates: {
       canonical: pageUrl,
       types: {
         "application/json+oembed": `${WORKER_OEMBED_URL}?url=${pageUrl}&format=json`,
         "text/xml+oembed": `${WORKER_OEMBED_URL}?url=${pageUrl}&format=xml`,
-        title: publicationTitle,
-      },
-    },
+        title: publicationTitle
+      }
+    }
   };
 }
 

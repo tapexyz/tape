@@ -12,8 +12,8 @@ const app = new Hono();
 
 const validationSchema = object({
   addresses: array(string().regex(/^(0x)?[\da-f]{40}$/i)).max(50, {
-    message: "Too many addresses!",
-  }),
+    message: "Too many addresses!"
+  })
 });
 type RequestInput = z.infer<typeof validationSchema>;
 
@@ -31,7 +31,7 @@ const PROFILES_QUERY = `query Profiles($ownedBy: [EvmAddress!]) {
 
 const replaceAddressesWithHandles = (
   profiles: { handle: { fullHandle: string; ownedBy: string }; id: string }[],
-  addresses: string[],
+  addresses: string[]
 ) => {
   const handleMap = profiles.reduce(
     (acc: { [address: string]: string }, profile) => {
@@ -40,7 +40,7 @@ const replaceAddressesWithHandles = (
       }
       return acc;
     },
-    {},
+    {}
   );
   return addresses.map((address) => handleMap[address] || address);
 };
@@ -51,14 +51,14 @@ const resolveENS = async (address: string): Promise<string> => {
     transport: fallback([
       http("https://ethereum.publicnode.com"),
       http("https://rpc.ankr.com/eth"),
-      http("https://eth.merkle.io"),
-    ]),
+      http("https://eth.merkle.io")
+    ])
   });
   const data = await client.readContract({
     address: "0x3671ae578e63fdf66ad4f3e12cc0c0d71ac7510c",
     abi: resolverAbi,
     args: [[address]],
-    functionName: "getNames",
+    functionName: "getNames"
   });
 
   const results: string[] = (data as []) ?? [];
@@ -67,7 +67,7 @@ const resolveENS = async (address: string): Promise<string> => {
 };
 
 const resolveAllAddresses = async (
-  transformedAddresses: string[],
+  transformedAddresses: string[]
 ): Promise<string[]> => {
   const resolvedAddresses = await Promise.all(
     transformedAddresses.map(async (addrOrHandle) => {
@@ -75,7 +75,7 @@ const resolveAllAddresses = async (
         return await resolveENS(addrOrHandle);
       }
       return addrOrHandle;
-    }),
+    })
   );
   return resolvedAddresses;
 };
@@ -88,21 +88,21 @@ app.post("/", zValidator("json", validationSchema), async (c) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "User-Agent": "Tape",
+        "User-Agent": "Tape"
       },
       body: JSON.stringify({
         operationName: "Profiles",
         query: PROFILES_QUERY,
         variables: {
-          ownedBy: addresses,
-        },
-      }),
+          ownedBy: addresses
+        }
+      })
     });
     const result: any = await response.json();
     const profiles = result?.data?.profiles.items;
     const transformedAddresses = replaceAddressesWithHandles(
       profiles,
-      addresses,
+      addresses
     );
 
     const dids = await resolveAllAddresses(transformedAddresses);

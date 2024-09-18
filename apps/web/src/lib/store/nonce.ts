@@ -8,7 +8,7 @@ interface NonceState {
 const useNonceStore = create<NonceState>((set) => ({
   lensHubOnchainSigNonce: 0,
   setLensHubOnchainSigNonce: (nonce: number) =>
-    set({ lensHubOnchainSigNonce: nonce }),
+    set({ lensHubOnchainSigNonce: nonce })
 }));
 
 export default useNonceStore;

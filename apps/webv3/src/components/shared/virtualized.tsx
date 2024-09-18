@@ -2,7 +2,7 @@ import { useRef } from "react";
 import {
   type StateSnapshot,
   Virtuoso,
-  type VirtuosoHandle,
+  type VirtuosoHandle
 } from "react-virtuoso";
 
 type VirtuosoHelperProps<T> = {
@@ -20,7 +20,7 @@ export const Virtualized = <T,>({
   itemContent,
   endReached,
   hasNextPage,
-  restoreScroll = false,
+  restoreScroll = false
 }: VirtuosoHelperProps<T>) => {
   const virtuoso = useRef<VirtuosoHandle>(null);
 

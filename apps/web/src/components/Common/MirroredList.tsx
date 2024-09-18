@@ -1,13 +1,13 @@
 import {
   getLennyPicture,
   getProfile,
-  getProfilePicture,
+  getProfilePicture
 } from "@tape.xyz/generic";
 import {
   LimitType,
   type Profile,
   type ProfilesRequest,
-  useProfilesQuery,
+  useProfilesQuery
 } from "@tape.xyz/lens";
 import { Spinner, UserOutline } from "@tape.xyz/ui";
 import Link from "next/link";
@@ -26,16 +26,16 @@ type Props = {
 const MirroredList: FC<Props> = ({ videoId }) => {
   const request: ProfilesRequest = {
     where: {
-      whoMirroredPublication: videoId,
+      whoMirroredPublication: videoId
     },
-    limit: LimitType.Fifty,
+    limit: LimitType.Fifty
   };
 
   const { data, loading, fetchMore } = useProfilesQuery({
     variables: {
-      request,
+      request
     },
-    skip: !videoId,
+    skip: !videoId
   });
 
   const mirroredByProfiles = data?.profiles?.items as Profile[];
@@ -47,11 +47,11 @@ const MirroredList: FC<Props> = ({ videoId }) => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next,
-          },
-        },
+            cursor: pageInfo?.next
+          }
+        }
       });
-    },
+    }
   });
 
   if (loading) {

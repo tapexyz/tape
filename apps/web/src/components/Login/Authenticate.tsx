@@ -5,21 +5,21 @@ import {
   getProfile,
   getProfilePicture,
   logger,
-  shortenAddress,
+  shortenAddress
 } from "@tape.xyz/generic";
 import type { Profile } from "@tape.xyz/lens";
 import {
   LimitType,
   useAuthenticateMutation,
   useChallengeLazyQuery,
-  useProfilesManagedQuery,
+  useProfilesManagedQuery
 } from "@tape.xyz/lens";
 import {
   Button,
   Callout,
   Select,
   SelectItem,
-  WarningOutline,
+  WarningOutline
 } from "@tape.xyz/ui";
 import { useRouter } from "next/router";
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
@@ -36,7 +36,7 @@ import Signup from "./Signup";
 
 const Authenticate = () => {
   const {
-    query: { as, signup },
+    query: { as, signup }
   } = useRouter();
 
   const [loading, setLoading] = useState(false);
@@ -61,11 +61,11 @@ const Authenticate = () => {
   const {
     data,
     loading: profilesLoading,
-    refetch,
+    refetch
   } = useProfilesManagedQuery({
     variables: {
       request: { for: address, includeOwned: true, limit: LimitType.Fifty },
-      lastLoggedInProfileRequest: { for: address },
+      lastLoggedInProfileRequest: { for: address }
     },
     notifyOnNetworkStatusChange: true,
     skip: !address,
@@ -82,7 +82,7 @@ const Authenticate = () => {
       } else {
         setShowSignup(true);
       }
-    },
+    }
   });
 
   const profilesManaged = data?.profilesManaged.items as Profile[];
@@ -99,16 +99,16 @@ const Authenticate = () => {
     : remainingProfiles;
 
   const { signMessageAsync } = useSignMessage({
-    mutation: { onError },
+    mutation: { onError }
   });
 
   const [loadChallenge] = useChallengeLazyQuery({
     // if cache old challenge persist issue (InvalidSignature)
     fetchPolicy: "no-cache",
-    onError,
+    onError
   });
   const [authenticate] = useAuthenticateMutation({
-    onError,
+    onError
   });
 
   const handleSign = useCallback(async () => {
@@ -119,21 +119,21 @@ const Authenticate = () => {
     try {
       setLoading(true);
       const challenge = await loadChallenge({
-        variables: { request: { for: selectedProfileId, signedBy: address } },
+        variables: { request: { for: selectedProfileId, signedBy: address } }
       });
       if (!challenge?.data?.challenge?.text) {
         return toast.error(ERROR_MESSAGE);
       }
       const signature = await signMessageAsync({
-        message: challenge?.data?.challenge?.text,
+        message: challenge?.data?.challenge?.text
       });
       if (!signature) {
         return;
       }
       const result = await authenticate({
         variables: {
-          request: { id: challenge.data?.challenge.id, signature },
-        },
+          request: { id: challenge.data?.challenge.id, signature }
+        }
       });
       const accessToken = result.data?.authenticate.accessToken;
       const refreshToken = result.data?.authenticate.refreshToken;
@@ -143,7 +143,7 @@ const Authenticate = () => {
         toast.error("No profile found");
       } else {
         const profile = profilesManaged.find(
-          (profile) => profile.id === selectedProfileId,
+          (profile) => profile.id === selectedProfileId
         );
         if (profile) {
           setActiveProfile(profile);
@@ -159,7 +159,7 @@ const Authenticate = () => {
     } catch (error) {
       logger.error("[Error Sign In]", {
         error,
-        connector: connector?.name,
+        connector: connector?.name
       });
     } finally {
       setLoading(false);
@@ -172,7 +172,7 @@ const Authenticate = () => {
     isConnected,
     loadChallenge,
     profilesManaged,
-    selectedProfileId,
+    selectedProfileId
   ]);
 
   if (as && as === activeProfile?.id) {

@@ -9,7 +9,7 @@ import {
   ProfileManagerOutline,
   SubscribeOutline,
   UserOutline,
-  WarningOutline,
+  WarningOutline
 } from "@tape.xyz/ui";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -26,7 +26,7 @@ import {
   SETTINGS_HANDLES,
   SETTINGS_INTERESTS,
   SETTINGS_MANAGER,
-  SETTINGS_SESSIONS,
+  SETTINGS_SESSIONS
 } from ".";
 
 const SettingsSidebar = () => {
@@ -48,7 +48,7 @@ const SettingsSidebar = () => {
           "flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors",
           isActivePath(SETTINGS)
             ? "bg-gray-200 font-bold dark:bg-gray-800/80"
-            : "font-medium text-dust hover:bg-gray-200 dark:hover:bg-gray-900/50",
+            : "font-medium text-dust hover:bg-gray-200 dark:hover:bg-gray-900/50"
         )}
       >
         <UserOutline className="size-4" />
@@ -60,7 +60,7 @@ const SettingsSidebar = () => {
           "flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors",
           isActivePath(SETTINGS_FOLLOW)
             ? "bg-gray-200 font-bold dark:bg-gray-800/80"
-            : "font-medium text-dust hover:bg-gray-200 dark:hover:bg-gray-900/50",
+            : "font-medium text-dust hover:bg-gray-200 dark:hover:bg-gray-900/50"
         )}
       >
         <SubscribeOutline className="size-4" />
@@ -72,7 +72,7 @@ const SettingsSidebar = () => {
           "flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors",
           isActivePath(SETTINGS_HANDLES)
             ? "bg-gray-200 font-bold dark:bg-gray-800/80"
-            : "font-medium text-dust hover:bg-gray-200 dark:hover:bg-gray-900/50",
+            : "font-medium text-dust hover:bg-gray-200 dark:hover:bg-gray-900/50"
         )}
       >
         <MentionOutline className="size-4" />
@@ -84,7 +84,7 @@ const SettingsSidebar = () => {
           "flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors",
           isActivePath(SETTINGS_INTERESTS)
             ? "bg-gray-200 font-bold dark:bg-gray-800/80"
-            : "font-medium text-dust hover:bg-gray-200 dark:hover:bg-gray-900/50",
+            : "font-medium text-dust hover:bg-gray-200 dark:hover:bg-gray-900/50"
         )}
       >
         <InterestsOutline className="size-4" />
@@ -97,7 +97,7 @@ const SettingsSidebar = () => {
             "flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors",
             isActivePath(SETTINGS_MANAGER)
               ? "bg-gray-200 font-bold dark:bg-gray-800/80"
-              : "font-medium text-dust hover:bg-gray-200 dark:hover:bg-gray-900/50",
+              : "font-medium text-dust hover:bg-gray-200 dark:hover:bg-gray-900/50"
           )}
         >
           <ProfileManagerOutline className="size-4" />
@@ -110,7 +110,7 @@ const SettingsSidebar = () => {
           "flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors",
           isActivePath(SETTINGS_ALLOWANCE)
             ? "bg-gray-200 font-bold dark:bg-gray-800/80"
-            : "font-medium text-dust hover:bg-gray-200 dark:hover:bg-gray-900/50",
+            : "font-medium text-dust hover:bg-gray-200 dark:hover:bg-gray-900/50"
         )}
       >
         <LockOutline className="size-4" />
@@ -122,7 +122,7 @@ const SettingsSidebar = () => {
           "flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors",
           isActivePath(SETTINGS_BLOCKED)
             ? "bg-gray-200 font-bold dark:bg-gray-800/80"
-            : "font-medium text-dust hover:bg-gray-200 dark:hover:bg-gray-900/50",
+            : "font-medium text-dust hover:bg-gray-200 dark:hover:bg-gray-900/50"
         )}
       >
         <ProfileBanOutline className="size-4" />
@@ -134,7 +134,7 @@ const SettingsSidebar = () => {
           "flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors",
           isActivePath(SETTINGS_SESSIONS)
             ? "bg-gray-200 font-bold dark:bg-gray-800/80"
-            : "font-medium text-dust hover:bg-gray-200 dark:hover:bg-gray-900/50",
+            : "font-medium text-dust hover:bg-gray-200 dark:hover:bg-gray-900/50"
         )}
       >
         <KeyOutline className="size-4" />
@@ -147,7 +147,7 @@ const SettingsSidebar = () => {
             "flex items-center space-x-3 rounded-lg px-3 py-1.5 text-red-500 text-sm transition-colors",
             isActivePath(SETTINGS_DANGER_ZONE)
               ? "bg-red-200 font-bold dark:bg-red-900/50"
-              : "font-medium hover:bg-red-100 dark:hover:bg-red-900/50",
+              : "font-medium hover:bg-red-100 dark:hover:bg-red-900/50"
           )}
         >
           <WarningOutline className="size-4" />

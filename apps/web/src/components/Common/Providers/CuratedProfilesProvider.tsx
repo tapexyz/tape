@@ -6,7 +6,7 @@ import useCuratedProfiles from "@/lib/store/idb/curated";
 
 const CuratedProfilesProvider = () => {
   const setCuratedProfiles = useCuratedProfiles(
-    (state) => state.setCuratedProfiles,
+    (state) => state.setCuratedProfiles
   );
 
   const fetchCuratedProfiles = async () => {
@@ -16,7 +16,7 @@ const CuratedProfilesProvider = () => {
 
   useQuery({
     queryKey: ["fetchCuratedProfiles"],
-    queryFn: fetchCuratedProfiles,
+    queryFn: fetchCuratedProfiles
   });
 
   return null;

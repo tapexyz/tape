@@ -6,6 +6,6 @@ export const truncate = (str: string, max: number, suffix = "...") => {
     ? str
     : `${str.substring(
         0,
-        str.substring(0, max - suffix.length).lastIndexOf(" "),
+        str.substring(0, max - suffix.length).lastIndexOf(" ")
       )}${suffix}`;
 };

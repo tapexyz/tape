@@ -3,7 +3,7 @@ import type { ReactElement } from "react";
 
 const ArweaveExplorerLink = ({
   txId,
-  children,
+  children
 }: {
   txId: string;
   children: ReactElement;

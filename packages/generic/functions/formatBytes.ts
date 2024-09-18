@@ -4,9 +4,9 @@ export const formatBytes = (bytes: number) => {
     const i = Math.min(
       Number.parseInt(
         Math.floor(Math.log(bytes) / Math.log(1024)).toString(),
-        10,
+        10
       ),
-      sizes.length - 1,
+      sizes.length - 1
     );
     return `${Math.round(bytes / 1024 ** i)} ${sizes[i]}`;
   }

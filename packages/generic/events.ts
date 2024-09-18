@@ -24,10 +24,10 @@ export const EVENTS = {
     WATCH: "Watch Page",
     WATCH_STREAM: "Watch Stream Page",
     BYTES: "Bytes Page",
-    NOTIFICATIONS: "Notifications Page",
+    NOTIFICATIONS: "Notifications Page"
   },
   MANAGER: {
-    TOGGLE: "Toggle Lens Manager",
+    TOGGLE: "Toggle Lens Manager"
   },
   PUBLICATION: {
     NEW_POST: "New post",
@@ -44,20 +44,20 @@ export const EVENTS = {
     SAVE_AS_DEFAULT_COLLECT: "Save collect settings as default",
     TIP: {
       OPEN: "Open Tip Modal",
-      SENT: "Tip Sent",
+      SENT: "Tip Sent"
     },
     SHARE: {
       HEY: "Share to Hey",
       X: "Share to X",
       REDDIT: "Share to Reddit",
-      LINKEDIN: "Share to LinkedIn",
-    },
+      LINKEDIN: "Share to LinkedIn"
+    }
   },
   OPEN_ACTIONS: {
     COLLECT_ZORA: "Collect Zora",
     OPEN_IN_ZORA: "Open in Zora",
     OPEN_IN_UNLONELY: "Open in Unlonely",
-    WATCH_UNLONELY_LIVE: "Watch Unlonely Live",
+    WATCH_UNLONELY_LIVE: "Watch Unlonely Live"
   },
   AUTH: {
     CONNECT_WALLET: "Connect Wallet",
@@ -65,7 +65,7 @@ export const EVENTS = {
     SIGN_IN_WITH_LENS: "Sign in with Lens",
     SIGNUP_SUCCESS: "Signup Success",
     SIGNUP_HANDLE_SEARCH: "Signup Handle Search",
-    SIGN_OUT: "Sign Out",
+    SIGN_OUT: "Sign Out"
   },
   PROFILE: {
     CLICK_PROFILE_VIDEOS: "Click Profile Videos",
@@ -76,8 +76,8 @@ export const EVENTS = {
     UNFOLLOW: "Unfollow",
     REPORT: "Report Profile",
     SETTINGS: {
-      TOGGLE_REVERT_FOLLOW: "Toggle Revert Follow",
-    },
+      TOGGLE_REVERT_FOLLOW: "Toggle Revert Follow"
+    }
   },
   EMBED_VIDEO: {
     OPEN: "Open Embed",
@@ -86,16 +86,16 @@ export const EVENTS = {
     CLICK_WATCH_ON_TAPE: "Click Watch on Tape",
     CLICK_EMBED_TITLE: "Click Embed Title",
     CLICK_EMBED_PROFILE: "Click Embed Profile",
-    CLICK_COPY_URL: "Click Embed Copy Url",
+    CLICK_COPY_URL: "Click Embed Copy Url"
   },
   PROFILE_INTERESTS: {
     ADD: "Add Profile Interest",
     REMOVE: "Remove Profile Interest",
-    VIEW: "View Profile Interests",
+    VIEW: "View Profile Interests"
   },
   NOTIFICATIONS: {
     SWITCH_NOTIFICATION_TAB: "Switch notifications tab",
-    CLICK_NOTIFICATIONS: "Click Notifications",
+    CLICK_NOTIFICATIONS: "Click Notifications"
   },
   SYSTEM: {
     TOGGLE_THEME: "Toggle Theme",
@@ -110,9 +110,9 @@ export const EVENTS = {
       TERMS: "Click Terms",
       PRIVACY: "Click Privacy",
       STATUS: "Click Status",
-      X: "Click X",
-    },
-  },
+      X: "Click X"
+    }
+  }
 };
 
 export const ALL_EVENTS = {
@@ -130,5 +130,5 @@ export const ALL_EVENTS = {
   ...EVENTS.SYSTEM.MORE_MENU,
   ...EVENTS.NOTIFICATIONS,
   ...EVENTS.EMBED_VIDEO,
-  ...EVENTS.PROFILE_INTERESTS,
+  ...EVENTS.PROFILE_INTERESTS
 };

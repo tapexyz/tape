@@ -12,8 +12,8 @@ app.get(
   zValidator(
     "param",
     object({
-      id: string(),
-    }),
+      id: string()
+    })
   ),
   async (c) => {
     const { id } = c.req.param();
@@ -22,8 +22,8 @@ app.get(
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "User-Agent": "Tape",
-        },
+          "User-Agent": "Tape"
+        }
       });
       const viewsRes = (await result.json()) as JSON;
       return c.json(JSON.parse(JSON.stringify(viewsRes)));
@@ -31,7 +31,7 @@ app.get(
       console.error("[GATEWAY] Error:", error);
       return c.redirect(`${IRYS_GATEWAY_URL}/${id}`);
     }
-  },
+  }
 );
 
 export default app;

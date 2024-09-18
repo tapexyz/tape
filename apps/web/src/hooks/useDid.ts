@@ -10,7 +10,7 @@ interface UseDidProps {
 
 export const useDid = ({
   address,
-  enabled,
+  enabled
 }: UseDidProps): {
   did: string;
   loading: boolean;
@@ -28,7 +28,7 @@ export const useDid = ({
   const { data, isLoading, error } = useQuery({
     queryKey: ["didResolve", address],
     queryFn: loadDetails,
-    enabled,
+    enabled
   });
 
   return { did: data, loading: isLoading, error };

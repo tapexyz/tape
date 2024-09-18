@@ -36,7 +36,7 @@ const extractOgTags = async (document: Document) => {
     thumbnail_height: 360,
     thumbnail_width: 480,
     thumbnail_url: image,
-    html,
+    html
   };
 
   return metadata;

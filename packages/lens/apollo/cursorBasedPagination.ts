@@ -29,7 +29,7 @@ const getRef = (obj: any): string | null => {
 };
 
 function cursorBasedPagination<T extends CursorBasedPagination>(
-  keyArgs: FieldPolicy["keyArgs"],
+  keyArgs: FieldPolicy["keyArgs"]
 ): FieldPolicy<T> {
   return {
     keyArgs,
@@ -43,8 +43,8 @@ function cursorBasedPagination<T extends CursorBasedPagination>(
         ...existing,
         items,
         pageInfo: {
-          ...pageInfo,
-        },
+          ...pageInfo
+        }
       } as SafeReadonly<T>;
     },
 
@@ -71,9 +71,9 @@ function cursorBasedPagination<T extends CursorBasedPagination>(
       return {
         ...incoming,
         items: dedupedItems,
-        pageInfo,
+        pageInfo
       } as SafeReadonly<T>;
-    },
+    }
   };
 }
 

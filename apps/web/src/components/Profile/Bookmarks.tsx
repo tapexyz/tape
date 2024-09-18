@@ -3,16 +3,16 @@ import {
   INFINITE_SCROLL_ROOT_MARGIN,
   IS_MAINNET,
   LENSTUBE_BYTES_APP_ID,
-  TAPE_APP_ID,
+  TAPE_APP_ID
 } from "@tape.xyz/constants";
 import type {
   AnyPublication,
-  PublicationBookmarksRequest,
+  PublicationBookmarksRequest
 } from "@tape.xyz/lens";
 import {
   LimitType,
   PublicationMetadataMainFocusType,
-  usePublicationBookmarksQuery,
+  usePublicationBookmarksQuery
 } from "@tape.xyz/lens";
 import { Spinner } from "@tape.xyz/ui";
 import type { FC } from "react";
@@ -34,16 +34,16 @@ const Bookmarks: FC = () => {
         mainContentFocus: [PublicationMetadataMainFocusType.Video],
         publishedOn: IS_MAINNET
           ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
-          : undefined,
-      },
-    },
+          : undefined
+      }
+    }
   };
 
   const { data, loading, error, fetchMore } = usePublicationBookmarksQuery({
     variables: {
-      request,
+      request
     },
-    skip: !activeProfile?.id,
+    skip: !activeProfile?.id
   });
 
   const savedVideos = data?.publicationBookmarks?.items as AnyPublication[];
@@ -56,12 +56,12 @@ const Bookmarks: FC = () => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next,
+            cursor: pageInfo?.next
           },
-          channelId: activeProfile?.id ?? null,
-        },
+          channelId: activeProfile?.id ?? null
+        }
       });
-    },
+    }
   });
 
   if (loading) {

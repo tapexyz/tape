@@ -5,7 +5,7 @@ import {
   SIGN_IN_REQUIRED,
   STATIC_ASSETS,
   TAPE_ADMIN_ADDRESS,
-  TAPE_APP_NAME,
+  TAPE_APP_NAME
 } from "@tape.xyz/constants";
 import {
   checkLensManagerPermissions,
@@ -14,7 +14,7 @@ import {
   getProfilePicture,
   getSignature,
   imageCdn,
-  shortenAddress,
+  shortenAddress
 } from "@tape.xyz/generic";
 import type {
   ActOnOpenActionLensManagerRequest,
@@ -22,7 +22,7 @@ import type {
   LegacyCollectRequest,
   PrimaryPublication,
   Profile,
-  RecipientDataOutput,
+  RecipientDataOutput
 } from "@tape.xyz/lens";
 import {
   OpenActionModuleType,
@@ -34,11 +34,11 @@ import {
   useLegacyCollectMutation,
   useProfilesQuery,
   usePublicationQuery,
-  useRevenueFromPublicationQuery,
+  useRevenueFromPublicationQuery
 } from "@tape.xyz/lens";
 import type {
   CustomErrorWithData,
-  SupportedOpenActionModuleType,
+  SupportedOpenActionModuleType
 } from "@tape.xyz/lens/custom-types";
 import {
   Button,
@@ -46,7 +46,7 @@ import {
   InfoOutline,
   Spinner,
   Tooltip,
-  UserOutline,
+  UserOutline
 } from "@tape.xyz/ui";
 import Link from "next/link";
 import type { FC } from "react";
@@ -57,7 +57,7 @@ import {
   useAccount,
   useBalance,
   useSignTypedData,
-  useWriteContract,
+  useWriteContract
 } from "wagmi";
 
 import AddressExplorerLink from "@/components/Common/Links/AddressExplorerLink";
@@ -80,7 +80,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
   const activeProfile = useProfileStore((state) => state.activeProfile);
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
   const [alreadyCollected, setAlreadyCollected] = useState(
-    publication.operations.hasActed.value,
+    publication.operations.hasActed.value
   );
 
   const handleWrongNetwork = useHandleWrongNetwork();
@@ -109,7 +109,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
       const { operations } = publication as PrimaryPublication;
       setAlreadyCollected(operations.hasActed.value);
     },
-    fetchPolicy: "cache-and-network",
+    fetchPolicy: "cache-and-network"
   });
 
   const { data: recipientProfilesData } = useProfilesQuery({
@@ -118,11 +118,11 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
         where: {
           ownedBy: details?.recipients?.length
             ? details?.recipients?.map((r) => r.recipient)
-            : details?.recipient,
-        },
-      },
+            : details?.recipient
+        }
+      }
     },
-    skip: !details?.recipients?.length || isFreeCollect,
+    skip: !details?.recipients?.length || isFreeCollect
   });
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
@@ -130,42 +130,42 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     token: assetAddress,
     query: {
       enabled: Boolean(details?.amount.value) && !isFreeCollect,
-      refetchInterval: 2000,
-    },
+      refetchInterval: 2000
+    }
   });
 
   const { data: revenueData } = useRevenueFromPublicationQuery({
     variables: {
       request: {
-        for: publication?.id,
-      },
+        for: publication?.id
+      }
     },
-    skip: !publication?.id,
+    skip: !publication?.id
   });
 
   const {
     loading: allowanceLoading,
     data: allowanceData,
-    refetch: refetchAllowance,
+    refetch: refetchAllowance
   } = useApprovedModuleAllowanceAmountQuery({
     variables: {
       request: {
         currencies: assetAddress,
         followModules: [],
         openActionModules: [action?.type],
-        referenceModules: [],
-      },
+        referenceModules: []
+      }
     },
     skip: !assetAddress || isFreeCollect || !activeProfile?.id,
     onCompleted: (data) => {
       if (data.approvedModuleAllowanceAmount[0]) {
         setIsAllowed(
           Number.parseFloat(
-            data.approvedModuleAllowanceAmount[0].allowance.value,
-          ) > amount,
+            data.approvedModuleAllowanceAmount[0].allowance.value
+          ) > amount
         );
       }
-    },
+    }
   });
 
   useEffect(() => {
@@ -189,7 +189,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     refetchAllowance,
     activeProfile,
     isFreeCollect,
-    assetDecimals,
+    assetDecimals
   ]);
 
   const getDefaultProfileByAddress = (address: string) => {
@@ -214,13 +214,13 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
   const renderRecipients = (recipients: RecipientDataOutput[]) => {
     return recipients.map((splitRecipient) => {
       const defaultProfile = getDefaultProfileByAddress(
-        splitRecipient.recipient,
+        splitRecipient.recipient
       ) as Profile;
       const pfp = imageCdn(
         defaultProfile
           ? getProfilePicture(defaultProfile)
           : `https://cdn.stamp.fyi/avatar/${splitRecipient.recipient}?s=300`,
-        "AVATAR",
+        "AVATAR"
       );
       const label =
         getProfile(defaultProfile)?.slug ??
@@ -282,7 +282,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
   };
 
   const onCompleted = (
-    __typename?: "RelayError" | "RelaySuccess" | "LensProfileManagerRelayError",
+    __typename?: "RelayError" | "RelaySuccess" | "LensProfileManagerRelayError"
   ) => {
     if (
       __typename === "RelayError" ||
@@ -305,8 +305,8 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
       onError: (error) => {
         onError(error);
         setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
-      },
-    },
+      }
+    }
   });
 
   const write = async ({ args }: { args: any[] }) => {
@@ -314,13 +314,13 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
       functionName: isLegacyCollectModule ? "collectLegacy" : "act",
-      args,
+      args
     });
   };
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename),
+      onCompleted(broadcastOnchain.__typename)
   });
 
   const [createActOnOpenActionTypedData] =
@@ -332,7 +332,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
           const signature = await signTypedDataAsync(getSignature(typedData));
           setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
           const { data } = await broadcastOnchain({
-            variables: { request: { id, signature } },
+            variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain.__typename === "RelayError") {
             return await write({ args });
@@ -341,7 +341,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
         }
         return await write({ args });
       },
-      onError,
+      onError
     });
 
   // Legacy Collect
@@ -354,7 +354,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
           const signature = await signTypedDataAsync(getSignature(typedData));
           setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
           const { data } = await broadcastOnchain({
-            variables: { request: { id, signature } },
+            variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain.__typename === "RelayError") {
             return await write({ args });
@@ -363,20 +363,20 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
         }
         return await write({ args });
       },
-      onError,
+      onError
     });
 
   // Act
   const [actOnOpenAction] = useActOnOpenActionMutation({
     onCompleted: ({ actOnOpenAction }) =>
       onCompleted(actOnOpenAction.__typename),
-    onError,
+    onError
   });
 
   // Legacy Collect
   const [legacyCollect] = useLegacyCollectMutation({
     onCompleted: ({ legacyCollect }) => onCompleted(legacyCollect.__typename),
-    onError,
+    onError
   });
 
   const getOpenActionActOnKey = (name: string): string => {
@@ -392,7 +392,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
 
   // Act via Lens Manager
   const actViaLensManager = async (
-    request: ActOnOpenActionLensManagerRequest,
+    request: ActOnOpenActionLensManagerRequest
   ) => {
     const { data, errors } = await actOnOpenAction({ variables: { request } });
 
@@ -423,8 +423,8 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
       return await createLegacyCollectTypedData({
         variables: {
           options: { overrideSigNonce: lensHubOnchainSigNonce },
-          request,
-        },
+          request
+        }
       });
     }
   };
@@ -440,7 +440,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
 
     if (isLegacyCollectModule) {
       const legacyCollectRequest: LegacyCollectRequest = {
-        on: publication?.id,
+        on: publication?.id
       };
 
       if (canUseLensManager && isFreeForAnyone) {
@@ -450,14 +450,14 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
       return await createLegacyCollectTypedData({
         variables: {
           options: { overrideSigNonce: lensHubOnchainSigNonce },
-          request: legacyCollectRequest,
-        },
+          request: legacyCollectRequest
+        }
       });
     }
 
     const actOnRequest: ActOnOpenActionLensManagerRequest = {
       for: publication?.id,
-      actOn: { [getOpenActionActOnKey(action?.type)]: true },
+      actOn: { [getOpenActionActOnKey(action?.type)]: true }
     };
 
     if (canUseLensManager && isFreeForAnyone) {
@@ -467,13 +467,13 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     return await createActOnOpenActionTypedData({
       variables: {
         options: { overrideSigNonce: lensHubOnchainSigNonce },
-        request: actOnRequest,
-      },
+        request: actOnRequest
+      }
     });
   };
 
   const hasTapeFees = details?.recipients?.some(
-    (split) => split.recipient === TAPE_ADMIN_ADDRESS,
+    (split) => split.recipient === TAPE_ADMIN_ADDRESS
   );
 
   return (

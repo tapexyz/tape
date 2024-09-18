@@ -12,7 +12,7 @@ interface State {
 
 class ErrorBoundary extends Component<Props, State> {
   state = {
-    hasError: false,
+    hasError: false
   };
 
   static getDerivedStateFromError(): State {
@@ -22,7 +22,7 @@ class ErrorBoundary extends Component<Props, State> {
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     logger.error(
       "[ERROR BOUNDARY]",
-      `${JSON.stringify(error)} - ${JSON.stringify(errorInfo)}`,
+      `${JSON.stringify(error)} - ${JSON.stringify(errorInfo)}`
     );
   }
 

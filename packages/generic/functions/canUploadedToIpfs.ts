@@ -3,7 +3,7 @@ import type { Profile } from "@tape.xyz/lens";
 
 export const canUploadedToIpfs = (
   bytes: number,
-  activeProfile: Profile | null,
+  activeProfile: Profile | null
 ) => {
   if (!activeProfile || bytes === null || bytes === undefined) {
     return false;

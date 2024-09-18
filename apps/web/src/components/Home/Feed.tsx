@@ -2,14 +2,14 @@ import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
   IS_MAINNET,
-  TAPE_APP_ID,
+  TAPE_APP_ID
 } from "@tape.xyz/constants";
 import type { PrimaryPublication, PublicationsRequest } from "@tape.xyz/lens";
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   PublicationType,
-  usePublicationsQuery,
+  usePublicationsQuery
 } from "@tape.xyz/lens";
 import { Spinner } from "@tape.xyz/ui";
 import { useInView } from "react-cool-inview";
@@ -31,17 +31,17 @@ const Feed = ({ showFilter = true }: { showFilter?: boolean }) => {
         mainContentFocus: [PublicationMetadataMainFocusType.Video],
         publishedOn: IS_MAINNET ? [TAPE_APP_ID, ...ALLOWED_APP_IDS] : undefined,
         tags:
-          activeTagFilter !== "all" ? { oneOf: [activeTagFilter] } : undefined,
+          activeTagFilter !== "all" ? { oneOf: [activeTagFilter] } : undefined
       },
       publicationTypes: [PublicationType.Post],
-      from: curatedProfiles,
+      from: curatedProfiles
     },
-    limit: LimitType.Fifty,
+    limit: LimitType.Fifty
   };
 
   const { data, loading, error, fetchMore } = usePublicationsQuery({
     variables: { request },
-    skip: !curatedProfiles?.length,
+    skip: !curatedProfiles?.length
   });
 
   const pageInfo = data?.publications?.pageInfo;
@@ -54,11 +54,11 @@ const Feed = ({ showFilter = true }: { showFilter?: boolean }) => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next,
-          },
-        },
+            cursor: pageInfo?.next
+          }
+        }
       });
-    },
+    }
   });
 
   return (

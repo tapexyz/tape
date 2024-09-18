@@ -4,12 +4,12 @@ import {
   INFINITE_SCROLL_ROOT_MARGIN,
   IS_MAINNET,
   LENSTUBE_BYTES_APP_ID,
-  TAPE_APP_ID,
+  TAPE_APP_ID
 } from "@tape.xyz/constants";
 import { EVENTS } from "@tape.xyz/generic";
 import type {
   ExplorePublicationRequest,
-  PrimaryPublication,
+  PrimaryPublication
 } from "@tape.xyz/lens";
 import {
   CustomFiltersType,
@@ -17,14 +17,14 @@ import {
   ExplorePublicationsOrderByType,
   LimitType,
   PublicationMetadataMainFocusType,
-  useExplorePublicationsQuery,
+  useExplorePublicationsQuery
 } from "@tape.xyz/lens";
 import {
   Button,
   CommentOutline,
   FireOutline,
   MirrorOutline,
-  Spinner,
+  Spinner
 } from "@tape.xyz/ui";
 import { useState } from "react";
 import { useInView } from "react-cool-inview";
@@ -39,7 +39,7 @@ import useAppStore from "@/lib/store";
 const initialCriteria = {
   trending: true,
   popular: false,
-  interesting: false,
+  interesting: false
 };
 
 const since = getUnixTimestampNDaysAgo(30);
@@ -72,18 +72,18 @@ const ExploreFeed = () => {
         mainContentFocus: [PublicationMetadataMainFocusType.Video],
         publishedOn: IS_MAINNET
           ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
-          : undefined,
+          : undefined
       },
-      since,
+      since
     },
     orderBy: getCriteria(),
-    limit: LimitType.Fifty,
+    limit: LimitType.Fifty
   };
 
   const { data, loading, error, fetchMore } = useExplorePublicationsQuery({
     variables: {
-      request,
-    },
+      request
+    }
   });
 
   const videos = data?.explorePublications
@@ -97,11 +97,11 @@ const ExploreFeed = () => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next,
-          },
-        },
+            cursor: pageInfo?.next
+          }
+        }
       });
-    },
+    }
   });
 
   return (
@@ -113,7 +113,7 @@ const ExploreFeed = () => {
           onClick={() => {
             setActiveCriteria({ ...initialCriteria });
             addEventToQueue(EVENTS.PAGEVIEW, {
-              page: EVENTS.PAGE_VIEW.EXPLORE_TRENDING,
+              page: EVENTS.PAGE_VIEW.EXPLORE_TRENDING
             });
           }}
           icon={<FireOutline className="size-5" />}
@@ -127,10 +127,10 @@ const ExploreFeed = () => {
             setActiveCriteria({
               ...initialCriteria,
               popular: true,
-              trending: false,
+              trending: false
             });
             addEventToQueue(EVENTS.PAGEVIEW, {
-              page: EVENTS.PAGE_VIEW.EXPLORE_POPULAR,
+              page: EVENTS.PAGE_VIEW.EXPLORE_POPULAR
             });
           }}
           icon={<CommentOutline className="size-5" />}
@@ -144,10 +144,10 @@ const ExploreFeed = () => {
             setActiveCriteria({
               ...initialCriteria,
               interesting: true,
-              trending: false,
+              trending: false
             });
             addEventToQueue(EVENTS.PAGEVIEW, {
-              page: EVENTS.PAGE_VIEW.EXPLORE_INTERESTING,
+              page: EVENTS.PAGE_VIEW.EXPLORE_INTERESTING
             });
           }}
           icon={<MirrorOutline className="size-5" />}

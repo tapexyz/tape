@@ -3,7 +3,7 @@ import {
   CollectOutline,
   CommentOutline,
   MirrorOutline,
-  Modal,
+  Modal
 } from "@tape.xyz/ui";
 import type { FC } from "react";
 import { useState } from "react";

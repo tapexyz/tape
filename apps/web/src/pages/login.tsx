@@ -10,7 +10,7 @@ import Connectors from "@/components/Login/Connectors";
 import useSw from "@/hooks/useSw";
 
 const BackgroundComets = dynamic(
-  () => import("@/components/Login/BackgroundComets"),
+  () => import("@/components/Login/BackgroundComets")
 );
 
 const Login = () => {

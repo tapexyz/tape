@@ -18,13 +18,13 @@ const getOptimizedUri = (metadata: PublicationMetadata) => {
 };
 
 export const getPublicationMediaUrl = (
-  metadata: PublicationMetadata,
+  metadata: PublicationMetadata
 ): string => {
   return sanitizeDStorageUrl(getOptimizedUri(metadata));
 };
 
 export const getPublicationMediaCid = (
-  metadata: PublicationMetadata,
+  metadata: PublicationMetadata
 ): string => {
   let url = "";
   if (metadata.__typename === "AudioMetadataV3" && metadata.asset.audio) {

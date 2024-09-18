@@ -6,7 +6,7 @@ import { backupEventsToS3 } from "./services/backup/events";
 import {
   cleanup4Ever,
   cleanupClickhouse,
-  vacuumPostgres,
+  vacuumPostgres
 } from "./services/cleanup";
 import { flushEvents } from "./services/events";
 import { wakeClickHouse } from "./services/wake";

@@ -1,7 +1,7 @@
 import { LENSHUB_PROXY_ABI } from "@tape.xyz/abis";
 import {
   LENSHUB_PROXY_ADDRESS,
-  REQUESTING_SIGNATURE_MESSAGE,
+  REQUESTING_SIGNATURE_MESSAGE
 } from "@tape.xyz/constants";
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
 import { Button } from "@tape.xyz/ui";
@@ -30,16 +30,16 @@ const Delete = () => {
   const { writeContractAsync } = useWriteContract({
     mutation: {
       onError,
-      onSuccess: (txnHash) => setTxnHash(txnHash),
-    },
+      onSuccess: (txnHash) => setTxnHash(txnHash)
+    }
   });
 
   const { isError, isSuccess, error } = useWaitForTransactionReceipt({
     query: {
-      enabled: txnHash && txnHash.length > 0,
+      enabled: txnHash && txnHash.length > 0
     },
 
-    hash: txnHash,
+    hash: txnHash
   });
 
   useEffect(() => {
@@ -72,7 +72,7 @@ const Delete = () => {
         address: LENSHUB_PROXY_ADDRESS,
         abi: LENSHUB_PROXY_ABI,
         functionName: "burn",
-        args: [activeProfile?.id],
+        args: [activeProfile?.id]
       });
     } catch {
       setLoading(false);

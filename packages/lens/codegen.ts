@@ -12,13 +12,13 @@ const config: CodegenConfig = {
         "typescript",
         "typescript-operations",
         "typescript-react-apollo",
-        "fragment-matcher",
-      ],
-    },
+        "fragment-matcher"
+      ]
+    }
   },
   hooks: {
-    afterAllFileWrite: ["biome format --write ."],
-  },
+    afterAllFileWrite: ["biome format --write ."]
+  }
 };
 
 export default config;

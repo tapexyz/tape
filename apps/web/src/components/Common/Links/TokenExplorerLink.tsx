@@ -4,7 +4,7 @@ import type { ReactElement } from "react";
 
 const TokenExplorerLink = ({
   address,
-  children,
+  children
 }: {
   address: string;
   children: ReactElement;

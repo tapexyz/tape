@@ -6,7 +6,7 @@ import {
   MirrorOutline,
   Modal,
   ThreeDotsOutline,
-  TipOutline,
+  TipOutline
 } from "@tape.xyz/ui";
 import type { FC } from "react";
 import { useState } from "react";

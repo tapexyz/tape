@@ -43,9 +43,9 @@ const Settings = () => {
 
   const { data, loading, error } = useProfileQuery({
     variables: {
-      request: { forProfileId: activeProfile?.id },
+      request: { forProfileId: activeProfile?.id }
     },
-    skip: !activeProfile?.id,
+    skip: !activeProfile?.id
   });
 
   if (error) {

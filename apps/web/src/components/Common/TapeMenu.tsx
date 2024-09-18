@@ -2,7 +2,7 @@ import {
   TAPE_FEEDBACK_URL,
   TAPE_GITHUB_HANDLE,
   TAPE_STATUS_PAGE,
-  TAPE_X_HANDLE,
+  TAPE_X_HANDLE
 } from "@tape.xyz/constants";
 import { EVENTS } from "@tape.xyz/generic";
 import Link from "next/link";

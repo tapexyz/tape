@@ -41,16 +41,16 @@ export class UrlMatcher extends Matcher<UrlProps, UrlMatcherOptions> {
   constructor(
     name: string,
     options?: UrlMatcherOptions,
-    factory?: React.ComponentType<UrlProps> | null,
+    factory?: React.ComponentType<UrlProps> | null
   ) {
     super(
       name,
       {
         customTLDs: [],
         validateTLD: true,
-        ...options,
+        ...options
       },
-      factory,
+      factory
     );
   }
 
@@ -85,8 +85,8 @@ export class UrlMatcher extends Matcher<UrlProps, UrlMatcherOptions> {
         path: matches[5] || "",
         port: matches[4] ? matches[4] : "",
         query: matches[6] || "",
-        scheme: matches[1] ? matches[1].replace("://", "") : "http",
-      },
+        scheme: matches[1] ? matches[1].replace("://", "") : "http"
+      }
     };
   }
 }

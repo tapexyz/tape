@@ -4,14 +4,14 @@ import type {
   AnyPublication,
   Comment,
   MirrorablePublication,
-  PublicationsRequest,
+  PublicationsRequest
 } from "@tape.xyz/lens";
 import {
   CommentRankingFilterType,
   CustomFiltersType,
   LimitType,
   TriStateValue,
-  usePublicationsQuery,
+  usePublicationsQuery
 } from "@tape.xyz/lens";
 import { CustomCommentsFilterEnum } from "@tape.xyz/lens/custom-types";
 import { CommentOutline, Spinner } from "@tape.xyz/ui";
@@ -38,7 +38,7 @@ type Props = {
 const PublicationComments: FC<Props> = ({ publication, hideTitle = false }) => {
   const activeProfile = useProfileStore((state) => state.activeProfile);
   const selectedCommentFilter = useCommentStore(
-    (state) => state.selectedCommentFilter,
+    (state) => state.selectedCommentFilter
   );
   const queuedComments = usePersistStore((state) => state.queuedComments);
 
@@ -60,15 +60,15 @@ const PublicationComments: FC<Props> = ({ publication, hideTitle = false }) => {
           filter:
             selectedCommentFilter === CustomCommentsFilterEnum.RELEVANT_COMMENTS
               ? CommentRankingFilterType.Relevant
-              : CommentRankingFilterType.NoneRelevant,
-        },
-      },
-    },
+              : CommentRankingFilterType.NoneRelevant
+        }
+      }
+    }
   };
 
   const { data, loading, error, fetchMore } = usePublicationsQuery({
     variables: { request },
-    skip: !publication.id,
+    skip: !publication.id
   });
 
   const comments = data?.publications?.items as AnyPublication[];
@@ -82,11 +82,11 @@ const PublicationComments: FC<Props> = ({ publication, hideTitle = false }) => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next,
-          },
-        },
+            cursor: pageInfo?.next
+          }
+        }
       });
-    },
+    }
   });
 
   const showReferenceModuleAlert =
@@ -142,7 +142,7 @@ const PublicationComments: FC<Props> = ({ publication, hideTitle = false }) => {
                         key={queuedComment?.pubId}
                         queuedComment={queuedComment}
                       />
-                    ),
+                    )
                 )}
                 {comments?.map(
                   (comment) =>
@@ -151,7 +151,7 @@ const PublicationComments: FC<Props> = ({ publication, hideTitle = false }) => {
                         key={`${comment?.id}_${comment.createdAt}`}
                         comment={comment as Comment}
                       />
-                    ),
+                    )
                 )}
               </div>
               {pageInfo?.next && (

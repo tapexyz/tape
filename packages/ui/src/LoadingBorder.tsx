@@ -3,7 +3,7 @@ import {
   useAnimationFrame,
   useMotionTemplate,
   useMotionValue,
-  useTransform,
+  useTransform
 } from "framer-motion";
 import type React from "react";
 import { useRef } from "react";
@@ -34,11 +34,11 @@ const LoadingBorder = ({
 
   const x = useTransform(
     progress,
-    (val) => pathRef.current?.getPointAtLength(val).x,
+    (val) => pathRef.current?.getPointAtLength(val).x
   );
   const y = useTransform(
     progress,
-    (val) => pathRef.current?.getPointAtLength(val).y,
+    (val) => pathRef.current?.getPointAtLength(val).y
   );
 
   const transform = useMotionTemplate`translateX(${x}px) translateY(${y}px) translateX(-50%) translateY(-50%)`;
@@ -68,7 +68,7 @@ const LoadingBorder = ({
           top: 0,
           left: 0,
           display: "inline-block",
-          transform,
+          transform
         }}
       >
         {children}

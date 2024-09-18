@@ -26,7 +26,7 @@ export const IMAGE_TRANSFORMATIONS = {
   AVATAR_LG: "tr:w-300,h-300",
   THUMBNAIL: "tr:w-720,h-404",
   THUMBNAIL_V: "tr:w-404,h-720",
-  SQUARE: "tr:w-200,h-200",
+  SQUARE: "tr:w-200,h-200"
 };
 
 // lens
@@ -63,20 +63,20 @@ export const TESTNET_ALLOWED_TOKENS = [
     address: "0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889",
     decimals: 18,
     name: "Wrapped Matic",
-    symbol: "WMATIC",
+    symbol: "WMATIC"
   },
   {
     address: "0x001B3B4d0F3714Ca98ba10F6042DaEbF0B1B7b6F",
     decimals: 18,
     name: "DAI Stablecoin",
-    symbol: "DAI",
+    symbol: "DAI"
   },
   {
     address: "0x0FA8781a83E46826621b3BC094Ea2A0212e71B23",
     decimals: 18,
     name: "USD Coin",
-    symbol: "USDC",
-  },
+    symbol: "USDC"
+  }
 ];
 
 // polygon
@@ -84,12 +84,12 @@ export const POLYGON_RPC_URLS = IS_MAINNET
   ? [
       "https://rpc.ankr.com/polygon",
       "https://polygon.llamarpc.com",
-      "https://polygon-bor-rpc.publicnode.com",
+      "https://polygon-bor-rpc.publicnode.com"
     ]
   : [
       "https://rpc.ankr.com/polygon_amoy",
       "https://rpc-amoy.polygon.technology",
-      "https://polygon-amoy-bor-rpc.publicnode.com",
+      "https://polygon-amoy-bor-rpc.publicnode.com"
     ];
 export const POLYGONSCAN_URL = IS_MAINNET
   ? "https://polygonscan.com"
@@ -113,7 +113,7 @@ export const EXPLORER_RECOMMENDED_WALLET_IDS = [
   "ecc4036f814562b41a5268adc86270fba1365471402006302e70169465b7ac18", // zerion
   "1ae92b26df02f0abca6304df07debccd18262fdf5fe82daa81593582dac9a369", // rainbow
   "c03dfee351b6fcc421b4494ea33b9d4b92a984f87aa76d1663bb28705e95034a", // uniswap
-  "19177a98252e07ddfc9af2083ba8e07ef627cb6103467ffebb3f8f4205fd7927", // ledger live
+  "19177a98252e07ddfc9af2083ba8e07ef627cb6103467ffebb3f8f4205fd7927" // ledger live
 ];
 
 // livepeer
@@ -142,7 +142,7 @@ export const REDIS_KEYS = {
   CURATED_PROFILES: "curatedProfiles",
   CURATED_PUBLICATIONS: "curatedPublications",
   PROFILE_TOGGLES: "profileToggles",
-  VERIFIED_PROFILES: "verifiedProfiles",
+  VERIFIED_PROFILES: "verifiedProfiles"
 };
 
 // irys
@@ -162,7 +162,7 @@ export const TAPE_APP_ID = "tape";
 export const LENSTUBE_APP_ID = "lenstube";
 export const LENSTUBE_BYTES_APP_ID = "lenstube-bytes";
 export const ALLOWED_APP_IDS = [
-  LENSTUBE_APP_ID,
+  LENSTUBE_APP_ID
   // 'lenster',
   // 'orb',
   // 'hey',
@@ -188,7 +188,7 @@ export const ALLOWED_VIDEO_MIME_TYPES = [
   "video/mpeg",
   "video/webm",
   "video/quicktime",
-  "video/mov",
+  "video/mov"
 ];
 export const ALLOWED_UPLOAD_MIME_TYPES = [...ALLOWED_VIDEO_MIME_TYPES];
 
@@ -212,5 +212,5 @@ export const CACHE_CONTROL = {
   FOR_ONE_DAY: "public, max-age=86400, s-maxage=86400",
   FOR_ONE_HOUR: "public, max-age=3600, s-maxage=3600",
   FOR_FIFTEEN_MINUTE: "public, max-age=900, s-maxage=900",
-  FOR_FIVE_MINUTE: "public, max-age=300, s-maxage=300",
+  FOR_FIVE_MINUTE: "public, max-age=300, s-maxage=300"
 };

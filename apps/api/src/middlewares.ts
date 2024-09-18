@@ -5,7 +5,7 @@ const allowedOrigins = [
   "https://tape.xyz",
   "https://www.tape.xyz",
   "https://embed.tape.xyz",
-  "https://og.tape.xyz",
+  "https://og.tape.xyz"
 ];
 
 const getIp = (req: HonoRequest) =>
@@ -16,7 +16,7 @@ export const ipRestriction = async (c: Context, next: Next) => {
   const ua = c.req.header("User-Agent");
   const ip = getIp(c.req);
   console.info(
-    `[${c.req.method}] method from [${origin ?? ua}] with ip [${ip}] to [${c.req.path}]`,
+    `[${c.req.method}] method from [${origin ?? ua}] with ip [${ip}] to [${c.req.path}]`
   );
   //   if (origin && !allowedOrigins.includes(origin)) {
   //     return c.text('Forbidden', 403)
@@ -26,5 +26,5 @@ export const ipRestriction = async (c: Context, next: Next) => {
 
 export const cors = corsMiddleware({
   origin: allowedOrigins,
-  allowMethods: ["GET", "POST", "OPTIONS"],
+  allowMethods: ["GET", "POST", "OPTIONS"]
 });

@@ -14,9 +14,9 @@ const List = () => {
   const request: OwnedHandlesRequest = { for: address };
   const { data, loading, error, fetchMore } = useOwnedHandlesQuery({
     variables: {
-      request,
+      request
     },
-    skip: !address,
+    skip: !address
   });
   const ownedHandles = data?.ownedHandles.items as HandleInfo[];
   const pageInfo = data?.ownedHandles.pageInfo;
@@ -29,11 +29,11 @@ const List = () => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next,
-          },
-        },
+            cursor: pageInfo?.next
+          }
+        }
       });
-    },
+    }
   });
 
   return (

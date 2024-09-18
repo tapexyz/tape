@@ -5,7 +5,7 @@ import {
   FollowModuleType,
   OpenActionModuleType,
   useApprovedModuleAllowanceAmountQuery,
-  useGenerateModuleCurrencyApprovalDataLazyQuery,
+  useGenerateModuleCurrencyApprovalDataLazyQuery
 } from "@tape.xyz/lens";
 import { Button, Select, SelectItem, Spinner } from "@tape.xyz/ui";
 import Link from "next/link";
@@ -21,7 +21,7 @@ import useAllowedTokensStore from "@/lib/store/idb/tokens";
 const ModuleItem = ({
   moduleItem,
   currency,
-  onSuccess,
+  onSuccess
 }: {
   moduleItem: ApprovedAllowanceAmountResult;
   currency: string;
@@ -37,15 +37,15 @@ const ModuleItem = ({
       onError: (error) => {
         toast.error(error?.message);
         setLoadingModule("");
-      },
-    },
+      }
+    }
   });
 
   const { isSuccess, error, isError } = useWaitForTransactionReceipt({
     hash,
     query: {
-      enabled: hash && hash.length > 0,
-    },
+      enabled: hash && hash.length > 0
+    }
   });
 
   useEffect(() => {
@@ -62,7 +62,7 @@ const ModuleItem = ({
 
   const handleClick = async (
     isAllow: boolean,
-    module: ApprovedAllowanceAmountResult,
+    module: ApprovedAllowanceAmountResult
   ) => {
     try {
       setLoadingModule(module.moduleName);
@@ -73,20 +73,20 @@ const ModuleItem = ({
           request: {
             allowance: {
               currency,
-              value: isAllow ? Number.MAX_SAFE_INTEGER.toString() : "0",
+              value: isAllow ? Number.MAX_SAFE_INTEGER.toString() : "0"
             },
             module: {
               [getCollectModuleConfig(module).type]: isUnknownModule
                 ? module.moduleContract.address
-                : module.moduleName,
-            },
-          },
-        },
+                : module.moduleName
+            }
+          }
+        }
       });
       const generated = allowanceData?.generateModuleCurrencyApprovalData;
       sendTransaction?.({
         to: generated?.to,
-        data: generated?.data,
+        data: generated?.data
       });
     } catch {
       setLoadingModule("");
@@ -145,7 +145,7 @@ const ModuleAllowance = () => {
   const {
     data: commonAllowancesData,
     refetch: refetchCommonApproved,
-    loading: gettingSettings,
+    loading: gettingSettings
   } = useApprovedModuleAllowanceAmountQuery({
     variables: {
       request: {
@@ -155,27 +155,27 @@ const ModuleAllowance = () => {
           OpenActionModuleType.SimpleCollectOpenActionModule,
           OpenActionModuleType.MultirecipientFeeCollectOpenActionModule,
           OpenActionModuleType.LegacySimpleCollectModule,
-          OpenActionModuleType.LegacyMultirecipientFeeCollectModule,
-        ],
-      },
+          OpenActionModuleType.LegacyMultirecipientFeeCollectModule
+        ]
+      }
     },
     skip: !activeProfile?.id,
-    fetchPolicy: "no-cache",
+    fetchPolicy: "no-cache"
   });
 
   const {
     data: unKnownActAllowancesData,
     refetch: refetchUnknownActApproved,
-    loading: gettingUnknownActSettings,
+    loading: gettingUnknownActSettings
   } = useApprovedModuleAllowanceAmountQuery({
     variables: {
       request: {
         currencies: [currency],
-        unknownOpenActionModules: [VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS.TIP],
-      },
+        unknownOpenActionModules: [VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS.TIP]
+      }
     },
     skip: !activeProfile?.id,
-    fetchPolicy: "no-cache",
+    fetchPolicy: "no-cache"
   });
 
   return (
@@ -220,7 +220,7 @@ const ModuleAllowance = () => {
                   refetchUnknownActApproved();
                 }}
               />
-            ),
+            )
           )}
         {unKnownActAllowancesData?.approvedModuleAllowanceAmount.length ? (
           <h6 className="mt-4 mb-2 font-medium text-brand-500">Open Actions</h6>
@@ -237,7 +237,7 @@ const ModuleAllowance = () => {
                   refetchUnknownActApproved();
                 }}
               />
-            ),
+            )
           )}
       </div>
     </div>

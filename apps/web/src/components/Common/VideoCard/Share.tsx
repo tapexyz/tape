@@ -46,7 +46,7 @@ const Share: FC<Props> = ({ publication }) => {
           <img
             src={imageCdn(
               `${STATIC_ASSETS}/images/social/hey-logo.svg`,
-              "AVATAR_LG",
+              "AVATAR_LG"
             )}
             className="size-10 max-w-none"
             loading="eager"
@@ -67,7 +67,7 @@ const Share: FC<Props> = ({ publication }) => {
               <img
                 src={imageCdn(
                   `${STATIC_ASSETS}/images/social/x-white.png`,
-                  "AVATAR",
+                  "AVATAR"
                 )}
                 className="size-4"
                 height={16}
@@ -79,7 +79,7 @@ const Share: FC<Props> = ({ publication }) => {
               <img
                 src={imageCdn(
                   `${STATIC_ASSETS}/images/social/x-black.png`,
-                  "AVATAR",
+                  "AVATAR"
                 )}
                 className="size-4"
                 height={16}
@@ -99,7 +99,7 @@ const Share: FC<Props> = ({ publication }) => {
           <img
             src={imageCdn(
               `${STATIC_ASSETS}/images/social/reddit-logo.webp`,
-              "AVATAR_LG",
+              "AVATAR_LG"
             )}
             className="size-10 max-w-none rounded-full"
             loading="eager"
@@ -116,7 +116,7 @@ const Share: FC<Props> = ({ publication }) => {
           <img
             src={imageCdn(
               `${STATIC_ASSETS}/images/social/linkedin-logo.png`,
-              "AVATAR_LG",
+              "AVATAR_LG"
             )}
             loading="eager"
             alt="linkedin"

@@ -15,7 +15,7 @@ const CollectDuration: FC<Props> = ({ setCollectType }) => {
   const uploadedMedia = useAppStore((state) => state.uploadedMedia);
 
   const [showDayPicker, setShowDayPicker] = useState(
-    uploadedMedia.collectModule.timeLimitEnabled,
+    uploadedMedia.collectModule.timeLimitEnabled
   );
   return (
     <div className="space-y-1">
@@ -27,12 +27,12 @@ const CollectDuration: FC<Props> = ({ setCollectType }) => {
             variant="secondary"
             className={tw(
               !uploadedMedia.collectModule.timeLimitEnabled &&
-                "border-brand-500",
+                "border-brand-500"
             )}
             onClick={() => {
               setCollectType({
                 timeLimitEnabled: false,
-                isSimpleCollect: true,
+                isSimpleCollect: true
               });
               setShowDayPicker(false);
             }}
@@ -46,13 +46,12 @@ const CollectDuration: FC<Props> = ({ setCollectType }) => {
             onClick={() => {
               setCollectType({
                 timeLimitEnabled: true,
-                isSimpleCollect: true,
+                isSimpleCollect: true
               });
               setShowDayPicker(true);
             }}
             className={tw(
-              uploadedMedia.collectModule.timeLimitEnabled &&
-                "border-brand-500",
+              uploadedMedia.collectModule.timeLimitEnabled && "border-brand-500"
             )}
             variant="secondary"
           >
@@ -68,13 +67,13 @@ const CollectDuration: FC<Props> = ({ setCollectType }) => {
             onBlur={(e) => {
               const { value } = e.target;
               setCollectType({
-                timeLimit: !trimify(value) || Number(value) <= 0 ? "1" : value,
+                timeLimit: !trimify(value) || Number(value) <= 0 ? "1" : value
               });
             }}
             onChange={(e) => {
               const { value } = e.target;
               setCollectType({
-                timeLimit: Number(value) <= 0 ? "" : value,
+                timeLimit: Number(value) <= 0 ? "" : value
               });
             }}
             value={uploadedMedia.collectModule.timeLimit}

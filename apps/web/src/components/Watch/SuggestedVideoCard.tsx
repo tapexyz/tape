@@ -2,14 +2,14 @@ import { tw, useAverageColor } from "@tape.xyz/browser";
 import {
   FALLBACK_THUMBNAIL_URL,
   LENSTUBE_BYTES_APP_ID,
-  STATIC_ASSETS,
+  STATIC_ASSETS
 } from "@tape.xyz/constants";
 import {
   formatNumber,
   getIsSensitiveContent,
   getPublicationData,
   getThumbnailUrl,
-  imageCdn,
+  imageCdn
 } from "@tape.xyz/generic";
 import type { MirrorablePublication } from "@tape.xyz/lens";
 import { CommentOutline, HeartOutline } from "@tape.xyz/ui";
@@ -34,7 +34,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
 
   const { color: backgroundColor } = useAverageColor(
     thumbnailUrl,
-    isBytesVideo,
+    isBytesVideo
   );
   const videoDuration = getPublicationData(video.metadata)?.asset?.duration;
 
@@ -50,11 +50,11 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
               <img
                 className={tw(
                   "h-24 w-44 bg-gray-300 object-center dark:bg-gray-700",
-                  isBytesVideo ? "object-contain" : "object-cover",
+                  isBytesVideo ? "object-contain" : "object-cover"
                 )}
                 src={imageCdn(
                   thumbnailUrl,
-                  isBytesVideo ? "THUMBNAIL_V" : "THUMBNAIL",
+                  isBytesVideo ? "THUMBNAIL_V" : "THUMBNAIL"
                 )}
                 style={{ backgroundColor: `${backgroundColor}95` }}
                 alt="thumbnail"

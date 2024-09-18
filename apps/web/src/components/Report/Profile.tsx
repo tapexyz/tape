@@ -27,9 +27,9 @@ const ReportProfile: FC<Props> = ({ profile, close }) => {
     onCompleted: () => {
       toast.success("Profile reported.");
       addEventToQueue(EVENTS.PROFILE.REPORT, {
-        profile_id: profile.id,
+        profile_id: profile.id
       });
-    },
+    }
   });
 
   const getReasonType = (type: string) => {
@@ -52,12 +52,12 @@ const ReportProfile: FC<Props> = ({ profile, close }) => {
           reason: {
             [getReasonType(type)]: {
               reason: type,
-              subreason: subReason,
-            },
+              subreason: subReason
+            }
           },
-          additionalComments: `${type} - ${subReason}`,
-        },
-      },
+          additionalComments: `${type} - ${subReason}`
+        }
+      }
     });
     close?.();
   };

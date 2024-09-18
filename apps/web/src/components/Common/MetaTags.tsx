@@ -3,7 +3,7 @@ import {
   STATIC_ASSETS,
   TAPE_APP_DESCRIPTION,
   TAPE_APP_NAME,
-  TAPE_X_HANDLE,
+  TAPE_X_HANDLE
 } from "@tape.xyz/constants";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -21,7 +21,7 @@ const MetaTags: FC<Props> = (props) => {
     title: title ? `${title} • ${TAPE_APP_NAME}` : TAPE_APP_NAME,
     description: TAPE_APP_DESCRIPTION,
     image: OG_IMAGE,
-    type: "website",
+    type: "website"
   };
 
   return (

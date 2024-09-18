@@ -20,13 +20,13 @@ const useAllowedTokensStore = create(
   persist<State>(
     (set) => ({
       allowedTokens: [],
-      setAllowedTokens: (allowedTokens) => set({ allowedTokens }),
+      setAllowedTokens: (allowedTokens) => set({ allowedTokens })
     }),
     {
       name: LocalIDBStore.ALLOWED_TOKENS_STORE,
-      storage: createIdbStorage(),
-    },
-  ),
+      storage: createIdbStorage()
+    }
+  )
 );
 
 export default useAllowedTokensStore;

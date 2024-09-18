@@ -13,14 +13,14 @@ const wakeClickHouse = async () => {
         return;
       }
       console.log(
-        `[wake] Attempt ${attempt + 1} failed, retrying in ${delay / 1000} seconds...`,
+        `[wake] Attempt ${attempt + 1} failed, retrying in ${delay / 1000} seconds...`
       );
       // Wait for a short period of time before retrying
       await new Promise((resolve) => setTimeout(resolve, delay));
       attempt++;
     }
     console.error(
-      "[wake] Failed to wake up ClickHouse database after multiple attempts.",
+      "[wake] Failed to wake up ClickHouse database after multiple attempts."
     );
   } catch (error) {
     console.error("[wake] Error waking up ClickHouse database:", error);

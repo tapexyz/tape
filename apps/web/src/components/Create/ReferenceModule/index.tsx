@@ -9,7 +9,7 @@ const ReferenceModule = () => {
 
   const setReferenceType = (data: ReferenceModuleType) => {
     setUploadedMedia({
-      referenceModule: { ...uploadedMedia.collectModule, ...data },
+      referenceModule: { ...uploadedMedia.collectModule, ...data }
     });
   };
 
@@ -49,9 +49,9 @@ const ReferenceModule = () => {
                     commentsRestricted: true,
                     mirrorsRestricted: true,
                     quotesRestricted: true,
-                    degreesOfSeparation: 4,
+                    degreesOfSeparation: 4
                   }
-                : null,
+                : null
           });
         }}
       >

@@ -2,19 +2,19 @@ import {
   FALLBACK_THUMBNAIL_URL,
   INFINITE_SCROLL_ROOT_MARGIN,
   LENSTUBE_BYTES_APP_ID,
-  TAPE_APP_ID,
+  TAPE_APP_ID
 } from "@tape.xyz/constants";
 import {
   getPublicationData,
   getThumbnailUrl,
-  imageCdn,
+  imageCdn
 } from "@tape.xyz/generic";
 import type { Post, PublicationsRequest } from "@tape.xyz/lens";
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   PublicationType,
-  usePublicationsQuery,
+  usePublicationsQuery
 } from "@tape.xyz/lens";
 import { Spinner } from "@tape.xyz/ui";
 import Link from "next/link";
@@ -34,17 +34,17 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
     where: {
       metadata: {
         mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo],
-        publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID],
+        publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID]
       },
       publicationTypes: [PublicationType.Post],
-      from: [profileId],
+      from: [profileId]
     },
-    limit: LimitType.Fifty,
+    limit: LimitType.Fifty
   };
 
   const { data, loading, error, fetchMore } = usePublicationsQuery({
     variables: { request },
-    skip: !profileId,
+    skip: !profileId
   });
 
   const bytes = data?.publications?.items as Post[];
@@ -57,11 +57,11 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next,
-          },
-        },
+            cursor: pageInfo?.next
+          }
+        }
       });
-    },
+    }
   });
 
   if (loading) {
@@ -79,7 +79,7 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
           {bytes.map((byte) => {
             const thumbnailUrl = imageCdn(
               getThumbnailUrl(byte.metadata),
-              "THUMBNAIL_V",
+              "THUMBNAIL_V"
             );
             return (
               <Link

@@ -5,7 +5,7 @@ import {
   EVER_BUCKET_NAME,
   EVER_ENDPOINT,
   EVER_REGION,
-  WORKER_STS_TOKEN_URL,
+  WORKER_STS_TOKEN_URL
 } from "@tape.xyz/constants";
 import { logger } from "@tape.xyz/generic/logger";
 import type { IPFSUploadResult } from "@tape.xyz/lens/custom-types";
@@ -14,7 +14,7 @@ import { v4 as uuidv4 } from "uuid";
 
 export const uploadToIPFS = async (
   file: File,
-  onProgress?: (percentage: number) => void,
+  onProgress?: (percentage: number) => void
 ): Promise<IPFSUploadResult> => {
   try {
     const { data } = await axios.get(WORKER_STS_TOKEN_URL);
@@ -24,9 +24,9 @@ export const uploadToIPFS = async (
       credentials: {
         accessKeyId: data?.accessKeyId,
         secretAccessKey: data?.secretAccessKey,
-        sessionToken: data?.sessionToken,
+        sessionToken: data?.sessionToken
       },
-      maxAttempts: 10,
+      maxAttempts: 10
     });
     client.middlewareStack.addRelativeTo(
       (next: any) => async (args: any) => {
@@ -35,26 +35,26 @@ export const uploadToIPFS = async (
           response.body = new Uint8Array();
         }
         return {
-          response,
+          response
         };
       },
       {
         name: "nullFetchResponseBodyMiddleware",
         toMiddleware: "deserializerMiddleware",
         relation: "after",
-        override: true,
-      },
+        override: true
+      }
     );
     const fileKey = uuidv4();
     const params: PutObjectCommandInput = {
       Bucket: EVER_BUCKET_NAME,
       Key: fileKey,
       Body: file,
-      ContentType: file.type,
+      ContentType: file.type
     };
     const task = new Upload({
       client,
-      params,
+      params
     });
     task.on("httpUploadProgress", (e) => {
       const loaded = e.loaded ?? 0;
@@ -67,13 +67,13 @@ export const uploadToIPFS = async (
     const metadata = result.Metadata;
     return {
       url: `ipfs://${metadata?.["ipfs-hash"]}`,
-      type: file.type,
+      type: file.type
     };
   } catch (error) {
     logger.error("[Error IPFS3 Media Upload]", error);
     return {
       url: "",
-      type: file.type,
+      type: file.type
     };
   }
 };

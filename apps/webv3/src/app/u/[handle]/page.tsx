@@ -16,7 +16,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const data = await rqClient.fetchQuery(
-    profileQuery(`${LENS_NAMESPACE_PREFIX}${params.handle}`),
+    profileQuery(`${LENS_NAMESPACE_PREFIX}${params.handle}`)
   );
   if (!data.profile) {
     return {};
@@ -28,12 +28,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${getProfile(profile).displayName} on Tape`,
     description: profile.metadata?.bio,
     openGraph: {
-      images: [pfp],
+      images: [pfp]
     },
     twitter: {
       images: [pfp],
-      card: "summary",
-    },
+      card: "summary"
+    }
   };
 }
 
@@ -43,7 +43,7 @@ export function generateStaticParams() {
 
 export default function ProfilePage({ params }: Props) {
   void rqClient.prefetchQuery(
-    profileQuery(`${LENS_NAMESPACE_PREFIX}${params.handle}`),
+    profileQuery(`${LENS_NAMESPACE_PREFIX}${params.handle}`)
   );
 
   return (

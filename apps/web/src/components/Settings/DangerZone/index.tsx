@@ -1,7 +1,7 @@
 import {
   getLennyPicture,
   getProfile,
-  getProfilePicture,
+  getProfilePicture
 } from "@tape.xyz/generic";
 
 import Badge from "@/components/Common/Badge";

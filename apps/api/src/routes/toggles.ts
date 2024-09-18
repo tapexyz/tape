@@ -11,8 +11,8 @@ app.get(
   zValidator(
     "param",
     object({
-      profileId: string(),
-    }),
+      profileId: string()
+    })
   ),
   async (c) => {
     const { profileId } = c.req.param();
@@ -29,29 +29,29 @@ app.get(
     try {
       const result = await tapeDb.profile.findUnique({
         where: {
-          profileId,
+          profileId
         },
         select: {
           isSuspended: true,
-          isLimited: true,
-        },
+          isLimited: true
+        }
       });
 
       const toggles = {
         suspended: Boolean(result?.isSuspended),
-        limited: Boolean(result?.isLimited),
+        limited: Boolean(result?.isLimited)
       };
 
       await rSet(cacheKey, JSON.stringify(toggles), REDIS_EXPIRY.ONE_DAY);
       return c.json({
         success: true,
-        toggles,
+        toggles
       });
     } catch (error) {
       console.error("[TOGGLES] Error:", error);
       return c.json({ success: false, message: ERROR_MESSAGE });
     }
-  },
+  }
 );
 
 export default app;

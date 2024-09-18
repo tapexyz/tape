@@ -16,8 +16,8 @@ export const Spinner: FC<Props> = ({ size = "md", className }) => {
             className,
             {
               "size-5": size === "md",
-              "size-3.5": size === "sm",
-            },
+              "size-3.5": size === "sm"
+            }
           )}
           viewBox="0 0 100 101"
           fill="none"

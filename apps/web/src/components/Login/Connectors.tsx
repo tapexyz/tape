@@ -40,7 +40,7 @@ const Connectors = () => {
   const filteredConnectors = useMemo(() => {
     return connectors.filter(
       (connector, index, self) =>
-        self.findIndex((c) => c.type === connector.type) === index,
+        self.findIndex((c) => c.type === connector.type) === index
     );
   }, [connectors]);
 

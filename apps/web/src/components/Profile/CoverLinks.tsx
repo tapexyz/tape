@@ -9,7 +9,7 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
   const { resolvedTheme } = useTheme();
   const location = getValueFromKeyInAttributes(
     metadata?.attributes,
-    "location",
+    "location"
   );
   const website = getValueFromKeyInAttributes(metadata?.attributes, "website");
   const youtube = getValueFromKeyInAttributes(metadata?.attributes, "youtube");
@@ -52,7 +52,7 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
           <img
             src={imageCdn(
               `${STATIC_ASSETS}/images/social/spotify.png`,
-              "AVATAR",
+              "AVATAR"
             )}
             className="size-4 object-contain"
             height={16}
@@ -94,7 +94,7 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
             <img
               src={imageCdn(
                 `${STATIC_ASSETS}/images/social/x-white.png`,
-                "AVATAR",
+                "AVATAR"
               )}
               className="size-3.5"
               height={16}
@@ -106,7 +106,7 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
             <img
               src={imageCdn(
                 `${STATIC_ASSETS}/images/social/x-black.png`,
-                "AVATAR",
+                "AVATAR"
               )}
               className="size-3.5"
               height={16}

@@ -20,14 +20,14 @@ const ChargeQuestion: FC<Props> = ({ setCollectType }) => {
           <Button
             type="button"
             className={tw(
-              !uploadedMedia.collectModule.isFeeCollect && "border-brand-500",
+              !uploadedMedia.collectModule.isFeeCollect && "border-brand-500"
             )}
             variant="secondary"
             onClick={() =>
               setCollectType({
                 isSimpleCollect: true,
                 isMultiRecipientFeeCollect: false,
-                isFeeCollect: false,
+                isFeeCollect: false
               })
             }
           >
@@ -38,14 +38,14 @@ const ChargeQuestion: FC<Props> = ({ setCollectType }) => {
           <Button
             type="button"
             className={tw(
-              uploadedMedia.collectModule.isFeeCollect && "border-brand-500",
+              uploadedMedia.collectModule.isFeeCollect && "border-brand-500"
             )}
             variant="secondary"
             onClick={() =>
               setCollectType({
                 isSimpleCollect: false,
                 isMultiRecipientFeeCollect: true,
-                isFeeCollect: true,
+                isFeeCollect: true
               })
             }
           >

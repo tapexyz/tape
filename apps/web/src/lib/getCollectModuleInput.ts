@@ -2,7 +2,7 @@ import { TAPE_ADMIN_ADDRESS } from "@tape.xyz/constants";
 import type {
   ApprovedAllowanceAmountResult,
   OpenActionModuleInput,
-  RecipientDataInput,
+  RecipientDataInput
 } from "@tape.xyz/lens";
 import { OpenActionModuleType } from "@tape.xyz/lens";
 import type { CollectModuleType } from "@tape.xyz/lens/custom-types";
@@ -15,7 +15,7 @@ const PLATFORM_FEE = 5;
 const RECIPIENT_SHARE = 100 - PLATFORM_FEE;
 
 export const getCollectModuleInput = (
-  selectedCollectModule: CollectModuleType,
+  selectedCollectModule: CollectModuleType
 ): OpenActionModuleInput => {
   const {
     amount,
@@ -28,7 +28,7 @@ export const getCollectModuleInput = (
     isFeeCollect,
     isMultiRecipientFeeCollect,
     collectLimitEnabled,
-    multiRecipients,
+    multiRecipients
   } = selectedCollectModule;
 
   const recipients = multiRecipients?.length
@@ -39,12 +39,12 @@ export const getCollectModuleInput = (
 
   const updatedRecipients = recipients?.map((split) => {
     const revisedSplitPercentage = Math.floor(
-      split.split * (RECIPIENT_SHARE / 100),
+      split.split * (RECIPIENT_SHARE / 100)
     );
     totalSplitPercentage += revisedSplitPercentage;
     return {
       recipient: split.recipient,
-      split: revisedSplitPercentage,
+      split: revisedSplitPercentage
     };
   });
 
@@ -71,32 +71,32 @@ export const getCollectModuleInput = (
   // Add the admin fee split
   updatedRecipients?.push({
     recipient: TAPE_ADMIN_ADDRESS,
-    split: PLATFORM_FEE,
+    split: PLATFORM_FEE
   });
 
   // No one can collect the post
   if (selectedCollectModule.isRevertCollect) {
     return {
-      collectOpenAction: null,
+      collectOpenAction: null
     };
   }
 
   const baseCollectModuleParams = {
     followerOnly: followerOnlyCollect || false,
     ...(collectLimitEnabled && {
-      collectLimit,
+      collectLimit
     }),
     ...(timeLimitEnabled && {
-      endsAt: getUTCDateAfterDays(Number(timeLimit)),
-    }),
+      endsAt: getUTCDateAfterDays(Number(timeLimit))
+    })
   };
 
   const baseAmountParams = {
     amount: {
       currency: amount?.currency,
-      value: amount?.value as string,
+      value: amount?.value as string
     },
-    referralFee: referralFee as number,
+    referralFee: referralFee as number
   };
 
   if (selectedCollectModule.isSimpleCollect && !isMultiRecipientFeeCollect) {
@@ -106,10 +106,10 @@ export const getCollectModuleInput = (
           ...baseCollectModuleParams,
           ...(isFeeCollect && {
             ...baseAmountParams,
-            recipient,
-          }),
-        },
-      },
+            recipient
+          })
+        }
+      }
     };
   }
 
@@ -120,9 +120,9 @@ export const getCollectModuleInput = (
         multirecipientCollectOpenAction: {
           ...baseAmountParams,
           ...baseCollectModuleParams,
-          recipients: updatedRecipients as RecipientDataInput[],
-        },
-      },
+          recipients: updatedRecipients as RecipientDataInput[]
+        }
+      }
     };
   }
 
@@ -133,15 +133,15 @@ export const getCollectModuleInput = (
         ...baseCollectModuleParams,
         ...(isFeeCollect && {
           ...baseAmountParams,
-          recipient,
-        }),
-      },
-    },
+          recipient
+        })
+      }
+    }
   };
 };
 
 export const getCollectModuleConfig = (
-  module: ApprovedAllowanceAmountResult,
+  module: ApprovedAllowanceAmountResult
 ) => {
   switch (module.moduleName) {
     case OpenActionModuleType.SimpleCollectOpenActionModule:
@@ -149,28 +149,28 @@ export const getCollectModuleConfig = (
         type: "openActionModule",
         label: "Simple collects",
         description:
-          "Collect any publication including paid collects, limited and timed free collects and more!",
+          "Collect any publication including paid collects, limited and timed free collects and more!"
       };
     case OpenActionModuleType.MultirecipientFeeCollectOpenActionModule:
       return {
         type: "openActionModule",
         label: "Multi recipient collects",
         description:
-          "Collect any publication which splits collect revenue with multiple recipients.",
+          "Collect any publication which splits collect revenue with multiple recipients."
       };
     case OpenActionModuleType.LegacySimpleCollectModule:
       return {
         type: "openActionModule",
         label: "Legacy V1 - Simple collects",
         description:
-          "Collect any publication including paid collects, limited and timed free collects and more!",
+          "Collect any publication including paid collects, limited and timed free collects and more!"
       };
     case OpenActionModuleType.LegacyMultirecipientFeeCollectModule:
       return {
         type: "openActionModule",
         label: "Legacy V1 - Multi recipient collects",
         description:
-          "Collect any publication which splits collect revenue with multiple recipients.",
+          "Collect any publication which splits collect revenue with multiple recipients."
       };
     case OpenActionModuleType.UnknownOpenActionModule:
       switch (module.moduleContract.address) {
@@ -178,13 +178,13 @@ export const getCollectModuleConfig = (
           return {
             type: "unknownOpenActionModule",
             label: "Tip Action",
-            description: "Allow users to tip with supported currencies.",
+            description: "Allow users to tip with supported currencies."
           };
         default:
           return {
             type: "openActionModule",
             label: "Unknown Action",
-            description: module.moduleContract.address,
+            description: module.moduleContract.address
           };
       }
     case "FeeFollowModule":
@@ -192,12 +192,12 @@ export const getCollectModuleConfig = (
         type: "followModule",
         label: "Subscribe Profiles",
         description:
-          "Subscribe any profile by paying a fee specified by the profile.",
+          "Subscribe any profile by paying a fee specified by the profile."
       };
     default:
       return {
         type: "",
-        description: "",
+        description: ""
       };
   }
 };

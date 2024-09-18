@@ -3,7 +3,7 @@ import {
   BellOutline,
   Button,
   ChevronDownOutline,
-  DropdownMenu,
+  DropdownMenu
 } from "@tape.xyz/ui";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -24,7 +24,7 @@ const Navbar = () => {
   const {
     latestNotificationId,
     setLastOpenedNotificationId,
-    lastOpenedNotificationId,
+    lastOpenedNotificationId
   } = usePersistStore();
 
   return (
@@ -45,7 +45,7 @@ const Navbar = () => {
             className={tw(
               isActivePath("/")
                 ? "font-bold"
-                : "font-medium text-dust hover:opacity-90",
+                : "font-medium text-dust hover:opacity-90"
             )}
           >
             Home
@@ -55,7 +55,7 @@ const Navbar = () => {
             className={tw(
               isActivePath("/bytes")
                 ? "font-bold"
-                : "font-medium text-dust hover:opacity-90",
+                : "font-medium text-dust hover:opacity-90"
             )}
           >
             Bytes
@@ -65,7 +65,7 @@ const Navbar = () => {
             className={tw(
               isActivePath("/feed")
                 ? "font-bold"
-                : "font-medium text-dust hover:opacity-90",
+                : "font-medium text-dust hover:opacity-90"
             )}
           >
             Feed

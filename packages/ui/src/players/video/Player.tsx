@@ -31,7 +31,7 @@ const PlayerInstance: FC<PlayerProps> = ({
   options,
   address,
   showControls,
-  shouldUpload,
+  shouldUpload
 }) => {
   return (
     <Player
@@ -56,7 +56,7 @@ const PlayerInstance: FC<PlayerProps> = ({
           ? {
               fallback: true,
               ipfsGateway: IPFS_GATEWAY_URL,
-              arweaveGateway: IRYS_GATEWAY_URL,
+              arweaveGateway: IRYS_GATEWAY_URL
             }
           : undefined
       }

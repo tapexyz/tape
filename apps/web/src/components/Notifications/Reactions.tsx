@@ -2,11 +2,11 @@ import {
   getLennyPicture,
   getProfile,
   getProfilePicture,
-  getPublicationData,
+  getPublicationData
 } from "@tape.xyz/generic";
 import type {
   ProfileReactedResult,
-  ReactionNotification,
+  ReactionNotification
 } from "@tape.xyz/lens";
 import { HeartOutline } from "@tape.xyz/ui";
 import Link from "next/link";

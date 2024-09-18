@@ -1,18 +1,18 @@
 import {
   type Maybe,
   type OpenActionModule,
-  OpenActionModuleType,
+  OpenActionModuleType
 } from "@tape.xyz/lens";
 
 const allowedTypes = [
   OpenActionModuleType.SimpleCollectOpenActionModule,
   OpenActionModuleType.MultirecipientFeeCollectOpenActionModule,
   OpenActionModuleType.LegacySimpleCollectModule,
-  OpenActionModuleType.LegacyMultirecipientFeeCollectModule,
+  OpenActionModuleType.LegacyMultirecipientFeeCollectModule
 ];
 
 const isOpenActionAllowed = (
-  openActions?: Maybe<OpenActionModule[]>,
+  openActions?: Maybe<OpenActionModule[]>
 ): boolean => {
   if (!openActions?.length) {
     return false;

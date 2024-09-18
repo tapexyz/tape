@@ -20,7 +20,7 @@ export const Checkbox = forwardRef<
   const sizeClasses = {
     "size-3": size === "sm",
     "size-4": size === "md",
-    "size-5": size === "lg",
+    "size-5": size === "lg"
   };
 
   return (
@@ -30,7 +30,7 @@ export const Checkbox = forwardRef<
           className={tw(
             className,
             "tape-border flex appearance-none items-center justify-center rounded outline-none",
-            sizeClasses,
+            sizeClasses
           )}
           defaultChecked
           ref={ref}
@@ -44,7 +44,7 @@ export const Checkbox = forwardRef<
         <label
           className={tw(
             "font-medium leading-none",
-            size === "lg" ? "text-base" : "text-sm",
+            size === "lg" ? "text-base" : "text-sm"
           )}
           htmlFor={id}
         >

@@ -3,7 +3,7 @@ import type { Notification, UserSigNonces } from "@tape.xyz/lens";
 import {
   AuthorizationRecordRevokedSubscriptionDocument,
   NewNotificationSubscriptionDocument,
-  UserSigNoncesSubscriptionDocument,
+  UserSigNoncesSubscriptionDocument
 } from "@tape.xyz/lens";
 import { useApolloClient } from "@tape.xyz/lens/apollo";
 import { useEffect } from "react";
@@ -23,12 +23,12 @@ const SubscriptionProvider = () => {
   const currentSession = getCurrentSession();
 
   const setLatestNotificationId = usePersistStore(
-    (state) => state.setLatestNotificationId,
+    (state) => state.setLatestNotificationId
   );
 
   const { sendJsonMessage, lastMessage, readyState } = useWebSocket(
     LENS_API_URL.replace("http", "ws"),
-    { protocols: ["graphql-transport-ws"] },
+    { protocols: ["graphql-transport-ws"] }
   );
 
   useEffect(() => {
@@ -43,8 +43,8 @@ const SubscriptionProvider = () => {
           type: "subscribe",
           payload: {
             variables: { for: currentSession.profileId },
-            query: NewNotificationSubscriptionDocument.loc?.source.body,
-          },
+            query: NewNotificationSubscriptionDocument.loc?.source.body
+          }
         });
       }
       sendJsonMessage({
@@ -52,17 +52,16 @@ const SubscriptionProvider = () => {
         type: "subscribe",
         payload: {
           variables: { address },
-          query: UserSigNoncesSubscriptionDocument.loc?.source.body,
-        },
+          query: UserSigNoncesSubscriptionDocument.loc?.source.body
+        }
       });
       sendJsonMessage({
         id: "3",
         type: "subscribe",
         payload: {
           variables: { authorizationId: getCurrentSession().authorizationId },
-          query:
-            AuthorizationRecordRevokedSubscriptionDocument.loc?.source.body,
-        },
+          query: AuthorizationRecordRevokedSubscriptionDocument.loc?.source.body
+        }
       });
     }
   }, [readyState, currentSession?.profileId]);

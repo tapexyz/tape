@@ -29,9 +29,9 @@ export class TimeMatcher extends Matcher {
       /([0-9]{1,3}:)?([0-9]{1,2}:)[0-9]{1,2}/,
       (matches) => {
         return {
-          display: matches[0],
+          display: matches[0]
         };
-      },
+      }
     );
   }
 }

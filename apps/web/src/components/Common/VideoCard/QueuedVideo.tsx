@@ -5,12 +5,12 @@ import {
   getProfile,
   getProfilePicture,
   imageCdn,
-  sanitizeDStorageUrl,
+  sanitizeDStorageUrl
 } from "@tape.xyz/generic";
 import {
   PublicationDocument,
   usePublicationQuery,
-  useTxIdToTxHashQuery,
+  useTxIdToTxHashQuery
 } from "@tape.xyz/lens";
 import { useApolloClient } from "@tape.xyz/lens/apollo";
 import type { QueuedVideoType } from "@tape.xyz/lens/custom-types";
@@ -41,37 +41,37 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
     uploadedMedia.isSensitiveContent
       ? `${STATIC_ASSETS}/images/sensor-blur.webp`
       : sanitizeDStorageUrl(queuedVideo.thumbnailUrl),
-    uploadedMedia.isByteVideo ? "THUMBNAIL_V" : "THUMBNAIL",
+    uploadedMedia.isByteVideo ? "THUMBNAIL_V" : "THUMBNAIL"
   );
   const { color: backgroundColor } = useAverageColor(
     thumbnailUrl,
-    uploadedMedia.isByteVideo,
+    uploadedMedia.isByteVideo
   );
 
   const removeFromQueue = () => {
     setUploadedMedia(UPLOADED_VIDEO_FORM_DEFAULTS);
     if (!queuedVideo.txnId) {
       return setQueuedVideos(
-        queuedVideos.filter((q) => q.txnHash !== queuedVideo.txnHash),
+        queuedVideos.filter((q) => q.txnHash !== queuedVideo.txnHash)
       );
     }
     setQueuedVideos(queuedVideos.filter((q) => q.txnId !== queuedVideo.txnId));
   };
 
   const { indexed } = usePendingTxn({
-    txId: queuedVideo.txnId,
+    txId: queuedVideo.txnId
   });
 
   const { data: txHashData } = useTxIdToTxHashQuery({
     variables: {
-      for: queuedVideo.txnId,
+      for: queuedVideo.txnId
     },
-    skip: !indexed || !queuedVideo.txnId?.length,
+    skip: !indexed || !queuedVideo.txnId?.length
   });
 
   const { stopPolling } = usePublicationQuery({
     variables: {
-      request: { forTxHash: txHashData?.txIdToTxHash || queuedVideo.txnHash },
+      request: { forTxHash: txHashData?.txIdToTxHash || queuedVideo.txnHash }
     },
     skip: !txHashData?.txIdToTxHash?.length && !queuedVideo.txnHash?.length,
     pollInterval: 1000,
@@ -84,14 +84,14 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
             publications() {
               cache.writeQuery({
                 data: { publication: data?.publication },
-                query: PublicationDocument,
+                query: PublicationDocument
               });
-            },
-          },
+            }
+          }
         });
         removeFromQueue();
       }
-    },
+    }
   });
 
   if (!queuedVideo?.txnId && !queuedVideo?.txnHash) {
@@ -106,10 +106,10 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
             src={thumbnailUrl}
             className={tw(
               "h-full w-full bg-gray-100 object-center md:rounded-xl lg:h-full lg:w-full dark:bg-gray-900",
-              uploadedMedia.isByteVideo ? "object-contain" : "object-cover",
+              uploadedMedia.isByteVideo ? "object-contain" : "object-cover"
             )}
             style={{
-              backgroundColor: backgroundColor && `${backgroundColor}95`,
+              backgroundColor: backgroundColor && `${backgroundColor}95`
             }}
             alt="thumbnail"
             draggable={false}

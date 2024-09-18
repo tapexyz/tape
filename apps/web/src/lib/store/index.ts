@@ -7,7 +7,7 @@ import {
   CREATOR_VIDEO_CATEGORIES,
   IS_MAINNET,
   POLYGON_RPC_URLS,
-  WMATIC_TOKEN_ADDRESS,
+  WMATIC_TOKEN_ADDRESS
 } from "@tape.xyz/constants";
 import { logger } from "@tape.xyz/generic";
 import type { UploadedMedia } from "@tape.xyz/lens/custom-types";
@@ -21,7 +21,7 @@ export const UPLOADED_VIDEO_IRYS_DEFAULTS = {
   deposit: null,
   instance: null,
   depositing: false,
-  showDeposit: false,
+  showDeposit: false
 };
 
 export const UPLOADED_VIDEO_FORM_DEFAULTS: UploadedMedia = {
@@ -57,14 +57,14 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS: UploadedMedia = {
     isMultiRecipientFeeCollect: false,
     collectLimit: "0",
     collectLimitEnabled: false,
-    multiRecipients: [],
+    multiRecipients: []
   },
   referenceModule: {
     followerOnlyReferenceModule: false,
-    degreesOfSeparationReferenceModule: null,
+    degreesOfSeparationReferenceModule: null
   },
   unknownOpenAction: null,
-  hasOpenActions: false,
+  hasOpenActions: false
 };
 
 type IrysDataState = {
@@ -99,16 +99,16 @@ const useAppStore = create<AppState>((set) => ({
     set((state) => ({ irysData: { ...state.irysData, ...props } })),
   setUploadedMedia: (mediaProps) =>
     set((state) => ({
-      uploadedMedia: { ...state.uploadedMedia, ...mediaProps },
+      uploadedMedia: { ...state.uploadedMedia, ...mediaProps }
     })),
   getIrysInstance: async (client: WalletClient) => {
     try {
       const publicClient = createPublicClient({
         chain: IS_MAINNET ? polygon : polygonAmoy,
-        transport: fallback(POLYGON_RPC_URLS.map((rpc) => http(rpc))),
+        transport: fallback(POLYGON_RPC_URLS.map((rpc) => http(rpc)))
       });
       const irysUploader = await WebUploader(WebMatic).withAdapter(
-        ViemV2Adapter(client, { publicClient }),
+        ViemV2Adapter(client, { publicClient })
       );
 
       await irysUploader.ready();
@@ -117,7 +117,7 @@ const useAppStore = create<AppState>((set) => ({
       logger.error("[Error Init Irys]", error);
       return null;
     }
-  },
+  }
 }));
 
 export default useAppStore;

@@ -18,8 +18,8 @@ export const Comments = () => {
       {data?.pages[0]?.publications.items.length === 0 && <b>No comments</b>}
       {data?.pages.map((page) =>
         page.publications.items.map(
-          (item) => getPublication(item as AnyPublication).metadata.content,
-        ),
+          (item) => getPublication(item as AnyPublication).metadata.content
+        )
       )}
     </div>
   );

@@ -17,6 +17,6 @@ export const useDragAndDrop = () => {
     onDragOver,
     onDragLeave,
     fileDropError,
-    setFileDropError,
+    setFileDropError
   };
 };

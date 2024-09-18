@@ -12,12 +12,12 @@ export const Callout: FC<Props> = ({
   children,
   className,
   icon,
-  variant = "primary",
+  variant = "primary"
 }) => {
   const variantClasses = {
     "bg-brand-100 dark:bg-brand-900": variant === "primary",
     "border-gray-200 border dark:border-gray-800": variant === "secondary",
-    "bg-red-100 dark:bg-red-900": variant === "danger",
+    "bg-red-100 dark:bg-red-900": variant === "danger"
   };
 
   return (
@@ -25,7 +25,7 @@ export const Callout: FC<Props> = ({
       className={tw(
         variantClasses,
         "flex space-x-2 rounded-lg p-3 font-medium text-sm",
-        className,
+        className
       )}
     >
       <span className="m-1 flex-none">{icon}</span>

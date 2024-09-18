@@ -2,12 +2,12 @@ import { tw } from "@tape.xyz/browser";
 import { EVENTS, sanitizeProfileInterests } from "@tape.xyz/generic";
 import type {
   ProfileInterestTypes,
-  ProfileInterestsRequest,
+  ProfileInterestsRequest
 } from "@tape.xyz/lens";
 import {
   useAddProfileInterestsMutation,
   useProfileInterestsOptionsQuery,
-  useRemoveProfileInterestsMutation,
+  useRemoveProfileInterestsMutation
 } from "@tape.xyz/lens";
 import { useApolloClient } from "@tape.xyz/lens/apollo";
 import { Spinner } from "@tape.xyz/ui";
@@ -29,7 +29,7 @@ const Topics = () => {
   const { cache } = useApolloClient();
   const { data, loading } = useProfileInterestsOptionsQuery({
     variables: { request: { forProfileId: activeProfile?.id } },
-    skip: !activeProfile?.id,
+    skip: !activeProfile?.id
   });
   const [addProfileInterests] = useAddProfileInterestsMutation();
   const [removeProfileInterests] = useRemoveProfileInterestsMutation();
@@ -37,7 +37,7 @@ const Topics = () => {
   const updateCache = (interests: string[]) => {
     cache.modify({
       id: `Profile:${activeProfile?.id}`,
-      fields: { interests: () => interests },
+      fields: { interests: () => interests }
     });
   };
 
@@ -47,7 +47,7 @@ const Topics = () => {
   const onSelectTopic = (topic: ProfileInterestTypes) => {
     try {
       const request: ProfileInterestsRequest = {
-        interests: [topic],
+        interests: [topic]
       };
       if (!selectedTopics?.includes(topic)) {
         const interests = [...selectedTopics, topic];
@@ -77,9 +77,9 @@ const Topics = () => {
                   "tape-border flex items-center justify-between rounded-md px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50",
                   {
                     "!border-brand-500 text-brand-500": selectedTopics.includes(
-                      category.id,
-                    ),
-                  },
+                      category.id
+                    )
+                  }
                 )}
                 disabled={
                   !selectedTopics.includes(category.id) &&
@@ -101,19 +101,19 @@ const Topics = () => {
                       "tape-border flex items-center justify-between rounded-md px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50",
                       {
                         "!border-brand-500 text-brand-500":
-                          selectedTopics.includes(subCategory.id),
-                      },
+                          selectedTopics.includes(subCategory.id)
+                      }
                     )}
                     key={subCategory.id}
                     onClick={() => onSelectTopic(subCategory.id)}
                   >
                     {subCategory.label}
                   </button>
-                ),
+                )
               )}
             </div>
           </div>
-        ),
+        )
       )}
     </div>
   );

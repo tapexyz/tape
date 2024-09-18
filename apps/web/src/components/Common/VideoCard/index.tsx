@@ -4,7 +4,7 @@ import {
   getLennyPicture,
   getProfile,
   getProfilePicture,
-  getPublicationData,
+  getPublicationData
 } from "@tape.xyz/generic";
 import type { PrimaryPublication, VideoMetadataV3 } from "@tape.xyz/lens";
 import { HeartOutline } from "@tape.xyz/ui";

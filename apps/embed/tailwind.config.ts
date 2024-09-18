@@ -6,9 +6,9 @@ const config: Config = {
   content: [
     "./src/pages/**/*.{ts,tsx}",
     "./src/components/**/*.{ts,tsx}",
-    "../../packages/ui/src/**/*.{ts,tsx}",
+    "../../packages/ui/src/**/*.{ts,tsx}"
   ],
-  plugins: [require("@tailwindcss/aspect-ratio")],
+  plugins: [require("@tailwindcss/aspect-ratio")]
 };
 
 export default config;

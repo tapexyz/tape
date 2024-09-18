@@ -6,12 +6,12 @@ export const TAPE_SIGNUP_PROXY_ABI = [
   {
     inputs: [{ internalType: "address", name: "owner", type: "address" }],
     name: "OwnableInvalidOwner",
-    type: "error",
+    type: "error"
   },
   {
     inputs: [{ internalType: "address", name: "account", type: "address" }],
     name: "OwnableUnauthorizedAccount",
-    type: "error",
+    type: "error"
   },
   { inputs: [], name: "WithdrawalFailed", type: "error" },
   {
@@ -21,11 +21,11 @@ export const TAPE_SIGNUP_PROXY_ABI = [
         indexed: false,
         internalType: "uint64",
         name: "version",
-        type: "uint64",
-      },
+        type: "uint64"
+      }
     ],
     name: "Initialized",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -34,17 +34,17 @@ export const TAPE_SIGNUP_PROXY_ABI = [
         indexed: true,
         internalType: "address",
         name: "previousOwner",
-        type: "address",
+        type: "address"
       },
       {
         indexed: true,
         internalType: "address",
         name: "newOwner",
-        type: "address",
-      },
+        type: "address"
+      }
     ],
     name: "OwnershipTransferred",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -53,39 +53,39 @@ export const TAPE_SIGNUP_PROXY_ABI = [
         indexed: false,
         internalType: "uint256",
         name: "profileId",
-        type: "uint256",
+        type: "uint256"
       },
       {
         indexed: false,
         internalType: "uint256",
         name: "handleId",
-        type: "uint256",
+        type: "uint256"
       },
       {
         indexed: false,
         internalType: "string",
         name: "handle",
-        type: "string",
-      },
+        type: "string"
+      }
     ],
     name: "ProfileCreated",
-    type: "event",
+    type: "event"
   },
   {
     inputs: [
-      { internalType: "address[]", name: "newAddresses", type: "address[]" },
+      { internalType: "address[]", name: "newAddresses", type: "address[]" }
     ],
     name: "addAllowedRelayerAddresses",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [{ internalType: "address", name: "", type: "address" }],
     name: "allowedRelayerAddresses",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
@@ -96,27 +96,27 @@ export const TAPE_SIGNUP_PROXY_ABI = [
           {
             internalType: "bytes",
             name: "followModuleInitData",
-            type: "bytes",
-          },
+            type: "bytes"
+          }
         ],
         internalType: "struct CreateProfileParams",
         name: "createProfileParams",
-        type: "tuple",
+        type: "tuple"
       },
       { internalType: "string", name: "handle", type: "string" },
       {
         internalType: "address[]",
         name: "delegatedExecutors",
-        type: "address[]",
-      },
+        type: "address[]"
+      }
     ],
     name: "createProfileWithHandle",
     outputs: [
       { internalType: "uint256", name: "profileId", type: "uint256" },
-      { internalType: "uint256", name: "handleId", type: "uint256" },
+      { internalType: "uint256", name: "handleId", type: "uint256" }
     ],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
@@ -127,27 +127,27 @@ export const TAPE_SIGNUP_PROXY_ABI = [
           {
             internalType: "bytes",
             name: "followModuleInitData",
-            type: "bytes",
-          },
+            type: "bytes"
+          }
         ],
         internalType: "struct CreateProfileParams",
         name: "createProfileParams",
-        type: "tuple",
+        type: "tuple"
       },
       { internalType: "string", name: "handle", type: "string" },
       {
         internalType: "address[]",
         name: "delegatedExecutors",
-        type: "address[]",
-      },
+        type: "address[]"
+      }
     ],
     name: "createProfileWithHandleUsingCredits",
     outputs: [
       { internalType: "uint256", name: "profileId", type: "uint256" },
-      { internalType: "uint256", name: "handleId", type: "uint256" },
+      { internalType: "uint256", name: "handleId", type: "uint256" }
     ],
     stateMutability: "payable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
@@ -155,13 +155,13 @@ export const TAPE_SIGNUP_PROXY_ABI = [
       {
         internalType: "address",
         name: "lensPermissionlessCreatorAddress",
-        type: "address",
-      },
+        type: "address"
+      }
     ],
     name: "initialize",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
@@ -170,93 +170,93 @@ export const TAPE_SIGNUP_PROXY_ABI = [
       {
         internalType: "contract ILensPermissionlessCreator",
         name: "",
-        type: "address",
-      },
+        type: "address"
+      }
     ],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
     name: "owner",
     outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     name: "profiles",
     outputs: [{ internalType: "string", name: "", type: "string" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
-      { internalType: "address", name: "addressToRemove", type: "address" },
+      { internalType: "address", name: "addressToRemove", type: "address" }
     ],
     name: "removeAllowedRelayerAddress",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
     name: "renounceOwnership",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
-      { internalType: "address", name: "creatorAddress", type: "address" },
+      { internalType: "address", name: "creatorAddress", type: "address" }
     ],
     name: "setLensPermissionlessCreatorAddress",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
-      { internalType: "uint256", name: "_signupPrice", type: "uint256" },
+      { internalType: "uint256", name: "_signupPrice", type: "uint256" }
     ],
     name: "setSignupPrice",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
     name: "signupPrice",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
     name: "totalCountViaCard",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
     name: "totalCountViaCrypto",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [{ internalType: "address", name: "newOwner", type: "address" }],
     name: "transferOwnership",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
     name: "withdrawFunds",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
-  },
+    type: "function"
+  }
 ];

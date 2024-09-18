@@ -1,7 +1,7 @@
 import {
   COMMON_REGEX,
   LEGACY_LENS_HANDLE_SUFFIX,
-  LENS_NAMESPACE_PREFIX,
+  LENS_NAMESPACE_PREFIX
 } from "@tape.xyz/constants";
 import { Matcher } from "interweave";
 import Link from "next/link";
@@ -40,9 +40,9 @@ export class MentionMatcher extends Matcher<MentionProps> {
       COMMON_REGEX.MENTION_MATCHER_REGEX,
       (matches) => {
         return {
-          display: matches[0],
+          display: matches[0]
         };
-      },
+      }
     );
   }
 }

@@ -7,14 +7,14 @@ import {
   getShouldUploadVideo,
   getThumbnailUrl,
   imageCdn,
-  sanitizeDStorageUrl,
+  sanitizeDStorageUrl
 } from "@tape.xyz/generic";
 import type { PrimaryPublication, VideoMetadataV3 } from "@tape.xyz/lens";
 import {
   Badge,
   ChevronDownOutline,
   ChevronUpOutline,
-  VideoPlayer,
+  VideoPlayer
 } from "@tape.xyz/ui";
 import Link from "next/link";
 import type { FC } from "react";
@@ -40,7 +40,7 @@ const RenderPlayer = memo(({ video }: { video: PrimaryPublication }) => {
   const isBytesVideo = metadata.isShortVideo;
   const thumbnailUrl = imageCdn(
     sanitizeDStorageUrl(getThumbnailUrl(metadata, true)),
-    isBytesVideo ? "THUMBNAIL_V" : "THUMBNAIL",
+    isBytesVideo ? "THUMBNAIL_V" : "THUMBNAIL"
   );
   const videoUrl = getPublicationMediaUrl(metadata);
 
@@ -60,7 +60,7 @@ const RenderPlayer = memo(({ video }: { video: PrimaryPublication }) => {
         posterUrl={thumbnailUrl}
         options={{
           loadingSpinner: true,
-          isCurrentlyShown: true,
+          isCurrentlyShown: true
         }}
         isSensitiveContent={isSensitiveContent}
         shouldUpload={getShouldUploadVideo(video)}

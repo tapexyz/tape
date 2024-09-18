@@ -27,7 +27,7 @@ const backupEventsToS3 = async () => {
             ORDER BY created
             LIMIT ${batchSize} OFFSET ${offset}
         ) as subquery;
-      `,
+      `
     });
 
     const rowsCount = await rowsCountResult.json<{ count: string }>();
@@ -50,7 +50,7 @@ const backupEventsToS3 = async () => {
           SELECT * FROM events
           ORDER BY created
           LIMIT ${batchSize} OFFSET ${offset};
-        `,
+        `
       });
 
       // Increment the offset
@@ -58,7 +58,7 @@ const backupEventsToS3 = async () => {
       await rSet(cacheKey, offset.toString(), REDIS_EXPIRY.FOREVER);
 
       console.info(
-        `[Cron] Backup completed successfully for ${fileName} with offset ${offset}`,
+        `[Cron] Backup completed successfully for ${fileName} with offset ${offset}`
       );
       return;
     }
@@ -66,7 +66,7 @@ const backupEventsToS3 = async () => {
     const eventsRequired = batchSize - eventsCount;
 
     console.info(
-      `[Cron] Current batch contains ${eventsCount} events at offset ${offset}. ${eventsRequired} more events are required to complete the batch size of ${batchSize}.`,
+      `[Cron] Current batch contains ${eventsCount} events at offset ${offset}. ${eventsRequired} more events are required to complete the batch size of ${batchSize}.`
     );
   } catch (error) {
     console.error("[Cron] backupEventsToS3 - Error processing events", error);

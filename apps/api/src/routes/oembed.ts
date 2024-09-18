@@ -11,7 +11,7 @@ const app = new Hono();
 
 const validationSchema = object({
   url: string().url(),
-  format: string().optional(),
+  format: string().optional()
 });
 
 app.get("/", zValidator("query", validationSchema), async (c) => {
@@ -30,7 +30,7 @@ app.get("/", zValidator("query", validationSchema), async (c) => {
 
     // Fetch metatags from URL
     const response = await fetch(url, {
-      headers: { "User-Agent": "bot" },
+      headers: { "User-Agent": "bot" }
     });
     const html = await response.text();
     const { document } = parseHTML(html);

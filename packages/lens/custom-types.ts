@@ -6,7 +6,7 @@ import type {
   MultirecipientFeeCollectOpenActionSettings,
   ProfileInterestTypes,
   RecipientDataInput,
-  SimpleCollectOpenActionSettings,
+  SimpleCollectOpenActionSettings
 } from "./generated";
 
 export type CollectModuleType = {
@@ -109,19 +109,19 @@ export type QueuedCommentType = {
 
 export enum CustomCommentsFilterEnum {
   RELEVANT_COMMENTS = "RelevantComments",
-  NEWEST_COMMENTS = "NewestComments",
+  NEWEST_COMMENTS = "NewestComments"
 }
 
 export enum CustomNotificationsFilterEnum {
   HIGH_SIGNAL = "HighSignal",
-  ALL_NOTIFICATIONS = "AllNotifications",
+  ALL_NOTIFICATIONS = "AllNotifications"
 }
 
 export enum LocalStore {
   TAPE_AUTH_STORE = "tape.auth.store",
   TAPE_STORE = "tape.store",
   TAPE_FINGERPRINT = "tape.fingerprint",
-  WAGMI_STORE = "wagmi.store",
+  WAGMI_STORE = "wagmi.store"
 }
 
 export enum LocalIDBStore {
@@ -130,7 +130,7 @@ export enum LocalIDBStore {
   VERIFIED_STORE = "verified.store",
   ALLOWED_TOKENS_STORE = "allowed-tokens.store",
   TOGGLES_STORE = "toggles.store",
-  CURATED_STORE = "curated.store",
+  CURATED_STORE = "curated.store"
 }
 
 export type SupportedOpenActionModuleType =

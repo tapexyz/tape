@@ -22,7 +22,7 @@ export const VideoPlayer = memo(function VideoPlayer({
   currentTime = 0,
   isSensitiveContent,
   showControls = true,
-  shouldUpload,
+  shouldUpload
 }: Props) {
   const playerRef = useRef<HTMLMediaElement>();
   const [sensitiveWarning, setSensitiveWarning] = useState(isSensitiveContent);

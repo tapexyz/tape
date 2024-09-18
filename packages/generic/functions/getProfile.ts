@@ -2,7 +2,7 @@ import { LENS_NAMESPACE_PREFIX } from "@tape.xyz/constants";
 import type { Profile } from "@tape.xyz/lens";
 
 export const getProfile = (
-  profile: Profile | null,
+  profile: Profile | null
 ): {
   slug: string;
   slugWithPrefix: string;
@@ -18,7 +18,7 @@ export const getProfile = (
       displayName: "",
       link: "",
       id: "",
-      address: "",
+      address: ""
     };
   }
 
@@ -34,6 +34,6 @@ export const getProfile = (
     link: profile.handle
       ? `/u/${profile.handle.localName}`
       : `/profile/${profile.id}`,
-    address: profile.ownedBy?.address,
+    address: profile.ownedBy?.address
   };
 };

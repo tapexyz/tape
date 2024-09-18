@@ -22,14 +22,14 @@ const PermissionQuestion: FC<Props> = ({ setCollectType }) => {
             className={tw(
               !uploadedMedia.collectModule.followerOnlyCollect &&
                 !uploadedMedia.collectModule.isRevertCollect &&
-                "border-brand-500",
+                "border-brand-500"
             )}
             variant="secondary"
             onClick={() =>
               setCollectType({
                 isSimpleCollect: true,
                 isRevertCollect: false,
-                followerOnlyCollect: false,
+                followerOnlyCollect: false
               })
             }
           >
@@ -42,14 +42,14 @@ const PermissionQuestion: FC<Props> = ({ setCollectType }) => {
             className={tw(
               uploadedMedia.collectModule.followerOnlyCollect &&
                 !uploadedMedia.collectModule.isRevertCollect &&
-                "border-brand-500",
+                "border-brand-500"
             )}
             variant="secondary"
             onClick={() =>
               setCollectType({
                 isSimpleCollect: true,
                 followerOnlyCollect: true,
-                isRevertCollect: false,
+                isRevertCollect: false
               })
             }
           >

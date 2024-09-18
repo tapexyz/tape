@@ -11,7 +11,7 @@ export const getCollectModuleMetadata = (publication: PrimaryPublication) => {
   }
 
   const openAction = openActionModules.filter((module) =>
-    isOpenActionAllowed([module]),
+    isOpenActionAllowed([module])
   );
 
   const collectModule = openAction.length ? openAction[0] : null;
@@ -37,6 +37,6 @@ export const getCollectModuleMetadata = (publication: PrimaryPublication) => {
     "eth:nft:mint_count": publication.stats.countOpenActions,
     "eth:nft:mint_url": pageUrl,
     "eth:nft:media:type": "video",
-    "eth:nft:schema": "ERC721",
+    "eth:nft:schema": "ERC721"
   };
 };

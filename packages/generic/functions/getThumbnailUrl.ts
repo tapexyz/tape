@@ -16,7 +16,7 @@ const getCover = (metadata: PublicationMetadata) => {
 
 export const getThumbnailUrl = (
   metadata: PublicationMetadata,
-  withFallback?: boolean,
+  withFallback?: boolean
 ): string => {
   let url = getCover(metadata);
 

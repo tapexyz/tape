@@ -13,7 +13,7 @@ interface TypedData {
  * @returns An object containing the three parts of the typed data.
  */
 export const getSignature = (
-  typedData: TypedData,
+  typedData: TypedData
 ): {
   primaryType: string;
   domain: Record<string, any>;
@@ -26,6 +26,6 @@ export const getSignature = (
     primaryType: Object.keys(omitKey(types, "__typename"))[0]!,
     domain: omitKey(domain, "__typename"),
     types: omitKey(types, "__typename"),
-    message: omitKey(value, "__typename"),
+    message: omitKey(value, "__typename")
   };
 };

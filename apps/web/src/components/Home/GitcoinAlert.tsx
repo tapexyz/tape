@@ -1,7 +1,7 @@
 import {
   GITCOIN_LIVE_ROUND,
   SHOW_GITCOIN_BANNER,
-  TAPE_APP_NAME,
+  TAPE_APP_NAME
 } from "@tape.xyz/constants";
 import { Button } from "@tape.xyz/ui";
 import Link from "next/link";

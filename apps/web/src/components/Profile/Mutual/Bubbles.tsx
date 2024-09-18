@@ -1,7 +1,7 @@
 import {
   getLennyPicture,
   getProfile,
-  getProfilePicture,
+  getProfilePicture
 } from "@tape.xyz/generic";
 import type { Profile } from "@tape.xyz/lens";
 import { LimitType, useMutualFollowersQuery } from "@tape.xyz/lens";
@@ -29,10 +29,10 @@ const Bubbles: FC<Props> = ({ viewing, showSeparator }) => {
       request: {
         observer: activeProfile?.id,
         viewing,
-        limit: LimitType.Ten,
-      },
+        limit: LimitType.Ten
+      }
     },
-    skip: !viewing || !activeProfile?.id,
+    skip: !viewing || !activeProfile?.id
   });
 
   const mutualFollowers = data?.mutualFollowers?.items as Profile[];

@@ -2,7 +2,7 @@ import {
   getLennyPicture,
   getProfile,
   getProfilePicture,
-  getPublicationData,
+  getPublicationData
 } from "@tape.xyz/generic";
 import type { QuoteNotification } from "@tape.xyz/lens";
 import { QuoteOutline } from "@tape.xyz/ui";

@@ -8,7 +8,7 @@ import {
   getShouldUploadVideo,
   getThumbnailUrl,
   imageCdn,
-  sanitizeDStorageUrl,
+  sanitizeDStorageUrl
 } from "@tape.xyz/generic";
 import type { PrimaryPublication } from "@tape.xyz/lens";
 import { PlayOutline, VideoPlayer } from "@tape.xyz/ui";
@@ -40,11 +40,11 @@ const Video: FC<Props> = ({ video }) => {
   const isBytesVideo = video.publishedOn?.id === LENSTUBE_BYTES_APP_ID;
   const thumbnailUrl = imageCdn(
     sanitizeDStorageUrl(getThumbnailUrl(video.metadata, true)),
-    isBytesVideo ? "THUMBNAIL_V" : "THUMBNAIL",
+    isBytesVideo ? "THUMBNAIL_V" : "THUMBNAIL"
   );
   const { color: backgroundColor } = useAverageColor(
     thumbnailUrl,
-    isBytesVideo,
+    isBytesVideo
   );
 
   useEffect(() => {
@@ -83,7 +83,7 @@ const Video: FC<Props> = ({ video }) => {
             loop: isLoop,
             loadingSpinner: true,
             isCurrentlyShown: true,
-            maxHeight: true,
+            maxHeight: true
           }}
           shouldUpload={getShouldUploadVideo(video)}
         />
@@ -93,10 +93,10 @@ const Video: FC<Props> = ({ video }) => {
             src={thumbnailUrl}
             className={tw(
               "w-full bg-gray-100 object-center dark:bg-gray-900",
-              isBytesVideo ? "object-contain" : "object-cover",
+              isBytesVideo ? "object-contain" : "object-cover"
             )}
             style={{
-              backgroundColor: backgroundColor && `${backgroundColor}95`,
+              backgroundColor: backgroundColor && `${backgroundColor}95`
             }}
             alt="thumbnail"
             draggable={false}

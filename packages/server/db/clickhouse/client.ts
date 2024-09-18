@@ -5,7 +5,7 @@ const clickhouseClient = createClient({
   keep_alive: { enabled: true },
   username: "clickhouse",
   password: process.env.CLICKHOUSE_PASSWORD,
-  url: process.env.CLICKHOUSE_URL,
+  url: process.env.CLICKHOUSE_URL
 });
 
 export { clickhouseClient };

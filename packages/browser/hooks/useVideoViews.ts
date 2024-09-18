@@ -10,7 +10,7 @@ export const useVideoViews = (cid: string) => {
     setLoading(true);
     try {
       const { data } = await axios.post(WORKER_LIVEPEER_VIEWS_URL, {
-        cid,
+        cid
       });
       if (data?.success) {
         setViews(data.views);

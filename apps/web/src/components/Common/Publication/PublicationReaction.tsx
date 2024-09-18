@@ -5,7 +5,7 @@ import type { AnyPublication } from "@tape.xyz/lens";
 import {
   PublicationReactionType,
   useAddReactionMutation,
-  useRemoveReactionMutation,
+  useRemoveReactionMutation
 } from "@tape.xyz/lens";
 import { HeartFilled, HeartOutline } from "@tape.xyz/ui";
 import type { FC } from "react";
@@ -30,7 +30,7 @@ const PublicationReaction: FC<Props> = ({
   textSize = "sm",
   isVertical = false,
   label,
-  className,
+  className
 }) => {
   const targetPublication = getPublication(publication);
 
@@ -39,18 +39,18 @@ const PublicationReaction: FC<Props> = ({
 
   const [reaction, setReaction] = useState({
     isLiked: targetPublication.operations.hasReacted,
-    likeCount: targetPublication.stats?.reactions,
+    likeCount: targetPublication.stats?.reactions
   });
 
   const [addReaction] = useAddReactionMutation({
     onError: (error) => {
       toast.error(error?.message);
-    },
+    }
   });
   const [removeReaction] = useRemoveReactionMutation({
     onError: (error) => {
       toast.error(error?.message);
-    },
+    }
   });
 
   const likeVideo = () => {
@@ -59,25 +59,25 @@ const PublicationReaction: FC<Props> = ({
     }
     setReaction((prev) => ({
       likeCount: prev.isLiked ? prev.likeCount - 1 : prev.likeCount + 1,
-      isLiked: !prev.isLiked,
+      isLiked: !prev.isLiked
     }));
     if (reaction.isLiked) {
       removeReaction({
         variables: {
           request: {
             for: publication.id,
-            reaction: PublicationReactionType.Upvote,
-          },
-        },
+            reaction: PublicationReactionType.Upvote
+          }
+        }
       });
     } else {
       addReaction({
         variables: {
           request: {
             for: publication.id,
-            reaction: PublicationReactionType.Upvote,
-          },
-        },
+            reaction: PublicationReactionType.Upvote
+          }
+        }
       });
       addEventToQueue(EVENTS.PUBLICATION.LIKE);
     }
@@ -90,8 +90,8 @@ const PublicationReaction: FC<Props> = ({
           "flex items-center focus:outline-none",
           isVertical ? "flex-col space-y-1" : "space-x-1",
           {
-            "text-red-500": reaction.isLiked,
-          },
+            "text-red-500": reaction.isLiked
+          }
         )}
       >
         {reaction.isLiked ? (
@@ -99,7 +99,7 @@ const PublicationReaction: FC<Props> = ({
             className={tw({
               "size-3.5": iconSize === "sm",
               "size-6": iconSize === "lg",
-              "size-4": iconSize === "base",
+              "size-4": iconSize === "base"
             })}
           />
         ) : (
@@ -107,7 +107,7 @@ const PublicationReaction: FC<Props> = ({
             className={tw({
               "size-3.5": iconSize === "sm",
               "size-6": iconSize === "lg",
-              "size-4": iconSize === "base",
+              "size-4": iconSize === "base"
             })}
           />
         )}
@@ -116,7 +116,7 @@ const PublicationReaction: FC<Props> = ({
             className={tw({
               "text-xs": textSize === "sm",
               "text-inherit": textSize === "inherit",
-              "text-red-400": reaction.isLiked,
+              "text-red-400": reaction.isLiked
             })}
           >
             {label}
@@ -126,7 +126,7 @@ const PublicationReaction: FC<Props> = ({
             className={tw({
               "text-xs": textSize === "sm",
               "text-inherit": textSize === "inherit",
-              "text-red-400": reaction.isLiked,
+              "text-red-400": reaction.isLiked
             })}
           >
             {reaction.likeCount > 0 ? formatNumber(reaction.likeCount) : "Like"}

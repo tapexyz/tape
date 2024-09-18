@@ -2,17 +2,17 @@ import { LENSHUB_PROXY_ABI } from "@tape.xyz/abis";
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  REQUESTING_SIGNATURE_MESSAGE,
+  REQUESTING_SIGNATURE_MESSAGE
 } from "@tape.xyz/constants";
 import {
   EVENTS,
   checkLensManagerPermissions,
-  getSignature,
+  getSignature
 } from "@tape.xyz/generic";
 import type { Profile } from "@tape.xyz/lens";
 import {
   useBroadcastOnchainMutation,
-  useCreateChangeProfileManagersTypedDataMutation,
+  useCreateChangeProfileManagersTypedDataMutation
 } from "@tape.xyz/lens";
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
 import { Button } from "@tape.xyz/ui";
@@ -43,7 +43,7 @@ const ToggleLensManager = () => {
   };
 
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError },
+    mutation: { onError }
   });
 
   const { writeContractAsync, data: txHash } = useWriteContract({
@@ -54,8 +54,8 @@ const ToggleLensManager = () => {
       onError: (error) => {
         onError(error);
         setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
-      },
-    },
+      }
+    }
   });
 
   const write = async ({ args }: { args: any[] }) => {
@@ -63,25 +63,25 @@ const ToggleLensManager = () => {
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
       functionName: "changeDelegatedExecutorsConfig",
-      args,
+      args
     });
   };
 
   const [broadcast, { data: broadcastData }] = useBroadcastOnchainMutation({
-    onError,
+    onError
   });
 
   const { indexed } = usePendingTxn({
     txHash,
     ...(broadcastData?.broadcastOnchain.__typename === "RelaySuccess" && {
-      txId: broadcastData?.broadcastOnchain?.txId,
-    }),
+      txId: broadcastData?.broadcastOnchain?.txId
+    })
   });
 
   useEffect(() => {
     if (indexed) {
       toast.success(
-        `Lens Manager ${isLensManagerEnabled ? "disabled" : "enabled"}`,
+        `Lens Manager ${isLensManagerEnabled ? "disabled" : "enabled"}`
       );
       const channel = { ...activeProfile };
       channel.signless = !isLensManagerEnabled;
@@ -99,21 +99,21 @@ const ToggleLensManager = () => {
         delegatedExecutors,
         approvals,
         configNumber,
-        switchToGivenConfig,
+        switchToGivenConfig
       } = typedData.value;
       const args = [
         delegatorProfileId,
         delegatedExecutors,
         approvals,
         configNumber,
-        switchToGivenConfig,
+        switchToGivenConfig
       ];
       try {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE);
         if (canBroadcast) {
           const signature = await signTypedDataAsync(getSignature(typedData));
           const { data } = await broadcast({
-            variables: { request: { id, signature } },
+            variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain?.__typename === "RelayError") {
             return await write({ args });
@@ -125,7 +125,7 @@ const ToggleLensManager = () => {
         setLoading(false);
       }
     },
-    onError,
+    onError
   });
 
   const onClick = async () => {
@@ -136,9 +136,9 @@ const ToggleLensManager = () => {
       variables: {
         options: { overrideSigNonce: lensHubOnchainSigNonce },
         request: {
-          approveSignless: !isLensManagerEnabled,
-        },
-      },
+          approveSignless: !isLensManagerEnabled
+        }
+      }
     });
   };
 

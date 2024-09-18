@@ -12,12 +12,12 @@ export const NoDataFound = ({
   text = "Zero trace!",
   withImage = false,
   isCenter = false,
-  className = "",
+  className = ""
 }: Props) => {
   return (
     <div
       className={tw("flex flex-col space-y-6 rounded-lg p-6", className, {
-        "items-center justify-center": isCenter,
+        "items-center justify-center": isCenter
       })}
     >
       {withImage && (
@@ -31,7 +31,7 @@ export const NoDataFound = ({
       )}
       <div
         className={tw("font-medium text-sm", {
-          "text-center": isCenter,
+          "text-center": isCenter
         })}
       >
         {text}

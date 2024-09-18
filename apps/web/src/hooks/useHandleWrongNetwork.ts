@@ -13,7 +13,7 @@ const useHandleWrongNetwork = () => {
     const activeChainId = activeConnection?.[0]?.chainId;
     if (activeChainId !== POLYGON_CHAIN_ID) {
       addEventToQueue(EVENTS.AUTH.SWITCH_NETWORK, {
-        fromChainId: activeChainId,
+        fromChainId: activeChainId
       });
       return await switchChainAsync({ chainId: POLYGON_CHAIN_ID });
     }

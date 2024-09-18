@@ -18,7 +18,7 @@ const CommentsFilter = () => {
           className={tw(
             "whitespace-nowrap",
             selectedCommentFilter ===
-              CustomCommentsFilterEnum.RELEVANT_COMMENTS && "font-bold",
+              CustomCommentsFilterEnum.RELEVANT_COMMENTS && "font-bold"
           )}
         >
           Relevant
@@ -33,7 +33,7 @@ const CommentsFilter = () => {
           className={tw(
             "whitespace-nowrap",
             selectedCommentFilter ===
-              CustomCommentsFilterEnum.NEWEST_COMMENTS && "font-bold",
+              CustomCommentsFilterEnum.NEWEST_COMMENTS && "font-bold"
           )}
         >
           Newest first

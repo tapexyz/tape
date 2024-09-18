@@ -4,7 +4,7 @@ import type { ReactElement } from "react";
 
 const IPFSLink = ({
   hash,
-  children,
+  children
 }: {
   hash: string;
   children: ReactElement;

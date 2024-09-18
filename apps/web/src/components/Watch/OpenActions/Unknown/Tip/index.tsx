@@ -2,14 +2,14 @@ import { WMATIC_TOKEN_ADDRESS } from "@tape.xyz/constants";
 import {
   type ModuleMetadata,
   type UnknownOpenActionModuleSettings,
-  useApprovedModuleAllowanceAmountQuery,
+  useApprovedModuleAllowanceAmountQuery
 } from "@tape.xyz/lens";
 import {
   Button,
   RangeSlider,
   Select,
   SelectItem,
-  TipOutline,
+  TipOutline
 } from "@tape.xyz/ui";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
@@ -18,7 +18,7 @@ import {
   decodeAbiParameters,
   encodeAbiParameters,
   formatUnits,
-  parseUnits,
+  parseUnits
 } from "viem";
 import { useAccount, useBalance } from "wagmi";
 
@@ -39,12 +39,12 @@ const TipOpenAction: FC<Props> = ({
   metadata,
   action,
   acting,
-  actOnUnknownOpenAction,
+  actOnUnknownOpenAction
 }) => {
   const { address } = useAccount();
   const [tip, setTip] = useState({
     value: [5],
-    currency: WMATIC_TOKEN_ADDRESS,
+    currency: WMATIC_TOKEN_ADDRESS
   });
   const [isAllowed, setIsAllowed] = useState(true);
   const [haveEnoughBalance, setHaveEnoughBalance] = useState(false);
@@ -53,48 +53,48 @@ const TipOpenAction: FC<Props> = ({
 
   const decoded = decodeAbiParameters(
     JSON.parse(metadata?.initializeCalldataABI ?? "{}"),
-    action?.initializeCalldata,
+    action?.initializeCalldata
   );
 
   const { did } = useDid({
     address: decoded[0],
-    enabled: Boolean(decoded[0]),
+    enabled: Boolean(decoded[0])
   });
 
   const tipCurrency = allowedTokens?.find(
-    (token) => token.address === tip.currency,
+    (token) => token.address === tip.currency
   );
 
   const {
     loading: allowanceLoading,
     data: allowanceData,
-    refetch: refetchAllowance,
+    refetch: refetchAllowance
   } = useApprovedModuleAllowanceAmountQuery({
     variables: {
       request: {
         currencies: [tipCurrency?.address],
-        unknownOpenActionModules: [action?.contract.address],
-      },
+        unknownOpenActionModules: [action?.contract.address]
+      }
     },
     skip: !tipCurrency?.address || !action?.contract.address,
     onCompleted: (data) => {
       if (data.approvedModuleAllowanceAmount[0] && tip.value[0]) {
         setIsAllowed(
           Number.parseFloat(
-            data.approvedModuleAllowanceAmount[0].allowance.value,
-          ) > tip.value[0],
+            data.approvedModuleAllowanceAmount[0].allowance.value
+          ) > tip.value[0]
         );
       }
-    },
+    }
   });
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
     address,
     query: {
       enabled: Boolean(tipCurrency?.address),
-      refetchInterval: 2000,
+      refetchInterval: 2000
     },
-    token: tipCurrency?.address as `0x${string}`,
+    token: tipCurrency?.address as `0x${string}`
   });
 
   useEffect(() => {
@@ -102,7 +102,7 @@ const TipOpenAction: FC<Props> = ({
       balanceData &&
       tip.value &&
       Number.parseFloat(
-        formatUnits(balanceData.value, tipCurrency?.decimals as number),
+        formatUnits(balanceData.value, tipCurrency?.decimals as number)
       ) < Number.parseFloat(String(tip.value[0]))
     ) {
       setHaveEnoughBalance(false);
@@ -122,7 +122,7 @@ const TipOpenAction: FC<Props> = ({
       const abi = JSON.parse(metadata?.processCalldataABI ?? "{}");
       const calldata = encodeAbiParameters(abi, [
         tip.currency,
-        parseUnits(tip.value.toString(), tipCurrency.decimals).toString(),
+        parseUnits(tip.value.toString(), tipCurrency.decimals).toString()
       ]);
       actOnUnknownOpenAction(action.contract.address, calldata);
     } catch {}

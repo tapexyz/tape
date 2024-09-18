@@ -18,13 +18,13 @@ const useCollectStore = create(
       collectModule: null,
       setCollectModule: (collectModule) => set({ collectModule }),
       saveAsDefault: true,
-      setSaveAsDefault: (saveAsDefault) => set({ saveAsDefault }),
+      setSaveAsDefault: (saveAsDefault) => set({ saveAsDefault })
     }),
     {
       name: LocalIDBStore.COLLECT_STORE,
-      storage: createIdbStorage(),
-    },
-  ),
+      storage: createIdbStorage()
+    }
+  )
 );
 
 export default useCollectStore;

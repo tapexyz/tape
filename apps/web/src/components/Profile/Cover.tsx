@@ -6,7 +6,7 @@ import {
   getProfileCoverPicture,
   getProfilePicture,
   imageCdn,
-  sanitizeDStorageUrl,
+  sanitizeDStorageUrl
 } from "@tape.xyz/generic";
 import type { Profile } from "@tape.xyz/lens";
 import { Badge as BadgeUI, Tooltip } from "@tape.xyz/ui";
@@ -23,21 +23,21 @@ type Props = {
 
 const Cover: FC<Props> = ({ profile }) => {
   const coverImage = imageCdn(
-    sanitizeDStorageUrl(getProfileCoverPicture(profile, true)),
+    sanitizeDStorageUrl(getProfileCoverPicture(profile, true))
   );
 
   const { data: isMintedViaTape } = useReadContract({
     abi: TAPE_SIGNUP_PROXY_ABI,
     address: TAPE_SIGNUP_PROXY_ADDRESS,
     args: [profile.id],
-    functionName: "profiles",
+    functionName: "profiles"
   });
 
   return (
     <div className="relative">
       <div
         style={{
-          backgroundImage: `url("${coverImage}")`,
+          backgroundImage: `url("${coverImage}")`
         }}
         className="h-44 ultrawide:h-[25vh] w-full bg-brand-500 bg-center bg-cover bg-no-repeat md:h-[20vw]"
       />

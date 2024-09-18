@@ -25,7 +25,7 @@ export const DropdownMenuSubContent: React.ForwardRefExoticComponent<
   const sizeClasses = {
     "p-2 text-sm": size === "sm",
     "p-3 text-sm": size === "md",
-    "px-8 py-4 text-base": size === "lg",
+    "px-8 py-4 text-base": size === "lg"
   };
   return (
     <DropdownMenuPrimitive.SubContent
@@ -33,7 +33,7 @@ export const DropdownMenuSubContent: React.ForwardRefExoticComponent<
       className={tw(
         sizeClasses,
         "tape-border z-10 rounded-md bg-white leading-none data-[disabled]:pointer-events-none data-[highlighted]:bg-gray-200 data-[highlighted]:outline-none dark:bg-black dark:data-[highlighted]:bg-gray-800",
-        className,
+        className
       )}
       ref={ref as React.Ref<HTMLDivElement>}
       {...props}
@@ -60,14 +60,14 @@ export const DropdownMenuSubTrigger: React.ForwardRefExoticComponent<
   const sizeClasses = {
     "px-4 py-2 text-sm": size === "sm",
     "px-6 py-3 text-sm": size === "md",
-    "px-8 py-4 text-base": size === "lg",
+    "px-8 py-4 text-base": size === "lg"
   };
   return (
     <DropdownMenuPrimitive.SubTrigger
       className={tw(
         sizeClasses,
         "relative select-none items-center rounded-md leading-none data-[disabled]:pointer-events-none data-[highlighted]:bg-gray-200 data-[highlighted]:outline-none dark:data-[highlighted]:bg-gray-800",
-        className,
+        className
       )}
       ref={ref as React.Ref<HTMLDivElement>}
       {...props}
@@ -90,7 +90,7 @@ export const DropdownMenuItem = forwardRef<
   const sizeClasses = {
     "px-4 py-2 text-sm": size === "sm",
     "px-6 py-3 text-sm": size === "md",
-    "px-8 py-4 text-base": size === "lg",
+    "px-8 py-4 text-base": size === "lg"
   };
 
   return (
@@ -98,7 +98,7 @@ export const DropdownMenuItem = forwardRef<
       className={tw(
         sizeClasses,
         "relative select-none items-center space-x-2 rounded-md leading-none data-[disabled]:pointer-events-none data-[highlighted]:bg-gray-200 data-[highlighted]:outline-none dark:data-[highlighted]:bg-gray-800 dark:hover:bg-gray-800",
-        className,
+        className
       )}
       ref={ref}
       {...props}
@@ -118,7 +118,7 @@ type DropdownMenuProps = {
 export const DropdownMenu: FC<DropdownMenuProps> = ({
   trigger,
   children,
-  align = "end",
+  align = "end"
 }) => {
   return (
     <DropdownMenuPrimitive.Root>

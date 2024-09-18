@@ -2,7 +2,7 @@ import {
   getToastOptions,
   setFingerprint,
   tw,
-  useIsMounted,
+  useIsMounted
 } from "@tape.xyz/browser";
 import { AUTH_ROUTES, OWNER_ONLY_ROUTES } from "@tape.xyz/constants";
 import { getIsProfileOwner, trimify } from "@tape.xyz/generic";
@@ -53,7 +53,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
       setActiveProfile(profile as Profile);
       setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce);
     },
-    onError: () => signOut(),
+    onError: () => signOut()
   });
 
   const validateAuthRoutes = () => {
@@ -98,7 +98,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
       <div
         className={tw("relative focus-visible:outline-none", {
           "laptop:px-6 px-4 ultrawide:px-8 pt-20 pb-6 ultrawide:pb-8":
-            !skipPadding,
+            !skipPadding
         })}
       >
         {children}

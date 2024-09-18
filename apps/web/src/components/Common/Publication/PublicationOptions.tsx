@@ -6,7 +6,7 @@ import {
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED,
-  TAPE_APP_ID,
+  TAPE_APP_ID
 } from "@tape.xyz/constants";
 import {
   EVENTS,
@@ -19,12 +19,12 @@ import {
   getValueFromKeyInAttributes,
   logger,
   trimify,
-  uploadToAr,
+  uploadToAr
 } from "@tape.xyz/generic";
 import type {
   OnchainSetProfileMetadataRequest,
   PrimaryPublication,
-  Profile,
+  Profile
 } from "@tape.xyz/lens";
 import {
   useAddPublicationBookmarkMutation,
@@ -34,7 +34,7 @@ import {
   useHidePublicationMutation,
   useRemovePublicationBookmarkMutation,
   useSetProfileMetadataMutation,
-  useUndoPublicationNotInterestedMutation,
+  useUndoPublicationNotInterestedMutation
 } from "@tape.xyz/lens";
 import { useApolloClient } from "@tape.xyz/lens/apollo";
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
@@ -49,7 +49,7 @@ import {
   PinOutline,
   ShareOutline,
   ThreeDotsOutline,
-  TrashOutline,
+  TrashOutline
 } from "@tape.xyz/ui";
 import type { FC, ReactNode } from "react";
 import { useState } from "react";
@@ -86,14 +86,14 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
   const isVideoOwner = activeProfile?.id === publication?.by?.id;
   const pinnedVideoId = getValueFromKeyInAttributes(
     activeProfile?.metadata?.attributes,
-    "pinnedPublicationId",
+    "pinnedPublicationId"
   );
 
   const [hideVideo, { loading: hiding }] = useHidePublicationMutation({
     update(cache) {
       const normalizedId = cache.identify({
         id: publication?.id,
-        __typename: "Post",
+        __typename: "Post"
       });
       cache.evict({ id: normalizedId });
       cache.gc();
@@ -101,9 +101,9 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
     onCompleted: () => {
       toast.success("Video deleted");
       addEventToQueue(EVENTS.PUBLICATION.DELETE, {
-        publication_type: publication.__typename?.toLowerCase(),
+        publication_type: publication.__typename?.toLowerCase()
       });
-    },
+    }
   });
 
   const onHideVideo = async () => {
@@ -125,7 +125,7 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
   };
 
   const onCompleted = (
-    __typename?: "RelayError" | "RelaySuccess" | "LensProfileManagerRelayError",
+    __typename?: "RelayError" | "RelaySuccess" | "LensProfileManagerRelayError"
   ) => {
     if (
       __typename === "RelayError" ||
@@ -138,14 +138,14 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
   };
 
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError },
+    mutation: { onError }
   });
 
   const { writeContractAsync } = useWriteContract({
     mutation: {
       onError,
-      onSuccess: () => onCompleted(),
-    },
+      onSuccess: () => onCompleted()
+    }
   });
 
   const write = async ({ args }: { args: any[] }) => {
@@ -153,14 +153,14 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
       functionName: "setProfileMetadataURI",
-      args,
+      args
     });
   };
 
   const [broadcast] = useBroadcastOnchainMutation({
     onError,
     onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename),
+      onCompleted(broadcastOnchain.__typename)
   });
 
   const [createOnchainSetProfileMetadataTypedData] =
@@ -174,7 +174,7 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
           if (canBroadcast) {
             const signature = await signTypedDataAsync(getSignature(typedData));
             const { data } = await broadcast({
-              variables: { request: { id, signature } },
+              variables: { request: { id, signature } }
             });
             if (data?.broadcastOnchain?.__typename === "RelayError") {
               return await write({ args: [profileId, metadataURI] });
@@ -184,13 +184,13 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
           return await write({ args: [profileId, metadataURI] });
         } catch {}
       },
-      onError,
+      onError
     });
 
   const [setProfileMetadata] = useSetProfileMetadataMutation({
     onCompleted: ({ setProfileMetadata }) =>
       onCompleted(setProfileMetadata.__typename),
-    onError,
+    onError
   });
 
   const otherAttributes =
@@ -199,7 +199,7 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
       .map(({ key, value, type }) => ({
         key,
         value,
-        type: MetadataAttributeType[type] as any,
+        type: MetadataAttributeType[type] as any
       })) ?? [];
 
   const onPinVideo = async () => {
@@ -214,56 +214,56 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
       const coverPicture = getProfileCoverPicture(activeProfile as Profile);
       const metadata: ProfileOptions = {
         ...(activeProfile?.metadata?.displayName && {
-          name: activeProfile?.metadata.displayName,
+          name: activeProfile?.metadata.displayName
         }),
         ...(activeProfile?.metadata?.bio && {
-          bio: activeProfile?.metadata.bio,
+          bio: activeProfile?.metadata.bio
         }),
         ...(pfp && {
-          picture: pfp,
+          picture: pfp
         }),
         ...(coverPicture && {
-          coverPicture,
+          coverPicture
         }),
         attributes: [
           ...otherAttributes,
           {
             type: MetadataAttributeType.STRING,
             key: "pinnedPublicationId",
-            value: publication.id,
+            value: publication.id
           },
           {
             type: MetadataAttributeType.STRING,
             key: "app",
-            value: TAPE_APP_ID,
-          },
-        ],
+            value: TAPE_APP_ID
+          }
+        ]
       };
       metadata.attributes = metadata.attributes?.filter(
-        (m) => Boolean(trimify(m.key)) && Boolean(trimify(m.value)),
+        (m) => Boolean(trimify(m.key)) && Boolean(trimify(m.value))
       );
       const metadataUri = await uploadToAr(profile(metadata));
       const request: OnchainSetProfileMetadataRequest = {
-        metadataURI: metadataUri,
+        metadataURI: metadataUri
       };
 
       if (canUseLensManager) {
         const { data } = await setProfileMetadata({
-          variables: { request },
+          variables: { request }
         });
         if (
           data?.setProfileMetadata?.__typename ===
           "LensProfileManagerRelayError"
         ) {
           return await createOnchainSetProfileMetadataTypedData({
-            variables: { request },
+            variables: { request }
           });
         }
         return;
       }
 
       return createOnchainSetProfileMetadataTypedData({
-        variables: { request },
+        variables: { request }
       });
     } catch (error) {
       logger.error("[On Pin Video]", error);
@@ -273,12 +273,12 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
   const modifyInterestCache = (notInterested: boolean) => {
     cache.modify({
       id: `Post:${publication?.id}`,
-      fields: { notInterested: () => notInterested },
+      fields: { notInterested: () => notInterested }
     });
     toast.success(
       notInterested
         ? "Publication marked as not interested"
-        : "Publication removed from not interested",
+        : "Publication removed from not interested"
     );
     addEventToQueue(EVENTS.PUBLICATION.TOGGLE_INTEREST);
   };
@@ -290,35 +290,35 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
         operations: () => {
           return {
             ...publication.operations,
-            hasBookmarked: saved,
+            hasBookmarked: saved
           };
-        },
-      },
+        }
+      }
     });
     toast.success(
-      saved ? "Video added to your list" : "Video removed from your list",
+      saved ? "Video added to your list" : "Video removed from your list"
     );
     addEventToQueue(EVENTS.PUBLICATION.TOGGLE_INTEREST);
   };
 
   const [addToNotInterested] = useAddPublicationNotInterestedMutation({
     onError,
-    onCompleted: () => modifyInterestCache(true),
+    onCompleted: () => modifyInterestCache(true)
   });
 
   const [removeFromNotInterested] = useUndoPublicationNotInterestedMutation({
     onError,
-    onCompleted: () => modifyInterestCache(false),
+    onCompleted: () => modifyInterestCache(false)
   });
 
   const [saveVideoToList] = useAddPublicationBookmarkMutation({
     onError,
-    onCompleted: () => modifyListCache(true),
+    onCompleted: () => modifyListCache(true)
   });
 
   const [removeVideoFromList] = useRemovePublicationBookmarkMutation({
     onError,
-    onCompleted: () => modifyListCache(false),
+    onCompleted: () => modifyListCache(false)
   });
 
   const notInterested = async () => {
@@ -329,17 +329,17 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
       await removeFromNotInterested({
         variables: {
           request: {
-            on: publication.id,
-          },
-        },
+            on: publication.id
+          }
+        }
       });
     } else {
       await addToNotInterested({
         variables: {
           request: {
-            on: publication.id,
-          },
-        },
+            on: publication.id
+          }
+        }
       });
     }
   };
@@ -352,17 +352,17 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
       removeVideoFromList({
         variables: {
           request: {
-            on: publication.id,
-          },
-        },
+            on: publication.id
+          }
+        }
       });
     } else {
       saveVideoToList({
         variables: {
           request: {
-            on: publication.id,
-          },
-        },
+            on: publication.id
+          }
+        }
       });
     }
   };

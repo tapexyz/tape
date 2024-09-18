@@ -14,13 +14,13 @@ const useProfileStore = create(
   persist<ProfileState>(
     (set) => ({
       activeProfile: null,
-      setActiveProfile: (activeProfile) => set({ activeProfile }),
+      setActiveProfile: (activeProfile) => set({ activeProfile })
     }),
     {
       name: LocalIDBStore.PROFILE_STORE,
-      storage: createIdbStorage(),
-    },
-  ),
+      storage: createIdbStorage()
+    }
+  )
 );
 
 export default useProfileStore;

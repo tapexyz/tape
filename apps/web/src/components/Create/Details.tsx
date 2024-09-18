@@ -29,7 +29,7 @@ const formSchema = object({
     .trim()
     .min(5, { message: "Description should be atleast 5 characters" })
     .max(5000, { message: "Description should not exceed 5000 characters" }),
-  isSensitiveContent: boolean(),
+  isSensitiveContent: boolean()
 });
 
 export type VideoFormData = z.infer<typeof formSchema>;
@@ -53,14 +53,14 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
     formState: { errors },
     setValue,
     watch,
-    clearErrors,
+    clearErrors
   } = useForm<VideoFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       isSensitiveContent: uploadedMedia.isSensitiveContent ?? false,
       title: uploadedMedia.title,
-      description: uploadedMedia.description,
-    },
+      description: uploadedMedia.description
+    }
   });
 
   const onSubmitForm = (data: VideoFormData) => {
@@ -84,10 +84,10 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
           thumbnail: result.url,
           thumbnailType: file.type || "image/jpeg",
           uploadingThumbnail: false,
-          buttonText: "Uploading...",
+          buttonText: "Uploading..."
         });
         onUpload({ ...data, thumbnail: result.url });
-      },
+      }
     );
   };
 
@@ -136,7 +136,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                   onEmojiSelect={(emoji) =>
                     setValue(
                       "description",
-                      `${getValues("description")}${emoji}`,
+                      `${getValues("description")}${emoji}`
                     )
                   }
                 />
@@ -147,7 +147,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                     "text-xs",
                     watch("description")?.length > 5000
                       ? "text-red-500 opacity-100"
-                      : "opacity-70",
+                      : "opacity-70"
                   )}
                 >
                   {watch("description")?.length}/5000
@@ -168,9 +168,9 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 onCheckedChange={(canCollect) => {
                   const collectModuleData = {
                     ...(uploadedMedia.collectModule && {
-                      ...uploadedMedia.collectModule,
+                      ...uploadedMedia.collectModule
                     }),
-                    isRevertCollect: !canCollect,
+                    isRevertCollect: !canCollect
                   };
                   // const collectModule = saveAsDefault
                   //   ? {
@@ -213,7 +213,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 <div
                   className={tw(
                     "mt-2",
-                    !isByteSizeVideo && "cursor-not-allowed opacity-50",
+                    !isByteSizeVideo && "cursor-not-allowed opacity-50"
                   )}
                 >
                   <Switch

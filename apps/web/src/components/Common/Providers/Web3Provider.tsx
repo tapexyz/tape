@@ -7,7 +7,7 @@ import { coinbaseWallet, injected, walletConnect } from "wagmi/connectors";
 const connectors = [
   injected(),
   walletConnect({ projectId: WC_PROJECT_ID }),
-  coinbaseWallet({ appName: TAPE_APP_NAME }),
+  coinbaseWallet({ appName: TAPE_APP_NAME })
 ];
 
 const wagmiConfig = createConfig({
@@ -15,8 +15,8 @@ const wagmiConfig = createConfig({
   chains: [polygon, polygonAmoy],
   transports: {
     [polygon.id]: http(),
-    [polygonAmoy.id]: http(),
-  },
+    [polygonAmoy.id]: http()
+  }
 });
 
 type Props = {

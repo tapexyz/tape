@@ -12,7 +12,7 @@ const Confirm: FC<Props> = ({
   showConfirm,
   setShowConfirm,
   action,
-  loading,
+  loading
 }) => {
   return (
     <Modal

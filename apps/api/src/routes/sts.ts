@@ -3,7 +3,7 @@ import {
   ERROR_MESSAGE,
   EVER_BUCKET_NAME,
   EVER_ENDPOINT,
-  EVER_REGION,
+  EVER_REGION
 } from "@tape.xyz/constants";
 import { Hono } from "hono";
 
@@ -26,7 +26,7 @@ const params = {
         ]
       }
     ]
-  }`,
+  }`
 };
 
 const { EVER_ACCESS_KEY, EVER_ACCESS_SECRET } = process.env;
@@ -36,8 +36,8 @@ const stsClient = new STSClient({
   region: EVER_REGION,
   credentials: {
     accessKeyId: EVER_ACCESS_KEY,
-    secretAccessKey: EVER_ACCESS_SECRET,
-  },
+    secretAccessKey: EVER_ACCESS_SECRET
+  }
 });
 
 app.get("/", async (c) => {
@@ -46,15 +46,15 @@ app.get("/", async (c) => {
       new AssumeRoleCommand({
         ...params,
         RoleArn: undefined,
-        RoleSessionName: undefined,
-      }),
+        RoleSessionName: undefined
+      })
     );
 
     return c.json({
       success: true,
       accessKeyId: data.Credentials?.AccessKeyId,
       secretAccessKey: data.Credentials?.SecretAccessKey,
-      sessionToken: data.Credentials?.SessionToken,
+      sessionToken: data.Credentials?.SessionToken
     });
   } catch (error) {
     console.error("[STS] Error:", error);

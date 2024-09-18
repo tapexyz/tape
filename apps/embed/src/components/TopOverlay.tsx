@@ -2,14 +2,14 @@ import { useCopyToClipboard } from "@tape.xyz/browser";
 import {
   STATIC_ASSETS,
   TAPE_APP_NAME,
-  TAPE_WEBSITE_URL,
+  TAPE_WEBSITE_URL
 } from "@tape.xyz/constants";
 import {
   EVENTS,
   getLennyPicture,
   getProfile,
   getProfilePicture,
-  getPublicationData,
+  getPublicationData
 } from "@tape.xyz/generic";
 import type { PrimaryPublication } from "@tape.xyz/lens";
 import { CopyOutline } from "@tape.xyz/ui";

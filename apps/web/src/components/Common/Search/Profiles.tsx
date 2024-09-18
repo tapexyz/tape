@@ -2,7 +2,7 @@ import {
   formatNumber,
   getLennyPicture,
   getProfile,
-  getProfilePicture,
+  getProfilePicture
 } from "@tape.xyz/generic";
 import type { Profile } from "@tape.xyz/lens";
 import { UserOutline } from "@tape.xyz/ui";

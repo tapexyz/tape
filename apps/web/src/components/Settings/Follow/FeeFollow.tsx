@@ -5,23 +5,23 @@ import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
-  WMATIC_TOKEN_ADDRESS,
+  WMATIC_TOKEN_ADDRESS
 } from "@tape.xyz/constants";
 import {
   checkLensManagerPermissions,
   getProfile,
   getSignature,
-  shortenAddress,
+  shortenAddress
 } from "@tape.xyz/generic";
 import type {
   CreateSetFollowModuleBroadcastItemResult,
   FeeFollowModuleSettings,
-  Profile,
+  Profile
 } from "@tape.xyz/lens";
 import {
   useBroadcastOnchainMutation,
   useCreateSetFollowModuleTypedDataMutation,
-  useProfileFollowModuleQuery,
+  useProfileFollowModuleQuery
 } from "@tape.xyz/lens";
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
 import {
@@ -30,7 +30,7 @@ import {
   Select,
   SelectItem,
   Spinner,
-  Tooltip,
+  Tooltip
 } from "@tape.xyz/ui";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -54,7 +54,7 @@ const formSchema = object({
   amount: number()
     .nonnegative({ message: "Amount should to greater than zero" })
     .refine((n) => n > 0, { message: "Amount should be greater than 0" }),
-  token: string().length(42, { message: "Select valid token" }),
+  token: string().length(42, { message: "Select valid token" })
 });
 type FormData = z.infer<typeof formSchema>;
 
@@ -76,14 +76,14 @@ const FeeFollow = ({ profile }: Props) => {
     getValues,
     setValue,
     watch,
-    formState: { errors },
+    formState: { errors }
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       recipient: getProfile(profile).address,
       amount: 2,
-      token: WMATIC_TOKEN_ADDRESS,
-    },
+      token: WMATIC_TOKEN_ADDRESS
+    }
   });
 
   const onError = (error: CustomErrorWithData) => {
@@ -94,7 +94,7 @@ const FeeFollow = ({ profile }: Props) => {
   const {
     data: followModuleData,
     refetch,
-    loading: moduleLoading,
+    loading: moduleLoading
   } = useProfileFollowModuleQuery({
     variables: { request: { forProfileId: profile?.id } },
     skip: !profile?.id,
@@ -103,23 +103,23 @@ const FeeFollow = ({ profile }: Props) => {
       const activeFollowModule =
         profile?.followModule as FeeFollowModuleSettings;
       setShowForm(!activeFollowModule);
-    },
+    }
   });
   const activeFollowModule = followModuleData?.profile
     ?.followModule as FeeFollowModuleSettings;
 
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError },
+    mutation: { onError }
   });
 
   const [broadcast, { data: broadcastData }] = useBroadcastOnchainMutation({
-    onError,
+    onError
   });
 
   const { data: txHash, writeContractAsync } = useWriteContract({
     mutation: {
-      onError,
-    },
+      onError
+    }
   });
 
   const write = async ({ args }: { args: any[] }) => {
@@ -127,7 +127,7 @@ const FeeFollow = ({ profile }: Props) => {
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
       functionName: "setFollowModule",
-      args,
+      args
     });
   };
 
@@ -136,7 +136,7 @@ const FeeFollow = ({ profile }: Props) => {
     txId:
       broadcastData?.broadcastOnchain.__typename === "RelaySuccess"
         ? broadcastData?.broadcastOnchain?.txId
-        : undefined,
+        : undefined
   });
 
   useEffect(() => {
@@ -161,7 +161,7 @@ const FeeFollow = ({ profile }: Props) => {
             const signature = await signTypedDataAsync(getSignature(typedData));
             setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
             const { data } = await broadcast({
-              variables: { request: { id, signature } },
+              variables: { request: { id, signature } }
             });
             if (data?.broadcastOnchain?.__typename === "RelayError") {
               return await write({ args });
@@ -173,7 +173,7 @@ const FeeFollow = ({ profile }: Props) => {
           setLoading(false);
         }
       },
-      onError,
+      onError
     });
 
   const updateFeeFollow = async (disable: boolean) => {
@@ -190,13 +190,13 @@ const FeeFollow = ({ profile }: Props) => {
                 feeFollowModule: {
                   amount: {
                     currency: getValues("token"),
-                    value: getValues("amount").toString(),
+                    value: getValues("amount").toString()
                   },
-                  recipient: getValues("recipient"),
-                },
-              },
-        },
-      },
+                  recipient: getValues("recipient")
+                }
+              }
+        }
+      }
     });
   };
 

@@ -14,7 +14,7 @@ export const Feed = () => {
     useSuspenseInfiniteQuery(publicationsQuery);
 
   const allPublications = data?.pages.flatMap(
-    (page) => page.publications.items,
+    (page) => page.publications.items
   ) as AnyPublication[];
 
   return (

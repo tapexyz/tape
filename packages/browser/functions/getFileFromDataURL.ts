@@ -1,7 +1,7 @@
 export const getFileFromDataURL = (
   dataUrl: string,
   fileName: string,
-  callback: (file: File | null) => void,
+  callback: (file: File | null) => void
 ) => {
   const img = new Image();
   img.crossOrigin = "Anonymous";

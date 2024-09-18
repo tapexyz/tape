@@ -4,10 +4,10 @@ export const LENS_PERMISSIONLESS_CREATOR_ABI = [
       { internalType: "address", name: "owner", type: "address" },
       { internalType: "address", name: "lensHub", type: "address" },
       { internalType: "address", name: "lensHandles", type: "address" },
-      { internalType: "address", name: "tokenHandleRegistry", type: "address" },
+      { internalType: "address", name: "tokenHandleRegistry", type: "address" }
     ],
     stateMutability: "nonpayable",
-    type: "constructor",
+    type: "constructor"
   },
   { inputs: [], name: "HandleAlreadyExists", type: "error" },
   { inputs: [], name: "HandleLengthNotAllowed", type: "error" },
@@ -25,23 +25,23 @@ export const LENS_PERMISSIONLESS_CREATOR_ABI = [
         indexed: true,
         internalType: "address",
         name: "creditAddress",
-        type: "address",
+        type: "address"
       },
       {
         indexed: false,
         internalType: "uint256",
         name: "remainingCredits",
-        type: "uint256",
+        type: "uint256"
       },
       {
         indexed: false,
         internalType: "uint256",
         name: "timestamp",
-        type: "uint256",
-      },
+        type: "uint256"
+      }
     ],
     name: "CreditBalanceChanged",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -50,23 +50,23 @@ export const LENS_PERMISSIONLESS_CREATOR_ABI = [
         indexed: true,
         internalType: "address",
         name: "creditProvider",
-        type: "address",
+        type: "address"
       },
       {
         indexed: false,
         internalType: "bool",
         name: "isCreditProvider",
-        type: "bool",
+        type: "bool"
       },
       {
         indexed: false,
         internalType: "uint256",
         name: "timestamp",
-        type: "uint256",
-      },
+        type: "uint256"
+      }
     ],
     name: "CreditProviderStatusChanged",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -75,29 +75,29 @@ export const LENS_PERMISSIONLESS_CREATOR_ABI = [
         indexed: true,
         internalType: "uint256",
         name: "handleId",
-        type: "uint256",
+        type: "uint256"
       },
       {
         indexed: false,
         internalType: "string",
         name: "handle",
-        type: "string",
+        type: "string"
       },
       {
         indexed: true,
         internalType: "address",
         name: "creator",
-        type: "address",
+        type: "address"
       },
       {
         indexed: false,
         internalType: "uint256",
         name: "timestamp",
-        type: "uint256",
-      },
+        type: "uint256"
+      }
     ],
     name: "HandleCreatedUsingCredits",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -106,17 +106,17 @@ export const LENS_PERMISSIONLESS_CREATOR_ABI = [
         indexed: false,
         internalType: "uint256",
         name: "newPrice",
-        type: "uint256",
+        type: "uint256"
       },
       {
         indexed: false,
         internalType: "uint256",
         name: "timestamp",
-        type: "uint256",
-      },
+        type: "uint256"
+      }
     ],
     name: "HandleCreationPriceChanged",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -125,17 +125,17 @@ export const LENS_PERMISSIONLESS_CREATOR_ABI = [
         indexed: false,
         internalType: "uint8",
         name: "newMinLength",
-        type: "uint8",
+        type: "uint8"
       },
       {
         indexed: false,
         internalType: "uint256",
         name: "timestamp",
-        type: "uint256",
-      },
+        type: "uint256"
+      }
     ],
     name: "HandleLengthMinChanged",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -144,23 +144,23 @@ export const LENS_PERMISSIONLESS_CREATOR_ABI = [
         indexed: true,
         internalType: "uint256",
         name: "profileId",
-        type: "uint256",
+        type: "uint256"
       },
       {
         indexed: true,
         internalType: "address",
         name: "creator",
-        type: "address",
+        type: "address"
       },
       {
         indexed: false,
         internalType: "uint256",
         name: "timestamp",
-        type: "uint256",
-      },
+        type: "uint256"
+      }
     ],
     name: "ProfileCreatedUsingCredits",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -169,17 +169,17 @@ export const LENS_PERMISSIONLESS_CREATOR_ABI = [
         indexed: false,
         internalType: "uint256",
         name: "newPrice",
-        type: "uint256",
+        type: "uint256"
       },
       {
         indexed: false,
         internalType: "uint256",
         name: "timestamp",
-        type: "uint256",
-      },
+        type: "uint256"
+      }
     ],
     name: "ProfileCreationPriceChanged",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -188,46 +188,46 @@ export const LENS_PERMISSIONLESS_CREATOR_ABI = [
         indexed: true,
         internalType: "address",
         name: "targetAddress",
-        type: "address",
+        type: "address"
       },
       {
         indexed: false,
         internalType: "bool",
         name: "isUntrusted",
-        type: "bool",
+        type: "bool"
       },
       {
         indexed: false,
         internalType: "uint256",
         name: "timestamp",
-        type: "uint256",
-      },
+        type: "uint256"
+      }
     ],
     name: "TrustStatusChanged",
-    type: "event",
+    type: "event"
   },
   {
     inputs: [],
     name: "LENS_HANDLES",
     outputs: [
-      { internalType: "contract ILensHandles", name: "", type: "address" },
+      { internalType: "contract ILensHandles", name: "", type: "address" }
     ],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
     name: "LENS_HUB",
     outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
     name: "OWNER",
     outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
@@ -236,40 +236,40 @@ export const LENS_PERMISSIONLESS_CREATOR_ABI = [
       {
         internalType: "contract ITokenHandleRegistry",
         name: "",
-        type: "address",
-      },
+        type: "address"
+      }
     ],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
-      { internalType: "address", name: "creditProvider", type: "address" },
+      { internalType: "address", name: "creditProvider", type: "address" }
     ],
     name: "addCreditProvider",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
       { internalType: "address", name: "to", type: "address" },
-      { internalType: "string", name: "handle", type: "string" },
+      { internalType: "string", name: "handle", type: "string" }
     ],
     name: "createHandle",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "payable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
       { internalType: "address", name: "to", type: "address" },
-      { internalType: "string", name: "handle", type: "string" },
+      { internalType: "string", name: "handle", type: "string" }
     ],
     name: "createHandleUsingCredits",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
@@ -280,23 +280,23 @@ export const LENS_PERMISSIONLESS_CREATOR_ABI = [
           {
             internalType: "bytes",
             name: "followModuleInitData",
-            type: "bytes",
-          },
+            type: "bytes"
+          }
         ],
         internalType: "struct Types.CreateProfileParams",
         name: "createProfileParams",
-        type: "tuple",
+        type: "tuple"
       },
       {
         internalType: "address[]",
         name: "delegatedExecutors",
-        type: "address[]",
-      },
+        type: "address[]"
+      }
     ],
     name: "createProfile",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "payable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
@@ -307,23 +307,23 @@ export const LENS_PERMISSIONLESS_CREATOR_ABI = [
           {
             internalType: "bytes",
             name: "followModuleInitData",
-            type: "bytes",
-          },
+            type: "bytes"
+          }
         ],
         internalType: "struct Types.CreateProfileParams",
         name: "createProfileParams",
-        type: "tuple",
+        type: "tuple"
       },
       {
         internalType: "address[]",
         name: "delegatedExecutors",
-        type: "address[]",
-      },
+        type: "address[]"
+      }
     ],
     name: "createProfileUsingCredits",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
@@ -334,27 +334,27 @@ export const LENS_PERMISSIONLESS_CREATOR_ABI = [
           {
             internalType: "bytes",
             name: "followModuleInitData",
-            type: "bytes",
-          },
+            type: "bytes"
+          }
         ],
         internalType: "struct Types.CreateProfileParams",
         name: "createProfileParams",
-        type: "tuple",
+        type: "tuple"
       },
       { internalType: "string", name: "handle", type: "string" },
       {
         internalType: "address[]",
         name: "delegatedExecutors",
-        type: "address[]",
-      },
+        type: "address[]"
+      }
     ],
     name: "createProfileWithHandle",
     outputs: [
       { internalType: "uint256", name: "", type: "uint256" },
-      { internalType: "uint256", name: "", type: "uint256" },
+      { internalType: "uint256", name: "", type: "uint256" }
     ],
     stateMutability: "payable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
@@ -365,166 +365,166 @@ export const LENS_PERMISSIONLESS_CREATOR_ABI = [
           {
             internalType: "bytes",
             name: "followModuleInitData",
-            type: "bytes",
-          },
+            type: "bytes"
+          }
         ],
         internalType: "struct Types.CreateProfileParams",
         name: "createProfileParams",
-        type: "tuple",
+        type: "tuple"
       },
       { internalType: "string", name: "handle", type: "string" },
       {
         internalType: "address[]",
         name: "delegatedExecutors",
-        type: "address[]",
-      },
+        type: "address[]"
+      }
     ],
     name: "createProfileWithHandleUsingCredits",
     outputs: [
       { internalType: "uint256", name: "", type: "uint256" },
-      { internalType: "uint256", name: "", type: "uint256" },
+      { internalType: "uint256", name: "", type: "uint256" }
     ],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
       { internalType: "address", name: "account", type: "address" },
-      { internalType: "uint256", name: "amount", type: "uint256" },
+      { internalType: "uint256", name: "amount", type: "uint256" }
     ],
     name: "decreaseCredits",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
-      { internalType: "address", name: "targetAddress", type: "address" },
+      { internalType: "address", name: "targetAddress", type: "address" }
     ],
     name: "getCreditBalance",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
     name: "getHandleCreationPrice",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
     name: "getHandleLengthMin",
     outputs: [{ internalType: "uint8", name: "", type: "uint8" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
     name: "getProfileCreationPrice",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [{ internalType: "uint256", name: "profileId", type: "uint256" }],
     name: "getProfileCreatorUsingCredits",
     outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
     name: "getProfileWithHandleCreationPrice",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
       { internalType: "address", name: "account", type: "address" },
-      { internalType: "uint256", name: "amount", type: "uint256" },
+      { internalType: "uint256", name: "amount", type: "uint256" }
     ],
     name: "increaseCredits",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
-      { internalType: "address", name: "targetAddress", type: "address" },
+      { internalType: "address", name: "targetAddress", type: "address" }
     ],
     name: "isCreditProvider",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
-      { internalType: "address", name: "targetAddress", type: "address" },
+      { internalType: "address", name: "targetAddress", type: "address" }
     ],
     name: "isUntrusted",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
-      { internalType: "address", name: "creditProvider", type: "address" },
+      { internalType: "address", name: "creditProvider", type: "address" }
     ],
     name: "removeCreditProvider",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [{ internalType: "uint128", name: "newPrice", type: "uint128" }],
     name: "setHandleCreationPrice",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [{ internalType: "uint8", name: "newMinLength", type: "uint8" }],
     name: "setHandleLengthMin",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [{ internalType: "uint128", name: "newPrice", type: "uint128" }],
     name: "setProfileCreationPrice",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
       { internalType: "address", name: "targetAddress", type: "address" },
-      { internalType: "bool", name: "setAsUntrusted", type: "bool" },
+      { internalType: "bool", name: "setAsUntrusted", type: "bool" }
     ],
     name: "setTrustStatus",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
       { internalType: "address", name: "from", type: "address" },
       { internalType: "address", name: "to", type: "address" },
-      { internalType: "uint256", name: "tokenId", type: "uint256" },
+      { internalType: "uint256", name: "tokenId", type: "uint256" }
     ],
     name: "transferFromKeepingDelegates",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
     name: "withdrawFunds",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
-  },
+    type: "function"
+  }
 ];

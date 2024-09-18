@@ -3,7 +3,7 @@ import {
   EVENTS,
   getProfile,
   getPublication,
-  getPublicationData,
+  getPublicationData
 } from "@tape.xyz/generic";
 import type { AnyPublication } from "@tape.xyz/lens";
 import { useReportPublicationMutation } from "@tape.xyz/lens";
@@ -34,9 +34,9 @@ const ReportPublication: FC<Props> = ({ publication, close }) => {
       toast.success("Publication reported.");
       addEventToQueue(EVENTS.PUBLICATION.REPORT, {
         publication_id: targetPublication.id,
-        publication_type: targetPublication.__typename?.toLowerCase(),
+        publication_type: targetPublication.__typename?.toLowerCase()
       });
-    },
+    }
   });
 
   const getReasonType = (type: string) => {
@@ -65,12 +65,12 @@ const ReportPublication: FC<Props> = ({ publication, close }) => {
           reason: {
             [getReasonType(type)]: {
               reason: type,
-              subreason: subReason,
-            },
+              subreason: subReason
+            }
           },
-          additionalComments: `${type} - ${subReason}`,
-        },
-      },
+          additionalComments: `${type} - ${subReason}`
+        }
+      }
     });
     close?.();
   };

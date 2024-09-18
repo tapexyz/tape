@@ -21,12 +21,12 @@ export const Modal: FC<Props> = ({
   show,
   setShow,
   locked,
-  size = "md",
+  size = "md"
 }) => {
   const sizeClasses = {
     "max-w-[450px]": size === "sm",
     "max-w-[550px]": size === "md",
-    "max-w-[650px]": size === "lg",
+    "max-w-[650px]": size === "lg"
   };
   return (
     <Dialog.Root open={show} onOpenChange={setShow}>
@@ -36,7 +36,7 @@ export const Modal: FC<Props> = ({
           onPointerDownOutside={(e) => (locked ? e.preventDefault() : null)}
           className={tw(
             sizeClasses,
-            "tape-border fixed top-[50%] left-[50%] z-10 max-h-[85vh] w-[90vw] translate-x-[-50%] translate-y-[-50%] space-y-4 rounded-xl bg-white p-5 focus:outline-none dark:bg-black",
+            "tape-border fixed top-[50%] left-[50%] z-10 max-h-[85vh] w-[90vw] translate-x-[-50%] translate-y-[-50%] space-y-4 rounded-xl bg-white p-5 focus:outline-none dark:bg-black"
           )}
         >
           <div className="space-y-3">

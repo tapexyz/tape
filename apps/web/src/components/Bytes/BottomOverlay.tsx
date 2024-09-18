@@ -3,7 +3,7 @@ import {
   getLennyPicture,
   getProfile,
   getProfilePicture,
-  getPublicationData,
+  getPublicationData
 } from "@tape.xyz/generic";
 import type { MirrorablePublication } from "@tape.xyz/lens";
 import Link from "next/link";

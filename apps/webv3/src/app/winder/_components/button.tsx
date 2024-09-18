@@ -30,8 +30,8 @@ export const Button = () => {
               x: [0, -2, 2, -2, 2, 0],
               transition: {
                 scale: { duration: 0.2 },
-                x: { delay: 0.5, duration: 0.3 },
-              },
+                x: { delay: 0.5, duration: 0.3 }
+              }
             }}
             exit={{ scale: 0, opacity: 0 }}
           >
@@ -85,11 +85,11 @@ export const Button = () => {
     <motion.button
       initial={{
         backgroundColor: bgColor,
-        color: textColor,
+        color: textColor
       }}
       animate={{
         backgroundColor: bgColor,
-        color: textColor,
+        color: textColor
       }}
       className="flex items-center overflow-hidden rounded-full px-5 py-2.5 font-semibold text-lg"
       onClick={() => onClickBtn()}
@@ -124,7 +124,7 @@ export const Button = () => {
               animate={{
                 opacity: 1,
                 x: 0,
-                transition: { duration: 0.2 },
+                transition: { duration: 0.2 }
               }}
               exit={{ opacity: 0, x: 50 }}
               transition={{ duration: 0.3 }}
@@ -140,7 +140,7 @@ export const Button = () => {
               animate={{
                 opacity: 1,
                 x: 0,
-                transition: { duration: 0.2 },
+                transition: { duration: 0.2 }
               }}
               exit={{ opacity: 0, x: 50, transition: { duration: 0.4 } }}
               transition={{ duration: 0.3, type: "spring" }}

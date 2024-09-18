@@ -5,6 +5,7 @@ import type { FC, ReactNode } from "react";
 import { useEffect } from "react";
 
 import { ServiceWorkerContext } from "@/hooks/useSw";
+import { getCurrentDateTime } from "@/lib/formatTime";
 
 const ServiceWorkerProvider: FC<{ children: ReactNode }> = ({ children }) => {
   useEffect(() => {
@@ -28,7 +29,7 @@ const ServiceWorkerProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
   const addEventToQueue = (
     name: string,
-    properties?: Record<string, unknown>,
+    properties?: Record<string, unknown>
   ) => {
     if (!IS_PRODUCTION || !IS_MAINNET || !navigator.serviceWorker.controller) {
       return;
@@ -36,7 +37,7 @@ const ServiceWorkerProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
     const tokenState = JSON.parse(
       localStorage.getItem(LocalStore.TAPE_AUTH_STORE) ||
-        JSON.stringify({ state: { accessToken: "" } }),
+        JSON.stringify({ state: { accessToken: "" } })
     );
     const storedFingerprint = localStorage.getItem(LocalStore.TAPE_FINGERPRINT);
     const actor = parseJwt(tokenState.state.accessToken)?.id;
@@ -50,10 +51,11 @@ const ServiceWorkerProvider: FC<{ children: ReactNode }> = ({ children }) => {
       referrer: referrerDomain,
       url: location.href,
       platform: "web",
+      created: getCurrentDateTime()
     };
     navigator.serviceWorker.controller.postMessage({
       type: "ADD_EVENT",
-      payload: event,
+      payload: event
     });
   };
 

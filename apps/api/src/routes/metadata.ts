@@ -19,28 +19,28 @@ app.post("/", async (c) => {
 
     const account = privateKeyToAccount(`0x${WALLET_PRIVATE_KEY}`);
     const signedMetadata = await signMetadata(payload, (message) =>
-      account.signMessage({ message }),
+      account.signMessage({ message })
     );
 
     const receipt = await irys.upload(JSON.stringify(signedMetadata), {
       tags: [
         { name: "Content-Type", value: "application/json" },
-        { name: "App-Name", value: "Tape" },
-      ],
+        { name: "App-Name", value: "Tape" }
+      ]
     });
 
     if (!receipt.id) {
       return c.json({
         success: true,
         message: ERROR_MESSAGE,
-        irysRes: JSON.stringify(receipt),
+        irysRes: JSON.stringify(receipt)
       });
     }
 
     return c.json({
       success: true,
       id: receipt.id,
-      url: `${IRYS_GATEWAY_URL}/${receipt.id}`,
+      url: `${IRYS_GATEWAY_URL}/${receipt.id}`
     });
   } catch (error) {
     console.error("[METADATA] Error:", error);

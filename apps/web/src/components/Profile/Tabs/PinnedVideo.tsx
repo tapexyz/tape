@@ -7,7 +7,7 @@ import {
   LENSTUBE_BYTES_APP_ID,
   REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED,
-  TAPE_APP_ID,
+  TAPE_APP_ID
 } from "@tape.xyz/constants";
 import {
   EVENTS,
@@ -25,18 +25,18 @@ import {
   logger,
   sanitizeDStorageUrl,
   trimify,
-  uploadToAr,
+  uploadToAr
 } from "@tape.xyz/generic";
 import type {
   AnyPublication,
   OnchainSetProfileMetadataRequest,
-  Profile,
+  Profile
 } from "@tape.xyz/lens";
 import {
   useBroadcastOnchainMutation,
   useCreateOnchainSetProfileMetadataTypedDataMutation,
   usePublicationQuery,
-  useSetProfileMetadataMutation,
+  useSetProfileMetadataMutation
 } from "@tape.xyz/lens";
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
 import { Button, VideoPlayer } from "@tape.xyz/ui";
@@ -65,8 +65,8 @@ const PinnedVideo: FC<Props> = ({ id }) => {
 
   const { data, error, loading } = usePublicationQuery({
     variables: {
-      request: { forId: id },
-    },
+      request: { forId: id }
+    }
   });
 
   const onError = (error: CustomErrorWithData) => {
@@ -74,7 +74,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
   };
 
   const onCompleted = (
-    __typename?: "RelayError" | "RelaySuccess" | "LensProfileManagerRelayError",
+    __typename?: "RelayError" | "RelaySuccess" | "LensProfileManagerRelayError"
   ) => {
     if (
       __typename === "RelayError" ||
@@ -87,14 +87,14 @@ const PinnedVideo: FC<Props> = ({ id }) => {
   };
 
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError },
+    mutation: { onError }
   });
 
   const { writeContractAsync } = useWriteContract({
     mutation: {
       onError,
-      onSuccess: () => onCompleted(),
-    },
+      onSuccess: () => onCompleted()
+    }
   });
 
   const write = async ({ args }: { args: any[] }) => {
@@ -102,14 +102,14 @@ const PinnedVideo: FC<Props> = ({ id }) => {
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
       functionName: "setProfileMetadataURI",
-      args,
+      args
     });
   };
 
   const [broadcast] = useBroadcastOnchainMutation({
     onError,
     onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename),
+      onCompleted(broadcastOnchain.__typename)
   });
 
   const [createOnchainSetProfileMetadataTypedData] =
@@ -123,7 +123,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
           if (canBroadcast) {
             const signature = await signTypedDataAsync(getSignature(typedData));
             const { data } = await broadcast({
-              variables: { request: { id, signature } },
+              variables: { request: { id, signature } }
             });
             if (data?.broadcastOnchain?.__typename === "RelayError") {
               return await write({ args });
@@ -133,13 +133,13 @@ const PinnedVideo: FC<Props> = ({ id }) => {
           return await write({ args });
         } catch {}
       },
-      onError,
+      onError
     });
 
   const [setProfileMetadata] = useSetProfileMetadataMutation({
     onCompleted: ({ setProfileMetadata }) =>
       onCompleted(setProfileMetadata.__typename),
-    onError,
+    onError
   });
 
   const otherAttributes =
@@ -148,7 +148,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
       .map(({ key, value, type }) => ({
         key,
         value,
-        type: MetadataAttributeType[type] as any,
+        type: MetadataAttributeType[type] as any
       })) ?? [];
 
   const unpinVideo = async () => {
@@ -163,50 +163,50 @@ const PinnedVideo: FC<Props> = ({ id }) => {
       const coverPicture = getProfileCoverPicture(activeProfile as Profile);
       const metadata: ProfileOptions = {
         ...(activeProfile?.metadata?.displayName && {
-          name: activeProfile?.metadata?.displayName,
+          name: activeProfile?.metadata?.displayName
         }),
         ...(activeProfile?.metadata?.bio && {
-          bio: activeProfile?.metadata?.bio,
+          bio: activeProfile?.metadata?.bio
         }),
         ...(pfp && {
-          picture: pfp,
+          picture: pfp
         }),
         ...(coverPicture && {
-          coverPicture,
+          coverPicture
         }),
         attributes: [
           ...otherAttributes,
           {
             type: MetadataAttributeType.STRING,
             key: "app",
-            value: TAPE_APP_ID,
-          },
-        ],
+            value: TAPE_APP_ID
+          }
+        ]
       };
       metadata.attributes = metadata.attributes?.filter(
-        (m) => Boolean(trimify(m.key)) && Boolean(trimify(m.value)),
+        (m) => Boolean(trimify(m.key)) && Boolean(trimify(m.value))
       );
       const metadataURI = await uploadToAr(profile(metadata));
       const request: OnchainSetProfileMetadataRequest = {
-        metadataURI,
+        metadataURI
       };
 
       if (canUseLensManager) {
         const { data } = await setProfileMetadata({
-          variables: { request },
+          variables: { request }
         });
         if (
           data?.setProfileMetadata?.__typename ===
           "LensProfileManagerRelayError"
         ) {
           return await createOnchainSetProfileMetadataTypedData({
-            variables: { request },
+            variables: { request }
           });
         }
         return;
       }
       return createOnchainSetProfileMetadataTypedData({
-        variables: { request },
+        variables: { request }
       });
     } catch (error) {
       logger.error("[UnPin Video]", error);
@@ -231,7 +231,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
   const isSensitiveContent = getIsSensitiveContent(pinnedPublication?.metadata);
   const thumbnailUrl = imageCdn(
     sanitizeDStorageUrl(getThumbnailUrl(pinnedPublication?.metadata, true)),
-    isBytesVideo ? "THUMBNAIL_V" : "THUMBNAIL",
+    isBytesVideo ? "THUMBNAIL_V" : "THUMBNAIL"
   );
 
   return (
@@ -248,7 +248,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
               autoPlay: true,
               loop: false,
               loadingSpinner: true,
-              isCurrentlyShown: true,
+              isCurrentlyShown: true
             }}
           />
         </div>

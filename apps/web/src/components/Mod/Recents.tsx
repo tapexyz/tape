@@ -1,18 +1,18 @@
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENSTUBE_BYTES_APP_ID,
-  TAPE_APP_ID,
+  TAPE_APP_ID
 } from "@tape.xyz/constants";
 import type {
   ExplorePublicationRequest,
-  PrimaryPublication,
+  PrimaryPublication
 } from "@tape.xyz/lens";
 import {
   ExplorePublicationType,
   ExplorePublicationsOrderByType,
   LimitType,
   PublicationMetadataMainFocusType,
-  useExplorePublicationsQuery,
+  useExplorePublicationsQuery
 } from "@tape.xyz/lens";
 import { Spinner } from "@tape.xyz/ui";
 import { useInView } from "react-cool-inview";
@@ -29,19 +29,19 @@ const request: ExplorePublicationRequest = {
     publicationTypes: [ExplorePublicationType.Post],
     metadata: {
       publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID],
-      mainContentFocus: [PublicationMetadataMainFocusType.Video],
+      mainContentFocus: [PublicationMetadataMainFocusType.Video]
     },
-    since,
+    since
   },
   orderBy: ExplorePublicationsOrderByType.Latest,
-  limit: LimitType.Fifty,
+  limit: LimitType.Fifty
 };
 
 const Recents = () => {
   const { data, loading, error, fetchMore } = useExplorePublicationsQuery({
     variables: {
-      request,
-    },
+      request
+    }
   });
 
   const videos = data?.explorePublications
@@ -55,11 +55,11 @@ const Recents = () => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next,
-          },
-        },
+            cursor: pageInfo?.next
+          }
+        }
       });
-    },
+    }
   });
   if (loading) {
     return (

@@ -13,7 +13,7 @@ const Alert: FC<Props> = ({ children, variant = "warning", className }) => {
       className={tw("flex items-center rounded-xl border p-4", className, {
         "border-yellow-500 border-opacity-50": variant === "warning",
         "border-red-500 border-opacity-50": variant === "danger",
-        "border-green-500 border-opacity-50": variant === "success",
+        "border-green-500 border-opacity-50": variant === "success"
       })}
     >
       {children}

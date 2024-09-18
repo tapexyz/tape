@@ -7,7 +7,7 @@ interface NotificationState {
 
 const useNotificationStore = create<NotificationState>((set) => ({
   hasNewNotification: false,
-  setHasNewNotification: (hasNewNotification) => set({ hasNewNotification }),
+  setHasNewNotification: (hasNewNotification) => set({ hasNewNotification })
 }));
 
 export default useNotificationStore;

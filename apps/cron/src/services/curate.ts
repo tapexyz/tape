@@ -2,7 +2,7 @@ import {
   ALLOWED_APP_IDS,
   LENSTUBE_BYTES_APP_ID,
   REDIS_KEYS,
-  TAPE_APP_ID,
+  TAPE_APP_ID
 } from "@tape.xyz/constants";
 import { REDIS_EXPIRY, indexerDb, rSet, tapeDb } from "@tape.xyz/server";
 
@@ -16,7 +16,7 @@ const curatePublications = async (mainFocus: MainFocus) => {
 
     const profiles = await tapeDb.profile.findMany({
       select: { profileId: true },
-      where: { isCurated: true },
+      where: { isCurated: true }
     });
     const profileIds = profiles.map(({ profileId }) => profileId);
     console.log(`[curate] Found ${profileIds.length} curated profiles`);
@@ -31,7 +31,7 @@ const curatePublications = async (mainFocus: MainFocus) => {
       const batch = batches[batchIndex] as string[];
 
       console.log(
-        `[curate] Processing page ${pageNumber}, batch ${batchIndex + 1} with ${batch.length} profiles`,
+        `[curate] Processing page ${pageNumber}, batch ${batchIndex + 1} with ${batch.length} profiles`
       );
 
       let page = 1;
@@ -72,7 +72,7 @@ const curatePublications = async (mainFocus: MainFocus) => {
           ORDER BY rp.rn
           LIMIT $5 OFFSET $6;
         `,
-          [apps, batch, skipPubIds, mainFocus, limit, offset],
+          [apps, batch, skipPubIds, mainFocus, limit, offset]
         );
 
         const pubIds = results.map(({ publication_id }) => publication_id);
@@ -88,7 +88,7 @@ const curatePublications = async (mainFocus: MainFocus) => {
             const itemsToCache = bufferedItems.slice(0, limit);
             const cacheKey = `${REDIS_KEYS.CURATED_PUBLICATIONS}:${mainFocus}:${pageNumber}`;
             console.log(
-              `[curate] Caching ${itemsToCache.length} publications for page ${pageNumber}`,
+              `[curate] Caching ${itemsToCache.length} publications for page ${pageNumber}`
             );
             await rSet(cacheKey, JSON.stringify(pubIds), REDIS_EXPIRY.HALF_DAY);
 
@@ -109,12 +109,12 @@ const curatePublications = async (mainFocus: MainFocus) => {
       // Cache the remaining items as a new page
       const cacheKey = `${REDIS_KEYS.CURATED_PUBLICATIONS}:${mainFocus}:${pageNumber}`;
       console.log(
-        `[curate] Caching remaining ${bufferedItems.length} publications for page ${pageNumber}`,
+        `[curate] Caching remaining ${bufferedItems.length} publications for page ${pageNumber}`
       );
       await rSet(
         cacheKey,
         JSON.stringify(bufferedItems),
-        REDIS_EXPIRY.HALF_DAY,
+        REDIS_EXPIRY.HALF_DAY
       );
     }
 
@@ -122,7 +122,7 @@ const curatePublications = async (mainFocus: MainFocus) => {
   } catch (error) {
     console.error(
       `[curate] [${mainFocus}] Error curating publications:`,
-      error,
+      error
     );
   }
 };

@@ -2,12 +2,12 @@ import type { ListObjectsV2CommandOutput } from "@aws-sdk/client-s3";
 import {
   DeleteObjectsCommand,
   ListObjectsV2Command,
-  S3,
+  S3
 } from "@aws-sdk/client-s3";
 import {
   EVER_BUCKET_NAME,
   EVER_ENDPOINT,
-  EVER_REGION,
+  EVER_REGION
 } from "@tape.xyz/constants";
 import { clickhouseClient, tapeDb } from "@tape.xyz/server";
 
@@ -18,16 +18,16 @@ const s3Client = new S3({
   region: EVER_REGION,
   credentials: {
     accessKeyId: EVER_ACCESS_KEY,
-    secretAccessKey: EVER_ACCESS_SECRET,
+    secretAccessKey: EVER_ACCESS_SECRET
   },
-  maxAttempts: 5,
+  maxAttempts: 5
 });
 
 const cleanup4Ever = async (): Promise<void> => {
   try {
     const daysToSubtract = 10;
     const dateDaysAgo = new Date(
-      Date.now() - daysToSubtract * 24 * 60 * 60 * 1000,
+      Date.now() - daysToSubtract * 24 * 60 * 60 * 1000
     );
 
     let continuationToken: string | undefined = undefined;
@@ -37,20 +37,20 @@ const cleanup4Ever = async (): Promise<void> => {
       const response: ListObjectsV2CommandOutput = await s3Client.send(
         new ListObjectsV2Command({
           Bucket: EVER_BUCKET_NAME,
-          ContinuationToken: continuationToken,
-        }),
+          ContinuationToken: continuationToken
+        })
       );
       const { Contents, IsTruncated, NextContinuationToken } = response;
 
       if (Contents) {
         const oldObjects = Contents.filter(
           (object) =>
-            object.LastModified && new Date(object.LastModified) < dateDaysAgo,
+            object.LastModified && new Date(object.LastModified) < dateDaysAgo
         );
         objectsToDelete = objectsToDelete.concat(
           oldObjects
             .map((object) => ({ Key: object.Key! }))
-            .filter((obj) => obj.Key),
+            .filter((obj) => obj.Key)
         );
       }
 
@@ -59,7 +59,7 @@ const cleanup4Ever = async (): Promise<void> => {
 
     if (objectsToDelete.length === 0) {
       console.log(
-        `[4ever cleanup] No objects older than ${daysToSubtract} days found.`,
+        `[4ever cleanup] No objects older than ${daysToSubtract} days found.`
       );
       return;
     }
@@ -71,18 +71,18 @@ const cleanup4Ever = async (): Promise<void> => {
       const deleteCommand = new DeleteObjectsCommand({
         Bucket: EVER_BUCKET_NAME,
         Delete: {
-          Objects: batch,
-        },
+          Objects: batch
+        }
       });
 
       await s3Client.send(deleteCommand);
       console.log(
-        `[4ever cleanup] Deleted ${batch.length} objects older than ${daysToSubtract} days in batch ${i / maxDeleteBatchSize + 1}.`,
+        `[4ever cleanup] Deleted ${batch.length} objects older than ${daysToSubtract} days in batch ${i / maxDeleteBatchSize + 1}.`
       );
     }
 
     console.log(
-      `[4ever cleanup] Total deleted ${objectsToDelete.length} objects older than ${daysToSubtract} days.`,
+      `[4ever cleanup] Total deleted ${objectsToDelete.length} objects older than ${daysToSubtract} days.`
     );
   } catch (error) {
     console.error("[4ever cleanup] Error deleting objects:", error);
@@ -115,12 +115,12 @@ const cleanupClickhouse = async (): Promise<void> => {
     "TRUNCATE TABLE system.part_log;",
     "TRUNCATE TABLE system.part_log_0;",
     "TRUNCATE TABLE system.blob_storage_log;",
-    "ALTER TABLE events DELETE WHERE url NOT LIKE '%tape.xyz%';",
+    "ALTER TABLE events DELETE WHERE url NOT LIKE '%tape.xyz%';"
   ];
 
   try {
     await Promise.all(
-      queries.map((query) => clickhouseClient.command({ query })),
+      queries.map((query) => clickhouseClient.command({ query }))
     );
     console.log("[cron] Clickhouse cleanup completed");
   } catch (error) {

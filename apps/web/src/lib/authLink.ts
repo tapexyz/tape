@@ -26,8 +26,8 @@ const authLink = new ApolloLink((operation, forward) => {
     if (!willExpireSoon) {
       operation.setContext({
         headers: {
-          "x-access-token": accessToken ? `Bearer ${accessToken}` : "",
-        },
+          "x-access-token": accessToken ? `Bearer ${accessToken}` : ""
+        }
       });
       return forward(operation);
     }
@@ -40,20 +40,20 @@ const authLink = new ApolloLink((operation, forward) => {
           operationName: "Refresh",
           query: REFRESH_AUTHENTICATION_MUTATION,
           variables: {
-            request: { refreshToken },
-          },
+            request: { refreshToken }
+          }
         }),
-        { headers: { "Content-Type": "application/json" } },
+        { headers: { "Content-Type": "application/json" } }
       )
       .then(({ data: result }) => {
         operation.setContext({
           headers: {
-            "x-access-token": `Bearer ${result?.data?.refresh?.accessToken}`,
-          },
+            "x-access-token": `Bearer ${result?.data?.refresh?.accessToken}`
+          }
         });
         signIn({
           accessToken: result?.data?.refresh?.accessToken,
-          refreshToken: result?.data?.refresh?.refreshToken,
+          refreshToken: result?.data?.refresh?.refreshToken
         });
         return toPromise(forward(operation));
       })
@@ -62,7 +62,7 @@ const authLink = new ApolloLink((operation, forward) => {
         logger.error("[Error Refreshing Token]", error);
         location.reload();
         return toPromise(forward(operation));
-      }),
+      })
   );
 });
 

@@ -18,7 +18,7 @@ export const SelectItem = forwardRef<
   const sizeClasses = {
     "px-3 py-1.5 text-xs": size === "sm",
     "px-4 py-2 text-sm": size === "md",
-    "px-6 py-3 text-sm": size === "lg",
+    "px-6 py-3 text-sm": size === "lg"
   };
 
   return (
@@ -26,7 +26,7 @@ export const SelectItem = forwardRef<
       className={tw(
         sizeClasses,
         "relative flex select-none items-center justify-between space-x-2 rounded-md leading-none hover:bg-gray-100 data-[disabled]:pointer-events-none data-[highlighted]:bg-gray-200 data-[state=checked]:font-semibold data-[highlighted]:outline-none dark:data-[highlighted]:bg-gray-800 dark:hover:bg-gray-800",
-        className,
+        className
       )}
       ref={ref}
       {...props}
@@ -53,7 +53,7 @@ export const Select = forwardRef<
   const sizeClasses = {
     "px-3 py-1 text-xs": size === "sm",
     "px-4 py-1.5 text-sm": size === "md",
-    "px-6 py-3 text-sm": size === "lg",
+    "px-6 py-3 text-sm": size === "lg"
   };
 
   return (
@@ -62,7 +62,7 @@ export const Select = forwardRef<
         className={tw(
           sizeClasses,
           "flex w-full appearance-none items-center justify-between space-x-2 rounded-lg border border-gray-200 focus:outline-none dark:border-gray-800",
-          className,
+          className
         )}
         aria-label="Food"
         ref={ref}

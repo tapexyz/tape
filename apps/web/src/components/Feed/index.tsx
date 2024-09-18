@@ -2,14 +2,14 @@ import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
-  TAPE_APP_ID,
+  TAPE_APP_ID
 } from "@tape.xyz/constants";
 import { EVENTS } from "@tape.xyz/generic";
 import type { FeedItem, FeedRequest, PrimaryPublication } from "@tape.xyz/lens";
 import {
   FeedEventItemType,
   PublicationMetadataMainFocusType,
-  useFeedQuery,
+  useFeedQuery
 } from "@tape.xyz/lens";
 import { Spinner } from "@tape.xyz/ui";
 import { useEffect } from "react";
@@ -42,16 +42,16 @@ const Feed = () => {
         publishedOn: [TAPE_APP_ID, LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
         tags:
           activeTagFilter !== "all" ? { oneOf: [activeTagFilter] } : undefined,
-        mainContentFocus: [PublicationMetadataMainFocusType.Video],
-      },
-    },
+        mainContentFocus: [PublicationMetadataMainFocusType.Video]
+      }
+    }
   };
 
   const { data, loading, error, fetchMore } = useFeedQuery({
     variables: {
-      request,
+      request
     },
-    skip: !activeProfile?.id,
+    skip: !activeProfile?.id
   });
 
   const feedItems = data?.feed?.items as FeedItem[];
@@ -64,11 +64,11 @@ const Feed = () => {
         variables: {
           request: {
             cursor: pageInfo?.next,
-            ...request,
-          },
-        },
+            ...request
+          }
+        }
       });
-    },
+    }
   });
 
   if (!loading && error) {

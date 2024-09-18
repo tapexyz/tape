@@ -1,7 +1,7 @@
 import {
   FALLBACK_THUMBNAIL_URL,
   LENSTUBE_BYTES_APP_ID,
-  TAPE_APP_ID,
+  TAPE_APP_ID
 } from "@tape.xyz/constants";
 import {
   getLennyPicture,
@@ -9,14 +9,14 @@ import {
   getProfilePicture,
   getPublicationData,
   getThumbnailUrl,
-  imageCdn,
+  imageCdn
 } from "@tape.xyz/generic";
 import type { PrimaryPublication, PublicationsRequest } from "@tape.xyz/lens";
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   PublicationType,
-  usePublicationsQuery,
+  usePublicationsQuery
 } from "@tape.xyz/lens";
 import Link from "next/link";
 
@@ -32,17 +32,17 @@ const LatestBytes = () => {
     where: {
       metadata: {
         mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo],
-        publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID],
+        publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID]
       },
       publicationTypes: [PublicationType.Post],
-      from: curatedProfiles,
+      from: curatedProfiles
     },
-    limit: LimitType.Fifty,
+    limit: LimitType.Fifty
   };
 
   const { data, error, loading } = usePublicationsQuery({
     variables: { request },
-    skip: !curatedProfiles?.length,
+    skip: !curatedProfiles?.length
   });
 
   const bytes = data?.publications?.items as PrimaryPublication[];

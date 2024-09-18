@@ -3,13 +3,13 @@ import {
   EVENTS,
   getLennyPicture,
   getProfile,
-  getProfilePicture,
+  getProfilePicture
 } from "@tape.xyz/generic";
 import type { Profile } from "@tape.xyz/lens";
 import {
   LimitType,
   useProfilesManagedQuery,
-  useRevokeAuthenticationMutation,
+  useRevokeAuthenticationMutation
 } from "@tape.xyz/lens";
 import {
   BookmarkOutline,
@@ -27,7 +27,7 @@ import {
   MoonOutline,
   SunOutline,
   SwitchProfileOutline,
-  UserOutline,
+  UserOutline
 } from "@tape.xyz/ui";
 import { useTheme } from "next-themes";
 import Link from "next/link";
@@ -52,16 +52,16 @@ const UserMenu = () => {
   const { data } = useProfilesManagedQuery({
     variables: {
       request: { for: address, includeOwned: true, limit: LimitType.Fifty },
-      lastLoggedInProfileRequest: { for: address },
+      lastLoggedInProfileRequest: { for: address }
     },
-    skip: !address,
+    skip: !address
   });
   const profilesManagedWithoutActiveProfile = useMemo(() => {
     if (!data?.profilesManaged?.items) {
       return [];
     }
     return data.profilesManaged.items.filter(
-      (p) => p.id !== activeProfile?.id,
+      (p) => p.id !== activeProfile?.id
     ) as Profile[];
   }, [data?.profilesManaged, activeProfile]);
 
@@ -74,8 +74,8 @@ const UserMenu = () => {
     if (authorizationId) {
       await revokeAuthentication({
         variables: {
-          request: { authorizationId },
-        },
+          request: { authorizationId }
+        }
       });
     }
     signOut();
@@ -167,7 +167,7 @@ const UserMenu = () => {
                                 alt={getProfile(activeProfile)?.displayName}
                                 onError={({ currentTarget }) => {
                                   currentTarget.src = getLennyPicture(
-                                    profile?.id,
+                                    profile?.id
                                   );
                                 }}
                                 draggable={false}
@@ -180,7 +180,7 @@ const UserMenu = () => {
                               </div>
                             </div>
                           </DropdownMenuItem>
-                        ),
+                        )
                     )}
                   </DropdownMenuSubContent>
                 </DropdownMenuPortal>
@@ -200,7 +200,7 @@ const UserMenu = () => {
             const selected = theme === "dark" ? "light" : "dark";
             setTheme(selected);
             addEventToQueue(EVENTS.SYSTEM.TOGGLE_THEME, {
-              selected_theme: selected,
+              selected_theme: selected
             });
           }}
         >

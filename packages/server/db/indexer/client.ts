@@ -9,13 +9,13 @@ const initOptions: pgp.IInitOptions = {
         console.log("[indexer-db] Error Parameters:", e.params);
       }
     }
-  },
+  }
 };
 
 const indexerDb = pgp(initOptions)({
   connectionString: process.env.INDEXER_DATABASE_URL,
   port: 6432,
-  max: 20,
+  max: 20
 });
 
 export { indexerDb };

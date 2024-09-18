@@ -3,12 +3,12 @@ import {
   INFINITE_SCROLL_ROOT_MARGIN,
   IS_MAINNET,
   LENSTUBE_BYTES_APP_ID,
-  TAPE_APP_ID,
+  TAPE_APP_ID
 } from "@tape.xyz/constants";
 import { getCategoryName } from "@tape.xyz/generic";
 import type {
   ExplorePublicationRequest,
-  PrimaryPublication,
+  PrimaryPublication
 } from "@tape.xyz/lens";
 import {
   CustomFiltersType,
@@ -16,7 +16,7 @@ import {
   ExplorePublicationsOrderByType,
   LimitType,
   PublicationMetadataMainFocusType,
-  useExplorePublicationsQuery,
+  useExplorePublicationsQuery
 } from "@tape.xyz/lens";
 import { Spinner } from "@tape.xyz/ui";
 import { useRouter } from "next/router";
@@ -44,19 +44,19 @@ const ExploreCategory = () => {
         mainContentFocus: [PublicationMetadataMainFocusType.Video],
         publishedOn: IS_MAINNET
           ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
-          : undefined,
+          : undefined
       },
-      since,
+      since
     },
     orderBy: ExplorePublicationsOrderByType.Latest,
-    limit: LimitType.Fifty,
+    limit: LimitType.Fifty
   };
 
   const { data, loading, error, fetchMore } = useExplorePublicationsQuery({
     variables: {
-      request,
+      request
     },
-    skip: !query.category,
+    skip: !query.category
   });
 
   const videos = data?.explorePublications
@@ -70,11 +70,11 @@ const ExploreCategory = () => {
         variables: {
           request: {
             cursor: pageInfo?.next,
-            ...request,
-          },
-        },
+            ...request
+          }
+        }
       });
-    },
+    }
   });
   if (!query.category) {
     return <Custom404 />;

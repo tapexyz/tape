@@ -3,7 +3,7 @@ import {
   getProfile,
   getPublication,
   getPublicationData,
-  getThumbnailUrl,
+  getThumbnailUrl
 } from "@tape.xyz/generic";
 import type { AnyPublication } from "@tape.xyz/lens";
 import type { Metadata } from "next";
@@ -35,8 +35,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       metadata?.title || `${getProfile(publication.by).displayName} on Tape`,
     description: metadata?.content,
     openGraph: {
-      images: [poster],
-    },
+      images: [poster]
+    }
   };
 }
 

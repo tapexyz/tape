@@ -25,7 +25,7 @@ const formSchema = object({
   amount: string().min(1, { message: "Invalid amount" }).optional(),
   referralPercent: number()
     .max(100, { message: "Percentage should be 0 to 100" })
-    .nonnegative({ message: "Should to greater than or equal to zero" }),
+    .nonnegative({ message: "Should to greater than or equal to zero" })
 });
 export type FormData = z.infer<typeof formSchema>;
 
@@ -44,15 +44,15 @@ const FeeCollectForm: FC<Props> = ({ setCollectType, setShowModal }) => {
     formState: { errors },
     handleSubmit,
     setError,
-    setValue,
+    setValue
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       referralPercent: Number(uploadedMedia.collectModule.referralFee || 0),
       currency:
         uploadedMedia.collectModule.amount?.currency ?? WMATIC_TOKEN_ADDRESS,
-      amount: uploadedMedia.collectModule.amount?.value || "0",
-    },
+      amount: uploadedMedia.collectModule.amount?.value || "0"
+    }
   });
 
   useEffect(() => {
@@ -64,10 +64,10 @@ const FeeCollectForm: FC<Props> = ({ setCollectType, setShowModal }) => {
       ...uploadedMedia.collectModule,
       amount: {
         currency: data.currency,
-        value: data.amount || "0",
+        value: data.amount || "0"
       },
       referralFee: data.referralPercent,
-      recipient: activeProfile?.ownedBy.address,
+      recipient: activeProfile?.ownedBy.address
     });
     setShowModal(false);
   };
@@ -78,7 +78,7 @@ const FeeCollectForm: FC<Props> = ({ setCollectType, setShowModal }) => {
     if (isFeeCollect) {
       if (amount === 0) {
         return setError("amount", {
-          message: "Amount should be greater than 0",
+          message: "Amount should be greater than 0"
         });
       }
       if (splitRecipients.length > 5) {
@@ -86,10 +86,10 @@ const FeeCollectForm: FC<Props> = ({ setCollectType, setShowModal }) => {
       }
       const splitsSum = splitRecipients.reduce(
         (total, obj) => obj.split + total,
-        0,
+        0
       );
       const invalidSplitAddresses = splitRecipients.filter(
-        (splitRecipient) => !isAddress(splitRecipient.recipient),
+        (splitRecipient) => !isAddress(splitRecipient.recipient)
       );
       if (invalidSplitAddresses.length) {
         return setValidationError("Invalid split recipient address");
@@ -123,7 +123,7 @@ const FeeCollectForm: FC<Props> = ({ setCollectType, setShowModal }) => {
               max="100000"
               error={errors.amount?.message}
               {...register("amount", {
-                setValueAs: (v) => String(v),
+                setValueAs: (v) => String(v)
               })}
             />
             <div>
@@ -134,7 +134,7 @@ const FeeCollectForm: FC<Props> = ({ setCollectType, setShowModal }) => {
                 onValueChange={(currency) => {
                   setCollectType({
                     ...uploadedMedia.collectModule,
-                    amount: { currency, value: "" },
+                    amount: { currency, value: "" }
                   });
                   setValue("currency", currency);
                 }}

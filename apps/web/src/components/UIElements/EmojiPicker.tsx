@@ -4,7 +4,7 @@ import {
   EmojiOutline,
   Popover,
   PopoverContent,
-  PopoverTrigger,
+  PopoverTrigger
 } from "@tape.xyz/ui";
 import axios from "axios";
 import { useTheme } from "next-themes";
@@ -57,7 +57,7 @@ const EmojiPicker: FC<Props> = ({ onEmojiSelect }) => {
             "rgba(247,233,34,.7)",
             "rgba(238,166,252,.7)",
             "rgba(255,213,143,.7)",
-            "rgba(211,209,255,.7)",
+            "rgba(211,209,255,.7)"
           ]}
         />
       </PopoverContent>

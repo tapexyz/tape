@@ -8,13 +8,13 @@ const config: CodegenConfig = {
     "gql/generated/": {
       preset: "client",
       config: {
-        documentMode: "string",
-      },
-    },
+        documentMode: "string"
+      }
+    }
   },
   hooks: {
-    afterAllFileWrite: ["biome format --write ."],
-  },
+    afterAllFileWrite: ["biome format --write ."]
+  }
 };
 
 export default config;

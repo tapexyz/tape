@@ -9,7 +9,7 @@ interface CommentState {
 const useCommentStore = create<CommentState>((set) => ({
   selectedCommentFilter: CustomCommentsFilterEnum.RELEVANT_COMMENTS,
   setSelectedCommentFilter: (selectedCommentFilter) =>
-    set({ selectedCommentFilter }),
+    set({ selectedCommentFilter })
 }));
 
 export default useCommentStore;

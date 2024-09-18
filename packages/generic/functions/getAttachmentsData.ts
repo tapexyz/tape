@@ -1,7 +1,7 @@
 import type { Maybe, PublicationMetadataMedia } from "@tape.xyz/lens";
 
 export const getAttachmentsData = (
-  attachments?: Maybe<PublicationMetadataMedia[]>,
+  attachments?: Maybe<PublicationMetadataMedia[]>
 ): any => {
   if (!attachments) {
     return [];
@@ -12,17 +12,17 @@ export const getAttachmentsData = (
       case "PublicationMetadataMediaImage":
         return {
           uri: attachment.image.optimized?.uri,
-          type: "Image",
+          type: "Image"
         };
       case "PublicationMetadataMediaVideo":
         return {
           uri: attachment.video.optimized?.uri,
-          type: "Video",
+          type: "Video"
         };
       case "PublicationMetadataMediaAudio":
         return {
           uri: attachment.audio.optimized?.uri,
-          type: "Audio",
+          type: "Audio"
         };
       default:
         return [];

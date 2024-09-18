@@ -4,7 +4,7 @@ import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
-  SIGN_IN_REQUIRED,
+  SIGN_IN_REQUIRED
 } from "@tape.xyz/constants";
 import {
   checkLensManagerPermissions,
@@ -14,19 +14,19 @@ import {
   getProfilePicture,
   getSignature,
   imageCdn,
-  sanitizeDStorageUrl,
+  sanitizeDStorageUrl
 } from "@tape.xyz/generic";
 import type {
   CreateUnblockProfilesBroadcastItemResult,
   Profile,
-  WhoHaveBlockedRequest,
+  WhoHaveBlockedRequest
 } from "@tape.xyz/lens";
 import {
   LimitType,
   useBroadcastOnchainMutation,
   useCreateUnblockProfilesTypedDataMutation,
   useUnblockMutation,
-  useWhoHaveBlockedQuery,
+  useWhoHaveBlockedQuery
 } from "@tape.xyz/lens";
 import { useApolloClient } from "@tape.xyz/lens/apollo";
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
@@ -61,14 +61,14 @@ const List = () => {
   const updateCache = () => {
     const normalizedId = cache.identify({
       id: unblockingProfileId,
-      __typename: "Profile",
+      __typename: "Profile"
     });
     cache.evict({ id: normalizedId });
     cache.gc();
   };
 
   const onCompleted = (
-    __typename?: "RelayError" | "RelaySuccess" | "LensProfileManagerRelayError",
+    __typename?: "RelayError" | "RelaySuccess" | "LensProfileManagerRelayError"
   ) => {
     if (
       __typename === "RelayError" ||
@@ -84,7 +84,7 @@ const List = () => {
   const request: WhoHaveBlockedRequest = { limit: LimitType.Fifty };
   const { data, loading, error, fetchMore } = useWhoHaveBlockedQuery({
     variables: { request },
-    skip: !activeProfile?.id,
+    skip: !activeProfile?.id
   });
   const pageInfo = data?.whoHaveBlocked?.pageInfo;
 
@@ -96,22 +96,22 @@ const List = () => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next,
-          },
-        },
+            cursor: pageInfo?.next
+          }
+        }
       });
-    },
+    }
   });
 
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError },
+    mutation: { onError }
   });
 
   const { writeContractAsync } = useWriteContract({
     mutation: {
       onSuccess: () => onCompleted(),
-      onError,
-    },
+      onError
+    }
   });
 
   const write = async ({ args }: { args: any[] }) => {
@@ -119,18 +119,18 @@ const List = () => {
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
       functionName: "setBlockStatus",
-      args,
+      args
     });
   };
 
   const [broadcast] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) =>
       onCompleted(broadcastOnchain.__typename),
-    onError,
+    onError
   });
 
   const broadcastTypedData = async (
-    typedDataResult: CreateUnblockProfilesBroadcastItemResult,
+    typedDataResult: CreateUnblockProfilesBroadcastItemResult
   ) => {
     const { typedData, id } = typedDataResult;
     const { byProfileId, idsOfProfilesToSetBlockStatus, blockStatus } =
@@ -142,7 +142,7 @@ const List = () => {
         const signature = await signTypedDataAsync(getSignature(typedData));
         setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
         const { data } = await broadcast({
-          variables: { request: { id, signature } },
+          variables: { request: { id, signature } }
         });
         if (data?.broadcastOnchain?.__typename === "RelayError") {
           return await write({ args });
@@ -159,19 +159,19 @@ const List = () => {
     onCompleted: ({ createUnblockProfilesTypedData }) => {
       broadcastTypedData(createUnblockProfilesTypedData);
     },
-    onError,
+    onError
   });
 
   const [unBlock] = useUnblockMutation({
     onCompleted: async ({ unblock }) => {
       if (unblock.__typename === "LensProfileManagerRelayError") {
         return await createUnBlockTypedData({
-          variables: { request: { profiles: [unblockingProfileId] } },
+          variables: { request: { profiles: [unblockingProfileId] } }
         });
       }
       onCompleted(unblock.__typename);
     },
-    onError,
+    onError
   });
 
   const blockedProfiles = data?.whoHaveBlocked.items as Profile[];
@@ -195,9 +195,9 @@ const List = () => {
       await unBlock({
         variables: {
           request: {
-            profiles: [profileId],
-          },
-        },
+            profiles: [profileId]
+          }
+        }
       });
     } catch (error: any) {
       onError(error);
@@ -214,8 +214,8 @@ const List = () => {
           <div
             style={{
               backgroundImage: `url(${imageCdn(
-                sanitizeDStorageUrl(getProfileCoverPicture(profile, true)),
-              )})`,
+                sanitizeDStorageUrl(getProfileCoverPicture(profile, true))
+              )})`
             }}
             className="relative h-20 w-full bg-brand-500 bg-center bg-cover bg-no-repeat"
           >

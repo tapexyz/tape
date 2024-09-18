@@ -10,8 +10,8 @@ const APPROVED_UNKNOWN_OPEN_ACTIONS = [
     description:
       "Anyone can directly tip the creator of this publication with any of the supported currencies.",
     address: "",
-    data: "",
-  },
+    data: ""
+  }
 ];
 
 const OpenActionSettings = () => {
@@ -63,8 +63,8 @@ const OpenActionSettings = () => {
                     if (checked) {
                       return setSelected(
                         APPROVED_UNKNOWN_OPEN_ACTIONS.find(
-                          (action) => action.address === address,
-                        ) as (typeof APPROVED_UNKNOWN_OPEN_ACTIONS)[0],
+                          (action) => action.address === address
+                        ) as (typeof APPROVED_UNKNOWN_OPEN_ACTIONS)[0]
                       );
                     }
                     setSelected(null);
@@ -72,7 +72,7 @@ const OpenActionSettings = () => {
                 />
                 <p className="text-sm opacity-80">{description}</p>
               </div>
-            ),
+            )
           )}
 
           <div className="flex justify-end pt-4">

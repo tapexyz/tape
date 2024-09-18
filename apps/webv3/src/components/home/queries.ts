@@ -5,7 +5,7 @@ import {
   PublicationMetadataMainFocusType,
   PublicationType,
   PublicationsDocument,
-  execute,
+  execute
 } from "@tape.xyz/lens/gql";
 
 export const publicationsQuery = infiniteQueryOptions({
@@ -17,7 +17,7 @@ export const publicationsQuery = infiniteQueryOptions({
           publicationTypes: [PublicationType.Post],
           metadata: {
             mainContentFocus: [PublicationMetadataMainFocusType.Video],
-            publishedOn: [TAPE_APP_ID],
+            publishedOn: [TAPE_APP_ID]
           },
           from: [
             "0x020b57",
@@ -69,13 +69,13 @@ export const publicationsQuery = infiniteQueryOptions({
             "0xbf42",
             "0x01944f",
             "0x0161ba",
-            "0x7dee",
-          ],
+            "0x7dee"
+          ]
         },
         limit: LimitType.Fifty,
-        cursor: pageParam,
-      },
+        cursor: pageParam
+      }
     }),
   initialPageParam: null,
-  getNextPageParam: (lastPage) => lastPage.publications.pageInfo.next,
+  getNextPageParam: (lastPage) => lastPage.publications.pageInfo.next
 });

@@ -17,7 +17,7 @@ interface AuthState {
 
 const cookieConfig: Cookies.CookieAttributes = {
   sameSite: "strict",
-  secure: true,
+  secure: true
 };
 
 const useAuthPersistStore = create<AuthState>(() => ({
@@ -35,9 +35,9 @@ const useAuthPersistStore = create<AuthState>(() => ({
   hydrateAuthTokens: () => {
     return {
       accessToken: Cookies.get("accessToken"),
-      refreshToken: Cookies.get("refreshToken"),
+      refreshToken: Cookies.get("refreshToken")
     };
-  },
+  }
 }));
 
 export default useAuthPersistStore;

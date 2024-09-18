@@ -22,7 +22,7 @@ export class HashtagMatcher extends Matcher {
   match(value: string) {
     return this.doMatch(value, /\B#[\w&-i̇]+/, (matches) => {
       return {
-        display: matches[0],
+        display: matches[0]
       };
     });
   }

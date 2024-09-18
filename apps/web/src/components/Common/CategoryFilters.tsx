@@ -39,7 +39,7 @@ const CategoryFilters: FC<Props> = ({ heading }) => {
             "whitespace-nowrap px-10 py-2.5 font-medium",
             activeTagFilter === "all"
               ? "border-brand-400 border-b-2 bg-gradient-to-t from-brand-50 to-transparent dark:from-brand-950"
-              : "border-b dark:border-gray-800",
+              : "border-b dark:border-gray-800"
           )}
           onClick={() => onFilter("all")}
         >
@@ -53,7 +53,7 @@ const CategoryFilters: FC<Props> = ({ heading }) => {
               "whitespace-nowrap px-6 py-2.5 font-medium",
               activeTagFilter === category.tag
                 ? "border-brand-400 border-b-2 bg-gradient-to-t from-brand-50 to-transparent dark:from-brand-950"
-                : "border-b dark:border-gray-800",
+                : "border-b dark:border-gray-800"
             )}
             onClick={() => onFilter(category.tag)}
           >

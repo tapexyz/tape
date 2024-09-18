@@ -4,7 +4,7 @@ import {
   TESTNET_ALLOWED_TOKENS,
   WORKER_ALLOWED_TOKENS_URL,
   WORKER_TOGGLES_URL,
-  WORKER_VERIFIED_URL,
+  WORKER_VERIFIED_URL
 } from "@tape.xyz/constants";
 import axios from "axios";
 
@@ -16,11 +16,11 @@ import useVerifiedStore from "@/lib/store/idb/verified";
 const TogglesProvider = () => {
   const activeProfile = useProfileStore((state) => state.activeProfile);
   const setVerifiedProfiles = useVerifiedStore(
-    (state) => state.setVerifiedProfiles,
+    (state) => state.setVerifiedProfiles
   );
   const setToggles = useProfileTogglesStore((state) => state.setToggles);
   const setAllowedTokens = useAllowedTokensStore(
-    (state) => state.setAllowedTokens,
+    (state) => state.setAllowedTokens
   );
 
   const fetchVerifiedProfiles = async () => {
@@ -30,25 +30,25 @@ const TogglesProvider = () => {
 
   useQuery({
     queryKey: ["fetchVerifiedProfiles"],
-    queryFn: fetchVerifiedProfiles,
+    queryFn: fetchVerifiedProfiles
   });
 
   const fetchProfileToggles = async () => {
     const { data } = await axios.get(
-      `${WORKER_TOGGLES_URL}/${activeProfile?.id}`,
+      `${WORKER_TOGGLES_URL}/${activeProfile?.id}`
     );
     setToggles(
       data?.toggles ?? {
         suspended: false,
-        limited: false,
-      },
+        limited: false
+      }
     );
   };
 
   useQuery({
     queryKey: ["fetchProfileToggles"],
     queryFn: fetchProfileToggles,
-    enabled: Boolean(activeProfile),
+    enabled: Boolean(activeProfile)
   });
 
   const fetchAllowedTokens = async () => {
@@ -60,7 +60,7 @@ const TogglesProvider = () => {
   useQuery({
     queryKey: ["fetchAllowedTokens"],
     queryFn: fetchAllowedTokens,
-    enabled: Boolean(activeProfile),
+    enabled: Boolean(activeProfile)
   });
 
   return null;

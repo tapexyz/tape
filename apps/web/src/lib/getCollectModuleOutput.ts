@@ -8,13 +8,13 @@ export const getCollectModuleOutput = (openActionModule: OpenActionModule) => {
       value: "",
       assetAddress: "",
       assetDecimals: "",
-      assetSymbol: "",
+      assetSymbol: ""
     },
     recipient: "",
     recipients: [],
     referralFee: 0,
     endsAt: "",
-    followerOnly: false,
+    followerOnly: false
   };
   switch (openActionModule.__typename) {
     case "SimpleCollectOpenActionSettings":
@@ -27,12 +27,12 @@ export const getCollectModuleOutput = (openActionModule: OpenActionModule) => {
           assetSymbol: openActionModule.amount?.asset.symbol,
           assetAddress: openActionModule.amount?.asset.contract.address,
           assetDecimals: openActionModule.amount?.asset.decimals,
-          fiat: openActionModule.amount?.asFiat?.value ?? "0",
+          fiat: openActionModule.amount?.asFiat?.value ?? "0"
         },
         recipient: openActionModule.recipient,
         referralFee: openActionModule.referralFee,
         endsAt: openActionModule.endsAt,
-        followerOnly: openActionModule.followerOnly,
+        followerOnly: openActionModule.followerOnly
       };
     case "MultirecipientFeeCollectOpenActionSettings":
     case "LegacyMultirecipientFeeCollectModuleSettings":
@@ -44,12 +44,12 @@ export const getCollectModuleOutput = (openActionModule: OpenActionModule) => {
           assetSymbol: openActionModule.amount?.asset.symbol,
           assetAddress: openActionModule.amount?.asset.contract.address,
           assetDecimals: openActionModule.amount?.asset.decimals,
-          fiat: openActionModule.amount?.asFiat?.value ?? 0,
+          fiat: openActionModule.amount?.asFiat?.value ?? 0
         },
         recipients: openActionModule.recipients,
         referralFee: openActionModule.referralFee,
         endsAt: openActionModule.endsAt,
-        followerOnly: openActionModule.followerOnly,
+        followerOnly: openActionModule.followerOnly
       };
     default:
       break;

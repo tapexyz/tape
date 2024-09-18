@@ -11,7 +11,7 @@ export const Profile = () => {
   const { handle } = useParams<{ handle: string }>();
 
   const { data } = useSuspenseQuery(
-    profileQuery(`${LENS_NAMESPACE_PREFIX}${handle}`),
+    profileQuery(`${LENS_NAMESPACE_PREFIX}${handle}`)
   );
 
   if (!data.profile) {

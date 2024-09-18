@@ -1,7 +1,7 @@
 import { TAPE_APP_NAME } from "@tape.xyz/constants";
 import {
   checkLensManagerPermissions,
-  getIsProfileOwner,
+  getIsProfileOwner
 } from "@tape.xyz/generic";
 import { useAccount } from "wagmi";
 

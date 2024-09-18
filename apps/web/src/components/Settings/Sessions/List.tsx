@@ -3,7 +3,7 @@ import type { ApprovedAuthenticationRequest } from "@tape.xyz/lens";
 import {
   LimitType,
   useApprovedAuthenticationsQuery,
-  useRevokeAuthenticationMutation,
+  useRevokeAuthenticationMutation
 } from "@tape.xyz/lens";
 import {
   Accordion,
@@ -12,7 +12,7 @@ import {
   AccordionTrigger,
   Button,
   ChevronDownOutline,
-  Spinner,
+  Spinner
 } from "@tape.xyz/ui";
 import { useState } from "react";
 import { useInView } from "react-cool-inview";
@@ -39,7 +39,7 @@ const List = () => {
   const request: ApprovedAuthenticationRequest = { limit: LimitType.Fifty };
   const { data, loading, error, fetchMore } = useApprovedAuthenticationsQuery({
     variables: { request },
-    skip: !activeProfile?.id,
+    skip: !activeProfile?.id
   });
   const sessions = data?.approvedAuthentications?.items;
 
@@ -53,11 +53,11 @@ const List = () => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next,
-          },
-        },
+            cursor: pageInfo?.next
+          }
+        }
       });
-    },
+    }
   });
 
   const [revokeAuthentication] = useRevokeAuthenticationMutation({
@@ -65,7 +65,7 @@ const List = () => {
     onError,
     update: (cache) => {
       cache.evict({ id: "ROOT_QUERY" });
-    },
+    }
   });
 
   if (loading) {
@@ -80,7 +80,7 @@ const List = () => {
     try {
       setRevokingSessionId(authorizationId);
       return await revokeAuthentication({
-        variables: { request: { authorizationId } },
+        variables: { request: { authorizationId } }
       });
     } catch (error) {
       onError(error);

@@ -1,7 +1,7 @@
 import {
   getLennyPicture,
   getProfile,
-  getProfilePicture,
+  getProfilePicture
 } from "@tape.xyz/generic";
 import type { FollowNotification, Profile } from "@tape.xyz/lens";
 import { FollowOutline } from "@tape.xyz/ui";

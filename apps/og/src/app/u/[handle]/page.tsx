@@ -2,7 +2,7 @@ import {
   LENS_NAMESPACE_PREFIX,
   TAPE_APP_DESCRIPTION,
   TAPE_APP_NAME,
-  TAPE_WEBSITE_URL,
+  TAPE_WEBSITE_URL
 } from "@tape.xyz/constants";
 import { getProfile, getProfilePicture } from "@tape.xyz/generic";
 import type { Profile } from "@tape.xyz/lens";
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { handle } = params;
   const { data } = await client.query({
     query: ProfileDocument,
-    variables: { request: { forHandle: `${LENS_NAMESPACE_PREFIX}${handle}` } },
+    variables: { request: { forHandle: `${LENS_NAMESPACE_PREFIX}${handle}` } }
   });
 
   if (!data.profile) {
@@ -46,14 +46,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
       type: "profile",
       images: [pfp],
-      siteName: TAPE_APP_NAME,
+      siteName: TAPE_APP_NAME
     },
     twitter: {
       title,
       description,
       card: "summary",
-      images: [pfp],
-    },
+      images: [pfp]
+    }
   };
 }
 

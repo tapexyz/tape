@@ -15,7 +15,7 @@ export const RangeSlider = forwardRef<
     <SliderPrimitive.Root
       className={tw(
         "relative flex h-5 w-full touch-none select-none items-center",
-        className,
+        className
       )}
       max={100}
       step={1}

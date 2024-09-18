@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 export const Countdown = ({
   timestamp,
-  endText,
+  endText
 }: {
   timestamp: string;
   endText: string;
@@ -41,7 +41,7 @@ export const Countdown = ({
   const formatTime = (time: number) => {
     const years = Math.floor(time / (365 * 24 * 60 * 60 * 1000)); // Calculate years
     const days = Math.floor(
-      (time % (365 * 24 * 60 * 60 * 1000)) / (24 * 60 * 60 * 1000),
+      (time % (365 * 24 * 60 * 60 * 1000)) / (24 * 60 * 60 * 1000)
     ); // Calculate days
     const hours = Math.floor((time % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000)); // Calculate hours
     const minutes = Math.floor((time % (60 * 60 * 1000)) / (60 * 1000)); // Calculate minutes

@@ -19,18 +19,27 @@ const objectSchema = object({
   referrer: string().nullable().optional(),
   platform: string(),
   fingerprint: string().nullable().optional(),
-  properties: any(),
+  created: string(),
+  properties: any()
 });
 
 type RequestInput = z.infer<typeof objectSchema>;
 
 const processEvent = async (req: HonoRequest, event: RequestInput) => {
-  const { name, actor, url, referrer, platform, properties, fingerprint } =
-    event;
+  const {
+    name,
+    actor,
+    url,
+    referrer,
+    platform,
+    properties,
+    fingerprint,
+    created
+  } = event;
 
   if (!checkEventExistence(ALL_EVENTS, name)) {
     return new Response(
-      JSON.stringify({ success: false, error: "Invalid event" }),
+      JSON.stringify({ success: false, error: "Invalid event" })
     );
   }
 
@@ -48,9 +57,13 @@ const processEvent = async (req: HonoRequest, event: RequestInput) => {
   const { IP_API_KEY } = process.env;
   try {
     const ipResponse = await fetch(
-      `https://pro.ip-api.com/json/${ip}?key=${IP_API_KEY}`,
+      `https://pro.ip-api.com/json/${ip}?key=${IP_API_KEY}`
     );
-    ipData = (await ipResponse.json()) as any;
+    ipData = (await ipResponse.json()) as {
+      city: string;
+      country: string;
+      regionName: string;
+    };
   } catch {}
 
   // Extract UTM parameters
@@ -80,6 +93,7 @@ const processEvent = async (req: HonoRequest, event: RequestInput) => {
     utm_term: utmTerm || null,
     utm_content: utmContent || null,
     fingerprint: fingerprint || null,
+    created
   };
 
   await rPush(REDIS_KEYS.TOWER_EVENTS, JSON.stringify(value));
@@ -99,7 +113,7 @@ app.post("/", zValidator("json", objectSchema), async (c) => {
 });
 
 const batchValidationSchema = object({
-  events: array(objectSchema),
+  events: array(objectSchema)
 });
 type BatchRequestInput = z.infer<typeof batchValidationSchema>;
 

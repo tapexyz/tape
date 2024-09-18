@@ -2,7 +2,7 @@ import type { Profile } from "@tape.xyz/lens";
 
 export const getProfileCoverPicture = (
   profile: Profile,
-  withFallback = false,
+  withFallback = false
 ): string => {
   return profile.metadata?.coverPicture?.optimized?.uri
     ? profile.metadata.coverPicture.optimized.uri

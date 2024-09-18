@@ -3,7 +3,7 @@ import {
   getLennyPicture,
   getProfile,
   getProfilePicture,
-  getPublicationData,
+  getPublicationData
 } from "@tape.xyz/generic";
 import {
   type Comment,
@@ -12,12 +12,12 @@ import {
   LimitType,
   type Profile,
   type PublicationsRequest,
-  usePublicationsQuery,
+  usePublicationsQuery
 } from "@tape.xyz/lens";
 import {
   ChevronDownOutline,
   ChevronUpOutline,
-  ReplyOutline,
+  ReplyOutline
 } from "@tape.xyz/ui";
 import Link from "next/link";
 import type { FC } from "react";
@@ -91,15 +91,15 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
       commentOn: {
         id: comment.id,
         ranking: {
-          filter: CommentRankingFilterType.All,
-        },
-      },
-    },
+          filter: CommentRankingFilterType.All
+        }
+      }
+    }
   };
 
   const { data, loading, error, fetchMore } = usePublicationsQuery({
     variables: { request },
-    skip: !comment.id,
+    skip: !comment.id
   });
 
   const comments = data?.publications?.items as unknown as Comment[];
@@ -111,9 +111,9 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
       variables: {
         request: {
           ...request,
-          cursor: pageInfo?.next,
-        },
-      },
+          cursor: pageInfo?.next
+        }
+      }
     });
   };
 
@@ -180,7 +180,7 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
                 <CommentOptions comment={comment} />
               </div>
             </div>
-          ),
+          )
       )}
       {pageInfo?.next && hasMore ? (
         <button

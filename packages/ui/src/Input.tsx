@@ -9,9 +9,9 @@ const ShakeAnimation = {
     marginLeft: [0, 2, -2, 0],
     transition: {
       duration: 0.2,
-      ease: "easeInOut",
-    },
-  },
+      ease: "easeInOut"
+    }
+  }
 };
 
 interface InputProps extends Omit<ComponentProps<"input">, "prefix"> {
@@ -26,7 +26,7 @@ interface InputProps extends Omit<ComponentProps<"input">, "prefix"> {
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     { className, label, prefix, suffix, showError = true, error, ...props },
-    ref,
+    ref
   ) => {
     const id = useId();
     const controls = useAnimation();
@@ -60,7 +60,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             variants={ShakeAnimation}
             className={tw(
               prefix ? "rounded-r-lg" : "rounded-lg",
-              "flex w-full items-center",
+              "flex w-full items-center"
             )}
           >
             <input
@@ -72,7 +72,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                     ? "rounded-l-lg"
                     : "rounded-lg",
                 "w-full border-none bg-gray-100 px-3 py-2 focus:outline-none dark:bg-gray-900",
-                className,
+                className
               )}
               id={id}
               ref={ref}
@@ -90,7 +90,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         ) : null}
       </label>
     );
-  },
+  }
 );
 
 Input.displayName = "Input";

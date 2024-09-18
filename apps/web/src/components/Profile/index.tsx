@@ -3,7 +3,7 @@ import {
   EVENTS,
   getIsSuspendedProfile,
   getProfile,
-  getValueFromKeyInAttributes,
+  getValueFromKeyInAttributes
 } from "@tape.xyz/generic";
 import type { Profile, ProfileRequest } from "@tape.xyz/lens";
 import { useProfileQuery } from "@tape.xyz/lens";
@@ -40,9 +40,9 @@ const ViewProfile = () => {
 
   const { data, loading, error } = useProfileQuery({
     variables: {
-      request,
+      request
     },
-    skip: !forProfileId && !handle,
+    skip: !forProfileId && !handle
   });
 
   if (loading || !data) {
@@ -67,7 +67,7 @@ const ViewProfile = () => {
 
   const pinnedVideoId = getValueFromKeyInAttributes(
     profile?.metadata?.attributes,
-    "pinnedPublicationId",
+    "pinnedPublicationId"
   );
 
   const slugWithPrefix = getProfile(profile)?.slugWithPrefix;

@@ -55,5 +55,10 @@
   },
   "formatter": {
     "indentStyle": "space"
+  },
+  "javascript": {
+    "formatter": {
+      "trailingCommas": "none"
+    }
   }
 }

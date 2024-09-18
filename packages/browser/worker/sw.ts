@@ -10,7 +10,7 @@ const sendBatchedEvents = async () => {
       await fetch(EVENTS_BATCH_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ events: eventsToSend }),
+        body: JSON.stringify({ events: eventsToSend })
       });
     } catch (error) {
       console.error("[SW] Error sending events:", error);

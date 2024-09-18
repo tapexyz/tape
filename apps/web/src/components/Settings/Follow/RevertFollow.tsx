@@ -2,21 +2,21 @@ import { LENSHUB_PROXY_ABI } from "@tape.xyz/abis";
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  REQUESTING_SIGNATURE_MESSAGE,
+  REQUESTING_SIGNATURE_MESSAGE
 } from "@tape.xyz/constants";
 import {
   EVENTS,
   checkLensManagerPermissions,
-  getSignature,
+  getSignature
 } from "@tape.xyz/generic";
 import type {
   CreateSetFollowModuleBroadcastItemResult,
-  Profile,
+  Profile
 } from "@tape.xyz/lens";
 import {
   FollowModuleType,
   useBroadcastOnchainMutation,
-  useCreateSetFollowModuleTypedDataMutation,
+  useCreateSetFollowModuleTypedDataMutation
 } from "@tape.xyz/lens";
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
 import { Button, Spinner } from "@tape.xyz/ui";
@@ -38,13 +38,13 @@ const RevertFollow = ({ profile }: Props) => {
   const { addEventToQueue } = useSw();
   const [loading, setLoading] = useState(false);
   const [isRevertFollow, setIsRevertFollow] = useState(
-    profile.followModule?.type === FollowModuleType.RevertFollowModule,
+    profile.followModule?.type === FollowModuleType.RevertFollowModule
   );
   const lensHubOnchainSigNonce = useNonceStore(
-    (state) => state.lensHubOnchainSigNonce,
+    (state) => state.lensHubOnchainSigNonce
   );
   const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce,
+    (state) => state.setLensHubOnchainSigNonce
   );
   const activeProfile = useProfileStore((state) => state.activeProfile);
   const handleWrongNetwork = useHandleWrongNetwork();
@@ -66,17 +66,17 @@ const RevertFollow = ({ profile }: Props) => {
   };
 
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError },
+    mutation: { onError }
   });
 
   const [broadcast, { data: broadcastData }] = useBroadcastOnchainMutation({
-    onError,
+    onError
   });
 
   const { data: txHash, writeContractAsync } = useWriteContract({
     mutation: {
-      onError,
-    },
+      onError
+    }
   });
 
   const write = async ({ args }: { args: any[] }) => {
@@ -84,15 +84,15 @@ const RevertFollow = ({ profile }: Props) => {
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
       functionName: "setFollowModule",
-      args,
+      args
     });
   };
 
   const { indexed } = usePendingTxn({
     txHash,
     ...(broadcastData?.broadcastOnchain.__typename === "RelaySuccess" && {
-      txId: broadcastData?.broadcastOnchain?.txId,
-    }),
+      txId: broadcastData?.broadcastOnchain?.txId
+    })
   });
 
   useEffect(() => {
@@ -115,7 +115,7 @@ const RevertFollow = ({ profile }: Props) => {
             const signature = await signTypedDataAsync(getSignature(typedData));
             setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
             const { data } = await broadcast({
-              variables: { request: { id, signature } },
+              variables: { request: { id, signature } }
             });
             if (data?.broadcastOnchain?.__typename === "RelayError") {
               return await write({ args });
@@ -127,7 +127,7 @@ const RevertFollow = ({ profile }: Props) => {
           setLoading(false);
         }
       },
-      onError,
+      onError
     });
 
   const toggleRevert = async (revertFollowModule: boolean) => {
@@ -138,9 +138,9 @@ const RevertFollow = ({ profile }: Props) => {
       variables: {
         options: { overrideSigNonce: lensHubOnchainSigNonce },
         request: {
-          followModule: { revertFollowModule },
-        },
-      },
+          followModule: { revertFollowModule }
+        }
+      }
     });
   };
 

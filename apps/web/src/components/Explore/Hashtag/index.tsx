@@ -3,17 +3,17 @@ import {
   INFINITE_SCROLL_ROOT_MARGIN,
   IS_MAINNET,
   LENSTUBE_BYTES_APP_ID,
-  TAPE_APP_ID,
+  TAPE_APP_ID
 } from "@tape.xyz/constants";
 import type {
   PrimaryPublication,
-  PublicationSearchRequest,
+  PublicationSearchRequest
 } from "@tape.xyz/lens";
 import {
   CustomFiltersType,
   LimitType,
   PublicationMetadataMainFocusType,
-  useSearchPublicationsQuery,
+  useSearchPublicationsQuery
 } from "@tape.xyz/lens";
 import { Spinner } from "@tape.xyz/ui";
 import { useRouter } from "next/router";
@@ -35,19 +35,19 @@ const ExploreHashtag = () => {
         publishedOn: IS_MAINNET
           ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
           : undefined,
-        mainContentFocus: [PublicationMetadataMainFocusType.Video],
+        mainContentFocus: [PublicationMetadataMainFocusType.Video]
       },
-      customFilters: [CustomFiltersType.Gardeners],
+      customFilters: [CustomFiltersType.Gardeners]
     },
     query: hashtag,
-    limit: LimitType.Fifty,
+    limit: LimitType.Fifty
   };
 
   const { data, loading, error, fetchMore } = useSearchPublicationsQuery({
     variables: {
-      request,
+      request
     },
-    skip: !hashtag,
+    skip: !hashtag
   });
 
   const videos = data?.searchPublications
@@ -61,11 +61,11 @@ const ExploreHashtag = () => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next,
-          },
-        },
+            cursor: pageInfo?.next
+          }
+        }
       });
-    },
+    }
   });
 
   if (!hashtag) {

@@ -10,11 +10,11 @@ async function deployProxy() {
   // const permissionlessCreator = '0xCb4FB63c3f13CB83cCD6F10E9e5F29eC250329Cc'
 
   const TapePermissionlessCreator = await hre.ethers.getContractFactory(
-    "TapePermissionlessCreator",
+    "TapePermissionlessCreator"
   );
   const deployProxy = await hre.upgrades.deployProxy(
     TapePermissionlessCreator,
-    [owner, permissionlessCreator],
+    [owner, permissionlessCreator]
   );
   await deployProxy.waitForDeployment();
 
@@ -24,7 +24,7 @@ async function deployProxy() {
   const currentImplAddress =
     await hre.upgrades.erc1967.getImplementationAddress(proxyAddress);
   console.log(
-    `TapePermissonlessCreator Implementation deployed to ${currentImplAddress}`,
+    `TapePermissonlessCreator Implementation deployed to ${currentImplAddress}`
   );
 }
 

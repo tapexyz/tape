@@ -1,7 +1,7 @@
 import {
   getLennyPicture,
   getProfile,
-  getProfilePicture,
+  getProfilePicture
 } from "@tape.xyz/generic";
 import type { MutualFollowersRequest, Profile } from "@tape.xyz/lens";
 import { LimitType, useMutualFollowersQuery } from "@tape.xyz/lens";
@@ -23,14 +23,14 @@ const MutualFollowers: FC<Props> = ({ viewing }) => {
   const request: MutualFollowersRequest = {
     viewing,
     observer: activeProfile?.id,
-    limit: LimitType.Fifty,
+    limit: LimitType.Fifty
   };
 
   const { data, loading, fetchMore } = useMutualFollowersQuery({
     variables: {
-      request,
+      request
     },
-    skip: !viewing,
+    skip: !viewing
   });
 
   const mutualFollowers = data?.mutualFollowers?.items as Profile[];
@@ -42,11 +42,11 @@ const MutualFollowers: FC<Props> = ({ viewing }) => {
         variables: {
           request: {
             ...request,
-            cursor: pageInfo?.next,
-          },
-        },
+            cursor: pageInfo?.next
+          }
+        }
       });
-    },
+    }
   });
 
   if (loading) {

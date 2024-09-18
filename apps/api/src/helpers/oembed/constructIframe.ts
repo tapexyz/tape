@@ -6,7 +6,7 @@ const ALLOWED_EMBEDS = [
   "youtube.com",
   "youtu.be",
   "embed.tape.xyz",
-  "player.vimeo.com",
+  "player.vimeo.com"
 ];
 
 const constructIframe = (document: Document) => {

@@ -2,14 +2,14 @@ import { tw, useDebounce, useOutsideClick } from "@tape.xyz/browser";
 import {
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
-  TAPE_APP_ID,
+  TAPE_APP_ID
 } from "@tape.xyz/constants";
 import { EVENTS } from "@tape.xyz/generic";
 import type {
   PrimaryPublication,
   Profile,
   ProfileSearchRequest,
-  PublicationSearchRequest,
+  PublicationSearchRequest
 } from "@tape.xyz/lens";
 import {
   CustomFiltersType,
@@ -17,7 +17,7 @@ import {
   PublicationMetadataMainFocusType,
   SearchPublicationType,
   useSearchProfilesLazyQuery,
-  useSearchPublicationsLazyQuery,
+  useSearchPublicationsLazyQuery
 } from "@tape.xyz/lens";
 import { Input, SearchOutline, Spinner } from "@tape.xyz/ui";
 import { useEffect, useRef, useState } from "react";
@@ -42,7 +42,7 @@ const GlobalSearch = () => {
 
   const [
     searchPublications,
-    { data: publicationsData, loading: publicationsLoading },
+    { data: publicationsData, loading: publicationsLoading }
   ] = useSearchPublicationsLazyQuery();
 
   const [searchProfiles, { data: profilesData, loading: profilesLoading }] =
@@ -55,34 +55,34 @@ const GlobalSearch = () => {
       metadata: {
         mainContentFocus: [
           PublicationMetadataMainFocusType.Video,
-          PublicationMetadataMainFocusType.ShortVideo,
+          PublicationMetadataMainFocusType.ShortVideo
         ],
-        publishedOn: [TAPE_APP_ID, LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+        publishedOn: [TAPE_APP_ID, LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
       },
       publicationTypes: [SearchPublicationType.Post],
-      customFilters: [CustomFiltersType.Gardeners],
-    },
+      customFilters: [CustomFiltersType.Gardeners]
+    }
   };
 
   const profileSearchRequest: ProfileSearchRequest = {
     limit: LimitType.Ten,
     query: keyword,
     where: {
-      customFilters: [CustomFiltersType.Gardeners],
-    },
+      customFilters: [CustomFiltersType.Gardeners]
+    }
   };
 
   const onDebounce = () => {
     if (keyword.trim().length) {
       searchPublications({
         variables: {
-          request: publicationSearchRequest,
-        },
+          request: publicationSearchRequest
+        }
       });
       searchProfiles({
         variables: {
-          request: profileSearchRequest,
-        },
+          request: profileSearchRequest
+        }
       });
       addEventToQueue(EVENTS.SEARCH);
     }
@@ -120,7 +120,7 @@ const GlobalSearch = () => {
       <div
         className={tw(
           "tape-border no-scrollbar top-10 z-10 mt-1 w-full overflow-y-auto rounded-medium bg-white text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none md:absolute dark:bg-black",
-          { hidden: debouncedValue.length === 0 },
+          { hidden: debouncedValue.length === 0 }
         )}
       >
         <div style={{ maxHeight: "80vh" }}>

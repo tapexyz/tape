@@ -2,7 +2,7 @@ import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
-  TAPE_APP_ID,
+  TAPE_APP_ID
 } from "@tape.xyz/constants";
 import { EVENTS } from "@tape.xyz/generic";
 import type { Notification, NotificationRequest } from "@tape.xyz/lens";
@@ -30,10 +30,10 @@ import Reactions from "./Reactions";
 
 const Notifications = () => {
   const setHasNewNotification = useNotificationStore(
-    (state) => state.setHasNewNotification,
+    (state) => state.setHasNewNotification
   );
   const selectedNotificationsFilter = usePersistStore(
-    (state) => state.selectedNotificationsFilter,
+    (state) => state.selectedNotificationsFilter
   );
   const { addEventToQueue } = useSw();
 
@@ -47,15 +47,15 @@ const Notifications = () => {
       highSignalFilter:
         selectedNotificationsFilter ===
         CustomNotificationsFilterEnum.HIGH_SIGNAL,
-      publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, LENSTUBE_APP_ID],
-    },
+      publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, LENSTUBE_APP_ID]
+    }
   };
 
   const { data, loading, fetchMore } = useNotificationsQuery({
     variables: {
-      request,
+      request
     },
-    onCompleted: () => setHasNewNotification(false),
+    onCompleted: () => setHasNewNotification(false)
   });
 
   const notifications = data?.notifications?.items as Notification[];
@@ -68,11 +68,11 @@ const Notifications = () => {
         variables: {
           request: {
             cursor: pageInfo?.next,
-            ...request,
-          },
-        },
+            ...request
+          }
+        }
       });
-    },
+    }
   });
 
   return (

@@ -1,123 +1,123 @@
 export const CREATOR_VIDEO_CATEGORIES = [
   {
     name: "People & Blogs",
-    tag: "people",
+    tag: "people"
   },
   { name: "Music", tag: "music" },
   {
     name: "Podcast",
-    tag: "podcast",
+    tag: "podcast"
   },
   {
     name: "Arts",
-    tag: "arts",
+    tag: "arts"
   },
   {
     name: "Hobbies & Interests",
-    tag: "interests",
+    tag: "interests"
   },
   {
     name: "Comedy",
-    tag: "comedy",
+    tag: "comedy"
   },
   {
     name: "Health & Fitness",
-    tag: "health",
+    tag: "health"
   },
   {
     name: "Lens Ecosystem",
-    tag: "lens",
+    tag: "lens"
   },
   {
     name: "Food & Cooking",
-    tag: "food",
+    tag: "food"
   },
   {
     name: "Education",
-    tag: "education",
+    tag: "education"
   },
   {
     name: "Books & Literature",
-    tag: "literature",
+    tag: "literature"
   },
   {
     name: "Entertainment",
-    tag: "entertainment",
+    tag: "entertainment"
   },
   {
     name: "Home & Garden",
-    tag: "garden",
+    tag: "garden"
   },
   {
     name: "Crypto currency",
-    tag: "crypto",
+    tag: "crypto"
   },
   {
     name: "Film & Animation",
-    tag: "film",
+    tag: "film"
   },
   {
     name: "Business",
-    tag: "business",
+    tag: "business"
   },
   {
     name: "Family & Parenting",
-    tag: "family",
+    tag: "family"
   },
   {
     name: "Gaming",
-    tag: "gaming",
+    tag: "gaming"
   },
   {
     name: "Blockchain",
-    tag: "blockchain",
+    tag: "blockchain"
   },
   {
     name: "Howto & Style",
-    tag: "howto",
+    tag: "howto"
   },
   {
     name: "News & Politics",
-    tag: "news",
+    tag: "news"
   },
   {
     name: "Nonprofits & Activism",
-    tag: "nonprofits",
+    tag: "nonprofits"
   },
   {
     name: "Promotions",
-    tag: "promotions",
+    tag: "promotions"
   },
   {
     name: "Pets & Animals",
-    tag: "pets",
+    tag: "pets"
   },
   {
     name: "Wellness",
-    tag: "wellness",
+    tag: "wellness"
   },
   {
     name: "Science & Technology",
-    tag: "technology",
+    tag: "technology"
   },
   {
     name: "Sports",
-    tag: "sports",
+    tag: "sports"
   },
   {
     name: "Career",
-    tag: "career",
+    tag: "career"
   },
   {
     name: "Travel & Events",
-    tag: "travel",
+    tag: "travel"
   },
   {
     name: "Gadgets",
-    tag: "gadgets",
+    tag: "gadgets"
   },
   {
     name: "Autos & Vehicles",
-    tag: "vehicles",
-  },
+    tag: "vehicles"
+  }
 ];

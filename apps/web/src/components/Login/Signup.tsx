@@ -7,12 +7,12 @@ import {
   LENS_NAMESPACE_PREFIX,
   MOONPAY_URL,
   TAPE_SIGNUP_PROXY_ADDRESS,
-  ZERO_ADDRESS,
+  ZERO_ADDRESS
 } from "@tape.xyz/constants";
 import { EVENTS } from "@tape.xyz/generic";
 import {
   useGenerateLensApiRelayAddressQuery,
-  useHandleToAddressLazyQuery,
+  useHandleToAddressLazyQuery
 } from "@tape.xyz/lens";
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
 import {
@@ -23,7 +23,7 @@ import {
   Modal,
   Spinner,
   TimesOutline,
-  Tooltip,
+  Tooltip
 } from "@tape.xyz/ui";
 import Link from "next/link";
 import type { FC } from "react";
@@ -35,7 +35,7 @@ import {
   useAccount,
   useBalance,
   useReadContract,
-  useWriteContract,
+  useWriteContract
 } from "wagmi";
 import type { z } from "zod";
 import { object, string } from "zod";
@@ -56,8 +56,8 @@ const formSchema = object({
     .max(26, { message: "Handle should not exceed 26 characters" })
     .regex(COMMON_REGEX.HANDLE, {
       message:
-        "Handle must start with a letter/number, only _ allowed in between",
-    }),
+        "Handle must start with a letter/number, only _ allowed in between"
+    })
 });
 type FormData = z.infer<typeof formSchema>;
 
@@ -67,9 +67,9 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
     formState: { errors, isValid },
     handleSubmit,
     reset,
-    watch,
+    watch
   } = useForm<FormData>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema)
   });
 
   const [showModal, setShowModal] = useState(false);
@@ -84,14 +84,14 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
   const debouncedValue = useDebounce<string>(handle, 300);
   const { data: balanceData } = useBalance({
     address,
-    query: { refetchInterval: 2000 },
+    query: { refetchInterval: 2000 }
   });
 
   const { data: signupPrice } = useReadContract({
     abi: TAPE_SIGNUP_PROXY_ABI,
     address: TAPE_SIGNUP_PROXY_ADDRESS,
     functionName: "signupPrice",
-    query: { refetchInterval: 1000 },
+    query: { refetchInterval: 1000 }
   });
 
   const signupPriceFormatted = formatUnits((signupPrice ?? 0) as bigint, 18);
@@ -103,18 +103,18 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
     setCreating(false);
     addEventToQueue(EVENTS.AUTH.SIGNUP_SUCCESS, {
       price: signupPriceFormatted,
-      via,
+      via
     });
   };
 
   const { data } = useGenerateLensApiRelayAddressQuery({
-    fetchPolicy: "no-cache",
+    fetchPolicy: "no-cache"
   });
   const delegatedExecutor = data?.generateLensAPIRelayAddress;
 
   const [checkAvailability, { loading: checkingAvailability }] =
     useHandleToAddressLazyQuery({
-      fetchPolicy: "no-cache",
+      fetchPolicy: "no-cache"
     });
 
   const onError = (error: CustomErrorWithData) => {
@@ -124,8 +124,8 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
 
   const { writeContractAsync, data: txnHash } = useWriteContract({
     mutation: {
-      onError,
-    },
+      onError
+    }
   });
 
   const onSearchDebounce = async () => {
@@ -133,12 +133,12 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
       const { data } = await checkAvailability({
         variables: {
           request: {
-            handle: `${LENS_NAMESPACE_PREFIX}${handle}`,
-          },
-        },
+            handle: `${LENS_NAMESPACE_PREFIX}${handle}`
+          }
+        }
       });
       addEventToQueue(EVENTS.AUTH.SIGNUP_HANDLE_SEARCH, {
-        handle: `${LENS_NAMESPACE_PREFIX}${handle}`,
+        handle: `${LENS_NAMESPACE_PREFIX}${handle}`
       });
       if (data?.handleToAddress) {
         return setIsHandleAvailable(false);
@@ -149,8 +149,8 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
 
   const { indexed, error } = usePendingTxn({
     ...(txnHash && {
-      txHash: txnHash,
-    }),
+      txHash: txnHash
+    })
   });
 
   useEffect(() => {
@@ -181,7 +181,7 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
         address: TAPE_SIGNUP_PROXY_ADDRESS,
         args: [[address, ZERO_ADDRESS, "0x"], handle, [delegatedExecutor]],
         functionName: "createProfileWithHandleUsingCredits",
-        value: signupPrice as bigint,
+        value: signupPrice as bigint
       });
     } catch {
       setCreating(false);

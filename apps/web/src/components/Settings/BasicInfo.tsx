@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import type { ProfileOptions } from "@lens-protocol/metadata";
 import {
   MetadataAttributeType,
-  profile as profileMetadata,
+  profile as profileMetadata
 } from "@lens-protocol/metadata";
 import { LENSHUB_PROXY_ABI } from "@tape.xyz/abis";
 import { tw, uploadToIPFS } from "@tape.xyz/browser";
@@ -10,7 +10,7 @@ import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
-  TAPE_APP_ID,
+  TAPE_APP_ID
 } from "@tape.xyz/constants";
 import {
   EVENTS,
@@ -23,24 +23,24 @@ import {
   logger,
   sanitizeDStorageUrl,
   trimify,
-  uploadToAr,
+  uploadToAr
 } from "@tape.xyz/generic";
 import type { OnchainSetProfileMetadataRequest, Profile } from "@tape.xyz/lens";
 import {
   useBroadcastOnchainMutation,
   useCreateOnchainSetProfileMetadataTypedDataMutation,
-  useSetProfileMetadataMutation,
+  useSetProfileMetadataMutation
 } from "@tape.xyz/lens";
 import type {
   CustomErrorWithData,
-  IPFSUploadResult,
+  IPFSUploadResult
 } from "@tape.xyz/lens/custom-types";
 import {
   AddImageOutline,
   Button,
   Input,
   Spinner,
-  TextArea,
+  TextArea
 } from "@tape.xyz/ui";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -59,10 +59,10 @@ type Props = {
 
 const formSchema = object({
   displayName: string().max(30, {
-    message: "Name should not exceed 30 characters",
+    message: "Name should not exceed 30 characters"
   }),
   description: string().max(500, {
-    message: "Description should not exceed 500 characters",
+    message: "Description should not exceed 500 characters"
   }),
   x: string(),
   youtube: string(),
@@ -70,22 +70,22 @@ const formSchema = object({
   spotify: string(),
   website: union([
     string().url({
-      message: "Invalid website URL",
+      message: "Invalid website URL"
     }),
-    string().max(0),
-  ]),
+    string().max(0)
+  ])
 });
 type FormData = z.infer<typeof formSchema> & { coverImage?: string };
 
 const BasicInfo = ({ profile }: Props) => {
   const [loading, setLoading] = useState(false);
   const [coverImage, setCoverImage] = useState<string>(
-    profile.metadata?.coverPicture?.raw.uri,
+    profile.metadata?.coverPicture?.raw.uri
   );
   const [selectedPfp, setSelectedPfp] = useState<string | null>(
     profile.metadata?.picture?.__typename === "ImageSet"
       ? profile.metadata?.picture.raw.uri
-      : null,
+      : null
   );
   const [uploading, setUploading] = useState({ pfp: false, cover: false });
   const handleWrongNetwork = useHandleWrongNetwork();
@@ -98,7 +98,7 @@ const BasicInfo = ({ profile }: Props) => {
     handleSubmit,
     formState: { errors },
     getValues,
-    setValue,
+    setValue
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -106,22 +106,22 @@ const BasicInfo = ({ profile }: Props) => {
       description: profile.metadata?.bio ?? "",
       location: getValueFromKeyInAttributes(
         profile.metadata?.attributes,
-        "location",
+        "location"
       ),
       x: getValueFromKeyInAttributes(profile.metadata?.attributes, "x"),
       youtube: getValueFromKeyInAttributes(
         profile.metadata?.attributes,
-        "youtube",
+        "youtube"
       ),
       spotify: getValueFromKeyInAttributes(
         profile.metadata?.attributes,
-        "spotify",
+        "spotify"
       ),
       website: getValueFromKeyInAttributes(
         profile.metadata?.attributes,
-        "website",
-      ),
-    },
+        "website"
+      )
+    }
   });
 
   const onError = (error: CustomErrorWithData) => {
@@ -130,7 +130,7 @@ const BasicInfo = ({ profile }: Props) => {
   };
 
   const onCompleted = (
-    __typename?: "RelayError" | "RelaySuccess" | "LensProfileManagerRelayError",
+    __typename?: "RelayError" | "RelaySuccess" | "LensProfileManagerRelayError"
   ) => {
     if (
       __typename === "RelayError" ||
@@ -144,14 +144,14 @@ const BasicInfo = ({ profile }: Props) => {
   };
 
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError },
+    mutation: { onError }
   });
 
   const { writeContractAsync } = useWriteContract({
     mutation: {
       onError,
-      onSuccess: () => onCompleted(),
-    },
+      onSuccess: () => onCompleted()
+    }
   });
 
   const write = async ({ args }: { args: any[] }) => {
@@ -159,14 +159,14 @@ const BasicInfo = ({ profile }: Props) => {
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
       functionName: "setProfileMetadataURI",
-      args,
+      args
     });
   };
 
   const [broadcast] = useBroadcastOnchainMutation({
     onError,
     onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename),
+      onCompleted(broadcastOnchain.__typename)
   });
 
   const [createOnchainSetProfileMetadataTypedData] =
@@ -180,7 +180,7 @@ const BasicInfo = ({ profile }: Props) => {
           if (canBroadcast) {
             const signature = await signTypedDataAsync(getSignature(typedData));
             const { data } = await broadcast({
-              variables: { request: { id, signature } },
+              variables: { request: { id, signature } }
             });
             if (data?.broadcastOnchain?.__typename === "RelayError") {
               return await write({ args });
@@ -192,13 +192,13 @@ const BasicInfo = ({ profile }: Props) => {
           setLoading(false);
         }
       },
-      onError,
+      onError
     });
 
   const [setProfileMetadata] = useSetProfileMetadataMutation({
     onCompleted: ({ setProfileMetadata }) =>
       onCompleted(setProfileMetadata.__typename),
-    onError,
+    onError
   });
 
   const otherAttributes =
@@ -206,13 +206,13 @@ const BasicInfo = ({ profile }: Props) => {
       ?.filter(
         (attr) =>
           !["website", "location", "x", "youtube", "spotify", "app"].includes(
-            attr.key,
-          ),
+            attr.key
+          )
       )
       .map(({ key, value, type }) => ({
         key,
         value,
-        type: MetadataAttributeType[type] as any,
+        type: MetadataAttributeType[type] as any
       })) ?? [];
 
   const onSaveBasicInfo = async (data: FormData) => {
@@ -226,37 +226,37 @@ const BasicInfo = ({ profile }: Props) => {
           {
             type: MetadataAttributeType.STRING,
             key: "website",
-            value: data.website,
+            value: data.website
           },
           {
             type: MetadataAttributeType.STRING,
             key: "location",
-            value: data.location,
+            value: data.location
           },
           {
             type: MetadataAttributeType.STRING,
             key: "x",
-            value: data.x,
+            value: data.x
           },
           {
             type: MetadataAttributeType.STRING,
             key: "youtube",
-            value: data.youtube,
+            value: data.youtube
           },
           {
             type: MetadataAttributeType.STRING,
             key: "spotify",
-            value: data.spotify,
+            value: data.spotify
           },
           {
             type: MetadataAttributeType.STRING,
             key: "app",
-            value: TAPE_APP_ID,
-          },
-        ],
+            value: TAPE_APP_ID
+          }
+        ]
       };
       metadata.attributes = metadata.attributes?.filter(
-        (m) => Boolean(trimify(m.key)) && Boolean(trimify(m.value)),
+        (m) => Boolean(trimify(m.key)) && Boolean(trimify(m.value))
       );
       if (trimify(data.description)) {
         metadata.bio = trimify(data.description);
@@ -273,25 +273,25 @@ const BasicInfo = ({ profile }: Props) => {
 
       const metadataUri = await uploadToAr(profileMetadata(metadata));
       const request: OnchainSetProfileMetadataRequest = {
-        metadataURI: metadataUri,
+        metadataURI: metadataUri
       };
 
       if (canUseLensManager) {
         const { data } = await setProfileMetadata({
-          variables: { request },
+          variables: { request }
         });
         if (
           data?.setProfileMetadata?.__typename ===
           "LensProfileManagerRelayError"
         ) {
           return await createOnchainSetProfileMetadataTypedData({
-            variables: { request },
+            variables: { request }
           });
         }
         return;
       }
       return await createOnchainSetProfileMetadataTypedData({
-        variables: { request },
+        variables: { request }
       });
     } catch (error) {
       setLoading(false);
@@ -312,7 +312,7 @@ const BasicInfo = ({ profile }: Props) => {
             sanitizeDStorageUrl(coverImage) ||
             imageCdn(
               sanitizeDStorageUrl(getProfileCoverPicture(profile, true)),
-              "THUMBNAIL",
+              "THUMBNAIL"
             )
           }
           className="h-48 w-full rounded-small bg-brand-500 object-cover object-center md:h-56"
@@ -358,7 +358,7 @@ const BasicInfo = ({ profile }: Props) => {
               htmlFor="choosePfp"
               className={tw(
                 "invisible absolute top-0 grid size-32 cursor-pointer place-items-center rounded-full bg-white bg-opacity-70 backdrop-blur-lg group-hover:visible dark:bg-black",
-                { visible: uploading.pfp },
+                { visible: uploading.pfp }
               )}
             >
               {uploading.pfp ? (

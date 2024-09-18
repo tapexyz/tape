@@ -3,19 +3,19 @@ import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
-  SIGN_IN_REQUIRED,
+  SIGN_IN_REQUIRED
 } from "@tape.xyz/constants";
 import {
   EVENTS,
   checkLensManagerPermissions,
   getProfile,
-  getSignature,
+  getSignature
 } from "@tape.xyz/generic";
 import type { FollowLensManagerRequest, Profile } from "@tape.xyz/lens";
 import {
   useBroadcastOnchainMutation,
   useCreateFollowTypedDataMutation,
-  useFollowMutation,
+  useFollowMutation
 } from "@tape.xyz/lens";
 import type { CustomErrorWithData } from "@tape.xyz/lens/custom-types";
 import { Button } from "@tape.xyz/ui";
@@ -58,19 +58,19 @@ const Follow: FC<Props> = ({ profile, onSubscribe }) => {
     toast.success(`Followed ${getProfile(profile)?.displayName}`);
     addEventToQueue(EVENTS.PROFILE.FOLLOW, {
       profile_id: profile.id,
-      profile_name: getProfile(profile)?.slug,
+      profile_name: getProfile(profile)?.slug
     });
   };
 
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError },
+    mutation: { onError }
   });
 
   const { writeContractAsync } = useWriteContract({
     mutation: {
       onSuccess: () => onCompleted(),
-      onError,
-    },
+      onError
+    }
   });
 
   const write = async ({ args }: { args: any[] }) => {
@@ -78,14 +78,14 @@ const Follow: FC<Props> = ({ profile, onSubscribe }) => {
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
       functionName: "follow",
-      args,
+      args
     });
   };
 
   const [broadcast] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) =>
       onCompleted(broadcastOnchain.__typename),
-    onError,
+    onError
   });
 
   const [createFollowTypedData] = useCreateFollowTypedDataMutation({
@@ -95,13 +95,13 @@ const Follow: FC<Props> = ({ profile, onSubscribe }) => {
         followerProfileId,
         idsOfProfilesToFollow,
         followTokenIds,
-        datas,
+        datas
       } = typedData.value;
       const args = [
         followerProfileId,
         idsOfProfilesToFollow,
         followTokenIds,
-        datas,
+        datas
       ];
       try {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE);
@@ -109,7 +109,7 @@ const Follow: FC<Props> = ({ profile, onSubscribe }) => {
           const signature = await signTypedDataAsync(getSignature(typedData));
           setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
           const { data } = await broadcast({
-            variables: { request: { id, signature } },
+            variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain?.__typename === "RelayError") {
             return await write({ args });
@@ -121,12 +121,12 @@ const Follow: FC<Props> = ({ profile, onSubscribe }) => {
         setLoading(false);
       }
     },
-    onError,
+    onError
   });
 
   const [followMutation] = useFollowMutation({
     onCompleted: () => onCompleted(),
-    onError,
+    onError
   });
 
   const followViaLensManager = async (request: FollowLensManagerRequest) => {
@@ -136,8 +136,8 @@ const Follow: FC<Props> = ({ profile, onSubscribe }) => {
       return await createFollowTypedData({
         variables: {
           options: { overrideSigNonce: lensHubOnchainSigNonce },
-          request,
-        },
+          request
+        }
       });
     }
   };
@@ -152,9 +152,9 @@ const Follow: FC<Props> = ({ profile, onSubscribe }) => {
     const request = {
       follow: [
         {
-          profileId: profile.id,
-        },
-      ],
+          profileId: profile.id
+        }
+      ]
     };
 
     if (canUseLensManager) {
@@ -164,8 +164,8 @@ const Follow: FC<Props> = ({ profile, onSubscribe }) => {
     return await createFollowTypedData({
       variables: {
         options: { overrideSigNonce: lensHubOnchainSigNonce },
-        request,
-      },
+        request
+      }
     });
   };
 

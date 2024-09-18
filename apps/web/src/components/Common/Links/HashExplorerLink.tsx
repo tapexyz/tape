@@ -4,7 +4,7 @@ import type { ReactElement } from "react";
 
 const HashExplorerLink = ({
   hash,
-  children,
+  children
 }: {
   hash: string;
   children: ReactElement;

@@ -57,7 +57,7 @@ export const getShortHandTime = (dateString: string) => {
 
   if (diffInDays >= 1) {
     return targetDate.format(
-      now.year() === targetDate.year() ? "MMM D" : "MMM D, YYYY",
+      now.year() === targetDate.year() ? "MMM D" : "MMM D, YYYY"
     );
   }
   if (diffInHours >= 1) {
@@ -89,4 +89,12 @@ export const getUnixTimestampNDaysAgo = (days: number) => {
  */
 export const getReadableDateWithTime = (timestamp: string) => {
   return dayjs(timestamp).format("dddd, MMMM D, YYYY h:mm A");
+};
+
+/**
+ * getCurrentDateTime
+ * @returns current date and time in YYYY-MM-DD HH:mm:ss format (eg: 2023-03-01 03:88:00)
+ */
+export const getCurrentDateTime = () => {
+  return dayjs().format("YYYY-MM-DD HH:mm:ss");
 };

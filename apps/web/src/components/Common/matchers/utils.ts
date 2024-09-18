@@ -29,7 +29,7 @@ export interface CombinePatternsOptions {
 
 export function combinePatterns(
   patterns: RegExp[],
-  options: CombinePatternsOptions = {},
+  options: CombinePatternsOptions = {}
 ) {
   let regex = patterns
     .map((pattern) => pattern.source)
@@ -53,22 +53,22 @@ export const VALID_ALNUM_CHARS = /[a-z0-9]/;
 export const EMAIL_USERNAME = combinePatterns(
   [VALID_ALNUM_CHARS, EMAIL_USERNAME_PART, VALID_ALNUM_CHARS],
   {
-    capture: true,
-  },
+    capture: true
+  }
 );
 export const URL_HOST = combinePatterns(
   [
     /(?:(?:[a-z0-9](?:[-a-z0-9_]*[a-z0-9])?)\.)*/, // Subdomain
     /(?:(?:[a-z0-9](?:[-a-z0-9]*[a-z0-9])?)\.)/, // Domain
-    /(?:[a-z](?:[-a-z0-9]*[a-z0-9])?)/, // TLD
+    /(?:[a-z](?:[-a-z0-9]*[a-z0-9])?)/ // TLD
   ],
   {
-    capture: true,
-  },
+    capture: true
+  }
 );
 export const EMAIL_PATTERN = combinePatterns([EMAIL_USERNAME, URL_HOST], {
   flags: "i",
-  join: "@",
+  join: "@"
 });
 
 export interface UrlMatcherOptions {
@@ -95,12 +95,12 @@ export const URL_SCHEME = /(https?:\/\/)?/;
 export const URL_AUTH = combinePatterns(
   [
     /[a-z\u0400-\u04FF0-9\-_~!$&'()*+,;=.:]+/, // Includes colon
-    /@/,
+    /@/
   ],
   {
     capture: true,
-    match: "?",
-  },
+    match: "?"
+  }
 );
 
 export const URL_PORT = /(?::(\d{1,5}))?/;
@@ -111,19 +111,19 @@ export const URL_PATH = combinePatterns(
     combinePatterns(
       [
         /[-+a-z0-9!*';:=,.$/%[\]_~@|&]*/,
-        /[-+a-z0-9/]/, // Valid ending chars
+        /[-+a-z0-9/]/ // Valid ending chars
       ],
       {
         match: "*",
-        nonCapture: true,
-      },
+        nonCapture: true
+      }
     ),
-    /[_]?/, // Optional underscore at the end
+    /[_]?/ // Optional underscore at the end
   ],
   {
     capture: true,
-    match: "?",
-  },
+    match: "?"
+  }
 );
 export const VALID_PATH_CHARS =
   /(?:[a-zA-Z\u0400-\u04FF0-9\-_~!$&'()[\]\\/*+,;=.%]*)/;
@@ -134,19 +134,19 @@ export const URL_QUERY = combinePatterns(
     combinePatterns(
       [
         VALID_PATH_CHARS,
-        /[a-z0-9_&=]/, // Valid ending chars
+        /[a-z0-9_&=]/ // Valid ending chars
       ],
       {
         match: "?",
-        nonCapture: true,
-      },
+        nonCapture: true
+      }
     ),
-    /[_]?/, // Optional underscore at the end
+    /[_]?/ // Optional underscore at the end
   ],
   {
     capture: true,
-    match: "?",
-  },
+    match: "?"
+  }
 );
 
 export const URL_FRAGMENT = combinePatterns(
@@ -155,30 +155,30 @@ export const URL_FRAGMENT = combinePatterns(
     combinePatterns(
       [
         VALID_PATH_CHARS,
-        /[a-z0-9]/, // Valid ending chars
+        /[a-z0-9]/ // Valid ending chars
       ],
       {
         match: "?",
-        nonCapture: true,
-      },
+        nonCapture: true
+      }
     ),
-    /[_]?/, // Optional underscore at the end
+    /[_]?/ // Optional underscore at the end
   ],
   {
     capture: true,
-    match: "?",
-  },
+    match: "?"
+  }
 );
 
 export const URL_PATTERN = combinePatterns(
   [URL_SCHEME, URL_AUTH, URL_HOST, URL_PORT, URL_PATH, URL_QUERY, URL_FRAGMENT],
   {
-    flags: "i",
-  },
+    flags: "i"
+  }
 );
 export const EMAIL_DISTINCT_PATTERN = new RegExp(
   `^${EMAIL_PATTERN.source}$`,
-  EMAIL_PATTERN.flags,
+  EMAIL_PATTERN.flags
 );
 
 export interface MentionProps extends Partial<MatcherLinkProps> {

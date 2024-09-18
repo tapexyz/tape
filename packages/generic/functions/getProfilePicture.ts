@@ -7,7 +7,7 @@ import { sanitizeDStorageUrl } from "./sanitizeDStorageUrl";
 
 export const getProfilePicture = (
   profile: Profile | null,
-  type?: keyof typeof IMAGE_TRANSFORMATIONS,
+  type?: keyof typeof IMAGE_TRANSFORMATIONS
 ): string => {
   if (!profile) {
     return "";

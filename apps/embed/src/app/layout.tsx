@@ -6,7 +6,7 @@ import type React from "react";
 
 export const metadata: Metadata = {
   title: TAPE_APP_NAME,
-  description: TAPE_APP_DESCRIPTION,
+  description: TAPE_APP_DESCRIPTION
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {

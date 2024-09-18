@@ -7,7 +7,7 @@ import { object, string } from "zod";
 const app = new Hono();
 
 const validationSchema = object({
-  cid: string(),
+  cid: string()
 });
 type RequestInput = z.infer<typeof validationSchema>;
 
@@ -23,9 +23,9 @@ app.post("/", zValidator("json", validationSchema), async (c) => {
         headers: {
           Authorization: `Bearer ${LIVEPEER_API_TOKEN}`,
           "Content-Type": "application/json",
-          "User-Agent": "Tape",
-        },
-      },
+          "User-Agent": "Tape"
+        }
+      }
     );
     const viewsRes = (await result.json()) as any;
 

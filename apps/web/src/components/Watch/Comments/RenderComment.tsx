@@ -5,7 +5,7 @@ import {
   getProfile,
   getProfilePicture,
   getPublicationData,
-  getValueFromKeyInAttributes,
+  getValueFromKeyInAttributes
 } from "@tape.xyz/generic";
 import type { Comment } from "@tape.xyz/lens";
 import {
@@ -14,7 +14,7 @@ import {
   CommentOutline,
   HeartFilled,
   ReplyOutline,
-  Tooltip,
+  Tooltip
 } from "@tape.xyz/ui";
 import Link from "next/link";
 import type { FC } from "react";
@@ -62,7 +62,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
 
   const getIsReplyQueuedComment = () => {
     return Boolean(
-      queuedComments.filter((c) => c.pubId === comment.id)?.length,
+      queuedComments.filter((c) => c.pubId === comment.id)?.length
     );
   };
 
@@ -96,7 +96,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
             </HoverableProfile>
             {getValueFromKeyInAttributes(
               comment?.metadata?.attributes,
-              "hash",
+              "hash"
             ) && (
               <Tooltip placement="top" content="Supporter">
                 <span className="pl-1.5">
@@ -166,7 +166,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
             className={tw(
               "w-full space-y-6",
               (showReplies || showNewComment || getIsReplyQueuedComment()) &&
-                "pt-6",
+                "pt-6"
             )}
           >
             {queuedComments?.map(
@@ -176,7 +176,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
                     key={queuedComment?.pubId}
                     queuedComment={queuedComment}
                   />
-                ),
+                )
             )}
             {showReplies && (
               <CommentReplies
