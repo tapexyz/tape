@@ -36,7 +36,7 @@ PARTITION BY toYYYYMM(acted)
 ORDER BY acted
 SETTINGS index_granularity = 8192;
 
--- Action Item Counts
+-- Total Trails by Action Item ID
 CREATE MATERIALIZED VIEW total_trails_by_action_item_id_mv
 ENGINE = SummingMergeTree()
 ORDER BY action_item_id
