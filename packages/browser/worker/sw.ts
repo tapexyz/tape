@@ -16,7 +16,6 @@ const sendBatchedEvents = async () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ events: eventsToSend })
       });
-      console.log("[SW] ✅ Events sent to API");
     } catch (error) {
       console.error("[SW] Error sending events:", error);
       // Re-add events to the queue in case of failure
