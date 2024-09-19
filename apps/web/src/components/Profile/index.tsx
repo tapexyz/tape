@@ -38,11 +38,29 @@ const ViewProfile = () => {
     ? { forProfileId }
     : { forHandle };
 
+  const addTrail = async (pid: string) => {
+    await fetch(WORKER_TRAILS_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        pid,
+        action: "view_profile"
+      })
+    });
+  };
+
   const { data, loading, error } = useProfileQuery({
     variables: {
       request
     },
-    skip: !forProfileId && !handle
+    skip: !forProfileId && !handle,
+    onCompleted: ({ profile }) => {
+      if (profile) {
+        addTrail(profile?.id);
+      }
+    }
   });
 
   if (loading || !data) {
@@ -64,23 +82,6 @@ const ViewProfile = () => {
   if (isSuspended) {
     return <ProfileSuspended />;
   }
-
-  const addTrail = async (pid: string) => {
-    await fetch(WORKER_TRAILS_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        pid,
-        action: "view_profile"
-      })
-    });
-  };
-
-  useEffect(() => {
-    addTrail(profile.id);
-  }, [profile]);
 
   const pinnedVideoId = getValueFromKeyInAttributes(
     profile?.metadata?.attributes,
