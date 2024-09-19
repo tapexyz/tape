@@ -19,43 +19,10 @@ const ServiceWorkerProvider: FC<{ children: ReactNode }> = ({ children }) => {
           if (registration.waiting) {
             registration.waiting.postMessage({ type: "SKIP_WAITING" });
           }
-          registration.addEventListener("updatefound", () => {
-            const newWorker = registration.installing;
-            if (newWorker) {
-              newWorker.addEventListener("statechange", () => {
-                if (newWorker.state === "installed") {
-                  if (navigator.serviceWorker.controller) {
-                    console.log(
-                      "[SW] New service worker installed, activating now..."
-                    );
-                    newWorker.postMessage({ type: "SKIP_WAITING" });
-                  } else {
-                    console.log(
-                      "[SW] Service worker installed for the first time."
-                    );
-                  }
-                }
-              });
-            }
-          });
         })
         .catch((error) => {
           console.error("[SW] ⚙︎ Registration failed:", error);
         });
-      // navigator.serviceWorker.getRegistrations().then((registrations) => {
-      //   for (const registration of registrations) {
-      //     registration.unregister();
-      //   }
-
-      //   navigator.serviceWorker
-      //     .register("/sw.js", { updateViaCache: "none" })
-      //     .then((registration) => {
-      //       console.log("[SW] ⚙︎", registration.scope);
-      //     })
-      //     .catch((error) => {
-      //       console.error("[SW] ⚙︎", error);
-      //     });
-      // });
     }
   }, []);
 
