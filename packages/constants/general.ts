@@ -137,8 +137,8 @@ export const WORKER_ALLOWED_TOKENS_URL = `${TAPE_API_URL}/allowed-tokens`;
 
 // redis
 export const REDIS_KEYS = {
+  TOWER: "tower",
   TRAILS: "trails",
-  TOWER_EVENTS: "towerEvents",
   ALLOWED_TOKENS: "allowedTokens",
   PROFILE_TOGGLES: "profileToggles",
   CURATED_PROFILES: "curatedProfiles",

@@ -96,7 +96,7 @@ const processEvent = async (req: HonoRequest, event: RequestInput) => {
     created
   };
 
-  await rPush(REDIS_KEYS.TOWER_EVENTS, JSON.stringify(value));
+  await rPush(REDIS_KEYS.TOWER, JSON.stringify(value));
 };
 
 app.post("/", zValidator("json", objectSchema), async (c) => {
