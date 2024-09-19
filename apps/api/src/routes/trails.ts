@@ -24,11 +24,11 @@ app.get("/", zValidator("query", getValidationSchema), async (c) => {
     });
 
     const result = await rows.json<{
-      count: number;
+      item_count: number;
     }>();
 
     c.header("Cache-Control", CACHE_CONTROL.FOR_FIVE_MINUTE);
-    return c.json({ success: true, count: result[0]?.count ?? 0 });
+    return c.json({ success: true, count: result[0]?.item_count ?? 0 });
   } catch (error) {
     console.error("[GET TRAILS] Error:", error);
     return c.json({ success: false, message: ERROR_MESSAGE });
