@@ -1,4 +1,3 @@
-const swSelf = self as unknown as ServiceWorkerGlobalScope;
 const EVENTS_BATCH_URL = "https://api.tape.xyz/tower/batch";
 let eventQueue: Record<string, unknown>[] = [];
 
@@ -27,18 +26,18 @@ self.addEventListener("message", (event: MessageEvent) => {
     eventQueue.push(event.data.payload);
 
     // Send batched events at intervals
-    setTimeout(() => {
+    setInterval(() => {
       sendBatchedEvents();
     }, 5000);
   }
 });
 
 // Activate the new service worker immediately
-swSelf.addEventListener("install", (event: ExtendableEvent) => {
-  swSelf.skipWaiting();
-});
+// self.addEventListener("install", (event: ExtendableEvent) => {
+//   self.skipWaiting();
+// });
 
-// Take control of all clients (open tabs, etc.) immediately
-swSelf.addEventListener("activate", (event: ExtendableEvent) => {
-  event.waitUntil(swSelf.clients.claim());
-});
+// // Take control of all clients (open tabs, etc.) immediately
+// self.addEventListener("activate", (event: ExtendableEvent) => {
+//   event.waitUntil(self.clients.claim());
+// });
