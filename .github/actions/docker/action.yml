@@ -29,7 +29,7 @@ runs:
       with:
         registry: ghcr.io
         username: ${{github.actor}}
-        password: ${{secrets.GITHUB_PAT}}
+        password: ${{secrets.ACCOUNT_PAT}}
         # username: ${{ inputs.dockerhub_username }}
         # password: ${{ inputs.dockerhub_token }}
 
