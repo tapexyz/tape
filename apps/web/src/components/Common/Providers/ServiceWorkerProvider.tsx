@@ -16,7 +16,7 @@ const ServiceWorkerProvider: FC<{ children: ReactNode }> = ({ children }) => {
         }
 
         navigator.serviceWorker
-          .register("/sw.js")
+          .register("/sw.js", { updateViaCache: "none" })
           .then((registration) => {
             console.log("[SW] ⚙︎", registration.scope);
           })
