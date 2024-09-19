@@ -4,7 +4,7 @@ import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { logger } from "hono/logger";
 
-import { cors, ipRestriction } from "./middlewares";
+import { cors, originLogger } from "./middlewares";
 import allowedTokens from "./routes/allowed-tokens";
 import avatar from "./routes/avatar";
 import curated from "./routes/curated";
@@ -22,7 +22,7 @@ import verified from "./routes/verified";
 const app = new Hono();
 
 app.use(logger());
-app.use(ipRestriction);
+app.use(originLogger);
 app.use("*", cors);
 
 app.get("/", (c) => c.text("nothing to see here, visit tape.xyz"));
