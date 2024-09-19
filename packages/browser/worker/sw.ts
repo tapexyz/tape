@@ -24,13 +24,13 @@ const sendBatchedEvents = async () => {
 self.addEventListener("message", (event: MessageEvent) => {
   if (event.data && event.data.type === "ADD_EVENT") {
     eventQueue.push(event.data.payload);
-
-    // Send batched events at intervals
-    setInterval(() => {
-      sendBatchedEvents();
-    }, 5000);
   }
 });
+
+// Set up an interval once to send events every 5 seconds
+setInterval(() => {
+  sendBatchedEvents();
+}, 5000);
 
 // Activate the new service worker immediately
 // self.addEventListener("install", (event: ExtendableEvent) => {
