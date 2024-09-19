@@ -1,11 +1,10 @@
 import { REDIS_KEYS } from "@tape.xyz/constants";
 import { clickhouseClient, rLength, rLoad, rTrim } from "@tape.xyz/server";
 
-const key = REDIS_KEYS.TOWER;
+const QUEUE_KEY = REDIS_KEYS.TOWER;
 const BATCH_SIZE = 5000;
 
-const flushEvents = async (queueKey?: string): Promise<void> => {
-  const QUEUE_KEY = queueKey ?? key;
+const flushEvents = async (): Promise<void> => {
   try {
     const length = await rLength(QUEUE_KEY);
     // Loop as batch of BATCH_SIZE events
