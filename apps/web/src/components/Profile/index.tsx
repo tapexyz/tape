@@ -1,4 +1,4 @@
-import { LENS_NAMESPACE_PREFIX } from "@tape.xyz/constants";
+import { LENS_NAMESPACE_PREFIX, WORKER_TRAILS_URL } from "@tape.xyz/constants";
 import {
   EVENTS,
   getIsSuspendedProfile,
@@ -64,6 +64,23 @@ const ViewProfile = () => {
   if (isSuspended) {
     return <ProfileSuspended />;
   }
+
+  const addTrail = async (pid: string) => {
+    await fetch(WORKER_TRAILS_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        pid,
+        action: "view_profile"
+      })
+    });
+  };
+
+  useEffect(() => {
+    addTrail(profile.id);
+  }, [profile]);
 
   const pinnedVideoId = getValueFromKeyInAttributes(
     profile?.metadata?.attributes,

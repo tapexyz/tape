@@ -240,6 +240,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
       <div className="grid gap-5 overflow-hidden md:grid-cols-2 lg:grid-cols-3">
         <div className="overflow-hidden rounded-xl">
           <VideoPlayer
+            pid={pinnedPublication.id}
             address={activeProfile?.ownedBy.address}
             url={getPublicationMediaUrl(pinnedPublication.metadata)}
             posterUrl={thumbnailUrl}

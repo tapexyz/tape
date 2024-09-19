@@ -1,8 +1,8 @@
 import { zValidator } from "@hono/zod-validator";
-import { CACHE_CONTROL, ERROR_MESSAGE } from "@tape.xyz/constants";
-import { clickhouseClient } from "@tape.xyz/server";
+import { CACHE_CONTROL, ERROR_MESSAGE, REDIS_KEYS } from "@tape.xyz/constants";
+import { clickhouseClient, rPush } from "@tape.xyz/server";
 import { Hono } from "hono";
-import { object, string } from "zod";
+import { object, string, z } from "zod";
 
 const app = new Hono();
 
@@ -35,32 +35,28 @@ app.get("/", zValidator("query", getValidationSchema), async (c) => {
   }
 });
 
-// const validationSchema = object({
-//   pid: string(),
-//   action: z.enum(["media_play", "profile_view"])
-// });
-// type RequestInput = z.infer<typeof validationSchema>;
+const postValidationSchema = object({
+  pid: string(),
+  action: z.enum(["play_media", "view_profile"])
+});
+type PostRequestInput = z.infer<typeof postValidationSchema>;
 
-// app.post("/", zValidator("json", validationSchema), async (c) => {
-//   try {
-//     const { pid, action } = await c.req.json<RequestInput>();
+app.post("/", zValidator("json", postValidationSchema), async (c) => {
+  try {
+    const { pid, action } = await c.req.json<PostRequestInput>();
 
-//     const payload = {
-//       action_item_id: pid,
-//       action
-//     };
+    const payload = {
+      action_item_id: pid,
+      action,
+      acted: new Date().toISOString().slice(0, 19).replace("T", " ")
+    };
 
-//     await clickhouseClient.insert({
-//       format: "JSONEachRow",
-//       table: "trails",
-//       values: [payload]
-//     });
-
-//     return c.json({ success: true });
-//   } catch (error) {
-//     console.error("[TRAILS POST] Error:", error);
-//     return c.json({ success: false, message: ERROR_MESSAGE });
-//   }
-// });
+    await rPush(REDIS_KEYS.TRAILS, JSON.stringify(payload));
+    return c.json({ success: true });
+  } catch (error) {
+    console.error("[TRAILS POST] Error:", error);
+    return c.json({ success: false, message: ERROR_MESSAGE });
+  }
+});
 
 export default app;

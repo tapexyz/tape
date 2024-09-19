@@ -104,6 +104,7 @@ const ByteVideo: FC<Props> = ({
             id={targetPublication?.id}
           />
           <VideoPlayer
+            pid={targetPublication.id}
             address={activeProfile?.ownedBy.address}
             refCallback={refCallback}
             url={getPublicationMediaUrl(targetPublication.metadata)}

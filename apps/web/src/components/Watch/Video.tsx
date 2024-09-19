@@ -53,6 +53,7 @@ const RenderPlayer = memo(({ video }: { video: PrimaryPublication }) => {
   return (
     <div className="overflow-hidden rounded-large">
       <VideoPlayer
+        pid={video.id}
         address={activeProfile?.ownedBy.address}
         refCallback={refCallback}
         currentTime={videoWatchTime}

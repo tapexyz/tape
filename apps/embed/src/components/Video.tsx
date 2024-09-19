@@ -73,6 +73,7 @@ const Video: FC<Props> = ({ video }) => {
     <div className="group relative h-screen w-screen overflow-x-hidden">
       {clicked ? (
         <VideoPlayer
+          pid={video.id}
           refCallback={refCallback}
           url={getPublicationMediaUrl(video.metadata)}
           posterUrl={thumbnailUrl}

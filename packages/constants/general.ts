@@ -137,12 +137,13 @@ export const WORKER_ALLOWED_TOKENS_URL = `${TAPE_API_URL}/allowed-tokens`;
 
 // redis
 export const REDIS_KEYS = {
+  TRAILS: "trails",
   TOWER_EVENTS: "towerEvents",
   ALLOWED_TOKENS: "allowedTokens",
-  CURATED_PROFILES: "curatedProfiles",
-  CURATED_PUBLICATIONS: "curatedPublications",
   PROFILE_TOGGLES: "profileToggles",
-  VERIFIED_PROFILES: "verifiedProfiles"
+  CURATED_PROFILES: "curatedProfiles",
+  VERIFIED_PROFILES: "verifiedProfiles",
+  CURATED_PUBLICATIONS: "curatedPublications"
 };
 
 // irys
