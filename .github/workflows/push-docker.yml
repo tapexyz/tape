@@ -42,7 +42,6 @@ jobs:
         uses: ./.github/actions/docker
         with:
           image_name: tape-api
-          tag_name: 'latest'
           docker_file: ./apps/api/Dockerfile
 
       - name: Trigger API Deployment 🚢
@@ -66,7 +65,6 @@ jobs:
         uses: ./.github/actions/docker
         with:
           image_name: tape-cron
-          tag_name: 'latest'
           docker_file: ./apps/cron/Dockerfile
 
       - name: Trigger Cron Deployment 🚢
