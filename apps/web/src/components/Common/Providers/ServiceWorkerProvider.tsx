@@ -12,17 +12,8 @@ const ServiceWorkerProvider: FC<{ children: ReactNode }> = ({ children }) => {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker
         .register("/sw.js", { updateViaCache: "none" })
-        .then((registration) => {
-          console.log("[SW] ⚙︎ ", registration.scope);
-
-          // Check if there's an already waiting service worker and skip waiting
-          if (registration.waiting) {
-            registration.waiting.postMessage({ type: "SKIP_WAITING" });
-          }
-        })
-        .catch((error) => {
-          console.error("[SW] ⚙︎ Registration failed:", error);
-        });
+        .then((registration) => console.log("[SW] ⚙︎ ", registration.scope))
+        .catch((error) => console.error("[SW] ⚙︎ ", error));
     }
   }, []);
 
