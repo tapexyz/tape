@@ -20,6 +20,12 @@ cron.schedule("0 */4 * * *", async () => {
   await flushTrails();
 });
 
+cron.schedule("*/5 * * * *", async () => {
+  console.log("[cron] Flushing old tower events", new Date());
+  await wakeClickHouse();
+  await flushEvents("towerEvents");
+});
+
 // Schedule the backupEventsToS3 function to run every midnight
 cron.schedule("0 0 * * *", async () => {
   console.log("[cron] Backing up events to S3", new Date());
