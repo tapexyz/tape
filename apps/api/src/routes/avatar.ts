@@ -29,16 +29,15 @@ app.get(
         transport: fallback(POLYGON_RPC_URLS.map((rpc) => http(rpc)))
       });
 
-      const data: any = await client.readContract({
+      const data = (await client.readContract({
         abi: LENSHUB_PROXY_ABI,
         address: LENSHUB_PROXY_ADDRESS,
         args: [profileId],
         functionName: "tokenURI"
-      });
+      })) as string;
 
-      const jsonData = JSON.parse(
-        Buffer.from(data.split(",")[1], "base64").toString()
-      );
+      const base64Data = data.split(",")[1] ?? "";
+      const jsonData = JSON.parse(Buffer.from(base64Data, "base64").toString());
       const base64Image = jsonData.image.split(";base64,").pop();
       const svgImage = Buffer.from(base64Image, "base64").toString("utf-8");
 

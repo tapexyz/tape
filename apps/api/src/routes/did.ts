@@ -17,6 +17,17 @@ const validationSchema = object({
 });
 type RequestInput = z.infer<typeof validationSchema>;
 
+type ProfileResult = {
+  data: {
+    profiles: {
+      items: {
+        id: string;
+        handle: { fullHandle: string; ownedBy: string };
+      }[];
+    };
+  };
+};
+
 const PROFILES_QUERY = `query Profiles($ownedBy: [EvmAddress!]) {
   profiles(request: { where: { ownedBy: $ownedBy } }) {
     items {
@@ -98,7 +109,7 @@ app.post("/", zValidator("json", validationSchema), async (c) => {
         }
       })
     });
-    const result: any = await response.json();
+    const result = (await response.json()) as ProfileResult;
     const profiles = result?.data?.profiles.items;
     const transformedAddresses = replaceAddressesWithHandles(
       profiles,
