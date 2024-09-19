@@ -18,9 +18,6 @@
     <a href="https://status.tape.xyz">
         <img src="https://betteruptime.com/status-badges/v1/monitor/dfaw.svg" alt="Better Uptime">
     </a>
-    <span>
-        <img src="https://img.shields.io/github/stars/tapexyz/tape" alt="Stargazers">
-    </span>
 </div>
 <br>
 
