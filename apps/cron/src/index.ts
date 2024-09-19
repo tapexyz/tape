@@ -25,6 +25,13 @@ cron.schedule("0 0 * * *", async () => {
   await backupEventsToS3();
 });
 
+// Schedule the cleanupClickhouse function to run every day
+cron.schedule("0 0 * * *", async () => {
+  console.log("[cron] Cleaning up Clickhouse", new Date());
+  await wakeClickHouse();
+  await cleanupClickhouse();
+});
+
 // Schedule the vacuumPostgres function to run every sunday at midnight
 cron.schedule("0 0 * * 0", async () => {
   console.log("[cron] Vacuuming postgres", new Date());
@@ -35,12 +42,6 @@ cron.schedule("0 0 * * 0", async () => {
 cron.schedule("0 0 * * *", async () => {
   console.log("[cron] Cleaning up 4ever", new Date());
   await cleanup4Ever();
-});
-
-// Schedule the cleanupClickhouse function to run every day
-cron.schedule("0 0 * * *", async () => {
-  console.log("[cron] Cleaning up Clickhouse", new Date());
-  await cleanupClickhouse();
 });
 
 // Schedule the curatePublications function to run every 5 hour

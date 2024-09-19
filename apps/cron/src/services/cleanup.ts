@@ -82,7 +82,7 @@ const cleanup4Ever = async (): Promise<void> => {
     }
 
     console.log(
-      `[4ever cleanup] Total deleted ${objectsToDelete.length} objects older than ${daysToSubtract} days.`
+      `[4ever cleanup] Total deleted ${objectsToDelete.length} objects older than ${daysToSubtract} days 🗑️`
     );
   } catch (error) {
     console.error("[4ever cleanup] Error deleting objects:", error);
@@ -92,7 +92,7 @@ const cleanup4Ever = async (): Promise<void> => {
 const vacuumPostgres = async (): Promise<void> => {
   try {
     await tapeDb.$queryRaw`VACUUM`;
-    console.log("[cron] Postgres vacuum completed");
+    console.log("[cron] Postgres vacuum completed ♻️");
   } catch (error) {
     console.error("[cron] Error Postgres vacuum", error);
   }
@@ -122,7 +122,7 @@ const cleanupClickhouse = async (): Promise<void> => {
     await Promise.all(
       queries.map((query) => clickhouseClient.command({ query }))
     );
-    console.log("[cron] Clickhouse cleanup completed");
+    console.log("[cron] Clickhouse cleanup completed ♻️");
   } catch (error) {
     console.error("[cron] Error Clickhouse cleanup", error);
   }
