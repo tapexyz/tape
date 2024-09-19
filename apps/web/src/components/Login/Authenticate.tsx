@@ -137,7 +137,8 @@ const Authenticate = () => {
       });
       const accessToken = result.data?.authenticate.accessToken;
       const refreshToken = result.data?.authenticate.refreshToken;
-      signIn({ accessToken, refreshToken });
+      const identityToken = result.data?.authenticate.identityToken;
+      signIn({ accessToken, refreshToken, identityToken });
       if (profilesManaged.length === 0) {
         setActiveProfile(null);
         toast.error("No profile found");

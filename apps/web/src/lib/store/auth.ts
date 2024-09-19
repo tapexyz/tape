@@ -10,7 +10,11 @@ type Tokens = {
 };
 
 interface AuthState {
-  signIn: (tokens: { accessToken: string; refreshToken: string }) => void;
+  signIn: (tokens: {
+    accessToken: string;
+    refreshToken: string;
+    identityToken: string;
+  }) => void;
   signOut: () => void;
   hydrateAuthTokens: () => Tokens;
 }
@@ -21,13 +25,19 @@ const cookieConfig: Cookies.CookieAttributes = {
 };
 
 const useAuthPersistStore = create<AuthState>(() => ({
-  signIn: ({ accessToken, refreshToken }) => {
+  signIn: ({ accessToken, refreshToken, identityToken }) => {
     Cookies.set("accessToken", accessToken, { ...cookieConfig, expires: 1 });
     Cookies.set("refreshToken", refreshToken, { ...cookieConfig, expires: 7 });
+    const expiryDate = new Date(new Date().getTime() + 30 * 60 * 1000); // 30 minutes
+    Cookies.set("identityToken", identityToken, {
+      ...cookieConfig,
+      expires: expiryDate
+    });
   },
   signOut: () => {
     Cookies.remove("accessToken");
     Cookies.remove("refreshToken");
+    Cookies.remove("identityToken");
     localStorage.removeItem(LocalStore.TAPE_STORE);
     localStorage.removeItem(LocalStore.WAGMI_STORE);
     setActiveProfile(null);
@@ -35,15 +45,19 @@ const useAuthPersistStore = create<AuthState>(() => ({
   hydrateAuthTokens: () => {
     return {
       accessToken: Cookies.get("accessToken"),
-      refreshToken: Cookies.get("refreshToken")
+      refreshToken: Cookies.get("refreshToken"),
+      identityToken: Cookies.get("identityToken")
     };
   }
 }));
 
 export default useAuthPersistStore;
 
-export const signIn = (tokens: { accessToken: string; refreshToken: string }) =>
-  useAuthPersistStore.getState().signIn(tokens);
+export const signIn = (tokens: {
+  accessToken: string;
+  refreshToken: string;
+  identityToken: string;
+}) => useAuthPersistStore.getState().signIn(tokens);
 export const signOut = () => useAuthPersistStore.getState().signOut();
 export const hydrateAuthTokens = () =>
   useAuthPersistStore.getState().hydrateAuthTokens();

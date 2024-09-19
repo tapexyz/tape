@@ -53,7 +53,8 @@ const authLink = new ApolloLink((operation, forward) => {
         });
         signIn({
           accessToken: result?.data?.refresh?.accessToken,
-          refreshToken: result?.data?.refresh?.refreshToken
+          refreshToken: result?.data?.refresh?.refreshToken,
+          identityToken: result?.data?.refresh?.identityToken
         });
         return toPromise(forward(operation));
       })
