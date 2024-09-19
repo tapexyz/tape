@@ -8,14 +8,16 @@ import {
   cleanupClickhouse,
   vacuumPostgres
 } from "./services/cleanup";
-import { flushEvents } from "./services/events";
+import { flushEvents } from "./services/tower";
+import { flushTrails } from "./services/trails";
 import { wakeClickHouse } from "./services/wake";
 
-// Schedule the flushEvents function to run every 4 hour
+// Schedule the flushEvents and flushTrails function to run every 4 hour
 cron.schedule("0 */4 * * *", async () => {
-  console.log("[cron] Flushing tower events", new Date());
+  console.log("[cron] Flushing tower events and trails", new Date());
   await wakeClickHouse();
   await flushEvents();
+  await flushTrails();
 });
 
 // Schedule the backupEventsToS3 function to run every midnight
