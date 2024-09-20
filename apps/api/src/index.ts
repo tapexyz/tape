@@ -24,7 +24,7 @@ const app = new Hono();
 app.use(logger()).use(originLogger).use("*", cors);
 
 app
-  .get("/api", (c) => c.text("nothing to see here, visit tape.xyz"))
+  .get("/", (c) => c.text("nothing to see here, visit tape.xyz"))
   .route("/did", did)
   .route("/sts", sts)
   .route("/tail", tail)
