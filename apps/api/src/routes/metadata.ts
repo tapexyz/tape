@@ -22,12 +22,15 @@ app.post("/", async (c) => {
       account.signMessage({ message })
     );
 
+    const startTime = performance.now();
     const receipt = await irys.upload(JSON.stringify(signedMetadata), {
       tags: [
         { name: "Content-Type", value: "application/json" },
         { name: "App-Name", value: "Tape" }
       ]
     });
+    const took = performance.now() - startTime;
+    console.log(`[METADATA] irys upload took ${took}ms`);
 
     if (!receipt.id) {
       return c.json({
