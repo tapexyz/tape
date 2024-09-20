@@ -7,9 +7,9 @@ import { privateKeyToAccount } from "viem/accounts";
 
 const app = new Hono();
 
-const { WALLET_PRIVATE_KEY, BUNDLER_URL } = process.env;
+const { WALLET_PRIVATE_KEY } = process.env;
 const getIrysUploader = async () =>
-  await Uploader(Matic).withWallet(WALLET_PRIVATE_KEY).bundlerUrl(BUNDLER_URL);
+  await Uploader(Matic).withWallet(WALLET_PRIVATE_KEY);
 
 app.post("/", async (c) => {
   try {

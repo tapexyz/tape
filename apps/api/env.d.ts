@@ -10,7 +10,5 @@ declare namespace NodeJS {
     REDIS_URL: string;
     CLICKHOUSE_URL: string;
     CLICKHOUSE_PASSWORD: string;
-    // temp
-    BUNDLER_URL: string;
   }
 }
