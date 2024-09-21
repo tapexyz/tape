@@ -1,9 +1,5 @@
 import { tw, useDebounce, useOutsideClick } from "@tape.xyz/browser";
-import {
-  LENS_NAMESPACE_PREFIX,
-  TAPE_ADMIN_ADDRESS,
-  TAPE_APP_NAME
-} from "@tape.xyz/constants";
+import { TAPE_ADMIN_ADDRESS, TAPE_APP_NAME } from "@tape.xyz/constants";
 import {
   getProfile,
   getProfilePicture,
@@ -156,7 +152,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
         <div className="flex gap-1.5" key={splitRecipient.recipient}>
           <div className="relative w-full">
             <Input
-              placeholder={`0x12345...89 or ${LENS_NAMESPACE_PREFIX}tape`}
+              placeholder="0x12345...89 or handle"
               value={splitRecipient.recipient}
               onChange={(e) => onChangeSplit("recipient", e.target.value, i)}
               autoFocus
@@ -186,29 +182,32 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
                 {!profiles?.length && !profilesLoading ? (
                   <NoDataFound isCenter text="No profiles found" />
                 ) : null}
-                {profiles?.slice(0, 2)?.map((profile) => (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      onChangeSplit(
-                        "recipient",
-                        getProfile(profile).address,
-                        i
-                      );
-                      setSearchKeyword("");
-                    }}
-                    className="w-full"
-                    key={profile.id}
-                  >
-                    <ProfileSuggestion
-                      id={profile.id}
-                      pfp={getProfilePicture(profile, "AVATAR")}
-                      handle={getProfile(profile).slug}
-                      followers={profile.stats.followers}
-                      className="text-left hover:bg-brand-50 dark:hover:bg-black"
-                    />
-                  </button>
-                ))}
+                {profiles?.slice(0, 2)?.map(
+                  (profile) =>
+                    profile.ownedBy.address !== TAPE_ADMIN_ADDRESS && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          onChangeSplit(
+                            "recipient",
+                            getProfile(profile).address,
+                            i
+                          );
+                          setSearchKeyword("");
+                        }}
+                        className="w-full"
+                        key={profile.id}
+                      >
+                        <ProfileSuggestion
+                          id={profile.id}
+                          pfp={getProfilePicture(profile, "AVATAR")}
+                          handle={getProfile(profile).slug}
+                          followers={profile.stats.followers}
+                          className="text-left hover:bg-brand-50 dark:hover:bg-black"
+                        />
+                      </button>
+                    )
+                )}
               </div>
             ) : null}
           </div>
