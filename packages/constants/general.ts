@@ -2,6 +2,8 @@ import { LensEndpoint } from "./endpoints";
 
 export const TAPE_APP_NAME = "Tape";
 export const TAPE_APP_DESCRIPTION = "Talk, Amplify, Post, Explore";
+export const TAPE_USER_AGENT =
+  "Tape/1.0 (compatible; TapeMedia/1.0; +https://tape.xyz)";
 
 export const LENS_ENV = process.env.NEXT_PUBLIC_ENVIRONMENT ?? "mainnet";
 export const IS_MAINNET = LENS_ENV === "mainnet";

@@ -1,7 +1,11 @@
 import { Uploader } from "@irys/upload";
 import { Matic } from "@irys/upload-ethereum";
 import { signMetadata } from "@lens-protocol/metadata";
-import { ERROR_MESSAGE, IRYS_GATEWAY_URL } from "@tape.xyz/constants";
+import {
+  ERROR_MESSAGE,
+  IRYS_GATEWAY_URL,
+  TAPE_APP_NAME
+} from "@tape.xyz/constants";
 import { Hono } from "hono";
 import { privateKeyToAccount } from "viem/accounts";
 
@@ -26,7 +30,7 @@ app.post("/", async (c) => {
     const receipt = await irys.upload(JSON.stringify(signedMetadata), {
       tags: [
         { name: "Content-Type", value: "application/json" },
-        { name: "App-Name", value: "Tape" }
+        { name: "App-Name", value: TAPE_APP_NAME }
       ]
     });
     const took = performance.now() - startTime;

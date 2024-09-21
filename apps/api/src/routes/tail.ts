@@ -1,5 +1,5 @@
 import { zValidator } from "@hono/zod-validator";
-import { ERROR_MESSAGE } from "@tape.xyz/constants";
+import { ERROR_MESSAGE, TAPE_USER_AGENT } from "@tape.xyz/constants";
 import { Hono } from "hono";
 import type { z } from "zod";
 import { object, string } from "zod";
@@ -23,7 +23,7 @@ app.post("/", zValidator("json", validationSchema), async (c) => {
       headers: {
         Authorization: `Bearer ${LOGTAIL_API_KEY}`,
         "Content-Type": "application/json",
-        "User-Agent": "Tape"
+        "User-Agent": TAPE_USER_AGENT
       },
       body: JSON.stringify(body)
     });

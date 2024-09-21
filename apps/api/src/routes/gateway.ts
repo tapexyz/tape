@@ -1,5 +1,5 @@
 import { zValidator } from "@hono/zod-validator";
-import { IRYS_GATEWAY_URL } from "@tape.xyz/constants";
+import { IRYS_GATEWAY_URL, TAPE_USER_AGENT } from "@tape.xyz/constants";
 import { Hono } from "hono";
 import { prettyJSON } from "hono/pretty-json";
 import { object, string } from "zod";
@@ -22,7 +22,7 @@ app.get(
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "User-Agent": "Tape"
+          "User-Agent": TAPE_USER_AGENT
         }
       });
       const viewsRes = (await result.json()) as JSON;

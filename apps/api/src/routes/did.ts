@@ -1,5 +1,9 @@
 import { zValidator } from "@hono/zod-validator";
-import { ERROR_MESSAGE, LENS_API_URL } from "@tape.xyz/constants";
+import {
+  ERROR_MESSAGE,
+  LENS_API_URL,
+  TAPE_USER_AGENT
+} from "@tape.xyz/constants";
 import { Hono } from "hono";
 import { http, createPublicClient, fallback, isAddress } from "viem";
 import { mainnet } from "viem/chains";
@@ -99,7 +103,7 @@ app.post("/", zValidator("json", validationSchema), async (c) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "User-Agent": "Tape"
+        "User-Agent": TAPE_USER_AGENT
       },
       body: JSON.stringify({
         operationName: "Profiles",

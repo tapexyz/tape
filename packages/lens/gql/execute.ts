@@ -1,8 +1,8 @@
-import { LENS_API_URL } from "@tape.xyz/constants";
+import { LENS_API_URL, TAPE_USER_AGENT } from "@tape.xyz/constants";
 
 import type { TypedDocumentString } from "./generated/graphql";
 
-export const execute = async <TResult = any, TVariables = any>(
+export const execute = async <TResult, TVariables>(
   query: TypedDocumentString<TResult, TVariables>,
   ...[variables]: TVariables extends Record<string, never> ? [] : [TVariables]
 ) => {
@@ -11,7 +11,7 @@ export const execute = async <TResult = any, TVariables = any>(
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "User-Agent": "tape.xyz",
+        "User-Agent": TAPE_USER_AGENT,
         Accept: "application/graphql-response+json"
       },
       body: JSON.stringify({

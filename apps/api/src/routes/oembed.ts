@@ -1,5 +1,9 @@
 import { zValidator } from "@hono/zod-validator";
-import { CACHE_CONTROL, ERROR_MESSAGE } from "@tape.xyz/constants";
+import {
+  CACHE_CONTROL,
+  ERROR_MESSAGE,
+  TAPE_USER_AGENT
+} from "@tape.xyz/constants";
 import { Hono } from "hono";
 import { parseHTML } from "linkedom";
 import { object, string } from "zod";
@@ -30,7 +34,7 @@ app.get("/", zValidator("query", validationSchema), async (c) => {
 
     // Fetch metatags from URL
     const response = await fetch(url, {
-      headers: { "User-Agent": "bot" }
+      headers: { "User-Agent": TAPE_USER_AGENT }
     });
     const html = await response.text();
     const { document } = parseHTML(html);
