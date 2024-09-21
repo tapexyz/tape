@@ -15,6 +15,7 @@ import { useReadContract } from "wagmi";
 
 import { getReadableDateWithTime, getTimeAgo } from "@/lib/formatTime";
 
+import { useCopyToClipboard } from "@tape.xyz/browser";
 import CoverLinks from "./CoverLinks";
 
 type Props = {
@@ -22,6 +23,8 @@ type Props = {
 };
 
 const Cover: FC<Props> = ({ profile }) => {
+  const [copy] = useCopyToClipboard();
+
   const coverImage = imageCdn(
     sanitizeDStorageUrl(getProfileCoverPicture(profile, true))
   );
@@ -71,9 +74,13 @@ const Cover: FC<Props> = ({ profile }) => {
 
             <div className="flex gap-1">
               <BadgeUI title={profile.id} className="!bg-white !text-black">
-                <span className="bg-white text-black">
+                <button
+                  type="button"
+                  className="inline bg-white text-black outline-none"
+                  onClick={() => copy(profile.id)}
+                >
                   # {Number.parseInt(profile.id)}
-                </span>
+                </button>
               </BadgeUI>
               <BadgeUI
                 title={getReadableDateWithTime(profile.createdAt)}
