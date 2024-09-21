@@ -25,7 +25,6 @@ app.use(logger()).use(originLogger).use("*", cors);
 
 app
   .get("/", (c) => c.text("nothing to see here, visit tape.xyz"))
-  .get("/robots.txt", (c) => c.text("User-agent: *\nDisallow: /"))
   .route("/did", did)
   .route("/sts", sts)
   .route("/tail", tail)
