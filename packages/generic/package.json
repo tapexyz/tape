@@ -9,7 +9,7 @@
   "dependencies": {
     "@lens-protocol/metadata": "^1.2.0",
     "axios": "^1.7.7",
-    "viem": "^2.21.10"
+    "viem": "^2.21.11"
   },
   "devDependencies": {
     "@tape.xyz/constants": "workspace:*",
