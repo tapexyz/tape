@@ -39,16 +39,18 @@ const ViewProfile = () => {
     : { forHandle };
 
   const addTrail = async (pid: string) => {
-    await fetch(WORKER_TRAILS_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        pid,
-        action: "view_profile"
-      })
-    });
+    try {
+      await fetch(WORKER_TRAILS_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          pid,
+          action: "view_profile"
+        })
+      });
+    } catch {}
   };
 
   const { data, loading, error } = useProfileQuery({
