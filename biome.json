@@ -27,7 +27,7 @@
         "noSvgWithoutTitle": "off"
       },
       "style": {
-        "noNonNullAssertion": "off"
+        "noNonNullAssertion": "warn"
       },
       "correctness": {
         "useExhaustiveDependencies": "off",

@@ -49,7 +49,7 @@ const cleanup4Ever = async (): Promise<void> => {
         );
         objectsToDelete = objectsToDelete.concat(
           oldObjects
-            .map((object) => ({ Key: object.Key! }))
+            .map((object) => ({ Key: object.Key as string }))
             .filter((obj) => obj.Key)
         );
       }
