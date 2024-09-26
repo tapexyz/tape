@@ -1,7 +1,8 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
-import { Spinner, Success, Warning } from "./icons";
+import { Success, Warning } from "./icons";
+import { Spinner } from "./spinner";
 
 export const Button = () => {
   const [state, setState] = useState<"idle" | "loading" | "warning">("idle");

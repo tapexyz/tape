@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "./_components/button";
+import { Spinner } from "./_components/spinner";
 import { Tabs } from "./_components/tabs";
 
 export default function WinderPage() {
@@ -12,6 +13,9 @@ export default function WinderPage() {
         </div>
         <div>
           <Tabs />
+        </div>
+        <div>
+          <Spinner className="size-5" />
         </div>
       </div>
     </div>
