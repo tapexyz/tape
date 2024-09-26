@@ -16,7 +16,7 @@
     "@tape.xyz/tsconfig": "workspace:*",
     "dotenv": "^16.4.5",
     "ethers": "^6.13.2",
-    "hardhat": "^2.22.11",
+    "hardhat": "^2.22.12",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2"
   }

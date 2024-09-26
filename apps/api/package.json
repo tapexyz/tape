@@ -11,18 +11,18 @@
     "typecheck": "tsc --pretty --noEmit"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "3.654.0",
+    "@aws-sdk/client-sts": "3.658.1",
     "@hono/node-server": "^1.13.1",
-    "@hono/zod-validator": "^0.2.2",
+    "@hono/zod-validator": "^0.3.0",
     "@irys/upload": "^0.0.7",
     "@irys/upload-ethereum": "^0.0.7",
     "@lens-protocol/metadata": "^1.2.0",
-    "@prisma/client": "^5.19.1",
+    "@prisma/client": "^5.20.0",
     "base64url": "^3.0.1",
     "hono": "^4.6.3",
     "linkedom": "^0.18.4",
     "ua-parser-js": "2.0.0-beta.3",
-    "viem": "^2.21.13",
+    "viem": "^2.21.15",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -31,7 +31,7 @@
     "@tape.xyz/generic": "workspace:*",
     "@tape.xyz/server": "workspace:*",
     "@tape.xyz/tsconfig": "workspace:*",
-    "@types/node": "^22.6.1",
+    "@types/node": "^22.7.2",
     "@types/ua-parser-js": "^0.7.39",
     "tsx": "^4.19.0",
     "typescript": "^5.6.2"
