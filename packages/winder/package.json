@@ -8,6 +8,7 @@
     "typecheck": "tsc --pretty --noEmit"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.1.7",
     "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",

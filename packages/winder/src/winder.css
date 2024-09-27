@@ -5,9 +5,9 @@
 @layer base {
   :root {
     --background: 0 0% 95%;
-    --border: 0 0% 0%;
+    --border: 0, 0%, 0%, 0.06;
     --primary: 0 0% 0%;
-    --secondary: 0 0% 0%;
+    --secondary: 0, 0%, 0%, 0.08;
     --destructive: 0 100% 49%;
     --radius: 9px;
     --primary-foreground: 0 0% 100%;
@@ -16,9 +16,9 @@
 
   .dark {
     --background: 0 0% 16%;
-    --border: 0 0% 100%;
+    --border: 0, 0%, 100%, 0.06;
     --primary: 0 0% 100%;
-    --secondary: 0 0% 100%;
+    --secondary: 0, 0%, 100%, 0.08;
     --primary-foreground: 0 0% 0%;
     --secondary-foreground: 0 0% 100%;
   }
@@ -26,7 +26,7 @@
 
 @layer base {
   body {
-    @apply bg-background font-sans;
+    @apply bg-background font-sans antialiased;
   }
 }
 

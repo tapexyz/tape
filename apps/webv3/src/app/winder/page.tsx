@@ -1,30 +1,16 @@
 "use client";
 
-import { Button } from "@tape.xyz/winder";
-import { useState } from "react";
+import { Content } from "./_components/content";
+import { Header } from "./_components/header";
+import { Sidebar } from "./_components/sidebar";
 
 export default function WinderPage() {
-  const [loading, setLoading] = useState(false);
-
   return (
-    <div className="grid h-screen place-items-center">
-      <div className="flex flex-col gap-10">
-        <div>
-          <Button
-            label="Create"
-            className="w-32"
-            loading={loading}
-            onClick={() => {
-              if (loading) return;
-
-              setLoading(true);
-
-              setTimeout(() => {
-                setLoading(false);
-              }, 3500);
-            }}
-          />
-        </div>
+    <div className="container min-h-screen max-w-6xl overflow-x-hidden md:overflow-x-visible">
+      <Header />
+      <div className="md:grid md:grid-cols-[250px_1fr]">
+        <Sidebar />
+        <Content />
       </div>
     </div>
   );

@@ -11,13 +11,13 @@ export default {
     extend: {
       colors: {
         background: "hsl(var(--background))",
-        border: "hsla(var(--border), 0.06)",
+        border: "hsl(var(--border))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))"
         },
         secondary: {
-          DEFAULT: "hsla(var(--secondary), 0.08)",
+          DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))"
         },
         destructive: {
