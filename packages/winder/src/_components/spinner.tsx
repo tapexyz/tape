@@ -1,4 +1,4 @@
-export const Spinner = ({ className }: { className?: string }) => {
+export const Spinner = ({ className = "size-5" }: { className?: string }) => {
   return (
     <svg
       className={className}

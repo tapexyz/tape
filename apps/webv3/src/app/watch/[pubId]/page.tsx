@@ -8,7 +8,7 @@ import {
 import type { AnyPublication } from "@tape.xyz/lens";
 import type { Metadata } from "next";
 
-import { rqClient } from "@/app/providers/react-query";
+import { rqClient } from "@/providers/react-query";
 
 import { Comments } from "./_components/comments";
 import { Publication } from "./_components/publication";
@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export function generateStaticParams() {
-  return [{ handle: "titannode", pubId: "0x0164ad-0x01ed" }];
+  return [{ pubId: "0x0164ad-0x01ed" }];
 }
 
 export default function WatchPage({ params }: Props) {

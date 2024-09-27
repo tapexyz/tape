@@ -3,7 +3,7 @@ import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { Feed } from "@/components/home/feed";
 import { publicationsQuery } from "@/components/home/queries";
 
-import { rqClient } from "./providers/react-query";
+import { rqClient } from "../providers/react-query";
 
 export default function HomePage() {
   void rqClient.prefetchInfiniteQuery(publicationsQuery);

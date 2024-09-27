@@ -1,21 +1,29 @@
 "use client";
 
-import { Button } from "./_components/button";
-import { Spinner } from "./_components/spinner";
-import { Tabs } from "./_components/tabs";
+import { Button } from "@tape.xyz/winder";
+import { useState } from "react";
 
 export default function WinderPage() {
+  const [loading, setLoading] = useState(false);
+
   return (
     <div className="grid h-screen place-items-center">
       <div className="flex flex-col gap-10">
         <div>
-          <Button />
-        </div>
-        <div>
-          <Tabs />
-        </div>
-        <div>
-          <Spinner className="size-5" />
+          <Button
+            label="Create"
+            className="w-32"
+            loading={loading}
+            onClick={() => {
+              if (loading) return;
+
+              setLoading(true);
+
+              setTimeout(() => {
+                setLoading(false);
+              }, 3500);
+            }}
+          />
         </div>
       </div>
     </div>

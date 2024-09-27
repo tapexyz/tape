@@ -6632,6 +6632,127 @@ export type ProfileOperationsFieldsFragment = { __typename?: 'ProfileOperations'
 
 export type ProfileStatsFieldsFragment = { __typename?: 'ProfileStats', id: any, followers: number, following: number, comments: number, posts: number, mirrors: number, quotes: number, publications: number, reactions: number, reacted: number, countOpenActions: number, lensClassifierScore?: number | null } & { ' $fragmentName'?: 'ProfileStatsFieldsFragment' };
 
+export type AudioMetadataV3FieldsFragment = { __typename: 'AudioMetadataV3', id: string, rawURI: any, tags?: Array<string> | null, contentWarning?: PublicationContentWarningType | null, title: string, content: any, attributes?: Array<(
+    { __typename?: 'MetadataAttribute' }
+    & { ' $fragmentRefs'?: { 'MetadataAttributeFieldsFragment': MetadataAttributeFieldsFragment } }
+  )> | null, asset: (
+    { __typename?: 'PublicationMetadataMediaAudio' }
+    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaAudioFieldsFragment': PublicationMetadataMediaAudioFieldsFragment } }
+  ), attachments?: Array<(
+    { __typename?: 'PublicationMetadataMediaAudio' }
+    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment } }
+  ) | (
+    { __typename?: 'PublicationMetadataMediaImage' }
+    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment } }
+  ) | (
+    { __typename?: 'PublicationMetadataMediaVideo' }
+    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment } }
+  )> | null } & { ' $fragmentName'?: 'AudioMetadataV3FieldsFragment' };
+
+export type ImageMetadataV3FieldsFragment = { __typename: 'ImageMetadataV3', id: string, rawURI: any, tags?: Array<string> | null, contentWarning?: PublicationContentWarningType | null, title: string, content: any, attributes?: Array<(
+    { __typename?: 'MetadataAttribute' }
+    & { ' $fragmentRefs'?: { 'MetadataAttributeFieldsFragment': MetadataAttributeFieldsFragment } }
+  )> | null, attachments?: Array<(
+    { __typename?: 'PublicationMetadataMediaAudio' }
+    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment } }
+  ) | (
+    { __typename?: 'PublicationMetadataMediaImage' }
+    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment } }
+  ) | (
+    { __typename?: 'PublicationMetadataMediaVideo' }
+    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment } }
+  )> | null, asset: (
+    { __typename?: 'PublicationMetadataMediaImage' }
+    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaImageFieldsFragment': PublicationMetadataMediaImageFieldsFragment } }
+  ) } & { ' $fragmentName'?: 'ImageMetadataV3FieldsFragment' };
+
+export type LinkMetadataV3FieldsFragment = { __typename: 'LinkMetadataV3', id: string, rawURI: any, tags?: Array<string> | null, contentWarning?: PublicationContentWarningType | null, sharingLink: any, content: any, attributes?: Array<(
+    { __typename?: 'MetadataAttribute' }
+    & { ' $fragmentRefs'?: { 'MetadataAttributeFieldsFragment': MetadataAttributeFieldsFragment } }
+  )> | null, attachments?: Array<(
+    { __typename?: 'PublicationMetadataMediaAudio' }
+    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment } }
+  ) | (
+    { __typename?: 'PublicationMetadataMediaImage' }
+    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment } }
+  ) | (
+    { __typename?: 'PublicationMetadataMediaVideo' }
+    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment } }
+  )> | null } & { ' $fragmentName'?: 'LinkMetadataV3FieldsFragment' };
+
+export type LiveStreamMetadataV3FieldsFragment = { __typename: 'LiveStreamMetadataV3', id: string, rawURI: any, tags?: Array<string> | null, contentWarning?: PublicationContentWarningType | null, startsAt: any, endsAt: any, playbackURL: any, liveURL: any, checkLiveAPI?: any | null, title: string, content: any, attributes?: Array<(
+    { __typename?: 'MetadataAttribute' }
+    & { ' $fragmentRefs'?: { 'MetadataAttributeFieldsFragment': MetadataAttributeFieldsFragment } }
+  )> | null, attachments?: Array<(
+    { __typename?: 'PublicationMetadataMediaAudio' }
+    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment } }
+  ) | (
+    { __typename?: 'PublicationMetadataMediaImage' }
+    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment } }
+  ) | (
+    { __typename?: 'PublicationMetadataMediaVideo' }
+    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment } }
+  )> | null } & { ' $fragmentName'?: 'LiveStreamMetadataV3FieldsFragment' };
+
+export type PublicationMetadataMediaAudioFieldsFragment = { __typename?: 'PublicationMetadataMediaAudio', duration?: number | null, audio: { __typename?: 'EncryptableAudioSet', raw: { __typename?: 'EncryptableAudio', uri: any }, optimized?: { __typename?: 'Audio', uri: any } | null }, cover?: { __typename?: 'EncryptableImageSet', raw: { __typename?: 'EncryptableImage', uri: any }, optimized?: { __typename?: 'Image', uri: any } | null } | null } & { ' $fragmentName'?: 'PublicationMetadataMediaAudioFieldsFragment' };
+
+type PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment = (
+  { __typename?: 'PublicationMetadataMediaAudio' }
+  & { ' $fragmentRefs'?: { 'PublicationMetadataMediaAudioFieldsFragment': PublicationMetadataMediaAudioFieldsFragment } }
+) & { ' $fragmentName'?: 'PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment' };
+
+type PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment = (
+  { __typename?: 'PublicationMetadataMediaImage' }
+  & { ' $fragmentRefs'?: { 'PublicationMetadataMediaImageFieldsFragment': PublicationMetadataMediaImageFieldsFragment } }
+) & { ' $fragmentName'?: 'PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment' };
+
+type PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment = (
+  { __typename?: 'PublicationMetadataMediaVideo' }
+  & { ' $fragmentRefs'?: { 'PublicationMetadataMediaVideoFieldsFragment': PublicationMetadataMediaVideoFieldsFragment } }
+) & { ' $fragmentName'?: 'PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment' };
+
+export type PublicationMetadataMediaFieldsFragment = PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment | PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment | PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment;
+
+export type PublicationMetadataMediaImageFieldsFragment = { __typename?: 'PublicationMetadataMediaImage', image: { __typename?: 'EncryptableImageSet', raw: { __typename?: 'EncryptableImage', uri: any }, optimized?: { __typename?: 'Image', uri: any } | null } } & { ' $fragmentName'?: 'PublicationMetadataMediaImageFieldsFragment' };
+
+export type PublicationMetadataMediaVideoFieldsFragment = { __typename?: 'PublicationMetadataMediaVideo', duration?: number | null, video: { __typename?: 'EncryptableVideoSet', raw: { __typename?: 'EncryptableVideo', uri: any }, optimized?: { __typename?: 'Video', uri: any } | null }, cover?: { __typename?: 'EncryptableImageSet', raw: { __typename?: 'EncryptableImage', uri: any }, optimized?: { __typename?: 'Image', uri: any } | null } | null } & { ' $fragmentName'?: 'PublicationMetadataMediaVideoFieldsFragment' };
+
+export type MintMetadataV3FieldsFragment = { __typename: 'MintMetadataV3', id: string, rawURI: any, tags?: Array<string> | null, contentWarning?: PublicationContentWarningType | null, mintLink: any, content: any, attributes?: Array<(
+    { __typename?: 'MetadataAttribute' }
+    & { ' $fragmentRefs'?: { 'MetadataAttributeFieldsFragment': MetadataAttributeFieldsFragment } }
+  )> | null, attachments?: Array<(
+    { __typename?: 'PublicationMetadataMediaAudio' }
+    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment } }
+  ) | (
+    { __typename?: 'PublicationMetadataMediaImage' }
+    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment } }
+  ) | (
+    { __typename?: 'PublicationMetadataMediaVideo' }
+    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment } }
+  )> | null } & { ' $fragmentName'?: 'MintMetadataV3FieldsFragment' };
+
+export type TextOnlyMetadataV3FieldsFragment = { __typename: 'TextOnlyMetadataV3', id: string, rawURI: any, tags?: Array<string> | null, contentWarning?: PublicationContentWarningType | null, content: any, attributes?: Array<(
+    { __typename?: 'MetadataAttribute' }
+    & { ' $fragmentRefs'?: { 'MetadataAttributeFieldsFragment': MetadataAttributeFieldsFragment } }
+  )> | null } & { ' $fragmentName'?: 'TextOnlyMetadataV3FieldsFragment' };
+
+export type VideoMetadataV3FieldsFragment = { __typename: 'VideoMetadataV3', id: string, rawURI: any, tags?: Array<string> | null, contentWarning?: PublicationContentWarningType | null, title: string, content: any, isShortVideo: boolean, attributes?: Array<(
+    { __typename?: 'MetadataAttribute' }
+    & { ' $fragmentRefs'?: { 'MetadataAttributeFieldsFragment': MetadataAttributeFieldsFragment } }
+  )> | null, asset: (
+    { __typename?: 'PublicationMetadataMediaVideo' }
+    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaVideoFieldsFragment': PublicationMetadataMediaVideoFieldsFragment } }
+  ), attachments?: Array<(
+    { __typename?: 'PublicationMetadataMediaAudio' }
+    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment } }
+  ) | (
+    { __typename?: 'PublicationMetadataMediaImage' }
+    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment } }
+  ) | (
+    { __typename?: 'PublicationMetadataMediaVideo' }
+    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment } }
+  )> | null } & { ' $fragmentName'?: 'VideoMetadataV3FieldsFragment' };
+
 export type PublicationOperationFieldsFragment = { __typename?: 'PublicationOperations', isNotInterested: boolean, hasBookmarked: boolean, hasReported: boolean, canAct: TriStateValue, hasReacted: boolean, canComment: TriStateValue, canMirror: TriStateValue, hasMirrored: boolean, hasActed: { __typename?: 'OptimisticStatusResult', value: boolean, isFinalisedOnchain: boolean }, actedOn: Array<{ __typename?: 'KnownCollectOpenActionResult', type: CollectOpenActionModuleType } | { __typename?: 'UnknownOpenActionResult', address: any, category?: OpenActionCategoryType | null, initReturnData?: any | null }>, canDecrypt: { __typename?: 'CanDecryptResponse', result: boolean, reasons?: Array<DecryptFailReasonType> | null, extraDetails?: string | null } } & { ' $fragmentName'?: 'PublicationOperationFieldsFragment' };
 
 export type PublicationStatsFieldsFragment = { __typename?: 'PublicationStats', id: any, comments: number, mirrors: number, quotes: number, reactions: number, countOpenActions: number } & { ' $fragmentName'?: 'PublicationStatsFieldsFragment' };
@@ -6747,127 +6868,6 @@ export type QuoteFieldsFragment = (
   ) }
   & { ' $fragmentRefs'?: { 'QuoteBaseFieldsFragment': QuoteBaseFieldsFragment } }
 ) & { ' $fragmentName'?: 'QuoteFieldsFragment' };
-
-export type AudioMetadataV3FieldsFragment = { __typename: 'AudioMetadataV3', id: string, rawURI: any, tags?: Array<string> | null, contentWarning?: PublicationContentWarningType | null, title: string, content: any, attributes?: Array<(
-    { __typename?: 'MetadataAttribute' }
-    & { ' $fragmentRefs'?: { 'MetadataAttributeFieldsFragment': MetadataAttributeFieldsFragment } }
-  )> | null, asset: (
-    { __typename?: 'PublicationMetadataMediaAudio' }
-    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaAudioFieldsFragment': PublicationMetadataMediaAudioFieldsFragment } }
-  ), attachments?: Array<(
-    { __typename?: 'PublicationMetadataMediaAudio' }
-    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment } }
-  ) | (
-    { __typename?: 'PublicationMetadataMediaImage' }
-    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment } }
-  ) | (
-    { __typename?: 'PublicationMetadataMediaVideo' }
-    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment } }
-  )> | null } & { ' $fragmentName'?: 'AudioMetadataV3FieldsFragment' };
-
-export type ImageMetadataV3FieldsFragment = { __typename: 'ImageMetadataV3', id: string, rawURI: any, tags?: Array<string> | null, contentWarning?: PublicationContentWarningType | null, title: string, content: any, attributes?: Array<(
-    { __typename?: 'MetadataAttribute' }
-    & { ' $fragmentRefs'?: { 'MetadataAttributeFieldsFragment': MetadataAttributeFieldsFragment } }
-  )> | null, attachments?: Array<(
-    { __typename?: 'PublicationMetadataMediaAudio' }
-    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment } }
-  ) | (
-    { __typename?: 'PublicationMetadataMediaImage' }
-    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment } }
-  ) | (
-    { __typename?: 'PublicationMetadataMediaVideo' }
-    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment } }
-  )> | null, asset: (
-    { __typename?: 'PublicationMetadataMediaImage' }
-    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaImageFieldsFragment': PublicationMetadataMediaImageFieldsFragment } }
-  ) } & { ' $fragmentName'?: 'ImageMetadataV3FieldsFragment' };
-
-export type LinkMetadataV3FieldsFragment = { __typename: 'LinkMetadataV3', id: string, rawURI: any, tags?: Array<string> | null, contentWarning?: PublicationContentWarningType | null, sharingLink: any, content: any, attributes?: Array<(
-    { __typename?: 'MetadataAttribute' }
-    & { ' $fragmentRefs'?: { 'MetadataAttributeFieldsFragment': MetadataAttributeFieldsFragment } }
-  )> | null, attachments?: Array<(
-    { __typename?: 'PublicationMetadataMediaAudio' }
-    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment } }
-  ) | (
-    { __typename?: 'PublicationMetadataMediaImage' }
-    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment } }
-  ) | (
-    { __typename?: 'PublicationMetadataMediaVideo' }
-    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment } }
-  )> | null } & { ' $fragmentName'?: 'LinkMetadataV3FieldsFragment' };
-
-export type LiveStreamMetadataV3FieldsFragment = { __typename: 'LiveStreamMetadataV3', id: string, rawURI: any, tags?: Array<string> | null, contentWarning?: PublicationContentWarningType | null, startsAt: any, endsAt: any, playbackURL: any, liveURL: any, checkLiveAPI?: any | null, title: string, content: any, attributes?: Array<(
-    { __typename?: 'MetadataAttribute' }
-    & { ' $fragmentRefs'?: { 'MetadataAttributeFieldsFragment': MetadataAttributeFieldsFragment } }
-  )> | null, attachments?: Array<(
-    { __typename?: 'PublicationMetadataMediaAudio' }
-    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment } }
-  ) | (
-    { __typename?: 'PublicationMetadataMediaImage' }
-    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment } }
-  ) | (
-    { __typename?: 'PublicationMetadataMediaVideo' }
-    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment } }
-  )> | null } & { ' $fragmentName'?: 'LiveStreamMetadataV3FieldsFragment' };
-
-export type MintMetadataV3FieldsFragment = { __typename: 'MintMetadataV3', id: string, rawURI: any, tags?: Array<string> | null, contentWarning?: PublicationContentWarningType | null, mintLink: any, content: any, attributes?: Array<(
-    { __typename?: 'MetadataAttribute' }
-    & { ' $fragmentRefs'?: { 'MetadataAttributeFieldsFragment': MetadataAttributeFieldsFragment } }
-  )> | null, attachments?: Array<(
-    { __typename?: 'PublicationMetadataMediaAudio' }
-    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment } }
-  ) | (
-    { __typename?: 'PublicationMetadataMediaImage' }
-    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment } }
-  ) | (
-    { __typename?: 'PublicationMetadataMediaVideo' }
-    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment } }
-  )> | null } & { ' $fragmentName'?: 'MintMetadataV3FieldsFragment' };
-
-export type TextOnlyMetadataV3FieldsFragment = { __typename: 'TextOnlyMetadataV3', id: string, rawURI: any, tags?: Array<string> | null, contentWarning?: PublicationContentWarningType | null, content: any, attributes?: Array<(
-    { __typename?: 'MetadataAttribute' }
-    & { ' $fragmentRefs'?: { 'MetadataAttributeFieldsFragment': MetadataAttributeFieldsFragment } }
-  )> | null } & { ' $fragmentName'?: 'TextOnlyMetadataV3FieldsFragment' };
-
-export type VideoMetadataV3FieldsFragment = { __typename: 'VideoMetadataV3', id: string, rawURI: any, tags?: Array<string> | null, contentWarning?: PublicationContentWarningType | null, title: string, content: any, isShortVideo: boolean, attributes?: Array<(
-    { __typename?: 'MetadataAttribute' }
-    & { ' $fragmentRefs'?: { 'MetadataAttributeFieldsFragment': MetadataAttributeFieldsFragment } }
-  )> | null, asset: (
-    { __typename?: 'PublicationMetadataMediaVideo' }
-    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaVideoFieldsFragment': PublicationMetadataMediaVideoFieldsFragment } }
-  ), attachments?: Array<(
-    { __typename?: 'PublicationMetadataMediaAudio' }
-    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment } }
-  ) | (
-    { __typename?: 'PublicationMetadataMediaImage' }
-    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment } }
-  ) | (
-    { __typename?: 'PublicationMetadataMediaVideo' }
-    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment } }
-  )> | null } & { ' $fragmentName'?: 'VideoMetadataV3FieldsFragment' };
-
-export type PublicationMetadataMediaAudioFieldsFragment = { __typename?: 'PublicationMetadataMediaAudio', duration?: number | null, audio: { __typename?: 'EncryptableAudioSet', raw: { __typename?: 'EncryptableAudio', uri: any }, optimized?: { __typename?: 'Audio', uri: any } | null }, cover?: { __typename?: 'EncryptableImageSet', raw: { __typename?: 'EncryptableImage', uri: any }, optimized?: { __typename?: 'Image', uri: any } | null } | null } & { ' $fragmentName'?: 'PublicationMetadataMediaAudioFieldsFragment' };
-
-type PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment = (
-  { __typename?: 'PublicationMetadataMediaAudio' }
-  & { ' $fragmentRefs'?: { 'PublicationMetadataMediaAudioFieldsFragment': PublicationMetadataMediaAudioFieldsFragment } }
-) & { ' $fragmentName'?: 'PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment' };
-
-type PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment = (
-  { __typename?: 'PublicationMetadataMediaImage' }
-  & { ' $fragmentRefs'?: { 'PublicationMetadataMediaImageFieldsFragment': PublicationMetadataMediaImageFieldsFragment } }
-) & { ' $fragmentName'?: 'PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment' };
-
-type PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment = (
-  { __typename?: 'PublicationMetadataMediaVideo' }
-  & { ' $fragmentRefs'?: { 'PublicationMetadataMediaVideoFieldsFragment': PublicationMetadataMediaVideoFieldsFragment } }
-) & { ' $fragmentName'?: 'PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment' };
-
-export type PublicationMetadataMediaFieldsFragment = PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment | PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment | PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment;
-
-export type PublicationMetadataMediaImageFieldsFragment = { __typename?: 'PublicationMetadataMediaImage', image: { __typename?: 'EncryptableImageSet', raw: { __typename?: 'EncryptableImage', uri: any }, optimized?: { __typename?: 'Image', uri: any } | null } } & { ' $fragmentName'?: 'PublicationMetadataMediaImageFieldsFragment' };
-
-export type PublicationMetadataMediaVideoFieldsFragment = { __typename?: 'PublicationMetadataMediaVideo', duration?: number | null, video: { __typename?: 'EncryptableVideoSet', raw: { __typename?: 'EncryptableVideo', uri: any }, optimized?: { __typename?: 'Video', uri: any } | null }, cover?: { __typename?: 'EncryptableImageSet', raw: { __typename?: 'EncryptableImage', uri: any }, optimized?: { __typename?: 'Image', uri: any } | null } | null } & { ' $fragmentName'?: 'PublicationMetadataMediaVideoFieldsFragment' };
 
 export type AuthenticateMutationVariables = Exact<{
   request: SignedAuthChallenge;
@@ -7359,6 +7359,22 @@ export type LensTransactionStatusQueryVariables = Exact<{
 
 export type LensTransactionStatusQuery = { __typename?: 'Query', lensTransactionStatus?: { __typename?: 'LensTransactionResult', status: LensTransactionStatusType, txHash: any, reason?: LensTransactionFailureType | null, extraInfo?: string | null } | null };
 
+export type ModExplorePublicationsQueryVariables = Exact<{
+  request: ModExplorePublicationRequest;
+}>;
+
+
+export type ModExplorePublicationsQuery = { __typename?: 'Query', modExplorePublications: { __typename?: 'PaginatedModExplorePublicationResult', items: Array<(
+      { __typename?: 'Comment' }
+      & { ' $fragmentRefs'?: { 'CommentFieldsFragment': CommentFieldsFragment } }
+    ) | (
+      { __typename?: 'Post' }
+      & { ' $fragmentRefs'?: { 'PostFieldsFragment': PostFieldsFragment } }
+    ) | (
+      { __typename?: 'Quote' }
+      & { ' $fragmentRefs'?: { 'QuoteFieldsFragment': QuoteFieldsFragment } }
+    )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
+
 export type ModuleMetadataQueryVariables = Exact<{
   request: ModuleMetadataRequest;
 }>;
@@ -7444,16 +7460,6 @@ export type OwnedHandlesQueryVariables = Exact<{
 
 export type OwnedHandlesQuery = { __typename?: 'Query', ownedHandles: { __typename?: 'PaginatedHandlesResult', items: Array<{ __typename?: 'HandleInfo', id: any, fullHandle: any, linkedTo?: { __typename?: 'HandleLinkedTo', nftTokenId: any, contract: { __typename?: 'NetworkAddress', address: any } } | null }>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
-export type ProfileQueryVariables = Exact<{
-  request: ProfileRequest;
-}>;
-
-
-export type ProfileQuery = { __typename?: 'Query', profile?: (
-    { __typename?: 'Profile' }
-    & { ' $fragmentRefs'?: { 'ProfileFieldsFragment': ProfileFieldsFragment } }
-  ) | null };
-
 export type FeedQueryVariables = Exact<{
   request: FeedRequest;
 }>;
@@ -7497,15 +7503,15 @@ export type ProfileManagersQueryVariables = Exact<{
 
 export type ProfileManagersQuery = { __typename?: 'Query', profileManagers: { __typename?: 'PaginatedProfileManagersResult', items: Array<{ __typename?: 'ProfilesManagedResult', address: any, isLensManager: boolean }>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
-export type ProfilesQueryVariables = Exact<{
-  request: ProfilesRequest;
+export type ProfileQueryVariables = Exact<{
+  request: ProfileRequest;
 }>;
 
 
-export type ProfilesQuery = { __typename?: 'Query', profiles: { __typename?: 'PaginatedProfileResult', items: Array<(
-      { __typename?: 'Profile' }
-      & { ' $fragmentRefs'?: { 'ProfileFieldsFragment': ProfileFieldsFragment } }
-    )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
+export type ProfileQuery = { __typename?: 'Query', profile?: (
+    { __typename?: 'Profile' }
+    & { ' $fragmentRefs'?: { 'ProfileFieldsFragment': ProfileFieldsFragment } }
+  ) | null };
 
 export type ProfilesManagedQueryVariables = Exact<{
   request: ProfilesManagedRequest;
@@ -7521,24 +7527,15 @@ export type ProfilesManagedQuery = { __typename?: 'Query', profilesManaged: { __
     & { ' $fragmentRefs'?: { 'ProfileFieldsFragment': ProfileFieldsFragment } }
   ) | null };
 
-export type PublicationQueryVariables = Exact<{
-  request: PublicationRequest;
+export type ProfilesQueryVariables = Exact<{
+  request: ProfilesRequest;
 }>;
 
 
-export type PublicationQuery = { __typename?: 'Query', publication?: (
-    { __typename?: 'Comment' }
-    & { ' $fragmentRefs'?: { 'CommentFieldsFragment': CommentFieldsFragment } }
-  ) | (
-    { __typename?: 'Mirror' }
-    & { ' $fragmentRefs'?: { 'MirrorFieldsFragment': MirrorFieldsFragment } }
-  ) | (
-    { __typename?: 'Post' }
-    & { ' $fragmentRefs'?: { 'PostFieldsFragment': PostFieldsFragment } }
-  ) | (
-    { __typename?: 'Quote' }
-    & { ' $fragmentRefs'?: { 'QuoteFieldsFragment': QuoteFieldsFragment } }
-  ) | null };
+export type ProfilesQuery = { __typename?: 'Query', profiles: { __typename?: 'PaginatedProfileResult', items: Array<(
+      { __typename?: 'Profile' }
+      & { ' $fragmentRefs'?: { 'ProfileFieldsFragment': ProfileFieldsFragment } }
+    )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
 export type PublicationBookmarksQueryVariables = Exact<{
   request: PublicationBookmarksRequest;
@@ -7558,6 +7555,25 @@ export type PublicationBookmarksQuery = { __typename?: 'Query', publicationBookm
       { __typename?: 'Quote' }
       & { ' $fragmentRefs'?: { 'QuoteFieldsFragment': QuoteFieldsFragment } }
     )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
+
+export type PublicationQueryVariables = Exact<{
+  request: PublicationRequest;
+}>;
+
+
+export type PublicationQuery = { __typename?: 'Query', publication?: (
+    { __typename?: 'Comment' }
+    & { ' $fragmentRefs'?: { 'CommentFieldsFragment': CommentFieldsFragment } }
+  ) | (
+    { __typename?: 'Mirror' }
+    & { ' $fragmentRefs'?: { 'MirrorFieldsFragment': MirrorFieldsFragment } }
+  ) | (
+    { __typename?: 'Post' }
+    & { ' $fragmentRefs'?: { 'PostFieldsFragment': PostFieldsFragment } }
+  ) | (
+    { __typename?: 'Quote' }
+    & { ' $fragmentRefs'?: { 'QuoteFieldsFragment': QuoteFieldsFragment } }
+  ) | null };
 
 export type PublicationsQueryVariables = Exact<{
   request: PublicationsRequest;
@@ -8857,51 +8873,6 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
     ...PublicationMetadataMediaFields
   }
 }
-fragment MintMetadataV3Fields on MintMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  mintLink
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  content
-}
-fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  content
-}
-fragment VideoMetadataV3Fields on VideoMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  asset {
-    ...PublicationMetadataMediaVideoFields
-  }
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  title
-  content
-  isShortVideo
-}
 fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
   audio {
     raw {
@@ -8960,6 +8931,51 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
     }
   }
   duration
+}
+fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  mintLink
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}
+fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  content
+}
+fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...PublicationMetadataMediaVideoFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  title
+  content
+  isShortVideo
 }`, {"fragmentName":"AnyPublicationMetadataFields"}) as unknown as TypedDocumentString<AnyPublicationMetadataFieldsFragment, unknown>;
 export const OpenActionModulesFieldsFragmentDoc = new TypedDocumentString(`
     fragment OpenActionModulesFields on OpenActionModule {
@@ -9438,43 +9454,6 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
-fragment PublicationOperationFields on PublicationOperations {
-  isNotInterested
-  hasBookmarked
-  hasReported
-  canAct
-  hasActed {
-    value
-    isFinalisedOnchain
-  }
-  actedOn {
-    ... on KnownCollectOpenActionResult {
-      type
-    }
-    ... on UnknownOpenActionResult {
-      address
-      category
-      initReturnData
-    }
-  }
-  hasReacted(request: {type: UPVOTE})
-  canComment
-  canMirror
-  hasMirrored
-  canDecrypt {
-    result
-    reasons
-    extraDetails
-  }
-}
-fragment PublicationStatsFields on PublicationStats {
-  id
-  comments
-  mirrors
-  quotes
-  reactions(request: {type: UPVOTE})
-  countOpenActions
-}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -9546,51 +9525,6 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
     ...PublicationMetadataMediaFields
   }
 }
-fragment MintMetadataV3Fields on MintMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  mintLink
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  content
-}
-fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  content
-}
-fragment VideoMetadataV3Fields on VideoMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  asset {
-    ...PublicationMetadataMediaVideoFields
-  }
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  title
-  content
-  isShortVideo
-}
 fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
   audio {
     raw {
@@ -9649,6 +9583,88 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
     }
   }
   duration
+}
+fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  mintLink
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}
+fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  content
+}
+fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...PublicationMetadataMediaVideoFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  title
+  content
+  isShortVideo
+}
+fragment PublicationOperationFields on PublicationOperations {
+  isNotInterested
+  hasBookmarked
+  hasReported
+  canAct
+  hasActed {
+    value
+    isFinalisedOnchain
+  }
+  actedOn {
+    ... on KnownCollectOpenActionResult {
+      type
+    }
+    ... on UnknownOpenActionResult {
+      address
+      category
+      initReturnData
+    }
+  }
+  hasReacted(request: {type: UPVOTE})
+  canComment
+  canMirror
+  hasMirrored
+  canDecrypt {
+    result
+    reasons
+    extraDetails
+  }
+}
+fragment PublicationStatsFields on PublicationStats {
+  id
+  comments
+  mirrors
+  quotes
+  reactions(request: {type: UPVOTE})
+  countOpenActions
 }`, {"fragmentName":"PostFields"}) as unknown as TypedDocumentString<PostFieldsFragment, unknown>;
 export const CommentBaseFieldsFragmentDoc = new TypedDocumentString(`
     fragment CommentBaseFields on Comment {
@@ -10014,43 +10030,6 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
-fragment PublicationOperationFields on PublicationOperations {
-  isNotInterested
-  hasBookmarked
-  hasReported
-  canAct
-  hasActed {
-    value
-    isFinalisedOnchain
-  }
-  actedOn {
-    ... on KnownCollectOpenActionResult {
-      type
-    }
-    ... on UnknownOpenActionResult {
-      address
-      category
-      initReturnData
-    }
-  }
-  hasReacted(request: {type: UPVOTE})
-  canComment
-  canMirror
-  hasMirrored
-  canDecrypt {
-    result
-    reasons
-    extraDetails
-  }
-}
-fragment PublicationStatsFields on PublicationStats {
-  id
-  comments
-  mirrors
-  quotes
-  reactions(request: {type: UPVOTE})
-  countOpenActions
-}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -10122,51 +10101,6 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
     ...PublicationMetadataMediaFields
   }
 }
-fragment MintMetadataV3Fields on MintMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  mintLink
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  content
-}
-fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  content
-}
-fragment VideoMetadataV3Fields on VideoMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  asset {
-    ...PublicationMetadataMediaVideoFields
-  }
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  title
-  content
-  isShortVideo
-}
 fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
   audio {
     raw {
@@ -10225,6 +10159,88 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
     }
   }
   duration
+}
+fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  mintLink
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}
+fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  content
+}
+fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...PublicationMetadataMediaVideoFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  title
+  content
+  isShortVideo
+}
+fragment PublicationOperationFields on PublicationOperations {
+  isNotInterested
+  hasBookmarked
+  hasReported
+  canAct
+  hasActed {
+    value
+    isFinalisedOnchain
+  }
+  actedOn {
+    ... on KnownCollectOpenActionResult {
+      type
+    }
+    ... on UnknownOpenActionResult {
+      address
+      category
+      initReturnData
+    }
+  }
+  hasReacted(request: {type: UPVOTE})
+  canComment
+  canMirror
+  hasMirrored
+  canDecrypt {
+    result
+    reasons
+    extraDetails
+  }
+}
+fragment PublicationStatsFields on PublicationStats {
+  id
+  comments
+  mirrors
+  quotes
+  reactions(request: {type: UPVOTE})
+  countOpenActions
 }`, {"fragmentName":"CommentBaseFields"}) as unknown as TypedDocumentString<CommentBaseFieldsFragment, unknown>;
 export const QuoteBaseFieldsFragmentDoc = new TypedDocumentString(`
     fragment QuoteBaseFields on Quote {
@@ -10560,43 +10576,6 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
-fragment PublicationOperationFields on PublicationOperations {
-  isNotInterested
-  hasBookmarked
-  hasReported
-  canAct
-  hasActed {
-    value
-    isFinalisedOnchain
-  }
-  actedOn {
-    ... on KnownCollectOpenActionResult {
-      type
-    }
-    ... on UnknownOpenActionResult {
-      address
-      category
-      initReturnData
-    }
-  }
-  hasReacted(request: {type: UPVOTE})
-  canComment
-  canMirror
-  hasMirrored
-  canDecrypt {
-    result
-    reasons
-    extraDetails
-  }
-}
-fragment PublicationStatsFields on PublicationStats {
-  id
-  comments
-  mirrors
-  quotes
-  reactions(request: {type: UPVOTE})
-  countOpenActions
-}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -10668,51 +10647,6 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
     ...PublicationMetadataMediaFields
   }
 }
-fragment MintMetadataV3Fields on MintMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  mintLink
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  content
-}
-fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  content
-}
-fragment VideoMetadataV3Fields on VideoMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  asset {
-    ...PublicationMetadataMediaVideoFields
-  }
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  title
-  content
-  isShortVideo
-}
 fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
   audio {
     raw {
@@ -10771,6 +10705,88 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
     }
   }
   duration
+}
+fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  mintLink
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}
+fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  content
+}
+fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...PublicationMetadataMediaVideoFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  title
+  content
+  isShortVideo
+}
+fragment PublicationOperationFields on PublicationOperations {
+  isNotInterested
+  hasBookmarked
+  hasReported
+  canAct
+  hasActed {
+    value
+    isFinalisedOnchain
+  }
+  actedOn {
+    ... on KnownCollectOpenActionResult {
+      type
+    }
+    ... on UnknownOpenActionResult {
+      address
+      category
+      initReturnData
+    }
+  }
+  hasReacted(request: {type: UPVOTE})
+  canComment
+  canMirror
+  hasMirrored
+  canDecrypt {
+    result
+    reasons
+    extraDetails
+  }
+}
+fragment PublicationStatsFields on PublicationStats {
+  id
+  comments
+  mirrors
+  quotes
+  reactions(request: {type: UPVOTE})
+  countOpenActions
 }`, {"fragmentName":"QuoteBaseFields"}) as unknown as TypedDocumentString<QuoteBaseFieldsFragment, unknown>;
 export const PrimaryPublicationFieldsFragmentDoc = new TypedDocumentString(`
     fragment PrimaryPublicationFields on PrimaryPublication {
@@ -11147,70 +11163,6 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
-fragment PublicationOperationFields on PublicationOperations {
-  isNotInterested
-  hasBookmarked
-  hasReported
-  canAct
-  hasActed {
-    value
-    isFinalisedOnchain
-  }
-  actedOn {
-    ... on KnownCollectOpenActionResult {
-      type
-    }
-    ... on UnknownOpenActionResult {
-      address
-      category
-      initReturnData
-    }
-  }
-  hasReacted(request: {type: UPVOTE})
-  canComment
-  canMirror
-  hasMirrored
-  canDecrypt {
-    result
-    reasons
-    extraDetails
-  }
-}
-fragment PublicationStatsFields on PublicationStats {
-  id
-  comments
-  mirrors
-  quotes
-  reactions(request: {type: UPVOTE})
-  countOpenActions
-}
-fragment QuoteBaseFields on Quote {
-  id
-  publishedOn {
-    id
-  }
-  isHidden
-  momoka {
-    proof
-  }
-  txHash
-  createdAt
-  by {
-    ...ProfileFields
-  }
-  stats {
-    ...PublicationStatsFields
-  }
-  operations {
-    ...PublicationOperationFields
-  }
-  metadata {
-    ...AnyPublicationMetadataFields
-  }
-  openActionModules {
-    ...OpenActionModulesFields
-  }
-}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -11282,51 +11234,6 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
     ...PublicationMetadataMediaFields
   }
 }
-fragment MintMetadataV3Fields on MintMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  mintLink
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  content
-}
-fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  content
-}
-fragment VideoMetadataV3Fields on VideoMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  asset {
-    ...PublicationMetadataMediaVideoFields
-  }
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  title
-  content
-  isShortVideo
-}
 fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
   audio {
     raw {
@@ -11385,6 +11292,115 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
     }
   }
   duration
+}
+fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  mintLink
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}
+fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  content
+}
+fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...PublicationMetadataMediaVideoFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  title
+  content
+  isShortVideo
+}
+fragment PublicationOperationFields on PublicationOperations {
+  isNotInterested
+  hasBookmarked
+  hasReported
+  canAct
+  hasActed {
+    value
+    isFinalisedOnchain
+  }
+  actedOn {
+    ... on KnownCollectOpenActionResult {
+      type
+    }
+    ... on UnknownOpenActionResult {
+      address
+      category
+      initReturnData
+    }
+  }
+  hasReacted(request: {type: UPVOTE})
+  canComment
+  canMirror
+  hasMirrored
+  canDecrypt {
+    result
+    reasons
+    extraDetails
+  }
+}
+fragment PublicationStatsFields on PublicationStats {
+  id
+  comments
+  mirrors
+  quotes
+  reactions(request: {type: UPVOTE})
+  countOpenActions
+}
+fragment QuoteBaseFields on Quote {
+  id
+  publishedOn {
+    id
+  }
+  isHidden
+  momoka {
+    proof
+  }
+  txHash
+  createdAt
+  by {
+    ...ProfileFields
+  }
+  stats {
+    ...PublicationStatsFields
+  }
+  operations {
+    ...PublicationOperationFields
+  }
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  openActionModules {
+    ...OpenActionModulesFields
+  }
 }`, {"fragmentName":"PrimaryPublicationFields"}) as unknown as TypedDocumentString<PrimaryPublicationFieldsFragment, unknown>;
 export const CommentFieldsFragmentDoc = new TypedDocumentString(`
     fragment CommentFields on Comment {
@@ -11767,70 +11783,6 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
-fragment PublicationOperationFields on PublicationOperations {
-  isNotInterested
-  hasBookmarked
-  hasReported
-  canAct
-  hasActed {
-    value
-    isFinalisedOnchain
-  }
-  actedOn {
-    ... on KnownCollectOpenActionResult {
-      type
-    }
-    ... on UnknownOpenActionResult {
-      address
-      category
-      initReturnData
-    }
-  }
-  hasReacted(request: {type: UPVOTE})
-  canComment
-  canMirror
-  hasMirrored
-  canDecrypt {
-    result
-    reasons
-    extraDetails
-  }
-}
-fragment PublicationStatsFields on PublicationStats {
-  id
-  comments
-  mirrors
-  quotes
-  reactions(request: {type: UPVOTE})
-  countOpenActions
-}
-fragment QuoteBaseFields on Quote {
-  id
-  publishedOn {
-    id
-  }
-  isHidden
-  momoka {
-    proof
-  }
-  txHash
-  createdAt
-  by {
-    ...ProfileFields
-  }
-  stats {
-    ...PublicationStatsFields
-  }
-  operations {
-    ...PublicationOperationFields
-  }
-  metadata {
-    ...AnyPublicationMetadataFields
-  }
-  openActionModules {
-    ...OpenActionModulesFields
-  }
-}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -11902,51 +11854,6 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
     ...PublicationMetadataMediaFields
   }
 }
-fragment MintMetadataV3Fields on MintMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  mintLink
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  content
-}
-fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  content
-}
-fragment VideoMetadataV3Fields on VideoMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  asset {
-    ...PublicationMetadataMediaVideoFields
-  }
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  title
-  content
-  isShortVideo
-}
 fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
   audio {
     raw {
@@ -12005,6 +11912,115 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
     }
   }
   duration
+}
+fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  mintLink
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}
+fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  content
+}
+fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...PublicationMetadataMediaVideoFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  title
+  content
+  isShortVideo
+}
+fragment PublicationOperationFields on PublicationOperations {
+  isNotInterested
+  hasBookmarked
+  hasReported
+  canAct
+  hasActed {
+    value
+    isFinalisedOnchain
+  }
+  actedOn {
+    ... on KnownCollectOpenActionResult {
+      type
+    }
+    ... on UnknownOpenActionResult {
+      address
+      category
+      initReturnData
+    }
+  }
+  hasReacted(request: {type: UPVOTE})
+  canComment
+  canMirror
+  hasMirrored
+  canDecrypt {
+    result
+    reasons
+    extraDetails
+  }
+}
+fragment PublicationStatsFields on PublicationStats {
+  id
+  comments
+  mirrors
+  quotes
+  reactions(request: {type: UPVOTE})
+  countOpenActions
+}
+fragment QuoteBaseFields on Quote {
+  id
+  publishedOn {
+    id
+  }
+  isHidden
+  momoka {
+    proof
+  }
+  txHash
+  createdAt
+  by {
+    ...ProfileFields
+  }
+  stats {
+    ...PublicationStatsFields
+  }
+  operations {
+    ...PublicationOperationFields
+  }
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  openActionModules {
+    ...OpenActionModulesFields
+  }
 }`, {"fragmentName":"CommentFields"}) as unknown as TypedDocumentString<CommentFieldsFragment, unknown>;
 export const MirrorFieldsFragmentDoc = new TypedDocumentString(`
     fragment MirrorFields on Mirror {
@@ -12396,70 +12412,6 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
-fragment PublicationOperationFields on PublicationOperations {
-  isNotInterested
-  hasBookmarked
-  hasReported
-  canAct
-  hasActed {
-    value
-    isFinalisedOnchain
-  }
-  actedOn {
-    ... on KnownCollectOpenActionResult {
-      type
-    }
-    ... on UnknownOpenActionResult {
-      address
-      category
-      initReturnData
-    }
-  }
-  hasReacted(request: {type: UPVOTE})
-  canComment
-  canMirror
-  hasMirrored
-  canDecrypt {
-    result
-    reasons
-    extraDetails
-  }
-}
-fragment PublicationStatsFields on PublicationStats {
-  id
-  comments
-  mirrors
-  quotes
-  reactions(request: {type: UPVOTE})
-  countOpenActions
-}
-fragment QuoteBaseFields on Quote {
-  id
-  publishedOn {
-    id
-  }
-  isHidden
-  momoka {
-    proof
-  }
-  txHash
-  createdAt
-  by {
-    ...ProfileFields
-  }
-  stats {
-    ...PublicationStatsFields
-  }
-  operations {
-    ...PublicationOperationFields
-  }
-  metadata {
-    ...AnyPublicationMetadataFields
-  }
-  openActionModules {
-    ...OpenActionModulesFields
-  }
-}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -12531,51 +12483,6 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
     ...PublicationMetadataMediaFields
   }
 }
-fragment MintMetadataV3Fields on MintMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  mintLink
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  content
-}
-fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  content
-}
-fragment VideoMetadataV3Fields on VideoMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  asset {
-    ...PublicationMetadataMediaVideoFields
-  }
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  title
-  content
-  isShortVideo
-}
 fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
   audio {
     raw {
@@ -12634,6 +12541,115 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
     }
   }
   duration
+}
+fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  mintLink
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}
+fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  content
+}
+fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...PublicationMetadataMediaVideoFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  title
+  content
+  isShortVideo
+}
+fragment PublicationOperationFields on PublicationOperations {
+  isNotInterested
+  hasBookmarked
+  hasReported
+  canAct
+  hasActed {
+    value
+    isFinalisedOnchain
+  }
+  actedOn {
+    ... on KnownCollectOpenActionResult {
+      type
+    }
+    ... on UnknownOpenActionResult {
+      address
+      category
+      initReturnData
+    }
+  }
+  hasReacted(request: {type: UPVOTE})
+  canComment
+  canMirror
+  hasMirrored
+  canDecrypt {
+    result
+    reasons
+    extraDetails
+  }
+}
+fragment PublicationStatsFields on PublicationStats {
+  id
+  comments
+  mirrors
+  quotes
+  reactions(request: {type: UPVOTE})
+  countOpenActions
+}
+fragment QuoteBaseFields on Quote {
+  id
+  publishedOn {
+    id
+  }
+  isHidden
+  momoka {
+    proof
+  }
+  txHash
+  createdAt
+  by {
+    ...ProfileFields
+  }
+  stats {
+    ...PublicationStatsFields
+  }
+  operations {
+    ...PublicationOperationFields
+  }
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  openActionModules {
+    ...OpenActionModulesFields
+  }
 }`, {"fragmentName":"MirrorFields"}) as unknown as TypedDocumentString<MirrorFieldsFragment, unknown>;
 export const QuoteFieldsFragmentDoc = new TypedDocumentString(`
     fragment QuoteFields on Quote {
@@ -13016,70 +13032,6 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
-fragment PublicationOperationFields on PublicationOperations {
-  isNotInterested
-  hasBookmarked
-  hasReported
-  canAct
-  hasActed {
-    value
-    isFinalisedOnchain
-  }
-  actedOn {
-    ... on KnownCollectOpenActionResult {
-      type
-    }
-    ... on UnknownOpenActionResult {
-      address
-      category
-      initReturnData
-    }
-  }
-  hasReacted(request: {type: UPVOTE})
-  canComment
-  canMirror
-  hasMirrored
-  canDecrypt {
-    result
-    reasons
-    extraDetails
-  }
-}
-fragment PublicationStatsFields on PublicationStats {
-  id
-  comments
-  mirrors
-  quotes
-  reactions(request: {type: UPVOTE})
-  countOpenActions
-}
-fragment QuoteBaseFields on Quote {
-  id
-  publishedOn {
-    id
-  }
-  isHidden
-  momoka {
-    proof
-  }
-  txHash
-  createdAt
-  by {
-    ...ProfileFields
-  }
-  stats {
-    ...PublicationStatsFields
-  }
-  operations {
-    ...PublicationOperationFields
-  }
-  metadata {
-    ...AnyPublicationMetadataFields
-  }
-  openActionModules {
-    ...OpenActionModulesFields
-  }
-}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -13151,51 +13103,6 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
     ...PublicationMetadataMediaFields
   }
 }
-fragment MintMetadataV3Fields on MintMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  mintLink
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  content
-}
-fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  content
-}
-fragment VideoMetadataV3Fields on VideoMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  asset {
-    ...PublicationMetadataMediaVideoFields
-  }
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  title
-  content
-  isShortVideo
-}
 fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
   audio {
     raw {
@@ -13254,6 +13161,115 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
     }
   }
   duration
+}
+fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  mintLink
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}
+fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  content
+}
+fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...PublicationMetadataMediaVideoFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  title
+  content
+  isShortVideo
+}
+fragment PublicationOperationFields on PublicationOperations {
+  isNotInterested
+  hasBookmarked
+  hasReported
+  canAct
+  hasActed {
+    value
+    isFinalisedOnchain
+  }
+  actedOn {
+    ... on KnownCollectOpenActionResult {
+      type
+    }
+    ... on UnknownOpenActionResult {
+      address
+      category
+      initReturnData
+    }
+  }
+  hasReacted(request: {type: UPVOTE})
+  canComment
+  canMirror
+  hasMirrored
+  canDecrypt {
+    result
+    reasons
+    extraDetails
+  }
+}
+fragment PublicationStatsFields on PublicationStats {
+  id
+  comments
+  mirrors
+  quotes
+  reactions(request: {type: UPVOTE})
+  countOpenActions
+}
+fragment QuoteBaseFields on Quote {
+  id
+  publishedOn {
+    id
+  }
+  isHidden
+  momoka {
+    proof
+  }
+  txHash
+  createdAt
+  by {
+    ...ProfileFields
+  }
+  stats {
+    ...PublicationStatsFields
+  }
+  operations {
+    ...PublicationOperationFields
+  }
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  openActionModules {
+    ...OpenActionModulesFields
+  }
 }`, {"fragmentName":"QuoteFields"}) as unknown as TypedDocumentString<QuoteFieldsFragment, unknown>;
 export const AuthenticateDocument = new TypedDocumentString(`
     mutation Authenticate($request: SignedAuthChallenge!) {
@@ -14764,76 +14780,6 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
-fragment PublicationOperationFields on PublicationOperations {
-  isNotInterested
-  hasBookmarked
-  hasReported
-  canAct
-  hasActed {
-    value
-    isFinalisedOnchain
-  }
-  actedOn {
-    ... on KnownCollectOpenActionResult {
-      type
-    }
-    ... on UnknownOpenActionResult {
-      address
-      category
-      initReturnData
-    }
-  }
-  hasReacted(request: {type: UPVOTE})
-  canComment
-  canMirror
-  hasMirrored
-  canDecrypt {
-    result
-    reasons
-    extraDetails
-  }
-}
-fragment PublicationStatsFields on PublicationStats {
-  id
-  comments
-  mirrors
-  quotes
-  reactions(request: {type: UPVOTE})
-  countOpenActions
-}
-fragment QuoteBaseFields on Quote {
-  id
-  publishedOn {
-    id
-  }
-  isHidden
-  momoka {
-    proof
-  }
-  txHash
-  createdAt
-  by {
-    ...ProfileFields
-  }
-  stats {
-    ...PublicationStatsFields
-  }
-  operations {
-    ...PublicationOperationFields
-  }
-  metadata {
-    ...AnyPublicationMetadataFields
-  }
-  openActionModules {
-    ...OpenActionModulesFields
-  }
-}
-fragment QuoteFields on Quote {
-  ...QuoteBaseFields
-  quoteOn {
-    ...PrimaryPublicationFields
-  }
-}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -14905,51 +14851,6 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
     ...PublicationMetadataMediaFields
   }
 }
-fragment MintMetadataV3Fields on MintMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  mintLink
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  content
-}
-fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  content
-}
-fragment VideoMetadataV3Fields on VideoMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  asset {
-    ...PublicationMetadataMediaVideoFields
-  }
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  title
-  content
-  isShortVideo
-}
 fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
   audio {
     raw {
@@ -15008,6 +14909,121 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
     }
   }
   duration
+}
+fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  mintLink
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}
+fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  content
+}
+fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...PublicationMetadataMediaVideoFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  title
+  content
+  isShortVideo
+}
+fragment PublicationOperationFields on PublicationOperations {
+  isNotInterested
+  hasBookmarked
+  hasReported
+  canAct
+  hasActed {
+    value
+    isFinalisedOnchain
+  }
+  actedOn {
+    ... on KnownCollectOpenActionResult {
+      type
+    }
+    ... on UnknownOpenActionResult {
+      address
+      category
+      initReturnData
+    }
+  }
+  hasReacted(request: {type: UPVOTE})
+  canComment
+  canMirror
+  hasMirrored
+  canDecrypt {
+    result
+    reasons
+    extraDetails
+  }
+}
+fragment PublicationStatsFields on PublicationStats {
+  id
+  comments
+  mirrors
+  quotes
+  reactions(request: {type: UPVOTE})
+  countOpenActions
+}
+fragment QuoteBaseFields on Quote {
+  id
+  publishedOn {
+    id
+  }
+  isHidden
+  momoka {
+    proof
+  }
+  txHash
+  createdAt
+  by {
+    ...ProfileFields
+  }
+  stats {
+    ...PublicationStatsFields
+  }
+  operations {
+    ...PublicationOperationFields
+  }
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  openActionModules {
+    ...OpenActionModulesFields
+  }
+}
+fragment QuoteFields on Quote {
+  ...QuoteBaseFields
+  quoteOn {
+    ...PrimaryPublicationFields
+  }
 }`) as unknown as TypedDocumentString<ExplorePublicationsQuery, ExplorePublicationsQueryVariables>;
 export const FeedHighlightsDocument = new TypedDocumentString(`
     query FeedHighlights($request: FeedHighlightsRequest!) {
@@ -15399,76 +15415,6 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
-fragment PublicationOperationFields on PublicationOperations {
-  isNotInterested
-  hasBookmarked
-  hasReported
-  canAct
-  hasActed {
-    value
-    isFinalisedOnchain
-  }
-  actedOn {
-    ... on KnownCollectOpenActionResult {
-      type
-    }
-    ... on UnknownOpenActionResult {
-      address
-      category
-      initReturnData
-    }
-  }
-  hasReacted(request: {type: UPVOTE})
-  canComment
-  canMirror
-  hasMirrored
-  canDecrypt {
-    result
-    reasons
-    extraDetails
-  }
-}
-fragment PublicationStatsFields on PublicationStats {
-  id
-  comments
-  mirrors
-  quotes
-  reactions(request: {type: UPVOTE})
-  countOpenActions
-}
-fragment QuoteBaseFields on Quote {
-  id
-  publishedOn {
-    id
-  }
-  isHidden
-  momoka {
-    proof
-  }
-  txHash
-  createdAt
-  by {
-    ...ProfileFields
-  }
-  stats {
-    ...PublicationStatsFields
-  }
-  operations {
-    ...PublicationOperationFields
-  }
-  metadata {
-    ...AnyPublicationMetadataFields
-  }
-  openActionModules {
-    ...OpenActionModulesFields
-  }
-}
-fragment QuoteFields on Quote {
-  ...QuoteBaseFields
-  quoteOn {
-    ...PrimaryPublicationFields
-  }
-}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -15540,51 +15486,6 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
     ...PublicationMetadataMediaFields
   }
 }
-fragment MintMetadataV3Fields on MintMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  mintLink
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  content
-}
-fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  content
-}
-fragment VideoMetadataV3Fields on VideoMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  asset {
-    ...PublicationMetadataMediaVideoFields
-  }
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  title
-  content
-  isShortVideo
-}
 fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
   audio {
     raw {
@@ -15643,6 +15544,121 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
     }
   }
   duration
+}
+fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  mintLink
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}
+fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  content
+}
+fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...PublicationMetadataMediaVideoFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  title
+  content
+  isShortVideo
+}
+fragment PublicationOperationFields on PublicationOperations {
+  isNotInterested
+  hasBookmarked
+  hasReported
+  canAct
+  hasActed {
+    value
+    isFinalisedOnchain
+  }
+  actedOn {
+    ... on KnownCollectOpenActionResult {
+      type
+    }
+    ... on UnknownOpenActionResult {
+      address
+      category
+      initReturnData
+    }
+  }
+  hasReacted(request: {type: UPVOTE})
+  canComment
+  canMirror
+  hasMirrored
+  canDecrypt {
+    result
+    reasons
+    extraDetails
+  }
+}
+fragment PublicationStatsFields on PublicationStats {
+  id
+  comments
+  mirrors
+  quotes
+  reactions(request: {type: UPVOTE})
+  countOpenActions
+}
+fragment QuoteBaseFields on Quote {
+  id
+  publishedOn {
+    id
+  }
+  isHidden
+  momoka {
+    proof
+  }
+  txHash
+  createdAt
+  by {
+    ...ProfileFields
+  }
+  stats {
+    ...PublicationStatsFields
+  }
+  operations {
+    ...PublicationOperationFields
+  }
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  openActionModules {
+    ...OpenActionModulesFields
+  }
+}
+fragment QuoteFields on Quote {
+  ...QuoteBaseFields
+  quoteOn {
+    ...PrimaryPublicationFields
+  }
 }`) as unknown as TypedDocumentString<FeedHighlightsQuery, FeedHighlightsQueryVariables>;
 export const FollowersDocument = new TypedDocumentString(`
     query Followers($request: FollowersRequest!) {
@@ -16080,6 +16096,650 @@ export const LensTransactionStatusDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<LensTransactionStatusQuery, LensTransactionStatusQueryVariables>;
+export const ModExplorePublicationsDocument = new TypedDocumentString(`
+    query ModExplorePublications($request: ModExplorePublicationRequest!) {
+  modExplorePublications(request: $request) {
+    items {
+      ... on Post {
+        ...PostFields
+      }
+      ... on Comment {
+        ...CommentFields
+      }
+      ... on Quote {
+        ...QuoteFields
+      }
+    }
+    pageInfo {
+      next
+    }
+  }
+}
+    fragment AmountFields on Amount {
+  asset {
+    ...Erc20Fields
+  }
+  value
+}
+fragment AnyPublicationMetadataFields on PublicationMetadata {
+  ... on VideoMetadataV3 {
+    ...VideoMetadataV3Fields
+  }
+  ... on AudioMetadataV3 {
+    ...AudioMetadataV3Fields
+  }
+  ... on ImageMetadataV3 {
+    ...ImageMetadataV3Fields
+  }
+  ... on LinkMetadataV3 {
+    ...LinkMetadataV3Fields
+  }
+  ... on LiveStreamMetadataV3 {
+    ...LiveStreamMetadataV3Fields
+  }
+  ... on MintMetadataV3 {
+    ...MintMetadataV3Fields
+  }
+  ... on TextOnlyMetadataV3 {
+    ...TextOnlyMetadataV3Fields
+  }
+}
+fragment CommentBaseFields on Comment {
+  id
+  publishedOn {
+    id
+  }
+  isHidden
+  momoka {
+    proof
+  }
+  txHash
+  createdAt
+  by {
+    ...ProfileFields
+  }
+  stats {
+    ...PublicationStatsFields
+  }
+  operations {
+    ...PublicationOperationFields
+  }
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  openActionModules {
+    ...OpenActionModulesFields
+  }
+  root {
+    ...PostFields
+  }
+}
+fragment CommentFields on Comment {
+  ...CommentBaseFields
+  commentOn {
+    ...PrimaryPublicationFields
+  }
+}
+fragment Erc20Fields on Asset {
+  ... on Erc20 {
+    name
+    symbol
+    decimals
+    contract {
+      ...NetworkAddressFields
+    }
+  }
+}
+fragment FiatAmountFields on FiatAmount {
+  asset {
+    name
+    symbol
+    decimals
+  }
+  value
+}
+fragment FollowModuleFields on FollowModule {
+  ... on FeeFollowModuleSettings {
+    type
+    amount {
+      ...AmountFields
+      asFiat(request: {for: USD}) {
+        ...FiatAmountFields
+      }
+    }
+    recipient
+  }
+  ... on RevertFollowModuleSettings {
+    type
+  }
+  ... on UnknownFollowModuleSettings {
+    type
+  }
+}
+fragment HandleInfoFields on HandleInfo {
+  id
+  fullHandle
+  localName
+  ownedBy
+}
+fragment ImageSetFields on ImageSet {
+  raw {
+    uri
+  }
+  optimized {
+    uri
+  }
+}
+fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}
+fragment NetworkAddressFields on NetworkAddress {
+  address
+  chainId
+}
+fragment OpenActionModulesFields on OpenActionModule {
+  ... on SimpleCollectOpenActionSettings {
+    type
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+      asFiat(request: {for: USD}) {
+        ...FiatAmountFields
+      }
+    }
+    collectLimit
+    followerOnly
+    recipient
+    referralFee
+    collectNft
+    endsAt
+  }
+  ... on MultirecipientFeeCollectOpenActionSettings {
+    type
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+      asFiat(request: {for: USD}) {
+        ...FiatAmountFields
+      }
+    }
+    collectLimit
+    referralFee
+    followerOnly
+    collectNft
+    endsAt
+    recipients {
+      recipient
+      split
+    }
+  }
+  ... on LegacyMultirecipientFeeCollectModuleSettings {
+    type
+    contract {
+      ...NetworkAddressFields
+    }
+    collectNft
+    amount {
+      ...AmountFields
+      asFiat(request: {for: USD}) {
+        ...FiatAmountFields
+      }
+    }
+    collectLimit
+    referralFee
+    followerOnly
+    endsAt
+    recipients {
+      recipient
+      split
+    }
+  }
+  ... on LegacySimpleCollectModuleSettings {
+    type
+    contract {
+      ...NetworkAddressFields
+    }
+    collectNft
+    amount {
+      ...AmountFields
+      asFiat(request: {for: USD}) {
+        ...FiatAmountFields
+      }
+    }
+    collectLimit
+    followerOnly
+    recipient
+    referralFee
+    endsAt
+  }
+  ... on LegacyFreeCollectModuleSettings {
+    type
+  }
+  ... on LegacyFeeCollectModuleSettings {
+    type
+  }
+  ... on LegacyLimitedFeeCollectModuleSettings {
+    type
+  }
+  ... on LegacyLimitedTimedFeeCollectModuleSettings {
+    type
+  }
+  ... on LegacyRevertCollectModuleSettings {
+    type
+  }
+  ... on LegacyTimedFeeCollectModuleSettings {
+    type
+  }
+  ... on LegacyERC4626FeeCollectModuleSettings {
+    type
+  }
+  ... on LegacyAaveFeeCollectModuleSettings {
+    type
+  }
+  ... on UnknownOpenActionModuleSettings {
+    type
+    collectNft
+    initializeResultData
+    initializeCalldata
+    contract {
+      ...NetworkAddressFields
+    }
+    openActionModuleReturnData
+  }
+}
+fragment PostFields on Post {
+  id
+  publishedOn {
+    id
+  }
+  isHidden
+  momoka {
+    proof
+  }
+  txHash
+  createdAt
+  by {
+    ...ProfileFields
+  }
+  stats {
+    ...PublicationStatsFields
+  }
+  operations {
+    ...PublicationOperationFields
+  }
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  openActionModules {
+    ...OpenActionModulesFields
+  }
+}
+fragment PrimaryPublicationFields on PrimaryPublication {
+  ... on Post {
+    ...PostFields
+  }
+  ... on Comment {
+    ...CommentBaseFields
+  }
+  ... on Quote {
+    ...QuoteBaseFields
+  }
+}
+fragment ProfileFields on Profile {
+  id
+  ownedBy {
+    ...NetworkAddressFields
+  }
+  signless
+  sponsor
+  createdAt
+  stats {
+    ...ProfileStatsFields
+  }
+  operations {
+    ...ProfileOperationsFields
+  }
+  interests
+  guardian {
+    protected
+    cooldownEndsOn
+  }
+  invitedBy {
+    id
+  }
+  onchainIdentity {
+    proofOfHumanity
+    ens {
+      name
+    }
+    sybilDotOrg {
+      verified
+      source {
+        twitter {
+          handle
+        }
+      }
+    }
+    worldcoin {
+      isHuman
+    }
+  }
+  followNftAddress {
+    address
+    chainId
+  }
+  metadata {
+    ...ProfileMetadataFields
+  }
+  followModule {
+    ...FollowModuleFields
+  }
+  handle {
+    ...HandleInfoFields
+  }
+}
+fragment ProfileMetadataFields on ProfileMetadata {
+  displayName
+  bio
+  rawURI
+  picture {
+    ... on ImageSet {
+      ...ImageSetFields
+    }
+    ... on NftImage {
+      image {
+        ...ImageSetFields
+      }
+    }
+  }
+  coverPicture {
+    ...ImageSetFields
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+}
+fragment ProfileOperationsFields on ProfileOperations {
+  id
+  isBlockedByMe {
+    value
+  }
+  isFollowedByMe {
+    value
+  }
+  isFollowingMe {
+    value
+  }
+  canBlock
+  canUnblock
+  canFollow
+  canUnfollow
+}
+fragment ProfileStatsFields on ProfileStats {
+  id
+  followers
+  following
+  comments
+  posts
+  mirrors
+  quotes
+  publications
+  reactions
+  reacted
+  countOpenActions
+  lensClassifierScore
+}
+fragment AudioMetadataV3Fields on AudioMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...PublicationMetadataMediaAudioFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  title
+  content
+}
+fragment ImageMetadataV3Fields on ImageMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  asset {
+    ...PublicationMetadataMediaImageFields
+  }
+  title
+  content
+}
+fragment LinkMetadataV3Fields on LinkMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  sharingLink
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}
+fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  startsAt
+  endsAt
+  playbackURL
+  liveURL
+  checkLiveAPI
+  title
+  content
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
+fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
+  audio {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+  cover {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+  duration
+}
+fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
+  ... on PublicationMetadataMediaVideo {
+    ...PublicationMetadataMediaVideoFields
+  }
+  ... on PublicationMetadataMediaImage {
+    ...PublicationMetadataMediaImageFields
+  }
+  ... on PublicationMetadataMediaAudio {
+    ...PublicationMetadataMediaAudioFields
+  }
+}
+fragment PublicationMetadataMediaImageFields on PublicationMetadataMediaImage {
+  image {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+}
+fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
+  video {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+  cover {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+  duration
+}
+fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  mintLink
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}
+fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  content
+}
+fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...PublicationMetadataMediaVideoFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  title
+  content
+  isShortVideo
+}
+fragment PublicationOperationFields on PublicationOperations {
+  isNotInterested
+  hasBookmarked
+  hasReported
+  canAct
+  hasActed {
+    value
+    isFinalisedOnchain
+  }
+  actedOn {
+    ... on KnownCollectOpenActionResult {
+      type
+    }
+    ... on UnknownOpenActionResult {
+      address
+      category
+      initReturnData
+    }
+  }
+  hasReacted(request: {type: UPVOTE})
+  canComment
+  canMirror
+  hasMirrored
+  canDecrypt {
+    result
+    reasons
+    extraDetails
+  }
+}
+fragment PublicationStatsFields on PublicationStats {
+  id
+  comments
+  mirrors
+  quotes
+  reactions(request: {type: UPVOTE})
+  countOpenActions
+}
+fragment QuoteBaseFields on Quote {
+  id
+  publishedOn {
+    id
+  }
+  isHidden
+  momoka {
+    proof
+  }
+  txHash
+  createdAt
+  by {
+    ...ProfileFields
+  }
+  stats {
+    ...PublicationStatsFields
+  }
+  operations {
+    ...PublicationOperationFields
+  }
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  openActionModules {
+    ...OpenActionModulesFields
+  }
+}
+fragment QuoteFields on Quote {
+  ...QuoteBaseFields
+  quoteOn {
+    ...PrimaryPublicationFields
+  }
+}`) as unknown as TypedDocumentString<ModExplorePublicationsQuery, ModExplorePublicationsQueryVariables>;
 export const ModuleMetadataDocument = new TypedDocumentString(`
     query ModuleMetadata($request: ModuleMetadataRequest!) {
   moduleMetadata(request: $request) {
@@ -16780,76 +17440,6 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
-fragment PublicationOperationFields on PublicationOperations {
-  isNotInterested
-  hasBookmarked
-  hasReported
-  canAct
-  hasActed {
-    value
-    isFinalisedOnchain
-  }
-  actedOn {
-    ... on KnownCollectOpenActionResult {
-      type
-    }
-    ... on UnknownOpenActionResult {
-      address
-      category
-      initReturnData
-    }
-  }
-  hasReacted(request: {type: UPVOTE})
-  canComment
-  canMirror
-  hasMirrored
-  canDecrypt {
-    result
-    reasons
-    extraDetails
-  }
-}
-fragment PublicationStatsFields on PublicationStats {
-  id
-  comments
-  mirrors
-  quotes
-  reactions(request: {type: UPVOTE})
-  countOpenActions
-}
-fragment QuoteBaseFields on Quote {
-  id
-  publishedOn {
-    id
-  }
-  isHidden
-  momoka {
-    proof
-  }
-  txHash
-  createdAt
-  by {
-    ...ProfileFields
-  }
-  stats {
-    ...PublicationStatsFields
-  }
-  operations {
-    ...PublicationOperationFields
-  }
-  metadata {
-    ...AnyPublicationMetadataFields
-  }
-  openActionModules {
-    ...OpenActionModulesFields
-  }
-}
-fragment QuoteFields on Quote {
-  ...QuoteBaseFields
-  quoteOn {
-    ...PrimaryPublicationFields
-  }
-}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -16921,51 +17511,6 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
     ...PublicationMetadataMediaFields
   }
 }
-fragment MintMetadataV3Fields on MintMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  mintLink
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  content
-}
-fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  content
-}
-fragment VideoMetadataV3Fields on VideoMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  asset {
-    ...PublicationMetadataMediaVideoFields
-  }
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  title
-  content
-  isShortVideo
-}
 fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
   audio {
     raw {
@@ -17024,6 +17569,121 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
     }
   }
   duration
+}
+fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  mintLink
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}
+fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  content
+}
+fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...PublicationMetadataMediaVideoFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  title
+  content
+  isShortVideo
+}
+fragment PublicationOperationFields on PublicationOperations {
+  isNotInterested
+  hasBookmarked
+  hasReported
+  canAct
+  hasActed {
+    value
+    isFinalisedOnchain
+  }
+  actedOn {
+    ... on KnownCollectOpenActionResult {
+      type
+    }
+    ... on UnknownOpenActionResult {
+      address
+      category
+      initReturnData
+    }
+  }
+  hasReacted(request: {type: UPVOTE})
+  canComment
+  canMirror
+  hasMirrored
+  canDecrypt {
+    result
+    reasons
+    extraDetails
+  }
+}
+fragment PublicationStatsFields on PublicationStats {
+  id
+  comments
+  mirrors
+  quotes
+  reactions(request: {type: UPVOTE})
+  countOpenActions
+}
+fragment QuoteBaseFields on Quote {
+  id
+  publishedOn {
+    id
+  }
+  isHidden
+  momoka {
+    proof
+  }
+  txHash
+  createdAt
+  by {
+    ...ProfileFields
+  }
+  stats {
+    ...PublicationStatsFields
+  }
+  operations {
+    ...PublicationOperationFields
+  }
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  openActionModules {
+    ...OpenActionModulesFields
+  }
+}
+fragment QuoteFields on Quote {
+  ...QuoteBaseFields
+  quoteOn {
+    ...PrimaryPublicationFields
+  }
 }`) as unknown as TypedDocumentString<NotificationsQuery, NotificationsQueryVariables>;
 export const OwnedHandlesDocument = new TypedDocumentString(`
     query OwnedHandles($request: OwnedHandlesRequest!) {
@@ -17044,181 +17704,6 @@ export const OwnedHandlesDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<OwnedHandlesQuery, OwnedHandlesQueryVariables>;
-export const ProfileDocument = new TypedDocumentString(`
-    query Profile($request: ProfileRequest!) {
-  profile(request: $request) {
-    ...ProfileFields
-  }
-}
-    fragment AmountFields on Amount {
-  asset {
-    ...Erc20Fields
-  }
-  value
-}
-fragment Erc20Fields on Asset {
-  ... on Erc20 {
-    name
-    symbol
-    decimals
-    contract {
-      ...NetworkAddressFields
-    }
-  }
-}
-fragment FiatAmountFields on FiatAmount {
-  asset {
-    name
-    symbol
-    decimals
-  }
-  value
-}
-fragment FollowModuleFields on FollowModule {
-  ... on FeeFollowModuleSettings {
-    type
-    amount {
-      ...AmountFields
-      asFiat(request: {for: USD}) {
-        ...FiatAmountFields
-      }
-    }
-    recipient
-  }
-  ... on RevertFollowModuleSettings {
-    type
-  }
-  ... on UnknownFollowModuleSettings {
-    type
-  }
-}
-fragment HandleInfoFields on HandleInfo {
-  id
-  fullHandle
-  localName
-  ownedBy
-}
-fragment ImageSetFields on ImageSet {
-  raw {
-    uri
-  }
-  optimized {
-    uri
-  }
-}
-fragment MetadataAttributeFields on MetadataAttribute {
-  type
-  key
-  value
-}
-fragment NetworkAddressFields on NetworkAddress {
-  address
-  chainId
-}
-fragment ProfileFields on Profile {
-  id
-  ownedBy {
-    ...NetworkAddressFields
-  }
-  signless
-  sponsor
-  createdAt
-  stats {
-    ...ProfileStatsFields
-  }
-  operations {
-    ...ProfileOperationsFields
-  }
-  interests
-  guardian {
-    protected
-    cooldownEndsOn
-  }
-  invitedBy {
-    id
-  }
-  onchainIdentity {
-    proofOfHumanity
-    ens {
-      name
-    }
-    sybilDotOrg {
-      verified
-      source {
-        twitter {
-          handle
-        }
-      }
-    }
-    worldcoin {
-      isHuman
-    }
-  }
-  followNftAddress {
-    address
-    chainId
-  }
-  metadata {
-    ...ProfileMetadataFields
-  }
-  followModule {
-    ...FollowModuleFields
-  }
-  handle {
-    ...HandleInfoFields
-  }
-}
-fragment ProfileMetadataFields on ProfileMetadata {
-  displayName
-  bio
-  rawURI
-  picture {
-    ... on ImageSet {
-      ...ImageSetFields
-    }
-    ... on NftImage {
-      image {
-        ...ImageSetFields
-      }
-    }
-  }
-  coverPicture {
-    ...ImageSetFields
-  }
-  attributes {
-    ...MetadataAttributeFields
-  }
-}
-fragment ProfileOperationsFields on ProfileOperations {
-  id
-  isBlockedByMe {
-    value
-  }
-  isFollowedByMe {
-    value
-  }
-  isFollowingMe {
-    value
-  }
-  canBlock
-  canUnblock
-  canFollow
-  canUnfollow
-}
-fragment ProfileStatsFields on ProfileStats {
-  id
-  followers
-  following
-  comments
-  posts
-  mirrors
-  quotes
-  publications
-  reactions
-  reacted
-  countOpenActions
-  lensClassifierScore
-}`) as unknown as TypedDocumentString<ProfileQuery, ProfileQueryVariables>;
 export const FeedDocument = new TypedDocumentString(`
     query Feed($request: FeedRequest!) {
   feed(request: $request) {
@@ -17617,70 +18102,6 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
-fragment PublicationOperationFields on PublicationOperations {
-  isNotInterested
-  hasBookmarked
-  hasReported
-  canAct
-  hasActed {
-    value
-    isFinalisedOnchain
-  }
-  actedOn {
-    ... on KnownCollectOpenActionResult {
-      type
-    }
-    ... on UnknownOpenActionResult {
-      address
-      category
-      initReturnData
-    }
-  }
-  hasReacted(request: {type: UPVOTE})
-  canComment
-  canMirror
-  hasMirrored
-  canDecrypt {
-    result
-    reasons
-    extraDetails
-  }
-}
-fragment PublicationStatsFields on PublicationStats {
-  id
-  comments
-  mirrors
-  quotes
-  reactions(request: {type: UPVOTE})
-  countOpenActions
-}
-fragment QuoteBaseFields on Quote {
-  id
-  publishedOn {
-    id
-  }
-  isHidden
-  momoka {
-    proof
-  }
-  txHash
-  createdAt
-  by {
-    ...ProfileFields
-  }
-  stats {
-    ...PublicationStatsFields
-  }
-  operations {
-    ...PublicationOperationFields
-  }
-  metadata {
-    ...AnyPublicationMetadataFields
-  }
-  openActionModules {
-    ...OpenActionModulesFields
-  }
-}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -17752,51 +18173,6 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
     ...PublicationMetadataMediaFields
   }
 }
-fragment MintMetadataV3Fields on MintMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  mintLink
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  content
-}
-fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  content
-}
-fragment VideoMetadataV3Fields on VideoMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  asset {
-    ...PublicationMetadataMediaVideoFields
-  }
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  title
-  content
-  isShortVideo
-}
 fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
   audio {
     raw {
@@ -17855,6 +18231,115 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
     }
   }
   duration
+}
+fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  mintLink
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}
+fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  content
+}
+fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...PublicationMetadataMediaVideoFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  title
+  content
+  isShortVideo
+}
+fragment PublicationOperationFields on PublicationOperations {
+  isNotInterested
+  hasBookmarked
+  hasReported
+  canAct
+  hasActed {
+    value
+    isFinalisedOnchain
+  }
+  actedOn {
+    ... on KnownCollectOpenActionResult {
+      type
+    }
+    ... on UnknownOpenActionResult {
+      address
+      category
+      initReturnData
+    }
+  }
+  hasReacted(request: {type: UPVOTE})
+  canComment
+  canMirror
+  hasMirrored
+  canDecrypt {
+    result
+    reasons
+    extraDetails
+  }
+}
+fragment PublicationStatsFields on PublicationStats {
+  id
+  comments
+  mirrors
+  quotes
+  reactions(request: {type: UPVOTE})
+  countOpenActions
+}
+fragment QuoteBaseFields on Quote {
+  id
+  publishedOn {
+    id
+  }
+  isHidden
+  momoka {
+    proof
+  }
+  txHash
+  createdAt
+  by {
+    ...ProfileFields
+  }
+  stats {
+    ...PublicationStatsFields
+  }
+  operations {
+    ...PublicationOperationFields
+  }
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  openActionModules {
+    ...OpenActionModulesFields
+  }
 }`) as unknown as TypedDocumentString<FeedQuery, FeedQueryVariables>;
 export const ProfileFollowModuleDocument = new TypedDocumentString(`
     query ProfileFollowModule($request: ProfileRequest!) {
@@ -17932,15 +18417,10 @@ export const ProfileManagersDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<ProfileManagersQuery, ProfileManagersQueryVariables>;
-export const ProfilesDocument = new TypedDocumentString(`
-    query Profiles($request: ProfilesRequest!) {
-  profiles(request: $request) {
-    items {
-      ...ProfileFields
-    }
-    pageInfo {
-      next
-    }
+export const ProfileDocument = new TypedDocumentString(`
+    query Profile($request: ProfileRequest!) {
+  profile(request: $request) {
+    ...ProfileFields
   }
 }
     fragment AmountFields on Amount {
@@ -18111,7 +18591,7 @@ fragment ProfileStatsFields on ProfileStats {
   reacted
   countOpenActions
   lensClassifierScore
-}`) as unknown as TypedDocumentString<ProfilesQuery, ProfilesQueryVariables>;
+}`) as unknown as TypedDocumentString<ProfileQuery, ProfileQueryVariables>;
 export const ProfilesManagedDocument = new TypedDocumentString(`
     query ProfilesManaged($request: ProfilesManagedRequest!, $lastLoggedInProfileRequest: LastLoggedInProfileRequest!) {
   profilesManaged(request: $request) {
@@ -18295,20 +18775,14 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }`) as unknown as TypedDocumentString<ProfilesManagedQuery, ProfilesManagedQueryVariables>;
-export const PublicationDocument = new TypedDocumentString(`
-    query Publication($request: PublicationRequest!) {
-  publication(request: $request) {
-    ... on Post {
-      ...PostFields
+export const ProfilesDocument = new TypedDocumentString(`
+    query Profiles($request: ProfilesRequest!) {
+  profiles(request: $request) {
+    items {
+      ...ProfileFields
     }
-    ... on Comment {
-      ...CommentFields
-    }
-    ... on Mirror {
-      ...MirrorFields
-    }
-    ... on Quote {
-      ...QuoteFields
+    pageInfo {
+      next
     }
   }
 }
@@ -18317,65 +18791,6 @@ export const PublicationDocument = new TypedDocumentString(`
     ...Erc20Fields
   }
   value
-}
-fragment AnyPublicationMetadataFields on PublicationMetadata {
-  ... on VideoMetadataV3 {
-    ...VideoMetadataV3Fields
-  }
-  ... on AudioMetadataV3 {
-    ...AudioMetadataV3Fields
-  }
-  ... on ImageMetadataV3 {
-    ...ImageMetadataV3Fields
-  }
-  ... on LinkMetadataV3 {
-    ...LinkMetadataV3Fields
-  }
-  ... on LiveStreamMetadataV3 {
-    ...LiveStreamMetadataV3Fields
-  }
-  ... on MintMetadataV3 {
-    ...MintMetadataV3Fields
-  }
-  ... on TextOnlyMetadataV3 {
-    ...TextOnlyMetadataV3Fields
-  }
-}
-fragment CommentBaseFields on Comment {
-  id
-  publishedOn {
-    id
-  }
-  isHidden
-  momoka {
-    proof
-  }
-  txHash
-  createdAt
-  by {
-    ...ProfileFields
-  }
-  stats {
-    ...PublicationStatsFields
-  }
-  operations {
-    ...PublicationOperationFields
-  }
-  metadata {
-    ...AnyPublicationMetadataFields
-  }
-  openActionModules {
-    ...OpenActionModulesFields
-  }
-  root {
-    ...PostFields
-  }
-}
-fragment CommentFields on Comment {
-  ...CommentBaseFields
-  commentOn {
-    ...PrimaryPublicationFields
-  }
 }
 fragment Erc20Fields on Asset {
   ... on Erc20 {
@@ -18432,176 +18847,9 @@ fragment MetadataAttributeFields on MetadataAttribute {
   key
   value
 }
-fragment MirrorFields on Mirror {
-  id
-  publishedOn {
-    id
-  }
-  isHidden
-  momoka {
-    proof
-  }
-  txHash
-  createdAt
-  mirrorOn {
-    ...PrimaryPublicationFields
-  }
-}
 fragment NetworkAddressFields on NetworkAddress {
   address
   chainId
-}
-fragment OpenActionModulesFields on OpenActionModule {
-  ... on SimpleCollectOpenActionSettings {
-    type
-    contract {
-      ...NetworkAddressFields
-    }
-    amount {
-      ...AmountFields
-      asFiat(request: {for: USD}) {
-        ...FiatAmountFields
-      }
-    }
-    collectLimit
-    followerOnly
-    recipient
-    referralFee
-    collectNft
-    endsAt
-  }
-  ... on MultirecipientFeeCollectOpenActionSettings {
-    type
-    contract {
-      ...NetworkAddressFields
-    }
-    amount {
-      ...AmountFields
-      asFiat(request: {for: USD}) {
-        ...FiatAmountFields
-      }
-    }
-    collectLimit
-    referralFee
-    followerOnly
-    collectNft
-    endsAt
-    recipients {
-      recipient
-      split
-    }
-  }
-  ... on LegacyMultirecipientFeeCollectModuleSettings {
-    type
-    contract {
-      ...NetworkAddressFields
-    }
-    collectNft
-    amount {
-      ...AmountFields
-      asFiat(request: {for: USD}) {
-        ...FiatAmountFields
-      }
-    }
-    collectLimit
-    referralFee
-    followerOnly
-    endsAt
-    recipients {
-      recipient
-      split
-    }
-  }
-  ... on LegacySimpleCollectModuleSettings {
-    type
-    contract {
-      ...NetworkAddressFields
-    }
-    collectNft
-    amount {
-      ...AmountFields
-      asFiat(request: {for: USD}) {
-        ...FiatAmountFields
-      }
-    }
-    collectLimit
-    followerOnly
-    recipient
-    referralFee
-    endsAt
-  }
-  ... on LegacyFreeCollectModuleSettings {
-    type
-  }
-  ... on LegacyFeeCollectModuleSettings {
-    type
-  }
-  ... on LegacyLimitedFeeCollectModuleSettings {
-    type
-  }
-  ... on LegacyLimitedTimedFeeCollectModuleSettings {
-    type
-  }
-  ... on LegacyRevertCollectModuleSettings {
-    type
-  }
-  ... on LegacyTimedFeeCollectModuleSettings {
-    type
-  }
-  ... on LegacyERC4626FeeCollectModuleSettings {
-    type
-  }
-  ... on LegacyAaveFeeCollectModuleSettings {
-    type
-  }
-  ... on UnknownOpenActionModuleSettings {
-    type
-    collectNft
-    initializeResultData
-    initializeCalldata
-    contract {
-      ...NetworkAddressFields
-    }
-    openActionModuleReturnData
-  }
-}
-fragment PostFields on Post {
-  id
-  publishedOn {
-    id
-  }
-  isHidden
-  momoka {
-    proof
-  }
-  txHash
-  createdAt
-  by {
-    ...ProfileFields
-  }
-  stats {
-    ...PublicationStatsFields
-  }
-  operations {
-    ...PublicationOperationFields
-  }
-  metadata {
-    ...AnyPublicationMetadataFields
-  }
-  openActionModules {
-    ...OpenActionModulesFields
-  }
-}
-fragment PrimaryPublicationFields on PrimaryPublication {
-  ... on Post {
-    ...PostFields
-  }
-  ... on Comment {
-    ...CommentBaseFields
-  }
-  ... on Quote {
-    ...QuoteBaseFields
-  }
 }
 fragment ProfileFields on Profile {
   id
@@ -18706,252 +18954,7 @@ fragment ProfileStatsFields on ProfileStats {
   reacted
   countOpenActions
   lensClassifierScore
-}
-fragment PublicationOperationFields on PublicationOperations {
-  isNotInterested
-  hasBookmarked
-  hasReported
-  canAct
-  hasActed {
-    value
-    isFinalisedOnchain
-  }
-  actedOn {
-    ... on KnownCollectOpenActionResult {
-      type
-    }
-    ... on UnknownOpenActionResult {
-      address
-      category
-      initReturnData
-    }
-  }
-  hasReacted(request: {type: UPVOTE})
-  canComment
-  canMirror
-  hasMirrored
-  canDecrypt {
-    result
-    reasons
-    extraDetails
-  }
-}
-fragment PublicationStatsFields on PublicationStats {
-  id
-  comments
-  mirrors
-  quotes
-  reactions(request: {type: UPVOTE})
-  countOpenActions
-}
-fragment QuoteBaseFields on Quote {
-  id
-  publishedOn {
-    id
-  }
-  isHidden
-  momoka {
-    proof
-  }
-  txHash
-  createdAt
-  by {
-    ...ProfileFields
-  }
-  stats {
-    ...PublicationStatsFields
-  }
-  operations {
-    ...PublicationOperationFields
-  }
-  metadata {
-    ...AnyPublicationMetadataFields
-  }
-  openActionModules {
-    ...OpenActionModulesFields
-  }
-}
-fragment QuoteFields on Quote {
-  ...QuoteBaseFields
-  quoteOn {
-    ...PrimaryPublicationFields
-  }
-}
-fragment AudioMetadataV3Fields on AudioMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  asset {
-    ...PublicationMetadataMediaAudioFields
-  }
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  title
-  content
-}
-fragment ImageMetadataV3Fields on ImageMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  asset {
-    ...PublicationMetadataMediaImageFields
-  }
-  title
-  content
-}
-fragment LinkMetadataV3Fields on LinkMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  sharingLink
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  content
-}
-fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  startsAt
-  endsAt
-  playbackURL
-  liveURL
-  checkLiveAPI
-  title
-  content
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-}
-fragment MintMetadataV3Fields on MintMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  mintLink
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  content
-}
-fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  content
-}
-fragment VideoMetadataV3Fields on VideoMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  asset {
-    ...PublicationMetadataMediaVideoFields
-  }
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  title
-  content
-  isShortVideo
-}
-fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
-  audio {
-    raw {
-      uri
-    }
-    optimized {
-      uri
-    }
-  }
-  cover {
-    raw {
-      uri
-    }
-    optimized {
-      uri
-    }
-  }
-  duration
-}
-fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
-  ... on PublicationMetadataMediaVideo {
-    ...PublicationMetadataMediaVideoFields
-  }
-  ... on PublicationMetadataMediaImage {
-    ...PublicationMetadataMediaImageFields
-  }
-  ... on PublicationMetadataMediaAudio {
-    ...PublicationMetadataMediaAudioFields
-  }
-}
-fragment PublicationMetadataMediaImageFields on PublicationMetadataMediaImage {
-  image {
-    raw {
-      uri
-    }
-    optimized {
-      uri
-    }
-  }
-}
-fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
-  video {
-    raw {
-      uri
-    }
-    optimized {
-      uri
-    }
-  }
-  cover {
-    raw {
-      uri
-    }
-    optimized {
-      uri
-    }
-  }
-  duration
-}`) as unknown as TypedDocumentString<PublicationQuery, PublicationQueryVariables>;
+}`) as unknown as TypedDocumentString<ProfilesQuery, ProfilesQueryVariables>;
 export const PublicationBookmarksDocument = new TypedDocumentString(`
     query PublicationBookmarks($request: PublicationBookmarksRequest!) {
   publicationBookmarks(request: $request) {
@@ -19369,6 +19372,181 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
+fragment AudioMetadataV3Fields on AudioMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...PublicationMetadataMediaAudioFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  title
+  content
+}
+fragment ImageMetadataV3Fields on ImageMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  asset {
+    ...PublicationMetadataMediaImageFields
+  }
+  title
+  content
+}
+fragment LinkMetadataV3Fields on LinkMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  sharingLink
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}
+fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  startsAt
+  endsAt
+  playbackURL
+  liveURL
+  checkLiveAPI
+  title
+  content
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
+fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
+  audio {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+  cover {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+  duration
+}
+fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
+  ... on PublicationMetadataMediaVideo {
+    ...PublicationMetadataMediaVideoFields
+  }
+  ... on PublicationMetadataMediaImage {
+    ...PublicationMetadataMediaImageFields
+  }
+  ... on PublicationMetadataMediaAudio {
+    ...PublicationMetadataMediaAudioFields
+  }
+}
+fragment PublicationMetadataMediaImageFields on PublicationMetadataMediaImage {
+  image {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+}
+fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
+  video {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+  cover {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+  duration
+}
+fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  mintLink
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}
+fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  content
+}
+fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...PublicationMetadataMediaVideoFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  title
+  content
+  isShortVideo
+}
 fragment PublicationOperationFields on PublicationOperations {
   isNotInterested
   hasBookmarked
@@ -19438,6 +19616,418 @@ fragment QuoteFields on Quote {
   quoteOn {
     ...PrimaryPublicationFields
   }
+}`) as unknown as TypedDocumentString<PublicationBookmarksQuery, PublicationBookmarksQueryVariables>;
+export const PublicationDocument = new TypedDocumentString(`
+    query Publication($request: PublicationRequest!) {
+  publication(request: $request) {
+    ... on Post {
+      ...PostFields
+    }
+    ... on Comment {
+      ...CommentFields
+    }
+    ... on Mirror {
+      ...MirrorFields
+    }
+    ... on Quote {
+      ...QuoteFields
+    }
+  }
+}
+    fragment AmountFields on Amount {
+  asset {
+    ...Erc20Fields
+  }
+  value
+}
+fragment AnyPublicationMetadataFields on PublicationMetadata {
+  ... on VideoMetadataV3 {
+    ...VideoMetadataV3Fields
+  }
+  ... on AudioMetadataV3 {
+    ...AudioMetadataV3Fields
+  }
+  ... on ImageMetadataV3 {
+    ...ImageMetadataV3Fields
+  }
+  ... on LinkMetadataV3 {
+    ...LinkMetadataV3Fields
+  }
+  ... on LiveStreamMetadataV3 {
+    ...LiveStreamMetadataV3Fields
+  }
+  ... on MintMetadataV3 {
+    ...MintMetadataV3Fields
+  }
+  ... on TextOnlyMetadataV3 {
+    ...TextOnlyMetadataV3Fields
+  }
+}
+fragment CommentBaseFields on Comment {
+  id
+  publishedOn {
+    id
+  }
+  isHidden
+  momoka {
+    proof
+  }
+  txHash
+  createdAt
+  by {
+    ...ProfileFields
+  }
+  stats {
+    ...PublicationStatsFields
+  }
+  operations {
+    ...PublicationOperationFields
+  }
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  openActionModules {
+    ...OpenActionModulesFields
+  }
+  root {
+    ...PostFields
+  }
+}
+fragment CommentFields on Comment {
+  ...CommentBaseFields
+  commentOn {
+    ...PrimaryPublicationFields
+  }
+}
+fragment Erc20Fields on Asset {
+  ... on Erc20 {
+    name
+    symbol
+    decimals
+    contract {
+      ...NetworkAddressFields
+    }
+  }
+}
+fragment FiatAmountFields on FiatAmount {
+  asset {
+    name
+    symbol
+    decimals
+  }
+  value
+}
+fragment FollowModuleFields on FollowModule {
+  ... on FeeFollowModuleSettings {
+    type
+    amount {
+      ...AmountFields
+      asFiat(request: {for: USD}) {
+        ...FiatAmountFields
+      }
+    }
+    recipient
+  }
+  ... on RevertFollowModuleSettings {
+    type
+  }
+  ... on UnknownFollowModuleSettings {
+    type
+  }
+}
+fragment HandleInfoFields on HandleInfo {
+  id
+  fullHandle
+  localName
+  ownedBy
+}
+fragment ImageSetFields on ImageSet {
+  raw {
+    uri
+  }
+  optimized {
+    uri
+  }
+}
+fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}
+fragment MirrorFields on Mirror {
+  id
+  publishedOn {
+    id
+  }
+  isHidden
+  momoka {
+    proof
+  }
+  txHash
+  createdAt
+  mirrorOn {
+    ...PrimaryPublicationFields
+  }
+}
+fragment NetworkAddressFields on NetworkAddress {
+  address
+  chainId
+}
+fragment OpenActionModulesFields on OpenActionModule {
+  ... on SimpleCollectOpenActionSettings {
+    type
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+      asFiat(request: {for: USD}) {
+        ...FiatAmountFields
+      }
+    }
+    collectLimit
+    followerOnly
+    recipient
+    referralFee
+    collectNft
+    endsAt
+  }
+  ... on MultirecipientFeeCollectOpenActionSettings {
+    type
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+      asFiat(request: {for: USD}) {
+        ...FiatAmountFields
+      }
+    }
+    collectLimit
+    referralFee
+    followerOnly
+    collectNft
+    endsAt
+    recipients {
+      recipient
+      split
+    }
+  }
+  ... on LegacyMultirecipientFeeCollectModuleSettings {
+    type
+    contract {
+      ...NetworkAddressFields
+    }
+    collectNft
+    amount {
+      ...AmountFields
+      asFiat(request: {for: USD}) {
+        ...FiatAmountFields
+      }
+    }
+    collectLimit
+    referralFee
+    followerOnly
+    endsAt
+    recipients {
+      recipient
+      split
+    }
+  }
+  ... on LegacySimpleCollectModuleSettings {
+    type
+    contract {
+      ...NetworkAddressFields
+    }
+    collectNft
+    amount {
+      ...AmountFields
+      asFiat(request: {for: USD}) {
+        ...FiatAmountFields
+      }
+    }
+    collectLimit
+    followerOnly
+    recipient
+    referralFee
+    endsAt
+  }
+  ... on LegacyFreeCollectModuleSettings {
+    type
+  }
+  ... on LegacyFeeCollectModuleSettings {
+    type
+  }
+  ... on LegacyLimitedFeeCollectModuleSettings {
+    type
+  }
+  ... on LegacyLimitedTimedFeeCollectModuleSettings {
+    type
+  }
+  ... on LegacyRevertCollectModuleSettings {
+    type
+  }
+  ... on LegacyTimedFeeCollectModuleSettings {
+    type
+  }
+  ... on LegacyERC4626FeeCollectModuleSettings {
+    type
+  }
+  ... on LegacyAaveFeeCollectModuleSettings {
+    type
+  }
+  ... on UnknownOpenActionModuleSettings {
+    type
+    collectNft
+    initializeResultData
+    initializeCalldata
+    contract {
+      ...NetworkAddressFields
+    }
+    openActionModuleReturnData
+  }
+}
+fragment PostFields on Post {
+  id
+  publishedOn {
+    id
+  }
+  isHidden
+  momoka {
+    proof
+  }
+  txHash
+  createdAt
+  by {
+    ...ProfileFields
+  }
+  stats {
+    ...PublicationStatsFields
+  }
+  operations {
+    ...PublicationOperationFields
+  }
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  openActionModules {
+    ...OpenActionModulesFields
+  }
+}
+fragment PrimaryPublicationFields on PrimaryPublication {
+  ... on Post {
+    ...PostFields
+  }
+  ... on Comment {
+    ...CommentBaseFields
+  }
+  ... on Quote {
+    ...QuoteBaseFields
+  }
+}
+fragment ProfileFields on Profile {
+  id
+  ownedBy {
+    ...NetworkAddressFields
+  }
+  signless
+  sponsor
+  createdAt
+  stats {
+    ...ProfileStatsFields
+  }
+  operations {
+    ...ProfileOperationsFields
+  }
+  interests
+  guardian {
+    protected
+    cooldownEndsOn
+  }
+  invitedBy {
+    id
+  }
+  onchainIdentity {
+    proofOfHumanity
+    ens {
+      name
+    }
+    sybilDotOrg {
+      verified
+      source {
+        twitter {
+          handle
+        }
+      }
+    }
+    worldcoin {
+      isHuman
+    }
+  }
+  followNftAddress {
+    address
+    chainId
+  }
+  metadata {
+    ...ProfileMetadataFields
+  }
+  followModule {
+    ...FollowModuleFields
+  }
+  handle {
+    ...HandleInfoFields
+  }
+}
+fragment ProfileMetadataFields on ProfileMetadata {
+  displayName
+  bio
+  rawURI
+  picture {
+    ... on ImageSet {
+      ...ImageSetFields
+    }
+    ... on NftImage {
+      image {
+        ...ImageSetFields
+      }
+    }
+  }
+  coverPicture {
+    ...ImageSetFields
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+}
+fragment ProfileOperationsFields on ProfileOperations {
+  id
+  isBlockedByMe {
+    value
+  }
+  isFollowedByMe {
+    value
+  }
+  isFollowingMe {
+    value
+  }
+  canBlock
+  canUnblock
+  canFollow
+  canUnfollow
+}
+fragment ProfileStatsFields on ProfileStats {
+  id
+  followers
+  following
+  comments
+  posts
+  mirrors
+  quotes
+  publications
+  reactions
+  reacted
+  countOpenActions
+  lensClassifierScore
 }
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
@@ -19510,51 +20100,6 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
     ...PublicationMetadataMediaFields
   }
 }
-fragment MintMetadataV3Fields on MintMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  mintLink
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  content
-}
-fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  content
-}
-fragment VideoMetadataV3Fields on VideoMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  asset {
-    ...PublicationMetadataMediaVideoFields
-  }
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  title
-  content
-  isShortVideo
-}
 fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
   audio {
     raw {
@@ -19613,7 +20158,122 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
     }
   }
   duration
-}`) as unknown as TypedDocumentString<PublicationBookmarksQuery, PublicationBookmarksQueryVariables>;
+}
+fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  mintLink
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}
+fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  content
+}
+fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...PublicationMetadataMediaVideoFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  title
+  content
+  isShortVideo
+}
+fragment PublicationOperationFields on PublicationOperations {
+  isNotInterested
+  hasBookmarked
+  hasReported
+  canAct
+  hasActed {
+    value
+    isFinalisedOnchain
+  }
+  actedOn {
+    ... on KnownCollectOpenActionResult {
+      type
+    }
+    ... on UnknownOpenActionResult {
+      address
+      category
+      initReturnData
+    }
+  }
+  hasReacted(request: {type: UPVOTE})
+  canComment
+  canMirror
+  hasMirrored
+  canDecrypt {
+    result
+    reasons
+    extraDetails
+  }
+}
+fragment PublicationStatsFields on PublicationStats {
+  id
+  comments
+  mirrors
+  quotes
+  reactions(request: {type: UPVOTE})
+  countOpenActions
+}
+fragment QuoteBaseFields on Quote {
+  id
+  publishedOn {
+    id
+  }
+  isHidden
+  momoka {
+    proof
+  }
+  txHash
+  createdAt
+  by {
+    ...ProfileFields
+  }
+  stats {
+    ...PublicationStatsFields
+  }
+  operations {
+    ...PublicationOperationFields
+  }
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  openActionModules {
+    ...OpenActionModulesFields
+  }
+}
+fragment QuoteFields on Quote {
+  ...QuoteBaseFields
+  quoteOn {
+    ...PrimaryPublicationFields
+  }
+}`) as unknown as TypedDocumentString<PublicationQuery, PublicationQueryVariables>;
 export const PublicationsDocument = new TypedDocumentString(`
     query Publications($request: PublicationsRequest!) {
   publications(request: $request) {
@@ -20031,76 +20691,6 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
-fragment PublicationOperationFields on PublicationOperations {
-  isNotInterested
-  hasBookmarked
-  hasReported
-  canAct
-  hasActed {
-    value
-    isFinalisedOnchain
-  }
-  actedOn {
-    ... on KnownCollectOpenActionResult {
-      type
-    }
-    ... on UnknownOpenActionResult {
-      address
-      category
-      initReturnData
-    }
-  }
-  hasReacted(request: {type: UPVOTE})
-  canComment
-  canMirror
-  hasMirrored
-  canDecrypt {
-    result
-    reasons
-    extraDetails
-  }
-}
-fragment PublicationStatsFields on PublicationStats {
-  id
-  comments
-  mirrors
-  quotes
-  reactions(request: {type: UPVOTE})
-  countOpenActions
-}
-fragment QuoteBaseFields on Quote {
-  id
-  publishedOn {
-    id
-  }
-  isHidden
-  momoka {
-    proof
-  }
-  txHash
-  createdAt
-  by {
-    ...ProfileFields
-  }
-  stats {
-    ...PublicationStatsFields
-  }
-  operations {
-    ...PublicationOperationFields
-  }
-  metadata {
-    ...AnyPublicationMetadataFields
-  }
-  openActionModules {
-    ...OpenActionModulesFields
-  }
-}
-fragment QuoteFields on Quote {
-  ...QuoteBaseFields
-  quoteOn {
-    ...PrimaryPublicationFields
-  }
-}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -20172,51 +20762,6 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
     ...PublicationMetadataMediaFields
   }
 }
-fragment MintMetadataV3Fields on MintMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  mintLink
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  content
-}
-fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  content
-}
-fragment VideoMetadataV3Fields on VideoMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  asset {
-    ...PublicationMetadataMediaVideoFields
-  }
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  title
-  content
-  isShortVideo
-}
 fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
   audio {
     raw {
@@ -20275,6 +20820,121 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
     }
   }
   duration
+}
+fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  mintLink
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}
+fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  content
+}
+fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...PublicationMetadataMediaVideoFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  title
+  content
+  isShortVideo
+}
+fragment PublicationOperationFields on PublicationOperations {
+  isNotInterested
+  hasBookmarked
+  hasReported
+  canAct
+  hasActed {
+    value
+    isFinalisedOnchain
+  }
+  actedOn {
+    ... on KnownCollectOpenActionResult {
+      type
+    }
+    ... on UnknownOpenActionResult {
+      address
+      category
+      initReturnData
+    }
+  }
+  hasReacted(request: {type: UPVOTE})
+  canComment
+  canMirror
+  hasMirrored
+  canDecrypt {
+    result
+    reasons
+    extraDetails
+  }
+}
+fragment PublicationStatsFields on PublicationStats {
+  id
+  comments
+  mirrors
+  quotes
+  reactions(request: {type: UPVOTE})
+  countOpenActions
+}
+fragment QuoteBaseFields on Quote {
+  id
+  publishedOn {
+    id
+  }
+  isHidden
+  momoka {
+    proof
+  }
+  txHash
+  createdAt
+  by {
+    ...ProfileFields
+  }
+  stats {
+    ...PublicationStatsFields
+  }
+  operations {
+    ...PublicationOperationFields
+  }
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  openActionModules {
+    ...OpenActionModulesFields
+  }
+}
+fragment QuoteFields on Quote {
+  ...QuoteBaseFields
+  quoteOn {
+    ...PrimaryPublicationFields
+  }
 }`) as unknown as TypedDocumentString<PublicationsQuery, PublicationsQueryVariables>;
 export const RevenueFromPublicationDocument = new TypedDocumentString(`
     query RevenueFromPublication($request: RevenueFromPublicationRequest!) {
@@ -20695,76 +21355,6 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
-fragment PublicationOperationFields on PublicationOperations {
-  isNotInterested
-  hasBookmarked
-  hasReported
-  canAct
-  hasActed {
-    value
-    isFinalisedOnchain
-  }
-  actedOn {
-    ... on KnownCollectOpenActionResult {
-      type
-    }
-    ... on UnknownOpenActionResult {
-      address
-      category
-      initReturnData
-    }
-  }
-  hasReacted(request: {type: UPVOTE})
-  canComment
-  canMirror
-  hasMirrored
-  canDecrypt {
-    result
-    reasons
-    extraDetails
-  }
-}
-fragment PublicationStatsFields on PublicationStats {
-  id
-  comments
-  mirrors
-  quotes
-  reactions(request: {type: UPVOTE})
-  countOpenActions
-}
-fragment QuoteBaseFields on Quote {
-  id
-  publishedOn {
-    id
-  }
-  isHidden
-  momoka {
-    proof
-  }
-  txHash
-  createdAt
-  by {
-    ...ProfileFields
-  }
-  stats {
-    ...PublicationStatsFields
-  }
-  operations {
-    ...PublicationOperationFields
-  }
-  metadata {
-    ...AnyPublicationMetadataFields
-  }
-  openActionModules {
-    ...OpenActionModulesFields
-  }
-}
-fragment QuoteFields on Quote {
-  ...QuoteBaseFields
-  quoteOn {
-    ...PrimaryPublicationFields
-  }
-}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -20836,51 +21426,6 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
     ...PublicationMetadataMediaFields
   }
 }
-fragment MintMetadataV3Fields on MintMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  mintLink
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  content
-}
-fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  content
-}
-fragment VideoMetadataV3Fields on VideoMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  asset {
-    ...PublicationMetadataMediaVideoFields
-  }
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  title
-  content
-  isShortVideo
-}
 fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
   audio {
     raw {
@@ -20939,6 +21484,121 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
     }
   }
   duration
+}
+fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  mintLink
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}
+fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  content
+}
+fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...PublicationMetadataMediaVideoFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  title
+  content
+  isShortVideo
+}
+fragment PublicationOperationFields on PublicationOperations {
+  isNotInterested
+  hasBookmarked
+  hasReported
+  canAct
+  hasActed {
+    value
+    isFinalisedOnchain
+  }
+  actedOn {
+    ... on KnownCollectOpenActionResult {
+      type
+    }
+    ... on UnknownOpenActionResult {
+      address
+      category
+      initReturnData
+    }
+  }
+  hasReacted(request: {type: UPVOTE})
+  canComment
+  canMirror
+  hasMirrored
+  canDecrypt {
+    result
+    reasons
+    extraDetails
+  }
+}
+fragment PublicationStatsFields on PublicationStats {
+  id
+  comments
+  mirrors
+  quotes
+  reactions(request: {type: UPVOTE})
+  countOpenActions
+}
+fragment QuoteBaseFields on Quote {
+  id
+  publishedOn {
+    id
+  }
+  isHidden
+  momoka {
+    proof
+  }
+  txHash
+  createdAt
+  by {
+    ...ProfileFields
+  }
+  stats {
+    ...PublicationStatsFields
+  }
+  operations {
+    ...PublicationOperationFields
+  }
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  openActionModules {
+    ...OpenActionModulesFields
+  }
+}
+fragment QuoteFields on Quote {
+  ...QuoteBaseFields
+  quoteOn {
+    ...PrimaryPublicationFields
+  }
 }`) as unknown as TypedDocumentString<RevenueFromPublicationQuery, RevenueFromPublicationQueryVariables>;
 export const RevenueFromPublicationsDocument = new TypedDocumentString(`
     query RevenueFromPublications($request: RevenueFromPublicationsRequest!) {
@@ -21361,76 +22021,6 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
-fragment PublicationOperationFields on PublicationOperations {
-  isNotInterested
-  hasBookmarked
-  hasReported
-  canAct
-  hasActed {
-    value
-    isFinalisedOnchain
-  }
-  actedOn {
-    ... on KnownCollectOpenActionResult {
-      type
-    }
-    ... on UnknownOpenActionResult {
-      address
-      category
-      initReturnData
-    }
-  }
-  hasReacted(request: {type: UPVOTE})
-  canComment
-  canMirror
-  hasMirrored
-  canDecrypt {
-    result
-    reasons
-    extraDetails
-  }
-}
-fragment PublicationStatsFields on PublicationStats {
-  id
-  comments
-  mirrors
-  quotes
-  reactions(request: {type: UPVOTE})
-  countOpenActions
-}
-fragment QuoteBaseFields on Quote {
-  id
-  publishedOn {
-    id
-  }
-  isHidden
-  momoka {
-    proof
-  }
-  txHash
-  createdAt
-  by {
-    ...ProfileFields
-  }
-  stats {
-    ...PublicationStatsFields
-  }
-  operations {
-    ...PublicationOperationFields
-  }
-  metadata {
-    ...AnyPublicationMetadataFields
-  }
-  openActionModules {
-    ...OpenActionModulesFields
-  }
-}
-fragment QuoteFields on Quote {
-  ...QuoteBaseFields
-  quoteOn {
-    ...PrimaryPublicationFields
-  }
-}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -21502,51 +22092,6 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
     ...PublicationMetadataMediaFields
   }
 }
-fragment MintMetadataV3Fields on MintMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  mintLink
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  content
-}
-fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  content
-}
-fragment VideoMetadataV3Fields on VideoMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  asset {
-    ...PublicationMetadataMediaVideoFields
-  }
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  title
-  content
-  isShortVideo
-}
 fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
   audio {
     raw {
@@ -21605,6 +22150,121 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
     }
   }
   duration
+}
+fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  mintLink
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}
+fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  content
+}
+fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...PublicationMetadataMediaVideoFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  title
+  content
+  isShortVideo
+}
+fragment PublicationOperationFields on PublicationOperations {
+  isNotInterested
+  hasBookmarked
+  hasReported
+  canAct
+  hasActed {
+    value
+    isFinalisedOnchain
+  }
+  actedOn {
+    ... on KnownCollectOpenActionResult {
+      type
+    }
+    ... on UnknownOpenActionResult {
+      address
+      category
+      initReturnData
+    }
+  }
+  hasReacted(request: {type: UPVOTE})
+  canComment
+  canMirror
+  hasMirrored
+  canDecrypt {
+    result
+    reasons
+    extraDetails
+  }
+}
+fragment PublicationStatsFields on PublicationStats {
+  id
+  comments
+  mirrors
+  quotes
+  reactions(request: {type: UPVOTE})
+  countOpenActions
+}
+fragment QuoteBaseFields on Quote {
+  id
+  publishedOn {
+    id
+  }
+  isHidden
+  momoka {
+    proof
+  }
+  txHash
+  createdAt
+  by {
+    ...ProfileFields
+  }
+  stats {
+    ...PublicationStatsFields
+  }
+  operations {
+    ...PublicationOperationFields
+  }
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  openActionModules {
+    ...OpenActionModulesFields
+  }
+}
+fragment QuoteFields on Quote {
+  ...QuoteBaseFields
+  quoteOn {
+    ...PrimaryPublicationFields
+  }
 }`) as unknown as TypedDocumentString<RevenueFromPublicationsQuery, RevenueFromPublicationsQueryVariables>;
 export const RevokeAuthenticationDocument = new TypedDocumentString(`
     mutation RevokeAuthentication($request: RevokeAuthenticationRequest!) {
@@ -22190,76 +22850,6 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
-fragment PublicationOperationFields on PublicationOperations {
-  isNotInterested
-  hasBookmarked
-  hasReported
-  canAct
-  hasActed {
-    value
-    isFinalisedOnchain
-  }
-  actedOn {
-    ... on KnownCollectOpenActionResult {
-      type
-    }
-    ... on UnknownOpenActionResult {
-      address
-      category
-      initReturnData
-    }
-  }
-  hasReacted(request: {type: UPVOTE})
-  canComment
-  canMirror
-  hasMirrored
-  canDecrypt {
-    result
-    reasons
-    extraDetails
-  }
-}
-fragment PublicationStatsFields on PublicationStats {
-  id
-  comments
-  mirrors
-  quotes
-  reactions(request: {type: UPVOTE})
-  countOpenActions
-}
-fragment QuoteBaseFields on Quote {
-  id
-  publishedOn {
-    id
-  }
-  isHidden
-  momoka {
-    proof
-  }
-  txHash
-  createdAt
-  by {
-    ...ProfileFields
-  }
-  stats {
-    ...PublicationStatsFields
-  }
-  operations {
-    ...PublicationOperationFields
-  }
-  metadata {
-    ...AnyPublicationMetadataFields
-  }
-  openActionModules {
-    ...OpenActionModulesFields
-  }
-}
-fragment QuoteFields on Quote {
-  ...QuoteBaseFields
-  quoteOn {
-    ...PrimaryPublicationFields
-  }
-}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -22331,51 +22921,6 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
     ...PublicationMetadataMediaFields
   }
 }
-fragment MintMetadataV3Fields on MintMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  mintLink
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  content
-}
-fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  content
-}
-fragment VideoMetadataV3Fields on VideoMetadataV3 {
-  __typename
-  id
-  rawURI
-  tags
-  contentWarning
-  attributes {
-    ...MetadataAttributeFields
-  }
-  asset {
-    ...PublicationMetadataMediaVideoFields
-  }
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  title
-  content
-  isShortVideo
-}
 fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
   audio {
     raw {
@@ -22434,6 +22979,121 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
     }
   }
   duration
+}
+fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  mintLink
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}
+fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  content
+}
+fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...PublicationMetadataMediaVideoFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  title
+  content
+  isShortVideo
+}
+fragment PublicationOperationFields on PublicationOperations {
+  isNotInterested
+  hasBookmarked
+  hasReported
+  canAct
+  hasActed {
+    value
+    isFinalisedOnchain
+  }
+  actedOn {
+    ... on KnownCollectOpenActionResult {
+      type
+    }
+    ... on UnknownOpenActionResult {
+      address
+      category
+      initReturnData
+    }
+  }
+  hasReacted(request: {type: UPVOTE})
+  canComment
+  canMirror
+  hasMirrored
+  canDecrypt {
+    result
+    reasons
+    extraDetails
+  }
+}
+fragment PublicationStatsFields on PublicationStats {
+  id
+  comments
+  mirrors
+  quotes
+  reactions(request: {type: UPVOTE})
+  countOpenActions
+}
+fragment QuoteBaseFields on Quote {
+  id
+  publishedOn {
+    id
+  }
+  isHidden
+  momoka {
+    proof
+  }
+  txHash
+  createdAt
+  by {
+    ...ProfileFields
+  }
+  stats {
+    ...PublicationStatsFields
+  }
+  operations {
+    ...PublicationOperationFields
+  }
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  openActionModules {
+    ...OpenActionModulesFields
+  }
+}
+fragment QuoteFields on Quote {
+  ...QuoteBaseFields
+  quoteOn {
+    ...PrimaryPublicationFields
+  }
 }`) as unknown as TypedDocumentString<SearchPublicationsQuery, SearchPublicationsQueryVariables>;
 export const TxIdToTxHashDocument = new TypedDocumentString(`
     query TxIdToTxHash($for: TxId!) {
