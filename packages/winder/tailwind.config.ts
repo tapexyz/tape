@@ -5,8 +5,8 @@ export default {
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
     fontFamily: {
-      sans: "var(--font-geist)",
-      serif: "var(--font-editorial)"
+      sans: "var(--tape-font-sans)",
+      serif: "var(--tape-font-serif)"
     },
     extend: {
       colors: {

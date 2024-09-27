@@ -6,11 +6,11 @@ export const serifFont = localFont({
   fallback: ["ui-serif", "serif"],
   display: "swap",
   preload: true,
-  variable: "--font-editorial"
+  variable: "--tape-font-serif"
 });
 
 export const sansFont = Inter({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-geist"
+  variable: "--tape-font-sans"
 });
