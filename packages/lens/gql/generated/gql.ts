@@ -33,21 +33,21 @@ const documents = {
     "fragment ProfileMetadataFields on ProfileMetadata {\n  displayName\n  bio\n  rawURI\n  picture {\n    ... on ImageSet {\n      ...ImageSetFields\n    }\n    ... on NftImage {\n      image {\n        ...ImageSetFields\n      }\n    }\n  }\n  coverPicture {\n    ...ImageSetFields\n  }\n  attributes {\n    ...MetadataAttributeFields\n  }\n}": types.ProfileMetadataFieldsFragmentDoc,
     "fragment ProfileOperationsFields on ProfileOperations {\n  id\n  isBlockedByMe {\n    value\n  }\n  isFollowedByMe {\n    value\n  }\n  isFollowingMe {\n    value\n  }\n  canBlock\n  canUnblock\n  canFollow\n  canUnfollow\n}": types.ProfileOperationsFieldsFragmentDoc,
     "fragment ProfileStatsFields on ProfileStats {\n  id\n  followers\n  following\n  comments\n  posts\n  mirrors\n  quotes\n  publications\n  reactions\n  reacted\n  countOpenActions\n  lensClassifierScore\n}": types.ProfileStatsFieldsFragmentDoc,
-    "fragment PublicationOperationFields on PublicationOperations {\n  isNotInterested\n  hasBookmarked\n  hasReported\n  canAct\n  hasActed {\n    value\n    isFinalisedOnchain\n  }\n  actedOn {\n    ... on KnownCollectOpenActionResult {\n      type\n    }\n    ... on UnknownOpenActionResult {\n      address\n      category\n      initReturnData\n    }\n  }\n  hasReacted(request: {type: UPVOTE})\n  canComment\n  canMirror\n  hasMirrored\n  canDecrypt {\n    result\n    reasons\n    extraDetails\n  }\n}": types.PublicationOperationFieldsFragmentDoc,
-    "fragment PublicationStatsFields on PublicationStats {\n  id\n  comments\n  mirrors\n  quotes\n  reactions(request: {type: UPVOTE})\n  countOpenActions\n}": types.PublicationStatsFieldsFragmentDoc,
-    "fragment QuoteBaseFields on Quote {\n  id\n  publishedOn {\n    id\n  }\n  isHidden\n  momoka {\n    proof\n  }\n  txHash\n  createdAt\n  by {\n    ...ProfileFields\n  }\n  stats {\n    ...PublicationStatsFields\n  }\n  operations {\n    ...PublicationOperationFields\n  }\n  metadata {\n    ...AnyPublicationMetadataFields\n  }\n  openActionModules {\n    ...OpenActionModulesFields\n  }\n}": types.QuoteBaseFieldsFragmentDoc,
-    "fragment QuoteFields on Quote {\n  ...QuoteBaseFields\n  quoteOn {\n    ...PrimaryPublicationFields\n  }\n}": types.QuoteFieldsFragmentDoc,
     "fragment AudioMetadataV3Fields on AudioMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  asset {\n    ...PublicationMetadataMediaAudioFields\n  }\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  title\n  content\n}": types.AudioMetadataV3FieldsFragmentDoc,
     "fragment ImageMetadataV3Fields on ImageMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  asset {\n    ...PublicationMetadataMediaImageFields\n  }\n  title\n  content\n}": types.ImageMetadataV3FieldsFragmentDoc,
     "fragment LinkMetadataV3Fields on LinkMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  sharingLink\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  content\n}": types.LinkMetadataV3FieldsFragmentDoc,
     "fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  startsAt\n  endsAt\n  playbackURL\n  liveURL\n  checkLiveAPI\n  title\n  content\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n}": types.LiveStreamMetadataV3FieldsFragmentDoc,
-    "fragment MintMetadataV3Fields on MintMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  mintLink\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  content\n}": types.MintMetadataV3FieldsFragmentDoc,
-    "fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  content\n}": types.TextOnlyMetadataV3FieldsFragmentDoc,
-    "fragment VideoMetadataV3Fields on VideoMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  asset {\n    ...PublicationMetadataMediaVideoFields\n  }\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  title\n  content\n  isShortVideo\n}": types.VideoMetadataV3FieldsFragmentDoc,
     "fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {\n  audio {\n    raw {\n      uri\n    }\n    optimized {\n      uri\n    }\n  }\n  cover {\n    raw {\n      uri\n    }\n    optimized {\n      uri\n    }\n  }\n  duration\n}": types.PublicationMetadataMediaAudioFieldsFragmentDoc,
     "fragment PublicationMetadataMediaFields on PublicationMetadataMedia {\n  ... on PublicationMetadataMediaVideo {\n    ...PublicationMetadataMediaVideoFields\n  }\n  ... on PublicationMetadataMediaImage {\n    ...PublicationMetadataMediaImageFields\n  }\n  ... on PublicationMetadataMediaAudio {\n    ...PublicationMetadataMediaAudioFields\n  }\n}": types.PublicationMetadataMediaFieldsFragmentDoc,
     "fragment PublicationMetadataMediaImageFields on PublicationMetadataMediaImage {\n  image {\n    raw {\n      uri\n    }\n    optimized {\n      uri\n    }\n  }\n}": types.PublicationMetadataMediaImageFieldsFragmentDoc,
     "fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {\n  video {\n    raw {\n      uri\n    }\n    optimized {\n      uri\n    }\n  }\n  cover {\n    raw {\n      uri\n    }\n    optimized {\n      uri\n    }\n  }\n  duration\n}": types.PublicationMetadataMediaVideoFieldsFragmentDoc,
+    "fragment MintMetadataV3Fields on MintMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  mintLink\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  content\n}": types.MintMetadataV3FieldsFragmentDoc,
+    "fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  content\n}": types.TextOnlyMetadataV3FieldsFragmentDoc,
+    "fragment VideoMetadataV3Fields on VideoMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  asset {\n    ...PublicationMetadataMediaVideoFields\n  }\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  title\n  content\n  isShortVideo\n}": types.VideoMetadataV3FieldsFragmentDoc,
+    "fragment PublicationOperationFields on PublicationOperations {\n  isNotInterested\n  hasBookmarked\n  hasReported\n  canAct\n  hasActed {\n    value\n    isFinalisedOnchain\n  }\n  actedOn {\n    ... on KnownCollectOpenActionResult {\n      type\n    }\n    ... on UnknownOpenActionResult {\n      address\n      category\n      initReturnData\n    }\n  }\n  hasReacted(request: {type: UPVOTE})\n  canComment\n  canMirror\n  hasMirrored\n  canDecrypt {\n    result\n    reasons\n    extraDetails\n  }\n}": types.PublicationOperationFieldsFragmentDoc,
+    "fragment PublicationStatsFields on PublicationStats {\n  id\n  comments\n  mirrors\n  quotes\n  reactions(request: {type: UPVOTE})\n  countOpenActions\n}": types.PublicationStatsFieldsFragmentDoc,
+    "fragment QuoteBaseFields on Quote {\n  id\n  publishedOn {\n    id\n  }\n  isHidden\n  momoka {\n    proof\n  }\n  txHash\n  createdAt\n  by {\n    ...ProfileFields\n  }\n  stats {\n    ...PublicationStatsFields\n  }\n  operations {\n    ...PublicationOperationFields\n  }\n  metadata {\n    ...AnyPublicationMetadataFields\n  }\n  openActionModules {\n    ...OpenActionModulesFields\n  }\n}": types.QuoteBaseFieldsFragmentDoc,
+    "fragment QuoteFields on Quote {\n  ...QuoteBaseFields\n  quoteOn {\n    ...PrimaryPublicationFields\n  }\n}": types.QuoteFieldsFragmentDoc,
     "mutation Authenticate($request: SignedAuthChallenge!) {\n  authenticate(request: $request) {\n    accessToken\n    refreshToken\n    identityToken\n  }\n}": types.AuthenticateDocument,
     "mutation BroadcastOnchain($request: BroadcastRequest!) {\n  broadcastOnchain(request: $request) {\n    ... on RelaySuccess {\n      __typename\n      txHash\n      txId\n    }\n    ... on RelayError {\n      __typename\n      reason\n    }\n  }\n}\n\nmutation BroadcastOnMomoka($request: BroadcastRequest!) {\n  broadcastOnMomoka(request: $request) {\n    ... on CreateMomokaPublicationResult {\n      id\n      proof\n      momokaId\n    }\n    ... on RelayError {\n      __typename\n      reason\n    }\n  }\n}": types.BroadcastOnchainDocument,
     "mutation CreateMomokaCommentTypedData($request: MomokaCommentRequest!) {\n  createMomokaCommentTypedData(request: $request) {\n    id\n    expiresAt\n    typedData {\n      types {\n        Comment {\n          name\n          type\n        }\n      }\n      domain {\n        name\n        chainId\n        version\n        verifyingContract\n      }\n      value {\n        actionModules\n        actionModulesInitDatas\n        contentURI\n        deadline\n        nonce\n        pointedProfileId\n        pointedPubId\n        profileId\n        referenceModule\n        referenceModuleData\n        referenceModuleInitData\n        referrerProfileIds\n        referrerPubIds\n      }\n    }\n  }\n}": types.CreateMomokaCommentTypedDataDocument,
@@ -101,15 +101,15 @@ const documents = {
     "query MutualFollowers($request: MutualFollowersRequest!) {\n  mutualFollowers(request: $request) {\n    items {\n      ...ProfileFields\n    }\n    pageInfo {\n      next\n    }\n  }\n}": types.MutualFollowersDocument,
     "query Notifications($request: NotificationRequest!) {\n  notifications(request: $request) {\n    items {\n      ... on ReactionNotification {\n        id\n        publication {\n          ... on Post {\n            ...PostFields\n          }\n          ... on Comment {\n            ...CommentFields\n          }\n          ... on Quote {\n            ...QuoteFields\n          }\n        }\n        reactions {\n          profile {\n            ...ProfileFields\n          }\n        }\n      }\n      ... on CommentNotification {\n        id\n        comment {\n          ...CommentFields\n        }\n      }\n      ... on MirrorNotification {\n        id\n        mirrors {\n          mirrorId\n          profile {\n            ...ProfileFields\n          }\n        }\n        publication {\n          ... on Post {\n            ...PostFields\n          }\n          ... on Comment {\n            ...CommentFields\n          }\n          ... on Quote {\n            ...QuoteFields\n          }\n        }\n      }\n      ... on QuoteNotification {\n        id\n        quote {\n          ...QuoteFields\n        }\n      }\n      ... on ActedNotification {\n        id\n        actions {\n          actedAt\n          by {\n            ...ProfileFields\n          }\n        }\n        publication {\n          ... on Post {\n            ...PostFields\n          }\n          ... on Comment {\n            ...CommentFields\n          }\n          ... on Mirror {\n            ...MirrorFields\n          }\n        }\n      }\n      ... on FollowNotification {\n        id\n        followers {\n          ...ProfileFields\n        }\n      }\n      ... on MentionNotification {\n        id\n        publication {\n          ... on Post {\n            ...PostFields\n          }\n          ... on Comment {\n            ...CommentFields\n          }\n          ... on Quote {\n            ...QuoteFields\n          }\n        }\n      }\n    }\n    pageInfo {\n      next\n    }\n  }\n}": types.NotificationsDocument,
     "query OwnedHandles($request: OwnedHandlesRequest!) {\n  ownedHandles(request: $request) {\n    items {\n      id\n      linkedTo {\n        nftTokenId\n        contract {\n          address\n        }\n      }\n      fullHandle\n    }\n    pageInfo {\n      next\n    }\n  }\n}": types.OwnedHandlesDocument,
-    "query Profile($request: ProfileRequest!) {\n  profile(request: $request) {\n    ...ProfileFields\n  }\n}": types.ProfileDocument,
     "query Feed($request: FeedRequest!) {\n  feed(request: $request) {\n    items {\n      root {\n        ... on Post {\n          ...PostFields\n        }\n        ... on Comment {\n          ...CommentFields\n        }\n      }\n    }\n    pageInfo {\n      next\n    }\n  }\n}": types.FeedDocument,
     "query ProfileFollowModule($request: ProfileRequest!) {\n  profile(request: $request) {\n    followModule {\n      ...FollowModuleFields\n    }\n  }\n}": types.ProfileFollowModuleDocument,
     "query ProfileInterestsOptions($request: ProfileRequest!) {\n  profileInterestsOptions\n  profile(request: $request) {\n    id\n    interests\n  }\n}": types.ProfileInterestsOptionsDocument,
     "query ProfileManagers($request: ProfileManagersRequest!) {\n  profileManagers(request: $request) {\n    items {\n      address\n      isLensManager\n    }\n    pageInfo {\n      next\n    }\n  }\n}": types.ProfileManagersDocument,
-    "query Profiles($request: ProfilesRequest!) {\n  profiles(request: $request) {\n    items {\n      ...ProfileFields\n    }\n    pageInfo {\n      next\n    }\n  }\n}": types.ProfilesDocument,
+    "query Profile($request: ProfileRequest!) {\n  profile(request: $request) {\n    ...ProfileFields\n  }\n}": types.ProfileDocument,
     "query ProfilesManaged($request: ProfilesManagedRequest!, $lastLoggedInProfileRequest: LastLoggedInProfileRequest!) {\n  profilesManaged(request: $request) {\n    items {\n      ...ProfileFields\n    }\n    pageInfo {\n      next\n    }\n  }\n  lastLoggedInProfile(request: $lastLoggedInProfileRequest) {\n    ...ProfileFields\n  }\n}": types.ProfilesManagedDocument,
-    "query Publication($request: PublicationRequest!) {\n  publication(request: $request) {\n    ... on Post {\n      ...PostFields\n    }\n    ... on Comment {\n      ...CommentFields\n    }\n    ... on Mirror {\n      ...MirrorFields\n    }\n    ... on Quote {\n      ...QuoteFields\n    }\n  }\n}": types.PublicationDocument,
+    "query Profiles($request: ProfilesRequest!) {\n  profiles(request: $request) {\n    items {\n      ...ProfileFields\n    }\n    pageInfo {\n      next\n    }\n  }\n}": types.ProfilesDocument,
     "query PublicationBookmarks($request: PublicationBookmarksRequest!) {\n  publicationBookmarks(request: $request) {\n    items {\n      ... on Post {\n        ...PostFields\n      }\n      ... on Comment {\n        ...CommentFields\n      }\n      ... on Mirror {\n        ...MirrorFields\n      }\n      ... on Quote {\n        ...QuoteFields\n      }\n    }\n    pageInfo {\n      next\n    }\n  }\n}": types.PublicationBookmarksDocument,
+    "query Publication($request: PublicationRequest!) {\n  publication(request: $request) {\n    ... on Post {\n      ...PostFields\n    }\n    ... on Comment {\n      ...CommentFields\n    }\n    ... on Mirror {\n      ...MirrorFields\n    }\n    ... on Quote {\n      ...QuoteFields\n    }\n  }\n}": types.PublicationDocument,
     "query Publications($request: PublicationsRequest!) {\n  publications(request: $request) {\n    items {\n      ... on Post {\n        ...PostFields\n      }\n      ... on Comment {\n        ...CommentFields\n      }\n      ... on Mirror {\n        ...MirrorFields\n      }\n      ... on Quote {\n        ...QuoteFields\n      }\n    }\n    pageInfo {\n      next\n    }\n  }\n}": types.PublicationsDocument,
     "query RevenueFromPublication($request: RevenueFromPublicationRequest!) {\n  revenueFromPublication(request: $request) {\n    publication {\n      ... on Post {\n        ...PostFields\n      }\n      ... on Comment {\n        ...CommentFields\n      }\n      ... on Mirror {\n        ...MirrorFields\n      }\n      ... on Quote {\n        ...QuoteFields\n      }\n    }\n    revenue {\n      total {\n        ...AmountFields\n      }\n    }\n  }\n}": types.RevenueFromPublicationDocument,
     "query RevenueFromPublications($request: RevenueFromPublicationsRequest!) {\n  revenueFromPublications(request: $request) {\n    items {\n      publication {\n        ... on Post {\n          ...PostFields\n        }\n        ... on Comment {\n          ...CommentFields\n        }\n        ... on Mirror {\n          ...MirrorFields\n        }\n        ... on Quote {\n          ...QuoteFields\n        }\n      }\n      revenue {\n        total {\n          ...AmountFields\n        }\n      }\n    }\n  }\n}": types.RevenueFromPublicationsDocument,
@@ -204,22 +204,6 @@ export function graphql(source: "fragment ProfileStatsFields on ProfileStats {\n
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "fragment PublicationOperationFields on PublicationOperations {\n  isNotInterested\n  hasBookmarked\n  hasReported\n  canAct\n  hasActed {\n    value\n    isFinalisedOnchain\n  }\n  actedOn {\n    ... on KnownCollectOpenActionResult {\n      type\n    }\n    ... on UnknownOpenActionResult {\n      address\n      category\n      initReturnData\n    }\n  }\n  hasReacted(request: {type: UPVOTE})\n  canComment\n  canMirror\n  hasMirrored\n  canDecrypt {\n    result\n    reasons\n    extraDetails\n  }\n}"): typeof import('./graphql').PublicationOperationFieldsFragmentDoc;
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "fragment PublicationStatsFields on PublicationStats {\n  id\n  comments\n  mirrors\n  quotes\n  reactions(request: {type: UPVOTE})\n  countOpenActions\n}"): typeof import('./graphql').PublicationStatsFieldsFragmentDoc;
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "fragment QuoteBaseFields on Quote {\n  id\n  publishedOn {\n    id\n  }\n  isHidden\n  momoka {\n    proof\n  }\n  txHash\n  createdAt\n  by {\n    ...ProfileFields\n  }\n  stats {\n    ...PublicationStatsFields\n  }\n  operations {\n    ...PublicationOperationFields\n  }\n  metadata {\n    ...AnyPublicationMetadataFields\n  }\n  openActionModules {\n    ...OpenActionModulesFields\n  }\n}"): typeof import('./graphql').QuoteBaseFieldsFragmentDoc;
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "fragment QuoteFields on Quote {\n  ...QuoteBaseFields\n  quoteOn {\n    ...PrimaryPublicationFields\n  }\n}"): typeof import('./graphql').QuoteFieldsFragmentDoc;
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
 export function graphql(source: "fragment AudioMetadataV3Fields on AudioMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  asset {\n    ...PublicationMetadataMediaAudioFields\n  }\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  title\n  content\n}"): typeof import('./graphql').AudioMetadataV3FieldsFragmentDoc;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -236,18 +220,6 @@ export function graphql(source: "fragment LiveStreamMetadataV3Fields on LiveStre
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "fragment MintMetadataV3Fields on MintMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  mintLink\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  content\n}"): typeof import('./graphql').MintMetadataV3FieldsFragmentDoc;
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  content\n}"): typeof import('./graphql').TextOnlyMetadataV3FieldsFragmentDoc;
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "fragment VideoMetadataV3Fields on VideoMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  asset {\n    ...PublicationMetadataMediaVideoFields\n  }\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  title\n  content\n  isShortVideo\n}"): typeof import('./graphql').VideoMetadataV3FieldsFragmentDoc;
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
 export function graphql(source: "fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {\n  audio {\n    raw {\n      uri\n    }\n    optimized {\n      uri\n    }\n  }\n  cover {\n    raw {\n      uri\n    }\n    optimized {\n      uri\n    }\n  }\n  duration\n}"): typeof import('./graphql').PublicationMetadataMediaAudioFieldsFragmentDoc;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -261,6 +233,34 @@ export function graphql(source: "fragment PublicationMetadataMediaImageFields on
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {\n  video {\n    raw {\n      uri\n    }\n    optimized {\n      uri\n    }\n  }\n  cover {\n    raw {\n      uri\n    }\n    optimized {\n      uri\n    }\n  }\n  duration\n}"): typeof import('./graphql').PublicationMetadataMediaVideoFieldsFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment MintMetadataV3Fields on MintMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  mintLink\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  content\n}"): typeof import('./graphql').MintMetadataV3FieldsFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  content\n}"): typeof import('./graphql').TextOnlyMetadataV3FieldsFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment VideoMetadataV3Fields on VideoMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  asset {\n    ...PublicationMetadataMediaVideoFields\n  }\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  title\n  content\n  isShortVideo\n}"): typeof import('./graphql').VideoMetadataV3FieldsFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment PublicationOperationFields on PublicationOperations {\n  isNotInterested\n  hasBookmarked\n  hasReported\n  canAct\n  hasActed {\n    value\n    isFinalisedOnchain\n  }\n  actedOn {\n    ... on KnownCollectOpenActionResult {\n      type\n    }\n    ... on UnknownOpenActionResult {\n      address\n      category\n      initReturnData\n    }\n  }\n  hasReacted(request: {type: UPVOTE})\n  canComment\n  canMirror\n  hasMirrored\n  canDecrypt {\n    result\n    reasons\n    extraDetails\n  }\n}"): typeof import('./graphql').PublicationOperationFieldsFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment PublicationStatsFields on PublicationStats {\n  id\n  comments\n  mirrors\n  quotes\n  reactions(request: {type: UPVOTE})\n  countOpenActions\n}"): typeof import('./graphql').PublicationStatsFieldsFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment QuoteBaseFields on Quote {\n  id\n  publishedOn {\n    id\n  }\n  isHidden\n  momoka {\n    proof\n  }\n  txHash\n  createdAt\n  by {\n    ...ProfileFields\n  }\n  stats {\n    ...PublicationStatsFields\n  }\n  operations {\n    ...PublicationOperationFields\n  }\n  metadata {\n    ...AnyPublicationMetadataFields\n  }\n  openActionModules {\n    ...OpenActionModulesFields\n  }\n}"): typeof import('./graphql').QuoteBaseFieldsFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment QuoteFields on Quote {\n  ...QuoteBaseFields\n  quoteOn {\n    ...PrimaryPublicationFields\n  }\n}"): typeof import('./graphql').QuoteFieldsFragmentDoc;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -476,10 +476,6 @@ export function graphql(source: "query OwnedHandles($request: OwnedHandlesReques
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query Profile($request: ProfileRequest!) {\n  profile(request: $request) {\n    ...ProfileFields\n  }\n}"): typeof import('./graphql').ProfileDocument;
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
 export function graphql(source: "query Feed($request: FeedRequest!) {\n  feed(request: $request) {\n    items {\n      root {\n        ... on Post {\n          ...PostFields\n        }\n        ... on Comment {\n          ...CommentFields\n        }\n      }\n    }\n    pageInfo {\n      next\n    }\n  }\n}"): typeof import('./graphql').FeedDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -496,7 +492,7 @@ export function graphql(source: "query ProfileManagers($request: ProfileManagers
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query Profiles($request: ProfilesRequest!) {\n  profiles(request: $request) {\n    items {\n      ...ProfileFields\n    }\n    pageInfo {\n      next\n    }\n  }\n}"): typeof import('./graphql').ProfilesDocument;
+export function graphql(source: "query Profile($request: ProfileRequest!) {\n  profile(request: $request) {\n    ...ProfileFields\n  }\n}"): typeof import('./graphql').ProfileDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -504,11 +500,15 @@ export function graphql(source: "query ProfilesManaged($request: ProfilesManaged
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query Publication($request: PublicationRequest!) {\n  publication(request: $request) {\n    ... on Post {\n      ...PostFields\n    }\n    ... on Comment {\n      ...CommentFields\n    }\n    ... on Mirror {\n      ...MirrorFields\n    }\n    ... on Quote {\n      ...QuoteFields\n    }\n  }\n}"): typeof import('./graphql').PublicationDocument;
+export function graphql(source: "query Profiles($request: ProfilesRequest!) {\n  profiles(request: $request) {\n    items {\n      ...ProfileFields\n    }\n    pageInfo {\n      next\n    }\n  }\n}"): typeof import('./graphql').ProfilesDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "query PublicationBookmarks($request: PublicationBookmarksRequest!) {\n  publicationBookmarks(request: $request) {\n    items {\n      ... on Post {\n        ...PostFields\n      }\n      ... on Comment {\n        ...CommentFields\n      }\n      ... on Mirror {\n        ...MirrorFields\n      }\n      ... on Quote {\n        ...QuoteFields\n      }\n    }\n    pageInfo {\n      next\n    }\n  }\n}"): typeof import('./graphql').PublicationBookmarksDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query Publication($request: PublicationRequest!) {\n  publication(request: $request) {\n    ... on Post {\n      ...PostFields\n    }\n    ... on Comment {\n      ...CommentFields\n    }\n    ... on Mirror {\n      ...MirrorFields\n    }\n    ... on Quote {\n      ...QuoteFields\n    }\n  }\n}"): typeof import('./graphql').PublicationDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
