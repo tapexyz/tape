@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export function generateStaticParams() {
-  return [{ handle: "titannode", pubId: "0x0164ad-0x01ed" }];
+  return [{ pubId: "0x0164ad-0x01ed" }];
 }
 
 export default function WatchPage({ params }: Props) {

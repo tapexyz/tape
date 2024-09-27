@@ -7359,6 +7359,22 @@ export type LensTransactionStatusQueryVariables = Exact<{
 
 export type LensTransactionStatusQuery = { __typename?: 'Query', lensTransactionStatus?: { __typename?: 'LensTransactionResult', status: LensTransactionStatusType, txHash: any, reason?: LensTransactionFailureType | null, extraInfo?: string | null } | null };
 
+export type ModExplorePublicationsQueryVariables = Exact<{
+  request: ModExplorePublicationRequest;
+}>;
+
+
+export type ModExplorePublicationsQuery = { __typename?: 'Query', modExplorePublications: { __typename?: 'PaginatedModExplorePublicationResult', items: Array<(
+      { __typename?: 'Comment' }
+      & { ' $fragmentRefs'?: { 'CommentFieldsFragment': CommentFieldsFragment } }
+    ) | (
+      { __typename?: 'Post' }
+      & { ' $fragmentRefs'?: { 'PostFieldsFragment': PostFieldsFragment } }
+    ) | (
+      { __typename?: 'Quote' }
+      & { ' $fragmentRefs'?: { 'QuoteFieldsFragment': QuoteFieldsFragment } }
+    )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
+
 export type ModuleMetadataQueryVariables = Exact<{
   request: ModuleMetadataRequest;
 }>;
@@ -16080,6 +16096,650 @@ export const LensTransactionStatusDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<LensTransactionStatusQuery, LensTransactionStatusQueryVariables>;
+export const ModExplorePublicationsDocument = new TypedDocumentString(`
+    query ModExplorePublications($request: ModExplorePublicationRequest!) {
+  modExplorePublications(request: $request) {
+    items {
+      ... on Post {
+        ...PostFields
+      }
+      ... on Comment {
+        ...CommentFields
+      }
+      ... on Quote {
+        ...QuoteFields
+      }
+    }
+    pageInfo {
+      next
+    }
+  }
+}
+    fragment AmountFields on Amount {
+  asset {
+    ...Erc20Fields
+  }
+  value
+}
+fragment AnyPublicationMetadataFields on PublicationMetadata {
+  ... on VideoMetadataV3 {
+    ...VideoMetadataV3Fields
+  }
+  ... on AudioMetadataV3 {
+    ...AudioMetadataV3Fields
+  }
+  ... on ImageMetadataV3 {
+    ...ImageMetadataV3Fields
+  }
+  ... on LinkMetadataV3 {
+    ...LinkMetadataV3Fields
+  }
+  ... on LiveStreamMetadataV3 {
+    ...LiveStreamMetadataV3Fields
+  }
+  ... on MintMetadataV3 {
+    ...MintMetadataV3Fields
+  }
+  ... on TextOnlyMetadataV3 {
+    ...TextOnlyMetadataV3Fields
+  }
+}
+fragment CommentBaseFields on Comment {
+  id
+  publishedOn {
+    id
+  }
+  isHidden
+  momoka {
+    proof
+  }
+  txHash
+  createdAt
+  by {
+    ...ProfileFields
+  }
+  stats {
+    ...PublicationStatsFields
+  }
+  operations {
+    ...PublicationOperationFields
+  }
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  openActionModules {
+    ...OpenActionModulesFields
+  }
+  root {
+    ...PostFields
+  }
+}
+fragment CommentFields on Comment {
+  ...CommentBaseFields
+  commentOn {
+    ...PrimaryPublicationFields
+  }
+}
+fragment Erc20Fields on Asset {
+  ... on Erc20 {
+    name
+    symbol
+    decimals
+    contract {
+      ...NetworkAddressFields
+    }
+  }
+}
+fragment FiatAmountFields on FiatAmount {
+  asset {
+    name
+    symbol
+    decimals
+  }
+  value
+}
+fragment FollowModuleFields on FollowModule {
+  ... on FeeFollowModuleSettings {
+    type
+    amount {
+      ...AmountFields
+      asFiat(request: {for: USD}) {
+        ...FiatAmountFields
+      }
+    }
+    recipient
+  }
+  ... on RevertFollowModuleSettings {
+    type
+  }
+  ... on UnknownFollowModuleSettings {
+    type
+  }
+}
+fragment HandleInfoFields on HandleInfo {
+  id
+  fullHandle
+  localName
+  ownedBy
+}
+fragment ImageSetFields on ImageSet {
+  raw {
+    uri
+  }
+  optimized {
+    uri
+  }
+}
+fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}
+fragment NetworkAddressFields on NetworkAddress {
+  address
+  chainId
+}
+fragment OpenActionModulesFields on OpenActionModule {
+  ... on SimpleCollectOpenActionSettings {
+    type
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+      asFiat(request: {for: USD}) {
+        ...FiatAmountFields
+      }
+    }
+    collectLimit
+    followerOnly
+    recipient
+    referralFee
+    collectNft
+    endsAt
+  }
+  ... on MultirecipientFeeCollectOpenActionSettings {
+    type
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+      asFiat(request: {for: USD}) {
+        ...FiatAmountFields
+      }
+    }
+    collectLimit
+    referralFee
+    followerOnly
+    collectNft
+    endsAt
+    recipients {
+      recipient
+      split
+    }
+  }
+  ... on LegacyMultirecipientFeeCollectModuleSettings {
+    type
+    contract {
+      ...NetworkAddressFields
+    }
+    collectNft
+    amount {
+      ...AmountFields
+      asFiat(request: {for: USD}) {
+        ...FiatAmountFields
+      }
+    }
+    collectLimit
+    referralFee
+    followerOnly
+    endsAt
+    recipients {
+      recipient
+      split
+    }
+  }
+  ... on LegacySimpleCollectModuleSettings {
+    type
+    contract {
+      ...NetworkAddressFields
+    }
+    collectNft
+    amount {
+      ...AmountFields
+      asFiat(request: {for: USD}) {
+        ...FiatAmountFields
+      }
+    }
+    collectLimit
+    followerOnly
+    recipient
+    referralFee
+    endsAt
+  }
+  ... on LegacyFreeCollectModuleSettings {
+    type
+  }
+  ... on LegacyFeeCollectModuleSettings {
+    type
+  }
+  ... on LegacyLimitedFeeCollectModuleSettings {
+    type
+  }
+  ... on LegacyLimitedTimedFeeCollectModuleSettings {
+    type
+  }
+  ... on LegacyRevertCollectModuleSettings {
+    type
+  }
+  ... on LegacyTimedFeeCollectModuleSettings {
+    type
+  }
+  ... on LegacyERC4626FeeCollectModuleSettings {
+    type
+  }
+  ... on LegacyAaveFeeCollectModuleSettings {
+    type
+  }
+  ... on UnknownOpenActionModuleSettings {
+    type
+    collectNft
+    initializeResultData
+    initializeCalldata
+    contract {
+      ...NetworkAddressFields
+    }
+    openActionModuleReturnData
+  }
+}
+fragment PostFields on Post {
+  id
+  publishedOn {
+    id
+  }
+  isHidden
+  momoka {
+    proof
+  }
+  txHash
+  createdAt
+  by {
+    ...ProfileFields
+  }
+  stats {
+    ...PublicationStatsFields
+  }
+  operations {
+    ...PublicationOperationFields
+  }
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  openActionModules {
+    ...OpenActionModulesFields
+  }
+}
+fragment PrimaryPublicationFields on PrimaryPublication {
+  ... on Post {
+    ...PostFields
+  }
+  ... on Comment {
+    ...CommentBaseFields
+  }
+  ... on Quote {
+    ...QuoteBaseFields
+  }
+}
+fragment ProfileFields on Profile {
+  id
+  ownedBy {
+    ...NetworkAddressFields
+  }
+  signless
+  sponsor
+  createdAt
+  stats {
+    ...ProfileStatsFields
+  }
+  operations {
+    ...ProfileOperationsFields
+  }
+  interests
+  guardian {
+    protected
+    cooldownEndsOn
+  }
+  invitedBy {
+    id
+  }
+  onchainIdentity {
+    proofOfHumanity
+    ens {
+      name
+    }
+    sybilDotOrg {
+      verified
+      source {
+        twitter {
+          handle
+        }
+      }
+    }
+    worldcoin {
+      isHuman
+    }
+  }
+  followNftAddress {
+    address
+    chainId
+  }
+  metadata {
+    ...ProfileMetadataFields
+  }
+  followModule {
+    ...FollowModuleFields
+  }
+  handle {
+    ...HandleInfoFields
+  }
+}
+fragment ProfileMetadataFields on ProfileMetadata {
+  displayName
+  bio
+  rawURI
+  picture {
+    ... on ImageSet {
+      ...ImageSetFields
+    }
+    ... on NftImage {
+      image {
+        ...ImageSetFields
+      }
+    }
+  }
+  coverPicture {
+    ...ImageSetFields
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+}
+fragment ProfileOperationsFields on ProfileOperations {
+  id
+  isBlockedByMe {
+    value
+  }
+  isFollowedByMe {
+    value
+  }
+  isFollowingMe {
+    value
+  }
+  canBlock
+  canUnblock
+  canFollow
+  canUnfollow
+}
+fragment ProfileStatsFields on ProfileStats {
+  id
+  followers
+  following
+  comments
+  posts
+  mirrors
+  quotes
+  publications
+  reactions
+  reacted
+  countOpenActions
+  lensClassifierScore
+}
+fragment PublicationOperationFields on PublicationOperations {
+  isNotInterested
+  hasBookmarked
+  hasReported
+  canAct
+  hasActed {
+    value
+    isFinalisedOnchain
+  }
+  actedOn {
+    ... on KnownCollectOpenActionResult {
+      type
+    }
+    ... on UnknownOpenActionResult {
+      address
+      category
+      initReturnData
+    }
+  }
+  hasReacted(request: {type: UPVOTE})
+  canComment
+  canMirror
+  hasMirrored
+  canDecrypt {
+    result
+    reasons
+    extraDetails
+  }
+}
+fragment PublicationStatsFields on PublicationStats {
+  id
+  comments
+  mirrors
+  quotes
+  reactions(request: {type: UPVOTE})
+  countOpenActions
+}
+fragment QuoteBaseFields on Quote {
+  id
+  publishedOn {
+    id
+  }
+  isHidden
+  momoka {
+    proof
+  }
+  txHash
+  createdAt
+  by {
+    ...ProfileFields
+  }
+  stats {
+    ...PublicationStatsFields
+  }
+  operations {
+    ...PublicationOperationFields
+  }
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  openActionModules {
+    ...OpenActionModulesFields
+  }
+}
+fragment QuoteFields on Quote {
+  ...QuoteBaseFields
+  quoteOn {
+    ...PrimaryPublicationFields
+  }
+}
+fragment AudioMetadataV3Fields on AudioMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...PublicationMetadataMediaAudioFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  title
+  content
+}
+fragment ImageMetadataV3Fields on ImageMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  asset {
+    ...PublicationMetadataMediaImageFields
+  }
+  title
+  content
+}
+fragment LinkMetadataV3Fields on LinkMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  sharingLink
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}
+fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  startsAt
+  endsAt
+  playbackURL
+  liveURL
+  checkLiveAPI
+  title
+  content
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
+fragment MintMetadataV3Fields on MintMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  mintLink
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}
+fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  content
+}
+fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  __typename
+  id
+  rawURI
+  tags
+  contentWarning
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...PublicationMetadataMediaVideoFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  title
+  content
+  isShortVideo
+}
+fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
+  audio {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+  cover {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+  duration
+}
+fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
+  ... on PublicationMetadataMediaVideo {
+    ...PublicationMetadataMediaVideoFields
+  }
+  ... on PublicationMetadataMediaImage {
+    ...PublicationMetadataMediaImageFields
+  }
+  ... on PublicationMetadataMediaAudio {
+    ...PublicationMetadataMediaAudioFields
+  }
+}
+fragment PublicationMetadataMediaImageFields on PublicationMetadataMediaImage {
+  image {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+}
+fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
+  video {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+  cover {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+  duration
+}`) as unknown as TypedDocumentString<ModExplorePublicationsQuery, ModExplorePublicationsQueryVariables>;
 export const ModuleMetadataDocument = new TypedDocumentString(`
     query ModuleMetadata($request: ModuleMetadataRequest!) {
   moduleMetadata(request: $request) {

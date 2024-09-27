@@ -3,5 +3,10 @@ import type { Config } from "tailwindcss";
 
 export default {
   presets: [base],
-  content: ["./src/**/*.{ts,tsx}", "../../packages/winder/src/**/*.{ts,tsx}"]
+  content: ["./src/**/*.{ts,tsx}", "../../packages/winder/src/**/*.{ts,tsx}"],
+  theme: {
+    container: {
+      center: true
+    }
+  }
 } satisfies Config;
