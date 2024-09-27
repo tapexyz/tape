@@ -15,7 +15,7 @@ type VirtuosoHelperProps<T> = {
 
 let virtuosoState: StateSnapshot = { ranges: [], scrollTop: 0 };
 
-export const Virtualized = <T,>({
+export const Virtualized = <T extends { id: string }>({
   data,
   itemContent,
   endReached,
@@ -40,7 +40,7 @@ export const Virtualized = <T,>({
       increaseViewportBy={100}
       initialTopMostItemIndex={0}
       itemContent={itemContent}
-      computeItemKey={(_index, item) => (item as any).id}
+      computeItemKey={(_index, item) => item.id}
       endReached={() => (hasNextPage ? endReached() : null)}
       isScrolling={restoreScroll ? onScrolling : undefined}
       restoreStateFrom={restoreScroll ? virtuosoState : undefined}

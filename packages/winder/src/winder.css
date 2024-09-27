@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 95%;
+    --border: 0 0% 0%;
+    --primary: 0 0% 0%;
+    --secondary: 0 0% 0%;
+    --destructive: 0 100% 49%;
+    --radius: 9px;
+    --primary-foreground: 0 0% 100%;
+    --secondary-foreground: 0 0% 0%;
+  }
+
+  .dark {
+    --background: 0 0% 16%;
+    --border: 0 0% 100%;
+    --primary: 0 0% 100%;
+    --secondary: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
+    --secondary-foreground: 0 0% 100%;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-background font-sans;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}

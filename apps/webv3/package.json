@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.54.1",
+    "@uidotdev/usehooks": "^2.4.1",
     "framer-motion": "^11.7.0",
     "next": "^14.2.13",
     "react": "^18.3.1",
@@ -24,7 +25,7 @@
     "@tape.xyz/generic": "workspace:*",
     "@tape.xyz/lens": "workspace:*",
     "@tape.xyz/tsconfig": "workspace:*",
-    "@tape.xyz/ui": "workspace:*",
+    "@tape.xyz/winder": "workspace:*",
     "@types/node": "^22.7.2",
     "@types/react": "^18.3.9",
     "@types/react-dom": "^18.3.0",

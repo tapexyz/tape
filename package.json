@@ -6,6 +6,7 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "dev": "pnpm -r --parallel run dev",
+    "v3": "pnpm --filter @tape.xyz/webv3 dev",
     "start": "pnpm -r --parallel run start",
     "build": "pnpm -r --parallel run build",
     "codegen": "pnpm -r --parallel run codegen",

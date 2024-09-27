@@ -1,8 +1,8 @@
-import "./globals.css";
+import "@tape.xyz/winder/src/winder.css";
 
 import { TAPE_APP_DESCRIPTION, TAPE_APP_NAME } from "@tape.xyz/constants";
+import { sansFont, serifFont, tw } from "@tape.xyz/winder/common";
 import type { Metadata } from "next";
-
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {
@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className={tw(sansFont.variable, serifFont.variable)}>
         <Providers>{children}</Providers>
       </body>
     </html>

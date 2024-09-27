@@ -4,7 +4,7 @@ import { useState } from "react";
 const items = ["for you", "explore", "following", "bangers", "studio"];
 
 export const Tabs = () => {
-  const [activeTab, setActiveTab] = useState<number>(0);
+  const [activeTab, setActiveTab] = useState(0);
 
   return (
     <ul className="flex items-center">
