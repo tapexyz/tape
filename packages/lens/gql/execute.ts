@@ -12,9 +12,7 @@ export const execute = async <TResult, TVariables>(
       headers: {
         "Content-Type": "application/json",
         "User-Agent": TAPE_USER_AGENT,
-        Accept: "application/graphql-response+json",
-        "x-access-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjB4MmQiLCJldm1BZGRyZXNzIjoiMHgwMWQ3OUJjRWFFYWFEZmI4ZkQyRjJmNTMwMDUyODlDRmNGNDgzNDY0Iiwicm9sZSI6InByb2ZpbGUiLCJhdXRob3JpemF0aW9uSWQiOiJjYmRiZmNjOC05ZDg3LTRiMTYtODZjNS05MTQ2ZjVkNGNkYWMiLCJpYXQiOjE3Mjc0MTk0NDcsImV4cCI6MTcyNzQyMTI0N30.Tn0sdwpG4OsTSwR3Se_bFOfMWDF_FmmCWyCR3AJ9CqI"
+        Accept: "application/graphql-response+json"
       },
       body: JSON.stringify({
         query: query,
