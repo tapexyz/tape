@@ -8,7 +8,7 @@ import {
 import type { AnyPublication } from "@tape.xyz/lens";
 import type { Metadata } from "next";
 
-import { rqClient } from "@/app/providers/react-query";
+import { rqClient } from "@/providers/react-query";
 
 import { Comments } from "./_components/comments";
 import { Publication } from "./_components/publication";
