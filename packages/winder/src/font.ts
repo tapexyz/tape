@@ -1,4 +1,3 @@
-import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 
 export const serifFont = localFont({
@@ -9,8 +8,10 @@ export const serifFont = localFont({
   variable: "--tape-font-serif"
 });
 
-export const sansFont = Inter({
-  subsets: ["latin"],
+export const sansFont = localFont({
+  src: "./_fonts/sans.woff2",
+  fallback: ["ui-sans-serif", "system-ui"],
   display: "swap",
+  preload: true,
   variable: "--tape-font-sans"
 });
