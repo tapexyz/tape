@@ -20,7 +20,7 @@ export const Posts = () => {
   }
 
   return (
-    <div className="w-full max-w-2xl divide-y divide-gray-400 rounded-rounded bg-white">
+    <div className="w-full max-w-2xl divide-y divide-gray-400 rounded-custom bg-white">
       <Virtualized
         restoreScroll
         data={allPublications}
@@ -32,7 +32,7 @@ export const Posts = () => {
           return (
             <div className="p-5">
               {publication.metadata.content}
-              <video controls className="aspect-video w-full rounded-rounded">
+              <video controls className="aspect-video w-full rounded-custom">
                 <source src={url} type="video/mp4" />
                 <track kind="captions" />
               </video>

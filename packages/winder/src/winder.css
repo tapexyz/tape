@@ -6,40 +6,35 @@
   :root {
     --radius: 9px;
 
-    --background: 0 0% 95%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
-    --border: 0, 0%, 0%, 0.06;
-    --border-foreground: 0, 0%, 0%, 0.1;
+    --site-background: 0 0% 95%;
+    --card-background: 0 0% 100%;
     --primary: 0 0% 0%;
+    --text-primary: 0 0% 100%;
     --secondary: 0, 0%, 0%, 0.08;
-    --primary-foreground: 0 0% 100%;
-    --secondary-foreground: 0 0% 0%;
+    --text-secondary: 0 0% 0%;
     --destructive: 0 100% 49%;
-    --muted: 40, 11%, 89%;
-    --muted: 0, 0%, 0%, 0.4;
-    --muted-foreground: 0, 0%, 100%, 0.4;
+    --border: 0, 0%, 0%, 0.06;
+    --divider: 0, 0%, 0%, 0.1;
+    --text-muted: 0, 0%, 0%, 0.4;
   }
 
   .dark {
-    --background: 0 0% 16%;
-    --card: 0 0% 0%;
-    --card-foreground: 0 0% 100%;
-    --border: 0, 0%, 100%, 0.06;
-    --border-foreground: 0, 0%, 100%, 0.2;
+    --site-background: 0 0% 16%;
+    --card-background: 0 0% 0%;
     --primary: 0 0% 100%;
+    --text-primary: 0 0% 0%;
     --secondary: 0, 0%, 100%, 0.08;
-    --primary-foreground: 0 0% 0%;
-    --secondary-foreground: 0 0% 100%;
+    --text-secondary: 0 0% 100%;
     --destructive: 359 100% 61%;
-    --muted: 0, 0%, 100%, 0.4;
-    --muted-foreground: 0, 0%, 0%, 0.4;
+    --border: 0, 0%, 100%, 0.06;
+    --divider: 0, 0%, 100%, 0.1;
+    --text-muted: 0, 0%, 100%, 0.4;
   }
 }
 
 @layer base {
   html {
-    @apply scroll-smooth bg-background font-sans antialiased;
+    @apply scroll-smooth bg-site font-sans antialiased;
   }
 }
 

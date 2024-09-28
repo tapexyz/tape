@@ -28,7 +28,7 @@ const Wrapper = ({
   return (
     <div
       className={tw(
-        "flex flex-col divide-y divide-dashed divide-border-foreground *:py-6 [&>*:first-child]:pt-0 [&>*:last-child]:pb-0",
+        "flex flex-col divide-y divide-dashed divide-custom *:py-6 [&>*:first-child]:pt-0 [&>*:last-child]:pb-0",
         className
       )}
     >
@@ -51,7 +51,7 @@ export const components = [
     component: () => {
       return (
         <Wrapper>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <Button size="icon">
               <Heart className="size-5" />
             </Button>
@@ -68,7 +68,7 @@ export const components = [
               <Trash className="size-5" />
             </Button>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <Button className="w-28">Upload</Button>
             <Button className="w-28" variant="secondary">
               Upload
@@ -77,7 +77,7 @@ export const components = [
               Upload
             </Button>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <Button className="w-28" loading={true}>
               Upload
             </Button>
@@ -88,7 +88,7 @@ export const components = [
               Upload
             </Button>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <Button className="w-28">
               <span>Upload</span>
               <PlusCircle className="size-5" />
@@ -102,7 +102,7 @@ export const components = [
               <Trash className="size-5" />
             </Button>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <Button size="sm" className="w-28">
               Upload
             </Button>
@@ -203,7 +203,7 @@ export const components = [
     label: "Spinner",
     component: () => {
       return (
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <Spinner className="size-4" />
           <Spinner className="size-5" />
           <Spinner className="size-6" />
@@ -273,7 +273,7 @@ export const components = [
     label: "Toast",
     component: () => {
       return (
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <Button
             onClick={() => toast("You clicked the button!")}
             variant="secondary"

@@ -9,11 +9,11 @@ import { Button } from "./button";
 const getIcon = (theme: string) => {
   switch (theme) {
     case "system":
-      return <Desktop weight="duotone" />;
+      return <Desktop />;
     case "light":
-      return <Sun weight="duotone" />;
+      return <Sun />;
     case "dark":
-      return <Moon weight="duotone" />;
+      return <Moon />;
   }
 };
 
@@ -43,7 +43,7 @@ export const ThemeSwitcherExpanded = ({ id }: Readonly<{ id: string }>) => {
   const { setTheme, themes, theme: currentTheme } = useTheme();
 
   return (
-    <div className="inline-flex h-9 items-center gap-0.5 rounded-full border border-border bg-secondary p-1">
+    <div className="inline-flex h-9 items-center gap-0.5 rounded-full border border-custom bg-secondary p-1">
       {themes.map((theme) => (
         <button
           key={theme}
