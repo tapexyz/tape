@@ -9,15 +9,20 @@
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.7",
+    "@radix-ui/react-tooltip": "^1.1.2",
+    "@uidotdev/usehooks": "^2.4.1",
     "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.7.0",
     "next": "^14.2.13",
+    "next-themes": "^0.3.0",
     "postcss": "^8.4.47",
     "react": "^18.3.1",
+    "sonner": "^1.5.0",
     "tailwind-merge": "^2.5.1",
-    "tailwindcss": "^3.4.13"
+    "tailwindcss": "^3.4.13",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@tape.xyz/tsconfig": "workspace:*",

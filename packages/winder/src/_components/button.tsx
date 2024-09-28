@@ -5,20 +5,23 @@ import { tw } from "../tw";
 import { Spinner } from "./spinner";
 
 const buttonVariants = cva(
-  "flex items-center justify-center disabled:opacity-80 disabled:pointer-events-none overflow-hidden rounded-rounded font-medium text-sm",
+  "flex items-center justify-center disabled:pointer-events-none overflow-hidden rounded-rounded font-medium text-sm",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-background",
+        default:
+          "bg-primary text-primary-foreground hover:bg-primary/85 disabled:bg-primary/60",
+        secondary:
+          "bg-secondary text-secondary-foreground hover:bg-background disabled:bg-background/60 border-border border",
         destructive:
-          "bg-destructive text-primary-foreground hover:bg-destructive/90"
+          "bg-destructive text-primary-foreground hover:bg-destructive/85 disabled:bg-destructive/60"
       },
       size: {
         default: "h-9 px-4 py-2",
         sm: "h-8 px-3 text-xs",
         md: "h-9 px-3",
         lg: "h-10 px-8",
+        xl: "h-12 px-8",
         icon: "size-9"
       }
     },

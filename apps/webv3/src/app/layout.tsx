@@ -16,8 +16,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={tw(sansFont.variable, serifFont.variable)}>
+    <html lang="en" className={tw(sansFont.variable, serifFont.variable)}>
+      <body>
         <Providers>{children}</Providers>
       </body>
     </html>

@@ -11,7 +11,14 @@ export default {
     extend: {
       colors: {
         background: "hsl(var(--background))",
-        border: "hsl(var(--border))",
+        border: {
+          DEFAULT: "hsl(var(--border))",
+          foreground: "hsl(var(--border-foreground))"
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))"
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))"
@@ -22,6 +29,10 @@ export default {
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))"
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))"
         }
       },
       borderRadius: {
@@ -33,5 +44,5 @@ export default {
       }
     }
   },
-  plugins: []
+  plugins: [require("tailwindcss-animate")]
 } satisfies Config;

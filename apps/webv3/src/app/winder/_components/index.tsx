@@ -1,5 +1,41 @@
-import { Button } from "@tape.xyz/winder";
-import { Heart, PlusCircle, Trash } from "@tape.xyz/winder/common";
+import {
+  Button,
+  Spinner,
+  ThemeSwitcher,
+  ThemeSwitcherExpanded,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+  toast
+} from "@tape.xyz/winder";
+import {
+  ArrowsClockwise,
+  CurrencyDollar,
+  DotsThreeVertical,
+  Heart,
+  Info,
+  PlusCircle,
+  ShareFat,
+  Trash,
+  tw
+} from "@tape.xyz/winder/common";
+
+const Wrapper = ({
+  children,
+  className
+}: Readonly<{ children: React.ReactNode; className?: string }>) => {
+  return (
+    <div
+      className={tw(
+        "flex flex-col divide-y divide-dashed divide-border-foreground *:py-6 [&>*:first-child]:pt-0 [&>*:last-child]:pb-0",
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
+};
 
 export const components = [
   {
@@ -14,30 +50,25 @@ export const components = [
     label: "Button",
     component: () => {
       return (
-        <div className="flex flex-col gap-4">
-          <div className="flex justify-between gap-2">
+        <Wrapper>
+          <div className="flex gap-2">
             <Button size="icon">
               <Heart className="size-5" />
             </Button>
             <Button size="icon" variant="secondary">
-              <Heart className="size-5" />
+              <ArrowsClockwise className="size-5" />
+            </Button>
+            <Button size="icon" variant="secondary">
+              <ShareFat className="size-5" />
+            </Button>
+            <Button size="icon" variant="secondary">
+              <DotsThreeVertical className="size-5" />
             </Button>
             <Button size="icon" variant="destructive">
-              <Heart className="size-5" />
+              <Trash className="size-5" />
             </Button>
           </div>
-          <div className="flex items-center justify-between gap-2">
-            <Button size="sm" className="w-28">
-              Upload
-            </Button>
-            <Button size="md" className="w-28" variant="secondary">
-              Upload
-            </Button>
-            <Button size="lg" className="w-28" variant="destructive">
-              Upload
-            </Button>
-          </div>
-          <div className="flex justify-between gap-2">
+          <div className="flex gap-2">
             <Button className="w-28">Upload</Button>
             <Button className="w-28" variant="secondary">
               Upload
@@ -46,7 +77,7 @@ export const components = [
               Upload
             </Button>
           </div>
-          <div className="flex justify-between gap-2">
+          <div className="flex gap-2">
             <Button className="w-28" loading={true}>
               Upload
             </Button>
@@ -57,7 +88,7 @@ export const components = [
               Upload
             </Button>
           </div>
-          <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
             <Button className="w-28">
               <span>Upload</span>
               <PlusCircle className="size-5" />
@@ -71,7 +102,21 @@ export const components = [
               <Trash className="size-5" />
             </Button>
           </div>
-        </div>
+          <div className="flex items-center gap-2">
+            <Button size="sm" className="w-28">
+              Upload
+            </Button>
+            <Button size="md" className="w-28" variant="secondary">
+              Upload
+            </Button>
+            <Button size="lg" className="w-28" variant="secondary">
+              Upload
+            </Button>
+            <Button size="xl" className="w-28" variant="destructive">
+              Upload
+            </Button>
+          </div>
+        </Wrapper>
       );
     }
   },
@@ -86,7 +131,22 @@ export const components = [
     id: "description",
     label: "Description",
     component: () => {
-      return <div>Description</div>;
+      return (
+        <Wrapper>
+          <p>
+            Go behind the scenes of an electrifying street performance that
+            showcases raw talent and vibrant urban culture. Experience the
+            energy, passion, and creativity that bring the city’s streets to
+            life, all captured through a dynamic, artistic lens.
+          </p>
+          <p className="line-clamp-2">
+            Go behind the scenes of an electrifying street performance that
+            showcases raw talent and vibrant urban culture. Experience the
+            energy, passion, and creativity that bring the city’s streets to
+            life, all captured through a dynamic, artistic lens.
+          </p>
+        </Wrapper>
+      );
     }
   },
   {
@@ -142,7 +202,17 @@ export const components = [
     id: "spinner",
     label: "Spinner",
     component: () => {
-      return <div>Spinner</div>;
+      return (
+        <div className="flex items-center gap-2">
+          <Spinner className="size-4" />
+          <Spinner className="size-5" />
+          <Spinner className="size-6" />
+          <Spinner className="size-7" />
+          <Spinner className="size-6" />
+          <Spinner className="size-5" />
+          <Spinner className="size-4" />
+        </div>
+      );
     }
   },
   {
@@ -163,7 +233,20 @@ export const components = [
     id: "text",
     label: "Text",
     component: () => {
-      return <div>Text</div>;
+      return (
+        <Wrapper>
+          <p className="font-serif text-6xl">Remix till it works</p>
+          <p className="font-bold text-5xl">Remix till it works</p>
+          <p className="font-semibold text-4xl">Remix till it works</p>
+          <p className="font-medium text-3xl">Remix till it works</p>
+          <p className="text-2xl">Remix till it works</p>
+          <p className="text-xl">Remix till it works</p>
+          <p className="text-lg">Remix till it works</p>
+          <p className="text-base">Remix till it works</p>
+          <p className="text-sm">Remix till it works</p>
+          <p className="text-xs">Remix till it works</p>
+        </Wrapper>
+      );
     }
   },
   {
@@ -177,21 +260,86 @@ export const components = [
     id: "theme-switcher",
     label: "Theme Switcher",
     component: () => {
-      return <div>Theme Switcher</div>;
+      return (
+        <div className="flex gap-2">
+          <ThemeSwitcher />
+          <ThemeSwitcherExpanded id="winder-content" />
+        </div>
+      );
     }
   },
   {
     id: "toast",
     label: "Toast",
     component: () => {
-      return <div>Toast</div>;
+      return (
+        <div className="flex items-center gap-2">
+          <Button
+            onClick={() => toast("You clicked the button!")}
+            variant="secondary"
+          >
+            Toast
+          </Button>
+          <Button
+            variant="secondary"
+            onClick={() =>
+              toast("Oh wait...", {
+                description: "You are awesome!"
+              })
+            }
+          >
+            Description
+          </Button>
+          <Button
+            variant="secondary"
+            onClick={() =>
+              toast.success("Yay!", {
+                description: "Successfully toasted"
+              })
+            }
+          >
+            Success
+          </Button>
+          <Button
+            variant="secondary"
+            onClick={() =>
+              toast.error("Oops, something went wrong", {
+                description: "There was an error toasting, please try again"
+              })
+            }
+          >
+            Error
+          </Button>
+        </div>
+      );
     }
   },
   {
     id: "tooltip",
     label: "Tooltip",
     component: () => {
-      return <div>Tooltip</div>;
+      return (
+        <div className="flex items-center gap-6">
+          <TooltipProvider>
+            <Tooltip delayDuration={200}>
+              <TooltipTrigger>
+                <Info className="size-5" />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Something informative</p>
+              </TooltipContent>
+            </Tooltip>
+            <Tooltip delayDuration={200}>
+              <TooltipTrigger>
+                <CurrencyDollar className="size-5" />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>This is a dollar</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </div>
+      );
     }
   }
 ];
