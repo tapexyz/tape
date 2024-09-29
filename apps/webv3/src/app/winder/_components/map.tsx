@@ -25,6 +25,7 @@ import {
   PlusCircle,
   ShareFat,
   Trash,
+  USED_ICONS,
   Video,
   tw
 } from "@tape.xyz/winder/common";
@@ -44,6 +45,36 @@ const VStack = ({
     </div>
   );
 };
+
+export const base = [
+  {
+    id: "brand",
+    label: "Brand",
+    component: () => {
+      return <VStack>WIP</VStack>;
+    }
+  },
+  {
+    id: "icons",
+    label: "Icons",
+    component: () => (
+      <div className="grid grid-cols-5 gap-5 md:grid-cols-12">
+        {USED_ICONS.map(({ Icon, name }) => (
+          <div key={name} className="p-3">
+            <Icon className="size-5 shrink-0" />
+          </div>
+        ))}
+      </div>
+    )
+  },
+  {
+    id: "colors",
+    label: "Colors",
+    component: () => {
+      return <VStack>WIP</VStack>;
+    }
+  }
+];
 
 export const components = [
   {
@@ -242,13 +273,6 @@ export const components = [
     }
   },
   {
-    id: "floating-nav",
-    label: "Floating Nav",
-    component: () => {
-      return <div>Floating Nav</div>;
-    }
-  },
-  {
     id: "input",
     label: "Input",
     component: () => {
@@ -370,6 +394,7 @@ export const components = [
           </Button>
           <Button
             variant="secondary"
+            className="text-green-500"
             onClick={() =>
               toast.success("Yay!", {
                 description: "Successfully toasted"
@@ -380,6 +405,7 @@ export const components = [
           </Button>
           <Button
             variant="secondary"
+            className="text-destructive"
             onClick={() =>
               toast.error("Oops, something went wrong", {
                 description: "There was an error toasting, please try again"

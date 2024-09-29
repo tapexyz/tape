@@ -18,6 +18,26 @@ import {
   Warning
 } from "@phosphor-icons/react/dist/ssr";
 
+const USED_ICONS = [
+  { Icon: Sun, name: "Sun" },
+  { Icon: Moon, name: "Moon" },
+  { Icon: Desktop, name: "Desktop" },
+  { Icon: PlusCircle, name: "PlusCircle" },
+  { Icon: Trash, name: "Trash" },
+  { Icon: Heart, name: "Heart" },
+  { Icon: ArrowsClockwise, name: "ArrowsClockwise" },
+  { Icon: ShareFat, name: "ShareFat" },
+  { Icon: DotsThreeVertical, name: "DotsThreeVertical" },
+  { Icon: Check, name: "Check" },
+  { Icon: Info, name: "Info" },
+  { Icon: Warning, name: "Warning" },
+  { Icon: CurrencyDollar, name: "CurrencyDollar" },
+  { Icon: DeviceMobile, name: "DeviceMobile" },
+  { Icon: Video, name: "Video" },
+  { Icon: Panorama, name: "Panorama" },
+  { Icon: Crown, name: "Crown" }
+];
+
 export {
   Sun,
   Moon,
@@ -35,5 +55,6 @@ export {
   DeviceMobile,
   Video,
   Panorama,
-  Crown
+  Crown,
+  USED_ICONS
 };

@@ -3,26 +3,26 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
-import { components } from "./map";
+import { base, components } from "./map";
 
 const Li = ({ item }: { item: { id: string; label: string } }) => {
   const { id, label } = item;
-  const [activeTab, setActiveTab] = useState("");
+  const [hoverTab, setHoverTab] = useState("");
 
   return (
     <li
-      onFocus={() => setActiveTab(id)}
-      onMouseOver={() => setActiveTab(id)}
-      onMouseLeave={() => setActiveTab("")}
+      onFocus={() => setHoverTab(id)}
+      onMouseOver={() => setHoverTab(id)}
+      onMouseLeave={() => setHoverTab("")}
     >
       <Link
         className="-mx-3 relative flex rounded-custom px-3 py-2 text-secondary/70 capitalize no-underline outline-none"
         href={`#${id}`}
         prefetch={false}
       >
-        {activeTab === id ? (
+        {hoverTab === id ? (
           <motion.span
-            key={activeTab}
+            key={hoverTab}
             layoutId="winder-sidebar-link-indicator"
             transition={{ duration: 0.2, bounce: 0, type: "spring" }}
             className="absolute inset-0 rounded-custom bg-secondary"
@@ -36,7 +36,13 @@ const Li = ({ item }: { item: { id: string; label: string } }) => {
 
 export const Sidebar = () => {
   return (
-    <aside className="no-scrollbar sticky top-[100px] bottom-0 z-10 hidden h-[calc(100vh-100px)] overflow-y-auto border-custom px-6 py-3 md:block md:border-x">
+    <aside className="no-scrollbar sticky top-[100px] bottom-0 z-10 hidden h-[calc(100vh-100px)] overflow-y-auto border-custom px-6 py-4 md:block md:border-x">
+      <h1 className="py-5 font-bold text-xs uppercase">Foundations</h1>
+      <ul className="w-full">
+        {base.map(({ id, label }) => (
+          <Li key={id} item={{ id, label }} />
+        ))}
+      </ul>
       <h1 className="py-5 font-bold text-xs uppercase">Components</h1>
       <ul className="w-full">
         {components.map(({ id, label }) => (
