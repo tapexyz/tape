@@ -37,6 +37,9 @@ export default {
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))"
+        },
+        upbyte: {
+          DEFAULT: "hsl(var(--upbyte))"
         }
       },
       screens: {

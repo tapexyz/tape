@@ -28,10 +28,10 @@ importers:
         version: 0.3.0(hono@4.6.3)(zod@3.23.8)
       '@irys/upload':
         specifier: ^0.0.7
-        version: 0.0.7(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+        version: 0.0.7(arweave@1.15.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       '@irys/upload-ethereum':
         specifier: ^0.0.7
-        version: 0.0.7(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+        version: 0.0.7(arweave@1.15.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       '@lens-protocol/metadata':
         specifier: ^1.2.0
         version: 1.2.0(zod@3.23.8)
@@ -224,13 +224,13 @@ importers:
         version: 3.9.0(react-hook-form@7.53.0(react@18.3.1))
       '@irys/web-upload':
         specifier: 0.0.7
-        version: 0.0.7(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+        version: 0.0.7(arweave@1.15.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       '@irys/web-upload-ethereum':
         specifier: 0.0.7
-        version: 0.0.7(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+        version: 0.0.7(arweave@1.15.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       '@irys/web-upload-ethereum-viem-v2':
         specifier: ^0.0.8
-        version: 0.0.8(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+        version: 0.0.8(arweave@1.15.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       '@lens-protocol/metadata':
         specifier: ^1.2.0
         version: 1.2.0(zod@3.23.8)
@@ -4873,8 +4873,8 @@ packages:
     peerDependencies:
       arweave: ^1.10.0
 
-  arweave@1.15.1:
-    resolution: {integrity: sha512-rT7FOwqdudd5npqp4xOYdDT2035LtpcqePjwirh4wjRiEtVsz1FZkRiM2Yj+fOAwYzOm/hNG0GDOipDSaiEGGQ==}
+  arweave@1.15.3:
+    resolution: {integrity: sha512-oAjxDwOluoQDCrE7I+WbvSbVbrcwK0+6PkRvR2xvfPBPyutxxAeNWQpB1N2aJKTvg6UmUaoxby/bUvfJt5SzMQ==}
     engines: {node: '>=18'}
 
   asap@2.0.6:
@@ -11737,7 +11737,7 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  '@irys/bundles@0.0.1(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
+  '@irys/bundles@0.0.1(arweave@1.15.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
     dependencies:
       '@ethersproject/bytes': 5.7.0
       '@ethersproject/hash': 5.7.0
@@ -11754,7 +11754,7 @@ snapshots:
     optionalDependencies:
       '@randlabs/myalgo-connect': 1.4.2
       algosdk: 1.24.1
-      arweave-stream-tx: 1.2.2(arweave@1.15.1)
+      arweave-stream-tx: 1.2.2(arweave@1.15.3)
       multistream: 4.1.0
       tmp-promise: 3.0.3
     transitivePeerDependencies:
@@ -11771,9 +11771,9 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  '@irys/upload-core@0.0.5(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
+  '@irys/upload-core@0.0.5(arweave@1.15.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
     dependencies:
-      '@irys/bundles': 0.0.1(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      '@irys/bundles': 0.0.1(arweave@1.15.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       '@irys/query': 0.0.9
       '@supercharge/promise-pool': 3.2.0
       async-retry: 1.3.3
@@ -11787,15 +11787,15 @@ snapshots:
       - encoding
       - utf-8-validate
 
-  '@irys/upload-ethereum@0.0.7(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
+  '@irys/upload-ethereum@0.0.7(arweave@1.15.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
     dependencies:
       '@ethersproject/bignumber': 5.7.0
       '@ethersproject/contracts': 5.7.0
       '@ethersproject/providers': 5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       '@ethersproject/wallet': 5.7.0
-      '@irys/bundles': 0.0.1(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
-      '@irys/upload': 0.0.7(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
-      '@irys/upload-core': 0.0.5(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      '@irys/bundles': 0.0.1(arweave@1.15.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      '@irys/upload': 0.0.7(arweave@1.15.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      '@irys/upload-core': 0.0.5(arweave@1.15.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       bignumber.js: 9.1.2
     transitivePeerDependencies:
       - arweave
@@ -11804,10 +11804,10 @@ snapshots:
       - encoding
       - utf-8-validate
 
-  '@irys/upload@0.0.7(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
+  '@irys/upload@0.0.7(arweave@1.15.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
     dependencies:
-      '@irys/bundles': 0.0.1(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
-      '@irys/upload-core': 0.0.5(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      '@irys/bundles': 0.0.1(arweave@1.15.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      '@irys/upload-core': 0.0.5(arweave@1.15.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       async-retry: 1.3.3
       axios: 1.7.7(debug@4.3.7)
       base64url: 3.0.1
@@ -11823,13 +11823,13 @@ snapshots:
       - encoding
       - utf-8-validate
 
-  '@irys/web-upload-ethereum-viem-v2@0.0.8(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
+  '@irys/web-upload-ethereum-viem-v2@0.0.8(arweave@1.15.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
     dependencies:
       '@ethersproject/bignumber': 5.7.0
-      '@irys/bundles': 0.0.1(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
-      '@irys/upload-core': 0.0.5(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
-      '@irys/web-upload': 0.0.7(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
-      '@irys/web-upload-ethereum': 0.0.7(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      '@irys/bundles': 0.0.1(arweave@1.15.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      '@irys/upload-core': 0.0.5(arweave@1.15.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      '@irys/web-upload': 0.0.7(arweave@1.15.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      '@irys/web-upload-ethereum': 0.0.7(arweave@1.15.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       bignumber.js: 9.1.2
     transitivePeerDependencies:
       - arweave
@@ -11838,14 +11838,14 @@ snapshots:
       - encoding
       - utf-8-validate
 
-  '@irys/web-upload-ethereum@0.0.7(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
+  '@irys/web-upload-ethereum@0.0.7(arweave@1.15.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
     dependencies:
       '@ethersproject/bignumber': 5.7.0
       '@ethersproject/contracts': 5.7.0
       '@ethersproject/providers': 5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
-      '@irys/bundles': 0.0.1(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
-      '@irys/upload-core': 0.0.5(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
-      '@irys/web-upload': 0.0.7(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      '@irys/bundles': 0.0.1(arweave@1.15.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      '@irys/upload-core': 0.0.5(arweave@1.15.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      '@irys/web-upload': 0.0.7(arweave@1.15.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       bignumber.js: 9.1.2
     transitivePeerDependencies:
       - arweave
@@ -11854,10 +11854,10 @@ snapshots:
       - encoding
       - utf-8-validate
 
-  '@irys/web-upload@0.0.7(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
+  '@irys/web-upload@0.0.7(arweave@1.15.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
     dependencies:
-      '@irys/bundles': 0.0.1(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
-      '@irys/upload-core': 0.0.5(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      '@irys/bundles': 0.0.1(arweave@1.15.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      '@irys/upload-core': 0.0.5(arweave@1.15.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       async-retry: 1.3.3
       axios: 1.7.7(debug@4.3.7)
       base64url: 3.0.1
@@ -15019,7 +15019,7 @@ snapshots:
 
   arconnect@0.4.2:
     dependencies:
-      arweave: 1.15.1
+      arweave: 1.15.3
     optional: true
 
   arg@4.1.3: {}
@@ -15044,13 +15044,13 @@ snapshots:
 
   array-uniq@1.0.3: {}
 
-  arweave-stream-tx@1.2.2(arweave@1.15.1):
+  arweave-stream-tx@1.2.2(arweave@1.15.3):
     dependencies:
-      arweave: 1.15.1
+      arweave: 1.15.3
       exponential-backoff: 3.1.1
     optional: true
 
-  arweave@1.15.1:
+  arweave@1.15.3:
     dependencies:
       arconnect: 0.4.2
       asn1.js: 5.4.1

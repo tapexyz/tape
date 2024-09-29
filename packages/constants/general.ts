@@ -40,7 +40,7 @@ export const LENS_API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL;
 export const TAPE_EMBED_URL = IS_MAINNET
   ? "https://embed.tape.xyz"
   : "https://embed-testnet.tape.xyz";
-export const TAPE_API_URL = IS_PRODUCTION
+export const TAPE_API_URL = IS_MAINNET
   ? "https://api.tape.xyz"
   : "http://localhost:3000";
 

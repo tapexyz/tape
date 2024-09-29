@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
-import { components } from ".";
+import { components } from "./map";
 
 const Li = ({ item }: { item: { id: string; label: string } }) => {
   const { id, label } = item;

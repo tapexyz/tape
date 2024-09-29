@@ -5,6 +5,7 @@
 @layer base {
   :root {
     --radius: 9px;
+    --upbyte: 15 100% 64;
 
     --site-background: 0 0% 95%;
     --card-background: 0 0% 100%;

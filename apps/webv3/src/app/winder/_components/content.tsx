@@ -1,6 +1,6 @@
 "use client";
 
-import { components } from ".";
+import { components } from "./map";
 
 export const Content = () => {
   return (

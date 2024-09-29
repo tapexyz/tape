@@ -1,16 +1,20 @@
 import {
   ArrowsClockwise,
   Check,
+  Crown,
   CurrencyDollar,
   Desktop,
+  DeviceMobile,
   DotsThreeVertical,
   Heart,
   Info,
   Moon,
+  Panorama,
   PlusCircle,
   ShareFat,
   Sun,
   Trash,
+  Video,
   Warning
 } from "@phosphor-icons/react/dist/ssr";
 
@@ -27,5 +31,9 @@ export {
   Check,
   Info,
   Warning,
-  CurrencyDollar
+  CurrencyDollar,
+  DeviceMobile,
+  Video,
+  Panorama,
+  Crown
 };

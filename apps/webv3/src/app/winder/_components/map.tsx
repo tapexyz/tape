@@ -1,4 +1,8 @@
+import { WORKER_AVATAR_URL } from "@tape.xyz/constants";
 import {
+  Avatar,
+  AvatarImage,
+  Badge,
   Button,
   Spinner,
   ThemeSwitcher,
@@ -11,17 +15,21 @@ import {
 } from "@tape.xyz/winder";
 import {
   ArrowsClockwise,
+  Crown,
   CurrencyDollar,
+  DeviceMobile,
   DotsThreeVertical,
   Heart,
   Info,
+  Panorama,
   PlusCircle,
   ShareFat,
   Trash,
+  Video,
   tw
 } from "@tape.xyz/winder/common";
 
-const Wrapper = ({
+const VStack = ({
   children,
   className
 }: Readonly<{ children: React.ReactNode; className?: string }>) => {
@@ -42,7 +50,53 @@ export const components = [
     id: "avatar",
     label: "Avatar",
     component: () => {
-      return <div>Avatar</div>;
+      const image = <AvatarImage src={`${WORKER_AVATAR_URL}/0x2d`} />;
+      return (
+        <div className="flex flex-wrap items-center gap-2">
+          <Avatar size="2xl">{image}</Avatar>
+          <Avatar size="xl">{image}</Avatar>
+          <Avatar size="lg">{image}</Avatar>
+          <Avatar size="md">{image}</Avatar>
+          <Avatar size="sm">{image}</Avatar>
+          <Avatar size="xs">{image}</Avatar>
+          <Avatar shape="circle" size="xs">
+            {image}
+          </Avatar>
+          <Avatar shape="circle" size="sm">
+            {image}
+          </Avatar>
+          <Avatar shape="circle" size="md">
+            {image}
+          </Avatar>
+          <Avatar shape="circle" size="lg">
+            {image}
+          </Avatar>
+          <Avatar shape="circle" size="xl">
+            {image}
+          </Avatar>
+          <Avatar shape="circle" size="2xl">
+            {image}
+          </Avatar>
+        </div>
+      );
+    }
+  },
+  {
+    id: "badge",
+    label: "Badge",
+    component: () => {
+      return (
+        <div className="flex flex-wrap gap-2">
+          <Badge>Default</Badge>
+          <Badge variant="secondary">Secondary</Badge>
+          <Badge variant="outline">Outline</Badge>
+          <Badge variant="inverted">Inverted</Badge>
+          <Badge variant="fancy">
+            <Crown className="mr-1 size-4" weight="duotone" />
+            Fancy
+          </Badge>
+        </div>
+      );
     }
   },
   {
@@ -50,7 +104,7 @@ export const components = [
     label: "Button",
     component: () => {
       return (
-        <Wrapper>
+        <VStack>
           <div className="flex flex-wrap gap-2">
             <Button size="icon">
               <Heart className="size-5" />
@@ -116,7 +170,7 @@ export const components = [
               Upload
             </Button>
           </div>
-        </Wrapper>
+        </VStack>
       );
     }
   },
@@ -124,7 +178,31 @@ export const components = [
     id: "card",
     label: "Card",
     component: () => {
-      return <div>Card</div>;
+      return (
+        <div className="grid grid-flow-col grid-rows-2 gap-2">
+          <div className="relative grid h-64 place-items-center rounded-card bg-card p-6">
+            <Video
+              className="absolute top-5 right-6 size-5 text-muted"
+              weight="thin"
+            />
+            This is a video, for example.
+          </div>
+          <div className="relative grid h-64 place-items-center rounded-card bg-card">
+            <Panorama
+              className="absolute top-5 right-6 size-5 text-muted"
+              weight="thin"
+            />
+            This is a thumbnail, for example.
+          </div>
+          <div className="relative row-span-2 grid place-items-center rounded-card bg-card">
+            <DeviceMobile
+              className="absolute top-5 right-6 size-5 text-muted"
+              weight="thin"
+            />
+            This is a byte, for example.
+          </div>
+        </div>
+      );
     }
   },
   {
@@ -132,7 +210,7 @@ export const components = [
     label: "Description",
     component: () => {
       return (
-        <Wrapper>
+        <VStack>
           <p>
             Go behind the scenes of an electrifying street performance that
             showcases raw talent and vibrant urban culture. Experience the
@@ -145,7 +223,7 @@ export const components = [
             energy, passion, and creativity that bring the city’s streets to
             life, all captured through a dynamic, artistic lens.
           </p>
-        </Wrapper>
+        </VStack>
       );
     }
   },
@@ -234,7 +312,7 @@ export const components = [
     label: "Text",
     component: () => {
       return (
-        <Wrapper>
+        <VStack>
           <p className="font-serif text-6xl">Remix till it works</p>
           <p className="font-bold text-5xl">Remix till it works</p>
           <p className="font-semibold text-4xl">Remix till it works</p>
@@ -245,7 +323,7 @@ export const components = [
           <p className="text-base">Remix till it works</p>
           <p className="text-sm">Remix till it works</p>
           <p className="text-xs">Remix till it works</p>
-        </Wrapper>
+        </VStack>
       );
     }
   },
