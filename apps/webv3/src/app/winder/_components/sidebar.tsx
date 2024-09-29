@@ -1,7 +1,7 @@
 "use client";
 
-import { TapeLink } from "@/components/shared/link";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { useState } from "react";
 import { components } from ".";
 
@@ -19,9 +19,10 @@ export const Sidebar = () => {
             onMouseOver={() => setActiveTab(id)}
             onMouseLeave={() => setActiveTab("")}
           >
-            <TapeLink
+            <Link
               className="-mx-3 relative flex rounded-custom px-3 py-2 text-secondary/70 capitalize no-underline outline-none"
               href={`#${id}`}
+              prefetch={false}
             >
               {activeTab === id ? (
                 <motion.span
@@ -32,7 +33,7 @@ export const Sidebar = () => {
                 />
               ) : null}
               <span className="relative">{label}</span>
-            </TapeLink>
+            </Link>
           </li>
         ))}
       </ul>

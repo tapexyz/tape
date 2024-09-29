@@ -1,12 +1,11 @@
 "use client";
 
+import { Virtualized } from "@/components/shared/virtualized";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { getPublication } from "@tape.xyz/generic";
 import type { AnyPublication } from "@tape.xyz/lens/gql";
 
-import { TapeLink } from "@/components/shared/link";
-import { Virtualized } from "@/components/shared/virtualized";
-
+import Link from "next/link";
 import { publicationsQuery } from "./queries";
 
 export const Feed = () => {
@@ -30,9 +29,9 @@ export const Feed = () => {
             const publication = getPublication(anyPublication);
             return (
               <div className="p-5">
-                <TapeLink href={`/watch/${publication.id}`}>
+                <Link href={`/watch/${publication.id}`} prefetch={false}>
                   {publication.metadata.content}
-                </TapeLink>
+                </Link>
               </div>
             );
           }}
