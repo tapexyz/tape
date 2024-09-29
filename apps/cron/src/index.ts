@@ -3,6 +3,7 @@ import "dotenv/config";
 import cron from "node-cron";
 
 import { backupEventsToS3 } from "./services/backup/events";
+import { backupTrailsToS3 } from "./services/backup/trails";
 import {
   cleanup4Ever,
   cleanupClickhouse,
@@ -14,36 +15,32 @@ import { wakeClickHouse } from "./services/wake";
 
 // Schedule the flushEvents and flushTrails function to run every 4 hour
 cron.schedule("0 */4 * * *", async () => {
-  console.log("[cron] Flushing tower events and trails", new Date());
   await wakeClickHouse();
+  console.log(
+    "[cron] Batch inserting tower events to clickhouse/events",
+    new Date()
+  );
   await flushEvents();
+  console.log("[cron] Batch inserting trails to clickhouse/trails", new Date());
   await flushTrails();
 });
 
-// Schedule the backupEventsToS3 function to run every midnight
+// Schedule the functions to run every day at midnight
 cron.schedule("0 0 * * *", async () => {
-  console.log("[cron] Backing up events to S3", new Date());
   await wakeClickHouse();
+  console.log("[cron] Backing up Clickhouse to S3", new Date());
   await backupEventsToS3();
-});
-
-// Schedule the cleanupClickhouse function to run every day
-cron.schedule("0 0 * * *", async () => {
+  await backupTrailsToS3();
   console.log("[cron] Cleaning up Clickhouse", new Date());
-  await wakeClickHouse();
   await cleanupClickhouse();
+  console.log("[cron] Cleaning up 4Ever", new Date());
+  await cleanup4Ever();
 });
 
 // Schedule the vacuumPostgres function to run every sunday at midnight
 cron.schedule("0 0 * * 0", async () => {
   console.log("[cron] Vacuuming postgres", new Date());
   await vacuumPostgres();
-});
-
-// Schedule the cleanup4Ever function to run every day
-cron.schedule("0 0 * * *", async () => {
-  console.log("[cron] Cleaning up 4ever", new Date());
-  await cleanup4Ever();
 });
 
 // Schedule the curatePublications function to run every 5 hour
