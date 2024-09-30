@@ -14,16 +14,13 @@ const AnimatedRect = (props: SVGProps<SVGRectElement> & MotionProps) => {
         bounceDamping: 30,
         bounceStiffness: 600
       }}
-      initial={{
-        opacity: 0,
-        y: 20
-      }}
       animate={{
+        x: 0,
         y: 0,
         opacity: 1,
         rotateZ: [0, -35, 0],
         transition: {
-          duration: 12,
+          duration: 4,
           ease: "linear",
           repeatType: "loop",
           repeat: Number.POSITIVE_INFINITY,
@@ -32,9 +29,14 @@ const AnimatedRect = (props: SVGProps<SVGRectElement> & MotionProps) => {
             duration: 0.4,
             type: "spring"
           },
+          x: {
+            bounce: 0,
+            duration: 0.5,
+            type: "spring"
+          },
           y: {
             bounce: 0,
-            duration: 0.4,
+            duration: 0.5,
             type: "spring"
           }
         }
@@ -69,6 +71,11 @@ export const IntroSvg = () => (
       width="49"
       height="41"
       fill="url(#pattern1)"
+      initial={{
+        opacity: 0,
+        y: 0,
+        x: 50
+      }}
     />
     <AnimatedRect
       x="786"
@@ -76,15 +83,47 @@ export const IntroSvg = () => (
       width="52"
       height="32"
       fill="url(#pattern2)"
+      initial={{
+        opacity: 0,
+        x: 50,
+        y: 50
+      }}
     />
-    <AnimatedRect x="771" y="59" width="28" height="25" fill="url(#pattern3)" />
-    <AnimatedRect x="635" y="43" width="37" height="32" fill="url(#pattern4)" />
+    <AnimatedRect
+      x="771"
+      y="59"
+      width="28"
+      height="25"
+      fill="url(#pattern3)"
+      initial={{
+        opacity: 0,
+        x: 50,
+        y: -50
+      }}
+    />
+    <AnimatedRect
+      x="635"
+      y="43"
+      width="37"
+      height="32"
+      fill="url(#pattern4)"
+      initial={{
+        opacity: 0,
+        x: 0,
+        y: -50
+      }}
+    />
     <AnimatedRect
       x="802"
       y="104"
       width="41"
       height="27"
       fill="url(#pattern5)"
+      initial={{
+        opacity: 0,
+        x: 50,
+        y: -50
+      }}
     />
     <AnimatedRect
       x="727"
@@ -93,9 +132,36 @@ export const IntroSvg = () => (
       height="36.17"
       transform="rotate(-17.1751 727 246.826)"
       fill="url(#pattern6)"
+      initial={{
+        opacity: 0,
+        x: 0,
+        y: 50
+      }}
     />
-    <AnimatedRect x="709" y="30" width="32" height="41" fill="url(#pattern7)" />
-    <AnimatedRect x="581" y="82" width="39" height="23" fill="url(#pattern8)" />
+    <AnimatedRect
+      x="709"
+      y="30"
+      width="32"
+      height="41"
+      fill="url(#pattern7)"
+      initial={{
+        opacity: 0,
+        x: 0,
+        y: -50
+      }}
+    />
+    <AnimatedRect
+      x="581"
+      y="82"
+      width="39"
+      height="23"
+      fill="url(#pattern8)"
+      initial={{
+        opacity: 0,
+        x: -50,
+        y: -50
+      }}
+    />
     <motion.rect
       className="select-none"
       initial={{ opacity: 0 }}
@@ -114,6 +180,11 @@ export const IntroSvg = () => (
       width="49"
       height="41"
       fill="url(#pattern10)"
+      initial={{
+        opacity: 0,
+        x: -50,
+        y: 0
+      }}
     />
     <AnimatedRect
       x="65"
@@ -121,14 +192,35 @@ export const IntroSvg = () => (
       width="49"
       height="31"
       fill="url(#pattern11)"
+      initial={{
+        opacity: 0,
+        x: -50,
+        y: 0
+      }}
     />
-    <AnimatedRect x="94" y="69" width="47" height="28" fill="url(#pattern12)" />
+    <AnimatedRect
+      x="94"
+      y="69"
+      width="47"
+      height="28"
+      fill="url(#pattern12)"
+      initial={{
+        opacity: 0,
+        x: -50,
+        y: -50
+      }}
+    />
     <AnimatedRect
       x="163"
       y="246"
       width="21"
       height="19"
       fill="url(#pattern13)"
+      initial={{
+        opacity: 0,
+        x: 0,
+        y: 50
+      }}
     />
     <AnimatedRect
       x="217"
@@ -136,6 +228,11 @@ export const IntroSvg = () => (
       width="37"
       height="31"
       fill="url(#pattern14)"
+      initial={{
+        opacity: 0,
+        x: 50,
+        y: 50
+      }}
     />
     <AnimatedRect
       x="278"
@@ -143,6 +240,11 @@ export const IntroSvg = () => (
       width="34"
       height="49"
       fill="url(#pattern15)"
+      initial={{
+        opacity: 0,
+        x: 50,
+        y: 50
+      }}
     />
     <AnimatedRect
       x="326"
@@ -150,6 +252,11 @@ export const IntroSvg = () => (
       width="17"
       height="18"
       fill="url(#pattern16)"
+      initial={{
+        opacity: 0,
+        x: 50,
+        y: 50
+      }}
     />
     <AnimatedRect
       x="100"
@@ -157,6 +264,11 @@ export const IntroSvg = () => (
       width="55"
       height="42"
       fill="url(#pattern17)"
+      initial={{
+        opacity: 0,
+        x: -50,
+        y: 50
+      }}
     />
     <defs>
       <pattern

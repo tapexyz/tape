@@ -29,6 +29,7 @@ import {
   Video,
   tw
 } from "@tape.xyz/winder/common";
+import Link from "next/link";
 
 const VStack = ({
   children,
@@ -72,6 +73,55 @@ export const base = [
     label: "Colors",
     component: () => {
       return <VStack>WIP</VStack>;
+    }
+  },
+  {
+    id: "typeface",
+    label: "Typeface",
+    component: () => {
+      return (
+        <VStack className="overflow-hidden">
+          <Link
+            href="https://pangrampangram.com/products/editorial-new"
+            className="group space-y-4"
+            target="_blank"
+          >
+            <div className="space-y-2">
+              <div className="-mt-2 text-5xl">■</div>
+              <div className="text-2xl">Editorial New</div>
+            </div>
+            <h1 className="select-none text-end font-serif text-9xl text-muted transition-colors duration-300 group-hover:text-secondary">
+              tape
+            </h1>
+          </Link>
+          <Link
+            href="https://vercel.com/font"
+            className="group space-y-4"
+            target="_blank"
+          >
+            <div className="space-y-2">
+              <div className="text-4xl">▲</div>
+              <div className="text-2xl">Geist Sans</div>
+            </div>
+            <h1 className="select-none text-end font-sans text-9xl text-muted transition-colors duration-300 group-hover:text-secondary">
+              tape
+            </h1>
+          </Link>
+          <Link
+            href="https://vercel.com/font"
+            className="group space-y-4"
+            target="_blank"
+          >
+            <div className="space-y-2">
+              <div className="text-4xl">●</div>
+              <div className="text-2xl">Geist Mono</div>
+            </div>
+            <h1 className="select-none text-end font-mono text-9xl text-muted transition-colors duration-300 group-hover:text-secondary">
+              1234
+            </h1>
+          </Link>
+        </VStack>
+      );
     }
   }
 ];
@@ -218,14 +268,14 @@ export const components = [
             />
             This is a video, for example.
           </div>
-          <div className="relative grid h-64 place-items-center rounded-card bg-card">
+          <div className="relative grid h-64 place-items-center rounded-card bg-card p-6">
             <Panorama
               className="absolute top-5 right-6 size-5 text-muted"
               weight="thin"
             />
             This is a thumbnail, for example.
           </div>
-          <div className="relative row-span-2 grid place-items-center rounded-card bg-card">
+          <div className="relative row-span-2 grid min-h-96 place-items-center rounded-card bg-card p-6">
             <DeviceMobile
               className="absolute top-5 right-6 size-5 text-muted"
               weight="thin"

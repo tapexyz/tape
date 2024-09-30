@@ -15,3 +15,11 @@ export const sansFont = localFont({
   preload: true,
   variable: "--tape-font-sans"
 });
+
+export const monoFont = localFont({
+  src: "./_fonts/mono.woff2",
+  fallback: ["ui-monospace", "monospace"],
+  display: "swap",
+  preload: true,
+  variable: "--tape-font-mono"
+});

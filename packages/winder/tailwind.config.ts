@@ -6,7 +6,8 @@ export default {
   theme: {
     fontFamily: {
       sans: "var(--tape-font-sans)",
-      serif: "var(--tape-font-serif)"
+      serif: "var(--tape-font-serif)",
+      mono: "var(--tape-font-mono)"
     },
     extend: {
       backgroundColor: {

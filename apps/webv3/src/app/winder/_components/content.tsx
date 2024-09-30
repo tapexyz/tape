@@ -22,7 +22,7 @@ export const Content = () => {
   const contentItems = [...base, ...components];
 
   return (
-    <div className="space-y-10 scroll-smooth border-custom p-6 md:border-r">
+    <div className="space-y-20 scroll-smooth border-custom p-6 md:border-r">
       <IntroSection />
       {contentItems.map(({ id, label, component }) => (
         <ContentItem key={id} id={id} label={label} component={component} />
