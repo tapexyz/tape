@@ -1,5 +1,5 @@
 "use client";
-
+import { IntroSection } from "./intro";
 import { base, components } from "./map";
 
 const ContentItem = ({ id, label, component }: (typeof base)[0]) => (
@@ -23,9 +23,7 @@ export const Content = () => {
 
   return (
     <div className="space-y-10 scroll-smooth border-custom p-6 md:border-r">
-      <div className="hidden aspect-video rounded-card border border-primary/20 border-dashed p-6 sm:block">
-        tape
-      </div>
+      <IntroSection />
       {contentItems.map(({ id, label, component }) => (
         <ContentItem key={id} id={id} label={label} component={component} />
       ))}
