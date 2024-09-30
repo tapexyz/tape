@@ -1,12 +1,5 @@
 import { motion } from "framer-motion";
-import dynamic from "next/dynamic";
-
-const IntroSvg = dynamic(
-  () => import("./intro-svg").then((mod) => mod.IntroSvg),
-  {
-    ssr: false
-  }
-);
+import { IntroSvg } from "./intro-svg";
 
 const title = "Winder";
 
