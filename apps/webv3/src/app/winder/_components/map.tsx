@@ -90,7 +90,7 @@ export const base = [
               <div className="-mt-2 text-5xl">■</div>
               <div className="text-2xl">Editorial New</div>
             </div>
-            <h1 className="select-none text-end font-serif text-9xl text-muted transition-colors duration-300 group-hover:text-secondary">
+            <h1 className="select-none text-end font-serif text-9xl text-muted transition-colors duration-300 group-hover:text-primary">
               tape
             </h1>
           </Link>
@@ -103,7 +103,7 @@ export const base = [
               <div className="text-4xl">▲</div>
               <div className="text-2xl">Geist Sans</div>
             </div>
-            <h1 className="select-none text-end font-sans text-9xl text-muted transition-colors duration-300 group-hover:text-secondary">
+            <h1 className="select-none text-end font-sans text-9xl text-muted transition-colors duration-300 group-hover:text-primary">
               tape
             </h1>
           </Link>
@@ -116,7 +116,7 @@ export const base = [
               <div className="text-4xl">●</div>
               <div className="text-2xl">Geist Mono</div>
             </div>
-            <h1 className="select-none text-end font-mono text-9xl text-muted transition-colors duration-300 group-hover:text-secondary">
+            <h1 className="select-none text-end font-mono text-9xl text-muted transition-colors duration-300 group-hover:text-primary">
               1234
             </h1>
           </Link>

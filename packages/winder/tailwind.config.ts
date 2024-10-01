@@ -22,8 +22,7 @@ export default {
       },
       textColor: {
         muted: "hsl(var(--text-muted))",
-        primary: "hsl(var(--text-primary))",
-        secondary: "hsl(var(--text-secondary))"
+        current: "hsl(var(--text-current))"
       },
       borderRadius: {
         custom: "var(--radius)",

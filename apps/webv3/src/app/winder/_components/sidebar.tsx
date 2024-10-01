@@ -16,7 +16,7 @@ const Li = ({ item }: { item: { id: string; label: string } }) => {
       onMouseLeave={() => setHoverTab("")}
     >
       <Link
-        className="-mx-3 relative flex rounded-custom px-3 py-2 text-secondary/70 capitalize no-underline outline-none"
+        className="-mx-3 relative flex rounded-custom px-3 py-2 text-primary/70 capitalize no-underline outline-none"
         href={`#${id}`}
         prefetch={false}
       >
