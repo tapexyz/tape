@@ -3,7 +3,7 @@ import { IntroSection } from "./intro";
 import { base, components } from "./map";
 
 const ContentItem = ({ id, label, component }: (typeof base)[0]) => (
-  <div key={id} id={id} className="scroll-mt-32 space-y-9">
+  <div key={id} id={id} className="scroll-mt-[135px] space-y-9">
     <div className="space-y-4">
       <h2 className="font-serif text-3xl">{label}</h2>
       <p>
