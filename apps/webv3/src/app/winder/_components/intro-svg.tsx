@@ -11,7 +11,7 @@ const AnimatedRect = (props: SVGProps<SVGRectElement> & MotionProps) => {
       dragMomentum={false}
       dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
       dragTransition={{
-        bounceDamping: 30,
+        bounceDamping: 20,
         bounceStiffness: 600
       }}
       animate={{
@@ -26,17 +26,17 @@ const AnimatedRect = (props: SVGProps<SVGRectElement> & MotionProps) => {
           repeat: Number.POSITIVE_INFINITY,
           opacity: {
             bounce: 0,
-            duration: 0.4,
+            duration: 1,
             type: "spring"
           },
           x: {
             bounce: 0,
-            duration: 0.5,
+            duration: 1,
             type: "spring"
           },
           y: {
             bounce: 0,
-            duration: 0.5,
+            duration: 1,
             type: "spring"
           }
         }
@@ -57,7 +57,7 @@ export const IntroSvg = () => (
       className="select-none"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ type: "spring", bounce: 0 }}
+      transition={{ type: "spring", bounce: 0, duration: 0.2 }}
       x="625.173"
       y="115.84"
       width="125"
@@ -166,7 +166,7 @@ export const IntroSvg = () => (
       className="select-none"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ type: "spring", bounce: 0 }}
+      transition={{ type: "spring", bounce: 0, duration: 0.2 }}
       x="175.632"
       y="71.3555"
       width="111"

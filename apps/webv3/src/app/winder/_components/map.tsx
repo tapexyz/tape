@@ -4,6 +4,7 @@ import {
   AvatarImage,
   Badge,
   Button,
+  ShowMore,
   Spinner,
   ThemeSwitcher,
   ThemeSwitcherExpanded,
@@ -348,6 +349,13 @@ export const components = [
     label: "Select",
     component: () => {
       return <div>Select</div>;
+    }
+  },
+  {
+    id: "show-more",
+    label: "Show more",
+    component: () => {
+      return <ShowMore onToggle={() => {}} />;
     }
   },
   {

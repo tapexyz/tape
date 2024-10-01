@@ -1,9 +1,5 @@
 import { motion } from "framer-motion";
-import dynamic from "next/dynamic";
-
-const IntroSvg = dynamic(() =>
-  import("./intro-svg").then((mod) => mod.IntroSvg)
-);
+import { IntroSvg } from "./intro-svg";
 
 const AnimatedText = ({ char, index }: { char: string; index: number }) => (
   <motion.span
@@ -14,7 +10,7 @@ const AnimatedText = ({ char, index }: { char: string; index: number }) => (
     dragMomentum={false}
     dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
     dragTransition={{
-      bounceDamping: 30,
+      bounceDamping: 20,
       bounceStiffness: 600
     }}
     initial={{ opacity: 0, translateY: "50%", rotateX: -45 }}
@@ -22,7 +18,7 @@ const AnimatedText = ({ char, index }: { char: string; index: number }) => (
     transition={{
       type: "spring",
       bounce: 0,
-      duration: 0.3,
+      duration: 0.6,
       delay: index * 0.03
     }}
   >

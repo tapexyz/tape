@@ -1,5 +1,7 @@
 import {
   ArrowsClockwise,
+  CaretDown,
+  CaretUp,
   Check,
   Crown,
   CurrencyDollar,
@@ -35,7 +37,9 @@ const USED_ICONS = [
   { Icon: DeviceMobile, name: "DeviceMobile" },
   { Icon: Video, name: "Video" },
   { Icon: Panorama, name: "Panorama" },
-  { Icon: Crown, name: "Crown" }
+  { Icon: Crown, name: "Crown" },
+  { Icon: CaretUp, name: "CaretUp" },
+  { Icon: CaretDown, name: "CaretDown" }
 ];
 
 export {
@@ -56,5 +60,7 @@ export {
   Video,
   Panorama,
   Crown,
+  CaretUp,
+  CaretDown,
   USED_ICONS
 };
