@@ -37,13 +37,17 @@ const Li = ({ item }: { item: { id: string; label: string } }) => {
 export const Sidebar = () => {
   return (
     <aside className="no-scrollbar sticky top-[100px] bottom-0 z-10 hidden h-[calc(100vh-100px)] overflow-y-auto border-custom px-6 py-4 md:block md:border-x">
-      <h1 className="py-5 font-bold text-xs uppercase">Foundations</h1>
+      <h1 className="select-none py-5 font-bold text-xs uppercase">
+        Foundations
+      </h1>
       <ul className="w-full">
         {base.map(({ id, label }) => (
           <Li key={id} item={{ id, label }} />
         ))}
       </ul>
-      <h1 className="py-5 font-bold text-xs uppercase">Components</h1>
+      <h1 className="select-none py-5 font-bold text-xs uppercase">
+        Components
+      </h1>
       <ul className="w-full">
         {components.map(({ id, label }) => (
           <Li key={id} item={{ id, label }} />
