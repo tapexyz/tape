@@ -72,8 +72,72 @@ export const base = [
   {
     id: "colors",
     label: "Colors",
+    description: "Shades of Black & White",
     component: () => {
-      return <VStack>WIP</VStack>;
+      const blackShades = [
+        "#000000F2",
+        "#000000E6",
+        "#000000D9",
+        "#000000CC",
+        "#000000BF",
+        "#000000B3",
+        "#000000A6",
+        "#00000099",
+        "#0000008C",
+        "#00000080",
+        "#00000073",
+        "#00000066",
+        "#00000059",
+        "#0000004D",
+        "#00000040",
+        "#00000033",
+        "#00000026",
+        "#0000001A",
+        "#0000000D"
+      ];
+      const whiteShades = [
+        "#FFFFFFF2",
+        "#FFFFFFE6",
+        "#FFFFFFD9",
+        "#FFFFFFCC",
+        "#FFFFFFBF",
+        "#FFFFFFB3",
+        "#FFFFFFA6",
+        "#FFFFFF99",
+        "#FFFFFF8C",
+        "#FFFFFF80",
+        "#FFFFFF73",
+        "#FFFFFF66",
+        "#FFFFFF59",
+        "#FFFFFF4D",
+        "#FFFFFF40",
+        "#FFFFFF33",
+        "#FFFFFF26",
+        "#FFFFFF1A",
+        "#FFFFFF0D"
+      ];
+      return (
+        <VStack>
+          <div className="flex flex-wrap gap-0.5">
+            {blackShades.map((color) => (
+              <div
+                key={color}
+                className="size-10 flex-1 rounded-custom border border-custom"
+                style={{ backgroundColor: color }}
+              />
+            ))}
+          </div>
+          <div className="flex flex-wrap gap-0.5">
+            {whiteShades.map((color) => (
+              <div
+                key={color}
+                className="size-10 flex-1 rounded-custom border border-custom"
+                style={{ backgroundColor: color }}
+              />
+            ))}
+          </div>
+        </VStack>
+      );
     }
   },
   {
