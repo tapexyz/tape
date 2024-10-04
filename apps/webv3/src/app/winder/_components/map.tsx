@@ -274,7 +274,7 @@ export const components = [
               Upload
             </Button>
             <Button className="w-28" variant="destructive">
-              Upload
+              Delete
             </Button>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -285,7 +285,7 @@ export const components = [
               Upload
             </Button>
             <Button className="w-28" variant="destructive" loading={true}>
-              Upload
+              Delete
             </Button>
           </div>
           <div className="flex flex-wrap items-center gap-2">
@@ -313,7 +313,7 @@ export const components = [
               Upload
             </Button>
             <Button size="xl" className="w-28" variant="destructive">
-              Upload
+              Delete
             </Button>
           </div>
         </VStack>

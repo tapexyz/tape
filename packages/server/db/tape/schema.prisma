@@ -28,3 +28,17 @@ model Profile {
 
   @@index([profileId])
 }
+
+model PlatformStats {
+  id              String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  profiles        String
+  acts            String
+  posts           String
+  comments        String
+  mirrors         String
+  creatorEarnings Json
+  blockTimestamp  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}

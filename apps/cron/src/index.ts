@@ -9,6 +9,7 @@ import {
   cleanupClickhouse,
   vacuumPostgres
 } from "./services/cleanup";
+import { computePlatformStats } from "./services/stats";
 import { flushEvents } from "./services/tower";
 import { flushTrails } from "./services/trails";
 import { wakeClickHouse } from "./services/wake";
@@ -35,6 +36,8 @@ cron.schedule("0 0 * * *", async () => {
   await cleanupClickhouse();
   console.log("[cron] Cleaning up 4Ever", new Date());
   await cleanup4Ever();
+  console.log("[cron] Computing platform stats", new Date());
+  await computePlatformStats();
 });
 
 // Schedule the vacuumPostgres function to run every sunday at midnight
