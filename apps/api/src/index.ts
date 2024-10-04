@@ -12,6 +12,7 @@ import did from "./routes/did";
 import gateway from "./routes/gateway";
 import metadata from "./routes/metadata";
 import oembed from "./routes/oembed";
+import stats from "./routes/stats";
 import sts from "./routes/sts";
 import tail from "./routes/tail";
 import toggles from "./routes/toggles";
@@ -29,6 +30,7 @@ app
   .route("/sts", sts)
   .route("/tail", tail)
   .route("/tower", tower)
+  .route("/stats", stats)
   .route("/oembed", oembed)
   .route("/trails", trails)
   .route("/avatar", avatar)
