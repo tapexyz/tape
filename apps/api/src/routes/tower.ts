@@ -43,29 +43,12 @@ const processEvent = async (req: HonoRequest, event: RequestInput) => {
     );
   }
 
-  const ip = req.header("cf-connecting-ip");
-  console.log("🚀 ~ processEvent ~ req:", req.raw.headers);
+  const ipCity = req.header("cf-ipcity");
+  const ipCountry = req.header("cf-ipcountry");
   const user_agent = req.header("user-agent");
 
   const parser = new UAParser(user_agent || "");
   const ua = parser.getResult();
-  let ipData: {
-    city: string;
-    country: string;
-    regionName: string;
-  } | null = null;
-
-  const { IP_API_KEY } = process.env;
-  try {
-    const ipResponse = await fetch(
-      `https://pro.ip-api.com/json/${ip}?key=${IP_API_KEY}`
-    );
-    ipData = (await ipResponse.json()) as {
-      city: string;
-      country: string;
-      regionName: string;
-    };
-  } catch {}
 
   // Extract UTM parameters
   const parsedUrl = new URL(url);
@@ -80,9 +63,8 @@ const processEvent = async (req: HonoRequest, event: RequestInput) => {
     actor: actor || null,
     properties: properties || null,
     url: url || null,
-    city: ipData?.city || null,
-    country: ipData?.country || null,
-    region: ipData?.regionName || null,
+    city: ipCity || null,
+    country: ipCountry || null,
     referrer: referrer || null,
     platform: platform || null,
     browser: ua.browser.name || null,

@@ -3,7 +3,6 @@ declare namespace NodeJS {
     EVER_ACCESS_KEY: string;
     EVER_ACCESS_SECRET: string;
     LOGTAIL_API_KEY: string;
-    IP_API_KEY: string;
     WALLET_PRIVATE_KEY: string;
     TAPE_DATABASE_URL: string;
     INDEXER_DATABASE_URL: string;

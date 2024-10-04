@@ -7,7 +7,6 @@ CREATE TABLE events (
   url LowCardinality(Nullable(String)),
   city LowCardinality(Nullable(String)),
   country LowCardinality(String),
-  region LowCardinality(Nullable(String)),
   referrer LowCardinality(Nullable(String)),
   platform LowCardinality(String),
   browser LowCardinality(Nullable(String)),
