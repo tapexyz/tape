@@ -44,7 +44,7 @@ const processEvent = async (req: HonoRequest, event: RequestInput) => {
   }
 
   const ip = req.header("cf-connecting-ip");
-  console.log("🚀 ~ processEvent ~ req:", req);
+  console.log("🚀 ~ processEvent ~ req:", req.raw.headers);
   const user_agent = req.header("user-agent");
 
   const parser = new UAParser(user_agent || "");
