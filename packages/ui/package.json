@@ -19,7 +19,7 @@
     "@radix-ui/react-switch": "^1.1.1",
     "@radix-ui/react-tabs": "^1.1.1",
     "@tippyjs/react": "^4.2.6",
-    "framer-motion": "^11.7.0",
+    "framer-motion": "^11.11.0",
     "next-themes": "^0.3.0",
     "react": "^18.3.1",
     "tippy.js": "^6.3.7"

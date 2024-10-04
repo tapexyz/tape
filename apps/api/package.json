@@ -11,18 +11,18 @@
     "typecheck": "tsc --pretty --noEmit"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "3.662.0",
+    "@aws-sdk/client-sts": "3.664.0",
     "@hono/node-server": "^1.13.1",
     "@hono/zod-validator": "^0.3.0",
-    "@irys/upload": "^0.0.7",
-    "@irys/upload-ethereum": "^0.0.7",
+    "@irys/upload": "^0.0.10",
+    "@irys/upload-ethereum": "^0.0.10",
     "@lens-protocol/metadata": "^1.2.0",
     "@prisma/client": "^5.20.0",
     "base64url": "^3.0.1",
     "hono": "^4.6.3",
     "linkedom": "^0.18.4",
     "ua-parser-js": "2.0.0-beta.3",
-    "viem": "^2.21.16",
+    "viem": "^2.21.18",
     "zod": "^3.23.8"
   },
   "devDependencies": {
