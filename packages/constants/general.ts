@@ -124,6 +124,7 @@ export const LIVEPEER_STUDIO_API_KEY = IS_PRODUCTION
   : "";
 
 // api urls
+export const WORKER_RATES_URL = `${TAPE_API_URL}/rates`;
 export const WORKER_STATS_URL = `${TAPE_API_URL}/stats`;
 export const WORKER_TRAILS_URL = `${TAPE_API_URL}/trails`;
 export const WORKER_IRYS_METADATA_UPLOAD_URL = `${TAPE_API_URL}/metadata`;

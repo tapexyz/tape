@@ -1,5 +1,5 @@
-import { WORKER_STATS_URL } from "@tape.xyz/constants";
-import { AnimatedNumber, BackgroundComets } from "@tape.xyz/winder";
+import { BackgroundComets } from "@tape.xyz/winder";
+import { AnimatedNumber } from "@tape.xyz/winder";
 import {
   ArrowsClockwise,
   CassetteTape,
@@ -7,14 +7,14 @@ import {
   CurrencyDollar,
   Lightning
 } from "@tape.xyz/winder/common";
-import { CenterGridItem } from "./_components/center-grid-item";
+import { MiddleGridItem } from "./_components/middle-grid-item";
+import { getPlatformtats } from "./queries";
+
+export const revalidate = 86400;
 
 export default async function OpenPage() {
-  const response = await fetch(WORKER_STATS_URL, {
-    next: { revalidate: 86400 }
-  });
-  const data = await response.json();
-  const { acts, comments, mirrors, posts, profiles } = data.stats;
+  const stats = await getPlatformtats();
+  const { acts, comments, mirrors, posts, creatorEarnings } = stats;
 
   return (
     <div className="container grid min-h-screen max-w-6xl place-items-center">
@@ -31,7 +31,10 @@ export default async function OpenPage() {
         </div>
         <div className="col-span-2 row-span-1 flex flex-col justify-between border-custom border-t p-6">
           <div>
-            <AnimatedNumber className="font-mono text-4xl" value={posts} />
+            <AnimatedNumber
+              className="font-mono text-4xl"
+              value={creatorEarnings}
+            />
             <p className="text-primary/60">Creator Earnings</p>
           </div>
           <div className="flex justify-end">
@@ -48,7 +51,7 @@ export default async function OpenPage() {
           </div>
         </div>
 
-        <CenterGridItem />
+        <MiddleGridItem />
 
         <div className="col-span-2 row-span-1 flex flex-col justify-between border-custom border-x border-b p-6">
           <div>

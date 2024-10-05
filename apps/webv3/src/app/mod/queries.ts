@@ -13,7 +13,7 @@ import {
 } from "@tape.xyz/lens/gql";
 
 export const modExplorePublicationsQuery = infiniteQueryOptions({
-  queryKey: ["modExplorePublications"],
+  queryKey: ["mod-explore-publications"],
   queryFn: ({ pageParam }) =>
     execute(ModExplorePublicationsDocument, {
       request: {
