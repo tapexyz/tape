@@ -15,7 +15,7 @@ export const MiddleGridItem = () => {
     <Link
       ref={ref}
       href="/"
-      className="col-span-2 row-span-1 flex w-full justify-center border-custom border-y px-10 py-10 lg:py-14"
+      className="col-span-2 row-span-1 flex w-full justify-center border-custom border-y px-10 py-10 hover:bg-card/30 lg:py-14"
     >
       <div className="relative">
         <motion.img
@@ -41,7 +41,7 @@ export const MiddleGridItem = () => {
               className="inline-block overflow-hidden whitespace-nowrap rounded-full border border-custom bg-card px-4 py-1.5 text-sm"
             >
               <Morph>
-                {isHovering ? "Back to Tape" : "Tape by the numbers"}
+                {isHovering ? "←  Back to Tape" : "Tape by the numbers"}
               </Morph>
             </motion.span>
           </AnimatePresence>

@@ -19,7 +19,7 @@ export default async function OpenPage() {
   return (
     <div className="container grid min-h-screen max-w-6xl place-items-center">
       <Comets />
-      <div className="grid w-full grid-cols-4 grid-rows-3 bg-card/30 backdrop-blur-xl">
+      <div className="grid w-full grid-cols-4 grid-rows-3 bg-card/20 backdrop-blur-xl">
         <div className="col-span-1 row-span-2 flex flex-col justify-between border border-custom p-6">
           <div>
             <AnimatedNumber className="font-mono text-4xl" value={posts} />
