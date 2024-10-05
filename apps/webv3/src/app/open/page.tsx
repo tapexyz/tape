@@ -1,4 +1,4 @@
-import { BackgroundComets } from "@tape.xyz/winder";
+import { Comets } from "@tape.xyz/winder";
 import { AnimatedNumber } from "@tape.xyz/winder";
 import {
   ArrowsClockwise,
@@ -18,7 +18,7 @@ export default async function OpenPage() {
 
   return (
     <div className="container grid min-h-screen max-w-6xl place-items-center">
-      <BackgroundComets />
+      <Comets />
       <div className="grid w-full grid-cols-4 grid-rows-3 bg-card/30 backdrop-blur-xl">
         <div className="col-span-1 row-span-2 flex flex-col justify-between border border-custom p-6">
           <div>

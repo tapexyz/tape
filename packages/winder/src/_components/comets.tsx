@@ -36,11 +36,13 @@ const BgComets = () => {
           {paths.map((path, index) => (
             <motion.linearGradient
               id={`linearGradient-${index}`}
-              x1="100%"
-              x2="100%"
-              y1="100%"
-              y2="100%"
               key={`gradient-${path}`}
+              initial={{
+                x1: "0%",
+                x2: "0%",
+                y1: "0%",
+                y2: "0%"
+              }}
               animate={{
                 x1: ["0%", "100%"],
                 x2: ["0%", "95%"],
@@ -69,8 +71,6 @@ const BgComets = () => {
             gradientUnits="userSpaceOnUse"
             gradientTransform="translate(352 34) rotate(90) scale(555 1560.62)"
           >
-            <stop offset="0.0666667" stopColor="var(--bg-site)" />
-            <stop offset="0.243243" stopColor="var(--bg-site)" />
             <stop offset="0.43594" stopColor="white" stopOpacity="0" />
           </radialGradient>
         </defs>
@@ -79,4 +79,4 @@ const BgComets = () => {
   );
 };
 
-export const BackgroundComets = memo(BgComets);
+export const Comets = memo(BgComets);
