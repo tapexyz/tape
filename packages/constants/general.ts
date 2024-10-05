@@ -124,6 +124,7 @@ export const LIVEPEER_STUDIO_API_KEY = IS_PRODUCTION
   : "";
 
 // api urls
+export const WORKER_STATS_URL = `${TAPE_API_URL}/stats`;
 export const WORKER_TRAILS_URL = `${TAPE_API_URL}/trails`;
 export const WORKER_IRYS_METADATA_UPLOAD_URL = `${TAPE_API_URL}/metadata`;
 export const WORKER_LOGTAIL_INGEST_URL = `${TAPE_API_URL}/tail`;
@@ -141,6 +142,7 @@ export const WORKER_ALLOWED_TOKENS_URL = `${TAPE_API_URL}/allowed-tokens`;
 export const REDIS_KEYS = {
   TOWER: "tower",
   TRAILS: "trails",
+  FIAT_RATES: "fiat-rates",
   PLATFORM_STATS: "platform-stats",
   ALLOWED_TOKENS: "allowed-tokens",
   PROFILE_TOGGLES: "profile-toggles",

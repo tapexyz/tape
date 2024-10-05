@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { CaretDown } from "../icons";
 import { tw } from "../tw";

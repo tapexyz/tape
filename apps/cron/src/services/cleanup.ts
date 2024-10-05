@@ -25,9 +25,9 @@ const s3Client = new S3({
 
 const cleanup4Ever = async (): Promise<void> => {
   try {
-    const daysToSubtract = 5;
+    const DAYS_TO_KEEP = 5;
     const dateDaysAgo = new Date(
-      Date.now() - daysToSubtract * 24 * 60 * 60 * 1000
+      Date.now() - DAYS_TO_KEEP * 24 * 60 * 60 * 1000
     );
 
     let continuationToken: string | undefined = undefined;
@@ -59,7 +59,7 @@ const cleanup4Ever = async (): Promise<void> => {
 
     if (objectsToDelete.length === 0) {
       console.log(
-        `[4ever cleanup] No objects older than ${daysToSubtract} days found.`
+        `[4ever cleanup] No objects older than ${DAYS_TO_KEEP} days found.`
       );
       return;
     }
@@ -77,12 +77,12 @@ const cleanup4Ever = async (): Promise<void> => {
 
       await s3Client.send(deleteCommand);
       console.log(
-        `[4ever cleanup] Deleted ${batch.length} objects older than ${daysToSubtract} days in batch ${i / maxDeleteBatchSize + 1}.`
+        `[4ever cleanup] Deleted ${batch.length} objects older than ${DAYS_TO_KEEP} days in batch ${i / maxDeleteBatchSize + 1}.`
       );
     }
 
     console.log(
-      `[4ever cleanup] Total deleted ${objectsToDelete.length} objects older than ${daysToSubtract} days 🗑️`
+      `[4ever cleanup] Total deleted ${objectsToDelete.length} objects older than ${DAYS_TO_KEEP} days 🗑️`
     );
   } catch (error) {
     console.error("[4ever cleanup] Error deleting objects:", error);

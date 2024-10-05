@@ -32,17 +32,23 @@
 }
 
 @layer base {
+  * {
+    @apply scrollbar-custom;
+  }
   html {
     @apply scroll-smooth bg-site font-sans antialiased overflow-y-scroll;
   }
 }
 
 @layer utilities {
-  /* Hide scrollbar for Chrome, Safari and Opera */
+  .scrollbar-custom {
+    scrollbar-color: #c7c7c7 transparent;
+  }
+  /* Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
-  /* Hide scrollbar for IE, Edge and Firefox */
+  /* IE, Edge and Firefox */
   .no-scrollbar {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */

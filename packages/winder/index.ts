@@ -7,3 +7,5 @@ export * from "./src/_components/theme-switcher";
 export * from "./src/_components/avatar";
 export * from "./src/_components/badge";
 export * from "./src/_components/show-more";
+export * from "./src/_components/animated-number";
+export * from "./src/_components/bg-comets";

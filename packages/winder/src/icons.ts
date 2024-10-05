@@ -2,6 +2,8 @@ import {
   ArrowsClockwise,
   CaretDown,
   CaretUp,
+  CassetteTape,
+  ChatsCircle,
   Check,
   Crown,
   CurrencyDollar,
@@ -10,12 +12,14 @@ import {
   DotsThreeVertical,
   Heart,
   Info,
+  Lightning,
   Moon,
   Panorama,
   PlusCircle,
   ShareFat,
   Sun,
   Trash,
+  Users,
   Video,
   Warning
 } from "@phosphor-icons/react/dist/ssr";
@@ -39,13 +43,20 @@ const USED_ICONS = [
   { Icon: Panorama, name: "Panorama" },
   { Icon: Crown, name: "Crown" },
   { Icon: CaretUp, name: "CaretUp" },
-  { Icon: CaretDown, name: "CaretDown" }
+  { Icon: CaretDown, name: "CaretDown" },
+  { Icon: Users, name: "Users" },
+  { Icon: CassetteTape, name: "CassetteTape" },
+  { Icon: ChatsCircle, name: "ChatsCircle" },
+  { Icon: Lightning, name: "Lightning" }
 ];
 
 export {
   Sun,
+  CassetteTape,
+  ChatsCircle,
   Moon,
   Desktop,
+  Lightning,
   PlusCircle,
   Trash,
   Heart,
@@ -62,5 +73,6 @@ export {
   Crown,
   CaretUp,
   CaretDown,
+  Users,
   USED_ICONS
 };
