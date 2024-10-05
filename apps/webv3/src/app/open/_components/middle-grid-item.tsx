@@ -12,11 +12,7 @@ export const MiddleGridItem = () => {
   const isHovering = useDebounce(hovering, 100);
 
   return (
-    <Link
-      ref={ref}
-      href="/"
-      className="col-span-2 row-span-1 flex w-full justify-center border-custom border-y px-10 py-10 hover:bg-card/30 lg:py-14"
-    >
+    <Link ref={ref} href="/" className="flex w-full justify-center">
       <div className="relative">
         <motion.img
           initial={{ x: 0, scale: 0.8 }}
@@ -65,6 +61,17 @@ export const MiddleGridItem = () => {
             }}
             className="-right-[10px] -bottom-1 absolute size-1.5 rounded-full border border-custom bg-card"
           />
+          <motion.span
+            initial={{ y: 20, x: 0, opacity: 0 }}
+            animate={{ y: -10, x: -40, opacity: isHovering ? 0 : 1 }}
+            exit={{ y: 20, opacity: 0, transition: { duration: 0.1 } }}
+            transition={{
+              delay: isHovering ? 0 : 0.2
+            }}
+            className="-bottom-2.5 absolute right-4 overflow-hidden whitespace-nowrap text-[10px] text-muted"
+          >
+            00:00 UTC
+          </motion.span>
         </div>
       </div>
     </Link>

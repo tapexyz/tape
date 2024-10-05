@@ -19,8 +19,8 @@ export default async function OpenPage() {
   return (
     <div className="container grid min-h-screen max-w-6xl place-items-center">
       <Comets />
-      <div className="grid w-full grid-cols-4 grid-rows-3 bg-card/20 backdrop-blur-xl">
-        <div className="col-span-1 row-span-2 flex flex-col justify-between border border-custom p-6">
+      <div className="grid w-full bg-card/20 backdrop-blur-xl *:flex *:flex-col *:justify-between *:overflow-hidden md:grid-cols-4 lg:grid-rows-3">
+        <div className="col-span-2 row-span-2 border-custom p-6 md:col-span-1 md:border">
           <div>
             <AnimatedNumber className="font-mono text-4xl" value={posts} />
             <p className="text-primary/60">Videos</p>
@@ -29,7 +29,7 @@ export default async function OpenPage() {
             <CassetteTape className="size-7 opacity-70" weight="duotone" />
           </div>
         </div>
-        <div className="col-span-2 row-span-1 flex flex-col justify-between border-custom border-t p-6">
+        <div className="col-span-2 row-span-1 border-custom p-6 md:border-t">
           <div>
             <AnimatedNumber
               className="font-mono text-4xl"
@@ -41,7 +41,7 @@ export default async function OpenPage() {
             <CurrencyDollar className="size-7 opacity-70" weight="duotone" />
           </div>
         </div>
-        <div className="col-span-1 row-span-2 flex flex-col justify-between border border-custom p-6">
+        <div className="col-span-2 row-span-2 border-custom p-6 md:col-span-1 md:border">
           <div>
             <AnimatedNumber className="font-mono text-4xl" value={acts} />
             <p className="text-primary/60">Mints</p>
@@ -51,9 +51,11 @@ export default async function OpenPage() {
           </div>
         </div>
 
-        <MiddleGridItem />
+        <div className="col-span-2 row-span-1 border-custom px-10 py-10 hover:bg-card/30 md:border-y lg:py-14">
+          <MiddleGridItem />
+        </div>
 
-        <div className="col-span-2 row-span-1 flex flex-col justify-between border-custom border-x border-b p-6">
+        <div className="col-span-2 row-span-1 border-custom p-6 md:border-x md:border-b">
           <div>
             <AnimatedNumber className="font-mono text-4xl" value={comments} />
             <p className="text-primary/60">Comments</p>
@@ -62,7 +64,7 @@ export default async function OpenPage() {
             <ChatsCircle className="size-7 opacity-70" />
           </div>
         </div>
-        <div className="col-span-2 row-span-1 flex flex-col justify-between border-custom border-r border-b p-6">
+        <div className="col-span-2 row-span-1 border-custom p-6 md:border-r md:border-b">
           <div>
             <AnimatedNumber className="font-mono text-4xl" value={mirrors} />
             <p className="text-primary/60">Mirrors</p>
