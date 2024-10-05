@@ -21,7 +21,7 @@ const earningStats = async (startTimestamp: string) => {
       endDate.setDate(startDate.getDate() + 1); // add a day
 
       if (endDate >= today) {
-        endDate = new Date();
+        endDate = new Date(startDate);
         hasMore = false;
         return {
           earnings: earningByCurrency,
@@ -144,7 +144,8 @@ const computePlatformStats = async () => {
         prevStats?.creatorEarnings as { [key: string]: number },
         earnings
       ),
-      blockTimestamp: timestamp
+      blockTimestamp: timestamp,
+      updatedAt: new Date().toISOString()
     };
 
     await tapeDb.platformStats.upsert({
