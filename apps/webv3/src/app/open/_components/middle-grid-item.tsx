@@ -23,8 +23,10 @@ export const MiddleGridItem = () => {
           animate={{ x: 90, scale: 1 }}
           transition={{ delay: 0, bounce: 0, duration: 0.4, type: "spring" }}
           src={`${STATIC_ASSETS}/images/winder/cape.webp`}
-          className="w-28"
+          className="h-32 w-28 object-cover"
           alt="cape"
+          height="100"
+          width="100"
           loading="eager"
           draggable={false}
           layout="position"
