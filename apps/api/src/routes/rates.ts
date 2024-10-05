@@ -26,7 +26,7 @@ app.get("/", async (c) => {
     await rSet(
       REDIS_KEYS.FIAT_RATES,
       JSON.stringify(rates),
-      REDIS_EXPIRY.ONE_DAY
+      REDIS_EXPIRY.ONE_HOUR
     );
     return c.json({ success: true, rates });
   } catch (error) {
