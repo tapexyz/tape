@@ -1,0 +1,10 @@
+node_modules
+.next
+.env.example
+.openzeppelin
+artifacts
+cache
+coverage
+README.md
+.git
+.dockerignore
