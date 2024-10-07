@@ -37,4 +37,4 @@ jobs:
         context: .
         file: ./apps/webv3/Dockerfile
         push: true
-        tags: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}/webv3:latest
+        tags: ghcr.io/${{ github.repository_owner }}/tape/webv3:latest
