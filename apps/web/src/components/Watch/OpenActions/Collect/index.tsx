@@ -222,9 +222,9 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
           : `https://cdn.stamp.fyi/avatar/${splitRecipient.recipient}?s=300`,
         "AVATAR"
       );
-      const label =
-        getProfile(defaultProfile)?.slug ??
-        shortenAddress(splitRecipient?.recipient);
+      const label = defaultProfile
+        ? getProfile(defaultProfile)?.slug
+        : shortenAddress(splitRecipient?.recipient);
       const hasManyProfiles =
         getProfilesByAddress(splitRecipient.recipient)?.length > 1;
       const handles = getProfilesByAddress(splitRecipient.recipient);
