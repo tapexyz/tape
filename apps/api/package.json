@@ -11,11 +11,11 @@
     "typecheck": "tsc --pretty --noEmit"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "3.665.0",
+    "@aws-sdk/client-sts": "3.666.0",
     "@hono/node-server": "^1.13.1",
     "@hono/zod-validator": "^0.4.1",
-    "@irys/upload": "^0.0.10",
-    "@irys/upload-ethereum": "^0.0.10",
+    "@irys/upload": "^0.0.13",
+    "@irys/upload-ethereum": "^0.0.13",
     "@lens-protocol/metadata": "^1.2.0",
     "@prisma/client": "^5.20.0",
     "base64url": "^3.0.1",
