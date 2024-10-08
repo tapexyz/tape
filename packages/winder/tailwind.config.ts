@@ -46,5 +46,6 @@ export default {
         "3xl": "1800px"
       }
     }
-  }
+  },
+  plugins: [require("@vidstack/react/tailwind.cjs")]
 } satisfies Config;

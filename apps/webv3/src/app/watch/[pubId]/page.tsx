@@ -16,7 +16,6 @@ import { publicationQuery } from "./queries";
 
 type Props = {
   params: { pubId: string };
-  searchParams: { [key: string]: string | string[] | undefined };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

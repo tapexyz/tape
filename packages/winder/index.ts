@@ -9,3 +9,6 @@ export * from "./src/_components/badge";
 export * from "./src/_components/show-more";
 export * from "./src/_components/animated-number";
 export * from "./src/_components/comets";
+export * from "./src/_components/video-player";
+export * from "./src/_components/empty-state";
+export * from "./src/_components/card";

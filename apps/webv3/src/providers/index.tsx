@@ -5,10 +5,7 @@ import type { ReactNode } from "react";
 
 import { Toaster } from "@tape.xyz/winder";
 
-import {
-  ReactQueryDevtools,
-  TailwindDevtools
-} from "@/components/shared/dev-only";
+import { Devtools } from "@/components/shared/dev-only";
 import { rqClient } from "./react-query";
 import { ThemeProvider } from "./theme";
 
@@ -19,8 +16,7 @@ export const Providers = ({ children }: Readonly<{ children: ReactNode }>) => {
         {children}
         <Toaster />
       </ThemeProvider>
-      <TailwindDevtools />
-      <ReactQueryDevtools />
+      <Devtools />
     </QueryClientProvider>
   );
 };

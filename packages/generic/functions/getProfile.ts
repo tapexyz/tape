@@ -13,12 +13,12 @@ export const getProfile = (
 } => {
   if (!profile) {
     return {
-      slug: "",
-      slugWithPrefix: "",
-      displayName: "",
-      link: "",
       id: "",
-      address: ""
+      link: "",
+      slug: "",
+      address: "",
+      displayName: "",
+      slugWithPrefix: ""
     };
   }
 

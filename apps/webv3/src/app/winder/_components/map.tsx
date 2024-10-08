@@ -1,9 +1,11 @@
-import { WORKER_AVATAR_URL } from "@tape.xyz/constants";
+import { IPFS_GATEWAY_URL, WORKER_AVATAR_URL } from "@tape.xyz/constants";
 import {
   Avatar,
   AvatarImage,
   Badge,
   Button,
+  Card,
+  EmptyState,
   ShowMore,
   Spinner,
   ThemeSwitcher,
@@ -12,6 +14,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
+  VideoPlayer,
   toast
 } from "@tape.xyz/winder";
 import {
@@ -23,6 +26,7 @@ import {
   Heart,
   Info,
   Panorama,
+  Plus,
   PlusCircle,
   ShareFat,
   Trash,
@@ -326,27 +330,27 @@ export const components = [
     component: () => {
       return (
         <div className="grid grid-flow-col grid-rows-2 gap-2">
-          <div className="relative grid h-64 place-items-center rounded-card bg-card p-6">
+          <Card className="h-64">
             <Video
               className="absolute top-5 right-6 size-5 text-muted"
               weight="thin"
             />
             This is a video, for example.
-          </div>
-          <div className="relative grid h-64 place-items-center rounded-card bg-card p-6">
+          </Card>
+          <Card className="h-64">
             <Panorama
               className="absolute top-5 right-6 size-5 text-muted"
               weight="thin"
             />
             This is a thumbnail, for example.
-          </div>
-          <div className="relative row-span-2 grid min-h-96 place-items-center rounded-card bg-card p-6">
+          </Card>
+          <Card className="row-span-2 min-h-96">
             <DeviceMobile
               className="absolute top-5 right-6 size-5 text-muted"
               weight="thin"
             />
             This is a byte, for example.
-          </div>
+          </Card>
         </div>
       );
     }
@@ -384,7 +388,36 @@ export const components = [
     id: "empty-state",
     label: "Empty State",
     component: () => {
-      return <div>Empty State</div>;
+      return (
+        <VStack>
+          <span>
+            <Card className="h-64">
+              <EmptyState
+                title="No videos found"
+                description="Creators can create videos by clicking the + button in the top right corner of the screen."
+              />
+            </Card>
+          </span>
+          <span>
+            <Card className="h-64">
+              <EmptyState
+                title="No comments found"
+                description="Users can comment on videos by clicking the + icon in the top right corner of the screen."
+                action={
+                  <Button
+                    className="w-28"
+                    variant="secondary"
+                    onClick={() => toast.success("New comment created!")}
+                  >
+                    <span>Write</span>
+                    <Plus className="size-5" />
+                  </Button>
+                }
+              />
+            </Card>
+          </span>
+        </VStack>
+      );
     }
   },
   {
@@ -399,6 +432,21 @@ export const components = [
     label: "Modal",
     component: () => {
       return <div>Modal</div>;
+    }
+  },
+  {
+    id: "player",
+    label: "Player",
+    component: () => {
+      return (
+        <div>
+          <VideoPlayer
+            src={`${IPFS_GATEWAY_URL}/bafybeidhpneide4akppcgx26j246juy6nqh6ibxp7olhk6br2r3aaatomi`}
+            poster={`${IPFS_GATEWAY_URL}/bafybeiajrf65mlql6pgv24z6yfyaz3wromkk2rard6vpyuqtbv53f56yf4`}
+            autoPlay={false}
+          />
+        </div>
+      );
     }
   },
   {
