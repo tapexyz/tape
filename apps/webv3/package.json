@@ -13,7 +13,7 @@
   "dependencies": {
     "@tanstack/react-query": "^5.59.0",
     "@uidotdev/usehooks": "^2.4.1",
-    "framer-motion": "^11.11.1",
+    "framer-motion": "^11.11.4",
     "next": "^14.2.14",
     "next-themes": "^0.3.0",
     "react": "^18.3.1",
