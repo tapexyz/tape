@@ -2,6 +2,7 @@
   "recommendations": [
     "biomejs.biome",
     "bradlc.vscode-tailwindcss",
-    "Prisma.prisma"
+    "Prisma.prisma",
+    "ms-azuretools.vscode-docker"
   ]
 }

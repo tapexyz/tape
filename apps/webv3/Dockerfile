@@ -16,8 +16,7 @@ WORKDIR /tape/apps/webv3
 ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1
 RUN pnpm build && \
     mkdir -p .next/standalone/apps/webv3/.next/static && \
-    cp -r .next/static/* .next/standalone/apps/webv3/.next/static/ && \
-    pnpm prune --prod
+    cp -r .next/static/* .next/standalone/apps/webv3/.next/static/
 
 FROM node:20-alpine AS runner
 WORKDIR /tape
