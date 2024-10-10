@@ -25,7 +25,6 @@ export const MiddleGridItem = () => {
           width="100"
           loading="eager"
           draggable={false}
-          layout="position"
         />
         <div className="absolute top-0 right-0">
           <AnimatePresence mode="popLayout">

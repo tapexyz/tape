@@ -1,19 +1,40 @@
 import { IPFS_GATEWAY_URL, WORKER_AVATAR_URL } from "@tape.xyz/constants";
+import { imageCdn } from "@tape.xyz/generic";
 import {
+  AudioPlayer,
   Avatar,
   AvatarImage,
   Badge,
   Button,
   Card,
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
   EmptyState,
   ShowMore,
   Spinner,
+  Switch,
   ThemeSwitcher,
   ThemeSwitcherExpanded,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
+  VPlayButton,
   VideoPlayer,
   toast
 } from "@tape.xyz/winder";
@@ -21,17 +42,16 @@ import {
   ArrowsClockwise,
   Crown,
   CurrencyDollar,
-  DeviceMobile,
   DotsThreeVertical,
   Heart,
   Info,
-  Panorama,
   Plus,
   PlusCircle,
   ShareFat,
+  SignOut,
   Trash,
   USED_ICONS,
-  Video,
+  User,
   tw
 } from "@tape.xyz/winder/common";
 import Link from "next/link";
@@ -330,25 +350,9 @@ export const components = [
     component: () => {
       return (
         <div className="grid grid-flow-col grid-rows-2 gap-2">
-          <Card className="h-64">
-            <Video
-              className="absolute top-5 right-6 size-5 text-muted"
-              weight="thin"
-            />
-            This is a video, for example.
-          </Card>
-          <Card className="h-64">
-            <Panorama
-              className="absolute top-5 right-6 size-5 text-muted"
-              weight="thin"
-            />
-            This is a thumbnail, for example.
-          </Card>
+          <Card className="h-64">This is a video, for example.</Card>
+          <Card className="h-64">This is a thumbnail, for example.</Card>
           <Card className="row-span-2 min-h-96">
-            <DeviceMobile
-              className="absolute top-5 right-6 size-5 text-muted"
-              weight="thin"
-            />
             This is a byte, for example.
           </Card>
         </div>
@@ -378,10 +382,109 @@ export const components = [
     }
   },
   {
+    id: "dialog",
+    label: "Dialog",
+    component: () => {
+      return (
+        <div className="flex flex-wrap gap-2">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline">Image</Button>
+            </DialogTrigger>
+            <DialogContent className="p-0">
+              <img
+                className="size-full"
+                loading="eager"
+                src={imageCdn(
+                  `${IPFS_GATEWAY_URL}/bafybeihoqqifnyzrx66h4i7om4f6prc7xgs3qydlce4ujrmjjazomyvoxq`
+                )}
+                alt="poster"
+                draggable={false}
+              />
+            </DialogContent>
+          </Dialog>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="destructive">Delete</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Are you absolutely sure?</DialogTitle>
+                <DialogDescription>
+                  This action cannot be undone. This will permanently delete
+                  your account and remove your data from our servers.
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <DialogClose>
+                  <Button variant="secondary">Cancel</Button>
+                </DialogClose>
+                <DialogClose>
+                  <Button
+                    onClick={() =>
+                      toast.success("Permanently deleted", {
+                        description:
+                          "There is no turning back, careful next time!"
+                      })
+                    }
+                    variant="destructive"
+                  >
+                    Delete
+                  </Button>
+                </DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </div>
+      );
+    }
+  },
+  {
     id: "dropdown",
     label: "Dropdown",
     component: () => {
-      return <div>Dropdown</div>;
+      return (
+        <div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="icon">
+                <DotsThreeVertical className="size-5" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="center"
+              className="w-[200px]"
+              sideOffset={10}
+            >
+              <DropdownMenuItem className="flex items-center gap-2">
+                <User />
+                <span>Profile</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="flex items-center gap-2">
+                <PlusCircle />
+                <span>Create</span>
+              </DropdownMenuItem>
+
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger>Switch account</DropdownMenuSubTrigger>
+                <DropdownMenuPortal>
+                  <DropdownMenuSubContent>
+                    <DropdownMenuItem>tape</DropdownMenuItem>
+                    <DropdownMenuItem>sasicodes</DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>More...</DropdownMenuItem>
+                  </DropdownMenuSubContent>
+                </DropdownMenuPortal>
+              </DropdownMenuSub>
+
+              <DropdownMenuItem className="flex items-center gap-2">
+                <SignOut />
+                <span>Log out</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      );
     }
   },
   {
@@ -428,24 +531,73 @@ export const components = [
     }
   },
   {
-    id: "modal",
-    label: "Modal",
-    component: () => {
-      return <div>Modal</div>;
-    }
-  },
-  {
     id: "player",
     label: "Player",
     component: () => {
       return (
-        <div>
-          <VideoPlayer
-            src={`${IPFS_GATEWAY_URL}/bafybeidhpneide4akppcgx26j246juy6nqh6ibxp7olhk6br2r3aaatomi`}
-            poster={`${IPFS_GATEWAY_URL}/bafybeiajrf65mlql6pgv24z6yfyaz3wromkk2rard6vpyuqtbv53f56yf4`}
-            autoPlay={false}
-          />
-        </div>
+        <VStack>
+          <span>
+            <VideoPlayer
+              className="rounded-card-sm"
+              src={{
+                src: `${IPFS_GATEWAY_URL}/bafybeidmkqbs66odew6ddtiwgpjmmirk4lh5uux7w4bheeogjwlagefoje`,
+                type: "video/mp4"
+              }}
+              poster={imageCdn(
+                `${IPFS_GATEWAY_URL}/bafybeiaikdpxnqig7ta5z5ahqav7p2z3lrijp5ym3ctg4on5reiktdh2lu`
+              )}
+              load="visible"
+              autoPlay={false}
+            />
+          </span>
+          <div className="grid gap-2 md:grid-cols-2">
+            <VideoPlayer
+              aspectRatio="9/16"
+              className="rounded-card-sm"
+              src={{
+                src: `${IPFS_GATEWAY_URL}/bafybeifwjnt5mkuneq4taxc2ybpfkhri6h6ipqfjnsndcvguxklwbumrse`,
+                type: "video/mp4"
+              }}
+              poster={`${IPFS_GATEWAY_URL}/bafybeib3rptof3clasb4llm247zupf5pspequwu5wntzedn5nnh75ljgea`}
+              load="visible"
+              autoPlay={false}
+              loop={true}
+              top={
+                <div className="flex justify-end">
+                  <VPlayButton />
+                </div>
+              }
+            />
+            <div className="flex flex-col gap-[6px]">
+              <div className="grid flex-1 place-items-center rounded-card-sm border border-primary/20 border-dashed p-6 font-serif text-2xl">
+                Audio
+              </div>
+              <AudioPlayer
+                src={{
+                  src: `${IPFS_GATEWAY_URL}/bafybeihj5l4agwyv276nvwdpdey4wp646c2lqrfjmq4v6hmttszb3gd4xm`,
+                  type: "audio/mp3"
+                }}
+                poster={`${IPFS_GATEWAY_URL}/bafkreiam4w73hooyzel2674k6vr52civh4miazhfuxefqpy6n4qwqvwtp4`}
+                load="visible"
+                autoPlay={false}
+              />
+            </div>
+          </div>
+          <div className="no-scrollbar overflow-x-auto">
+            <AudioPlayer
+              src={{
+                src: `${IPFS_GATEWAY_URL}/QmQSZHzsR3nhqJYPo8RC9eCUptTh2BVqGWzMDWwqbcyzrd`,
+                type: "audio/mp3"
+              }}
+              poster={imageCdn(
+                `${IPFS_GATEWAY_URL}/QmVg5mLJJsx9JZvyR6j4ej1b8WGBXZmi9bQNbwQDQ7pLEc`
+              )}
+              load="visible"
+              layout="horizontal"
+              autoPlay={false}
+            />
+          </div>
+        </VStack>
       );
     }
   },
@@ -490,9 +642,7 @@ export const components = [
   {
     id: "switch",
     label: "Switch",
-    component: () => {
-      return <div>Switch</div>;
-    }
+    component: () => <Switch label="Collectible" />
   },
   {
     id: "tabs",

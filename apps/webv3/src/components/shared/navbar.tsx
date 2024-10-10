@@ -18,7 +18,7 @@ export const Navbar = () => {
           height: bounds.height ? bounds.height : undefined,
           transition: { duration: 0.3, type: "spring", bounce: 0.1 }
         }}
-        className="flex w-full flex-col justify-end overflow-hidden rounded-[14px] bg-primary backdrop-blur-xl"
+        className="flex w-full flex-col justify-end overflow-hidden rounded-[14px] bg-primary backdrop-blur-md"
       >
         <div ref={elementRef} className="flex flex-col justify-end">
           <AnimatePresence mode="popLayout">

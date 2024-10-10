@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import type { PluginAPI } from "tailwindcss/types/config";
 
 export default {
   darkMode: ["class"],
@@ -26,6 +27,7 @@ export default {
       },
       borderRadius: {
         custom: "var(--radius)",
+        "card-sm": "calc(var(--radius) + 6px)",
         card: "calc(var(--radius) + 11px)"
       },
       colors: {
@@ -47,5 +49,18 @@ export default {
       }
     }
   },
-  plugins: [require("@vidstack/react/tailwind.cjs")]
+  plugins: [
+    require("@vidstack/react/tailwind.cjs"),
+    require("tailwindcss-animate"),
+    (api: PluginAPI) => {
+      const { addUtilities } = api;
+      addUtilities({
+        ".no-scrollbar": {
+          "::-webkit-scrollbar": { display: "none" },
+          "-ms-overflow-style": "none" /* IE and Edge */,
+          "scrollbar-width": "none" /* Firefox */
+        }
+      });
+    }
+  ]
 } satisfies Config;

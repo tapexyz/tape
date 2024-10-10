@@ -39,18 +39,6 @@
     scrollbar-color: var(--scrollbar-thumb) transparent;
   }
   html {
-    @apply scroll-smooth bg-site font-sans antialiased overflow-y-scroll;
-  }
-}
-
-@layer utilities {
-  /* Chrome, Safari and Opera */
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-  /* IE, Edge and Firefox */
-  .no-scrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    @apply scroll-smooth bg-site font-sans antialiased;
   }
 }

@@ -1,5 +1,4 @@
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
-import { motion } from "framer-motion";
 import { forwardRef } from "react";
 import { tw } from "../tw";
 
@@ -18,20 +17,12 @@ const TooltipContent = forwardRef<
     sideOffset={sideOffset}
     className={tw(
       "z-50 overflow-hidden rounded-custom bg-primary px-3 py-1.5 text-current text-xs",
+      "fade-in zoom-in-90 data-[state=closed]:fade-out data-[state=closed]:zoom-out-90 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 animate-in data-[state=closed]:animate-out",
       className
     )}
     asChild
     {...props}
-  >
-    <motion.div
-      initial={{ opacity: 0, y: 7 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 7 }}
-      transition={{ duration: 0.2, type: "spring", bounce: 0.2 }}
-    >
-      {props.children}
-    </motion.div>
-  </TooltipPrimitive.Content>
+  />
 ));
 
 TooltipContent.displayName = TooltipPrimitive.Content.displayName;

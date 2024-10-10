@@ -37,7 +37,7 @@ export const Publication = () => {
   return (
     <div className="size-full h-screen object-fill">
       <VideoPlayer
-        src={src}
+        src={{ src, type: "video/mp4" }}
         pip={false}
         loop={isLoop}
         poster={poster}
