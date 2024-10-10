@@ -291,13 +291,13 @@ export const components = [
             <Button size="icon">
               <Heart className="size-5" />
             </Button>
-            <Button size="icon" variant="secondary">
+            <Button size="icon" variant="outline">
               <ArrowsClockwise className="size-5" />
             </Button>
             <Button size="icon" variant="secondary">
               <ShareFat className="size-5" />
             </Button>
-            <Button size="icon" variant="secondary">
+            <Button size="icon" variant="outline">
               <DotsThreeVertical className="size-5" weight="bold" />
             </Button>
             <Button size="icon" variant="destructive">
@@ -309,6 +309,9 @@ export const components = [
             <Button className="w-28" variant="secondary">
               Upload
             </Button>
+            <Button className="w-28" variant="outline">
+              Upload
+            </Button>
             <Button className="w-28" variant="destructive">
               Delete
             </Button>
@@ -318,6 +321,9 @@ export const components = [
               Upload
             </Button>
             <Button className="w-28" variant="secondary" loading={true}>
+              Upload
+            </Button>
+            <Button className="w-28" variant="outline" loading={true}>
               Upload
             </Button>
             <Button className="w-28" variant="destructive" loading={true}>
@@ -333,6 +339,10 @@ export const components = [
               <span>Upload</span>
               <PlusCircle className="size-5" />
             </Button>
+            <Button className="w-28" variant="outline">
+              <span>Upload</span>
+              <PlusCircle className="size-5" />
+            </Button>
             <Button className="w-28" variant="destructive">
               <span>Delete</span>
               <Trash className="size-5" />
@@ -345,7 +355,7 @@ export const components = [
             <Button size="md" className="w-28" variant="secondary">
               Upload
             </Button>
-            <Button size="lg" className="w-28" variant="secondary">
+            <Button size="lg" className="w-28" variant="outline">
               Upload
             </Button>
             <Button size="xl" className="w-28" variant="destructive">
