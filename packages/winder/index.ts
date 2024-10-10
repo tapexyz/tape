@@ -16,3 +16,6 @@ export * from "./src/_components/card";
 export * from "./src/_components/switch";
 export * from "./src/_components/dropdown-menu";
 export * from "./src/_components/dialog";
+export * from "./src/_components/input";
+export * from "./src/_components/select";
+export * from "./src/_components/tabs";

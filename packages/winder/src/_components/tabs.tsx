@@ -1,32 +1,43 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
+import * as TabsPrimitive from "@radix-ui/react-tabs";
+import { forwardRef } from "react";
+import { tw } from "../tw";
 
-const items = ["for you", "explore", "following", "bangers", "studio"];
+const Tabs = TabsPrimitive.Root;
 
-export const Tabs = () => {
-  const [activeTab, setActiveTab] = useState(0);
+const TabsList = forwardRef<
+  React.ElementRef<typeof TabsPrimitive.List>,
+  React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
+>(({ className, ...props }, ref) => (
+  <TabsPrimitive.List
+    ref={ref}
+    className={tw("inline-flex h-10 items-center gap-4 p-1", className)}
+    {...props}
+  />
+));
 
-  return (
-    <ul className="flex items-center">
-      {items.map((item, index) => (
-        <li
-          key={item}
-          onFocus={() => setActiveTab(index)}
-          onMouseOver={() => setActiveTab(index)}
-          onMouseLeave={() => setActiveTab(index)}
-          className={`relative cursor-pointer px-4 py-1 ${activeTab === index ? "text-gray-900" : "text-gray-500"}`}
-        >
-          {activeTab === index ? (
-            <motion.span
-              key={activeTab}
-              layoutId="tab-indicator"
-              transition={{ duration: 0.3, bounce: 0, type: "spring" }}
-              className="-z-10 absolute inset-0 rounded-full bg-gray-100"
-            />
-          ) : null}
-          <span className="relative">{item}</span>
-        </li>
-      ))}
-    </ul>
-  );
-};
+const TabsTrigger = forwardRef<
+  React.ElementRef<typeof TabsPrimitive.Trigger>,
+  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
+>(({ className, ...props }, ref) => (
+  <TabsPrimitive.Trigger
+    ref={ref}
+    className={tw(
+      "inline-flex items-center justify-center whitespace-nowrap py-1.5 underline-offset-4 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:underline",
+      className
+    )}
+    {...props}
+  />
+));
+
+const TabsContent = forwardRef<
+  React.ElementRef<typeof TabsPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
+>(({ className, ...props }, ref) => (
+  <TabsPrimitive.Content
+    ref={ref}
+    className={tw("mt-2", className)}
+    {...props}
+  />
+));
+
+export { Tabs, TabsList, TabsTrigger, TabsContent };

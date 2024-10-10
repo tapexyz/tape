@@ -25,9 +25,19 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
   EmptyState,
+  Input,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
   ShowMore,
   Spinner,
   Switch,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
   ThemeSwitcher,
   ThemeSwitcherExpanded,
   Tooltip,
@@ -286,7 +296,7 @@ export const components = [
               <ShareFat className="size-5" />
             </Button>
             <Button size="icon" variant="secondary">
-              <DotsThreeVertical className="size-5" />
+              <DotsThreeVertical className="size-5" weight="bold" />
             </Button>
             <Button size="icon" variant="destructive">
               <Trash className="size-5" />
@@ -447,15 +457,11 @@ export const components = [
         <div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="icon">
-                <DotsThreeVertical className="size-5" />
+              <Button size="icon">
+                <DotsThreeVertical className="size-5" weight="bold" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="center"
-              className="w-[200px]"
-              sideOffset={10}
-            >
+            <DropdownMenuContent align="start">
               <DropdownMenuItem className="flex items-center gap-2">
                 <User />
                 <span>Profile</span>
@@ -466,13 +472,13 @@ export const components = [
               </DropdownMenuItem>
 
               <DropdownMenuSub>
-                <DropdownMenuSubTrigger>Switch account</DropdownMenuSubTrigger>
+                <DropdownMenuSubTrigger>Publication</DropdownMenuSubTrigger>
                 <DropdownMenuPortal>
                   <DropdownMenuSubContent>
-                    <DropdownMenuItem>tape</DropdownMenuItem>
-                    <DropdownMenuItem>sasicodes</DropdownMenuItem>
+                    <DropdownMenuItem>Mirror</DropdownMenuItem>
+                    <DropdownMenuItem>Collect</DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>More...</DropdownMenuItem>
+                    <DropdownMenuItem>Delete</DropdownMenuItem>
                   </DropdownMenuSubContent>
                 </DropdownMenuPortal>
               </DropdownMenuSub>
@@ -527,7 +533,16 @@ export const components = [
     id: "input",
     label: "Input",
     component: () => {
-      return <div>Input</div>;
+      return (
+        <VStack>
+          <div>
+            <Card className="flex flex-col space-y-6">
+              <Input placeholder="Enter recipient" />
+              <Input placeholder="Enter your first name" label="First Name" />
+            </Card>
+          </div>
+        </VStack>
+      );
     }
   },
   {
@@ -602,17 +617,37 @@ export const components = [
     }
   },
   {
-    id: "popover",
-    label: "Popover",
-    component: () => {
-      return <div>Popover</div>;
-    }
-  },
-  {
     id: "select",
     label: "Select",
     component: () => {
-      return <div>Select</div>;
+      return (
+        <VStack>
+          <div>
+            <Select>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Theme" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="light">Light</SelectItem>
+                <SelectItem value="dark">Dark</SelectItem>
+                <SelectItem value="system">System</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Select>
+              <SelectTrigger>
+                <SelectValue placeholder="Theme" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="light">Light</SelectItem>
+                <SelectItem value="dark">Dark</SelectItem>
+                <SelectItem value="system">System</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </VStack>
+      );
     }
   },
   {
@@ -648,7 +683,28 @@ export const components = [
     id: "tabs",
     label: "Tabs",
     component: () => {
-      return <div>Tabs</div>;
+      return (
+        <VStack>
+          <Tabs defaultValue="videos">
+            <TabsList className="text-xl">
+              <TabsTrigger value="videos">Videos</TabsTrigger>
+              <TabsTrigger value="bytes">Bytes</TabsTrigger>
+            </TabsList>
+            <TabsContent value="videos">All your videos are here.</TabsContent>
+            <TabsContent value="bytes">All your bytes are here.</TabsContent>
+          </Tabs>
+          <Tabs defaultValue="all-time">
+            <TabsList className="text-lg">
+              <TabsTrigger value="all-time">All time</TabsTrigger>
+              <TabsTrigger value="month">This month</TabsTrigger>
+              <TabsTrigger value="week">This week</TabsTrigger>
+            </TabsList>
+            <TabsContent value="all-time">Content all time.</TabsContent>
+            <TabsContent value="month">Content this month.</TabsContent>
+            <TabsContent value="week">Content this week.</TabsContent>
+          </Tabs>
+        </VStack>
+      );
     }
   },
   {

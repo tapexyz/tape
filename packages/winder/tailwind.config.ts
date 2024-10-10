@@ -30,6 +30,9 @@ export default {
         "card-sm": "calc(var(--radius) + 6px)",
         card: "calc(var(--radius) + 11px)"
       },
+      ringColor: {
+        custom: "hsl(var(--border))"
+      },
       colors: {
         primary: {
           DEFAULT: "hsl(var(--primary))"
