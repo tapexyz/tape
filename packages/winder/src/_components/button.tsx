@@ -13,7 +13,7 @@ const buttonVariants = cva(
           "bg-primary text-current hover:bg-primary/85 disabled:bg-primary/60",
         secondary:
           "bg-secondary text-primary border-custom border disabled:bg-primary/[0.05]",
-        outline: "border-custom border disabled:bg-primary/60",
+        outline: "border-custom border disabled:opacity-80",
         destructive:
           "bg-destructive text-white hover:bg-destructive/85 disabled:bg-destructive/60"
       },
@@ -51,12 +51,12 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       >
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.span
-            className="inline-flex space-x-1"
+            className="inline-flex space-x-1 whitespace-nowrap"
             key={loading ? "loading" : "idle"}
             transition={{ type: "spring", duration: 0.3, bounce: 0 }}
             initial={{ opacity: 0, y: -25 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 25 }}
+            exit={{ opacity: 0, y: 25, transition: { duration: 0.1 } }}
           >
             {loading ? <Spinner /> : props.children}
           </motion.span>

@@ -65,6 +65,7 @@ import {
   tw
 } from "@tape.xyz/winder/common";
 import Link from "next/link";
+import { useState } from "react";
 
 const VStack = ({
   children,
@@ -661,16 +662,46 @@ export const components = [
     id: "spinner",
     label: "Spinner",
     component: () => {
+      const [loading, setLoading] = useState(false);
       return (
-        <div className="flex flex-wrap items-center gap-2">
-          <Spinner className="size-4" />
-          <Spinner className="size-5" />
-          <Spinner className="size-6" />
-          <Spinner className="size-7" />
-          <Spinner className="size-6" />
-          <Spinner className="size-5" />
-          <Spinner className="size-4" />
-        </div>
+        <VStack>
+          <div className="flex flex-wrap items-center gap-2">
+            <Spinner className="size-4" />
+            <Spinner className="size-5" />
+            <Spinner className="size-6" />
+            <Spinner className="size-7" />
+            <Spinner className="size-6" />
+            <Spinner className="size-5" />
+            <Spinner className="size-4" />
+          </div>
+          <div className="inline-flex flex-wrap items-center gap-2">
+            <Button
+              className="w-32"
+              loading={loading}
+              onClick={() => {
+                setLoading(true);
+                setTimeout(() => {
+                  setLoading(false);
+                }, 2000);
+              }}
+            >
+              Post now
+            </Button>
+            <Button
+              variant="destructive"
+              className="w-32"
+              loading={loading}
+              onClick={() => {
+                setLoading(true);
+                setTimeout(() => {
+                  setLoading(false);
+                }, 2000);
+              }}
+            >
+              Delete
+            </Button>
+          </div>
+        </VStack>
       );
     }
   },
