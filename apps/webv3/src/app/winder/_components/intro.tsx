@@ -29,7 +29,7 @@ export const IntroSection = () => {
               transition={{
                 type: "spring",
                 bounce: 0,
-                duration: 0.6,
+                duration: 1,
                 delay: (index / 2) * 0.03
               }}
             >
