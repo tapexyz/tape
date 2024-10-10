@@ -19,3 +19,4 @@ export * from "./src/_components/dialog";
 export * from "./src/_components/input";
 export * from "./src/_components/select";
 export * from "./src/_components/tabs";
+export * from "./src/_components/textarea";

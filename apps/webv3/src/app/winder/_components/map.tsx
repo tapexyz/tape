@@ -38,6 +38,7 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
+  Textarea,
   ThemeSwitcher,
   ThemeSwitcherExpanded,
   Tooltip,
@@ -458,9 +459,7 @@ export const components = [
         <div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button size="icon">
-                <DotsThreeVertical className="size-5" weight="bold" />
-              </Button>
+              <Button variant="outline">My Profile</Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
               <DropdownMenuItem className="flex items-center gap-2">
@@ -535,14 +534,10 @@ export const components = [
     label: "Input",
     component: () => {
       return (
-        <VStack>
-          <div>
-            <Card className="flex flex-col space-y-6">
-              <Input placeholder="Enter recipient" />
-              <Input placeholder="Enter your first name" label="First Name" />
-            </Card>
-          </div>
-        </VStack>
+        <Card className="flex flex-col space-y-6">
+          <Input placeholder="Enter recipient" />
+          <Input placeholder="Enter your first name" label="First Name" />
+        </Card>
       );
     }
   },
@@ -716,23 +711,33 @@ export const components = [
     component: () => {
       return (
         <VStack>
-          <Tabs defaultValue="videos">
-            <TabsList className="text-xl">
-              <TabsTrigger value="videos">Videos</TabsTrigger>
-              <TabsTrigger value="bytes">Bytes</TabsTrigger>
-            </TabsList>
-            <TabsContent value="videos">All your videos are here.</TabsContent>
-            <TabsContent value="bytes">All your bytes are here.</TabsContent>
-          </Tabs>
           <Tabs defaultValue="all-time">
             <TabsList className="text-lg">
               <TabsTrigger value="all-time">All time</TabsTrigger>
               <TabsTrigger value="month">This month</TabsTrigger>
               <TabsTrigger value="week">This week</TabsTrigger>
             </TabsList>
-            <TabsContent value="all-time">Content all time.</TabsContent>
-            <TabsContent value="month">Content this month.</TabsContent>
-            <TabsContent value="week">Content this week.</TabsContent>
+            <TabsContent value="all-time">
+              <Card>Content all time.</Card>
+            </TabsContent>
+            <TabsContent value="month">
+              <Card>Content this month.</Card>
+            </TabsContent>
+            <TabsContent value="week">
+              <Card>Content this week.</Card>
+            </TabsContent>
+          </Tabs>
+          <Tabs defaultValue="videos">
+            <TabsList className="text-xl">
+              <TabsTrigger value="videos">Videos</TabsTrigger>
+              <TabsTrigger value="bytes">Bytes</TabsTrigger>
+            </TabsList>
+            <TabsContent value="videos">
+              <Card>All your videos are here.</Card>
+            </TabsContent>
+            <TabsContent value="bytes">
+              <Card>All your bytes are here.</Card>
+            </TabsContent>
           </Tabs>
         </VStack>
       );
@@ -762,7 +767,12 @@ export const components = [
     id: "textarea",
     label: "Textarea",
     component: () => {
-      return <div>Textarea</div>;
+      return (
+        <Card className="flex flex-col space-y-6">
+          <Textarea placeholder="More about yourself" />
+          <Textarea placeholder="More about the video" label="Description" />
+        </Card>
+      );
     }
   },
   {
