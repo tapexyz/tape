@@ -557,6 +557,7 @@ export const components = [
           <span>
             <VideoPlayer
               className="rounded-card-sm"
+              posterClassName="rounded-card-sm"
               src={{
                 src: `${IPFS_GATEWAY_URL}/bafybeidmkqbs66odew6ddtiwgpjmmirk4lh5uux7w4bheeogjwlagefoje`,
                 type: "video/mp4"
@@ -572,6 +573,7 @@ export const components = [
             <VideoPlayer
               aspectRatio="9/16"
               className="rounded-card-sm"
+              posterClassName="rounded-card-sm"
               src={{
                 src: `${IPFS_GATEWAY_URL}/bafybeifwjnt5mkuneq4taxc2ybpfkhri6h6ipqfjnsndcvguxklwbumrse`,
                 type: "video/mp4"

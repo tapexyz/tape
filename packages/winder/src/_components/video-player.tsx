@@ -40,6 +40,7 @@ import { StreamAV } from "./audio-player";
 
 interface Props extends Omit<MediaPlayerProps, "children"> {
   poster?: string;
+  posterClassName?: string;
   pip?: boolean;
   top?: React.ReactNode;
 }
@@ -89,7 +90,7 @@ const NotInViewObserver = () => {
 };
 
 const VideoPlayer = forwardRef<MediaPlayerInstance, Props>(
-  ({ poster, top, pip, ...props }, ref) => {
+  ({ poster, top, pip, posterClassName, ...props }, ref) => {
     const isPortrait = props.aspectRatio === "9/16";
 
     return (
@@ -106,7 +107,10 @@ const VideoPlayer = forwardRef<MediaPlayerInstance, Props>(
           {poster ? (
             <Poster asChild>
               <img
-                className="absolute inset-0 size-full rounded-card-sm bg-black object-cover opacity-0 transition-opacity data-[visible]:opacity-100"
+                className={tw(
+                  "absolute inset-0 size-full bg-black object-cover opacity-0 transition-opacity data-[visible]:opacity-100",
+                  posterClassName
+                )}
                 src={poster}
                 alt="poster"
                 draggable={false}
