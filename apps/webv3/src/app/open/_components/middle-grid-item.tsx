@@ -17,7 +17,7 @@ export const MiddleGridItem = () => {
         <motion.img
           initial={{ x: 0, scale: 0.8 }}
           animate={{ x: 90, scale: 1 }}
-          transition={{ delay: 0, bounce: 0, duration: 0.4, type: "spring" }}
+          transition={{ delay: 0, bounce: 0, duration: 0.6, type: "spring" }}
           src={`${STATIC_ASSETS}/images/winder/cape.webp`}
           className="h-32 w-28 object-cover"
           alt="cape"
