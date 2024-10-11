@@ -9,10 +9,10 @@
     --scrollbar-thumb: #c7c7c7;
 
     --site-background: 0 0% 95%;
-    --card-background: 0 0% 100%;
     --primary: 0 0% 0%;
     --secondary: 0, 0%, 0%, 0.08;
     --destructive: 0 100% 49%;
+    --theme: 0 0% 100%;
     --border: 0, 0%, 0%, 0.06;
     --divider: 0, 0%, 0%, 0.1;
     --text-muted: 0, 0%, 0%, 0.4;
@@ -23,10 +23,10 @@
     --scrollbar-thumb: #4d4d4d;
 
     --site-background: 0 0% 16%;
-    --card-background: 0 0% 16%;
     --primary: 0 0% 100%;
     --secondary: 0, 0%, 100%, 0.08;
     --destructive: 359 100% 61%;
+    --theme: 0 0% 0%;
     --border: 0, 0%, 100%, 0.06;
     --divider: 0, 0%, 100%, 0.1;
     --text-muted: 0, 0%, 100%, 0.4;

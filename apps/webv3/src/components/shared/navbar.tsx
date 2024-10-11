@@ -33,7 +33,7 @@ export const Navbar = () => {
                   transition: { duration: 0 }
                 }}
               >
-                <div className="mx-2 mt-2 flex flex-col items-start justify-between rounded-custom bg-card/10 px-[14px] pt-[13px]">
+                <div className="mx-2 mt-2 flex flex-col items-start justify-between rounded-custom bg-theme/10 px-[14px] pt-[13px]">
                   <span className="inline-block text-current/30">
                     Media types
                   </span>
@@ -50,10 +50,10 @@ export const Navbar = () => {
                     <span className="my-3 inline-block text-current/30">
                       Categories
                     </span>
-                    <div className="no-scrollbar flex max-h-40 flex-wrap items-center gap-[9px] overflow-y-auto pb-2 *:rounded-[9px] *:bg-card/15 *:px-4 *:py-2 *:font-medium *:text-sm ">
+                    <div className="no-scrollbar flex max-h-40 flex-wrap items-center gap-[9px] overflow-y-auto pb-2 *:rounded-[9px] *:bg-theme/15 *:px-4 *:py-2 *:font-medium *:text-sm ">
                       <button
                         type="button"
-                        className="text-current data-[selected=true]:bg-card data-[selected=true]:text-primary"
+                        className="text-current data-[selected=true]:bg-theme data-[selected=true]:text-primary"
                         data-selected={true}
                       >
                         All
@@ -62,7 +62,7 @@ export const Navbar = () => {
                         <button
                           type="button"
                           key={category.tag}
-                          className="text-current data-[selected=true]:bg-card data-[selected=true]:text-primary"
+                          className="text-current data-[selected=true]:bg-theme data-[selected=true]:text-primary"
                           data-selected={false}
                         >
                           {category.name}
@@ -80,7 +80,7 @@ export const Navbar = () => {
             className="flex w-full items-center justify-between px-4 py-3 font-medium text-[#c7c7c7] text-sm"
           >
             <span>{open ? "Close" : "Open"} filters</span>
-            <span className="rounded bg-card/30 px-1.5 py-0.5 text-current text-xs tabular-nums">
+            <span className="rounded bg-theme/30 px-1.5 py-0.5 text-current text-xs tabular-nums">
               2
             </span>
           </button>
@@ -94,8 +94,8 @@ export const Navbar = () => {
             className={tw(
               "rounded-custom px-[13px] py-[6px] text-center text-sm",
               item === "Explore"
-                ? "bg-card text-primary"
-                : "text-current hover:bg-card/10"
+                ? "bg-theme text-primary"
+                : "text-current hover:bg-theme/10"
             )}
           >
             {item}

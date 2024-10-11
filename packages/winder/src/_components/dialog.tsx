@@ -53,7 +53,7 @@ const DialogContent = forwardRef<
       <DialogOverlay />
       <DialogPrimitive.Content
         className={tw(
-          "-translate-x-1/2 -translate-y-1/2 fixed top-1/2 left-1/2 z-50 grid w-full max-w-lg gap-4 overflow-hidden rounded-card-sm border-2 border-custom bg-card p-6",
+          "-translate-x-1/2 -translate-y-1/2 fixed top-1/2 left-1/2 z-50 grid w-full max-w-lg gap-4 overflow-hidden rounded-card-sm border-2 border-custom bg-theme p-6",
           "data-[state=closed]:fade-out data-[state=open]:fade-in data-[state=closed]:zoom-out-90 data-[state=open]:zoom-in-90 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] data-[state=closed]:animate-out data-[state=open]:animate-in",
           className
         )}
@@ -90,7 +90,7 @@ const DialogOverlay = forwardRef<
   <DialogPrimitive.Overlay
     ref={ref}
     className={tw(
-      "fixed inset-0 z-50 bg-white/50 backdrop-blur-md dark:bg-black/50",
+      "fixed inset-0 z-50 bg-theme/50 backdrop-blur-sm",
       "data-[state=closed]:fade-out data-[state=open]:fade-in data-[state=closed]:animate-out data-[state=open]:animate-in",
       className
     )}

@@ -35,7 +35,7 @@ export const MiddleGridItem = () => {
               transition={{
                 delay: 0.2
               }}
-              className="inline-block overflow-hidden whitespace-nowrap rounded-full border border-custom bg-card px-4 py-1.5 text-sm"
+              className="inline-block overflow-hidden whitespace-nowrap rounded-full border border-custom bg-theme px-4 py-1.5 text-sm"
             >
               <Morph>
                 {isHovering ? "←  Back to Tape" : "Tape by the numbers"}
@@ -49,7 +49,7 @@ export const MiddleGridItem = () => {
             transition={{
               delay: 0.1
             }}
-            className="-right-[3px] absolute bottom-0 size-2.5 rounded-full border border-custom bg-card"
+            className="-right-[3px] absolute bottom-0 size-2.5 rounded-full border border-custom bg-theme"
           />
           <motion.span
             initial={{ y: 20, x: 0, opacity: 0 }}
@@ -58,7 +58,7 @@ export const MiddleGridItem = () => {
             transition={{
               delay: 0.1
             }}
-            className="-right-[10px] -bottom-1 absolute size-1.5 rounded-full border border-custom bg-card"
+            className="-right-[10px] -bottom-1 absolute size-1.5 rounded-full border border-custom bg-theme"
           />
           <motion.span
             initial={{ y: 20, x: 0, opacity: 0 }}

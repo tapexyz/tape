@@ -13,7 +13,7 @@ export default {
     extend: {
       backgroundColor: {
         site: "hsl(var(--site-background))",
-        card: "hsl(var(--card-background))"
+        theme: "hsl(var(--theme))"
       },
       borderColor: {
         custom: "hsl(var(--border))"

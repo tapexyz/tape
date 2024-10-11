@@ -99,7 +99,7 @@ const AudioPlayer = forwardRef<MediaPlayerInstance, Props>(
           >
             <Poster asChild>
               <img
-                className="block aspect-square rounded-card-sm border border-custom bg-card object-cover transition-opacity"
+                className="block aspect-square rounded-card-sm border border-custom bg-theme object-cover transition-opacity"
                 src={poster}
                 alt="poster"
                 draggable={false}

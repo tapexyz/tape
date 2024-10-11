@@ -56,7 +56,7 @@ export const ThemeSwitcherExpanded = ({ id }: Readonly<{ id: string }>) => {
               key={currentTheme}
               layoutId={`${id}-theme-switcher`}
               transition={{ duration: 0.2, bounce: 0, type: "spring" }}
-              className="absolute inset-0 rounded-full bg-card"
+              className="absolute inset-0 rounded-full bg-theme"
             />
           ) : null}
           <span className="relative">{getIcon(theme)}</span>
