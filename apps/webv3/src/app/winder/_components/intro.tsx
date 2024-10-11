@@ -30,7 +30,7 @@ export const IntroSection = () => {
                 type: "spring",
                 bounce: 0,
                 duration: 1,
-                delay: (index / 2) * 0.03
+                delay: index * 0.1
               }}
             >
               {char}

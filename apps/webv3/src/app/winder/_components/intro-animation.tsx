@@ -27,12 +27,12 @@ const AnimatedRect = (props: SVGProps<SVGRectElement> & MotionProps) => {
           repeat: Number.POSITIVE_INFINITY,
           opacity: {
             bounce: 0,
-            duration: 0.9,
+            duration: 2,
             type: "spring"
           },
           x: {
             bounce: 0,
-            duration: 0.9,
+            duration: 2,
             type: "spring"
           },
           y: {
