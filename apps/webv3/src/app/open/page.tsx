@@ -19,7 +19,7 @@ export default async function OpenPage() {
   return (
     <div className="container grid min-h-screen max-w-6xl place-items-center">
       <Comets />
-      <div className="grid w-full bg-theme/20 backdrop-blur-md *:flex *:flex-col *:justify-between *:overflow-hidden md:grid-cols-4 lg:grid-rows-3">
+      <div className="grid w-full bg-theme/20 backdrop-blur-sm *:flex *:flex-col *:justify-between *:overflow-hidden md:grid-cols-4 lg:grid-rows-3">
         <div className="col-span-2 row-span-2 border-custom p-6 md:col-span-1 md:border">
           <div>
             <AnimatedNumber className="font-mono text-4xl" value={posts} />
@@ -51,7 +51,7 @@ export default async function OpenPage() {
           </div>
         </div>
 
-        <div className="col-span-2 row-span-1 border-custom px-10 py-10 hover:bg-theme/30 md:border-y lg:py-14">
+        <div className="col-span-2 row-span-1 border-custom md:border-y">
           <MiddleGridItem />
         </div>
 

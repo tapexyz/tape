@@ -12,7 +12,11 @@ export const MiddleGridItem = () => {
   const isHovering = useDebounce(hovering, 100);
 
   return (
-    <Link ref={ref} href="/" className="flex w-full justify-center">
+    <Link
+      ref={ref}
+      href="/"
+      className="flex w-full flex-1 justify-center px-10 py-10 hover:bg-theme/40 lg:py-14 dark:hover:bg-theme/20"
+    >
       <div className="relative">
         <motion.img
           initial={{ x: 0, scale: 0.8 }}
