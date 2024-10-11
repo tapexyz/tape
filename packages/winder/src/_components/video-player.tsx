@@ -51,19 +51,25 @@ const VPlayButton = () => (
   </PlayButton>
 );
 
-const VTimeSlider = ({ isPortrait }: { isPortrait: boolean }) => {
+const VTimeSlider = () => (
+  <>
+    <TimeSlider.Track className="relative z-0 h-[3px] w-full rounded bg-white/20">
+      <TimeSlider.TrackFill className="absolute h-full w-[var(--slider-fill)] rounded bg-white will-change-[width]" />
+      <TimeSlider.Progress className="absolute z-10 h-full w-[var(--slider-progress)] rounded bg-white/40 will-change-[width]" />
+    </TimeSlider.Track>
+    <TimeSlider.Thumb className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-[var(--slider-fill)] z-20 h-4 w-1 rounded bg-white opacity-0 transition-opacity duration-200 will-change-[left] group-data-[active]:opacity-100" />
+  </>
+);
+
+const VTimeSliderRoot = ({ isPortrait }: { isPortrait: boolean }) => {
   const isPaused = useMediaState("paused");
 
   return (
     <TimeSlider.Root
-      className="group relative inline-flex w-full cursor-pointer touch-none select-none items-center aria-hidden:hidden"
+      className="group relative inline-flex w-full cursor-pointer touch-none select-none items-center py-1.5 aria-hidden:hidden"
       aria-hidden={isPaused && isPortrait}
     >
-      <TimeSlider.Track className="relative z-0 h-[3px] w-full rounded bg-white/30">
-        <TimeSlider.TrackFill className="absolute h-full w-[var(--slider-fill)] rounded bg-white will-change-[width]" />
-        <TimeSlider.Progress className="absolute z-10 h-full w-[var(--slider-progress)] rounded bg-white/50 will-change-[width]" />
-      </TimeSlider.Track>
-      <TimeSlider.Thumb className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-[var(--slider-fill)] z-20 h-4 w-1 rounded bg-white opacity-0 transition-opacity duration-200 will-change-[left] group-data-[active]:opacity-100" />
+      <VTimeSlider />
     </TimeSlider.Root>
   );
 };
@@ -126,7 +132,7 @@ const VideoPlayer = forwardRef<MediaPlayerInstance, Props>(
                     <Time className="tabular-nums" type="duration" />
                   </div>
                 ) : null}
-                <VTimeSlider isPortrait={isPortrait} />
+                <VTimeSliderRoot isPortrait={isPortrait} />
               </div>
               {!isPortrait ? (
                 <div className="flex w-full items-center justify-between">
@@ -205,4 +211,4 @@ const VideoPlayer = forwardRef<MediaPlayerInstance, Props>(
   }
 );
 
-export { VideoPlayer, VPlayButton, NotInViewObserver };
+export { VideoPlayer, VPlayButton, NotInViewObserver, VTimeSlider };

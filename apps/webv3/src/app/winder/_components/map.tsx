@@ -613,7 +613,7 @@ export const components = [
       return (
         <VStack>
           <div>
-            <Select>
+            <Select defaultValue="light">
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Theme" />
               </SelectTrigger>
@@ -625,7 +625,19 @@ export const components = [
             </Select>
           </div>
           <div>
-            <Select>
+            <Select defaultValue="light">
+              <SelectTrigger className="w-1/2">
+                <SelectValue placeholder="Theme" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="light">Light</SelectItem>
+                <SelectItem value="dark">Dark</SelectItem>
+                <SelectItem value="system">System</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Select defaultValue="light">
               <SelectTrigger>
                 <SelectValue placeholder="Theme" />
               </SelectTrigger>

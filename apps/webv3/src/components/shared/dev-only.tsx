@@ -11,7 +11,7 @@ const Devtools = () => {
       <motion.div
         drag
         dragMomentum={false}
-        className="fixed right-2.5 bottom-20 z-50 rounded-full border border-custom bg-primary px-6 py-2 text-center font-semibold text-current text-sm"
+        className="fixed right-2.5 bottom-20 z-50 rounded-full border border-custom bg-primary px-6 py-2 text-center font-semibold text-sm text-theme"
       >
         <span className="block md:hidden">sm</span>
         <span className="hidden md:block lg:hidden">md</span>

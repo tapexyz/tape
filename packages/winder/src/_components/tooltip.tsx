@@ -16,7 +16,7 @@ const TooltipContent = forwardRef<
     ref={ref}
     sideOffset={sideOffset}
     className={tw(
-      "z-50 overflow-hidden rounded-custom bg-primary px-3 py-1.5 text-current text-xs",
+      "z-50 overflow-hidden rounded-custom bg-primary px-3 py-1.5 text-theme text-xs",
       "fade-in zoom-in-90 data-[state=closed]:fade-out data-[state=closed]:zoom-out-90 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 animate-in data-[state=closed]:animate-out",
       className
     )}

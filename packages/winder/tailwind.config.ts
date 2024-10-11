@@ -12,8 +12,7 @@ export default {
     },
     extend: {
       backgroundColor: {
-        site: "hsl(var(--site-background))",
-        theme: "hsl(var(--theme))"
+        site: "hsl(var(--site-background))"
       },
       borderColor: {
         custom: "hsl(var(--border))"
@@ -22,8 +21,7 @@ export default {
         custom: "hsl(var(--divider))"
       },
       textColor: {
-        muted: "hsl(var(--text-muted))",
-        current: "hsl(var(--text-current))"
+        muted: "hsl(var(--text-muted))"
       },
       borderRadius: {
         custom: "var(--radius)",
@@ -45,6 +43,9 @@ export default {
         },
         upbyte: {
           DEFAULT: "hsl(var(--upbyte))"
+        },
+        theme: {
+          DEFAULT: "hsl(var(--theme))"
         }
       },
       screens: {

@@ -29,7 +29,7 @@ import {
   Screencast
 } from "../icons";
 import { tw } from "../tw";
-import { NotInViewObserver } from "./video-player";
+import { NotInViewObserver, VTimeSlider } from "./video-player";
 
 interface Props extends Omit<MediaPlayerProps, "children"> {
   poster?: string;
@@ -110,12 +110,8 @@ const AudioPlayer = forwardRef<MediaPlayerInstance, Props>(
               <div className="flex w-full items-center gap-[6px] space-x-2 text-sm">
                 <MediaSpeed />
                 <Time className="tabular-nums" type="current" />
-                <TimeSlider.Root className="group relative inline-flex w-full cursor-pointer touch-none select-none items-center aria-hidden:hidden">
-                  <TimeSlider.Track className="relative z-0 my-1.5 h-[3px] w-full rounded bg-white/20">
-                    <TimeSlider.TrackFill className="absolute h-full w-[var(--slider-fill)] rounded bg-white will-change-[width]" />
-                    <TimeSlider.Progress className="absolute z-10 h-full w-[var(--slider-progress)] rounded bg-white/40 will-change-[width]" />
-                  </TimeSlider.Track>
-                  <TimeSlider.Thumb className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-[var(--slider-fill)] z-20 h-4 w-1 rounded bg-white opacity-0 transition-opacity duration-200 will-change-[left] group-data-[active]:opacity-100" />
+                <TimeSlider.Root className="group relative inline-flex w-full cursor-pointer touch-none select-none items-center py-1.5 aria-hidden:hidden">
+                  <VTimeSlider />
                 </TimeSlider.Root>
                 <Time className="tabular-nums" type="duration" />
               </div>

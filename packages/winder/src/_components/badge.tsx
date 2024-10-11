@@ -6,11 +6,11 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-current",
+        default: "bg-primary text-theme",
         secondary: "text-primary bg-primary/5",
         outline: "text-primary border border-custom",
         inverted: "bg-theme text-primary",
-        fancy: "bg-upbyte text-current"
+        fancy: "bg-upbyte text-theme"
       }
     },
     defaultVariants: {

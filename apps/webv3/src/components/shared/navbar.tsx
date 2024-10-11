@@ -34,10 +34,10 @@ export const Navbar = () => {
                 }}
               >
                 <div className="mx-2 mt-2 flex flex-col items-start justify-between rounded-custom bg-theme/10 px-[14px] pt-[13px]">
-                  <span className="inline-block text-current/30">
+                  <span className="inline-block text-theme/30">
                     Media types
                   </span>
-                  <div className="flex flex-col items-start py-4 font-serif text-[42px] text-current/40 *:leading-[47px]">
+                  <div className="flex flex-col items-start py-4 font-serif text-[42px] text-theme/40 *:leading-[47px]">
                     <button type="button">All</button>
                     <button type="button" className="text-white">
                       Videos
@@ -47,13 +47,13 @@ export const Navbar = () => {
                   </div>
                   <hr className="w-full border border-custom invert" />
                   <div>
-                    <span className="my-3 inline-block text-current/30">
+                    <span className="my-3 inline-block text-theme/30">
                       Categories
                     </span>
                     <div className="no-scrollbar flex max-h-40 flex-wrap items-center gap-[9px] overflow-y-auto pb-2 *:rounded-[9px] *:bg-theme/15 *:px-4 *:py-2 *:font-medium *:text-sm ">
                       <button
                         type="button"
-                        className="text-current data-[selected=true]:bg-theme data-[selected=true]:text-primary"
+                        className="text-theme data-[selected=true]:bg-theme data-[selected=true]:text-primary"
                         data-selected={true}
                       >
                         All
@@ -62,7 +62,7 @@ export const Navbar = () => {
                         <button
                           type="button"
                           key={category.tag}
-                          className="text-current data-[selected=true]:bg-theme data-[selected=true]:text-primary"
+                          className="text-theme data-[selected=true]:bg-theme data-[selected=true]:text-primary"
                           data-selected={false}
                         >
                           {category.name}
@@ -80,7 +80,7 @@ export const Navbar = () => {
             className="flex w-full items-center justify-between px-4 py-3 font-medium text-[#c7c7c7] text-sm"
           >
             <span>{open ? "Close" : "Open"} filters</span>
-            <span className="rounded bg-theme/30 px-1.5 py-0.5 text-current text-xs tabular-nums">
+            <span className="rounded bg-theme/30 px-1.5 py-0.5 text-theme text-xs tabular-nums">
               2
             </span>
           </button>
@@ -95,7 +95,7 @@ export const Navbar = () => {
               "rounded-custom px-[13px] py-[6px] text-center text-sm",
               item === "Explore"
                 ? "bg-theme text-primary"
-                : "text-current hover:bg-theme/10"
+                : "text-theme hover:bg-theme/10"
             )}
           >
             {item}
