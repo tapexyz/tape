@@ -94,6 +94,7 @@ export const base = [
   {
     id: "icons",
     label: "Icons",
+    description: "A collection of icons used throughout the product.",
     component: () => (
       <div className="grid grid-cols-5 gap-5 md:grid-cols-12">
         {USED_ICONS.map(({ Icon, name }) => (
@@ -178,6 +179,8 @@ export const base = [
   {
     id: "typeface",
     label: "Typeface",
+    description:
+      "The three typefaces that defines the look and feel of the brand.",
     component: () => {
       return (
         <VStack className="overflow-hidden">
@@ -230,6 +233,7 @@ export const components = [
   {
     id: "avatar",
     label: "Avatar",
+    description: "An avatar is a visual representation of a user.",
     component: () => {
       const image = <AvatarImage src={`${WORKER_AVATAR_URL}/0x2d`} />;
       return (
@@ -265,6 +269,7 @@ export const components = [
   {
     id: "badge",
     label: "Badge",
+    description: "A label that emphasizes an element that requires attention",
     component: () => {
       return (
         <div className="flex flex-wrap gap-2">
@@ -283,6 +288,7 @@ export const components = [
   {
     id: "button",
     label: "Button",
+    description: "A clickable element that performs an action",
     component: () => {
       return (
         <VStack>
@@ -368,6 +374,8 @@ export const components = [
   {
     id: "description",
     label: "Description",
+    description:
+      "Brief text that provides additional information about a feature or media",
     component: () => {
       return (
         <VStack>
@@ -390,6 +398,7 @@ export const components = [
   {
     id: "dialog",
     label: "Dialog",
+    description: "A modal window that appears on top of the page",
     component: () => {
       return (
         <div className="flex flex-wrap gap-2">
@@ -448,6 +457,7 @@ export const components = [
   {
     id: "dropdown",
     label: "Dropdown",
+    description: "A menu that displays a list of options",
     component: () => {
       return (
         <div>
@@ -490,6 +500,7 @@ export const components = [
   {
     id: "empty-state",
     label: "Empty State",
+    description: "A placeholder for when there is no content to display",
     component: () => {
       return (
         <VStack>
@@ -526,6 +537,7 @@ export const components = [
   {
     id: "input",
     label: "Input",
+    description: "A field for entering text",
     component: () => {
       return (
         <div className="flex flex-col space-y-6">
@@ -538,6 +550,7 @@ export const components = [
   {
     id: "player",
     label: "Player",
+    description: "A media player that plays video or audio files",
     component: () => {
       return (
         <VStack>
@@ -609,6 +622,7 @@ export const components = [
   {
     id: "select",
     label: "Select",
+    description: "Display a dropdown list of items",
     component: () => {
       return (
         <VStack>
@@ -655,6 +669,7 @@ export const components = [
   {
     id: "show-more",
     label: "Show more",
+    description: "A button that expands a section to show more content",
     component: () => {
       return <ShowMore onToggle={() => {}} />;
     }
@@ -662,6 +677,8 @@ export const components = [
   {
     id: "spinner",
     label: "Spinner",
+    description:
+      "A loading indicator that indicates that a task is in progress",
     component: () => {
       const [loading, setLoading] = useState(false);
       return (
@@ -709,11 +726,14 @@ export const components = [
   {
     id: "switch",
     label: "Switch",
+    description:
+      "A toggle switch that allows users to turn an option on or off",
     component: () => <Switch label="Collectible" />
   },
   {
     id: "tabs",
     label: "Tabs",
+    description: "A set of tabs that display different content",
     component: () => {
       return (
         <VStack>
@@ -752,6 +772,7 @@ export const components = [
   {
     id: "text",
     label: "Text",
+    description: "A block of text that displays information",
     component: () => {
       return (
         <VStack>
@@ -772,6 +793,7 @@ export const components = [
   {
     id: "textarea",
     label: "Textarea",
+    description: "A field for entering multiple lines of text",
     component: () => {
       return (
         <div className="flex flex-col space-y-6">
@@ -784,6 +806,7 @@ export const components = [
   {
     id: "theme-switcher",
     label: "Theme Switcher",
+    description: "A button that toggles between light and dark themes",
     component: () => {
       return (
         <div className="flex gap-2">
@@ -796,6 +819,7 @@ export const components = [
   {
     id: "toast",
     label: "Toast",
+    description: "A succinct message that is displayed temporarily",
     component: () => {
       return (
         <div className="flex flex-wrap items-center gap-2">
@@ -844,6 +868,7 @@ export const components = [
   {
     id: "tooltip",
     label: "Tooltip",
+    description: "A brief message that provides additional information",
     component: () => {
       return (
         <div className="flex items-center gap-6">
