@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { IntroSvg } from "./intro-svg";
+import { IntroAnimation } from "./intro-animation";
 
 const title = "Winder";
 
@@ -7,7 +7,7 @@ export const IntroSection = () => {
   return (
     <section className="relative grid aspect-[16/6] place-items-center p-6">
       <div className="absolute inset-0">
-        <IntroSvg />
+        <IntroAnimation />
       </div>
 
       <div className="relative mx-[40%]">

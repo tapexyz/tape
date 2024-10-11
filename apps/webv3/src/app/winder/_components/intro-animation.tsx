@@ -1,4 +1,5 @@
 import { STATIC_ASSETS } from "@tape.xyz/constants";
+import { imageCdn } from "@tape.xyz/generic";
 import { type MotionProps, motion } from "framer-motion";
 import type { SVGProps } from "react";
 
@@ -46,7 +47,7 @@ const AnimatedRect = (props: SVGProps<SVGRectElement> & MotionProps) => {
   );
 };
 
-export const IntroSvg = () => (
+export const IntroAnimation = () => (
   <svg
     className="size-full overflow-visible"
     viewBox="0 0 932 312"
@@ -473,97 +474,97 @@ export const IntroSvg = () => (
         id="image0"
         width="500"
         height="500"
-        xlinkHref={`${STATIC_ASSETS}/images/winder/cape-point.webp`}
+        xlinkHref={imageCdn(`${STATIC_ASSETS}/images/winder/cape-point.webp`)}
       />
       <image
         id="image1"
         width="500"
         height="500"
-        xlinkHref={`${STATIC_ASSETS}/images/winder/cassette.webp`}
+        xlinkHref={imageCdn(`${STATIC_ASSETS}/images/winder/cassette.webp`)}
       />
       <image
         id="image2"
         width="165"
         height="101"
-        xlinkHref={`${STATIC_ASSETS}/images/winder/lego-1.webp`}
+        xlinkHref={imageCdn(`${STATIC_ASSETS}/images/winder/lego-1.webp`)}
       />
       <image
         id="image3"
         width="56"
         height="48"
-        xlinkHref={`${STATIC_ASSETS}/images/winder/lego-2.webp`}
+        xlinkHref={imageCdn(`${STATIC_ASSETS}/images/winder/lego-2.webp`)}
       />
       <image
         id="image4"
         width="150"
         height="126"
-        xlinkHref={`${STATIC_ASSETS}/images/winder/lego-3.webp`}
+        xlinkHref={imageCdn(`${STATIC_ASSETS}/images/winder/lego-3.webp`)}
       />
       <image
         id="image5"
         width="153"
         height="98"
-        xlinkHref={`${STATIC_ASSETS}/images/winder/lego-4.webp`}
+        xlinkHref={imageCdn(`${STATIC_ASSETS}/images/winder/lego-4.webp`)}
       />
       <image
         id="image6"
         width="500"
         height="500"
-        xlinkHref={`${STATIC_ASSETS}/images/winder/cape-young.webp`}
+        xlinkHref={imageCdn(`${STATIC_ASSETS}/images/winder/cape-young.webp`)}
       />
       <image
         id="image7"
         width="500"
         height="500"
-        xlinkHref={`${STATIC_ASSETS}/images/winder/cape-leaf.webp`}
+        xlinkHref={imageCdn(`${STATIC_ASSETS}/images/winder/cape-leaf.webp`)}
       />
       <image
         id="image8"
         width="413"
         height="604"
-        xlinkHref={`${STATIC_ASSETS}/images/winder/joy-stick.webp`}
+        xlinkHref={imageCdn(`${STATIC_ASSETS}/images/winder/joy-stick.webp`)}
       />
       <image
         id="image9"
         width="322"
         height="377"
-        xlinkHref={`${STATIC_ASSETS}/images/winder/cape.webp`}
+        xlinkHref={imageCdn(`${STATIC_ASSETS}/images/winder/cape.webp`)}
       />
       <image
         id="image10"
         width="150"
         height="100"
-        xlinkHref={`${STATIC_ASSETS}/images/winder/lego-5.webp`}
+        xlinkHref={imageCdn(`${STATIC_ASSETS}/images/winder/lego-5.webp`)}
       />
       <image
         id="image11"
         width="165"
         height="101"
-        xlinkHref={`${STATIC_ASSETS}/images/winder/lego-6.webp`}
+        xlinkHref={imageCdn(`${STATIC_ASSETS}/images/winder/lego-6.webp`)}
       />
       <image
         id="image12"
         width="56"
         height="48"
-        xlinkHref={`${STATIC_ASSETS}/images/winder/lego-7.webp`}
+        xlinkHref={imageCdn(`${STATIC_ASSETS}/images/winder/lego-7.webp`)}
       />
       <image
         id="image13"
         width="2200"
         height="1812"
-        xlinkHref={`${STATIC_ASSETS}/images/winder/console-hat.webp`}
+        xlinkHref={imageCdn(`${STATIC_ASSETS}/images/winder/console-hat.webp`)}
       />
       <image
         id="image14"
         width="433"
         height="577"
-        xlinkHref={`${STATIC_ASSETS}/images/winder/heart.webp`}
+        xlinkHref={imageCdn(`${STATIC_ASSETS}/images/winder/heart.webp`)}
       />
       <image
         id="image15"
         width="500"
         height="500"
-        xlinkHref={`${STATIC_ASSETS}/images/winder/keyboard.webp`}
+        xlinkHref={imageCdn(`${STATIC_ASSETS}/images/winder/keyboard.webp`)}
       />
     </defs>
   </svg>

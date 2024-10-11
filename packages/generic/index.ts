@@ -25,7 +25,7 @@ export * from "./functions/getShouldUploadVideo";
 export * from "./functions/getSignature";
 export * from "./functions/getThumbnailUrl";
 export * from "./functions/getUploadedMediaType";
-export * from "./functions/imageCdn";
+export * from "./functions/image-cdn";
 export * from "./functions/isOpenActionAllowed";
 export * from "./functions/isWatchable";
 export * from "./functions/omitKey";

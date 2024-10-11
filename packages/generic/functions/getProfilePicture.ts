@@ -2,7 +2,7 @@ import type { IMAGE_TRANSFORMATIONS } from "@tape.xyz/constants";
 import type { Profile } from "@tape.xyz/lens";
 
 import { getLennyPicture } from "./getLennyPicture";
-import { imageCdn } from "./imageCdn";
+import { imageCdn } from "./image-cdn";
 import { sanitizeDStorageUrl } from "./sanitizeDStorageUrl";
 
 export const getProfilePicture = (
