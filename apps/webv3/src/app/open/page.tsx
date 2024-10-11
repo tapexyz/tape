@@ -1,3 +1,4 @@
+import "./open.css";
 import { Comets } from "@tape.xyz/winder";
 import { AnimatedNumber } from "@tape.xyz/winder";
 import {
