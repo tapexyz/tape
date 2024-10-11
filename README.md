@@ -36,13 +36,14 @@ For a place to have open discussions on features, voice your ideas, or get help 
 
 #### 🌐 Apps
 
-| Name    | Description                    |
-| ------- | ------------------------------ |
-| `web`   | Frontend application           |
-| `embed` | Embed Video Player             |
-| `cron`  | Cron jobs for background tasks |
-| `api`   | Backend application            |
-| `og`    | Open graph meta tags generator |
+| Name        | Description                     |
+| ----------- | ------------------------------- |
+| `web`       | Frontend application            |
+| `embed`     | Embed Video Player              |
+| `cron`      | Cron jobs for background tasks  |
+| `api`       | Backend application             |
+| `og`        | Open graph meta tags generator  |
+| `contracts` | Permissionless signup contracts |
 
 #### 📦 Packages
 
@@ -51,7 +52,6 @@ For a place to have open discussions on features, voice your ideas, or get help 
 | `abis`      | Contract Interfaces                  |
 | `config`    | Shared lint config                   |
 | `constants` | Constants for the entire application |
-| `contracts` | Permissionless signup contracts      |
 | `generic`   | Collection of generic helpers        |
 | `server`    | Collection of server helpers         |
 | `browser`   | Collection of client helpers         |
