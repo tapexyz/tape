@@ -21,7 +21,9 @@ export default function RootLayout({
       className={tw(sansFont.variable, serifFont.variable, monoFont.variable)}
     >
       <body>
-        <Providers>{children}</Providers>
+        <main>
+          <Providers>{children}</Providers>
+        </main>
       </body>
     </html>
   );

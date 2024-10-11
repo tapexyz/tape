@@ -12,10 +12,8 @@ export default function EmbedPage({ params }: Props) {
   void rqClient.prefetchQuery(publicationQuery(params.pubId));
 
   return (
-    <main>
-      <HydrationBoundary state={dehydrate(rqClient)}>
-        <Publication />
-      </HydrationBoundary>
-    </main>
+    <HydrationBoundary state={dehydrate(rqClient)}>
+      <Publication />
+    </HydrationBoundary>
   );
 }

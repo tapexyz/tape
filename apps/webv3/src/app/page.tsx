@@ -9,10 +9,10 @@ export default function HomePage() {
   void rqClient.prefetchInfiniteQuery(publicationsQuery);
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-24">
+    <div className="flex min-h-screen flex-col items-center p-24">
       <HydrationBoundary state={dehydrate(rqClient)}>
         <Feed />
       </HydrationBoundary>
-    </main>
+    </div>
   );
 }
