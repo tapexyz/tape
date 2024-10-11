@@ -13,11 +13,11 @@ const Li = ({ item }: LiProps) => {
   return (
     <li>
       <Link
-        className="-mx-3 group relative flex rounded-custom px-3 py-2 text-primary/70 capitalize transition duration-300"
+        className="-mx-3 group relative flex rounded-custom px-3 py-2 text-primary/70 capitalize"
         href={`#${id}`}
         prefetch={false}
       >
-        <span className="bg-[length:0%_2px] bg-gradient-to-r bg-left-bottom from-primary bg-no-repeat transition-all duration-100 ease-out group-hover:bg-[length:100%_2px] group-focus-visible:bg-[length:100%_2px]">
+        <span className="bg-[length:0%_2px] bg-gradient-to-r bg-left-bottom from-primary bg-no-repeat transition-all duration-200 ease-out group-hover:bg-[length:100%_2px] group-focus-visible:bg-[length:100%_2px]">
           {label}
         </span>
       </Link>
