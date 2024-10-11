@@ -25,7 +25,7 @@ const DropdownMenuSubTrigger = forwardRef<
     {...props}
   >
     {children}
-    <CaretRight className="ml-auto size-4" />
+    <CaretRight className="ml-auto size-3.5" />
   </DropdownMenuPrimitive.SubTrigger>
 ));
 
