@@ -18,7 +18,7 @@ const DropdownMenuSubTrigger = forwardRef<
   <DropdownMenuPrimitive.SubTrigger
     ref={ref}
     className={tw(
-      "flex cursor-default select-none items-center rounded-lg px-2 py-1.5 text-sm outline-none focus:bg-site data-[state=open]:bg-site",
+      "flex cursor-default select-none items-center rounded-lg px-2 py-1.5 text-sm outline-none focus:bg-secondary data-[state=open]:bg-secondary",
       inset && "pl-8",
       className
     )}
@@ -74,7 +74,7 @@ const DropdownMenuItem = forwardRef<
   <DropdownMenuPrimitive.Item
     ref={ref}
     className={tw(
-      "relative flex cursor-default select-none items-center rounded-lg px-2 py-1.5 text-sm transition-colors focus:bg-site focus:outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex cursor-default select-none items-center rounded-lg px-2 py-1.5 text-sm transition-colors focus:bg-secondary focus:outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       inset && "pl-8",
       className
     )}
@@ -106,7 +106,7 @@ const DropdownMenuSeparator = forwardRef<
 >(({ className, ...props }, ref) => (
   <DropdownMenuPrimitive.Separator
     ref={ref}
-    className={tw("-mx-1 my-1 h-px bg-site", className)}
+    className={tw("-mx-1 my-1 h-px bg-secondary", className)}
     {...props}
   />
 ));

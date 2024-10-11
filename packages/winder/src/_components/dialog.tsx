@@ -90,7 +90,7 @@ const DialogOverlay = forwardRef<
   <DialogPrimitive.Overlay
     ref={ref}
     className={tw(
-      "fixed inset-0 z-50 bg-card/50 backdrop-blur-md",
+      "fixed inset-0 z-50 bg-white/50 backdrop-blur-md dark:bg-black/50",
       "data-[state=closed]:fade-out data-[state=open]:fade-in data-[state=closed]:animate-out data-[state=open]:animate-in",
       className
     )}

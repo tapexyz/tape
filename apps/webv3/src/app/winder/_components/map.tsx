@@ -6,7 +6,6 @@ import {
   AvatarImage,
   Badge,
   Button,
-  Card,
   Dialog,
   DialogClose,
   DialogContent,
@@ -367,21 +366,6 @@ export const components = [
     }
   },
   {
-    id: "card",
-    label: "Card",
-    component: () => {
-      return (
-        <div className="grid grid-flow-col grid-rows-2 gap-2">
-          <Card className="h-64">This is a video, for example.</Card>
-          <Card className="h-64">This is a thumbnail, for example.</Card>
-          <Card className="row-span-2 min-h-96">
-            This is a byte, for example.
-          </Card>
-        </div>
-      );
-    }
-  },
-  {
     id: "description",
     label: "Description",
     component: () => {
@@ -510,15 +494,15 @@ export const components = [
       return (
         <VStack>
           <span>
-            <Card className="h-64">
+            <div className="grid h-64 place-items-center">
               <EmptyState
                 title="No videos found"
                 description="Creators can create videos by clicking the + button in the top right corner of the screen."
               />
-            </Card>
+            </div>
           </span>
           <span>
-            <Card className="h-64">
+            <div className="grid h-64 place-items-center">
               <EmptyState
                 title="No comments found"
                 description="Users can comment on videos by clicking the + icon in the top right corner of the screen."
@@ -533,7 +517,7 @@ export const components = [
                   </Button>
                 }
               />
-            </Card>
+            </div>
           </span>
         </VStack>
       );
@@ -544,10 +528,10 @@ export const components = [
     label: "Input",
     component: () => {
       return (
-        <Card className="flex flex-col space-y-6">
+        <div className="flex flex-col space-y-6">
           <Input placeholder="Enter recipient" />
           <Input placeholder="Enter your first name" label="First Name" />
-        </Card>
+        </div>
       );
     }
   },
@@ -728,13 +712,13 @@ export const components = [
               <TabsTrigger value="week">This week</TabsTrigger>
             </TabsList>
             <TabsContent value="all-time">
-              <Card>Content all time.</Card>
+              <div>Content all time.</div>
             </TabsContent>
             <TabsContent value="month">
-              <Card>Content this month.</Card>
+              <div>Content this month.</div>
             </TabsContent>
             <TabsContent value="week">
-              <Card>Content this week.</Card>
+              <div>Content this week.</div>
             </TabsContent>
           </Tabs>
           <Tabs defaultValue="videos">
@@ -743,10 +727,10 @@ export const components = [
               <TabsTrigger value="bytes">Bytes</TabsTrigger>
             </TabsList>
             <TabsContent value="videos">
-              <Card>All your videos are here.</Card>
+              <div>All your videos are here.</div>
             </TabsContent>
             <TabsContent value="bytes">
-              <Card>All your bytes are here.</Card>
+              <div>All your bytes are here.</div>
             </TabsContent>
           </Tabs>
         </VStack>
@@ -778,10 +762,10 @@ export const components = [
     label: "Textarea",
     component: () => {
       return (
-        <Card className="flex flex-col space-y-6">
+        <div className="flex flex-col space-y-6">
           <Textarea placeholder="More about yourself" />
           <Textarea placeholder="More about the video" label="Description" />
-        </Card>
+        </div>
       );
     }
   },
