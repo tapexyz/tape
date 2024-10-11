@@ -1,12 +1,14 @@
-import type { Metadata } from "next";
+"use client";
+
+// import type { Metadata } from "next";
 import { Content } from "./_components/content";
 import { Header } from "./_components/header";
 import { Sidebar } from "./_components/sidebar";
 
-export const metadata: Metadata = {
-  title: "Tape Winder",
-  description: "Winder is a brand & design system for Tape."
-};
+// export const metadata: Metadata = {
+//   title: "Tape Winder",
+//   description: "Winder is a brand & design system for Tape."
+// };
 
 export default function WinderPage() {
   return (
