@@ -63,7 +63,7 @@ import {
   USED_ICONS,
   User,
   tw
-} from "@tape.xyz/winder/common";
+} from "@tape.xyz/winder";
 import { useState } from "react";
 
 const VStack = ({

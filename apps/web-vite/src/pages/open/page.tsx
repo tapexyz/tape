@@ -7,7 +7,7 @@ import {
   ChatsCircle,
   CurrencyDollar,
   Lightning
-} from "@tape.xyz/winder/common";
+} from "@tape.xyz/winder";
 import { MiddleGridItem } from "./_components/middle-grid-item";
 import { platformStats } from "./queries";
 

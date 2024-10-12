@@ -1,5 +1,5 @@
 import { CREATOR_VIDEO_CATEGORIES } from "@tape.xyz/constants";
-import { tw } from "@tape.xyz/winder/common";
+import { tw } from "@tape.xyz/winder";
 import { useMeasure } from "@uidotdev/usehooks";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
