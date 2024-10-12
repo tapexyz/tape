@@ -565,7 +565,7 @@ export const components = [
                 type: "video/mp4"
               }}
               poster={imageCdn(
-                `${IPFS_GATEWAY_URL}/bafybeiaikdpxnqig7ta5z5ahqav7p2z3lrijp5ym3ctg4on5reiktdh2lu`
+                `${IPFS_GATEWAY_URL}/bafybeicxkyxfqnqtisirfybimaw7qdqas6gslqg7f6hle7lo2rdzrncnhi`
               )}
               load="visible"
               autoPlay={false}
@@ -599,7 +599,9 @@ export const components = [
                   src: `${IPFS_GATEWAY_URL}/bafybeihj5l4agwyv276nvwdpdey4wp646c2lqrfjmq4v6hmttszb3gd4xm`,
                   type: "audio/mp3"
                 }}
-                poster={`${IPFS_GATEWAY_URL}/bafkreiam4w73hooyzel2674k6vr52civh4miazhfuxefqpy6n4qwqvwtp4`}
+                poster={imageCdn(
+                  `${IPFS_GATEWAY_URL}/bafkreiam4w73hooyzel2674k6vr52civh4miazhfuxefqpy6n4qwqvwtp4`
+                )}
                 load="visible"
                 autoPlay={false}
               />
