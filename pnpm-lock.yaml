@@ -784,12 +784,6 @@ importers:
       framer-motion:
         specifier: ^11.11.4
         version: 11.11.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      next:
-        specifier: ^14.2.14
-        version: 14.2.15(@babel/core@7.25.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      next-themes:
-        specifier: ^0.3.0
-        version: 0.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
         specifier: ^18.3.1
         version: 18.3.1
