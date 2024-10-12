@@ -1,19 +1,19 @@
 @font-face {
-  font-family: "SerifFont";
-  src: url("/fonts/serif.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "SansFont";
+  font-family: "GeistSans";
   src: url("/fonts/sans.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "MonoFont";
+  font-family: "EditorialNew";
+  src: url("/fonts/serif.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "GeistMono";
   src: url("/fonts/mono.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
@@ -26,9 +26,10 @@
 
 @layer base {
   :root {
-    --tape-font-serif: "SerifFont", ui-serif, serif;
-    --tape-font-sans: "SansFont", ui-sans-serif, system-ui;
-    --tape-font-mono: "MonoFont", ui-monospace, monospace;
+    --tape-font-sans: "GeistSans", ui-sans-serif, system-ui, -apple-system,
+      sans-serif;
+    --tape-font-serif: "EditorialNew", ui-serif, serif;
+    --tape-font-mono: "GeistMono", ui-monospace, monospace;
 
     --radius: 9px;
     --upbyte: 15 100% 64;

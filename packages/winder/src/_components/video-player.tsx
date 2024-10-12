@@ -1,5 +1,3 @@
-"use client";
-
 import "@vidstack/react/player/styles/base.css";
 import { useIntersectionObserver } from "@uidotdev/usehooks";
 import {
