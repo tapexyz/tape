@@ -11,8 +11,6 @@ import {
 import { MiddleGridItem } from "./_components/middle-grid-item";
 import { platformStats } from "./queries";
 
-export const revalidate = 86400;
-
 export const OpenPage = () => {
   const { data } = useQuery(platformStats);
 

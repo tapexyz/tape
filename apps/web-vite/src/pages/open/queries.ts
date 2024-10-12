@@ -11,7 +11,7 @@ type CreatorEarnings = {
   [key: string]: string;
 };
 
-export type Stats = {
+type Stats = {
   acts: number;
   posts: number;
   comments: number;
