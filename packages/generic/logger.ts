@@ -20,13 +20,13 @@ const tailLog = (level: "error" | "log", message: string) => {
 };
 
 export const logger = {
-  log: (message: string, info: any) => {
+  log: (message: string, info: unknown) => {
     console.info(message, info);
   },
-  warn: (...args: any) => {
+  warn: (...args: unknown[]) => {
     console.warn(...args);
   },
-  error: (message: string, error: any) => {
+  error: (message: string, error: unknown) => {
     tailLog("error", `${message} ${JSON.stringify(error)}`);
     console.error(message, error);
   }

@@ -1,9 +1,9 @@
+import { Feed } from "./feed";
+
 export const HomePage = () => {
   return (
-    <div className="text-primary">
-      <p>Click on the Vite and React logos to learn more</p>
-      <p>Click on the Vite and React logos to learn more</p>
-      <p>Click on the Vite and React logos to learn more</p>
+    <div className="flex min-h-screen flex-col items-center p-24">
+      <Feed />
     </div>
   );
 };
