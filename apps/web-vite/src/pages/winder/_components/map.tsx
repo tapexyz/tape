@@ -567,7 +567,8 @@ export const components = [
               poster={imageCdn(
                 `${IPFS_GATEWAY_URL}/bafybeicxkyxfqnqtisirfybimaw7qdqas6gslqg7f6hle7lo2rdzrncnhi`
               )}
-              load="visible"
+              load="idle"
+              posterLoad="idle"
               autoPlay={false}
             />
           </span>
@@ -581,7 +582,8 @@ export const components = [
                 type: "video/mp4"
               }}
               poster={`${IPFS_GATEWAY_URL}/bafybeib3rptof3clasb4llm247zupf5pspequwu5wntzedn5nnh75ljgea`}
-              load="visible"
+              load="idle"
+              posterLoad="idle"
               autoPlay={false}
               loop={true}
               top={
@@ -602,7 +604,8 @@ export const components = [
                 poster={imageCdn(
                   `${IPFS_GATEWAY_URL}/bafkreiam4w73hooyzel2674k6vr52civh4miazhfuxefqpy6n4qwqvwtp4`
                 )}
-                load="visible"
+                load="idle"
+                posterLoad="idle"
                 autoPlay={false}
               />
             </div>
@@ -616,7 +619,8 @@ export const components = [
               poster={imageCdn(
                 `${IPFS_GATEWAY_URL}/QmVg5mLJJsx9JZvyR6j4ej1b8WGBXZmi9bQNbwQDQ7pLEc`
               )}
-              load="visible"
+              load="idle"
+              posterLoad="idle"
               layout="horizontal"
               autoPlay={false}
             />
