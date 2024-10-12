@@ -19,7 +19,7 @@ export const IntroSection = () => {
               drag
               dragSnapToOrigin
               dragMomentum={false}
-              dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
+              dragConstraints={{ top: 10, bottom: 10, left: 10, right: 10 }}
               dragTransition={{
                 bounceDamping: 20,
                 bounceStiffness: 600
@@ -30,7 +30,7 @@ export const IntroSection = () => {
                 type: "spring",
                 bounce: 0,
                 duration: 1,
-                delay: index * 0.1
+                delay: index * 0.05
               }}
             >
               {char}

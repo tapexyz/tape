@@ -1,5 +1,4 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { AnimatePresence } from "framer-motion";
 import { forwardRef } from "react";
 import { X } from "../icons";
 import { tw } from "../tw";
@@ -48,26 +47,24 @@ const DialogContent = forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
 >(({ className, children, ...props }, ref) => (
-  <AnimatePresence>
-    <DialogPortal>
-      <DialogOverlay />
-      <DialogPrimitive.Content
-        className={tw(
-          "-translate-x-1/2 -translate-y-1/2 fixed top-1/2 left-1/2 z-50 grid w-full max-w-lg gap-4 overflow-hidden rounded-card-sm border-2 border-custom bg-theme p-6 dark:bg-site",
-          "data-[state=closed]:fade-out data-[state=open]:fade-in data-[state=closed]:zoom-out-90 data-[state=open]:zoom-in-90 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] data-[state=closed]:animate-out data-[state=open]:animate-in",
-          className
-        )}
-        ref={ref}
-        {...props}
-      >
-        {children}
-        <DialogPrimitive.Close className="absolute top-5 right-5 rounded-full p-1 opacity-70 transition-opacity hover:opacity-100 disabled:pointer-events-none">
-          <X />
-          <span className="sr-only">Close</span>
-        </DialogPrimitive.Close>
-      </DialogPrimitive.Content>
-    </DialogPortal>
-  </AnimatePresence>
+  <DialogPortal>
+    <DialogOverlay />
+    <DialogPrimitive.Content
+      className={tw(
+        "-translate-x-1/2 -translate-y-1/2 fixed top-1/2 left-1/2 z-50 grid w-full max-w-lg gap-4 overflow-hidden rounded-card-sm border-2 border-custom bg-theme p-6 dark:bg-site",
+        "data-[state=closed]:fade-out data-[state=open]:fade-in data-[state=closed]:zoom-out-90 data-[state=open]:zoom-in-90 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] data-[state=closed]:animate-out data-[state=open]:animate-in",
+        className
+      )}
+      ref={ref}
+      {...props}
+    >
+      {children}
+      <DialogPrimitive.Close className="absolute top-5 right-5 rounded-full p-1 opacity-70 transition-opacity hover:opacity-100 disabled:pointer-events-none">
+        <X />
+        <span className="sr-only">Close</span>
+      </DialogPrimitive.Close>
+    </DialogPrimitive.Content>
+  </DialogPortal>
 ));
 
 const DialogFooter = ({

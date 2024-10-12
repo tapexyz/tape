@@ -10,7 +10,7 @@ const AnimatedRect = (props: SVGProps<SVGRectElement> & MotionProps) => {
       drag
       dragSnapToOrigin
       dragMomentum={false}
-      dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
+      dragConstraints={{ top: 10, bottom: 10, left: 10, right: 10 }}
       dragTransition={{
         bounceDamping: 20,
         bounceStiffness: 600
@@ -19,27 +19,10 @@ const AnimatedRect = (props: SVGProps<SVGRectElement> & MotionProps) => {
         x: 0,
         y: 0,
         opacity: 1,
-        rotateZ: [0, -35, 0],
         transition: {
-          duration: 4,
-          ease: "linear",
-          repeatType: "loop",
-          repeat: Number.POSITIVE_INFINITY,
-          opacity: {
-            bounce: 0,
-            duration: 2,
-            type: "spring"
-          },
-          x: {
-            bounce: 0,
-            duration: 2,
-            type: "spring"
-          },
-          y: {
-            bounce: 0,
-            duration: 0.9,
-            type: "spring"
-          }
+          bounce: 0,
+          duration: 1.5,
+          type: "spring"
         }
       }}
       {...props}
