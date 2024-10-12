@@ -65,7 +65,6 @@ import {
   tw
 } from "@tape.xyz/winder/common";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 
 const VStack = ({
   children,
@@ -184,10 +183,11 @@ export const base = [
     component: () => {
       return (
         <VStack className="overflow-hidden">
-          <Link
-            to="https://pangrampangram.com/products/editorial-new"
+          <a
+            href="https://pangrampangram.com/products/editorial-new"
             className="group space-y-4"
             target="_blank"
+            rel="noreferrer"
           >
             <div className="space-y-2">
               <div className="-mt-2 text-5xl">■</div>
@@ -196,11 +196,12 @@ export const base = [
             <h1 className="select-none text-end font-serif text-9xl text-muted transition-colors duration-300 group-hover:text-primary">
               tape
             </h1>
-          </Link>
-          <Link
-            to="https://vercel.com/font"
+          </a>
+          <a
+            href="https://vercel.com/font"
             className="group space-y-4"
             target="_blank"
+            rel="noreferrer"
           >
             <div className="space-y-2">
               <div className="text-4xl">▲</div>
@@ -209,11 +210,12 @@ export const base = [
             <h1 className="select-none text-end font-sans text-9xl text-muted transition-colors duration-300 group-hover:text-primary">
               tape
             </h1>
-          </Link>
-          <Link
-            to="https://vercel.com/font"
+          </a>
+          <a
+            href="https://vercel.com/font"
             className="group space-y-4"
             target="_blank"
+            rel="noreferrer"
           >
             <div className="space-y-2">
               <div className="text-4xl">●</div>
@@ -222,7 +224,7 @@ export const base = [
             <h1 className="select-none text-end font-mono text-9xl text-muted transition-colors duration-300 group-hover:text-primary">
               1234
             </h1>
-          </Link>
+          </a>
         </VStack>
       );
     }

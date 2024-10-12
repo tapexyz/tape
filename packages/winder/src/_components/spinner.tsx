@@ -1,7 +1,9 @@
-export const Spinner = ({ className = "size-5" }: { className?: string }) => {
+import { tw } from "../tw";
+
+export const Spinner = ({ className }: { className?: string }) => {
   return (
     <svg
-      className={className}
+      className={tw("size-5 animate-spin", className)}
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
       fill="currentColor"
