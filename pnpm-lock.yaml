@@ -479,9 +479,6 @@ importers:
       vite:
         specifier: ^5.4.8
         version: 5.4.8(@types/node@22.7.5)(terser@5.34.1)
-      vite-plugin-biome:
-        specifier: ^1.0.12
-        version: 1.0.12(@biomejs/biome@1.9.3)
 
   apps/webv3:
     dependencies:
@@ -9272,11 +9269,6 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
-
-  vite-plugin-biome@1.0.12:
-    resolution: {integrity: sha512-/+fBi1S+UEYtTu361IXQLZB8cSV/z4WoyK9cp/Dd1hHT6wGnFb+4Wcjwog3Y7HSUqNJbCdFWTYTyX4hwyO2iBg==}
-    peerDependencies:
-      '@biomejs/biome': ^1.8.0
 
   vite@5.4.8:
     resolution: {integrity: sha512-FqrItQ4DT1NC4zCUqMB4c4AZORMKIa0m8/URVCZ77OZ/QSNeJ54bU1vrFADbDsuwfIPcgknRkmqakQcgnL4GiQ==}
@@ -20120,10 +20112,6 @@ snapshots:
       - bufferutil
       - utf-8-validate
       - zod
-
-  vite-plugin-biome@1.0.12(@biomejs/biome@1.9.3):
-    dependencies:
-      '@biomejs/biome': 1.9.3
 
   vite@5.4.8(@types/node@22.7.5)(terser@5.34.1):
     dependencies:

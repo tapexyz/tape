@@ -64,23 +64,5 @@
     "formatter": {
       "trailingCommas": "none"
     }
-  },
-  "overrides": [
-    {
-      "include": ["**/package.json"],
-      "formatter": {
-        "lineWidth": 1
-      }
-    },
-    {
-      "include": ["**/vite.config.ts"],
-      "linter": {
-        "rules": {
-          "suspicious": {
-            "noConsoleLog": "off"
-          }
-        }
-      }
-    }
-  ]
+  }
 }
