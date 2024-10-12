@@ -5,12 +5,12 @@ export default {
   darkMode: ["class"],
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
-    fontFamily: {
-      sans: "var(--tape-font-sans)",
-      serif: "var(--tape-font-serif)",
-      mono: "var(--tape-font-mono)"
-    },
     extend: {
+      fontFamily: {
+        sans: "var(--tape-font-sans)",
+        serif: "var(--tape-font-serif)",
+        mono: "var(--tape-font-mono)"
+      },
       backgroundColor: {
         site: "hsl(var(--site-background))"
       },

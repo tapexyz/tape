@@ -19,11 +19,11 @@ async function deployProxy() {
   await deployProxy.waitForDeployment();
 
   const proxyAddress = await deployProxy.getAddress();
-  console.log(`TapePermissonlessCreator Proxy deployed to ${proxyAddress}`);
+  console.info(`TapePermissonlessCreator Proxy deployed to ${proxyAddress}`);
 
   const currentImplAddress =
     await hre.upgrades.erc1967.getImplementationAddress(proxyAddress);
-  console.log(
+  console.info(
     `TapePermissonlessCreator Implementation deployed to ${currentImplAddress}`
   );
 }
@@ -35,7 +35,7 @@ async function deployProxy() {
 //     'TapePermissonlessCreatorV2'
 //   )
 //   await hre.upgrades.upgradeProxy(PROXY_ADDRESS, TapePermissionlessCreatorV2)
-//   console.log('Proxy upgraded')
+//   console.info('Proxy upgraded')
 // }
 
 deployProxy().catch((error) => {

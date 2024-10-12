@@ -14,15 +14,15 @@ const connectRedis = async () => {
 };
 
 const listenToRedis = () => {
-  redisClient.on("connect", () => console.log("[REDIS] Connected to Redis"));
-  redisClient.on("ready", () => console.log("[REDIS] Redis is ready"));
+  redisClient.on("connect", () => console.info("[REDIS] Connected to Redis"));
+  redisClient.on("ready", () => console.info("[REDIS] Redis is ready"));
   redisClient.on("reconnecting", () =>
-    console.log("[REDIS] Redis is reconnecting")
+    console.info("[REDIS] Redis is reconnecting")
   );
   redisClient.on("error", (error) =>
     console.error("[REDIS] Redis error", error)
   );
-  redisClient.on("end", () => console.log("[REDIS] Redis connection ended"));
+  redisClient.on("end", () => console.info("[REDIS] Redis connection ended"));
 };
 
 if (redisClient) {

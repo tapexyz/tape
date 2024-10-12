@@ -4,9 +4,9 @@ const initOptions: pgp.IInitOptions = {
   error: (err, e) => {
     console.error("[indexer-db] Error:", err?.message || err);
     if (e.query) {
-      console.log("[indexer-db] Error Query:", e.query);
+      console.info("[indexer-db] Error Query:", e.query);
       if (e.params) {
-        console.log("[indexer-db] Error Parameters:", e.params);
+        console.info("[indexer-db] Error Parameters:", e.params);
       }
     }
   }

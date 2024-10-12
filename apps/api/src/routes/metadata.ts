@@ -34,7 +34,7 @@ app.post("/", async (c) => {
       ]
     });
     const took = performance.now() - startTime;
-    console.log(`[METADATA] irys upload took ${took}ms`);
+    console.info(`[METADATA] irys upload took ${took}ms`);
 
     if (!receipt.id) {
       return c.json({

@@ -12,7 +12,7 @@ const ServiceWorkerProvider: FC<{ children: ReactNode }> = ({ children }) => {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker
         .register("/sw.js", { updateViaCache: "none" })
-        .then((registration) => console.log("[SW] ⚙︎ ", registration.scope))
+        .then((registration) => console.info("[SW] ⚙︎ ", registration.scope))
         .catch((error) => console.error("[SW] ⚙︎ ", error));
     }
   }, []);

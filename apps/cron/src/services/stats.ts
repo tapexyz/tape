@@ -31,7 +31,7 @@ const earningStats = async (startTimestamp: string) => {
 
       const start = startDate.toISOString().replace("T", " ").replace("Z", "");
       const end = endDate.toISOString().replace("T", " ").replace("Z", "");
-      console.log(`[computing earning stats] ~ start: ${start}, end: ${end}`);
+      console.info(`[computing earning stats] ~ start: ${start}, end: ${end}`);
       const results = await indexerDb.query(
         `
         SELECT
@@ -124,7 +124,7 @@ const computePlatformStats = async () => {
     `
     );
     const endTime = performance.now();
-    console.log(`[stats] execution time: ${endTime - startTime} ms`);
+    console.info(`[stats] execution time: ${endTime - startTime} ms`);
 
     const flatData = Object.assign({}, ...results.flat());
 
@@ -132,7 +132,7 @@ const computePlatformStats = async () => {
     const { earnings, timestamp } = await earningStats(
       prevStats?.blockTimestamp || "2022-05-17T16:12:16"
     );
-    console.log("[computed stats]", earnings, timestamp);
+    console.info("[computed stats]", earnings, timestamp);
 
     const upsertData = {
       profiles: flatData.total_profiles,
@@ -157,7 +157,7 @@ const computePlatformStats = async () => {
         ...upsertData
       }
     });
-    return console.log("[stats] Successfully computed platform stats");
+    return console.info("[stats] Successfully computed platform stats");
   } catch (error) {
     console.error("[stats] Error computing platform stats → ", error);
   }

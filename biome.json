@@ -1,13 +1,12 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-  "organizeImports": {
-    "enabled": true
-  },
+  "organizeImports": { "enabled": true },
   "files": {
     "maxSize": 5242880,
     "ignore": [
       "**/.next/**",
       "**/dist/**",
+      "**/out/**",
       "**/artifacts/**",
       "**/node_modules/**",
       "**/.git/**",
@@ -17,7 +16,8 @@
       ".openzeppelin",
       "sw.js",
       "packages/tsconfig",
-      "generated.ts"
+      "generated.ts",
+      "tsconfig.*"
     ]
   },
   "linter": {
@@ -40,7 +40,9 @@
       "suspicious": {
         "noExplicitAny": "warn",
         "noMisleadingCharacterClass": "warn",
-        "noArrayIndexKey": "warn"
+        "noArrayIndexKey": "warn",
+        "noConsoleLog": "warn",
+        "noEmptyInterface": "warn"
       },
       "complexity": {
         "noForEach": "warn"
@@ -55,6 +57,7 @@
     }
   },
   "formatter": {
+    "enabled": true,
     "indentStyle": "space"
   },
   "javascript": {

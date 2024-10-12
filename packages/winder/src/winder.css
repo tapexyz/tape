@@ -1,9 +1,36 @@
+@font-face {
+  font-family: "GeistSans";
+  src: url("/fonts/sans.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "EditorialNew";
+  src: url("/fonts/serif.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "GeistMono";
+  src: url("/fonts/mono.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
+    --tape-font-sans: "GeistSans", ui-sans-serif, system-ui, -apple-system,
+      sans-serif;
+    --tape-font-serif: "EditorialNew", ui-serif, serif;
+    --tape-font-mono: "GeistMono", ui-monospace, monospace;
+
     --radius: 9px;
     --upbyte: 15 100% 64;
     --scrollbar-thumb: #c7c7c7;
@@ -37,6 +64,7 @@
     scrollbar-color: var(--scrollbar-thumb) transparent;
   }
   html {
-    @apply scroll-smooth bg-site font-sans antialiased;
+    font-family: var(--tape-font-sans);
+    @apply scroll-smooth bg-site antialiased text-primary;
   }
 }
