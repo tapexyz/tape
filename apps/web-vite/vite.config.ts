@@ -24,31 +24,16 @@ export default defineConfig(({ mode }) => {
       "process.env": process.env
     },
     build: {
-      chunkSizeWarningLimit: 3500
-      // rollupOptions: {
-      //   output: {
-      //     manualChunks: (id) => {
-      //       if (id.includes("node_modules")) {
-      //         if (id.includes("vidstack")) {
-      //           return "vidstack";
-      //         }
-      //         if (id.includes("framer-motion")) {
-      //           return "framer-motion";
-      //         }
-      //         if (id.includes("graphql")) {
-      //           return "graphql";
-      //         }
-      //         if (id.includes("phosphor")) {
-      //           return "phosphor";
-      //         }
-      //         if (id.includes("radix")) {
-      //           return "radix";
-      //         }
-      //         return "vendor";
-      //       }
-      //     }
-      //   }
-      // }
+      chunkSizeWarningLimit: 1500,
+      rollupOptions: {
+        output: {
+          manualChunks: (id) => {
+            if (id.includes("node_modules")) {
+              return "vendor";
+            }
+          }
+        }
+      }
     }
   };
 });
