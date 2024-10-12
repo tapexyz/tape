@@ -1,4 +1,4 @@
-name: Docker Build and Push (Web)
+name: (OG) Docker Build and Push
 
 on:
   push:
@@ -35,6 +35,6 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: .
-        file: ./apps/webv3/Dockerfile
+        file: ./apps/og/Dockerfile
         push: true
-        tags: ghcr.io/${{ github.repository_owner }}/tape/webv3:latest
+        tags: ghcr.io/${{ github.repository_owner }}/tape/og:latest
