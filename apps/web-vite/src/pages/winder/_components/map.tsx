@@ -712,6 +712,19 @@ export const components = [
               Post now
             </Button>
             <Button
+              variant="secondary"
+              className="w-32"
+              loading={loading}
+              onClick={() => {
+                setLoading(true);
+                setTimeout(() => {
+                  setLoading(false);
+                }, 2000);
+              }}
+            >
+              Submit
+            </Button>
+            <Button
               variant="destructive"
               className="w-32"
               loading={loading}
