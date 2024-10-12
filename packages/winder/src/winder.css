@@ -64,6 +64,7 @@
     scrollbar-color: var(--scrollbar-thumb) transparent;
   }
   html {
-    @apply scroll-smooth bg-site font-sans antialiased text-primary;
+    font-family: var(--tape-font-sans);
+    @apply scroll-smooth bg-site antialiased text-primary;
   }
 }
