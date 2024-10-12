@@ -19,7 +19,7 @@ const curatePublications = async (mainFocus: MainFocus) => {
       where: { isCurated: true }
     });
     const profileIds = profiles.map(({ profileId }) => profileId);
-    console.log(`[curate] Found ${profileIds.length} curated profiles`);
+    console.info(`[curate] Found ${profileIds.length} curated profiles`);
 
     const batches = [];
     const batchSize = 50;
@@ -30,7 +30,7 @@ const curatePublications = async (mainFocus: MainFocus) => {
     for (let batchIndex = 0; batchIndex < batches.length; batchIndex++) {
       const batch = batches[batchIndex] as string[];
 
-      console.log(
+      console.info(
         `[curate] Processing page ${pageNumber}, batch ${batchIndex + 1} with ${batch.length} profiles`
       );
 
@@ -76,7 +76,7 @@ const curatePublications = async (mainFocus: MainFocus) => {
         );
 
         const pubIds = results.map(({ publication_id }) => publication_id);
-        console.log(`[curate] Found ${pubIds.length} publications`);
+        console.info(`[curate] Found ${pubIds.length} publications`);
         for (const pubId of pubIds) {
           alreadyQueried.add(pubId);
         }
@@ -87,7 +87,7 @@ const curatePublications = async (mainFocus: MainFocus) => {
           while (bufferedItems.length >= limit) {
             const itemsToCache = bufferedItems.slice(0, limit);
             const cacheKey = `${REDIS_KEYS.CURATED_PUBLICATIONS}:${mainFocus}:${pageNumber}`;
-            console.log(
+            console.info(
               `[curate] Caching ${itemsToCache.length} publications for page ${pageNumber}`
             );
             await rSet(cacheKey, JSON.stringify(pubIds), REDIS_EXPIRY.HALF_DAY);
@@ -108,7 +108,7 @@ const curatePublications = async (mainFocus: MainFocus) => {
     if (bufferedItems.length > 0) {
       // Cache the remaining items as a new page
       const cacheKey = `${REDIS_KEYS.CURATED_PUBLICATIONS}:${mainFocus}:${pageNumber}`;
-      console.log(
+      console.info(
         `[curate] Caching remaining ${bufferedItems.length} publications for page ${pageNumber}`
       );
       await rSet(
@@ -118,7 +118,7 @@ const curatePublications = async (mainFocus: MainFocus) => {
       );
     }
 
-    console.log(`[curate] [${mainFocus}] Done curating publications 🎉`);
+    console.info(`[curate] [${mainFocus}] Done curating publications 🎉`);
   } catch (error) {
     console.error(
       `[curate] [${mainFocus}] Error curating publications:`,

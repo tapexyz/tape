@@ -27,7 +27,7 @@ const flushTrails = async (): Promise<void> => {
       }
 
       const took = performance.now() - startTime;
-      console.log(
+      console.info(
         `[cron] trails - batch inserted ${trails.length} trails to clickhouse in ${took}ms`
       );
     }

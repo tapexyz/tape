@@ -27,7 +27,7 @@ const flushEvents = async (): Promise<void> => {
       }
 
       const took = performance.now() - startTime;
-      console.log(
+      console.info(
         `[cron] tower events - batch inserted ${events.length} events to clickhouse in ${took}ms`
       );
     }

@@ -1,9 +1,6 @@
-"use client";
-
-import { useIsClient } from "@uidotdev/usehooks";
 import { motion } from "framer-motion";
-import { useTheme } from "next-themes";
 import { Desktop, Moon, Sun } from "../icons";
+import { useTheme } from "../theme";
 import { Button } from "./button";
 
 const getIcon = (theme: string) => {
@@ -18,8 +15,7 @@ const getIcon = (theme: string) => {
 };
 
 export const ThemeSwitcher = () => {
-  const isClient = useIsClient();
-  const { setTheme, themes, theme: currentTheme = "system" } = useTheme();
+  const { setTheme, theme: currentTheme = "system", themes } = useTheme();
 
   const getNextTheme = () => {
     const currentIndex = themes.indexOf(currentTheme);
@@ -33,14 +29,13 @@ export const ThemeSwitcher = () => {
       variant="secondary"
       onClick={() => setTheme(getNextTheme())}
     >
-      {isClient ? getIcon(getNextTheme()) : null}
+      {getIcon(getNextTheme())}
     </Button>
   );
 };
 
 export const ThemeSwitcherExpanded = ({ id }: Readonly<{ id: string }>) => {
-  const isClient = useIsClient();
-  const { setTheme, themes, theme: currentTheme } = useTheme();
+  const { setTheme, theme: currentTheme = "system", themes } = useTheme();
 
   return (
     <div className="inline-flex h-9 items-center gap-0.5 rounded-full border border-custom bg-secondary p-1 transition-shadow hover:shadow-inner">
@@ -51,7 +46,7 @@ export const ThemeSwitcherExpanded = ({ id }: Readonly<{ id: string }>) => {
           className="relative rounded-full p-1.5"
           onClick={() => setTheme(theme)}
         >
-          {isClient && currentTheme === theme ? (
+          {currentTheme === theme ? (
             <motion.span
               key={currentTheme}
               layoutId={`${id}-theme-switcher`}

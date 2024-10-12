@@ -58,7 +58,7 @@ const cleanup4Ever = async (): Promise<void> => {
     } while (continuationToken);
 
     if (objectsToDelete.length === 0) {
-      console.log(
+      console.info(
         `[4ever cleanup] No objects older than ${DAYS_TO_KEEP} days found.`
       );
       return;
@@ -76,12 +76,12 @@ const cleanup4Ever = async (): Promise<void> => {
       });
 
       await s3Client.send(deleteCommand);
-      console.log(
+      console.info(
         `[4ever cleanup] Deleted ${batch.length} objects older than ${DAYS_TO_KEEP} days in batch ${i / maxDeleteBatchSize + 1}.`
       );
     }
 
-    console.log(
+    console.info(
       `[4ever cleanup] Total deleted ${objectsToDelete.length} objects older than ${DAYS_TO_KEEP} days 🗑️`
     );
   } catch (error) {
@@ -92,7 +92,7 @@ const cleanup4Ever = async (): Promise<void> => {
 const vacuumPostgres = async (): Promise<void> => {
   try {
     await tapeDb.$queryRaw`VACUUM`;
-    console.log("[cron] Postgres vacuum completed ♻️");
+    console.info("[cron] Postgres vacuum completed ♻️");
   } catch (error) {
     console.error("[cron] Error Postgres vacuum", error);
   }
@@ -123,7 +123,7 @@ const cleanupClickhouse = async (): Promise<void> => {
     await Promise.all(
       queries.map((query) => clickhouseClient.command({ query }))
     );
-    console.log("[cron] Clickhouse cleanup completed ♻️");
+    console.info("[cron] Clickhouse cleanup completed ♻️");
   } catch (error) {
     console.error("[cron] Error Clickhouse cleanup", error);
   }

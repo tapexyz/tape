@@ -44,5 +44,5 @@ app
   .route("/allowed-tokens", allowedTokens);
 
 serve(app, (info) => {
-  console.log(`API listening on http://localhost:${info.port}`);
+  console.info(`API listening on http://localhost:${info.port}`);
 });

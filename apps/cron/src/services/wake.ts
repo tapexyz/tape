@@ -9,10 +9,10 @@ const wakeClickHouse = async () => {
     while (attempt < maxAttempts) {
       const result = await clickhouseClient.ping();
       if (result.success) {
-        console.log("[wake] ClickHouse database is awake!");
+        console.info("[wake] ClickHouse database is awake!");
         return;
       }
-      console.log(
+      console.info(
         `[wake] Attempt ${attempt + 1} failed, retrying in ${delay / 1000} seconds...`
       );
       // Wait for a short period of time before retrying

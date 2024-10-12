@@ -21,7 +21,7 @@ const tailLog = (level: "error" | "log", message: string) => {
 
 export const logger = {
   log: (message: string, info: any) => {
-    console.log(message, info);
+    console.info(message, info);
   },
   warn: (...args: any) => {
     console.warn(...args);

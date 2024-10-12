@@ -1,7 +1,7 @@
 import localFont from "next/font/local";
 
 export const serifFont = localFont({
-  src: "./_fonts/serif.woff2",
+  src: "/_fonts/serif.woff2",
   fallback: ["ui-serif", "serif"],
   display: "swap",
   preload: true,
@@ -9,7 +9,7 @@ export const serifFont = localFont({
 });
 
 export const sansFont = localFont({
-  src: "./_fonts/sans.woff2",
+  src: "/_fonts/sans.woff2",
   fallback: ["ui-sans-serif", "system-ui"],
   display: "swap",
   preload: true,
@@ -17,7 +17,7 @@ export const sansFont = localFont({
 });
 
 export const monoFont = localFont({
-  src: "./_fonts/mono.woff2",
+  src: "/_fonts/mono.woff2",
   fallback: ["ui-monospace", "monospace"],
   display: "swap",
   preload: true,
