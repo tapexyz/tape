@@ -1,12 +1,12 @@
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { IS_DEVELOPMENT } from "@tape.xyz/constants";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 const Devtools = () => {
   if (!IS_DEVELOPMENT) return null;
   return (
     <>
-      <motion.div
+      <m.div
         drag
         dragMomentum={false}
         className="fixed right-2.5 bottom-20 z-50 rounded-full border border-custom bg-primary px-6 py-2 text-center font-semibold text-sm text-theme"
@@ -17,7 +17,7 @@ const Devtools = () => {
         <span className="hidden xl:block 2xl:hidden">xl</span>
         <span className="3xl:hidden hidden 2xl:block">2xl</span>
         <span className="3xl:block hidden">3xl</span>
-      </motion.div>
+      </m.div>
       <ReactQueryDevtools />
     </>
   );

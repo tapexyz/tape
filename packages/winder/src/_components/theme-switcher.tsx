@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Desktop, Moon, Sun } from "../icons";
 import { useTheme } from "../theme";
 import { Button } from "./button";
@@ -47,7 +47,7 @@ export const ThemeSwitcherExpanded = ({ id }: Readonly<{ id: string }>) => {
           onClick={() => setTheme(theme)}
         >
           {currentTheme === theme ? (
-            <motion.span
+            <m.span
               key={currentTheme}
               layoutId={`${id}-theme-switcher`}
               transition={{ duration: 0.2, bounce: 0, type: "spring" }}

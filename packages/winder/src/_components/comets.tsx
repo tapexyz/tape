@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { memo } from "react";
 
 const paths = [
@@ -22,7 +22,7 @@ const BgComets = () => {
         xmlns="http://www.w3.org/2000/svg"
       >
         {paths.map((path, index) => (
-          <motion.path
+          <m.path
             key={path}
             d={path}
             stroke={`url(#linearGradient-${index})`}
@@ -32,7 +32,7 @@ const BgComets = () => {
         ))}
         <defs>
           {paths.map((path, index) => (
-            <motion.linearGradient
+            <m.linearGradient
               id={`linearGradient-${index}`}
               key={`gradient-${path}`}
               initial={{
@@ -58,7 +58,7 @@ const BgComets = () => {
               <stop stopColor="#FF5733" />
               <stop offset="67.5%" stopColor="#FFD700" />
               <stop offset="100%" stopColor="#FFD700" stopOpacity="0" />
-            </motion.linearGradient>
+            </m.linearGradient>
           ))}
 
           <radialGradient

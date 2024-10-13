@@ -2,7 +2,7 @@ import { STATIC_ASSETS } from "@tape.xyz/constants";
 import { Morph } from "@tape.xyz/winder";
 import { useDebounce } from "@uidotdev/usehooks";
 import { useHover } from "@uidotdev/usehooks";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Link } from "react-router-dom";
 
 export const MiddleGridItem = () => {
@@ -16,7 +16,7 @@ export const MiddleGridItem = () => {
       className="flex w-full flex-1 justify-center px-10 py-10 hover:bg-theme/40 lg:py-14 dark:hover:bg-theme/20"
     >
       <div className="relative">
-        <motion.img
+        <m.img
           initial={{ x: 0, scale: 0.8 }}
           animate={{ x: 90, scale: 1 }}
           transition={{ delay: 0, bounce: 0, duration: 0.6, type: "spring" }}
@@ -30,7 +30,7 @@ export const MiddleGridItem = () => {
         />
         <div className="absolute top-0 right-0">
           <AnimatePresence mode="popLayout">
-            <motion.span
+            <m.span
               initial={{ y: 20, x: 0, opacity: 0 }}
               animate={{ y: -10, x: -40, opacity: 1 }}
               exit={{ y: 20, opacity: 0, transition: { duration: 0.1 } }}
@@ -42,9 +42,9 @@ export const MiddleGridItem = () => {
               <Morph>
                 {isHovering ? "←  Back to Tape" : "Tape by the numbers"}
               </Morph>
-            </motion.span>
+            </m.span>
           </AnimatePresence>
-          <motion.span
+          <m.span
             initial={{ y: 20, x: 0, opacity: 0 }}
             animate={{ y: -10, x: -40, opacity: 1 }}
             exit={{ y: 20, opacity: 0, transition: { duration: 0.1 } }}
@@ -53,7 +53,7 @@ export const MiddleGridItem = () => {
             }}
             className="-right-[3px] absolute bottom-0 size-2.5 rounded-full border border-custom bg-theme"
           />
-          <motion.span
+          <m.span
             initial={{ y: 20, x: 0, opacity: 0 }}
             animate={{ y: -10, x: -40, opacity: 1 }}
             exit={{ y: 20, opacity: 0, transition: { duration: 0.1 } }}
@@ -62,7 +62,7 @@ export const MiddleGridItem = () => {
             }}
             className="-right-[10px] -bottom-1 absolute size-1.5 rounded-full border border-custom bg-theme"
           />
-          <motion.span
+          <m.span
             initial={{ y: 20, x: 0, opacity: 0 }}
             animate={{ y: -10, x: -40, opacity: isHovering ? 0 : 1 }}
             exit={{ y: 20, opacity: 0, transition: { duration: 0.1 } }}
@@ -72,7 +72,7 @@ export const MiddleGridItem = () => {
             className="-bottom-2.5 absolute right-4 overflow-hidden whitespace-nowrap text-[10px] text-muted"
           >
             00:00 UTC
-          </motion.span>
+          </m.span>
         </div>
       </div>
     </Link>

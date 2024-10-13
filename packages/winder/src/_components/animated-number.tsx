@@ -1,9 +1,4 @@
-import {
-  type SpringOptions,
-  motion,
-  useSpring,
-  useTransform
-} from "framer-motion";
+import { type SpringOptions, m, useSpring, useTransform } from "framer-motion";
 import { useEffect } from "react";
 import { tw } from "../tw";
 
@@ -25,9 +20,5 @@ export const AnimatedNumber = (props: AnimatedNumber) => {
     spring.set(value);
   }, [spring, value]);
 
-  return (
-    <motion.span className={tw("tabular-nums", className)}>
-      {display}
-    </motion.span>
-  );
+  return <m.span className={tw("tabular-nums", className)}>{display}</m.span>;
 };

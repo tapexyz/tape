@@ -1,7 +1,7 @@
 import { CREATOR_VIDEO_CATEGORIES } from "@tape.xyz/constants";
 import { tw } from "@tape.xyz/winder";
 import { useMeasure } from "@uidotdev/usehooks";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -13,7 +13,7 @@ export const Navbar = () => {
 
   return (
     <div className="-translate-x-1/2 fixed bottom-32 left-[50%] z-50 w-[357px]">
-      <motion.div
+      <m.div
         animate={{
           height: bounds.height ? bounds.height : undefined,
           transition: { duration: 0.3, type: "spring", bounce: 0.1 }
@@ -23,7 +23,7 @@ export const Navbar = () => {
         <div ref={elementRef} className="flex flex-col justify-end">
           <AnimatePresence mode="popLayout">
             {open && (
-              <motion.div
+              <m.div
                 key={open ? "open" : "close"}
                 initial={{ opacity: 0, filter: "blur(4px)" }}
                 animate={{ opacity: 1, filter: "blur(0px)" }}
@@ -71,7 +71,7 @@ export const Navbar = () => {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
           <button
@@ -85,7 +85,7 @@ export const Navbar = () => {
             </span>
           </button>
         </div>
-      </motion.div>
+      </m.div>
       <div className="mt-[6px] flex items-center space-x-[6px] rounded-[14px] bg-primary p-[6px] font-medium backdrop-blur-xl *:flex-1">
         {items.map((item) => (
           <Link

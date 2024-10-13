@@ -1,11 +1,11 @@
 import { STATIC_ASSETS } from "@tape.xyz/constants";
 import { imageCdn } from "@tape.xyz/generic";
-import { type MotionProps, motion } from "framer-motion";
+import { type MotionProps, m } from "framer-motion";
 import type { SVGProps } from "react";
 
 const AnimatedRect = (props: SVGProps<SVGRectElement> & MotionProps) => {
   return (
-    <motion.rect
+    <m.rect
       className="select-none will-change-transform"
       drag
       dragSnapToOrigin
@@ -37,7 +37,7 @@ export const IntroAnimation = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <motion.rect
+    <m.rect
       className="select-none"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -146,7 +146,7 @@ export const IntroAnimation = () => (
         y: -50
       }}
     />
-    <motion.rect
+    <m.rect
       className="select-none"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}

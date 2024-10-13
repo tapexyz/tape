@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { IntroAnimation } from "./intro-animation";
 
 const title = "Winder";
@@ -13,7 +13,7 @@ export const IntroSection = () => {
       <div className="relative mx-[40%]">
         <span className="truncate font-bold font-serif text-3xl lg:text-5xl">
           {title.split("").map((char, index) => (
-            <motion.span
+            <m.span
               key={char}
               className="inline-block"
               drag
@@ -34,7 +34,7 @@ export const IntroSection = () => {
               }}
             >
               {char}
-            </motion.span>
+            </m.span>
           ))}
         </span>
       </div>

@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 
 export const Morph = ({ children }: { children: string }) => {
   const generateKeys = (text: string) => {
@@ -18,7 +18,7 @@ export const Morph = ({ children }: { children: string }) => {
   return (
     <AnimatePresence mode="popLayout" initial={false}>
       {textToDisplay.map(({ char, key }) => (
-        <motion.span
+        <m.span
           key={key}
           layoutId={key}
           className="inline-block text-inherit"
@@ -37,7 +37,7 @@ export const Morph = ({ children }: { children: string }) => {
           }}
         >
           {char === " " ? "\u00A0" : char}
-        </motion.span>
+        </m.span>
       ))}
     </AnimatePresence>
   );

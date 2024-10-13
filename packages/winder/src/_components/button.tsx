@@ -1,5 +1,5 @@
 import { type VariantProps, cva } from "class-variance-authority";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { type ButtonHTMLAttributes, forwardRef } from "react";
 import { tw } from "../tw";
 import { Spinner } from "./spinner";
@@ -50,7 +50,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         <AnimatePresence mode="popLayout" initial={false}>
-          <motion.span
+          <m.span
             className="inline-flex space-x-1 whitespace-nowrap"
             key={loading ? "loading" : "idle"}
             transition={{ type: "spring", duration: 0.3, bounce: 0 }}
@@ -59,7 +59,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             exit={{ opacity: 0, y: 25, transition: { duration: 0.1 } }}
           >
             {loading ? <Spinner /> : props.children}
-          </motion.span>
+          </m.span>
         </AnimatePresence>
       </button>
     );
