@@ -7,7 +7,7 @@ import { Link } from "@tanstack/react-router";
 import { publicationsQuery } from "./queries";
 
 export const Feed = () => {
-  const { data, fetchNextPage, isLoading, hasNextPage } =
+  const { data, fetchNextPage, hasNextPage } =
     useSuspenseInfiniteQuery(publicationsQuery);
 
   const allPublications = data?.pages.flatMap(
@@ -16,7 +16,6 @@ export const Feed = () => {
 
   return (
     <div className="w-full">
-      {isLoading && <div>Loading...</div>}
       <div className="divide-y divide-gray-400">
         <Virtualized
           restoreScroll
