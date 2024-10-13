@@ -13,7 +13,7 @@ const loadFeatures = () => import("./animations").then((res) => res.default);
 export const Providers = ({ children }: Readonly<{ children: ReactNode }>) => {
   return (
     <QueryClientProvider client={rqClient}>
-      <LazyMotion features={loadFeatures}>
+      <LazyMotion features={loadFeatures} strict>
         <ThemeProvider>
           {children}
           <Toaster />
