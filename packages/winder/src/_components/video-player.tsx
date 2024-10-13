@@ -44,7 +44,7 @@ interface Props extends Omit<MediaPlayerProps, "children"> {
 }
 
 const VPlayButton = () => (
-  <PlayButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/20 backdrop-blur-md hover:bg-white/15">
+  <PlayButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/10 backdrop-blur-md hover:bg-white/15">
     <Play className="hidden size-4 group-data-[paused]:block" weight="fill" />
     <Pause className="size-4 group-data-[paused]:hidden" weight="fill" />
   </PlayButton>
@@ -141,18 +141,18 @@ const VideoPlayer = forwardRef<MediaPlayerInstance, Props>(
                   <div className="flex w-full items-center gap-[6px]">
                     <VPlayButton />
                     <SeekButton
-                      className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/20 backdrop-blur-md hover:bg-white/15"
+                      className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/10 backdrop-blur-md hover:bg-white/15"
                       seconds={-10}
                     >
                       <ArrowCounterClockwise className="size-4" weight="bold" />
                     </SeekButton>
                     <SeekButton
-                      className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/20 backdrop-blur-md hover:bg-white/15"
+                      className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/10 backdrop-blur-md hover:bg-white/15"
                       seconds={10}
                     >
                       <ArrowClockwise className="size-4" weight="bold" />
                     </SeekButton>
-                    <div className="inline-flex h-9 items-center space-x-2 rounded-custom bg-white/20 py-2 pr-4 pl-3 backdrop-blur-md hover:bg-white/15">
+                    <div className="inline-flex h-9 items-center space-x-2 rounded-custom bg-white/10 py-2 pr-4 pl-3 backdrop-blur-md hover:bg-white/15">
                       <MuteButton className="group relative cursor-pointer ">
                         <SpeakerNone
                           className="hidden size-4 group-data-[state='muted']:block"
@@ -177,12 +177,12 @@ const VideoPlayer = forwardRef<MediaPlayerInstance, Props>(
                   </div>
                   <div className="inline-flex items-center gap-[6px]">
                     {pip && (
-                      <ToggleButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/20 backdrop-blur-md hover:bg-white/15 data-[pressed]:hidden">
+                      <ToggleButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/10 backdrop-blur-md hover:bg-white/15 data-[pressed]:hidden">
                         <PictureInPicture className="size-4" weight="bold" />
                       </ToggleButton>
                     )}
                     <StreamAV />
-                    <FullscreenButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/20 backdrop-blur-md hover:bg-white/15">
+                    <FullscreenButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/10 backdrop-blur-md hover:bg-white/15">
                       <CornersOut
                         className="size-4 group-data-[active]:hidden"
                         weight="bold"
