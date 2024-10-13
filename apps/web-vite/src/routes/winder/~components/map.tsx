@@ -1,7 +1,6 @@
 import { IPFS_GATEWAY_URL, WORKER_AVATAR_URL } from "@tape.xyz/constants";
 import { imageCdn } from "@tape.xyz/generic";
 import {
-  AudioPlayer,
   Avatar,
   AvatarImage,
   Badge,
@@ -45,7 +44,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
   VPlayButton,
-  VideoPlayer,
   toast
 } from "@tape.xyz/winder";
 import {
@@ -64,7 +62,14 @@ import {
   User,
   tw
 } from "@tape.xyz/winder";
-import { useState } from "react";
+import { Suspense, lazy, useState } from "react";
+
+const AudioPlayer = lazy(() =>
+  import("@tape.xyz/winder").then((m) => ({ default: m.AudioPlayer }))
+);
+const VideoPlayer = lazy(() =>
+  import("@tape.xyz/winder").then((m) => ({ default: m.VideoPlayer }))
+);
 
 const VStack = ({
   children,
@@ -557,73 +562,81 @@ export const components = [
       return (
         <VStack>
           <span>
-            <VideoPlayer
-              className="rounded-card-sm"
-              posterClassName="rounded-card-sm"
-              src={{
-                src: `${IPFS_GATEWAY_URL}/bafybeidmkqbs66odew6ddtiwgpjmmirk4lh5uux7w4bheeogjwlagefoje`,
-                type: "video/mp4"
-              }}
-              poster={imageCdn(
-                `${IPFS_GATEWAY_URL}/bafybeiaikdpxnqig7ta5z5ahqav7p2z3lrijp5ym3ctg4on5reiktdh2lu`
-              )}
-              load="visible"
-              posterLoad="idle"
-              autoPlay={false}
-            />
-          </span>
-          <div className="grid gap-2 md:grid-cols-2">
-            <VideoPlayer
-              aspectRatio="9/16"
-              className="rounded-card-sm"
-              posterClassName="rounded-card-sm"
-              src={{
-                src: `${IPFS_GATEWAY_URL}/bafybeifwjnt5mkuneq4taxc2ybpfkhri6h6ipqfjnsndcvguxklwbumrse`,
-                type: "video/mp4"
-              }}
-              poster={`${IPFS_GATEWAY_URL}/bafybeib3rptof3clasb4llm247zupf5pspequwu5wntzedn5nnh75ljgea`}
-              load="visible"
-              posterLoad="idle"
-              autoPlay={false}
-              loop={true}
-              top={
-                <div className="flex justify-end">
-                  <VPlayButton />
-                </div>
-              }
-            />
-            <div className="flex flex-col gap-[6px]">
-              <div className="grid flex-1 place-items-center rounded-card-sm border border-primary/20 border-dashed p-6 font-serif text-2xl">
-                Audio
-              </div>
-              <AudioPlayer
+            <Suspense>
+              <VideoPlayer
+                className="rounded-card-sm"
+                posterClassName="rounded-card-sm"
                 src={{
-                  src: `${IPFS_GATEWAY_URL}/bafybeihj5l4agwyv276nvwdpdey4wp646c2lqrfjmq4v6hmttszb3gd4xm`,
-                  type: "audio/mp3"
+                  src: `${IPFS_GATEWAY_URL}/bafybeidmkqbs66odew6ddtiwgpjmmirk4lh5uux7w4bheeogjwlagefoje`,
+                  type: "video/mp4"
                 }}
                 poster={imageCdn(
-                  `${IPFS_GATEWAY_URL}/bafkreiam4w73hooyzel2674k6vr52civh4miazhfuxefqpy6n4qwqvwtp4`
+                  `${IPFS_GATEWAY_URL}/bafybeiaikdpxnqig7ta5z5ahqav7p2z3lrijp5ym3ctg4on5reiktdh2lu`
                 )}
                 load="visible"
                 posterLoad="idle"
                 autoPlay={false}
               />
+            </Suspense>
+          </span>
+          <div className="grid gap-2 md:grid-cols-2">
+            <Suspense>
+              <VideoPlayer
+                aspectRatio="9/16"
+                className="rounded-card-sm"
+                posterClassName="rounded-card-sm"
+                src={{
+                  src: `${IPFS_GATEWAY_URL}/bafybeifwjnt5mkuneq4taxc2ybpfkhri6h6ipqfjnsndcvguxklwbumrse`,
+                  type: "video/mp4"
+                }}
+                poster={`${IPFS_GATEWAY_URL}/bafybeib3rptof3clasb4llm247zupf5pspequwu5wntzedn5nnh75ljgea`}
+                load="visible"
+                posterLoad="idle"
+                autoPlay={false}
+                loop={true}
+                top={
+                  <div className="flex justify-end">
+                    <VPlayButton />
+                  </div>
+                }
+              />
+            </Suspense>
+            <div className="flex flex-col gap-[6px]">
+              <div className="grid flex-1 place-items-center rounded-card-sm border border-primary/20 border-dashed p-6 font-serif text-2xl">
+                Audio
+              </div>
+              <Suspense>
+                <AudioPlayer
+                  src={{
+                    src: `${IPFS_GATEWAY_URL}/bafybeihj5l4agwyv276nvwdpdey4wp646c2lqrfjmq4v6hmttszb3gd4xm`,
+                    type: "audio/mp3"
+                  }}
+                  poster={imageCdn(
+                    `${IPFS_GATEWAY_URL}/bafkreiam4w73hooyzel2674k6vr52civh4miazhfuxefqpy6n4qwqvwtp4`
+                  )}
+                  load="visible"
+                  posterLoad="idle"
+                  autoPlay={false}
+                />
+              </Suspense>
             </div>
           </div>
           <div className="no-scrollbar overflow-x-auto">
-            <AudioPlayer
-              src={{
-                src: `${IPFS_GATEWAY_URL}/QmQSZHzsR3nhqJYPo8RC9eCUptTh2BVqGWzMDWwqbcyzrd`,
-                type: "audio/mp3"
-              }}
-              poster={imageCdn(
-                `${IPFS_GATEWAY_URL}/QmVg5mLJJsx9JZvyR6j4ej1b8WGBXZmi9bQNbwQDQ7pLEc`
-              )}
-              load="visible"
-              posterLoad="idle"
-              layout="horizontal"
-              autoPlay={false}
-            />
+            <Suspense>
+              <AudioPlayer
+                src={{
+                  src: `${IPFS_GATEWAY_URL}/QmQSZHzsR3nhqJYPo8RC9eCUptTh2BVqGWzMDWwqbcyzrd`,
+                  type: "audio/mp3"
+                }}
+                poster={imageCdn(
+                  `${IPFS_GATEWAY_URL}/QmVg5mLJJsx9JZvyR6j4ej1b8WGBXZmi9bQNbwQDQ7pLEc`
+                )}
+                load="visible"
+                posterLoad="idle"
+                layout="horizontal"
+                autoPlay={false}
+              />
+            </Suspense>
           </div>
         </VStack>
       );

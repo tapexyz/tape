@@ -1,13 +1,21 @@
 import { m } from "framer-motion";
-import { IntroAnimation } from "./intro-animation";
+import { Suspense, lazy } from "react";
 
 const title = "Winder";
+
+const IntroAnimation = lazy(() =>
+  import("./intro-animation").then((m) => ({
+    default: m.IntroAnimation
+  }))
+);
 
 export const IntroSection = () => {
   return (
     <section className="relative grid aspect-[16/6] place-items-center p-6">
       <div className="absolute inset-0">
-        <IntroAnimation />
+        <Suspense>
+          <IntroAnimation />
+        </Suspense>
       </div>
 
       <div className="relative mx-[40%]">

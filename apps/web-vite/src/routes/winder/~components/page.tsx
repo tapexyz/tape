@@ -1,6 +1,10 @@
-import { Content } from "./content";
+import { Suspense, lazy } from "react";
 import { Header } from "./header";
 import { Sidebar } from "./sidebar";
+
+const Content = lazy(() =>
+  import("./content").then((m) => ({ default: m.Content }))
+);
 
 export const WinderPage = () => {
   return (
@@ -8,7 +12,9 @@ export const WinderPage = () => {
       <Header />
       <div className="min-w-[300px] md:grid md:grid-cols-[250px_1fr]">
         <Sidebar />
-        <Content />
+        <Suspense>
+          <Content />
+        </Suspense>
       </div>
     </div>
   );
