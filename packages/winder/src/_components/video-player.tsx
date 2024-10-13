@@ -73,6 +73,24 @@ const VTimeSliderRoot = ({ isPortrait }: { isPortrait: boolean }) => {
   );
 };
 
+const ClickToPlay = () => {
+  const player = useMediaPlayer();
+
+  const onClick = () => {
+    if (player?.paused) {
+      player?.play();
+    }
+    player?.pause();
+  };
+
+  return (
+    <Controls.Group
+      className="pointer-events-auto size-full"
+      onClick={onClick}
+    />
+  );
+};
+
 const NotInViewObserver = () => {
   const player = useMediaPlayer();
   const [ref, entry] = useIntersectionObserver({
@@ -101,7 +119,7 @@ const VideoPlayer = forwardRef<MediaPlayerInstance, Props>(
         )}
       >
         <NotInViewObserver />
-        <MediaProvider>
+        <MediaProvider onContextMenu={(e) => e.preventDefault()}>
           {poster ? (
             <Poster asChild>
               <img
@@ -124,6 +142,8 @@ const VideoPlayer = forwardRef<MediaPlayerInstance, Props>(
             >
               {top}
             </Controls.Group>
+            <div className="flex-1" />
+            <ClickToPlay />
             <div className="flex-1" />
             <Controls.Group className="pointer-events-auto flex w-full flex-col gap-[6px] bg-gradient-to-t from-black/40 p-4">
               <div className="flex items-center gap-[6px]">
