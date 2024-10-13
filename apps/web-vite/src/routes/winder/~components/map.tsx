@@ -565,7 +565,7 @@ export const components = [
                 type: "video/mp4"
               }}
               poster={imageCdn(
-                `${IPFS_GATEWAY_URL}/bafybeicxkyxfqnqtisirfybimaw7qdqas6gslqg7f6hle7lo2rdzrncnhi`
+                `${IPFS_GATEWAY_URL}/bafybeiaikdpxnqig7ta5z5ahqav7p2z3lrijp5ym3ctg4on5reiktdh2lu`
               )}
               load="visible"
               posterLoad="idle"
