@@ -1,5 +1,6 @@
 import path from "node:path";
-import react from "@vitejs/plugin-react-swc";
+import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
+import swcReact from "@vitejs/plugin-react-swc";
 import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 
@@ -8,7 +9,8 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [
-      react(),
+      TanStackRouterVite(),
+      swcReact(),
       !isProd &&
         visualizer({
           filename: "./dist/stats.html",

@@ -1,9 +1,9 @@
+import { Link } from "@tanstack/react-router";
 import { CREATOR_VIDEO_CATEGORIES } from "@tape.xyz/constants";
 import { tw } from "@tape.xyz/winder";
 import { useMeasure } from "@uidotdev/usehooks";
 import { AnimatePresence, m } from "framer-motion";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 
 const items = ["Home", "Explore", "Following"];
 

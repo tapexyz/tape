@@ -17,7 +17,8 @@
       "sw.js",
       "packages/tsconfig",
       "generated.ts",
-      "tsconfig.*"
+      "tsconfig.*",
+      "routeTree.gen.ts"
     ]
   },
   "linter": {
