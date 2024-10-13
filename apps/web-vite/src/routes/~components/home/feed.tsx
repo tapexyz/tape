@@ -1,5 +1,5 @@
 import { Virtualized } from "@/routes/~components/shared/virtualized";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { getPublication } from "@tape.xyz/generic";
 import type { AnyPublication } from "@tape.xyz/lens/gql";
 
@@ -8,7 +8,7 @@ import { publicationsQuery } from "./queries";
 
 export const Feed = () => {
   const { data, fetchNextPage, isLoading, hasNextPage } =
-    useInfiniteQuery(publicationsQuery);
+    useSuspenseInfiniteQuery(publicationsQuery);
 
   const allPublications = data?.pages.flatMap(
     (page) => page.publications.items
