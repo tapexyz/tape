@@ -39,7 +39,7 @@ import {
   Warning,
   Waveform,
   X
-} from "@phosphor-icons/react/dist/ssr";
+} from "@phosphor-icons/react";
 
 const USED_ICONS = [
   { Icon: Sun, name: "Sun" },
