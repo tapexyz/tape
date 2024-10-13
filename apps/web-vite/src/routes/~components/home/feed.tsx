@@ -1,4 +1,4 @@
-import { Virtualized } from "@/components/shared/virtualized";
+import { Virtualized } from "@/routes/~components/shared/virtualized";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getPublication } from "@tape.xyz/generic";
 import type { AnyPublication } from "@tape.xyz/lens/gql";

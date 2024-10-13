@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 
 import { Toaster } from "@tape.xyz/winder";
 
-import { Devtools } from "@/components/shared/dev-only";
+import { Devtools } from "@/routes/~components/shared/dev-only";
 import { ThemeProvider } from "@tape.xyz/winder";
 import { LazyMotion } from "framer-motion";
 import { rqClient } from "./react-query";
