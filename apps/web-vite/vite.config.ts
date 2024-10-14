@@ -24,6 +24,23 @@ export default defineConfig(({ mode }) => {
     },
     define: {
       "process.env": process.env
+    },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            react: ["react"],
+            dom: ["react-dom"],
+            router: ["@tanstack/react-router"],
+            query: ["@tanstack/react-query"],
+            framer: ["framer-motion"],
+            virtual: ["react-virtuoso"],
+            hooks: ["@uidotdev/usehooks"],
+            lens: ["@tape.xyz/lens"],
+            generic: ["@tape.xyz/generic"]
+          }
+        }
+      }
     }
   };
 });
