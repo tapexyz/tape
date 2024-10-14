@@ -567,7 +567,7 @@ export const components = [
                 className="rounded-card-sm"
                 posterClassName="rounded-card-sm"
                 src={{
-                  src: `${IPFS_GATEWAY_URL}/bafybeidmkqbs66odew6ddtiwgpjmmirk4lh5uux7w4bheeogjwlagefoje`,
+                  src: "https://files.tape.xyz/samples/16-9.mp4",
                   type: "video/mp4"
                 }}
                 poster={imageCdn(
@@ -586,7 +586,7 @@ export const components = [
                 className="rounded-card-sm"
                 posterClassName="rounded-card-sm"
                 src={{
-                  src: `${IPFS_GATEWAY_URL}/bafybeifwjnt5mkuneq4taxc2ybpfkhri6h6ipqfjnsndcvguxklwbumrse`,
+                  src: "https://files.tape.xyz/samples/9-16.mp4",
                   type: "video/mp4"
                 }}
                 poster={`${IPFS_GATEWAY_URL}/bafybeib3rptof3clasb4llm247zupf5pspequwu5wntzedn5nnh75ljgea`}
@@ -608,7 +608,7 @@ export const components = [
               <Suspense>
                 <AudioPlayer
                   src={{
-                    src: `${IPFS_GATEWAY_URL}/bafybeihj5l4agwyv276nvwdpdey4wp646c2lqrfjmq4v6hmttszb3gd4xm`,
+                    src: "https://files.tape.xyz/samples/audio-1.mp3",
                     type: "audio/mp3"
                   }}
                   poster={imageCdn(
@@ -625,7 +625,7 @@ export const components = [
             <Suspense>
               <AudioPlayer
                 src={{
-                  src: `${IPFS_GATEWAY_URL}/QmQSZHzsR3nhqJYPo8RC9eCUptTh2BVqGWzMDWwqbcyzrd`,
+                  src: "https://files.tape.xyz/samples/audio-2.wav",
                   type: "audio/mp3"
                 }}
                 poster={imageCdn(
