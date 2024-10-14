@@ -1,7 +1,7 @@
 import {
+  IMAGEKIT_URL,
   IMAGE_TRANSFORMATIONS,
-  IS_PRODUCTION,
-  LENS_IMAGEKIT_SNAPSHOT_URL
+  IS_PRODUCTION
 } from "@tape.xyz/constants";
 
 export const imageCdn = (
@@ -12,7 +12,9 @@ export const imageCdn = (
     return url;
   }
 
-  return type && IS_PRODUCTION
-    ? `${LENS_IMAGEKIT_SNAPSHOT_URL}/${IMAGE_TRANSFORMATIONS[type]}/${url}`
+  return IS_PRODUCTION
+    ? type
+      ? `${IMAGEKIT_URL}/${IMAGE_TRANSFORMATIONS[type]}/${url}`
+      : `${IMAGEKIT_URL}/${url}`
     : url;
 };
