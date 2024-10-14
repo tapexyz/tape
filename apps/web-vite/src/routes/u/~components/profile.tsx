@@ -10,7 +10,7 @@ export const Profile = () => {
     profileQuery(`${LENS_NAMESPACE_PREFIX}${handle}`)
   );
 
-  if (!data?.profile) {
+  if (!data.profile) {
     return <div>not found</div>;
   }
   const profile = data.profile as ProfileType;

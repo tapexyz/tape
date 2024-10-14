@@ -10,7 +10,7 @@ export const Feed = () => {
   const { data, fetchNextPage, hasNextPage } =
     useSuspenseInfiniteQuery(publicationsQuery);
 
-  const allPublications = data?.pages.flatMap(
+  const allPublications = data.pages.flatMap(
     (page) => page.publications.items
   ) as AnyPublication[];
 

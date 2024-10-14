@@ -9,7 +9,7 @@ export const Publication = () => {
   const pubId = Route.useParams().pubId;
   const { data } = useSuspenseQuery(publicationQuery(pubId));
 
-  if (!data?.publication) {
+  if (!data.publication) {
     return <div>not found</div>;
   }
 

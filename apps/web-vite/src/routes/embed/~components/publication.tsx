@@ -14,7 +14,7 @@ import { TopControls } from "./top";
 export const Publication = () => {
   const pubId = Route.useParams().pubId;
   const { data } = useSuspenseQuery(publicationQuery(pubId));
-  const publication = getPublication(data?.publication as AnyPublication);
+  const publication = getPublication(data.publication as AnyPublication);
   const isVideo = isWatchable(publication);
 
   const { t, loop, autoplay } = Route.useSearch();

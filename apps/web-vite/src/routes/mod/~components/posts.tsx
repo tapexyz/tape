@@ -8,7 +8,7 @@ export const Posts = () => {
   const { data, fetchNextPage, isLoading, hasNextPage } =
     useSuspenseInfiniteQuery(modExplorePublicationsQuery);
 
-  const allPublications = data?.pages.flatMap(
+  const allPublications = data.pages.flatMap(
     (page) => page.modExplorePublications.items
   ) as AnyPublication[];
 
