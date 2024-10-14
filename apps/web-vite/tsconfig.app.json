@@ -9,6 +9,8 @@
     "allowImportingTsExtensions": true,
     "noEmit": true,
     "baseUrl": ".",
+    "lib": ["DOM", "ESNext", "WebWorker"],
+    "outDir": "dist",
     "paths": {
       "@/*": ["./src/*"]
     }

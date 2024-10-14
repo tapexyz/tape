@@ -1,25 +1,31 @@
-import { QueryClientProvider } from "@tanstack/react-query";
-import type { ReactNode } from "react";
-
-import { Toaster } from "@tape.xyz/winder";
-
 import { Devtools } from "@/routes/~components/shared/dev-only";
+import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
+import { Toaster } from "@tape.xyz/winder";
 import { ThemeProvider } from "@tape.xyz/winder";
 import { LazyMotion } from "framer-motion";
-import { rqClient } from "./react-query";
+import type { ReactNode } from "react";
+import { createIDBPersister, rqClient } from "./react-query";
+import { ServiceWorkerProvider } from "./sw-provider";
 
 const loadFeatures = () => import("./animations").then((res) => res.default);
 
+const persister = createIDBPersister();
+
 export const Providers = ({ children }: Readonly<{ children: ReactNode }>) => {
   return (
-    <QueryClientProvider client={rqClient}>
-      <LazyMotion features={loadFeatures} strict>
-        <ThemeProvider>
-          {children}
-          <Toaster />
-        </ThemeProvider>
-        <Devtools />
-      </LazyMotion>
-    </QueryClientProvider>
+    <PersistQueryClientProvider
+      client={rqClient}
+      persistOptions={{ persister }}
+    >
+      <ServiceWorkerProvider>
+        <LazyMotion features={loadFeatures} strict>
+          <ThemeProvider>
+            {children}
+            <Toaster />
+          </ThemeProvider>
+          <Devtools />
+        </LazyMotion>
+      </ServiceWorkerProvider>
+    </PersistQueryClientProvider>
   );
 };
