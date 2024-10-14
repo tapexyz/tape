@@ -1,8 +1,10 @@
 import "@vidstack/react/player/styles/base.css";
 import { useIntersectionObserver } from "@uidotdev/usehooks";
 import {
+  AirPlayButton,
   Controls,
   FullscreenButton,
+  GoogleCastButton,
   MediaAnnouncer,
   MediaPlayer,
   type MediaPlayerInstance,
@@ -22,6 +24,7 @@ import {
 } from "@vidstack/react";
 import { forwardRef, useEffect } from "react";
 import {
+  Airplay,
   ArrowClockwise,
   ArrowCounterClockwise,
   CornersIn,
@@ -29,12 +32,12 @@ import {
   Pause,
   PictureInPicture,
   Play,
+  Screencast,
   SpeakerHigh,
   SpeakerLow,
   SpeakerNone
 } from "../icons";
 import { tw } from "../tw";
-import { StreamAV } from "./audio-player";
 
 interface Props extends Omit<MediaPlayerProps, "children"> {
   poster?: string;
@@ -59,6 +62,26 @@ const VTimeSlider = () => (
     <TimeSlider.Thumb className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-[var(--slider-fill)] z-20 h-4 w-1 rounded bg-white opacity-0 transition-opacity duration-200 will-change-[left] group-data-[active]:opacity-100" />
   </>
 );
+
+const StreamAV = () => {
+  const player = useMediaPlayer();
+  const canAirPlay = player?.state.canAirPlay;
+  const canGoogleCast = player?.state.canGoogleCast;
+  if (!canAirPlay && !canGoogleCast) return null;
+  return (
+    <span className="inline-flex gap-[6px]">
+      {canGoogleCast ? (
+        <GoogleCastButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/10 backdrop-blur-md hover:bg-white/5">
+          <Screencast className="size-4" weight="bold" />
+        </GoogleCastButton>
+      ) : canAirPlay ? (
+        <AirPlayButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/10 backdrop-blur-md hover:bg-white/5">
+          <Airplay className="size-4" weight="bold" />
+        </AirPlayButton>
+      ) : null}
+    </span>
+  );
+};
 
 const VTimeSliderRoot = ({ isPortrait }: { isPortrait: boolean }) => {
   const isPaused = useMediaState("paused");
@@ -233,4 +256,4 @@ const VideoPlayer = forwardRef<MediaPlayerInstance, Props>(
   }
 );
 
-export { VideoPlayer, VPlayButton, NotInViewObserver, VTimeSlider };
+export { VideoPlayer, VPlayButton, NotInViewObserver, VTimeSlider, StreamAV };

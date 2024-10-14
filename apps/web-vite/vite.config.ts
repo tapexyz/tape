@@ -14,7 +14,9 @@ export default defineConfig(({ mode }) => {
       !isProd &&
         visualizer({
           filename: "./dist/stats.html",
-          open: true
+          open: true,
+          gzipSize: true,
+          brotliSize: true
         })
     ].filter(Boolean),
     resolve: {

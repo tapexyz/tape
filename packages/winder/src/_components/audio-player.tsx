@@ -1,7 +1,4 @@
-import "@vidstack/react/player/styles/base.css";
 import {
-  AirPlayButton,
-  GoogleCastButton,
   MediaAnnouncer,
   MediaPlayer,
   type MediaPlayerInstance,
@@ -18,18 +15,16 @@ import {
 } from "@vidstack/react";
 import { forwardRef } from "react";
 import {
-  Airplay,
   ArrowClockwise,
   ArrowCounterClockwise,
   Heart,
   Lightning,
   Pause,
   PictureInPicture,
-  Play,
-  Screencast
+  Play
 } from "../icons";
 import { tw } from "../tw";
-import { NotInViewObserver, VTimeSlider } from "./video-player";
+import { NotInViewObserver, StreamAV, VTimeSlider } from "./video-player";
 
 interface Props extends Omit<MediaPlayerProps, "children"> {
   poster?: string;
@@ -58,26 +53,6 @@ const MediaSpeed = () => {
     >
       {selectedValue}x
     </button>
-  );
-};
-
-const StreamAV = () => {
-  const player = useMediaPlayer();
-  const canAirPlay = player?.state.canAirPlay;
-  const canGoogleCast = player?.state.canGoogleCast;
-  if (!canAirPlay && !canGoogleCast) return null;
-  return (
-    <span className="inline-flex gap-[6px]">
-      {canGoogleCast ? (
-        <GoogleCastButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/10 backdrop-blur-md hover:bg-white/5">
-          <Screencast className="size-4" weight="bold" />
-        </GoogleCastButton>
-      ) : canAirPlay ? (
-        <AirPlayButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/10 backdrop-blur-md hover:bg-white/5">
-          <Airplay className="size-4" weight="bold" />
-        </AirPlayButton>
-      ) : null}
-    </span>
   );
 };
 
