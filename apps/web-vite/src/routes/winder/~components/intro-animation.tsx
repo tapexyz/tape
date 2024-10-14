@@ -21,7 +21,7 @@ const AnimatedRect = (props: SVGProps<SVGRectElement> & MotionProps) => {
         opacity: 1,
         transition: {
           bounce: 0,
-          duration: 1.5,
+          duration: 0.3,
           type: "spring"
         }
       }}
@@ -41,7 +41,6 @@ export const IntroAnimation = () => (
       className="select-none"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ type: "spring", bounce: 0, duration: 0.2 }}
       x="625.173"
       y="115.84"
       width="125"
@@ -150,7 +149,6 @@ export const IntroAnimation = () => (
       className="select-none"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ type: "spring", bounce: 0, duration: 0.2 }}
       x="175.632"
       y="71.3555"
       width="111"

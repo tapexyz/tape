@@ -28,6 +28,7 @@ export default defineConfig(({ mode }) => {
       "process.env": process.env
     },
     build: {
+      target: "esnext",
       rollupOptions: {
         output: {
           manualChunks: {

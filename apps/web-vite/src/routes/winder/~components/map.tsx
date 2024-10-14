@@ -1,6 +1,7 @@
 import { IPFS_GATEWAY_URL, WORKER_AVATAR_URL } from "@tape.xyz/constants";
 import { imageCdn } from "@tape.xyz/generic";
 import {
+  AudioPlayer,
   Avatar,
   AvatarImage,
   Badge,
@@ -44,6 +45,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
   VPlayButton,
+  VideoPlayer,
   toast
 } from "@tape.xyz/winder";
 import {
@@ -62,14 +64,7 @@ import {
   User,
   tw
 } from "@tape.xyz/winder";
-import { Suspense, lazy, useState } from "react";
-
-const AudioPlayer = lazy(() =>
-  import("@tape.xyz/winder").then((m) => ({ default: m.AudioPlayer }))
-);
-const VideoPlayer = lazy(() =>
-  import("@tape.xyz/winder").then((m) => ({ default: m.VideoPlayer }))
-);
+import { useState } from "react";
 
 const VStack = ({
   children,
@@ -562,81 +557,73 @@ export const components = [
       return (
         <VStack>
           <span>
-            <Suspense>
-              <VideoPlayer
-                className="rounded-card-sm"
-                posterClassName="rounded-card-sm"
-                src={{
-                  src: "https://files.tape.xyz/samples/16-9.mp4",
-                  type: "video/mp4"
-                }}
-                poster={imageCdn(
-                  `${IPFS_GATEWAY_URL}/bafybeiaikdpxnqig7ta5z5ahqav7p2z3lrijp5ym3ctg4on5reiktdh2lu`
-                )}
-                load="visible"
-                posterLoad="idle"
-                autoPlay={false}
-              />
-            </Suspense>
+            <VideoPlayer
+              className="rounded-card-sm"
+              posterClassName="rounded-card-sm"
+              src={{
+                src: "https://files.tape.xyz/samples/16-9.mp4",
+                type: "video/mp4"
+              }}
+              poster={imageCdn(
+                `${IPFS_GATEWAY_URL}/bafybeiaikdpxnqig7ta5z5ahqav7p2z3lrijp5ym3ctg4on5reiktdh2lu`
+              )}
+              load="visible"
+              posterLoad="idle"
+              autoPlay={false}
+            />
           </span>
           <div className="grid gap-2 md:grid-cols-2">
-            <Suspense>
-              <VideoPlayer
-                aspectRatio="9/16"
-                className="rounded-card-sm"
-                posterClassName="rounded-card-sm"
-                src={{
-                  src: "https://files.tape.xyz/samples/9-16.mp4",
-                  type: "video/mp4"
-                }}
-                poster={`${IPFS_GATEWAY_URL}/bafybeib3rptof3clasb4llm247zupf5pspequwu5wntzedn5nnh75ljgea`}
-                load="visible"
-                posterLoad="idle"
-                autoPlay={false}
-                loop={true}
-                top={
-                  <div className="flex justify-end">
-                    <VPlayButton />
-                  </div>
-                }
-              />
-            </Suspense>
+            <VideoPlayer
+              aspectRatio="9/16"
+              className="rounded-card-sm"
+              posterClassName="rounded-card-sm"
+              src={{
+                src: "https://files.tape.xyz/samples/9-16.mp4",
+                type: "video/mp4"
+              }}
+              poster={`${IPFS_GATEWAY_URL}/bafybeib3rptof3clasb4llm247zupf5pspequwu5wntzedn5nnh75ljgea`}
+              load="visible"
+              posterLoad="idle"
+              autoPlay={false}
+              loop={true}
+              top={
+                <div className="flex justify-end">
+                  <VPlayButton />
+                </div>
+              }
+            />
             <div className="flex flex-col gap-[6px]">
               <div className="grid flex-1 place-items-center rounded-card-sm border border-primary/20 border-dashed p-6 font-serif text-2xl">
                 Audio
               </div>
-              <Suspense>
-                <AudioPlayer
-                  src={{
-                    src: "https://files.tape.xyz/samples/audio-1.mp3",
-                    type: "audio/mp3"
-                  }}
-                  poster={imageCdn(
-                    `${IPFS_GATEWAY_URL}/bafkreiam4w73hooyzel2674k6vr52civh4miazhfuxefqpy6n4qwqvwtp4`
-                  )}
-                  load="visible"
-                  posterLoad="idle"
-                  autoPlay={false}
-                />
-              </Suspense>
-            </div>
-          </div>
-          <div className="no-scrollbar overflow-x-auto">
-            <Suspense>
               <AudioPlayer
                 src={{
-                  src: "https://files.tape.xyz/samples/audio-2.wav",
+                  src: "https://files.tape.xyz/samples/audio-1.mp3",
                   type: "audio/mp3"
                 }}
                 poster={imageCdn(
-                  `${IPFS_GATEWAY_URL}/QmVg5mLJJsx9JZvyR6j4ej1b8WGBXZmi9bQNbwQDQ7pLEc`
+                  `${IPFS_GATEWAY_URL}/bafkreiam4w73hooyzel2674k6vr52civh4miazhfuxefqpy6n4qwqvwtp4`
                 )}
                 load="visible"
                 posterLoad="idle"
-                layout="horizontal"
                 autoPlay={false}
               />
-            </Suspense>
+            </div>
+          </div>
+          <div className="no-scrollbar overflow-x-auto">
+            <AudioPlayer
+              src={{
+                src: "https://files.tape.xyz/samples/audio-2.wav",
+                type: "audio/mp3"
+              }}
+              poster={imageCdn(
+                `${IPFS_GATEWAY_URL}/QmVg5mLJJsx9JZvyR6j4ej1b8WGBXZmi9bQNbwQDQ7pLEc`
+              )}
+              load="visible"
+              posterLoad="idle"
+              layout="horizontal"
+              autoPlay={false}
+            />
           </div>
         </VStack>
       );

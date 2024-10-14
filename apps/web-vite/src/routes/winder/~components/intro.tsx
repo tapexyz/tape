@@ -1,21 +1,13 @@
 import { m } from "framer-motion";
-import { Suspense, lazy } from "react";
+import { IntroAnimation } from "./intro-animation";
 
 const title = "Winder";
-
-const IntroAnimation = lazy(() =>
-  import("./intro-animation").then((m) => ({
-    default: m.IntroAnimation
-  }))
-);
 
 export const IntroSection = () => {
   return (
     <section className="relative grid aspect-[16/6] place-items-center p-6">
       <div className="absolute inset-0">
-        <Suspense>
-          <IntroAnimation />
-        </Suspense>
+        <IntroAnimation />
       </div>
 
       <div className="relative mx-[40%]">
@@ -37,7 +29,7 @@ export const IntroSection = () => {
               transition={{
                 type: "spring",
                 bounce: 0,
-                duration: 1,
+                duration: 0.3,
                 delay: index * 0.05
               }}
             >
