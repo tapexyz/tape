@@ -1,5 +1,5 @@
-import type { FC, ReactNode } from "react";
-import { useEffect } from "react";
+import { IS_PRODUCTION } from "@tape.xyz/constants";
+import { type ReactNode, useEffect } from "react";
 import { createContext, useContext } from "react";
 
 type ServiceWorkerContextType = {
@@ -20,15 +20,21 @@ export const useServiceWorker = () => {
   return context;
 };
 
-export const ServiceWorkerProvider: FC<{ children: ReactNode }> = ({
+export const ServiceWorkerProvider = ({
   children
-}) => {
-  useEffect(() => {
+}: Readonly<{ children: ReactNode }>) => {
+  const registerServiceWorker = async () => {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker
         .register("/sw.js", { updateViaCache: "none" })
         .then((registration) => console.info("⚙︎ ", registration.scope))
         .catch((error) => console.error("⚙︎ ", error));
+    }
+  };
+
+  useEffect(() => {
+    if (IS_PRODUCTION) {
+      registerServiceWorker();
     }
   }, []);
 
