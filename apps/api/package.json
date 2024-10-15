@@ -19,7 +19,7 @@
     "@lens-protocol/metadata": "^1.2.0",
     "@prisma/client": "^5.20.0",
     "base64url": "^3.0.1",
-    "hono": "^4.6.3",
+    "hono": "^4.6.5",
     "linkedom": "^0.18.4",
     "ua-parser-js": "2.0.0-beta.3",
     "viem": "^2.21.18",
