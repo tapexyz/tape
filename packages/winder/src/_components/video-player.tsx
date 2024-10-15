@@ -47,7 +47,7 @@ interface Props extends Omit<MediaPlayerProps, "children"> {
 }
 
 const VPlayButton = () => (
-  <PlayButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-black/5 backdrop-blur-sm hover:bg-black/10">
+  <PlayButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/10 hover:bg-white/15">
     <Play className="hidden size-4 group-data-[paused]:block" weight="fill" />
     <Pause className="size-4 group-data-[paused]:hidden" weight="fill" />
   </PlayButton>
@@ -64,14 +64,14 @@ const VTimeSlider = () => (
 );
 
 const StreamAV = ({
-  className = "*:bg-black/5 *:backdrop-blur-sm *:transition-opacity *:hover:bg-black/10"
+  className = "*:bg-white/10 *:transition-opacity *:hover:bg-white/15"
 }: { className?: string }) => {
   const player = useMediaPlayer();
   const canAirPlay = player?.state.canAirPlay;
   const canGoogleCast = player?.state.canGoogleCast;
   if (!canAirPlay && !canGoogleCast) return null;
   return (
-    <span className={tw("inline-flex gap-[6px]", className)}>
+    <span className={tw("inline-flex gap-1", className)}>
       {canGoogleCast ? (
         <GoogleCastButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom ">
           <Screencast className="size-4" weight="bold" />
@@ -147,21 +147,21 @@ const BufferIndicator = memo(() => {
 const BottomControls = memo(({ pip }: { pip?: boolean }) => {
   return (
     <div className="flex w-full items-center justify-between">
-      <div className="flex w-full items-center gap-[6px]">
+      <div className="flex w-full items-center gap-1">
         <VPlayButton />
         <SeekButton
-          className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-black/5 backdrop-blur-sm transition-opacity hover:bg-black/10"
+          className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/10 transition-opacity hover:bg-white/15"
           seconds={-10}
         >
           <ArrowCounterClockwise className="size-4" weight="bold" />
         </SeekButton>
         <SeekButton
-          className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-black/5 backdrop-blur-sm transition-opacity hover:bg-black/10"
+          className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/10 transition-opacity hover:bg-white/15"
           seconds={10}
         >
           <ArrowClockwise className="size-4" weight="bold" />
         </SeekButton>
-        <div className="inline-flex h-9 items-center space-x-2 rounded-custom bg-black/5 py-2 pr-4 pl-3 backdrop-blur-sm transition-opacity hover:bg-black/10">
+        <div className="inline-flex h-9 items-center space-x-2 rounded-custom bg-white/10 py-2 pr-4 pl-3 transition-opacity hover:bg-white/15">
           <MuteButton className="group relative cursor-pointer ">
             <SpeakerNone
               className="hidden size-4 group-data-[state='muted']:block"
@@ -184,14 +184,14 @@ const BottomControls = memo(({ pip }: { pip?: boolean }) => {
           </VolumeSlider.Root>
         </div>
       </div>
-      <div className="inline-flex items-center gap-[6px]">
+      <div className="inline-flex items-center gap-1">
         {pip && (
-          <ToggleButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-black/5 backdrop-blur-sm transition-opacity hover:bg-black/10 data-[pressed]:hidden">
+          <ToggleButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/10 transition-opacity hover:bg-white/15 data-[pressed]:hidden">
             <PictureInPicture className="size-4" weight="bold" />
           </ToggleButton>
         )}
         <StreamAV />
-        <FullscreenButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-black/5 backdrop-blur-sm transition-opacity hover:bg-black/10">
+        <FullscreenButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/10 transition-opacity hover:bg-white/15">
           <CornersOut
             className="size-4 group-data-[active]:hidden"
             weight="bold"
@@ -247,7 +247,7 @@ const VideoPlayer = forwardRef<MediaPlayerInstance, Props>(
             <ClickToPlay />
             <div className="flex-1" />
             <Controls.Group className="pointer-events-auto flex w-full flex-col gap-[6px] bg-gradient-to-t from-black/40 p-4">
-              <div className="flex items-center gap-[6px]">
+              <div className="flex items-center gap-1">
                 {!isPortrait ? (
                   <div className="mr-2 flex items-center font-semibold text-sm">
                     <Time className="tabular-nums" type="current" />
