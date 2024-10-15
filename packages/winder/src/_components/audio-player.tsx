@@ -92,7 +92,7 @@ const AudioPlayer = forwardRef<MediaPlayerInstance, Props>(
               </div>
               <div className="flex justify-between">
                 <div className="inline-flex gap-[6px]">
-                  <StreamAV />
+                  <StreamAV className="*:bg-white/10 *:transition-opacity *:hover:bg-white/5" />
                   <div className="inline-flex">
                     <ToggleButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom hover:text-white/80">
                       <Heart className="size-5" />
@@ -103,22 +103,22 @@ const AudioPlayer = forwardRef<MediaPlayerInstance, Props>(
                   </div>
                 </div>
                 <div className="flex gap-[6px]">
-                  <ToggleButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/10 backdrop-blur-md hover:bg-white/5">
+                  <ToggleButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/10 hover:bg-white/5">
                     <PictureInPicture className="size-4" weight="bold" />
                   </ToggleButton>
                   <SeekButton
-                    className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/10 backdrop-blur-md hover:bg-white/5"
+                    className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/10 hover:bg-white/5"
                     seconds={-10}
                   >
                     <ArrowCounterClockwise className="size-4" weight="bold" />
                   </SeekButton>
                   <SeekButton
-                    className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/10 backdrop-blur-md hover:bg-white/5"
+                    className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/10 hover:bg-white/5"
                     seconds={10}
                   >
                     <ArrowClockwise className="size-4" weight="bold" />
                   </SeekButton>
-                  <PlayButton className="group inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white text-black backdrop-blur-md hover:bg-white/90">
+                  <PlayButton className="group inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white text-black hover:bg-white/90">
                     <Play
                       className="hidden size-4 group-data-[paused]:block"
                       weight="fill"

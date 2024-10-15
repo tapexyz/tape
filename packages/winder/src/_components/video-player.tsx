@@ -47,7 +47,7 @@ interface Props extends Omit<MediaPlayerProps, "children"> {
 }
 
 const VPlayButton = () => (
-  <PlayButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/10 backdrop-blur-md hover:bg-white/15">
+  <PlayButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-black/5 backdrop-blur-sm hover:bg-black/10">
     <Play className="hidden size-4 group-data-[paused]:block" weight="fill" />
     <Pause className="size-4 group-data-[paused]:hidden" weight="fill" />
   </PlayButton>
@@ -63,19 +63,21 @@ const VTimeSlider = () => (
   </>
 );
 
-const StreamAV = () => {
+const StreamAV = ({
+  className = "*:bg-black/5 *:backdrop-blur-sm *:transition-opacity *:hover:bg-black/10"
+}: { className?: string }) => {
   const player = useMediaPlayer();
   const canAirPlay = player?.state.canAirPlay;
   const canGoogleCast = player?.state.canGoogleCast;
   if (!canAirPlay && !canGoogleCast) return null;
   return (
-    <span className="inline-flex gap-[6px]">
+    <span className={tw("inline-flex gap-[6px]", className)}>
       {canGoogleCast ? (
-        <GoogleCastButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/10 backdrop-blur-md hover:bg-white/5">
+        <GoogleCastButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom ">
           <Screencast className="size-4" weight="bold" />
         </GoogleCastButton>
       ) : canAirPlay ? (
-        <AirPlayButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/10 backdrop-blur-md hover:bg-white/5">
+        <AirPlayButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom">
           <Airplay className="size-4" weight="bold" />
         </AirPlayButton>
       ) : null}
@@ -184,18 +186,18 @@ const VideoPlayer = forwardRef<MediaPlayerInstance, Props>(
                   <div className="flex w-full items-center gap-[6px]">
                     <VPlayButton />
                     <SeekButton
-                      className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/10 backdrop-blur-md hover:bg-white/15"
+                      className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-black/5 backdrop-blur-sm transition-opacity hover:bg-black/10"
                       seconds={-10}
                     >
                       <ArrowCounterClockwise className="size-4" weight="bold" />
                     </SeekButton>
                     <SeekButton
-                      className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/10 backdrop-blur-md hover:bg-white/15"
+                      className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-black/5 backdrop-blur-sm transition-opacity hover:bg-black/10"
                       seconds={10}
                     >
                       <ArrowClockwise className="size-4" weight="bold" />
                     </SeekButton>
-                    <div className="inline-flex h-9 items-center space-x-2 rounded-custom bg-white/10 py-2 pr-4 pl-3 backdrop-blur-md hover:bg-white/15">
+                    <div className="inline-flex h-9 items-center space-x-2 rounded-custom bg-black/5 py-2 pr-4 pl-3 backdrop-blur-sm transition-opacity hover:bg-black/10">
                       <MuteButton className="group relative cursor-pointer ">
                         <SpeakerNone
                           className="hidden size-4 group-data-[state='muted']:block"
@@ -220,12 +222,12 @@ const VideoPlayer = forwardRef<MediaPlayerInstance, Props>(
                   </div>
                   <div className="inline-flex items-center gap-[6px]">
                     {pip && (
-                      <ToggleButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/10 backdrop-blur-md hover:bg-white/15 data-[pressed]:hidden">
+                      <ToggleButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-black/5 backdrop-blur-sm transition-opacity hover:bg-black/10 data-[pressed]:hidden">
                         <PictureInPicture className="size-4" weight="bold" />
                       </ToggleButton>
                     )}
                     <StreamAV />
-                    <FullscreenButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-white/10 backdrop-blur-md hover:bg-white/15">
+                    <FullscreenButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-black/5 backdrop-blur-sm transition-opacity hover:bg-black/10">
                       <CornersOut
                         className="size-4 group-data-[active]:hidden"
                         weight="bold"
