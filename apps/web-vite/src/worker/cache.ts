@@ -2,10 +2,12 @@ const CACHE_NAME = "tape-cache-storage";
 const ASSET_CACHE_URLS = [/\/assets\/.*/, /\/fonts\/.*/];
 
 const getFileGroup = (url: string): string | null => {
-  const regex =
-    /\/assets\/(?<baseName>[a-zA-Z0-9_\-]+)\.hash-[A-Za-z0-9]+\.(?<ext>[a-zA-Z0-9]+)$/;
-  const match = url.match(regex);
-  return match?.groups ? `${match.groups.baseName}.${match.groups.ext}` : null;
+  const match = url.match(/\/([^/]+)\.hash-[^.]+\.(\w+)$/);
+  if (match) {
+    const [, baseName, extension] = match;
+    return `${baseName}.${extension}`;
+  }
+  return null;
 };
 
 const deleteOldGroupFiles = async (request: Request, cache: Cache) => {
@@ -45,7 +47,8 @@ export const cacheNewAssets = (event: FetchEvent) => {
 
             return networkResponse;
           })
-          .catch(() => {
+          .catch((error) => {
+            console.error("[⚙️] Network error occurred:", error);
             return new Response("[⚙️] Network error occurred", {
               status: 503,
               statusText: "Service Unavailable"
