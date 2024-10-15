@@ -467,7 +467,7 @@ export const components = [
             <DropdownMenuTrigger asChild>
               <Button variant="outline">My Profile</Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start">
+            <DropdownMenuContent align="start" className="w-44">
               <DropdownMenuItem className="flex items-center gap-2">
                 <User />
                 <span>Profile</span>
@@ -480,7 +480,7 @@ export const components = [
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger>Publication</DropdownMenuSubTrigger>
                 <DropdownMenuPortal>
-                  <DropdownMenuSubContent>
+                  <DropdownMenuSubContent className="w-44">
                     <DropdownMenuItem>Mirror</DropdownMenuItem>
                     <DropdownMenuItem>Collect</DropdownMenuItem>
                     <DropdownMenuSeparator />

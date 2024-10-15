@@ -20,7 +20,7 @@ declare module "@tanstack/react-router" {
   }
 }
 
-createRoot(document.getElementById("app") as HTMLElement).render(
+createRoot(document.getElementById("__tape__") as HTMLElement).render(
   <StrictMode>
     <RouterProvider router={router} />
   </StrictMode>

@@ -32,12 +32,12 @@ const DropdownMenuSubTrigger = forwardRef<
 const DropdownMenuSubContent = forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.SubContent>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent>
->(({ className, ...props }, ref) => (
+>(({ className, sideOffset = 4, ...props }, ref) => (
   <DropdownMenuPrimitive.SubContent
     ref={ref}
-    sideOffset={9}
+    sideOffset={sideOffset}
     className={tw(
-      "z-50 min-w-[8rem] overflow-hidden rounded-card-sm border-2 border-custom bg-site p-1",
+      "z-50 min-w-[8rem] overflow-hidden rounded-card-sm border border-custom bg-site p-1",
       "data-[state=closed]:fade-out data-[state=open]:fade-in data-[state=closed]:zoom-out-90 data-[state=open]:zoom-in-90 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=open]:animate-in",
       className
     )}
@@ -54,7 +54,7 @@ const DropdownMenuContent = forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       className={tw(
-        "z-50 min-w-[8rem] overflow-hidden rounded-card-sm border-2 border-custom bg-site p-1",
+        "z-50 min-w-[8rem] overflow-hidden rounded-card-sm border border-custom bg-site p-1",
         "data-[state=closed]:fade-out data-[state=open]:fade-in data-[state=closed]:zoom-out-90 data-[state=open]:zoom-in-90 data-[state=closed]:animate-out data-[state=open]:animate-in",
         "data-[side=bottom]:slide-in-from-top-4 data-[side=left]:slide-in-from-right-4 data-[side=right]:slide-in-from-left-4 data-[side=top]:slide-in-from-bottom-4 data-[side=left]:slide-out-to-right-4 data-[side=right]:slide-out-to-left-4 data-[side=top]:slide-out-to-bottom-4 data-[side=bottom]:slide-out-to-top-4",
         className
