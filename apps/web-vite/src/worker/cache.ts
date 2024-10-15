@@ -25,6 +25,13 @@ const deleteOldGroupFiles = async (request: Request, cache: Cache) => {
 export const cacheNewAssets = (event: FetchEvent) => {
   const requestURL = new URL(event.request.url);
 
+  if (
+    event.request.method !== "GET" ||
+    requestURL.origin !== self.location.origin
+  ) {
+    return;
+  }
+
   const shouldCache = ASSET_CACHE_URLS.some((pattern) =>
     pattern.test(requestURL.pathname)
   );
