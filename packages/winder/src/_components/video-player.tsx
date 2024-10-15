@@ -22,7 +22,7 @@ import {
   useMediaPlayer,
   useMediaState
 } from "@vidstack/react";
-import { forwardRef, useEffect } from "react";
+import { forwardRef, memo, useEffect } from "react";
 import {
   Airplay,
   ArrowClockwise,
@@ -130,6 +130,82 @@ const NotInViewObserver = () => {
   return <span ref={ref} />;
 };
 
+const BufferIndicator = memo(() => {
+  return (
+    <div className="pointer-events-none absolute inset-0 z-10 flex h-full w-full items-center justify-center">
+      <Spinner.Root
+        className="media-buffering:animate-spin text-white media-buffering:opacity-100 opacity-0 transition-opacity duration-200 ease-linear"
+        size={50}
+      >
+        <Spinner.Track className="opacity-25" width={5} />
+        <Spinner.TrackFill className="opacity-75" width={5} />
+      </Spinner.Root>
+    </div>
+  );
+});
+
+const BottomControls = memo(({ pip }: { pip?: boolean }) => {
+  return (
+    <div className="flex w-full items-center justify-between">
+      <div className="flex w-full items-center gap-[6px]">
+        <VPlayButton />
+        <SeekButton
+          className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-black/5 backdrop-blur-sm transition-opacity hover:bg-black/10"
+          seconds={-10}
+        >
+          <ArrowCounterClockwise className="size-4" weight="bold" />
+        </SeekButton>
+        <SeekButton
+          className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-black/5 backdrop-blur-sm transition-opacity hover:bg-black/10"
+          seconds={10}
+        >
+          <ArrowClockwise className="size-4" weight="bold" />
+        </SeekButton>
+        <div className="inline-flex h-9 items-center space-x-2 rounded-custom bg-black/5 py-2 pr-4 pl-3 backdrop-blur-sm transition-opacity hover:bg-black/10">
+          <MuteButton className="group relative cursor-pointer ">
+            <SpeakerNone
+              className="hidden size-4 group-data-[state='muted']:block"
+              weight="bold"
+            />
+            <SpeakerLow
+              className="hidden size-4 group-data-[state='low']:block"
+              weight="bold"
+            />
+            <SpeakerHigh
+              className="hidden size-4 group-data-[state='high']:block"
+              weight="bold"
+            />
+          </MuteButton>
+          <VolumeSlider.Root className="group relative inline-flex w-20 cursor-pointer touch-none select-none items-center aria-hidden:hidden">
+            <VolumeSlider.Track className="relative z-0 my-1 h-0.5 w-full rounded bg-white/30">
+              <VolumeSlider.TrackFill className="absolute h-full w-[var(--slider-fill)] rounded bg-white will-change-[width]" />
+            </VolumeSlider.Track>
+            <VolumeSlider.Thumb className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-[var(--slider-fill)] z-20 h-3 w-0.5 rounded bg-white opacity-0 transition-opacity duration-200 will-change-[left] group-data-[active]:opacity-100" />
+          </VolumeSlider.Root>
+        </div>
+      </div>
+      <div className="inline-flex items-center gap-[6px]">
+        {pip && (
+          <ToggleButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-black/5 backdrop-blur-sm transition-opacity hover:bg-black/10 data-[pressed]:hidden">
+            <PictureInPicture className="size-4" weight="bold" />
+          </ToggleButton>
+        )}
+        <StreamAV />
+        <FullscreenButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-black/5 backdrop-blur-sm transition-opacity hover:bg-black/10">
+          <CornersOut
+            className="size-4 group-data-[active]:hidden"
+            weight="bold"
+          />
+          <CornersIn
+            className="hidden size-4 group-data-[active]:block"
+            weight="bold"
+          />
+        </FullscreenButton>
+      </div>
+    </div>
+  );
+});
+
 const VideoPlayer = forwardRef<MediaPlayerInstance, Props>(
   ({ poster, top, pip, posterClassName, ...props }, ref) => {
     const isPortrait = props.aspectRatio === "9/16";
@@ -181,76 +257,10 @@ const VideoPlayer = forwardRef<MediaPlayerInstance, Props>(
                 ) : null}
                 <VTimeSliderRoot isPortrait={isPortrait} />
               </div>
-              {!isPortrait ? (
-                <div className="flex w-full items-center justify-between">
-                  <div className="flex w-full items-center gap-[6px]">
-                    <VPlayButton />
-                    <SeekButton
-                      className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-black/5 backdrop-blur-sm transition-opacity hover:bg-black/10"
-                      seconds={-10}
-                    >
-                      <ArrowCounterClockwise className="size-4" weight="bold" />
-                    </SeekButton>
-                    <SeekButton
-                      className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-black/5 backdrop-blur-sm transition-opacity hover:bg-black/10"
-                      seconds={10}
-                    >
-                      <ArrowClockwise className="size-4" weight="bold" />
-                    </SeekButton>
-                    <div className="inline-flex h-9 items-center space-x-2 rounded-custom bg-black/5 py-2 pr-4 pl-3 backdrop-blur-sm transition-opacity hover:bg-black/10">
-                      <MuteButton className="group relative cursor-pointer ">
-                        <SpeakerNone
-                          className="hidden size-4 group-data-[state='muted']:block"
-                          weight="bold"
-                        />
-                        <SpeakerLow
-                          className="hidden size-4 group-data-[state='low']:block"
-                          weight="bold"
-                        />
-                        <SpeakerHigh
-                          className="hidden size-4 group-data-[state='high']:block"
-                          weight="bold"
-                        />
-                      </MuteButton>
-                      <VolumeSlider.Root className="group relative inline-flex w-20 cursor-pointer touch-none select-none items-center aria-hidden:hidden">
-                        <VolumeSlider.Track className="relative z-0 my-1 h-0.5 w-full rounded bg-white/30">
-                          <VolumeSlider.TrackFill className="absolute h-full w-[var(--slider-fill)] rounded bg-white will-change-[width]" />
-                        </VolumeSlider.Track>
-                        <VolumeSlider.Thumb className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-[var(--slider-fill)] z-20 h-3 w-0.5 rounded bg-white opacity-0 transition-opacity duration-200 will-change-[left] group-data-[active]:opacity-100" />
-                      </VolumeSlider.Root>
-                    </div>
-                  </div>
-                  <div className="inline-flex items-center gap-[6px]">
-                    {pip && (
-                      <ToggleButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-black/5 backdrop-blur-sm transition-opacity hover:bg-black/10 data-[pressed]:hidden">
-                        <PictureInPicture className="size-4" weight="bold" />
-                      </ToggleButton>
-                    )}
-                    <StreamAV />
-                    <FullscreenButton className="group relative inline-flex size-9 cursor-pointer items-center justify-center rounded-custom bg-black/5 backdrop-blur-sm transition-opacity hover:bg-black/10">
-                      <CornersOut
-                        className="size-4 group-data-[active]:hidden"
-                        weight="bold"
-                      />
-                      <CornersIn
-                        className="hidden size-4 group-data-[active]:block"
-                        weight="bold"
-                      />
-                    </FullscreenButton>
-                  </div>
-                </div>
-              ) : null}
+              {!isPortrait && <BottomControls pip={pip} />}
             </Controls.Group>
           </Controls.Root>
-          <div className="pointer-events-none absolute inset-0 z-10 flex h-full w-full items-center justify-center">
-            <Spinner.Root
-              className="media-buffering:animate-spin text-white media-buffering:opacity-100 opacity-0 transition-opacity duration-200 ease-linear"
-              size={50}
-            >
-              <Spinner.Track className="opacity-25" width={5} />
-              <Spinner.TrackFill className="opacity-75" width={5} />
-            </Spinner.Root>
-          </div>
+          <BufferIndicator />
         </MediaProvider>
         <MediaAnnouncer />
       </MediaPlayer>
