@@ -55,7 +55,7 @@ export const uploadToIPFS = async (
     const task = new Upload({
       client,
       params,
-      // queueSize: 10
+      queueSize: 10,
       partSize: 10 * 1024 * 1024
     });
     task.on("httpUploadProgress", (e) => {
