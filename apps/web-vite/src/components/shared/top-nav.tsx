@@ -100,7 +100,7 @@ export const TopNav = () => {
         <ThemeSwitcher />
         <Button
           variant="secondary"
-          className="p-0 font-semibold text-sm backdrop-blur-3xl"
+          className="hidden p-0 font-semibold text-sm backdrop-blur-3xl lg:block"
         >
           <div className="inline-flex items-center">
             <Link to="/">
@@ -138,11 +138,11 @@ export const TopNav = () => {
 
       <Button
         variant="secondary"
-        className="w-[444px] font-medium backdrop-blur-3xl"
+        className="p-2 font-medium backdrop-blur-3xl lg:w-[444px]"
       >
         <span className="inline-flex items-center gap-1.5">
           <MagnifyingGlass className="size-4" />
-          <span>Search for a tape</span>
+          <span className="hidden lg:inline-block">Search for a tape</span>
         </span>
       </Button>
 

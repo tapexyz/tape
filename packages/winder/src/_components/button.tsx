@@ -5,7 +5,7 @@ import { tw } from "../tw";
 import { Spinner } from "./spinner";
 
 const buttonVariants = cva(
-  "flex items-center justify-center relative hover:shadow-inner transition-shadow disabled:pointer-events-none overflow-hidden rounded-custom font-semibold text-sm",
+  "flex items-center justify-center relative hover:shadow-inner transition-shadow disabled:pointer-events-none overflow-hidden rounded-custom font-semibold text-sm shrink-0",
   {
     variants: {
       variant: {
