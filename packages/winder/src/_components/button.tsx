@@ -5,14 +5,14 @@ import { tw } from "../tw";
 import { Spinner } from "./spinner";
 
 const buttonVariants = cva(
-  "flex items-center justify-center relative hover:shadow-inner transition-shadow disabled:pointer-events-none overflow-hidden rounded-custom font-medium text-sm",
+  "flex items-center justify-center relative hover:shadow-inner transition-shadow disabled:pointer-events-none overflow-hidden rounded-custom font-semibold text-sm",
   {
     variants: {
       variant: {
         default:
           "bg-primary text-theme hover:bg-primary/85 disabled:bg-primary/60",
         secondary:
-          "bg-secondary text-primary border-custom border disabled:bg-primary/[0.05]",
+          "bg-secondary backdrop-blur-3xl text-primary border-custom border disabled:bg-primary/[0.05]",
         outline: "border-custom border disabled:opacity-80",
         destructive:
           "bg-destructive text-white hover:bg-destructive/85 disabled:bg-destructive/60"

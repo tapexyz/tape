@@ -2,7 +2,7 @@ import { Feed } from "./feed";
 
 export const HomePage = () => {
   return (
-    <div className="flex min-h-screen flex-col items-center p-24">
+    <div className="container flex min-h-screen max-w-screen-2xl flex-col">
       <Feed />
     </div>
   );

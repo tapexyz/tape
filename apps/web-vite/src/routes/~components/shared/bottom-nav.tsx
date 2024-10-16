@@ -7,7 +7,7 @@ import { useState } from "react";
 
 const items = ["Home", "Explore", "Following"];
 
-export const Navbar = () => {
+export const BottomNav = () => {
   const [open, setOpen] = useState(false);
   const [elementRef, bounds] = useMeasure();
 
