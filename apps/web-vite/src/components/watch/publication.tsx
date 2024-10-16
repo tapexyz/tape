@@ -1,8 +1,7 @@
+import { Route } from "@/routes/_layout/watch/$pubId";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { getPublication } from "@tape.xyz/generic";
 import type { AnyPublication } from "@tape.xyz/lens/gql";
-
-import { Route } from "../$pubId";
 import { publicationQuery } from "./queries";
 
 export const Publication = () => {

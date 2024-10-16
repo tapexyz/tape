@@ -1,8 +1,7 @@
+import { Route } from "@/routes/_layout/watch/$pubId";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getPublication } from "@tape.xyz/generic";
 import type { AnyPublication } from "@tape.xyz/lens/gql";
-
-import { Route } from "../$pubId";
 import { commentsQuery } from "./queries";
 
 export const Comments = () => {

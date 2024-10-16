@@ -1,9 +1,8 @@
-import { Virtualized } from "@/routes/~components/shared/virtualized";
+import { Virtualized } from "@/components/shared/virtualized";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
+import { Link } from "@tanstack/react-router";
 import { getPublication } from "@tape.xyz/generic";
 import type { AnyPublication } from "@tape.xyz/lens/gql";
-
-import { Link } from "@tanstack/react-router";
 import { publicationsQuery } from "./queries";
 
 export const Feed = () => {

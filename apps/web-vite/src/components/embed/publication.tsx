@@ -1,3 +1,4 @@
+import { Route } from "@/routes/embed/$pubId";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import {
   getPublication,
@@ -7,7 +8,6 @@ import {
 } from "@tape.xyz/generic";
 import type { AnyPublication } from "@tape.xyz/lens/gql";
 import { VideoPlayer } from "@tape.xyz/winder";
-import { Route } from "../$pubId";
 import { publicationQuery } from "./queries";
 import { TopControls } from "./top";
 

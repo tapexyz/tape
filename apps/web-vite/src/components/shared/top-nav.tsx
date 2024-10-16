@@ -20,9 +20,9 @@ import { memo } from "react";
 
 const Logo = memo(() => {
   return (
-    <div className="rounded-custom bg-primary px-3.5 pt-2.5 pb-2">
+    <div className="flex h-9 items-center rounded-custom bg-primary px-3.5 pt-2.5 pb-2">
       <svg
-        className="mt-[0.5px] h-4 text-theme"
+        className="h-4 text-theme"
         viewBox="0 0 1453 320"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

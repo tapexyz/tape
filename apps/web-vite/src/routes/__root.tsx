@@ -1,4 +1,5 @@
 import "@tape.xyz/winder/src/winder.css";
+import { Providers } from "@/providers";
 import type { QueryClient } from "@tanstack/react-query";
 import {
   Link,
@@ -6,7 +7,6 @@ import {
   ScrollRestoration,
   createRootRouteWithContext
 } from "@tanstack/react-router";
-import { Providers } from "./~providers";
 
 type RootRouteContext = {
   rqClient: QueryClient;

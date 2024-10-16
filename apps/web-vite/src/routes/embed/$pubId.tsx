@@ -1,6 +1,6 @@
+import { EmbedPage } from "@/components/embed/page";
+import { publicationQuery } from "@/components/embed/queries";
 import { createFileRoute } from "@tanstack/react-router";
-import { EmbedPage } from "./~components/page";
-import { publicationQuery } from "./~components/queries";
 
 type EmbedSearchParams = {
   t: number;

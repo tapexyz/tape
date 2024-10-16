@@ -1,8 +1,8 @@
+import { HomePage } from "@/components/home/page";
+import { publicationsQuery } from "@/components/home/queries";
 import { createFileRoute } from "@tanstack/react-router";
-import { HomePage } from "../../~components/home/page";
-import { publicationsQuery } from "../../~components/home/queries";
 
-export const Route = createFileRoute("/(app)/_layout/")({
+export const Route = createFileRoute("/_layout/_home/")({
   loader: ({ context: { rqClient } }) => {
     return rqClient.ensureInfiniteQueryData(publicationsQuery);
   },

@@ -1,7 +1,7 @@
+import { Route } from "@/routes/_layout/u/$handle";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { LENS_NAMESPACE_PREFIX } from "@tape.xyz/constants";
 import type { Profile as ProfileType } from "@tape.xyz/lens/gql";
-import { Route } from "../$handle";
 import { profileQuery } from "./queries";
 
 export const Profile = () => {
