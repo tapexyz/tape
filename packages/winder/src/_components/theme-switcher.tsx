@@ -3,14 +3,14 @@ import { Desktop, Moon, Sun } from "../icons";
 import { useTheme } from "../theme";
 import { Button } from "./button";
 
-const getIcon = (theme: string, weight: "fill" | "regular") => {
+const getIcon = (theme: string) => {
   switch (theme) {
     case "system":
-      return <Desktop weight={weight} />;
+      return <Desktop />;
     case "light":
-      return <Sun weight={weight} />;
+      return <Sun />;
     case "dark":
-      return <Moon weight={weight} />;
+      return <Moon />;
   }
 };
 
@@ -30,7 +30,7 @@ export const ThemeSwitcher = () => {
       className="backdrop-blur-3xl"
       onClick={() => setTheme(getNextTheme())}
     >
-      {getIcon(getNextTheme(), "fill")}
+      {getIcon(getNextTheme())}
     </Button>
   );
 };
@@ -55,7 +55,7 @@ export const ThemeSwitcherExpanded = ({ id }: Readonly<{ id: string }>) => {
               className="absolute inset-0 rounded-full bg-theme"
             />
           ) : null}
-          <span className="relative">{getIcon(theme, "regular")}</span>
+          <span className="relative">{getIcon(theme)}</span>
         </button>
       ))}
     </div>

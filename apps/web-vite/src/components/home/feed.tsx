@@ -24,7 +24,7 @@ export const Feed = () => {
           itemContent={(_index, anyPublication) => {
             const publication = getPublication(anyPublication);
             return (
-              <div className="p-5">
+              <div className="py-5">
                 <Link to={`/watch/${publication.id}`}>
                   {publication.metadata.content}
                 </Link>

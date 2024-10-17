@@ -20,9 +20,7 @@ export const Providers = ({ children }: Readonly<{ children: ReactNode }>) => {
       <ServiceWorkerProvider>
         <LazyMotion features={loadFeatures} strict>
           <ThemeProvider>
-            <main className="container flex min-h-screen max-w-screen-2xl flex-col">
-              {children}
-            </main>
+            {children}
             <Toaster />
           </ThemeProvider>
           <Devtools />

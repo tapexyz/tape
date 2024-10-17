@@ -5,8 +5,10 @@ export const Route = createFileRoute("/_layout")({
   component: () => {
     return (
       <>
-        <TopNav />
-        <Outlet />
+        <main className="container flex min-h-screen max-w-screen-2xl flex-col px-2">
+          <TopNav />
+          <Outlet />
+        </main>
       </>
     );
   }

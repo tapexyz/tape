@@ -37,7 +37,7 @@
 
     --site-background: 0 0% 95%;
     --primary: 0 0% 0%;
-    --secondary: 0, 0%, 0%, 0.08;
+    --secondary: 0, 0%, 0%, 0.05;
     --destructive: 0 100% 49%;
     --theme: 0 0% 100%;
     --border: 0, 0%, 0%, 0.06;
@@ -50,7 +50,7 @@
 
     --site-background: 0 0% 16%;
     --primary: 0 0% 100%;
-    --secondary: 0, 0%, 100%, 0.08;
+    --secondary: 0, 0%, 100%, 0.05;
     --destructive: 359 100% 61%;
     --theme: 0 0% 0%;
     --border: 0, 0%, 100%, 0.06;

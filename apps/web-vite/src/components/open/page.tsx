@@ -14,7 +14,7 @@ import { platformStats } from "./queries";
 export const OpenPage = () => {
   const { data } = useQuery(platformStats);
 
-  if (!data) return <div>not found</div>;
+  if (!data) return null;
 
   const { acts, comments, mirrors, posts, creatorEarnings } = data;
 
