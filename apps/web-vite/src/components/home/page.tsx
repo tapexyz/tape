@@ -28,7 +28,9 @@ export const HomePage = () => {
             Join the movement towards a more transparent, secure, and
             user-centric social experience while expanding your network.
           </h2>
-          <Button className="invert">Invite friends and get rewarded</Button>
+          <Button className="font-medium invert">
+            Invite friends and get rewarded
+          </Button>
         </div>
       </div>
       <Feed />
