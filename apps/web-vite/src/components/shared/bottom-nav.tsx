@@ -1,17 +1,22 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useMatchRoute } from "@tanstack/react-router";
 import { CREATOR_VIDEO_CATEGORIES } from "@tape.xyz/constants";
 import { FunnelSimple, tw } from "@tape.xyz/winder";
-import { useMeasure } from "@uidotdev/usehooks";
+import { useClickAway, useMeasure } from "@uidotdev/usehooks";
 import { AnimatePresence, m } from "framer-motion";
-import { memo, useEffect, useState } from "react";
+import { type RefObject, memo, useEffect, useState } from "react";
 
-const items = ["Home", "Explore", "Following"];
+const items = ["Home", "Explore", "Following"] as const;
 
 const Panel = memo(() => {
   const [open, setOpen] = useState(false);
   const [elementRef, bounds] = useMeasure();
+  const ref = useClickAway(() => {
+    setOpen(false);
+  });
+
   return (
     <m.div
+      ref={ref as RefObject<HTMLDivElement>}
       animate={{
         height: bounds.height ? bounds.height : undefined,
         transition: {
@@ -97,22 +102,40 @@ const Panel = memo(() => {
 });
 
 const Bar = memo(() => {
+  const matchRoute = useMatchRoute();
+
   return (
-    <div className="mt-1.5 flex items-center space-x-1.5 rounded-[14px] bg-black/95 p-1.5 font-semibold shadow backdrop-blur-2xl *:flex-1">
-      {items.map((item) => (
-        <Link
-          key={item}
-          to="/"
-          className={tw(
-            "rounded-custom px-[13px] py-[6px] text-center text-sm",
-            item === "Explore"
-              ? "bg-white text-black/80"
-              : "bg-white/15 text-white/80 hover:bg-white/20"
-          )}
-        >
-          {item}
-        </Link>
-      ))}
+    <div className="mt-1.5 flex items-center space-x-1.5 rounded-[14px] bg-black/95 p-1.5 font-semibold shadow backdrop-blur-2xl *:flex-1 *:rounded-custom *:px-[13px] *:py-[6px] *:text-center *:text-sm">
+      <Link
+        to="/"
+        className={tw(
+          matchRoute({ to: "/" })
+            ? "bg-white text-black/80"
+            : "bg-white/15 text-white/80 hover:bg-white/20"
+        )}
+      >
+        Home
+      </Link>
+      <Link
+        to="/feed"
+        className={tw(
+          matchRoute({ to: "/feed" })
+            ? "bg-white text-black/80"
+            : "bg-white/15 text-white/80 hover:bg-white/20"
+        )}
+      >
+        Explore
+      </Link>
+      <Link
+        to="/feed"
+        className={tw(
+          matchRoute({ to: "/feed" })
+            ? "bg-white text-black/80"
+            : "bg-white/15 text-white/80 hover:bg-white/20"
+        )}
+      >
+        Following
+      </Link>
     </div>
   );
 });
@@ -148,13 +171,13 @@ export const BottomNav = () => {
         animate={{ opacity: 1, filter: "blur(0px)" }}
         exit={{ opacity: 0, filter: "blur(4px)" }}
         transition={{ duration: 0.2, ease: "easeInOut", delay: 0.1 }}
-        className="-translate-x-1/2 sticky bottom-10 left-[50%] z-50 hidden w-[357px] md:block"
+        className="fixed inset-x-0 bottom-6 z-50 hidden w-[calc(100%-var(--removed-body-scroll-bar-size,0px))] justify-center md:flex 2xl:bottom-10"
       >
         {!isHidden ? (
-          <>
+          <div className="w-[357px]">
             <Panel />
             <Bar />
-          </>
+          </div>
         ) : null}
       </m.div>
     </AnimatePresence>

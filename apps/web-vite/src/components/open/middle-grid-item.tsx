@@ -11,8 +11,8 @@ export const MiddleGridItem = () => {
 
   return (
     <Link
-      ref={ref}
       to="/"
+      ref={ref}
       className="flex w-full flex-1 justify-center px-10 py-10 hover:bg-theme/40 lg:py-14 dark:hover:bg-theme/20"
     >
       <div className="relative">
