@@ -36,8 +36,8 @@ export const Bytes = () => {
             currentTarget.src = FALLBACK_THUMBNAIL_URL;
           }}
         />
-        <div className="absolute right-0 bottom-0 left-0 bg-gradient-to-b from-transparent to-black px-4 py-2">
-          <h1 className="line-clamp-1 break-all text-white">
+        <div className="absolute right-0 bottom-0 left-0 bg-gradient-to-b from-transparent to-black/50 px-4 py-2 text-xs">
+          <h1 className="line-clamp-2 break-all text-white">
             {getPublicationData(byte.metadata)?.title}
           </h1>
         </div>

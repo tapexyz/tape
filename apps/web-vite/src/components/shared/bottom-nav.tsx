@@ -25,7 +25,7 @@ const Panel = memo(() => {
           bounce: 0
         }
       }}
-      className="flex w-full flex-col justify-end overflow-hidden rounded-[14px] bg-black/95 backdrop-blur-2xl"
+      className="flex w-full flex-col justify-end overflow-hidden rounded-[14px] border border-custom bg-black/95 backdrop-blur-2xl"
     >
       <div ref={elementRef} className="flex flex-col justify-end">
         <AnimatePresence mode="popLayout">
@@ -105,7 +105,7 @@ const Bar = memo(() => {
   const matchRoute = useMatchRoute();
 
   return (
-    <div className="mt-1.5 flex items-center space-x-1.5 rounded-[14px] bg-black/95 p-1.5 font-semibold shadow backdrop-blur-2xl *:flex-1 *:rounded-custom *:px-[13px] *:py-[6px] *:text-center *:text-sm">
+    <div className="mt-1.5 flex items-center space-x-1.5 rounded-[14px] border border-custom bg-black/95 p-1.5 font-semibold shadow backdrop-blur-2xl *:flex-1 *:rounded-custom *:px-[13px] *:py-[6px] *:text-center *:text-sm">
       <Link
         to="/"
         className={tw(

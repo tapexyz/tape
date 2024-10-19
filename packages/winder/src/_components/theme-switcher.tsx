@@ -29,6 +29,7 @@ export const ThemeSwitcher = () => {
       variant="secondary"
       className="backdrop-blur-3xl"
       onClick={() => setTheme(getNextTheme())}
+      title={`Switch to ${getNextTheme()} theme`}
     >
       {getIcon(getNextTheme())}
     </Button>
