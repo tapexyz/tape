@@ -478,7 +478,10 @@ export const components = [
               </DropdownMenuItem>
 
               <DropdownMenuSub>
-                <DropdownMenuSubTrigger>Publication</DropdownMenuSubTrigger>
+                <DropdownMenuSubTrigger className="flex items-center gap-2">
+                  <PlusCircle />
+                  <span>Publication</span>
+                </DropdownMenuSubTrigger>
                 <DropdownMenuPortal>
                   <DropdownMenuSubContent className="w-44">
                     <DropdownMenuItem>Mirror</DropdownMenuItem>

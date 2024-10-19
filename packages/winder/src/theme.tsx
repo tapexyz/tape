@@ -28,33 +28,44 @@ export function ThemeProvider({
   storageKey = "tape-theme",
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(
+  const [themeState, setThemeState] = useState<Theme>(
     () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
   );
+  const root = window.document.documentElement;
+  const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+  const handleSystemThemeChange = () => {
+    const systemTheme = mediaQuery.matches ? "dark" : "light";
+    if (themeState === "system") {
+      root.classList.remove("light", "dark");
+      root.classList.add(systemTheme);
+    }
+  };
 
   useEffect(() => {
-    const root = window.document.documentElement;
-
     root.classList.remove("light", "dark");
 
-    if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
-        ? "dark"
-        : "light";
-
-      root.classList.add(systemTheme);
-      return;
+    if (themeState === "system") {
+      handleSystemThemeChange();
+    } else {
+      root.classList.remove("light", "dark");
+      root.classList.add(themeState);
     }
 
-    root.classList.add(theme);
-  }, [theme]);
+    if (themeState === "system") {
+      mediaQuery.addEventListener("change", handleSystemThemeChange);
+    }
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleSystemThemeChange);
+    };
+  }, [themeState]);
 
   const value = {
-    theme,
+    theme: themeState,
     setTheme: (theme: Theme) => {
       localStorage.setItem(storageKey, theme);
-      setTheme(theme);
+      setThemeState(theme);
     },
     themes: ["light", "dark", "system"] as Theme[]
   };

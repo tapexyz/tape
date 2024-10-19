@@ -18,7 +18,7 @@ const DropdownMenuSubTrigger = forwardRef<
   <DropdownMenuPrimitive.SubTrigger
     ref={ref}
     className={tw(
-      "flex cursor-default select-none items-center rounded-lg px-2 py-1.5 text-sm outline-none focus:bg-secondary data-[state=open]:bg-secondary",
+      "flex cursor-default select-none items-center rounded-md px-2.5 py-1.5 text-sm outline-none focus:bg-secondary data-[state=open]:bg-secondary",
       inset && "pl-8",
       className
     )}
@@ -37,7 +37,7 @@ const DropdownMenuSubContent = forwardRef<
     ref={ref}
     sideOffset={sideOffset}
     className={tw(
-      "z-50 min-w-[8rem] overflow-hidden rounded-card-sm border border-custom bg-site p-1",
+      "z-50 min-w-[8rem] overflow-hidden rounded-custom border border-custom bg-theme p-1 shadow dark:bg-site",
       "data-[state=closed]:fade-out data-[state=open]:fade-in data-[state=closed]:zoom-out-90 data-[state=open]:zoom-in-90 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=open]:animate-in",
       className
     )}
@@ -54,7 +54,7 @@ const DropdownMenuContent = forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       className={tw(
-        "z-50 min-w-[8rem] overflow-hidden rounded-card-sm border border-custom bg-site p-1",
+        "z-50 min-w-[8rem] overflow-hidden rounded-custom border border-custom bg-theme p-1 shadow dark:bg-site",
         "data-[state=closed]:fade-out data-[state=open]:fade-in data-[state=closed]:zoom-out-90 data-[state=open]:zoom-in-90 data-[state=closed]:animate-out data-[state=open]:animate-in",
         "data-[side=bottom]:slide-in-from-top-4 data-[side=left]:slide-in-from-right-4 data-[side=right]:slide-in-from-left-4 data-[side=top]:slide-in-from-bottom-4 data-[side=left]:slide-out-to-right-4 data-[side=right]:slide-out-to-left-4 data-[side=top]:slide-out-to-bottom-4 data-[side=bottom]:slide-out-to-top-4",
         className
@@ -74,7 +74,7 @@ const DropdownMenuItem = forwardRef<
   <DropdownMenuPrimitive.Item
     ref={ref}
     className={tw(
-      "relative flex cursor-default select-none items-center rounded-lg px-2 py-1.5 text-sm transition-colors focus:bg-secondary focus:outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex cursor-default select-none items-center rounded-md px-2.5 py-1.5 text-sm transition-colors focus:bg-secondary focus:outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       inset && "pl-8",
       className
     )}
