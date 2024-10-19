@@ -16,6 +16,7 @@ import {
   Crown,
   CurrencyDollar,
   Desktop,
+  DiscordLogo,
   DotsThreeVertical,
   FunnelSimple,
   Heart,
@@ -41,7 +42,8 @@ import {
   Users,
   Warning,
   Waveform,
-  X
+  X,
+  XLogo
 } from "@phosphor-icons/react";
 
 const USED_ICONS = [
@@ -87,6 +89,8 @@ const USED_ICONS = [
   { Icon: CornersOut, name: "CornersOut" },
   { Icon: Airplay, name: "Airplay" },
   { Icon: Screencast, name: "Screencast" },
+  { Icon: XLogo, name: "XLogo" },
+  { Icon: DiscordLogo, name: "DiscordLogo" },
   { Icon: SignOut, name: "SignOut" }
 ];
 
@@ -106,6 +110,8 @@ export {
   Desktop,
   Warning,
   FunnelSimple,
+  XLogo,
+  DiscordLogo,
   MagnifyingGlass,
   BellSimple,
   PictureInPicture,

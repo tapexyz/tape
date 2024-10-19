@@ -18,7 +18,7 @@ import {
 } from "@tape.xyz/winder";
 import { memo } from "react";
 
-const Logo = memo(() => {
+export const Logo = memo(() => {
   return (
     <div className="flex h-9 items-center rounded-custom bg-primary px-3.5 pt-2.5 pb-2">
       <svg

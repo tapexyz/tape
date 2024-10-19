@@ -1,3 +1,4 @@
+import { About } from "./about";
 import { Feed } from "./feed";
 import { Hero } from "./hero";
 import { Invite } from "./invite";
@@ -8,6 +9,7 @@ export const HomePage = () => {
       <Hero />
       <Invite />
       <Feed />
+      <About />
     </div>
   );
 };
