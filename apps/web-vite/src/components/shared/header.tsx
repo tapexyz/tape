@@ -90,7 +90,7 @@ const RightSection = memo(() => {
   );
 });
 
-export const TopNav = () => {
+export const Header = () => {
   const matchRoute = useMatchRoute();
   const isActive =
     matchRoute({ to: "/" }) ||
@@ -98,7 +98,7 @@ export const TopNav = () => {
     matchRoute({ to: "/following" });
 
   return (
-    <div className="sticky inset-x-0 top-0 z-50 flex w-full justify-between gap-1.5 px-4 py-2">
+    <header className="sticky inset-x-0 top-0 z-50 flex h-[52px] w-full justify-between gap-1.5 px-4 py-2">
       <div className="inline-flex w-1/3 gap-1.5">
         <Link to="/">
           <Logo />
@@ -148,6 +148,6 @@ export const TopNav = () => {
       </Button>
 
       <RightSection />
-    </div>
+    </header>
   );
 };

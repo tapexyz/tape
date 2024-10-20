@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Button, DiscordLogo, XLogo } from "@tape.xyz/winder";
-import { Logo } from "./top-nav";
+import { Logo } from "./header";
 
 const items = [
   "Brand Kit",
@@ -29,7 +29,7 @@ const List = () => {
 export const Footer = () => {
   return (
     <footer className="flex justify-between px-5 py-[26px]">
-      <div className="flex gap-8">
+      <div className="flex gap-6">
         <Link to="/">
           <Logo />
         </Link>

@@ -1,5 +1,5 @@
 import { Footer } from "@/components/shared/footer";
-import { TopNav } from "@/components/shared/top-nav";
+import { Header } from "@/components/shared/header";
 import { Outlet, createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_layout")({
@@ -7,7 +7,7 @@ export const Route = createFileRoute("/_layout")({
     return (
       <>
         <main className="container flex min-h-screen max-w-screen-2xl flex-col px-2">
-          <TopNav />
+          <Header />
           <Outlet />
           <Footer />
         </main>
