@@ -1,8 +1,9 @@
-import { IPFS_GATEWAY_URL } from "@tape.xyz/constants";
 import {
   getProfile,
   getProfilePicture,
-  getPublicationData
+  getPublicationData,
+  getPublicationMediaUrl,
+  getThumbnailUrl
 } from "@tape.xyz/generic";
 import type { PrimaryPublication } from "@tape.xyz/lens/gql";
 import {
@@ -58,18 +59,20 @@ const Info = memo(({ publication }: ByteProps) => {
 });
 
 export const Byte = ({ publication }: ByteProps) => {
+  const thumbnail = getThumbnailUrl(publication.metadata);
+  const videoUrl = getPublicationMediaUrl(publication.metadata);
   return (
-    <div className="mb-2.5 overflow-hidden rounded-card bg-primary/80 px-1.5 text-white">
+    <div className="mb-2.5 overflow-hidden rounded-card bg-black/80 px-1.5 text-white">
       <Stats />
       <VideoPlayer
         aspectRatio="9/16"
         className="rounded-card"
         posterClassName="rounded-card"
         src={{
-          src: "https://files.tape.xyz/samples/9-16.mp4",
+          src: videoUrl,
           type: "video/mp4"
         }}
-        poster={`${IPFS_GATEWAY_URL}/bafybeib3rptof3clasb4llm247zupf5pspequwu5wntzedn5nnh75ljgea`}
+        poster={thumbnail}
         load="visible"
         posterLoad="idle"
         autoPlay={true}

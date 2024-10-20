@@ -127,6 +127,7 @@ const Bar = memo(() => {
             : "bg-white/15 text-white/80 hover:bg-white/20"
         )}
         search={{ media: "all" }}
+        preload="viewport"
       >
         Explore
       </Link>
