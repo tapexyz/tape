@@ -15,7 +15,7 @@ export const FeedPage = () => {
 
   return (
     <div className="flex flex-col items-center p-5">
-      <div className="w-full max-w-[420px]">
+      <div className="min-h-screen w-full max-w-[420px]">
         <Virtualized
           restoreScroll
           data={allBytes}
