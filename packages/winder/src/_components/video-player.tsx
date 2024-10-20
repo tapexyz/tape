@@ -118,13 +118,16 @@ const ClickToPlay = () => {
 
 const NotInViewObserver = ({ autoPlay = false }: { autoPlay?: boolean }) => {
   const player = useMediaPlayer();
+
   const [ref, entry] = useIntersectionObserver({
-    threshold: 0,
+    threshold: 1,
     rootMargin: "0px"
   });
   useEffect(() => {
-    if (entry?.isIntersecting && autoPlay) {
-      player?.play();
+    if (entry?.isIntersecting) {
+      if (autoPlay && player?.state.canPlay) {
+        player?.play();
+      }
     } else {
       player?.pause();
     }
@@ -222,7 +225,6 @@ const VideoPlayer = forwardRef<MediaPlayerInstance, Props>(
         )}
       >
         <MediaProvider onContextMenu={(e) => e.preventDefault()}>
-          <NotInViewObserver autoPlay={props.autoPlay} />
           {poster ? (
             <Poster asChild>
               <img
@@ -263,6 +265,7 @@ const VideoPlayer = forwardRef<MediaPlayerInstance, Props>(
             </Controls.Group>
           </Controls.Root>
           <BufferIndicator />
+          <NotInViewObserver autoPlay={props.autoPlay} />
         </MediaProvider>
         <MediaAnnouncer />
       </MediaPlayer>

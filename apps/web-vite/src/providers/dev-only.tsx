@@ -4,7 +4,7 @@ import { IS_DEVELOPMENT } from "@tape.xyz/constants";
 import { m } from "framer-motion";
 
 const Devtools = () => {
-  if (IS_DEVELOPMENT) return null;
+  if (!IS_DEVELOPMENT) return null;
   return (
     <>
       <m.div

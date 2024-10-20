@@ -14,7 +14,7 @@ const items = [
 
 const List = () => {
   return (
-    <ul className="flex list-none items-center gap-2 font-medium">
+    <ul className="flex list-none flex-wrap items-center gap-2 font-medium">
       {items.map((item) => (
         <a href="/" target="_blank" key={item} rel="noreferrer">
           <li className="whitespace-nowrap rounded-custom px-3 py-1 transition-colors hover:bg-secondary">
@@ -28,7 +28,7 @@ const List = () => {
 
 export const Footer = () => {
   return (
-    <footer className="flex justify-between px-5 py-[26px]">
+    <footer className="flex flex-wrap justify-between gap-5 px-5 py-[26px]">
       <div className="flex gap-6">
         <Link to="/">
           <Logo />
