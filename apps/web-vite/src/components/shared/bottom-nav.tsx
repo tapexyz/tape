@@ -5,8 +5,6 @@ import { useClickAway, useMeasure } from "@uidotdev/usehooks";
 import { AnimatePresence, m } from "framer-motion";
 import { type RefObject, memo, useEffect, useState } from "react";
 
-const items = ["Home", "Explore", "Following"] as const;
-
 const Panel = memo(() => {
   const [open, setOpen] = useState(false);
   const [elementRef, bounds] = useMeasure();
@@ -145,12 +143,20 @@ export const BottomNav = () => {
   const [isHidden, setIsHidden] = useState(false);
 
   const handleScroll = () => {
-    if (window.scrollY > lastScrollY) {
+    const scrollY = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    const footerHeight = document.querySelector("footer")?.clientHeight || 0;
+
+    if (
+      scrollY > lastScrollY ||
+      scrollY + windowHeight >= documentHeight - footerHeight
+    ) {
       setIsHidden(true);
     } else {
       setIsHidden(false);
     }
-    setLastScrollY(window.scrollY);
+    setLastScrollY(scrollY);
   };
 
   useEffect(() => {

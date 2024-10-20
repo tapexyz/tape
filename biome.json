@@ -33,6 +33,7 @@
       },
       "correctness": {
         "useExhaustiveDependencies": "off",
+        "noUnusedVariables": "warn",
         "noUnusedImports": {
           "fix": "safe",
           "level": "error"

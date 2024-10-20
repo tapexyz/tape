@@ -1,5 +1,4 @@
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
-import type { AnyPublication } from "@tape.xyz/lens/gql";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@tape.xyz/winder";
 import { HorizontalView } from "../shared/horizontal-view";
 import { Bytes } from "./bytes";
@@ -8,10 +7,6 @@ import { publicationsQuery } from "./queries";
 export const Feed = () => {
   const { data, fetchNextPage, hasNextPage } =
     useSuspenseInfiniteQuery(publicationsQuery);
-
-  const allPublications = data.pages.flatMap(
-    (page) => page.publications.items
-  ) as AnyPublication[];
 
   return (
     <div className="rounded-card bg-theme p-5">

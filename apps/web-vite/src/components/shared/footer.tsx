@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import { Button, DiscordLogo, XLogo } from "@tape.xyz/winder";
-import { useState } from "react";
 import { Logo } from "./top-nav";
 
 const items = [
@@ -14,13 +13,11 @@ const items = [
 ];
 
 const List = () => {
-  const [hoverId, setHoverId] = useState("");
-
   return (
     <ul className="flex list-none items-center gap-2 font-medium">
       {items.map((item) => (
         <a href="/" target="_blank" key={item} rel="noreferrer">
-          <li className="rounded-custom px-3 py-1 transition-colors hover:bg-secondary">
+          <li className="whitespace-nowrap rounded-custom px-3 py-1 transition-colors hover:bg-secondary">
             {item}
           </li>
         </a>
@@ -31,7 +28,7 @@ const List = () => {
 
 export const Footer = () => {
   return (
-    <div className="flex justify-between p-[26px]">
+    <footer className="flex justify-between p-[26px]">
       <div className="flex gap-8">
         <Link to="/">
           <Logo />
@@ -61,6 +58,6 @@ export const Footer = () => {
           <span>All systems normal</span>
         </span>
       </Button>
-    </div>
+    </footer>
   );
 };

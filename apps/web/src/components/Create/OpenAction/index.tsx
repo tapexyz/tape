@@ -50,7 +50,7 @@ const OpenActionSettings = () => {
       >
         <div className="no-scrollbar max-h-[70vh] space-y-2 overflow-y-auto py-2">
           {APPROVED_UNKNOWN_OPEN_ACTIONS.map(
-            ({ name, description, address }, i) => (
+            ({ name, description, address }) => (
               <div
                 key={address}
                 className="space-y-2 rounded-lg border border-gray-200 px-4 py-3"

@@ -13,7 +13,7 @@ export const parseJwt = (token: string): ReturnType => {
   try {
     const splited = token.split(".")[1] ?? "";
     return JSON.parse(decoded(splited));
-  } catch (error) {
+  } catch {
     return { id: "", role: "", authorizationId: "", iat: 0, exp: 0 };
   }
 };
