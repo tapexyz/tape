@@ -28,7 +28,7 @@ const List = () => {
 
 export const Footer = () => {
   return (
-    <footer className="flex justify-between p-[26px]">
+    <footer className="flex justify-between px-5 py-[26px]">
       <div className="flex gap-8">
         <Link to="/">
           <Logo />

@@ -37,7 +37,7 @@ export const Bytes = () => {
           }}
         />
         <div className="absolute right-0 bottom-0 left-0 bg-gradient-to-b from-transparent to-black/50 px-4 py-2 text-xs">
-          <h1 className="line-clamp-2 break-all text-white">
+          <h1 className="line-clamp-2 break-words text-white">
             {getPublicationData(byte.metadata)?.title}
           </h1>
         </div>

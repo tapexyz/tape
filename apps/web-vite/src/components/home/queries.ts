@@ -1,6 +1,11 @@
 import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
-import { LENSTUBE_BYTES_APP_ID, TAPE_APP_ID } from "@tape.xyz/constants";
 import {
+  LENSTUBE_APP_ID,
+  LENSTUBE_BYTES_APP_ID,
+  TAPE_APP_ID
+} from "@tape.xyz/constants";
+import {
+  CustomFiltersType,
   LimitType,
   PublicationMetadataMainFocusType,
   PublicationType,
@@ -9,7 +14,7 @@ import {
 } from "@tape.xyz/lens/gql";
 
 export const publicationsQuery = infiniteQueryOptions({
-  queryKey: ["publications"],
+  queryKey: ["trending-videos"],
   queryFn: ({ pageParam }) =>
     execute(PublicationsDocument, {
       request: {
@@ -17,8 +22,9 @@ export const publicationsQuery = infiniteQueryOptions({
           publicationTypes: [PublicationType.Post],
           metadata: {
             mainContentFocus: [PublicationMetadataMainFocusType.Video],
-            publishedOn: [TAPE_APP_ID]
+            publishedOn: [TAPE_APP_ID, LENSTUBE_APP_ID]
           },
+          customFilters: [CustomFiltersType.Gardeners],
           from: [
             "0x020b57",
             "0x01d8d5",

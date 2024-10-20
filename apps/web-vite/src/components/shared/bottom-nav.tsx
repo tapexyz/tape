@@ -6,11 +6,16 @@ import { AnimatePresence, m } from "framer-motion";
 import { type RefObject, memo, useEffect, useState } from "react";
 
 const Panel = memo(() => {
+  const matchRoute = useMatchRoute();
   const [open, setOpen] = useState(false);
   const [elementRef, bounds] = useMeasure();
   const ref = useClickAway(() => {
     setOpen(false);
   });
+
+  if (!matchRoute({ to: "/explore" })) {
+    return null;
+  }
 
   return (
     <m.div
@@ -27,7 +32,7 @@ const Panel = memo(() => {
     >
       <div ref={elementRef} className="flex flex-col justify-end">
         <AnimatePresence mode="popLayout">
-          {open && (
+          {open ? (
             <m.div
               key={open ? "open" : "close"}
               initial={{ opacity: 0, filter: "blur(4px)" }}
@@ -79,7 +84,7 @@ const Panel = memo(() => {
                 </div>
               </div>
             </m.div>
-          )}
+          ) : null}
         </AnimatePresence>
         <button
           type="button"
@@ -115,19 +120,20 @@ const Bar = memo(() => {
         Home
       </Link>
       <Link
-        to="/feed"
+        to="/explore"
         className={tw(
-          matchRoute({ to: "/feed" })
+          matchRoute({ to: "/explore" })
             ? "bg-white text-black/80"
             : "bg-white/15 text-white/80 hover:bg-white/20"
         )}
+        search={{ media: "all" }}
       >
         Explore
       </Link>
       <Link
-        to="/feed"
+        to="/following"
         className={tw(
-          matchRoute({ to: "/feed" })
+          matchRoute({ to: "/following" })
             ? "bg-white text-black/80"
             : "bg-white/15 text-white/80 hover:bg-white/20"
         )}
@@ -139,8 +145,8 @@ const Bar = memo(() => {
 });
 
 export const BottomNav = () => {
-  const [lastScrollY, setLastScrollY] = useState(0);
   const [isHidden, setIsHidden] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   const handleScroll = () => {
     const scrollY = window.scrollY;
@@ -148,10 +154,11 @@ export const BottomNav = () => {
     const documentHeight = document.documentElement.scrollHeight;
     const footerHeight = document.querySelector("footer")?.clientHeight || 0;
 
-    if (
-      scrollY > lastScrollY ||
-      scrollY + windowHeight >= documentHeight - footerHeight
-    ) {
+    const isScrollingDown = scrollY > lastScrollY;
+    const footerVisibility =
+      scrollY + windowHeight >= documentHeight - footerHeight;
+
+    if (isScrollingDown || footerVisibility) {
       setIsHidden(true);
     } else {
       setIsHidden(false);

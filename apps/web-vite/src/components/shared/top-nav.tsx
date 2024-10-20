@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useMatchRoute } from "@tanstack/react-router";
 import { WORKER_AVATAR_URL } from "@tape.xyz/constants";
 import {
   Avatar,
@@ -91,6 +91,12 @@ const RightSection = memo(() => {
 });
 
 export const TopNav = () => {
+  const matchRoute = useMatchRoute();
+  const isActive =
+    matchRoute({ to: "/" }) ||
+    matchRoute({ to: "/explore" }) ||
+    matchRoute({ to: "/following" });
+
   return (
     <div className="sticky inset-x-0 top-0 z-50 flex w-full justify-between gap-1.5 px-4 py-2">
       <div className="inline-flex w-1/3 gap-1.5">
@@ -103,19 +109,14 @@ export const TopNav = () => {
           className="hidden p-0 font-semibold text-sm backdrop-blur-3xl lg:block"
         >
           <div className="inline-flex items-center">
-            <Link to="/">
-              {({ isActive }) => {
-                return (
-                  <span
-                    className={tw(
-                      "py-2 pr-3 pl-4 transition-colors hover:text-primary",
-                      isActive ? "text-primary" : "text-primary/40"
-                    )}
-                  >
-                    Discover
-                  </span>
-                );
-              }}
+            <Link
+              to="/"
+              className={tw(
+                "py-2 pr-3 pl-4 transition-colors hover:text-primary",
+                isActive ? "text-primary" : "text-primary/40"
+              )}
+            >
+              Discover
             </Link>
             <div className="h-3 w-[1px] rounded bg-primary/10" />
             <Link to="/feed">

@@ -21,6 +21,8 @@ import { Route as LayoutFeedIndexImport } from './routes/_layout/feed/index'
 import { Route as LayoutHomeIndexImport } from './routes/_layout/_home/index'
 import { Route as LayoutWatchPubIdImport } from './routes/_layout/watch/$pubId'
 import { Route as LayoutUHandleImport } from './routes/_layout/u/$handle'
+import { Route as LayoutHomeFollowingImport } from './routes/_layout/_home/following'
+import { Route as LayoutHomeExploreImport } from './routes/_layout/_home/explore'
 
 // Create/Update Routes
 
@@ -74,6 +76,16 @@ const LayoutUHandleRoute = LayoutUHandleImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
+const LayoutHomeFollowingRoute = LayoutHomeFollowingImport.update({
+  path: '/following',
+  getParentRoute: () => LayoutHomeRoute,
+} as any)
+
+const LayoutHomeExploreRoute = LayoutHomeExploreImport.update({
+  path: '/explore',
+  getParentRoute: () => LayoutHomeRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -112,6 +124,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/winder'
       preLoaderRoute: typeof WinderIndexImport
       parentRoute: typeof rootRoute
+    }
+    '/_layout/_home/explore': {
+      id: '/_layout/_home/explore'
+      path: '/explore'
+      fullPath: '/explore'
+      preLoaderRoute: typeof LayoutHomeExploreImport
+      parentRoute: typeof LayoutHomeImport
+    }
+    '/_layout/_home/following': {
+      id: '/_layout/_home/following'
+      path: '/following'
+      fullPath: '/following'
+      preLoaderRoute: typeof LayoutHomeFollowingImport
+      parentRoute: typeof LayoutHomeImport
     }
     '/_layout/u/$handle': {
       id: '/_layout/u/$handle'
@@ -154,10 +180,14 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface LayoutHomeRouteChildren {
+  LayoutHomeExploreRoute: typeof LayoutHomeExploreRoute
+  LayoutHomeFollowingRoute: typeof LayoutHomeFollowingRoute
   LayoutHomeIndexRoute: typeof LayoutHomeIndexRoute
 }
 
 const LayoutHomeRouteChildren: LayoutHomeRouteChildren = {
+  LayoutHomeExploreRoute: LayoutHomeExploreRoute,
+  LayoutHomeFollowingRoute: LayoutHomeFollowingRoute,
   LayoutHomeIndexRoute: LayoutHomeIndexRoute,
 }
 
@@ -189,6 +219,8 @@ export interface FileRoutesByFullPath {
   '/embed/$pubId': typeof EmbedPubIdRoute
   '/open': typeof OpenIndexRoute
   '/winder': typeof WinderIndexRoute
+  '/explore': typeof LayoutHomeExploreRoute
+  '/following': typeof LayoutHomeFollowingRoute
   '/u/$handle': typeof LayoutUHandleRoute
   '/watch/$pubId': typeof LayoutWatchPubIdRoute
   '/': typeof LayoutHomeIndexRoute
@@ -201,6 +233,8 @@ export interface FileRoutesByTo {
   '/embed/$pubId': typeof EmbedPubIdRoute
   '/open': typeof OpenIndexRoute
   '/winder': typeof WinderIndexRoute
+  '/explore': typeof LayoutHomeExploreRoute
+  '/following': typeof LayoutHomeFollowingRoute
   '/u/$handle': typeof LayoutUHandleRoute
   '/watch/$pubId': typeof LayoutWatchPubIdRoute
   '/': typeof LayoutHomeIndexRoute
@@ -215,6 +249,8 @@ export interface FileRoutesById {
   '/embed/$pubId': typeof EmbedPubIdRoute
   '/open/': typeof OpenIndexRoute
   '/winder/': typeof WinderIndexRoute
+  '/_layout/_home/explore': typeof LayoutHomeExploreRoute
+  '/_layout/_home/following': typeof LayoutHomeFollowingRoute
   '/_layout/u/$handle': typeof LayoutUHandleRoute
   '/_layout/watch/$pubId': typeof LayoutWatchPubIdRoute
   '/_layout/_home/': typeof LayoutHomeIndexRoute
@@ -229,6 +265,8 @@ export interface FileRouteTypes {
     | '/embed/$pubId'
     | '/open'
     | '/winder'
+    | '/explore'
+    | '/following'
     | '/u/$handle'
     | '/watch/$pubId'
     | '/'
@@ -240,6 +278,8 @@ export interface FileRouteTypes {
     | '/embed/$pubId'
     | '/open'
     | '/winder'
+    | '/explore'
+    | '/following'
     | '/u/$handle'
     | '/watch/$pubId'
     | '/'
@@ -252,6 +292,8 @@ export interface FileRouteTypes {
     | '/embed/$pubId'
     | '/open/'
     | '/winder/'
+    | '/_layout/_home/explore'
+    | '/_layout/_home/following'
     | '/_layout/u/$handle'
     | '/_layout/watch/$pubId'
     | '/_layout/_home/'
@@ -306,6 +348,8 @@ export const routeTree = rootRoute
       "filePath": "_layout/_home.tsx",
       "parent": "/_layout",
       "children": [
+        "/_layout/_home/explore",
+        "/_layout/_home/following",
         "/_layout/_home/"
       ]
     },
@@ -317,6 +361,14 @@ export const routeTree = rootRoute
     },
     "/winder/": {
       "filePath": "winder/index.tsx"
+    },
+    "/_layout/_home/explore": {
+      "filePath": "_layout/_home/explore.tsx",
+      "parent": "/_layout/_home"
+    },
+    "/_layout/_home/following": {
+      "filePath": "_layout/_home/following.tsx",
+      "parent": "/_layout/_home"
     },
     "/_layout/u/$handle": {
       "filePath": "_layout/u/$handle.tsx",
