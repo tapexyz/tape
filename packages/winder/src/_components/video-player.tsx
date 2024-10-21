@@ -40,10 +40,10 @@ import {
 import { tw } from "../tw";
 
 interface Props extends Omit<MediaPlayerProps, "children"> {
-  poster?: string;
-  posterClassName?: string;
   pip?: boolean;
+  poster?: string;
   top?: React.ReactNode;
+  posterClassName?: string;
 }
 
 const VPlayButton = () => (
@@ -116,7 +116,7 @@ const ClickToPlay = () => {
   );
 };
 
-const NotInViewObserver = ({ autoPlay = false }: { autoPlay?: boolean }) => {
+const NotInViewObserver = () => {
   const player = useMediaPlayer();
 
   const [ref, entry] = useIntersectionObserver({
@@ -124,11 +124,7 @@ const NotInViewObserver = ({ autoPlay = false }: { autoPlay?: boolean }) => {
     rootMargin: "0px"
   });
   useEffect(() => {
-    if (entry?.isIntersecting) {
-      if (autoPlay && player?.state.canPlay) {
-        player?.play();
-      }
-    } else {
+    if (!entry?.isIntersecting) {
       player?.pause();
     }
   }, [entry?.isIntersecting]);
@@ -265,7 +261,7 @@ const VideoPlayer = forwardRef<MediaPlayerInstance, Props>(
             </Controls.Group>
           </Controls.Root>
           <BufferIndicator />
-          <NotInViewObserver autoPlay={props.autoPlay} />
+          <NotInViewObserver />
         </MediaProvider>
         <MediaAnnouncer />
       </MediaPlayer>

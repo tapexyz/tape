@@ -44,12 +44,12 @@ const Info = memo(({ publication }: ByteProps) => {
   const metadata = getPublicationData(publication.metadata);
 
   return (
-    <div className="flex items-center space-x-2 px-3 py-4">
+    <div className="flex items-center space-x-2 px-3 pt-2 pb-4">
       <Avatar>
         <AvatarImage src={getProfilePicture(publication.by)} />
       </Avatar>
       <div className="flex flex-col">
-        <span className="-mb-0.5 line-clamp-1">{metadata?.content}</span>
+        <span className="-mb-0.5 line-clamp-1">{metadata?.title}</span>
         <span className="-mt-0.5 text-sm text-white/40">
           {getProfile(publication.by).displayName}
         </span>
@@ -75,7 +75,7 @@ export const Byte = ({ publication }: ByteProps) => {
         poster={thumbnail}
         load="visible"
         posterLoad="idle"
-        autoPlay={true}
+        autoPlay={false}
         loop={true}
         top={
           <div className="flex justify-end">

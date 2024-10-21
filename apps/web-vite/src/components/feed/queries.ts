@@ -72,7 +72,7 @@ export const bytesQuery = infiniteQueryOptions({
             "0x7dee"
           ]
         },
-        limit: LimitType.Fifty,
+        limit: LimitType.Ten,
         cursor: pageParam
       }
     }),
