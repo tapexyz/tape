@@ -382,259 +382,247 @@ export const components = [
     label: "Description",
     description:
       "Brief text that provides additional information about a feature or media",
-    component: () => {
-      return (
-        <VStack>
-          <p>
-            Go behind the scenes of an electrifying street performance that
-            showcases raw talent and vibrant urban culture. Experience the
-            energy, passion, and creativity that bring the city’s streets to
-            life, all captured through a dynamic, artistic lens.
-          </p>
-          <p className="line-clamp-2">
-            Go behind the scenes of an electrifying street performance that
-            showcases raw talent and vibrant urban culture. Experience the
-            energy, passion, and creativity that bring the city’s streets to
-            life, all captured through a dynamic, artistic lens.
-          </p>
-        </VStack>
-      );
-    }
+    component: () => (
+      <VStack>
+        <p>
+          Go behind the scenes of an electrifying street performance that
+          showcases raw talent and vibrant urban culture. Experience the energy,
+          passion, and creativity that bring the city’s streets to life, all
+          captured through a dynamic, artistic lens.
+        </p>
+        <p className="line-clamp-2">
+          Go behind the scenes of an electrifying street performance that
+          showcases raw talent and vibrant urban culture. Experience the energy,
+          passion, and creativity that bring the city’s streets to life, all
+          captured through a dynamic, artistic lens.
+        </p>
+      </VStack>
+    )
   },
   {
     id: "dialog",
     label: "Dialog",
     description: "A modal window that appears on top of the page",
-    component: () => {
-      return (
-        <div className="flex flex-wrap gap-2">
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="outline">Image</Button>
-            </DialogTrigger>
-            <DialogContent className="p-0">
-              <img
-                className="size-full"
-                loading="eager"
-                src={imageCdn(
-                  `${IPFS_GATEWAY_URL}/bafybeihoqqifnyzrx66h4i7om4f6prc7xgs3qydlce4ujrmjjazomyvoxq`
-                )}
-                alt="poster"
-                draggable={false}
-              />
-            </DialogContent>
-          </Dialog>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="destructive">Delete</Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Are you absolutely sure?</DialogTitle>
-                <DialogDescription>
-                  This action cannot be undone. This will permanently delete
-                  your account and remove your data from our servers.
-                </DialogDescription>
-              </DialogHeader>
-              <DialogFooter>
-                <DialogClose>
-                  <Button variant="secondary">Cancel</Button>
-                </DialogClose>
-                <DialogClose>
-                  <Button
-                    onClick={() =>
-                      toast.success("Permanently deleted", {
-                        description:
-                          "There is no turning back, careful next time!"
-                      })
-                    }
-                    variant="destructive"
-                  >
-                    Delete
-                  </Button>
-                </DialogClose>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        </div>
-      );
-    }
+    component: () => (
+      <div className="flex flex-wrap gap-2">
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant="outline">Image</Button>
+          </DialogTrigger>
+          <DialogContent className="p-0">
+            <img
+              className="size-full"
+              loading="eager"
+              src={imageCdn(
+                `${IPFS_GATEWAY_URL}/bafybeihoqqifnyzrx66h4i7om4f6prc7xgs3qydlce4ujrmjjazomyvoxq`
+              )}
+              alt="poster"
+              draggable={false}
+            />
+          </DialogContent>
+        </Dialog>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant="destructive">Delete</Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Are you absolutely sure?</DialogTitle>
+              <DialogDescription>
+                This action cannot be undone. This will permanently delete your
+                account and remove your data from our servers.
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter>
+              <DialogClose>
+                <Button variant="secondary">Cancel</Button>
+              </DialogClose>
+              <DialogClose>
+                <Button
+                  onClick={() =>
+                    toast.success("Permanently deleted", {
+                      description:
+                        "There is no turning back, careful next time!"
+                    })
+                  }
+                  variant="destructive"
+                >
+                  Delete
+                </Button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </div>
+    )
   },
   {
     id: "dropdown",
     label: "Dropdown",
     description: "A menu that displays a list of options",
-    component: () => {
-      return (
-        <div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline">My Profile</Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="w-44">
-              <DropdownMenuItem className="flex items-center gap-2">
-                <User />
-                <span>Profile</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="flex items-center gap-2">
+    component: () => (
+      <div>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline">My Profile</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start" className="w-44">
+            <DropdownMenuItem className="flex items-center gap-2">
+              <User />
+              <span>Profile</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="flex items-center gap-2">
+              <PlusCircle />
+              <span>Create</span>
+            </DropdownMenuItem>
+
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger className="flex items-center gap-2">
                 <PlusCircle />
-                <span>Create</span>
-              </DropdownMenuItem>
+                <span>Publication</span>
+              </DropdownMenuSubTrigger>
+              <DropdownMenuPortal>
+                <DropdownMenuSubContent className="w-44">
+                  <DropdownMenuItem>Mirror</DropdownMenuItem>
+                  <DropdownMenuItem>Collect</DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>Delete</DropdownMenuItem>
+                </DropdownMenuSubContent>
+              </DropdownMenuPortal>
+            </DropdownMenuSub>
 
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger className="flex items-center gap-2">
-                  <PlusCircle />
-                  <span>Publication</span>
-                </DropdownMenuSubTrigger>
-                <DropdownMenuPortal>
-                  <DropdownMenuSubContent className="w-44">
-                    <DropdownMenuItem>Mirror</DropdownMenuItem>
-                    <DropdownMenuItem>Collect</DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>Delete</DropdownMenuItem>
-                  </DropdownMenuSubContent>
-                </DropdownMenuPortal>
-              </DropdownMenuSub>
-
-              <DropdownMenuItem className="flex items-center gap-2">
-                <SignOut />
-                <span>Log out</span>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      );
-    }
+            <DropdownMenuItem className="flex items-center gap-2">
+              <SignOut />
+              <span>Log out</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    )
   },
   {
     id: "empty-state",
     label: "Empty State",
     description: "A placeholder for when there is no content to display",
-    component: () => {
-      return (
-        <VStack>
-          <span>
-            <div className="grid h-64 place-items-center">
-              <EmptyState
-                title="No videos found"
-                description="Creators can create videos by clicking the + button in the top right corner of the screen."
-              />
-            </div>
-          </span>
-          <span>
-            <div className="grid h-64 place-items-center">
-              <EmptyState
-                title="No comments found"
-                description="Users can comment on videos by clicking the + icon in the top right corner of the screen."
-                action={
-                  <Button
-                    className="w-28"
-                    variant="secondary"
-                    onClick={() => toast.success("New comment created!")}
-                  >
-                    <span>Write</span>
-                    <Plus className="size-5" />
-                  </Button>
-                }
-              />
-            </div>
-          </span>
-        </VStack>
-      );
-    }
+    component: () => (
+      <VStack>
+        <span>
+          <div className="grid h-64 place-items-center">
+            <EmptyState
+              title="No videos found"
+              description="Creators can create videos by clicking the + button in the top right corner of the screen."
+            />
+          </div>
+        </span>
+        <span>
+          <div className="grid h-64 place-items-center">
+            <EmptyState
+              title="No comments found"
+              description="Users can comment on videos by clicking the + icon in the top right corner of the screen."
+              action={
+                <Button
+                  className="w-28"
+                  variant="secondary"
+                  onClick={() => toast.success("New comment created!")}
+                >
+                  <span>Write</span>
+                  <Plus className="size-5" />
+                </Button>
+              }
+            />
+          </div>
+        </span>
+      </VStack>
+    )
   },
   {
     id: "input",
     label: "Input",
     description: "A field for entering text",
-    component: () => {
-      return (
-        <div className="flex flex-col space-y-6">
-          <Input placeholder="Enter recipient" />
-          <Input placeholder="Enter your first name" label="First Name" />
-        </div>
-      );
-    }
+    component: () => (
+      <div className="flex flex-col space-y-6">
+        <Input placeholder="Enter recipient" />
+        <Input placeholder="Enter your first name" label="First Name" />
+      </div>
+    )
   },
   {
     id: "player",
     label: "Player",
     description: "A media player that plays video or audio files",
-    component: () => {
-      return (
-        <VStack>
-          <span>
-            <VideoPlayer
-              className="rounded-card-sm"
-              posterClassName="rounded-card-sm"
-              src={{
-                src: "https://files.tape.xyz/samples/16-9.mp4",
-                type: "video/mp4"
-              }}
-              poster={imageCdn(
-                `${IPFS_GATEWAY_URL}/bafybeiaikdpxnqig7ta5z5ahqav7p2z3lrijp5ym3ctg4on5reiktdh2lu`
-              )}
-              load="visible"
-              posterLoad="idle"
-              autoPlay={false}
-            />
-          </span>
-          <div className="grid gap-2 md:grid-cols-2">
-            <VideoPlayer
-              aspectRatio="9/16"
-              className="rounded-card-sm"
-              posterClassName="rounded-card-sm"
-              src={{
-                src: "https://files.tape.xyz/samples/9-16.mp4",
-                type: "video/mp4"
-              }}
-              poster={`${IPFS_GATEWAY_URL}/bafybeib3rptof3clasb4llm247zupf5pspequwu5wntzedn5nnh75ljgea`}
-              load="visible"
-              posterLoad="idle"
-              autoPlay={false}
-              loop={true}
-              top={
-                <div className="flex justify-end">
-                  <VPlayButton />
-                </div>
-              }
-            />
-            <div className="flex flex-col gap-[6px]">
-              <div className="grid flex-1 place-items-center rounded-card-sm border border-primary/20 border-dashed p-6 font-serif text-2xl">
-                Audio
+    component: () => (
+      <VStack>
+        <span>
+          <VideoPlayer
+            className="rounded-card-sm"
+            posterClassName="rounded-card-sm"
+            src={{
+              src: "https://files.tape.xyz/samples/16-9.mp4",
+              type: "video/mp4"
+            }}
+            poster={imageCdn(
+              `${IPFS_GATEWAY_URL}/bafybeiaikdpxnqig7ta5z5ahqav7p2z3lrijp5ym3ctg4on5reiktdh2lu`
+            )}
+            load="visible"
+            posterLoad="idle"
+            autoPlay={false}
+          />
+        </span>
+        <div className="grid gap-2 md:grid-cols-2">
+          <VideoPlayer
+            aspectRatio="9/16"
+            className="rounded-card-sm"
+            posterClassName="rounded-card-sm"
+            src={{
+              src: "https://files.tape.xyz/samples/9-16.mp4",
+              type: "video/mp4"
+            }}
+            poster={`${IPFS_GATEWAY_URL}/bafybeib3rptof3clasb4llm247zupf5pspequwu5wntzedn5nnh75ljgea`}
+            load="visible"
+            posterLoad="idle"
+            autoPlay={false}
+            loop={true}
+            top={
+              <div className="flex justify-end">
+                <VPlayButton />
               </div>
-              <AudioPlayer
-                src={{
-                  src: "https://files.tape.xyz/samples/audio-1.mp3",
-                  type: "audio/mp3"
-                }}
-                poster={imageCdn(
-                  `${IPFS_GATEWAY_URL}/bafkreiam4w73hooyzel2674k6vr52civh4miazhfuxefqpy6n4qwqvwtp4`
-                )}
-                load="visible"
-                posterLoad="idle"
-                autoPlay={false}
-              />
+            }
+          />
+          <div className="flex flex-col gap-[6px]">
+            <div className="grid flex-1 place-items-center rounded-card-sm border border-primary/20 border-dashed p-6 font-serif text-2xl">
+              Audio
             </div>
-          </div>
-          <div className="no-scrollbar overflow-x-auto">
             <AudioPlayer
               src={{
-                src: "https://files.tape.xyz/samples/audio-2.wav",
+                src: "https://files.tape.xyz/samples/audio-1.mp3",
                 type: "audio/mp3"
               }}
               poster={imageCdn(
-                `${IPFS_GATEWAY_URL}/QmVg5mLJJsx9JZvyR6j4ej1b8WGBXZmi9bQNbwQDQ7pLEc`
+                `${IPFS_GATEWAY_URL}/bafkreiam4w73hooyzel2674k6vr52civh4miazhfuxefqpy6n4qwqvwtp4`
               )}
               load="visible"
               posterLoad="idle"
-              layout="horizontal"
               autoPlay={false}
             />
           </div>
-        </VStack>
-      );
-    }
+        </div>
+        <div className="no-scrollbar overflow-x-auto">
+          <AudioPlayer
+            src={{
+              src: "https://files.tape.xyz/samples/audio-2.wav",
+              type: "audio/mp3"
+            }}
+            poster={imageCdn(
+              `${IPFS_GATEWAY_URL}/QmVg5mLJJsx9JZvyR6j4ej1b8WGBXZmi9bQNbwQDQ7pLEc`
+            )}
+            load="visible"
+            posterLoad="idle"
+            layout="horizontal"
+            autoPlay={false}
+          />
+        </div>
+      </VStack>
+    )
   },
   {
     id: "popover",

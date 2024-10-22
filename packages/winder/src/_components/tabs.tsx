@@ -10,7 +10,7 @@ const TabsList = forwardRef<
 >(({ className, ...props }, ref) => (
   <TabsPrimitive.List
     ref={ref}
-    className={tw("inline-flex h-10 items-center gap-3.5", className)}
+    className={tw("inline-flex items-center gap-3.5", className)}
     {...props}
   />
 ));

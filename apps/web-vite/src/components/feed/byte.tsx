@@ -118,10 +118,7 @@ export const Byte = ({ publication }: ByteProps) => {
         aspectRatio="9/16"
         className="rounded-card"
         posterClassName="rounded-card"
-        src={{
-          src: videoUrl,
-          type: "video/mp4"
-        }}
+        src={{ src: videoUrl, type: "video/mp4" }}
         poster={thumbnail}
         load="visible"
         posterLoad="idle"
