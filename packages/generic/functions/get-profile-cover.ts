@@ -1,11 +1,11 @@
-import type { Profile } from "@tape.xyz/lens";
+import type { ProfileMetadata } from "@tape.xyz/lens";
 
 export const getProfileCoverPicture = (
-  profile: Profile,
+  metadata: ProfileMetadata,
   withFallback = false
 ): string => {
-  return profile.metadata?.coverPicture?.optimized?.uri
-    ? profile.metadata.coverPicture.optimized.uri
+  return metadata?.coverPicture?.optimized?.uri
+    ? metadata.coverPicture.optimized.uri
     : withFallback
       ? "ipfs://bafkreihn5v4hpuxgcysnpb4pgcerkmhwddxq65qswmit6j4nj44btyzdou" //`${STATIC_ASSETS}/images/fallback-cover.svg`
       : null;

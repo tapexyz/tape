@@ -27,7 +27,7 @@ export const Publication = () => {
   const meta = getPublicationData(publication.metadata);
 
   return (
-    <div className="flex">
+    <div className="flex gap-4">
       <div className="w-3/4">
         <div>
           <VideoPlayer

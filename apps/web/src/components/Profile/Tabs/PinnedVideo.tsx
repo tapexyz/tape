@@ -30,7 +30,8 @@ import {
 import type {
   AnyPublication,
   OnchainSetProfileMetadataRequest,
-  Profile
+  Profile,
+  ProfileMetadata
 } from "@tape.xyz/lens";
 import {
   useBroadcastOnchainMutation,
@@ -160,7 +161,9 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     try {
       toast.loading("Unpinning video...");
       const pfp = getProfilePictureUri(activeProfile as Profile);
-      const coverPicture = getProfileCoverPicture(activeProfile as Profile);
+      const coverPicture = getProfileCoverPicture(
+        activeProfile.metadata as ProfileMetadata
+      );
       const metadata: ProfileOptions = {
         ...(activeProfile?.metadata?.displayName && {
           name: activeProfile?.metadata?.displayName

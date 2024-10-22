@@ -214,7 +214,9 @@ const List = () => {
           <div
             style={{
               backgroundImage: `url(${imageCdn(
-                sanitizeDStorageUrl(getProfileCoverPicture(profile, true))
+                sanitizeDStorageUrl(
+                  getProfileCoverPicture(profile.metadata!, true)
+                )
               )})`
             }}
             className="relative h-20 w-full bg-brand-500 bg-center bg-cover bg-no-repeat"

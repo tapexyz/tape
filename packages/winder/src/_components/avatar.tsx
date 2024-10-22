@@ -42,6 +42,7 @@ const AvatarImage = forwardRef<
     ref={ref}
     className={tw("aspect-square h-full w-full", className)}
     {...props}
+    draggable={false}
     alt={props.alt}
   />
 ));

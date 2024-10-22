@@ -45,7 +45,9 @@ const HoverableProfile: FC<Props> = ({ profile, children, pfp }) => {
           <div
             style={{
               backgroundImage: `url(${imageCdn(
-                sanitizeDStorageUrl(getProfileCoverPicture(profile, true))
+                sanitizeDStorageUrl(
+                  getProfileCoverPicture(profile.metadata!, true)
+                )
               )})`
             }}
             className="relative h-24 w-full bg-brand-500 bg-center bg-cover bg-no-repeat"

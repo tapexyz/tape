@@ -26,7 +26,7 @@ const Cover: FC<Props> = ({ profile }) => {
   const [copy] = useCopyToClipboard();
 
   const coverImage = imageCdn(
-    sanitizeDStorageUrl(getProfileCoverPicture(profile, true))
+    sanitizeDStorageUrl(getProfileCoverPicture(profile.metadata!, true))
   );
 
   const { data: isMintedViaTape } = useReadContract({

@@ -311,7 +311,9 @@ const BasicInfo = ({ profile }: Props) => {
           src={
             sanitizeDStorageUrl(coverImage) ||
             imageCdn(
-              sanitizeDStorageUrl(getProfileCoverPicture(profile, true)),
+              sanitizeDStorageUrl(
+                getProfileCoverPicture(profile.metadata!, true)
+              ),
               "THUMBNAIL"
             )
           }

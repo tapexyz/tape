@@ -24,7 +24,8 @@ import {
 import type {
   OnchainSetProfileMetadataRequest,
   PrimaryPublication,
-  Profile
+  Profile,
+  ProfileMetadata
 } from "@tape.xyz/lens";
 import {
   useAddPublicationBookmarkMutation,
@@ -211,7 +212,9 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
     try {
       toast.loading("Pinning video...");
       const pfp = getProfilePictureUri(activeProfile as Profile);
-      const coverPicture = getProfileCoverPicture(activeProfile as Profile);
+      const coverPicture = getProfileCoverPicture(
+        activeProfile.metadata as ProfileMetadata
+      );
       const metadata: ProfileOptions = {
         ...(activeProfile?.metadata?.displayName && {
           name: activeProfile?.metadata.displayName
