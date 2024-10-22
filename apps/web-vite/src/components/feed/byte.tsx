@@ -9,9 +9,13 @@ import type { PrimaryPublication } from "@tape.xyz/lens/gql";
 import {
   Avatar,
   AvatarImage,
+  Button,
   ChatCircleDots,
+  DotsThreeVertical,
   Eye,
   Heart,
+  Lightning,
+  SpeakerHigh,
   VPlayButton,
   VideoPlayer
 } from "@tape.xyz/winder";
@@ -58,11 +62,57 @@ const Info = memo(({ publication }: ByteProps) => {
   );
 });
 
+const Actions = () => {
+  return (
+    <div className="-right-16 absolute inset-y-0 z-10 flex flex-col justify-center">
+      <div className="my-2 space-y-2 rounded-card-sm bg-black/80 p-2">
+        <Button
+          variant="secondary"
+          className="bg-white/10 text-white/60"
+          size="icon"
+        >
+          <Heart className="size-5" weight="bold" />
+        </Button>
+        <Button
+          variant="secondary"
+          className="bg-white/10 text-white/60"
+          size="icon"
+        >
+          <ChatCircleDots className="size-5" weight="bold" />
+        </Button>
+        <Button
+          variant="secondary"
+          className="bg-white/10 text-white/60"
+          size="icon"
+        >
+          <Lightning className="size-5" weight="bold" />
+        </Button>
+        <Button
+          variant="secondary"
+          className="bg-white/10 text-white/60"
+          size="icon"
+        >
+          <SpeakerHigh className="size-5" weight="bold" />
+        </Button>
+      </div>
+      <div className="space-y-2 rounded-card-sm bg-black/80 p-2">
+        <Button
+          variant="secondary"
+          className="bg-white/10 text-white/60"
+          size="icon"
+        >
+          <DotsThreeVertical className="size-5" weight="bold" />
+        </Button>
+      </div>
+    </div>
+  );
+};
+
 export const Byte = ({ publication }: ByteProps) => {
   const thumbnail = getThumbnailUrl(publication.metadata);
   const videoUrl = getPublicationMediaUrl(publication.metadata);
   return (
-    <div className="mb-2.5 overflow-hidden rounded-card bg-black/80 px-1.5 text-white">
+    <div className="relative mb-2.5 rounded-card bg-black/80 px-1.5 text-white">
       <Stats />
       <VideoPlayer
         aspectRatio="9/16"
@@ -84,6 +134,7 @@ export const Byte = ({ publication }: ByteProps) => {
         }
       />
       <Info publication={publication} />
+      <Actions />
     </div>
   );
 };

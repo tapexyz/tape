@@ -32,16 +32,19 @@ const LayoutRoute = LayoutImport.update({
 } as any)
 
 const WinderIndexRoute = WinderIndexImport.update({
+  id: '/winder/',
   path: '/winder/',
   getParentRoute: () => rootRoute,
 } as any)
 
 const OpenIndexRoute = OpenIndexImport.update({
+  id: '/open/',
   path: '/open/',
   getParentRoute: () => rootRoute,
 } as any)
 
 const EmbedPubIdRoute = EmbedPubIdImport.update({
+  id: '/embed/$pubId',
   path: '/embed/$pubId',
   getParentRoute: () => rootRoute,
 } as any)
@@ -52,36 +55,43 @@ const LayoutHomeRoute = LayoutHomeImport.update({
 } as any)
 
 const LayoutModIndexRoute = LayoutModIndexImport.update({
+  id: '/mod/',
   path: '/mod/',
   getParentRoute: () => LayoutRoute,
 } as any)
 
 const LayoutFeedIndexRoute = LayoutFeedIndexImport.update({
+  id: '/feed/',
   path: '/feed/',
   getParentRoute: () => LayoutRoute,
 } as any)
 
 const LayoutHomeIndexRoute = LayoutHomeIndexImport.update({
+  id: '/',
   path: '/',
   getParentRoute: () => LayoutHomeRoute,
 } as any)
 
 const LayoutWatchPubIdRoute = LayoutWatchPubIdImport.update({
+  id: '/watch/$pubId',
   path: '/watch/$pubId',
   getParentRoute: () => LayoutRoute,
 } as any)
 
 const LayoutUHandleRoute = LayoutUHandleImport.update({
+  id: '/u/$handle',
   path: '/u/$handle',
   getParentRoute: () => LayoutRoute,
 } as any)
 
 const LayoutHomeFollowingRoute = LayoutHomeFollowingImport.update({
+  id: '/following',
   path: '/following',
   getParentRoute: () => LayoutHomeRoute,
 } as any)
 
 const LayoutHomeExploreRoute = LayoutHomeExploreImport.update({
+  id: '/explore',
   path: '/explore',
   getParentRoute: () => LayoutHomeRoute,
 } as any)

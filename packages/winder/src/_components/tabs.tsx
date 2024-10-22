@@ -10,7 +10,7 @@ const TabsList = forwardRef<
 >(({ className, ...props }, ref) => (
   <TabsPrimitive.List
     ref={ref}
-    className={tw("inline-flex h-10 items-center gap-3.5 p-1", className)}
+    className={tw("inline-flex h-10 items-center gap-3.5", className)}
     {...props}
   />
 ));
@@ -22,7 +22,7 @@ const TabsTrigger = forwardRef<
   <TabsPrimitive.Trigger
     ref={ref}
     className={tw(
-      "inline-flex items-center justify-center whitespace-nowrap py-1.5 underline-offset-2 transition-colors disabled:pointer-events-none disabled:opacity-50 data-[state=inactive]:text-muted data-[state=active]:underline",
+      "inline-flex items-center justify-center whitespace-nowrap underline-offset-2 transition-colors disabled:pointer-events-none disabled:opacity-50 data-[state=inactive]:text-muted data-[state=active]:underline",
       className
     )}
     {...props}
