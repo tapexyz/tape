@@ -19,6 +19,7 @@ export * from "./src/_components/input";
 export * from "./src/_components/select";
 export * from "./src/_components/tabs";
 export * from "./src/_components/textarea";
+export * from "./src/_components/popover";
 export * from "./src/theme";
 export * from "./src/icons";
 export * from "./src/tw";

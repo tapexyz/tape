@@ -3,22 +3,35 @@ import { Button, DiscordLogo, XLogo } from "@tape.xyz/winder";
 import { Logo } from "./header";
 
 const items = [
-  "Brand Kit",
-  "Github",
-  "Feedback",
-  "Roadmap",
-  "Thanks",
-  "Terms",
-  "Privacy Policy"
+  {
+    label: "Brand Kit",
+    url: "https://tape.xyz/winder"
+  },
+  {
+    label: "Github",
+    url: "https://github.com/tapexyz"
+  },
+  {
+    label: "Thanks",
+    url: "https://tape.xyz/thanks"
+  },
+  {
+    label: "Terms",
+    url: "https://tape.xyz/terms"
+  },
+  {
+    label: "Privacy",
+    url: "https://tape.xyz/privacy"
+  }
 ];
 
 const List = () => {
   return (
     <ul className="flex list-none flex-wrap items-center gap-2 font-medium">
       {items.map((item) => (
-        <a href="/" target="_blank" key={item} rel="noreferrer">
+        <a href={item.url} target="_blank" key={item.label} rel="noreferrer">
           <li className="whitespace-nowrap rounded-custom px-3 py-1 transition-colors hover:bg-secondary">
-            {item}
+            {item.label}
           </li>
         </a>
       ))}
@@ -36,13 +49,13 @@ export const Footer = () => {
         <div className="flex items-center space-x-3">
           <a href="/x" target="_blank" rel="noreferrer">
             <XLogo
-              className="size-6 text-muted hover:text-primary"
+              className="size-6 text-muted transition-colors hover:text-primary"
               weight="fill"
             />
           </a>
           <a href="/discord" target="_blank" rel="noreferrer">
             <DiscordLogo
-              className="size-6 text-muted hover:text-primary"
+              className="size-6 text-muted transition-colors hover:text-primary"
               weight="fill"
             />
           </a>

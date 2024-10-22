@@ -5,6 +5,7 @@ import {
   Avatar,
   AvatarImage,
   Badge,
+  BellSimple,
   Button,
   Dialog,
   DialogClose,
@@ -25,6 +26,9 @@ import {
   DropdownMenuTrigger,
   EmptyState,
   Input,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
   Select,
   SelectContent,
   SelectItem,
@@ -633,51 +637,70 @@ export const components = [
     }
   },
   {
+    id: "popover",
+    label: "Popover",
+    description: "Displays rich content in a portal, triggered by a button",
+    component: () => (
+      <Popover>
+        <PopoverTrigger>
+          <Button variant="secondary" size="icon">
+            <BellSimple />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent align="start">
+          <h1 className="mb-2 font-semibold text-xl">Notifications</h1>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem nobis
+          quidem similique! Consequatur ut quasi fugit ex earum cumque
+          temporibus ab fugiat! Ipsa quis repudiandae fugit reprehenderit facere
+          voluptatem corporis!
+        </PopoverContent>
+      </Popover>
+    )
+  },
+  {
     id: "select",
     label: "Select",
     description: "Display a dropdown list of items",
-    component: () => {
-      return (
-        <VStack>
-          <div>
-            <Select defaultValue="light">
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Theme" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="light">Light</SelectItem>
-                <SelectItem value="dark">Dark</SelectItem>
-                <SelectItem value="system">System</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div>
-            <Select defaultValue="light">
-              <SelectTrigger className="w-1/2">
-                <SelectValue placeholder="Theme" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="light">Light</SelectItem>
-                <SelectItem value="dark">Dark</SelectItem>
-                <SelectItem value="system">System</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div>
-            <Select defaultValue="light">
-              <SelectTrigger>
-                <SelectValue placeholder="Theme" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="light">Light</SelectItem>
-                <SelectItem value="dark">Dark</SelectItem>
-                <SelectItem value="system">System</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </VStack>
-      );
-    }
+    component: () => (
+      <VStack>
+        <div>
+          <Select defaultValue="light">
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Theme" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="light">Light</SelectItem>
+              <SelectItem value="dark">Dark</SelectItem>
+              <SelectItem value="system">System</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div>
+          <Select defaultValue="light">
+            <SelectTrigger className="w-1/2">
+              <SelectValue placeholder="Theme" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="light">Light</SelectItem>
+              <SelectItem value="dark">Dark</SelectItem>
+              <SelectItem value="system">System</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div>
+          <Select defaultValue="light">
+            <SelectTrigger>
+              <SelectValue placeholder="Theme" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="light">Light</SelectItem>
+              <SelectItem value="dark">Dark</SelectItem>
+              <SelectItem value="system">System</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </VStack>
+    )
   },
   {
     id: "show-more",
