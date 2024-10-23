@@ -793,9 +793,6 @@ importers:
       '@vidstack/react':
         specifier: ^1.12.11
         version: 1.12.11(@types/react@18.3.12)(react@18.3.1)
-      autoprefixer:
-        specifier: ^10.4.20
-        version: 10.4.20(postcss@8.4.47)
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -827,6 +824,9 @@ importers:
       '@types/react':
         specifier: ^18.3.12
         version: 18.3.12
+      autoprefixer:
+        specifier: ^10.4.20
+        version: 10.4.20(postcss@8.4.47)
       postcss:
         specifier: ^8.4.47
         version: 8.4.47

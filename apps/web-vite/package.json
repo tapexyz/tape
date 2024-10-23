@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite",
     "build:sw": "node src/worker/build.mjs",
-    "build": "tsc -b && vite build && pnpm build:sw",
+    "build": "tsc -b && pnpm build:sw && vite build",
     "preview": "vite preview",
     "typecheck": "tsc --pretty --noEmit"
   },

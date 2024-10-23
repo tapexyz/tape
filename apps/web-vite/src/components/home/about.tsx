@@ -1,4 +1,4 @@
-import { Button } from "@tape.xyz/winder";
+import { Button, CassetteTape } from "@tape.xyz/winder";
 
 export const About = () => {
   return (
@@ -20,9 +20,12 @@ export const About = () => {
           share their stories in a new and meaningful way.
         </span>
       </div>
-      <div className="flex space-x-1.5">
-        <Button>Create an account</Button>
-        <Button variant="secondary">Sign in</Button>
+      <div className="flex justify-between">
+        <div className="flex space-x-1.5">
+          <Button>Create an account</Button>
+          <Button variant="secondary">Sign in</Button>
+        </div>
+        <CassetteTape className="size-10" weight="thin" />
       </div>
     </div>
   );

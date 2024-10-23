@@ -60,7 +60,12 @@ export default defineConfig(({ mode }) => {
             hooks: ["@uidotdev/usehooks"],
             idb: ["idb-keyval"],
             lens: ["@tape.xyz/lens"],
-            generic: ["@tape.xyz/generic"]
+            generic: ["@tape.xyz/generic"],
+            tw: ["@tape.xyz/winder/src/tw"],
+            icons: ["@tape.xyz/winder/src/icons"],
+            toast: ["@tape.xyz/winder/src/_components/toast"],
+            "video-player": ["@tape.xyz/winder/src/_components/video-player"],
+            "audio-player": ["@tape.xyz/winder/src/_components/audio-player"]
           }
         }
       }
