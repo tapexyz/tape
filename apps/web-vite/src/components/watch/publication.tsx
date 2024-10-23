@@ -18,10 +18,6 @@ export const Publication = () => {
   const pubId = Route.useParams().pubId;
   const { data } = useSuspenseQuery(publicationQuery(pubId));
 
-  if (!data.publication) {
-    return <div>not found</div>;
-  }
-
   const publication = getPublication(data.publication as AnyPublication);
   const thumbnail = getThumbnailUrl(publication.metadata, true);
   const videoUrl = getPublicationMediaUrl(publication.metadata);
