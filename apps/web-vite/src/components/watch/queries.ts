@@ -4,6 +4,7 @@ import {
   CustomFiltersType,
   LimitType,
   PublicationDocument,
+  PublicationMetadataMainFocusType,
   PublicationsDocument,
   execute
 } from "@tape.xyz/lens/gql";
@@ -29,6 +30,9 @@ export const commentsQuery = (id: string) =>
             commentOn: {
               id,
               ranking: { filter: CommentRankingFilterType.Relevant }
+            },
+            metadata: {
+              mainContentFocus: [PublicationMetadataMainFocusType.TextOnly]
             },
             customFilters: [CustomFiltersType.Gardeners]
           },

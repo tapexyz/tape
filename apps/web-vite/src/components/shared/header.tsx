@@ -64,7 +64,7 @@ export const Logo = memo(() => {
 const Notifications = () => {
   return (
     <Popover>
-      <PopoverTrigger>
+      <PopoverTrigger asChild>
         <div className="relative">
           <Button size="icon" variant="secondary" className="text-primary/50">
             <BellSimple className="size-5" weight="bold" />
@@ -129,7 +129,7 @@ export const Header = () => {
     matchRoute({ to: "/following" });
 
   return (
-    <header className="sticky inset-x-0 top-0 z-50 flex h-[52px] w-full justify-between gap-1.5 px-4 py-2">
+    <header className="sticky inset-x-0 top-0 z-50 flex h-[52px] w-full justify-between gap-1.5 px-5 py-2">
       <div className="inline-flex w-1/3 gap-1.5">
         <Link to="/">
           <Logo />
@@ -142,6 +142,7 @@ export const Header = () => {
           <div className="inline-flex items-center">
             <Link
               to="/"
+              preload="viewport"
               className={tw(
                 "py-2 pr-3 pl-4 transition-colors hover:text-primary",
                 isActive ? "text-primary" : "text-primary/40"

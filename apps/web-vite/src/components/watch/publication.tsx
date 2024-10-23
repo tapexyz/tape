@@ -9,6 +9,7 @@ import {
 import type { AnyPublication } from "@tape.xyz/lens/gql";
 import { VideoPlayer } from "@tape.xyz/winder";
 import { Actions } from "./actions";
+import { Comments } from "./comments";
 import { Profile } from "./profile";
 import { publicationQuery } from "./queries";
 import { Stats } from "./stats";
@@ -27,8 +28,8 @@ export const Publication = () => {
   const meta = getPublicationData(publication.metadata);
 
   return (
-    <div className="flex gap-4">
-      <div className="w-3/4">
+    <div className="gap-4 md:flex">
+      <div className="w-full md:w-3/4">
         <div>
           <VideoPlayer
             className="rounded-card-sm"
@@ -47,8 +48,9 @@ export const Publication = () => {
           <Actions />
         </div>
       </div>
-      <div className="flex-1">
+      <div className="flex-1 space-y-5">
         <Profile />
+        <Comments />
       </div>
     </div>
   );

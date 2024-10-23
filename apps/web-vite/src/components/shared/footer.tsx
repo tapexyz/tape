@@ -1,10 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import { Button, DiscordLogo, XLogo } from "@tape.xyz/winder";
+import { m } from "framer-motion";
+import { useState } from "react";
 import { Logo } from "./header";
 
 const items = [
   {
-    label: "Brand Kit",
+    label: "Brand",
     url: "https://tape.xyz/winder"
   },
   {
@@ -26,12 +28,26 @@ const items = [
 ];
 
 const List = () => {
+  const [hoverId, setHoverId] = useState("");
   return (
-    <ul className="flex list-none flex-wrap items-center gap-2 font-medium">
+    <ul className="flex list-none flex-wrap items-center font-medium">
       {items.map((item) => (
         <a href={item.url} target="_blank" key={item.label} rel="noreferrer">
-          <li className="whitespace-nowrap rounded-custom px-3 py-1 transition-colors hover:bg-secondary">
-            {item.label}
+          <li
+            className="relative whitespace-nowrap px-4 py-1"
+            onMouseLeave={() => setHoverId("")}
+            onFocus={() => setHoverId(item.label)}
+            onMouseEnter={() => setHoverId(item.label)}
+          >
+            {hoverId === item.label ? (
+              <m.span
+                key={item.label}
+                layoutId="footer-links"
+                transition={{ duration: 0.2, bounce: 0, type: "spring" }}
+                className="absolute inset-0 rounded-custom bg-secondary"
+              />
+            ) : null}
+            <span className="relative">{item.label}</span>
           </li>
         </a>
       ))}

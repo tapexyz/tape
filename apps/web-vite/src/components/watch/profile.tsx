@@ -39,10 +39,10 @@ export const Profile = () => {
           alt="cover"
           draggable={false}
         />
-        <div className="absolute bottom-0 h-10 w-full bg-gradient-to-t from-theme via-theme/30" />
+        <div className="absolute bottom-0 h-10 w-full bg-gradient-to-t from-[#F7F7F7] dark:from-[#202020]" />
       </div>
       <div className="-mt-10 relative z-10 flex flex-col items-center space-y-4 px-5">
-        <div className="rounded-custom bg-theme p-1">
+        <div className="rounded-xl bg-theme p-1">
           <Avatar size="2xl">
             <AvatarImage src={getProfilePicture(profile)} />
           </Avatar>
