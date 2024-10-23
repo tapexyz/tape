@@ -21,7 +21,7 @@ const GitcoinAlert = () => {
       <div className="relative flex h-full flex-col justify-between p-4 ultrawide:p-8 text-left md:p-6">
         <span className="font-bold">
           <Countdown
-            timestamp="2024-08-21T23:59:00+00:00"
+            timestamp="2024-11-06T23:59:00+00:00"
             endText={`Round ${GITCOIN_LIVE_ROUND} has ended`}
           />
         </span>
