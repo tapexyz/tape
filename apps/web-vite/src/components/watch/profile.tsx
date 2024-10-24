@@ -31,7 +31,7 @@ export const Profile = () => {
   }
 
   return (
-    <div className="overflow-hidden rounded-card bg-[#F7F7F7] dark:bg-[#202020]">
+    <div className="overflow-hidden rounded-card border border-custom bg-[#F7F7F7] dark:bg-[#202020]">
       <div className="relative">
         <img
           src={getProfileCoverPicture(profile.metadata)}
@@ -67,7 +67,11 @@ export const Profile = () => {
           <Button
             variant="secondary"
             onClick={() =>
-              navigate({ to: "/u/$handle", params: { handle: meta.slug } })
+              navigate({
+                to: "/u/$handle",
+                params: { handle: meta.param },
+                search: { media: "videos" }
+              })
             }
           >
             View profile
@@ -79,17 +83,13 @@ export const Profile = () => {
         <p className="line-clamp-2 px-5 text-center text-primary/60 text-sm">
           {profile.metadata.bio}
         </p>
-        <div className="rounded-full bg-primary/10 p-1">
-          <div className="flex items-center">
-            <span className="-space-x-1.5 flex">
-              {[100000, 6000, 3090, 4000, 5600].map((item) => (
-                <Avatar size="xs" shape="circle" key={item}>
-                  <AvatarImage src={`${WORKER_AVATAR_URL}/${item}`} />
-                </Avatar>
-              ))}
-            </span>
-          </div>
-        </div>
+        <span className="-space-x-1.5 flex rounded-full bg-primary/10 p-1">
+          {[100000, 6000, 3090, 4000, 5600].map((item) => (
+            <Avatar size="xs" shape="circle" key={item}>
+              <AvatarImage src={`${WORKER_AVATAR_URL}/${item}`} />
+            </Avatar>
+          ))}
+        </span>
         <div className="w-full">
           <hr className="my-2 w-full border-custom" />
           <div>WIP</div>

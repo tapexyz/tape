@@ -46,7 +46,6 @@ import {
   ThemeSwitcherExpanded,
   Tooltip,
   TooltipContent,
-  TooltipProvider,
   TooltipTrigger,
   VPlayButton,
   VideoPlayer,
@@ -909,24 +908,22 @@ export const components = [
     component: () => {
       return (
         <div className="flex items-center gap-6">
-          <TooltipProvider>
-            <Tooltip delayDuration={200}>
-              <TooltipTrigger>
-                <Info className="size-5" />
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Something informative</p>
-              </TooltipContent>
-            </Tooltip>
-            <Tooltip delayDuration={200}>
-              <TooltipTrigger>
-                <CurrencyDollar className="size-5" />
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>This is a dollar</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <Info className="size-5" />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Something informative</p>
+            </TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger>
+              <CurrencyDollar className="size-5" />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>This is a dollar</p>
+            </TooltipContent>
+          </Tooltip>
         </div>
       );
     }

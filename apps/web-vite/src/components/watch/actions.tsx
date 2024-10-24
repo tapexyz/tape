@@ -9,7 +9,7 @@ import {
 
 export const Actions = () => {
   return (
-    <div className="flex items-center space-x-3 py-2 font-medium text-sm">
+    <div className="flex items-center space-x-1.5 py-2 font-medium text-sm">
       <Button>
         <span>Collect</span>
         <Lightning className="size-5" weight="fill" />

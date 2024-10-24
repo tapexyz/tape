@@ -1,6 +1,6 @@
 import type { Profile } from "@tape.xyz/lens";
 
-import { getProfile } from "./getProfile";
+import { getProfile } from "./get-profile";
 
 export const getIsProfileOwner = (
   profile: Profile,

@@ -50,7 +50,8 @@ import {
   Warning,
   Waveform,
   X,
-  XLogo
+  XLogo,
+  YoutubeLogo
 } from "@phosphor-icons/react";
 
 const USED_ICONS = [
@@ -68,6 +69,7 @@ const USED_ICONS = [
   { Icon: Pause, name: "Pause" },
   { Icon: Eye, name: "Eye" },
   { Icon: Empty, name: "Empty" },
+  { Icon: YoutubeLogo, name: "YoutubeLogo" },
   { Icon: Database, name: "Database" },
   { Icon: Island, name: "Island" },
   { Icon: ArrowClockwise, name: "ArrowClockwise" },
@@ -115,6 +117,7 @@ export {
   ChatsCircle,
   SpeakerHigh,
   SpeakerLow,
+  YoutubeLogo,
   SpeakerNone,
   Database,
   CornersOut,

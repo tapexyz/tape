@@ -14,7 +14,8 @@ const buttonVariants = cva("relative flex shrink-0 overflow-hidden", {
       md: "size-[34px]",
       lg: "size-[38px]",
       xl: "size-14",
-      "2xl": "size-[74px]"
+      "2xl": "size-[74px]",
+      "3xl": "size-[130px]"
     }
   },
   defaultVariants: {

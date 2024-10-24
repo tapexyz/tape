@@ -24,6 +24,7 @@ const Comment = ({ comment }: { comment: CommentType }) => {
 
   return (
     <div>
+      <hr className="my-4 w-full border-custom" />
       <div className="flex space-x-1.5">
         <Avatar size="md">
           <AvatarImage src={getProfilePicture(comment.by)} />
@@ -50,7 +51,6 @@ const Comment = ({ comment }: { comment: CommentType }) => {
           </div>
         </div>
       </div>
-      <hr className="my-4 w-full border-custom" />
     </div>
   );
 };
@@ -64,7 +64,7 @@ export const Comments = memo(() => {
   ) as CommentType[];
 
   return (
-    <div className="overflow-hidden rounded-card bg-[#F7F7F7] px-5 py-4 dark:bg-[#202020]">
+    <div className="overflow-hidden rounded-card border border-custom bg-[#F7F7F7] px-5 py-4 dark:bg-[#202020]">
       <div className="flex justify-between">
         <p>Comments</p>
         <Button variant="secondary" size="xs">
@@ -74,7 +74,6 @@ export const Comments = memo(() => {
           </span>
         </Button>
       </div>
-      <hr className="my-4 w-full border-custom" />
 
       {comments.length === 0 && (
         <EmptyState
@@ -83,6 +82,7 @@ export const Comments = memo(() => {
           className="my-6"
         />
       )}
+
       {comments.map((comment) => {
         return <Comment comment={comment} key={comment.id} />;
       })}

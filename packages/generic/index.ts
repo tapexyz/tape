@@ -14,7 +14,7 @@ export * from "./functions/getIsSensitiveContent";
 export * from "./functions/getIsSuspendedProfile";
 export * from "./functions/getLennyPicture";
 export * from "./functions/getMetadataCid";
-export * from "./functions/getProfile";
+export * from "./functions/get-profile";
 export * from "./functions/get-profile-cover";
 export * from "./functions/get-profile-picture";
 export * from "./functions/getPublication";
