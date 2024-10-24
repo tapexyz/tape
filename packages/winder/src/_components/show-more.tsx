@@ -24,9 +24,14 @@ const MButton = ({ onToggle }: { onToggle: (on: boolean) => void }) => {
   );
 };
 
-export const ShowMore = ({ onToggle }: { onToggle: (on: boolean) => void }) => {
+type ShowMoreProps = {
+  onToggle: (on: boolean) => void;
+  className?: string;
+};
+
+export const ShowMore = ({ onToggle, className }: ShowMoreProps) => {
   return (
-    <div className="flex items-center">
+    <div className={tw("flex items-center", className)}>
       <div className="h-[1px] flex-1 bg-secondary" />
       <MButton onToggle={onToggle} />
       <div className="h-[1px] flex-1 bg-secondary" />

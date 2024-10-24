@@ -91,7 +91,7 @@ export const Profile = () => {
           </div>
         </div>
         <div className="w-full">
-          <hr className="my-2 w-full border border-custom" />
+          <hr className="my-2 w-full border-custom" />
           <div>WIP</div>
         </div>
       </div>

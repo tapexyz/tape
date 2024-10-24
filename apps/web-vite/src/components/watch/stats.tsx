@@ -1,8 +1,9 @@
 import { ArrowsClockwise, Eye, Heart, Lightning } from "@tape.xyz/winder";
+import { memo } from "react";
 
-export const Stats = () => {
+export const Stats = memo(() => {
   return (
-    <div className="flex items-center space-x-3 px-3 py-2 font-medium text-sm">
+    <div className="flex items-center space-x-3 py-2 font-medium text-sm">
       <span className="inline-flex items-center space-x-1">
         <Eye className="size-4" weight="fill" />
         <span>100k</span>
@@ -24,4 +25,4 @@ export const Stats = () => {
       </span>
     </div>
   );
-};
+});

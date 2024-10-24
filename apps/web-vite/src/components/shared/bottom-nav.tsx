@@ -57,7 +57,7 @@ const Panel = memo(() => {
                   <button type="button">Livestreams</button>
                   <button type="button">Audio clips</button>
                 </div>
-                <hr className="w-full border border-custom invert" />
+                <hr className="w-full border-custom invert" />
                 <div>
                   <span className="my-3 inline-block text-white/30">
                     Categories

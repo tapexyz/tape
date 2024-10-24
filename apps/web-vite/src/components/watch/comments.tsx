@@ -15,6 +15,7 @@ import {
   Heart,
   Plus
 } from "@tape.xyz/winder";
+import { memo } from "react";
 import { commentsQuery } from "./queries";
 
 const Comment = ({ comment }: { comment: CommentType }) => {
@@ -49,12 +50,12 @@ const Comment = ({ comment }: { comment: CommentType }) => {
           </div>
         </div>
       </div>
-      <hr className="my-4 w-full border border-custom" />
+      <hr className="my-4 w-full border-custom" />
     </div>
   );
 };
 
-export const Comments = () => {
+export const Comments = memo(() => {
   const pubId = Route.useParams().pubId;
   const { data } = useSuspenseInfiniteQuery(commentsQuery(pubId));
 
@@ -73,7 +74,7 @@ export const Comments = () => {
           </span>
         </Button>
       </div>
-      <hr className="my-4 w-full border border-custom" />
+      <hr className="my-4 w-full border-custom" />
 
       {comments.length === 0 && (
         <EmptyState
@@ -87,4 +88,4 @@ export const Comments = () => {
       })}
     </div>
   );
-};
+});

@@ -8,11 +8,10 @@ import {
 } from "@tape.xyz/generic";
 import type { AnyPublication } from "@tape.xyz/lens/gql";
 import { VideoPlayer } from "@tape.xyz/winder";
-import { Actions } from "./actions";
-import { Comments } from "./comments";
-import { Profile } from "./profile";
+import { Content } from "./content";
+import { CreatorAndComments } from "./creator";
 import { publicationQuery } from "./queries";
-import { Stats } from "./stats";
+import { StatsAndActions } from "./stats-and-actions";
 
 export const Publication = () => {
   const pubId = Route.useParams().pubId;
@@ -36,18 +35,15 @@ export const Publication = () => {
             autoPlay={false}
           />
         </div>
-        <h1 className="my-2 font-serif text-[38px] leading-[38px]">
+        <h1 className="mt-2 mb-4 font-serif text-[38px] leading-[38px]">
           {meta?.title}
         </h1>
-        <div className="flex flex-wrap items-center justify-between gap-5">
-          <Stats />
-          <Actions />
-        </div>
+        <StatsAndActions />
+        <span className="text-muted">Published 2 months ago</span>
+        <hr className="my-4 w-full border-custom" />
+        <Content content={meta?.content} />
       </div>
-      <div className="flex-1 space-y-5">
-        <Profile />
-        <Comments />
-      </div>
+      <CreatorAndComments />
     </div>
   );
 };
