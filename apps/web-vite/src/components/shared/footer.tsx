@@ -98,7 +98,7 @@ const NetworkState = () => {
 export const Footer = () => {
   return (
     <footer className="flex flex-wrap justify-between gap-5 px-5 py-[26px]">
-      <div className="flex gap-6">
+      <div className="flex w-1/3 gap-6">
         <Link to="/">
           <Logo />
         </Link>
@@ -120,7 +120,7 @@ export const Footer = () => {
 
       <List />
 
-      <div className="flex gap-6">
+      <div className="flex w-1/3 justify-end gap-6">
         <NetworkState />
         <Button variant="secondary">
           <span className="flex items-center space-x-[10px]">

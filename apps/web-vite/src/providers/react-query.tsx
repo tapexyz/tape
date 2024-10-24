@@ -24,7 +24,7 @@ const getQueryClient = () => {
 };
 
 const store = createStore("tape-store", "query-client");
-export const createIDBPersister = (idbValidKey: IDBValidKey = "data-store") => {
+export const createIDBPersister = (idbValidKey: IDBValidKey = "data") => {
   return {
     persistClient: async (client: PersistedClient) => {
       await set(idbValidKey, client, store);
