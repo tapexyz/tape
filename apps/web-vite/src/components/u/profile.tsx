@@ -44,7 +44,7 @@ export const Profile = () => {
           alt="cover"
           draggable={false}
         />
-        <div className="absolute bottom-0 h-14 w-full bg-gradient-to-t from-[#F7F7F7] dark:from-[#202020]" />
+        <div className="absolute bottom-0 h-16 w-full bg-gradient-to-t from-theme dark:from-theme" />
       </div>
       <div className="space-y-5 p-5">
         <div className="-mt-[100px] relative z-10 flex">
