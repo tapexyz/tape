@@ -1,6 +1,17 @@
 import { Link } from "@tanstack/react-router";
 import { TAPE_X_HANDLE } from "@tape.xyz/constants";
-import { Button, DiscordLogo, XLogo } from "@tape.xyz/winder";
+import {
+  Button,
+  DiscordLogo,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  WifiHigh,
+  WifiX,
+  XLogo,
+  tw
+} from "@tape.xyz/winder";
+import { useNetworkState } from "@uidotdev/usehooks";
 import { m } from "framer-motion";
 import { useState } from "react";
 import { Logo } from "./header";
@@ -59,6 +70,31 @@ const List = () => {
   );
 };
 
+const NetworkState = () => {
+  const { online } = useNetworkState();
+
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <span className="grid place-items-center *:size-5 *:text-muted *:transition-colors *:hover:text-primary">
+          {online ? <WifiHigh /> : <WifiX />}
+        </span>
+      </TooltipTrigger>
+      <TooltipContent>
+        <span className="inline-flex items-center space-x-1.5">
+          <span
+            className={tw(
+              "inline-flex size-1.5 rounded-full",
+              online ? "bg-green-500" : "bg-red-500"
+            )}
+          />
+          <span>{online ? "Online" : "Offline"}</span>
+        </span>
+      </TooltipContent>
+    </Tooltip>
+  );
+};
+
 export const Footer = () => {
   return (
     <footer className="flex flex-wrap justify-between gap-5 px-5 py-[26px]">
@@ -69,28 +105,33 @@ export const Footer = () => {
         <div className="flex items-center space-x-3">
           <a href={xLink} target="_blank" rel="noreferrer">
             <XLogo
-              className="size-6 text-muted transition-colors hover:text-primary"
+              className="size-5 text-muted transition-colors hover:text-primary"
               weight="fill"
             />
           </a>
           <a href={discordLink} target="_blank" rel="noreferrer">
             <DiscordLogo
-              className="size-6 text-muted transition-colors hover:text-primary"
+              className="size-5 text-muted transition-colors hover:text-primary"
               weight="fill"
             />
           </a>
         </div>
       </div>
+
       <List />
-      <Button variant="secondary">
-        <span className="flex items-center space-x-[10px]">
-          <span className="relative flex size-1.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#2A59FF]" />
-            <span className="relative inline-flex size-1.5 rounded-full bg-[#2A59FF] opacity-75" />
+
+      <div className="flex gap-6">
+        <NetworkState />
+        <Button variant="secondary">
+          <span className="flex items-center space-x-[10px]">
+            <span className="relative flex size-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#2A59FF]" />
+              <span className="relative inline-flex size-1.5 rounded-full bg-[#2A59FF]" />
+            </span>
+            <span>All systems normal</span>
           </span>
-          <span>All systems normal</span>
-        </span>
-      </Button>
+        </Button>
+      </div>
     </footer>
   );
 };

@@ -23,8 +23,6 @@ const getQueryClient = () => {
   return browserQueryClient;
 };
 
-export const rqClient = getQueryClient();
-
 const store = createStore("tape-store", "query-client");
 export const createIDBPersister = (idbValidKey: IDBValidKey = "data-store") => {
   return {
@@ -39,3 +37,6 @@ export const createIDBPersister = (idbValidKey: IDBValidKey = "data-store") => {
     }
   } as Persister;
 };
+
+export const rqClient = getQueryClient();
+export const rqPersister = createIDBPersister();

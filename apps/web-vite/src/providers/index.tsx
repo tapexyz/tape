@@ -4,18 +4,16 @@ import { Toaster } from "@tape.xyz/winder";
 import { ThemeProvider } from "@tape.xyz/winder";
 import { LazyMotion } from "framer-motion";
 import type { ReactNode } from "react";
-import { createIDBPersister, rqClient } from "./react-query";
+import { rqClient, rqPersister } from "./react-query";
 import { ServiceWorkerProvider } from "./sw-provider";
 
 const loadFeatures = () => import("./animations").then((res) => res.default);
-
-const persister = createIDBPersister();
 
 export const Providers = ({ children }: Readonly<{ children: ReactNode }>) => {
   return (
     <PersistQueryClientProvider
       client={rqClient}
-      persistOptions={{ persister }}
+      persistOptions={{ persister: rqPersister }}
     >
       <ServiceWorkerProvider>
         <LazyMotion features={loadFeatures} strict>
