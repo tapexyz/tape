@@ -6,7 +6,7 @@ import { Spinner } from "@tape.xyz/winder";
 export const Route = createFileRoute("/_layout/watch/$pubId")({
   loader: ({ context: { rqClient }, params: { pubId } }) => {
     rqClient.ensureQueryData(publicationQuery(pubId));
-    return rqClient.ensureQueryData(commentsQuery(pubId));
+    return rqClient.ensureInfiniteQueryData(commentsQuery(pubId));
   },
   pendingComponent: () => (
     <div className="grid min-h-screen place-items-center">

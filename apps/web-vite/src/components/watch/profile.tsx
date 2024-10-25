@@ -48,7 +48,7 @@ export const Profile = () => {
           </Avatar>
         </div>
         <div className="space-y-1.5">
-          <h1 className="font-serif text-[28px] leading-[28px]">
+          <h1 className="text-center font-serif text-[28px] leading-[28px]">
             {meta.displayName}
           </h1>
           <div className="flex items-center justify-center space-x-2 text-sm">

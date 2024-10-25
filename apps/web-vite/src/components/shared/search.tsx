@@ -15,7 +15,7 @@ import {
 } from "@tape.xyz/winder";
 import { useDebounce } from "@uidotdev/usehooks";
 import { m } from "framer-motion";
-import { useState } from "react";
+import { memo, useState } from "react";
 
 const data = [
   {
@@ -36,14 +36,14 @@ const data = [
   }
 ];
 
-const List = () => {
+const List = ({ onNavigate }: { onNavigate: () => void }) => {
   const [hoverId, setHoverId] = useState("");
 
   return (
     <ul className="text-sm">
       {data.map((item) => {
         const isUser = item.type === "user";
-        const Icon = isUser ? User : CassetteTape;
+        const Icon = memo(isUser ? User : CassetteTape);
         return (
           <Link
             key={item.label}
@@ -52,6 +52,7 @@ const List = () => {
               handle: isUser ? item.label : "",
               pubId: "0x2d-0x022f-DA-7918bc14"
             }}
+            onClick={onNavigate}
           >
             <li
               onFocus={() => setHoverId(item.label)}
@@ -64,7 +65,7 @@ const List = () => {
                   key={item.label}
                   layoutId="footer-links"
                   transition={{
-                    duration: 0.2,
+                    duration: 0.3,
                     bounce: 0,
                     type: "spring"
                   }}
@@ -86,12 +87,13 @@ const List = () => {
 };
 
 export const Search = () => {
+  const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
   console.info("🚀 ~ Search ~ debouncedSearchTerm:", debouncedSearchTerm);
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={(o) => setOpen(o)}>
       <DialogTrigger asChild>
         <Button
           variant="secondary"
@@ -135,7 +137,12 @@ export const Search = () => {
             <h6 className="flex h-8 items-center px-3 font-medium text-xs">
               Suggestions
             </h6>
-            <List />
+            <List
+              onNavigate={() => {
+                setOpen(false);
+                setSearchTerm("");
+              }}
+            />
           </div>
         </ScrollArea>
       </DialogContent>
