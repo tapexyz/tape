@@ -96,10 +96,12 @@ const RightSection = memo(() => {
   return (
     <div className="flex w-1/3 justify-end gap-1.5">
       <Notifications />
-      <Button>
-        <span>Create</span>
-        <PlusCircle className="size-5" weight="fill" />
-      </Button>
+      <Link to="/create">
+        <Button>
+          <span>Create</span>
+          <PlusCircle className="size-5" weight="fill" />
+        </Button>
+      </Link>
       <DropdownMenu>
         <DropdownMenuTrigger className="rounded-custom">
           <Avatar size="md" className="select-none">

@@ -18,6 +18,7 @@ import { Route as EmbedPubIdImport } from './routes/embed/$pubId'
 import { Route as LayoutHomeImport } from './routes/_layout/_home'
 import { Route as LayoutModIndexImport } from './routes/_layout/mod/index'
 import { Route as LayoutFeedIndexImport } from './routes/_layout/feed/index'
+import { Route as LayoutCreateIndexImport } from './routes/_layout/create/index'
 import { Route as LayoutHomeIndexImport } from './routes/_layout/_home/index'
 import { Route as LayoutWatchPubIdImport } from './routes/_layout/watch/$pubId'
 import { Route as LayoutUHandleImport } from './routes/_layout/u/$handle'
@@ -63,6 +64,12 @@ const LayoutModIndexRoute = LayoutModIndexImport.update({
 const LayoutFeedIndexRoute = LayoutFeedIndexImport.update({
   id: '/feed/',
   path: '/feed/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutCreateIndexRoute = LayoutCreateIndexImport.update({
+  id: '/create/',
+  path: '/create/',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -170,6 +177,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutHomeIndexImport
       parentRoute: typeof LayoutHomeImport
     }
+    '/_layout/create/': {
+      id: '/_layout/create/'
+      path: '/create'
+      fullPath: '/create'
+      preLoaderRoute: typeof LayoutCreateIndexImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/feed/': {
       id: '/_layout/feed/'
       path: '/feed'
@@ -209,6 +223,7 @@ interface LayoutRouteChildren {
   LayoutHomeRoute: typeof LayoutHomeRouteWithChildren
   LayoutUHandleRoute: typeof LayoutUHandleRoute
   LayoutWatchPubIdRoute: typeof LayoutWatchPubIdRoute
+  LayoutCreateIndexRoute: typeof LayoutCreateIndexRoute
   LayoutFeedIndexRoute: typeof LayoutFeedIndexRoute
   LayoutModIndexRoute: typeof LayoutModIndexRoute
 }
@@ -217,6 +232,7 @@ const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutHomeRoute: LayoutHomeRouteWithChildren,
   LayoutUHandleRoute: LayoutUHandleRoute,
   LayoutWatchPubIdRoute: LayoutWatchPubIdRoute,
+  LayoutCreateIndexRoute: LayoutCreateIndexRoute,
   LayoutFeedIndexRoute: LayoutFeedIndexRoute,
   LayoutModIndexRoute: LayoutModIndexRoute,
 }
@@ -234,6 +250,7 @@ export interface FileRoutesByFullPath {
   '/u/$handle': typeof LayoutUHandleRoute
   '/watch/$pubId': typeof LayoutWatchPubIdRoute
   '/': typeof LayoutHomeIndexRoute
+  '/create': typeof LayoutCreateIndexRoute
   '/feed': typeof LayoutFeedIndexRoute
   '/mod': typeof LayoutModIndexRoute
 }
@@ -248,6 +265,7 @@ export interface FileRoutesByTo {
   '/u/$handle': typeof LayoutUHandleRoute
   '/watch/$pubId': typeof LayoutWatchPubIdRoute
   '/': typeof LayoutHomeIndexRoute
+  '/create': typeof LayoutCreateIndexRoute
   '/feed': typeof LayoutFeedIndexRoute
   '/mod': typeof LayoutModIndexRoute
 }
@@ -264,6 +282,7 @@ export interface FileRoutesById {
   '/_layout/u/$handle': typeof LayoutUHandleRoute
   '/_layout/watch/$pubId': typeof LayoutWatchPubIdRoute
   '/_layout/_home/': typeof LayoutHomeIndexRoute
+  '/_layout/create/': typeof LayoutCreateIndexRoute
   '/_layout/feed/': typeof LayoutFeedIndexRoute
   '/_layout/mod/': typeof LayoutModIndexRoute
 }
@@ -280,6 +299,7 @@ export interface FileRouteTypes {
     | '/u/$handle'
     | '/watch/$pubId'
     | '/'
+    | '/create'
     | '/feed'
     | '/mod'
   fileRoutesByTo: FileRoutesByTo
@@ -293,6 +313,7 @@ export interface FileRouteTypes {
     | '/u/$handle'
     | '/watch/$pubId'
     | '/'
+    | '/create'
     | '/feed'
     | '/mod'
   id:
@@ -307,6 +328,7 @@ export interface FileRouteTypes {
     | '/_layout/u/$handle'
     | '/_layout/watch/$pubId'
     | '/_layout/_home/'
+    | '/_layout/create/'
     | '/_layout/feed/'
     | '/_layout/mod/'
   fileRoutesById: FileRoutesById
@@ -350,6 +372,7 @@ export const routeTree = rootRoute
         "/_layout/_home",
         "/_layout/u/$handle",
         "/_layout/watch/$pubId",
+        "/_layout/create/",
         "/_layout/feed/",
         "/_layout/mod/"
       ]
@@ -391,6 +414,10 @@ export const routeTree = rootRoute
     "/_layout/_home/": {
       "filePath": "_layout/_home/index.tsx",
       "parent": "/_layout/_home"
+    },
+    "/_layout/create/": {
+      "filePath": "_layout/create/index.tsx",
+      "parent": "/_layout"
     },
     "/_layout/feed/": {
       "filePath": "_layout/feed/index.tsx",
