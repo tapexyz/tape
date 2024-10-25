@@ -26,7 +26,7 @@ export const Morph = ({ children }: { children: string }) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{
-            duration: 0.1,
+            duration: 0.2,
             type: "spring",
             bounce: 0,
             opacity: {

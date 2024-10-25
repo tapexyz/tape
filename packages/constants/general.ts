@@ -197,7 +197,15 @@ export const ALLOWED_VIDEO_MIME_TYPES = [
   "video/quicktime",
   "video/mov"
 ];
-export const ALLOWED_UPLOAD_MIME_TYPES = [...ALLOWED_VIDEO_MIME_TYPES];
+export const ALLOWED_AUDIO_MIME_TYPES = [
+  "audio/mpeg",
+  "audio/mp3",
+  "audio/wav"
+];
+export const ALLOWED_UPLOAD_MIME_TYPES = [
+  ...ALLOWED_VIDEO_MIME_TYPES,
+  ...ALLOWED_AUDIO_MIME_TYPES
+];
 
 export const LENS_NAMESPACE_PREFIX = IS_MAINNET ? "lens/" : "test/";
 export const LEGACY_LENS_HANDLE_SUFFIX = IS_MAINNET ? ".lens" : ".test";
