@@ -63,7 +63,7 @@ const List = ({ onNavigate }: { onNavigate: () => void }) => {
               {hoverId === item.label ? (
                 <m.span
                   key={item.label}
-                  layoutId="footer-links"
+                  layoutId="global-search-links"
                   transition={{
                     duration: 0.3,
                     bounce: 0,
