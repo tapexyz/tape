@@ -1,13 +1,13 @@
 import { Link } from "@tanstack/react-router";
 import {
   Button,
-  CassetteTape,
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
   MagnifyingGlass,
+  Play,
   ScrollArea,
   User,
   X,
@@ -43,7 +43,7 @@ const List = ({ onNavigate }: { onNavigate: () => void }) => {
     <ul className="text-sm">
       {data.map((item) => {
         const isUser = item.type === "user";
-        const Icon = memo(isUser ? User : CassetteTape);
+        const Icon = memo(isUser ? User : Play);
         return (
           <Link
             key={item.label}
@@ -73,7 +73,7 @@ const List = ({ onNavigate }: { onNavigate: () => void }) => {
                 />
               ) : null}
               <span className="flex items-center space-x-1.5">
-                <Icon className="size-4 opacity-50 transition-opacity group-hover:opacity-100" />
+                <Icon className="opacity-50 transition-opacity group-hover:opacity-100" />
                 <span className="relative transition-colors group-hover:text-primary">
                   {item.label}
                 </span>
