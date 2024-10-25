@@ -425,7 +425,7 @@ export const components = [
           <DialogTrigger asChild>
             <Button variant="destructive">Delete</Button>
           </DialogTrigger>
-          <DialogContent className="p-6">
+          <DialogContent className="gap-4 p-6">
             <DialogHeader className="space-y-2">
               <DialogTitle>Are you absolutely sure?</DialogTitle>
               <DialogDescription>

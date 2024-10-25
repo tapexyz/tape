@@ -8,10 +8,88 @@ import {
   DialogTitle,
   DialogTrigger,
   MagnifyingGlass,
-  User
+  ScrollArea,
+  User,
+  X,
+  tw
 } from "@tape.xyz/winder";
+import { useDebounce } from "@uidotdev/usehooks";
+import { m } from "framer-motion";
+import { useState } from "react";
+
+const data = [
+  {
+    label: "sasicodes",
+    type: "user"
+  },
+  {
+    label: "tape",
+    type: "user"
+  },
+  {
+    label: "Debugging React is fun 🤡",
+    type: "publication"
+  },
+  {
+    label: "Just resolved a merge conflict of 400 files 😵‍💫",
+    type: "publication"
+  }
+];
+
+const List = () => {
+  const [hoverId, setHoverId] = useState("");
+
+  return (
+    <ul className="text-sm">
+      {data.map((item) => {
+        const isUser = item.type === "user";
+        const Icon = isUser ? User : CassetteTape;
+        return (
+          <Link
+            key={item.label}
+            to={isUser ? "/u/$handle" : "/watch/$pubId"}
+            params={{
+              handle: isUser ? item.label : "",
+              pubId: "0x2d-0x022f-DA-7918bc14"
+            }}
+          >
+            <li
+              onFocus={() => setHoverId(item.label)}
+              onMouseEnter={() => setHoverId(item.label)}
+              onMouseLeave={() => setHoverId(item.label)}
+              className="group relative rounded-custom px-3 py-2"
+            >
+              {hoverId === item.label ? (
+                <m.span
+                  key={item.label}
+                  layoutId="footer-links"
+                  transition={{
+                    duration: 0.2,
+                    bounce: 0,
+                    type: "spring"
+                  }}
+                  className="absolute inset-0 rounded-custom bg-secondary transition-colors"
+                />
+              ) : null}
+              <span className="flex items-center space-x-1.5">
+                <Icon className="size-4 opacity-50 transition-opacity group-hover:opacity-100" />
+                <span className="relative transition-colors group-hover:text-primary">
+                  {item.label}
+                </span>
+              </span>
+            </li>
+          </Link>
+        );
+      })}
+    </ul>
+  );
+};
 
 export const Search = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const debouncedSearchTerm = useDebounce(searchTerm, 300);
+  console.info("🚀 ~ Search ~ debouncedSearchTerm:", debouncedSearchTerm);
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -25,55 +103,41 @@ export const Search = () => {
           </span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="h-96">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>
             <div className="relative flex items-center">
               <span className="absolute left-4 text-muted">
-                <MagnifyingGlass className="size-4" />
+                <MagnifyingGlass className="size-4" weight="bold" />
               </span>
               <input
                 className="w-full border-custom border-b bg-transparent px-10 py-4 font-normal text-sm outline-none"
                 placeholder="Type to search tape"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
+              <button
+                type="button"
+                onClick={() => setSearchTerm("")}
+                className={tw(
+                  searchTerm
+                    ? "absolute right-4 text-muted transition-colors hover:text-primary"
+                    : "hidden"
+                )}
+              >
+                <X className="size-4" weight="bold" />
+              </button>
             </div>
           </DialogTitle>
+        </DialogHeader>
+        <ScrollArea className="h-96">
           <div className="p-2 text-primary/80">
             <h6 className="flex h-8 items-center px-3 font-medium text-xs">
               Suggestions
             </h6>
-            <ul className="text-sm">
-              {["sasicodes", "tape"].map((item) => (
-                <Link
-                  key={item}
-                  to="/u/$handle"
-                  params={{ handle: item }}
-                  search={{ media: "videos" }}
-                >
-                  <li className="group flex items-center space-x-1.5 rounded-custom px-3 py-2 transition-colors hover:bg-secondary hover:text-primary">
-                    <User className="opacity-50 transition-colors group-hover:opacity-100" />
-                    <span>@{item}</span>
-                  </li>
-                </Link>
-              ))}
-              {[
-                "Debugging React is fun 🤡",
-                "Just resolved a merge conflict of 400 files 😵‍💫"
-              ].map((item) => (
-                <Link
-                  key={item}
-                  to="/watch/$pubId"
-                  params={{ pubId: "0x2d-0x022f-DA-7918bc14" }}
-                >
-                  <li className="group flex items-center space-x-1.5 rounded-custom px-3 py-2 transition-colors hover:bg-secondary hover:text-primary">
-                    <CassetteTape className="opacity-50 transition-colors group-hover:opacity-100" />
-                    <span>{item}</span>
-                  </li>
-                </Link>
-              ))}
-            </ul>
+            <List />
           </div>
-        </DialogHeader>
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   );
