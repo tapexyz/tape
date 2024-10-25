@@ -4,6 +4,7 @@ import { Toaster } from "@tape.xyz/winder";
 import { ThemeProvider } from "@tape.xyz/winder";
 import { LazyMotion } from "framer-motion";
 import type { ReactNode } from "react";
+import { Log } from "./log";
 import { rqClient, rqPersister } from "./react-query";
 import { ServiceWorkerProvider } from "./sw-provider";
 
@@ -21,6 +22,7 @@ export const Providers = ({ children }: Readonly<{ children: ReactNode }>) => {
             {children}
             <Toaster />
           </ThemeProvider>
+          <Log />
           <Devtools />
         </LazyMotion>
       </ServiceWorkerProvider>
