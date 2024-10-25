@@ -49,6 +49,7 @@ import {
   TooltipTrigger,
   VPlayButton,
   VideoPlayer,
+  X,
   toast
 } from "@tape.xyz/winder";
 import {
@@ -408,7 +409,7 @@ export const components = [
           <DialogTrigger asChild>
             <Button variant="outline">Image</Button>
           </DialogTrigger>
-          <DialogContent className="p-0">
+          <DialogContent>
             <img
               className="size-full"
               loading="eager"
@@ -424,14 +425,18 @@ export const components = [
           <DialogTrigger asChild>
             <Button variant="destructive">Delete</Button>
           </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
+          <DialogContent className="p-6">
+            <DialogHeader className="space-y-2">
               <DialogTitle>Are you absolutely sure?</DialogTitle>
               <DialogDescription>
                 This action cannot be undone. This will permanently delete your
                 account and remove your data from our servers.
               </DialogDescription>
             </DialogHeader>
+            <DialogClose className="absolute top-5 right-5 rounded-full p-1 opacity-70 transition-opacity hover:opacity-100 disabled:pointer-events-none">
+              <X />
+              <span className="sr-only">Close</span>
+            </DialogClose>
             <DialogFooter>
               <DialogClose>
                 <Button variant="secondary">Cancel</Button>

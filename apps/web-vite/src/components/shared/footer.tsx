@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { TAPE_X_HANDLE } from "@tape.xyz/constants";
+import { TAPE_STATUS_PAGE, TAPE_X_HANDLE } from "@tape.xyz/constants";
 import {
   Button,
   DiscordLogo,
@@ -122,15 +122,17 @@ export const Footer = () => {
 
       <div className="flex w-1/3 justify-end gap-6">
         <NetworkState />
-        <Button variant="secondary">
-          <span className="flex items-center space-x-[10px]">
-            <span className="relative flex size-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#2A59FF]" />
-              <span className="relative inline-flex size-1.5 rounded-full bg-[#2A59FF]" />
+        <a href={TAPE_STATUS_PAGE} target="_blank" rel="noreferrer">
+          <Button variant="secondary">
+            <span className="flex items-center space-x-[10px]">
+              <span className="relative flex size-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#2A59FF]" />
+                <span className="relative inline-flex size-1.5 rounded-full bg-[#2A59FF]" />
+              </span>
+              <span>All systems normal</span>
             </span>
-            <span>All systems normal</span>
-          </span>
-        </Button>
+          </Button>
+        </a>
       </div>
     </footer>
   );

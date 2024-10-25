@@ -11,7 +11,6 @@ import {
   Avatar,
   AvatarImage,
   Button,
-  DotsThreeVertical,
   Tabs,
   TabsContent,
   TabsList,
@@ -22,6 +21,7 @@ import {
   XLogo,
   YoutubeLogo
 } from "@tape.xyz/winder";
+import { Actions } from "./actions";
 import { profileQuery } from "./queries";
 
 export const Profile = () => {
@@ -44,7 +44,7 @@ export const Profile = () => {
           alt="cover"
           draggable={false}
         />
-        <div className="absolute bottom-0 h-16 w-full bg-gradient-to-t from-theme dark:from-theme" />
+        <div className="absolute bottom-0 h-10 w-full bg-gradient-to-t from-theme dark:from-theme" />
       </div>
       <div className="space-y-5 p-5">
         <div className="-mt-[100px] relative z-10 flex">
@@ -75,10 +75,7 @@ export const Profile = () => {
               <span>
                 <div className="mx-3 h-5 w-[1px] rounded bg-primary/10" />
               </span>
-              <Button variant="secondary" size="icon">
-                <DotsThreeVertical className="size-5" weight="bold" />
-              </Button>
-              <Button>Follow</Button>
+              <Actions />
             </div>
           </div>
         </div>

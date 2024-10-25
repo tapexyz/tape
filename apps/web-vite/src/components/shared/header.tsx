@@ -10,7 +10,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  MagnifyingGlass,
   PlusCircle,
   Popover,
   PopoverContent,
@@ -24,6 +23,7 @@ import {
   tw
 } from "@tape.xyz/winder";
 import { memo } from "react";
+import { Search } from "./search";
 
 export const Logo = memo(() => {
   return (
@@ -169,15 +169,7 @@ export const Header = () => {
         </Button>
       </div>
 
-      <Button
-        variant="secondary"
-        className="p-2 font-medium backdrop-blur-3xl lg:w-[444px]"
-      >
-        <span className="inline-flex items-center gap-1.5">
-          <MagnifyingGlass className="size-4" />
-          <span className="hidden lg:inline-block">Search for a tape</span>
-        </span>
-      </Button>
+      <Search />
 
       <RightSection />
     </header>

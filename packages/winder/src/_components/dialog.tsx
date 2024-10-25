@@ -1,6 +1,5 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { forwardRef } from "react";
-import { X } from "../icons";
 import { tw } from "../tw";
 
 const Dialog = DialogPrimitive.Root;
@@ -12,10 +11,7 @@ const DialogHeader = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div
-    className={tw("flex flex-col space-y-2 text-left", className)}
-    {...props}
-  />
+  <div className={tw("flex flex-col text-left", className)} {...props} />
 );
 
 const DialogTitle = forwardRef<
@@ -51,7 +47,7 @@ const DialogContent = forwardRef<
     <DialogOverlay />
     <DialogPrimitive.Content
       className={tw(
-        "-translate-x-1/2 -translate-y-1/2 fixed top-1/2 left-1/2 z-50 grid w-full max-w-lg gap-4 overflow-hidden rounded-card-sm border-2 border-custom bg-theme p-6 dark:bg-site",
+        "-translate-x-1/2 -translate-y-1/2 fixed top-1/2 left-1/2 z-50 grid w-full max-w-lg gap-4 overflow-hidden rounded-card-sm border border-custom bg-theme dark:bg-site",
         "data-[state=closed]:fade-out data-[state=open]:fade-in data-[state=closed]:zoom-out-90 data-[state=open]:zoom-in-90 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] data-[state=closed]:animate-out data-[state=open]:animate-in",
         className
       )}
@@ -59,10 +55,6 @@ const DialogContent = forwardRef<
       {...props}
     >
       {children}
-      <DialogPrimitive.Close className="absolute top-5 right-5 rounded-full p-1 opacity-70 transition-opacity hover:opacity-100 disabled:pointer-events-none">
-        <X />
-        <span className="sr-only">Close</span>
-      </DialogPrimitive.Close>
     </DialogPrimitive.Content>
   </DialogPortal>
 ));

@@ -5,14 +5,14 @@ import { tw } from "../tw";
 const TooltipProvider = TooltipPrimitive.Provider;
 const TooltipTrigger = TooltipPrimitive.Trigger;
 
-const Tooltip = forwardRef<
-  React.ElementRef<typeof TooltipPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Root>
->(({ delayDuration = 100, ...props }) => (
+const Tooltip = ({
+  delayDuration = 100,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Root>) => (
   <TooltipProvider>
     <TooltipPrimitive.Root delayDuration={delayDuration} {...props} />
   </TooltipProvider>
-));
+);
 
 const TooltipContent = forwardRef<
   React.ElementRef<typeof TooltipPrimitive.Content>,
