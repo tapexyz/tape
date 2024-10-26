@@ -1,3 +1,4 @@
+import { getCategoryIcon } from "@/helpers/category";
 import { Link, useMatchRoute } from "@tanstack/react-router";
 import { TAPE_MEDIA_CATEGORIES } from "@tape.xyz/constants";
 import { FunnelSimple, tw } from "@tape.xyz/winder";
@@ -70,16 +71,20 @@ const Panel = memo(() => {
                     >
                       All
                     </button>
-                    {TAPE_MEDIA_CATEGORIES.map((category) => (
-                      <button
-                        type="button"
-                        key={category.tag}
-                        className="text-white data-[selected=true]:bg-white data-[selected=true]:text-black"
-                        data-selected={false}
-                      >
-                        {category.name}
-                      </button>
-                    ))}
+                    {TAPE_MEDIA_CATEGORIES.map((category) => {
+                      const Icon = getCategoryIcon(category.tag);
+                      return (
+                        <button
+                          type="button"
+                          key={category.tag}
+                          className="flex items-center space-x-1.5 text-white data-[selected=true]:bg-white data-[selected=true]:text-black"
+                          data-selected={false}
+                        >
+                          <Icon />
+                          <span>{category.name}</span>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
