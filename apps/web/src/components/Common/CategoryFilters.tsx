@@ -1,5 +1,5 @@
 import { tw } from "@tape.xyz/browser";
-import { CREATOR_VIDEO_CATEGORIES } from "@tape.xyz/constants";
+import { TAPE_MEDIA_CATEGORIES } from "@tape.xyz/constants";
 import { EVENTS } from "@tape.xyz/generic";
 import type { FC } from "react";
 import { useRef } from "react";
@@ -45,7 +45,7 @@ const CategoryFilters: FC<Props> = ({ heading }) => {
         >
           All
         </button>
-        {CREATOR_VIDEO_CATEGORIES.map((category) => (
+        {TAPE_MEDIA_CATEGORIES.map((category) => (
           <button
             type="button"
             key={category.tag}

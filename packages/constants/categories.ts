@@ -1,4 +1,4 @@
-export const CREATOR_VIDEO_CATEGORIES = [
+export const TAPE_MEDIA_CATEGORIES = [
   {
     name: "People & Blogs",
     tag: "people"
@@ -120,4 +120,4 @@ export const CREATOR_VIDEO_CATEGORIES = [
     name: "Autos & Vehicles",
     tag: "vehicles"
   }
-];
+] as const;

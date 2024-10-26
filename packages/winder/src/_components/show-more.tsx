@@ -32,9 +32,9 @@ type ShowMoreProps = {
 export const ShowMore = ({ onToggle, className }: ShowMoreProps) => {
   return (
     <div className={tw("flex items-center", className)}>
-      <div className="h-[1px] flex-1 bg-secondary" />
+      <div className="h-px flex-1 bg-secondary" />
       <MButton onToggle={onToggle} />
-      <div className="h-[1px] flex-1 bg-secondary" />
+      <div className="h-px flex-1 bg-secondary" />
     </div>
   );
 };

@@ -15,14 +15,14 @@ const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={tw(
-      "flex h-10 w-full items-center justify-between rounded-custom border border-custom bg-theme px-3 py-2 text-sm placeholder:text-muted focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-site [&>span]:line-clamp-1",
+      "flex h-11 w-full items-center justify-between rounded-custom border border-custom px-3.5 py-2 text-sm placeholder:text-muted focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
       className
     )}
     {...props}
   >
     {children}
     <SelectPrimitive.Icon asChild>
-      <CaretDown className="opacity-50" />
+      <CaretDown className="size-4 opacity-50" />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 ));
@@ -111,18 +111,18 @@ const SelectItem = React.forwardRef<
   <SelectPrimitive.Item
     ref={ref}
     className={tw(
-      "relative flex w-full cursor-default select-none items-center rounded-md py-1.5 pr-2 pl-8 text-sm outline-none focus:bg-secondary data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex w-full cursor-default select-none items-center rounded-md py-2.5 pr-8 pl-3 text-sm outline-none focus:bg-secondary data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       className
     )}
     {...props}
   >
-    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+    <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+
+    <span className="absolute right-3.5 flex size-3.5 items-center justify-center">
       <SelectPrimitive.ItemIndicator>
         <Check />
       </SelectPrimitive.ItemIndicator>
     </span>
-
-    <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
   </SelectPrimitive.Item>
 ));
 

@@ -1,8 +1,8 @@
 import { tw, useDragAndDrop } from "@tape.xyz/browser";
 import {
   ALLOWED_UPLOAD_MIME_TYPES,
-  CREATOR_VIDEO_CATEGORIES,
-  IPFS_FREE_UPLOAD_LIMIT
+  IPFS_FREE_UPLOAD_LIMIT,
+  TAPE_MEDIA_CATEGORIES
 } from "@tape.xyz/constants";
 import { canUploadedToIpfs, logger } from "@tape.xyz/generic";
 import { Button, UploadOutline } from "@tape.xyz/ui";
@@ -43,7 +43,7 @@ const DropZone = () => {
           mediaType: file?.type,
           file,
           type: "VIDEO",
-          mediaCategory: CREATOR_VIDEO_CATEGORIES[0],
+          mediaCategory: TAPE_MEDIA_CATEGORIES[0],
           isUploadToIpfs
         });
       }

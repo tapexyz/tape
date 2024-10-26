@@ -1,4 +1,4 @@
-import { CREATOR_VIDEO_CATEGORIES } from "@tape.xyz/constants";
+import { TAPE_MEDIA_CATEGORIES } from "@tape.xyz/constants";
 import { getCategoryByTag } from "@tape.xyz/generic";
 import { Select, SelectItem } from "@tape.xyz/ui";
 
@@ -17,7 +17,7 @@ const MediaCategory = () => {
           setUploadedMedia({ mediaCategory: getCategoryByTag(tag) })
         }
       >
-        {CREATOR_VIDEO_CATEGORIES.map((category) => (
+        {TAPE_MEDIA_CATEGORIES.map((category) => (
           <SelectItem key={category.tag} value={category.tag}>
             {category.name}
           </SelectItem>

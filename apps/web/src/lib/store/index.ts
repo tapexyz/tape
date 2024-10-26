@@ -4,9 +4,9 @@ import { ViemV2Adapter } from "@irys/web-upload-ethereum-viem-v2";
 import type BaseWebIrys from "@irys/web-upload/esm/base";
 import { MetadataLicenseType } from "@lens-protocol/metadata";
 import {
-  CREATOR_VIDEO_CATEGORIES,
   IS_MAINNET,
   POLYGON_RPC_URLS,
+  TAPE_MEDIA_CATEGORIES,
   WMATIC_TOKEN_ADDRESS
 } from "@tape.xyz/constants";
 import { logger } from "@tape.xyz/generic";
@@ -43,7 +43,7 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS: UploadedMedia = {
   uploadingThumbnail: false,
   buttonText: "Post Now",
   durationInSeconds: 0,
-  mediaCategory: CREATOR_VIDEO_CATEGORIES[0]!,
+  mediaCategory: TAPE_MEDIA_CATEGORIES[0]!,
   mediaLicense: MetadataLicenseType.CC_BY,
   isByteVideo: false,
   collectModule: {

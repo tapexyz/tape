@@ -1,5 +1,5 @@
 import { Link, useMatchRoute } from "@tanstack/react-router";
-import { CREATOR_VIDEO_CATEGORIES } from "@tape.xyz/constants";
+import { TAPE_MEDIA_CATEGORIES } from "@tape.xyz/constants";
 import { FunnelSimple, tw } from "@tape.xyz/winder";
 import { useClickAway, useMeasure } from "@uidotdev/usehooks";
 import { AnimatePresence, m } from "framer-motion";
@@ -70,7 +70,7 @@ const Panel = memo(() => {
                     >
                       All
                     </button>
-                    {CREATOR_VIDEO_CATEGORIES.map((category) => (
+                    {TAPE_MEDIA_CATEGORIES.map((category) => (
                       <button
                         type="button"
                         key={category.tag}
