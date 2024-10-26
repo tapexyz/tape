@@ -68,7 +68,7 @@ const Panel = memo(() => {
           bounce: 0
         }
       }}
-      className="flex w-full flex-col justify-end overflow-hidden rounded-[14px] border border-custom bg-black/95 backdrop-blur-2xl"
+      className="flex w-full flex-col justify-end overflow-hidden rounded-[14px] bg-black/95 backdrop-blur-2xl"
     >
       <div ref={elementRef} className="flex flex-col justify-end">
         <AnimatePresence mode="popLayout" initial={false}>
