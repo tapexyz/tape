@@ -13,7 +13,7 @@ export const Log = () => {
    ░▒▓█▓▒░  ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░        
    ░▒▓█▓▒░  ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓██████▓▒░ 
                                                     
-We are open source: https://github.com/tapexyz`);
+We love contributors → https://github.com/tapexyz`);
     ref.current = true;
   }, []);
   return null;

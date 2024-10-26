@@ -1,10 +1,49 @@
 import { getCategoryIcon } from "@/helpers/category";
 import { Link, useMatchRoute } from "@tanstack/react-router";
 import { TAPE_MEDIA_CATEGORIES } from "@tape.xyz/constants";
-import { FunnelSimple, tw } from "@tape.xyz/winder";
+import { FunnelSimple, ScrollArea, tw } from "@tape.xyz/winder";
 import { useClickAway, useMeasure } from "@uidotdev/usehooks";
-import { AnimatePresence, m } from "framer-motion";
-import { type RefObject, memo, useEffect, useState } from "react";
+import { AnimatePresence, m, useScroll, useTransform } from "framer-motion";
+import { type RefObject, memo, useEffect, useRef, useState } from "react";
+
+const Categories = () => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({ container: ref });
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+
+  return (
+    <ScrollArea className="relative h-52" ref={ref}>
+      <m.div
+        className="absolute top-0 h-2 w-full bg-gradient-to-b from-black/60"
+        style={{ opacity }}
+      />
+      <span className="my-3 inline-block text-white/30">Categories</span>
+      <div className="flex flex-wrap items-center gap-1.5 pb-2 *:rounded-custom *:bg-white/15 *:px-3.5 *:py-2 *:font-medium *:text-sm">
+        <button
+          type="button"
+          className="text-white data-[selected=true]:bg-white data-[selected=true]:text-black"
+          data-selected={true}
+        >
+          All
+        </button>
+        {TAPE_MEDIA_CATEGORIES.map((category) => {
+          const Icon = getCategoryIcon(category.tag);
+          return (
+            <button
+              type="button"
+              key={category.tag}
+              className="flex items-center space-x-1.5 text-white data-[selected=true]:bg-white data-[selected=true]:text-black"
+              data-selected={false}
+            >
+              <Icon />
+              <span>{category.name}</span>
+            </button>
+          );
+        })}
+      </div>
+    </ScrollArea>
+  );
+};
 
 const Panel = memo(() => {
   const matchRoute = useMatchRoute();
@@ -32,7 +71,7 @@ const Panel = memo(() => {
       className="flex w-full flex-col justify-end overflow-hidden rounded-[14px] border border-custom bg-black/95 backdrop-blur-2xl"
     >
       <div ref={elementRef} className="flex flex-col justify-end">
-        <AnimatePresence mode="popLayout">
+        <AnimatePresence mode="popLayout" initial={false}>
           {open ? (
             <m.div
               key={open ? "open" : "close"}
@@ -59,34 +98,7 @@ const Panel = memo(() => {
                   <button type="button">Audio clips</button>
                 </div>
                 <hr className="w-full border-custom invert" />
-                <div>
-                  <span className="my-3 inline-block text-white/30">
-                    Categories
-                  </span>
-                  <div className="no-scrollbar flex max-h-40 flex-wrap items-center gap-[9px] overflow-y-auto pb-2 *:rounded-[9px] *:bg-white/15 *:px-4 *:py-2 *:font-medium *:text-sm">
-                    <button
-                      type="button"
-                      className="text-white data-[selected=true]:bg-white data-[selected=true]:text-black"
-                      data-selected={true}
-                    >
-                      All
-                    </button>
-                    {TAPE_MEDIA_CATEGORIES.map((category) => {
-                      const Icon = getCategoryIcon(category.tag);
-                      return (
-                        <button
-                          type="button"
-                          key={category.tag}
-                          className="flex items-center space-x-1.5 text-white data-[selected=true]:bg-white data-[selected=true]:text-black"
-                          data-selected={false}
-                        >
-                          <Icon />
-                          <span>{category.name}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
+                <Categories />
               </div>
             </m.div>
           ) : null}
