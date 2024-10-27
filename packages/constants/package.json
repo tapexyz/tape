@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "@tape.xyz/tsconfig": "workspace:*",
-    "@types/node": "^22.7.9",
+    "@types/node": "^22.8.1",
     "typescript": "^5.6.2"
   }
 }
