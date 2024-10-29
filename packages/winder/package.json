@@ -17,6 +17,7 @@
     "@radix-ui/react-switch": "^1.1.1",
     "@radix-ui/react-tabs": "^1.1.1",
     "@radix-ui/react-tooltip": "^1.1.3",
+    "@tailwindcss/typography": "^0.5.14",
     "@uidotdev/usehooks": "^2.4.1",
     "@vidstack/react": "^1.12.11",
     "class-variance-authority": "^0.7.0",

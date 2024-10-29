@@ -59,6 +59,7 @@ export default {
   plugins: [
     require("@vidstack/react/tailwind.cjs"),
     require("tailwindcss-animate"),
+    require("@tailwindcss/typography"),
     (api: PluginAPI) => {
       const { addUtilities } = api;
       addUtilities({
