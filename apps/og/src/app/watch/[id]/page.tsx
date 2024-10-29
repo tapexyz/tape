@@ -21,13 +21,13 @@ import common from "@/common";
 import { getCollectModuleMetadata } from "@/other-metadata";
 
 type Props = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 const client = apolloClient();
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = params;
+  const { id } = await params;
   const { data } = await client.query({
     query: PublicationDocument,
     variables: { request: { forId: id } }
@@ -112,6 +112,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function Page({ params }: Props) {
-  return <div>{params.id}</div>;
+export default async function Page({ params }: Props) {
+  const { id } = await params;
+  return <div>{id}</div>;
 }
