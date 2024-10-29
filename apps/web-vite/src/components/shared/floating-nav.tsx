@@ -4,7 +4,32 @@ import { TAPE_MEDIA_CATEGORIES } from "@tape.xyz/constants";
 import { FunnelSimple, ScrollArea, tw } from "@tape.xyz/winder";
 import { useClickAway, useMeasure } from "@uidotdev/usehooks";
 import { AnimatePresence, m, useScroll, useTransform } from "framer-motion";
-import { type RefObject, memo, useEffect, useRef, useState } from "react";
+import {
+  type ReactNode,
+  type RefObject,
+  createContext,
+  memo,
+  useContext,
+  useEffect,
+  useRef,
+  useState
+} from "react";
+
+const Context = createContext<{
+  isPanelOpen: boolean;
+  setIsPanelOpen: (isPanelOpen: boolean) => void;
+}>({
+  isPanelOpen: false,
+  setIsPanelOpen: () => {}
+});
+const FloatingNavProvider = ({ children }: { children: ReactNode }) => {
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
+  return (
+    <Context.Provider value={{ isPanelOpen, setIsPanelOpen }}>
+      {children}
+    </Context.Provider>
+  );
+};
 
 const Categories = () => {
   const ref = useRef(null);
@@ -47,10 +72,11 @@ const Categories = () => {
 
 const Panel = memo(() => {
   const matchRoute = useMatchRoute();
-  const [open, setOpen] = useState(false);
   const [elementRef, bounds] = useMeasure();
+  const { isPanelOpen, setIsPanelOpen } = useContext(Context);
+
   const ref = useClickAway(() => {
-    setOpen(false);
+    setIsPanelOpen(false);
   });
 
   if (!matchRoute({ to: "/explore" })) {
@@ -68,13 +94,13 @@ const Panel = memo(() => {
           bounce: 0
         }
       }}
-      className="flex w-full flex-col justify-end overflow-hidden rounded-[14px] bg-black/95 backdrop-blur-2xl"
+      className="flex w-full flex-col justify-end overflow-hidden rounded-[14px] bg-black/95 backdrop-blur-2xl will-change-auto"
     >
       <div ref={elementRef} className="flex flex-col justify-end">
         <AnimatePresence mode="popLayout" initial={false}>
-          {open ? (
+          {isPanelOpen ? (
             <m.div
-              key={open ? "open" : "close"}
+              key={isPanelOpen ? "open" : "close"}
               initial={{ opacity: 0, filter: "blur(4px)" }}
               animate={{
                 opacity: 1,
@@ -105,7 +131,7 @@ const Panel = memo(() => {
         </AnimatePresence>
         <button
           type="button"
-          onClick={() => setOpen(!open)}
+          onClick={() => setIsPanelOpen(!isPanelOpen)}
           className="flex w-full items-center justify-between px-4 py-3 font-medium text-[#c7c7c7] text-sm"
         >
           <span className="inline-flex items-center gap-1.5">
@@ -162,11 +188,14 @@ const Bar = memo(() => {
   );
 });
 
-export const BottomNav = () => {
-  const [isHidden, setIsHidden] = useState(false);
+const Nav = () => {
+  const [show, setShow] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const { isPanelOpen } = useContext(Context);
 
   const handleScroll = () => {
+    if (isPanelOpen) return;
+
     const scrollY = window.scrollY;
     const windowHeight = window.innerHeight;
     const documentHeight = document.documentElement.scrollHeight;
@@ -176,11 +205,7 @@ export const BottomNav = () => {
     const footerVisibility =
       scrollY + windowHeight >= documentHeight - footerHeight;
 
-    if (isScrollingDown || footerVisibility) {
-      setIsHidden(true);
-    } else {
-      setIsHidden(false);
-    }
+    setShow(!(isScrollingDown || footerVisibility));
     setLastScrollY(scrollY);
   };
 
@@ -192,19 +217,19 @@ export const BottomNav = () => {
     return () => {
       abortController.abort();
     };
-  }, [lastScrollY]);
+  }, [lastScrollY, isPanelOpen]);
 
   return (
     <AnimatePresence initial={false}>
       <m.div
-        key={isHidden ? "hidden" : "visible"}
+        key={show ? "show" : "hide"}
         initial={{ opacity: 0, filter: "blur(4px)" }}
         animate={{ opacity: 1, filter: "blur(0px)" }}
         exit={{ opacity: 0, filter: "blur(4px)" }}
         transition={{ duration: 0.2, ease: "easeInOut", delay: 0.1 }}
         className="fixed inset-x-0 bottom-6 z-50 hidden w-[calc(100%-var(--removed-body-scroll-bar-size,0px))] justify-center md:flex 2xl:bottom-10"
       >
-        {!isHidden ? (
+        {show ? (
           <div className="w-[357px]">
             <Panel />
             <Bar />
@@ -214,3 +239,11 @@ export const BottomNav = () => {
     </AnimatePresence>
   );
 };
+
+export const FloatingNav = memo(() => {
+  return (
+    <FloatingNavProvider>
+      <Nav />
+    </FloatingNavProvider>
+  );
+});

@@ -2,7 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@tape.xyz/winder";
 
 export const FollowingPage = () => {
   return (
-    <div className="flex flex-col justify-between space-y-36 rounded-card bg-theme p-5">
+    <div className="flex min-h-screen flex-col space-y-36 rounded-card bg-theme p-5">
       <h1 className="font-serif text-[58px] leading-[58px]">Following</h1>
       <Tabs defaultValue="all-time">
         <TabsList className="text-[20px]">

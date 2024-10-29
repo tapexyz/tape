@@ -5,7 +5,7 @@ export const ExplorePage = () => {
   const media = Route.useSearch().media;
 
   return (
-    <div className="flex flex-col justify-between space-y-36 rounded-card bg-theme p-5">
+    <div className="flex min-h-screen flex-col space-y-36 rounded-card bg-theme p-5">
       <h1 className="font-serif text-[58px] leading-[58px]">
         Explore <span className="text-primary/20 capitalize">/ {media}</span>
       </h1>
