@@ -14,6 +14,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
+  SignOut,
   Tabs,
   TabsContent,
   TabsList,
@@ -116,6 +117,10 @@ const RightSection = memo(() => {
           <DropdownMenuItem className="flex items-center gap-2">
             <PlusCircle />
             <span>Create</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem className="flex items-center gap-2">
+            <SignOut />
+            <span>Sign out</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

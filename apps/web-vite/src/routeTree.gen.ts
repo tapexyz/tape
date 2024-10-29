@@ -16,6 +16,8 @@ import { Route as WinderIndexImport } from './routes/winder/index'
 import { Route as OpenIndexImport } from './routes/open/index'
 import { Route as EmbedPubIdImport } from './routes/embed/$pubId'
 import { Route as LayoutHomeImport } from './routes/_layout/_home'
+import { Route as LayoutTermsIndexImport } from './routes/_layout/terms/index'
+import { Route as LayoutPrivacyIndexImport } from './routes/_layout/privacy/index'
 import { Route as LayoutModIndexImport } from './routes/_layout/mod/index'
 import { Route as LayoutFeedIndexImport } from './routes/_layout/feed/index'
 import { Route as LayoutCreateIndexImport } from './routes/_layout/create/index'
@@ -52,6 +54,18 @@ const EmbedPubIdRoute = EmbedPubIdImport.update({
 
 const LayoutHomeRoute = LayoutHomeImport.update({
   id: '/_home',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutTermsIndexRoute = LayoutTermsIndexImport.update({
+  id: '/terms/',
+  path: '/terms/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutPrivacyIndexRoute = LayoutPrivacyIndexImport.update({
+  id: '/privacy/',
+  path: '/privacy/',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -198,6 +212,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutModIndexImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/privacy/': {
+      id: '/_layout/privacy/'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof LayoutPrivacyIndexImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/terms/': {
+      id: '/_layout/terms/'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof LayoutTermsIndexImport
+      parentRoute: typeof LayoutImport
+    }
   }
 }
 
@@ -226,6 +254,8 @@ interface LayoutRouteChildren {
   LayoutCreateIndexRoute: typeof LayoutCreateIndexRoute
   LayoutFeedIndexRoute: typeof LayoutFeedIndexRoute
   LayoutModIndexRoute: typeof LayoutModIndexRoute
+  LayoutPrivacyIndexRoute: typeof LayoutPrivacyIndexRoute
+  LayoutTermsIndexRoute: typeof LayoutTermsIndexRoute
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
@@ -235,6 +265,8 @@ const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutCreateIndexRoute: LayoutCreateIndexRoute,
   LayoutFeedIndexRoute: LayoutFeedIndexRoute,
   LayoutModIndexRoute: LayoutModIndexRoute,
+  LayoutPrivacyIndexRoute: LayoutPrivacyIndexRoute,
+  LayoutTermsIndexRoute: LayoutTermsIndexRoute,
 }
 
 const LayoutRouteWithChildren =
@@ -253,6 +285,8 @@ export interface FileRoutesByFullPath {
   '/create': typeof LayoutCreateIndexRoute
   '/feed': typeof LayoutFeedIndexRoute
   '/mod': typeof LayoutModIndexRoute
+  '/privacy': typeof LayoutPrivacyIndexRoute
+  '/terms': typeof LayoutTermsIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -268,6 +302,8 @@ export interface FileRoutesByTo {
   '/create': typeof LayoutCreateIndexRoute
   '/feed': typeof LayoutFeedIndexRoute
   '/mod': typeof LayoutModIndexRoute
+  '/privacy': typeof LayoutPrivacyIndexRoute
+  '/terms': typeof LayoutTermsIndexRoute
 }
 
 export interface FileRoutesById {
@@ -285,6 +321,8 @@ export interface FileRoutesById {
   '/_layout/create/': typeof LayoutCreateIndexRoute
   '/_layout/feed/': typeof LayoutFeedIndexRoute
   '/_layout/mod/': typeof LayoutModIndexRoute
+  '/_layout/privacy/': typeof LayoutPrivacyIndexRoute
+  '/_layout/terms/': typeof LayoutTermsIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -302,6 +340,8 @@ export interface FileRouteTypes {
     | '/create'
     | '/feed'
     | '/mod'
+    | '/privacy'
+    | '/terms'
   fileRoutesByTo: FileRoutesByTo
   to:
     | ''
@@ -316,6 +356,8 @@ export interface FileRouteTypes {
     | '/create'
     | '/feed'
     | '/mod'
+    | '/privacy'
+    | '/terms'
   id:
     | '__root__'
     | '/_layout'
@@ -331,6 +373,8 @@ export interface FileRouteTypes {
     | '/_layout/create/'
     | '/_layout/feed/'
     | '/_layout/mod/'
+    | '/_layout/privacy/'
+    | '/_layout/terms/'
   fileRoutesById: FileRoutesById
 }
 
@@ -374,7 +418,9 @@ export const routeTree = rootRoute
         "/_layout/watch/$pubId",
         "/_layout/create/",
         "/_layout/feed/",
-        "/_layout/mod/"
+        "/_layout/mod/",
+        "/_layout/privacy/",
+        "/_layout/terms/"
       ]
     },
     "/_layout/_home": {
@@ -425,6 +471,14 @@ export const routeTree = rootRoute
     },
     "/_layout/mod/": {
       "filePath": "_layout/mod/index.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/privacy/": {
+      "filePath": "_layout/privacy/index.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/terms/": {
+      "filePath": "_layout/terms/index.tsx",
       "parent": "/_layout"
     }
   }

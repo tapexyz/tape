@@ -22,7 +22,7 @@ const discordLink = "https://discord.com/invite/lenstube-980882088783913010";
 const otherLinks = [
   {
     label: "Brand",
-    url: "https://tape.xyz/winder"
+    url: "/winder"
   },
   {
     label: "Github",
@@ -30,15 +30,15 @@ const otherLinks = [
   },
   {
     label: "Thanks",
-    url: "https://tape.xyz/thanks"
+    url: "/thanks"
   },
   {
     label: "Terms",
-    url: "https://tape.xyz/terms"
+    url: "/terms"
   },
   {
     label: "Privacy",
-    url: "https://tape.xyz/privacy"
+    url: "/privacy"
   }
 ];
 
