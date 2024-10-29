@@ -13,13 +13,13 @@ import type { Metadata } from "next";
 import common from "@/common";
 
 type Props = {
-  params: { handle: string };
+  params: Promise<{ handle: string }>;
 };
 
 const client = apolloClient();
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { handle } = params;
+  const { handle } = await params;
   const { data } = await client.query({
     query: ProfileDocument,
     variables: { request: { forHandle: `${LENS_NAMESPACE_PREFIX}${handle}` } }
@@ -57,6 +57,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function Page({ params }: Props) {
-  return <div>{params.handle}</div>;
+export default async function Page({ params }: Props) {
+  const { handle } = await params;
+  return <div>{handle}</div>;
 }

@@ -7,13 +7,13 @@ import Custom404 from "@/components/Custom404";
 import Publication from "@/components/Publication";
 
 type Props = {
-  params: { pubId: string };
+  params: Promise<{ pubId: string }>;
 };
 
 const client = apolloClient();
 
 export default async function Page({ params }: Props) {
-  const { pubId } = params;
+  const { pubId } = await params;
   const { data, error } = await client.query({
     query: PublicationDocument,
     variables: { request: { forId: pubId } }

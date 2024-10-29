@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-sts": "3.679.0",
-    "@hono/node-server": "^1.13.1",
+    "@hono/node-server": "^1.13.3",
     "@hono/zod-validator": "^0.4.1",
     "@irys/upload": "^0.0.14",
     "@irys/upload-ethereum": "^0.0.14",
@@ -31,7 +31,7 @@
     "@tape.xyz/generic": "workspace:*",
     "@tape.xyz/server": "workspace:*",
     "@tape.xyz/tsconfig": "workspace:*",
-    "@types/node": "^22.8.1",
+    "@types/node": "^22.8.2",
     "@types/ua-parser-js": "^0.7.39",
     "tsx": "^4.19.2",
     "typescript": "^5.6.2"
