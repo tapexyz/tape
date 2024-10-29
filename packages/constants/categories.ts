@@ -13,32 +13,36 @@ export const TAPE_MEDIA_CATEGORIES = [
     tag: "arts"
   },
   {
-    name: "Hobbies & Interests",
-    tag: "interests"
-  },
-  {
     name: "Comedy",
     tag: "comedy"
   },
   {
-    name: "Health & Fitness",
-    tag: "health"
-  },
-  {
-    name: "Lens Ecosystem",
-    tag: "lens"
-  },
-  {
-    name: "Food & Cooking",
-    tag: "food"
+    name: "Hobbies & Interests",
+    tag: "interests"
   },
   {
     name: "Education",
     tag: "education"
   },
   {
+    name: "Health & Fitness",
+    tag: "health"
+  },
+  {
+    name: "Food & Cooking",
+    tag: "food"
+  },
+  {
     name: "Books & Literature",
     tag: "literature"
+  },
+  {
+    name: "Business",
+    tag: "business"
+  },
+  {
+    name: "Crypto currency",
+    tag: "crypto"
   },
   {
     name: "Entertainment",
@@ -49,24 +53,16 @@ export const TAPE_MEDIA_CATEGORIES = [
     tag: "garden"
   },
   {
-    name: "Crypto currency",
-    tag: "crypto"
-  },
-  {
     name: "Film & Animation",
     tag: "film"
   },
   {
-    name: "Business",
-    tag: "business"
+    name: "Gaming",
+    tag: "gaming"
   },
   {
     name: "Family & Parenting",
     tag: "family"
-  },
-  {
-    name: "Gaming",
-    tag: "gaming"
   },
   {
     name: "Blockchain",
@@ -81,10 +77,6 @@ export const TAPE_MEDIA_CATEGORIES = [
     tag: "news"
   },
   {
-    name: "Nonprofits & Activism",
-    tag: "nonprofits"
-  },
-  {
     name: "Promotions",
     tag: "promotions"
   },
@@ -97,12 +89,16 @@ export const TAPE_MEDIA_CATEGORIES = [
     tag: "wellness"
   },
   {
-    name: "Science & Technology",
-    tag: "technology"
+    name: "Nonprofits & Activism",
+    tag: "nonprofits"
   },
   {
     name: "Sports",
     tag: "sports"
+  },
+  {
+    name: "Science & Technology",
+    tag: "technology"
   },
   {
     name: "Career",
@@ -111,6 +107,10 @@ export const TAPE_MEDIA_CATEGORIES = [
   {
     name: "Travel & Events",
     tag: "travel"
+  },
+  {
+    name: "Lens Ecosystem",
+    tag: "lens"
   },
   {
     name: "Gadgets",
