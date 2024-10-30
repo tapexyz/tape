@@ -3,13 +3,13 @@ import { CaretDown } from "../icons";
 import { tw } from "../tw";
 import { Button } from "./button";
 
-const MButton = ({
-  onToggle,
-  content
-}: {
+type Props = {
   onToggle: (on: boolean) => void;
+  className?: string;
   content?: React.ReactNode;
-}) => {
+};
+
+const MButton = ({ onToggle, content }: Props) => {
   const [on, toggle] = useState(false);
 
   return (
@@ -24,19 +24,13 @@ const MButton = ({
     >
       <span className="inline-flex items-center">
         {content ?? <span>Show {on ? "less" : "more"}</span>}
-        <CaretDown className={tw("ml-0.5", on && "rotate-180")} weight="bold" />
+        <CaretDown className={tw("ml-1", on && "rotate-180")} weight="bold" />
       </span>
     </Button>
   );
 };
 
-type ShowMoreProps = {
-  onToggle: (on: boolean) => void;
-  className?: string;
-  content?: React.ReactNode;
-};
-
-export const ShowMore = ({ onToggle, className, content }: ShowMoreProps) => {
+export const ShowMore = ({ onToggle, className, content }: Props) => {
   return (
     <div className={tw("flex items-center", className)}>
       <div className="h-px flex-1 bg-secondary" />
