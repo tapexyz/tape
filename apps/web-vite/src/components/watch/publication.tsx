@@ -31,8 +31,8 @@ export const Publication = () => {
             posterClassName="rounded-card-sm"
             src={{ src: videoUrl, type: "video/mp4" }}
             poster={thumbnail}
+            autoPlay={true}
             load="visible"
-            autoPlay={false}
           />
         </div>
         <h1 className="mt-2 mb-4 font-serif text-[38px] leading-[38px]">
