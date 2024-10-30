@@ -3,7 +3,13 @@ import { CaretDown } from "../icons";
 import { tw } from "../tw";
 import { Button } from "./button";
 
-const MButton = ({ onToggle }: { onToggle: (on: boolean) => void }) => {
+const MButton = ({
+  onToggle,
+  content
+}: {
+  onToggle: (on: boolean) => void;
+  content?: React.ReactNode;
+}) => {
   const [on, toggle] = useState(false);
 
   return (
@@ -16,9 +22,9 @@ const MButton = ({ onToggle }: { onToggle: (on: boolean) => void }) => {
         onToggle(!on);
       }}
     >
-      <span className="inline-flex items-center space-x-0.5">
-        <span>Show {on ? "less" : "more"}</span>
-        <CaretDown className={tw(on && "rotate-180")} weight="bold" />
+      <span className="inline-flex items-center">
+        {content ?? <span>Show {on ? "less" : "more"}</span>}
+        <CaretDown className={tw("ml-0.5", on && "rotate-180")} weight="bold" />
       </span>
     </Button>
   );
@@ -27,13 +33,14 @@ const MButton = ({ onToggle }: { onToggle: (on: boolean) => void }) => {
 type ShowMoreProps = {
   onToggle: (on: boolean) => void;
   className?: string;
+  content?: React.ReactNode;
 };
 
-export const ShowMore = ({ onToggle, className }: ShowMoreProps) => {
+export const ShowMore = ({ onToggle, className, content }: ShowMoreProps) => {
   return (
     <div className={tw("flex items-center", className)}>
       <div className="h-px flex-1 bg-secondary" />
-      <MButton onToggle={onToggle} />
+      <MButton onToggle={onToggle} content={content} />
       <div className="h-px flex-1 bg-secondary" />
     </div>
   );

@@ -10,6 +10,7 @@ import {
   SelectValue,
   Textarea
 } from "@tape.xyz/winder";
+import { Advanced } from "./advanced";
 
 export const Details = () => {
   return (
@@ -49,6 +50,7 @@ export const Details = () => {
           })}
         </SelectContent>
       </Select>
+      <Advanced />
     </div>
   );
 };
