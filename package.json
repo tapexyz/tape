@@ -14,10 +14,8 @@
     "codegenv3": "pnpm -r --parallel run codegenv3",
     "prepare": "husky",
     "typecheck": "pnpm -r --parallel run typecheck",
-    "dep:check": "pnpm dlx sherif@latest",
-    "dep:fix": "pnpm dlx sherif@latest --fix",
-    "biome:check": "biome check . && pnpm typecheck && pnpm dep:check",
-    "biome:fix": "biome check --write . && pnpm dep:fix"
+    "biome:check": "biome check . && pnpm typecheck",
+    "biome:fix": "biome check --write ."
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",

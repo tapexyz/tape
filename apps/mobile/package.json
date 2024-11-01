@@ -22,8 +22,8 @@
     "expo-status-bar": "~1.12.1",
     "expo-system-ui": "~3.0.7",
     "expo-web-browser": "~13.0.3",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "react-native": "0.74.5",
     "react-native-gesture-handler": "~2.16.1",
     "react-native-reanimated": "~3.10.1",
@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "@types/react": "^18.3.12",
-    "typescript": "^5.6.3"
+    "@types/react": "~18.2.79",
+    "typescript": "~5.3.3"
   }
 }
