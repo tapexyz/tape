@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "Tape",
+    "slug": "tape",
+    "version": "0.0.1",
+    "orientation": "portrait",
+    "owner": "sasicodes",
+    "icon": "./assets/images/icon.png",
+    "scheme": "tape",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "plugins": ["expo-router"],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

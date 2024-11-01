@@ -41,3 +41,14 @@ dist
 
 # Service Workers
 sw.js
+
+.expo/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+
+expo-env.d.ts
