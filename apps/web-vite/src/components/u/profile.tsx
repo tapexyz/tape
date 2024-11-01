@@ -55,6 +55,16 @@ export const Profile = () => {
               </Avatar>
             </span>
             <div className="flex items-center space-x-1.5">
+              <div className="flex">
+                <span className="-space-x-1.5 flex rounded-full bg-primary/10 p-1">
+                  {[6000, 3090, 4000, 5600].map((item) => (
+                    <Avatar size="xs" shape="circle" key={item}>
+                      <AvatarImage src={`${WORKER_AVATAR_URL}/${item}`} />
+                    </Avatar>
+                  ))}
+                </span>
+              </div>
+
               <Tooltip>
                 <TooltipTrigger asChild>
                   <span className="grid size-9 cursor-default place-items-center rounded-custom border border-custom font-normal text-sm">
@@ -91,15 +101,6 @@ export const Profile = () => {
             <p>
               72 <span className="text-muted">videos</span>
             </p>
-          </div>
-          <div className="flex">
-            <span className="-space-x-1.5 flex rounded-full bg-primary/10 p-1">
-              {[6000, 3090, 4000, 5600].map((item) => (
-                <Avatar size="md" shape="circle" key={item}>
-                  <AvatarImage src={`${WORKER_AVATAR_URL}/${item}`} />
-                </Avatar>
-              ))}
-            </span>
           </div>
 
           <div>
