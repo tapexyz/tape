@@ -15,11 +15,11 @@
       "**/cache/**",
       "**/ios/**",
       "**/android/**",
+      "expo-env.d.ts",
       ".expo/**",
       ".openzeppelin",
       "sw.js",
       "packages/tsconfig",
-      "expo-env.d.ts",
       "generated.ts",
       "tsconfig.*",
       "routeTree.gen.ts"

@@ -1,6 +1,6 @@
 import { HelloWave } from "@/components/hello-wave";
-import { ThemedText } from "@/components/themed-text";
-import { ThemedView } from "@/components/themed-view";
+import { ThemedText } from "@/components/shared/themed-text";
+import { ThemedView } from "@/components/shared/themed-view";
 import { StyleSheet } from "react-native";
 
 export default function HomeScreen() {

@@ -1,4 +1,5 @@
 import "react-native-reanimated";
+import { SplashScreen } from "@/components/shared/splash-screen";
 import { SessionProvider } from "@/store/auth";
 import {
   DarkTheme,
@@ -7,11 +8,11 @@ import {
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Slot } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
+import * as ExpoSplash from "expo-splash-screen";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
 
-SplashScreen.preventAutoHideAsync();
+ExpoSplash.preventAutoHideAsync();
 
 export default function Layout() {
   const colorScheme = useColorScheme();
@@ -22,12 +23,12 @@ export default function Layout() {
 
   useEffect(() => {
     if (loaded) {
-      SplashScreen.hideAsync();
+      ExpoSplash.hideAsync();
     }
   }, [loaded]);
 
   if (!loaded) {
-    return null;
+    return <SplashScreen />;
   }
 
   return (

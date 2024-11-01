@@ -1,4 +1,4 @@
-import { ThemedText } from "@/components/themed-text";
+import { ThemedText } from "@/components/shared/themed-text";
 import { StyleSheet } from "react-native";
 import Animated, {
   useSharedValue,
