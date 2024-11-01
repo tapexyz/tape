@@ -1,44 +1,52 @@
 import * as SecureStore from "expo-secure-store";
-import { useCallback, useEffect, useReducer } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 type UseStateHook<T> = [[boolean, T | null], (value: T | null) => void];
 
-function useAsyncState<T>(
-  initialValue: [boolean, T | null] = [true, null]
-): UseStateHook<T> {
-  return useReducer(
-    (
-      state: [boolean, T | null],
-      action: T | null = null
-    ): [boolean, T | null] => [false, action],
-    initialValue
-  ) as UseStateHook<T>;
-}
-
 const setStorageItemAsync = async (key: string, value: string | null) => {
-  if (value == null) {
-    await SecureStore.deleteItemAsync(key);
-  } else {
-    await SecureStore.setItemAsync(key, value);
+  try {
+    if (value == null) {
+      await SecureStore.deleteItemAsync(key);
+    } else {
+      await SecureStore.setItemAsync(key, value);
+    }
+  } catch (error) {
+    console.error("Error setting storage item:", error);
   }
 };
 
 export const useStorageState = (key: string): UseStateHook<string> => {
-  const [state, setState] = useAsyncState<string>();
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<string | null>(null);
 
   useEffect(() => {
-    SecureStore.getItemAsync(key).then((value) => {
-      setState(value);
-    });
+    let isMounted = true;
+    setLoading(true);
+
+    SecureStore.getItemAsync(key)
+      .then((value) => {
+        if (isMounted) {
+          setData(value);
+          setLoading(false);
+        }
+      })
+      .catch((error) => {
+        console.error("Error retrieving storage item:", error);
+        if (isMounted) setLoading(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
   }, [key]);
 
   const setValue = useCallback(
     (value: string | null) => {
-      setState(value);
+      setData(value);
       setStorageItemAsync(key, value);
     },
     [key]
   );
 
-  return [state, setValue];
+  return [[loading, data], setValue];
 };

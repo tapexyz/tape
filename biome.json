@@ -13,9 +13,13 @@
       "**/.github/**",
       "**/generated/**",
       "**/cache/**",
+      "**/ios/**",
+      "**/android/**",
+      ".expo/**",
       ".openzeppelin",
       "sw.js",
       "packages/tsconfig",
+      "expo-env.d.ts",
       "generated.ts",
       "tsconfig.*",
       "routeTree.gen.ts"
