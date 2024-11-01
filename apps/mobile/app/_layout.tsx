@@ -1,18 +1,19 @@
 import "react-native-reanimated";
+import { SessionProvider } from "@/store/auth";
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { Slot } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
 
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+export default function Layout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     Sans: require("../assets/fonts/sans.ttf"),
@@ -31,11 +32,9 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="index" />
-        <Stack.Screen name="(protected)" />
-        <Stack.Screen name="+not-found" />
-      </Stack>
+      <SessionProvider>
+        <Slot />
+      </SessionProvider>
     </ThemeProvider>
   );
 }

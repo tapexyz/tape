@@ -16,7 +16,7 @@ export default function HomeScreen() {
       }
     >
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Protected!</ThemedText>
+        <ThemedText type="title">Protected Home!</ThemedText>
         <HelloWave />
       </ThemedView>
     </ParallaxScrollView>
