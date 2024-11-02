@@ -13,7 +13,7 @@ export const Feed = () => {
 
   return (
     <View>
-      <Text>{allPublications.length}</Text>
+      <Text>{allPublications?.length}</Text>
     </View>
   );
 };
