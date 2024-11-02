@@ -8,11 +8,10 @@ type Session = {
 
 type AuthState = {
   session: Session;
-  loading: boolean;
   signIn: (data: Session) => void;
   signOut: () => void;
   authenticated: boolean;
-  hydrate: () => Promise<Session>;
+  hydrate: () => Session;
 };
 
 const setStorageItemAsync = async (key: string, value: string | null) => {
@@ -27,24 +26,25 @@ const setStorageItemAsync = async (key: string, value: string | null) => {
   }
 };
 
-export const getStorageItemAsync = async (key: string) => {
-  return await SecureStore.getItemAsync(key);
+export const getStorageItem = (key: string) => {
+  return SecureStore.getItem(key);
 };
+
+const accessToken = getStorageItem("accessToken");
+const refreshToken = getStorageItem("refreshToken");
 
 export const useAuthStore = create<AuthState>()((set) => ({
   session: {
     accessToken: null,
     refreshToken: null
   },
-  loading: false,
-  authenticated: false,
+  authenticated: Boolean(accessToken) && Boolean(refreshToken),
   signIn: (data: Session) => {
     const { accessToken, refreshToken } = data;
     setStorageItemAsync("accessToken", accessToken);
     setStorageItemAsync("refreshToken", refreshToken);
     set({
       session: data,
-      loading: false,
       authenticated: Boolean(accessToken) && Boolean(refreshToken)
     });
   },
@@ -56,15 +56,11 @@ export const useAuthStore = create<AuthState>()((set) => ({
         accessToken: null,
         refreshToken: null
       },
-      loading: false,
       authenticated: false
     });
   },
-  hydrate: async () => {
-    return {
-      accessToken: await getStorageItemAsync("accessToken"),
-      refreshToken: await getStorageItemAsync("refreshToken")
-    } as Session;
+  hydrate: () => {
+    return { accessToken, refreshToken } as Session;
   }
 }));
 

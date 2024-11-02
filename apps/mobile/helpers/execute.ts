@@ -6,7 +6,7 @@ export const execute = async <TResult, TVariables>(
   query: TypedDocumentString<TResult, TVariables>,
   ...[variables]: TVariables extends Record<string, never> ? [] : [TVariables]
 ) => {
-  const session = await hydrateSession();
+  const session = hydrateSession();
 
   try {
     const response = await fetch(LENS_API_URL, {

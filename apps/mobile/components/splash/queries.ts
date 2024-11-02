@@ -8,8 +8,7 @@ export const profileByIdQuery = (forProfileId: string | null) => {
     queryFn: () =>
       execute(ProfileDocument, {
         request: { forProfileId }
-      }),
-    enabled: Boolean(forProfileId)
+      })
   });
 };
 
@@ -21,7 +20,6 @@ export const tokensQuery = (refreshToken: string | null) => {
         request: { refreshToken }
       }),
     gcTime: 0,
-    staleTime: 0,
-    enabled: Boolean(refreshToken)
+    staleTime: 0
   });
 };

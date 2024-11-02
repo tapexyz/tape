@@ -6,8 +6,9 @@ type ReturnType = {
   exp: number;
 };
 
+const hasBuffer = typeof Buffer === "undefined";
 const decoded = (str: string): string =>
-  Buffer.from(str, "base64").toString("binary");
+  hasBuffer ? atob(str) : Buffer.from(str, "base64").toString("binary");
 
 export const parseJwt = (token: string): ReturnType => {
   try {

@@ -5,7 +5,6 @@ import { Stack } from "expo-router";
 import "react-native-reanimated";
 
 export default function RootLayout() {
-  const loading = useAuthStore((state) => state.loading);
   const authenticated = useAuthStore((state) => state.authenticated);
 
   const [fontLoaded] = useFonts({
@@ -17,7 +16,7 @@ export default function RootLayout() {
     return null;
   }
 
-  if (!authenticated || loading) {
+  if (!authenticated) {
     return <SplashScreen />;
   }
 
