@@ -17,7 +17,17 @@
         "backgroundColor": "#ffffff"
       }
     },
-    "plugins": ["expo-router"],
+    "plugins": [
+      "expo-router",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Let Tape capture your best moments! Allow camera access.",
+          "microphonePermission": "Let’s capture your voice! Grant mic access.",
+          "recordAudioAndroid": true
+        }
+      ]
+    ],
     "experiments": {
       "typedRoutes": true
     }

@@ -2,15 +2,15 @@ import { type PropsWithChildren, createContext, useContext } from "react";
 import { useStorageState } from "./secure";
 
 const AuthContext = createContext<{
-  signIn: () => void;
+  signIn: (data: string) => void;
   signOut: () => void;
   session?: string | null;
-  isLoading: boolean;
+  loading: boolean;
 }>({
   signIn: () => null,
   signOut: () => null,
   session: null,
-  isLoading: false
+  loading: false
 });
 
 export const useSession = () => {
@@ -24,24 +24,23 @@ export const useSession = () => {
   return value;
 };
 
-export function SessionProvider({ children }: PropsWithChildren) {
-  const [[isLoading, session], setSession] = useStorageState("session");
+export const SessionProvider = ({ children }: PropsWithChildren) => {
+  const [[loading, session], setSession] = useStorageState("session");
 
   return (
     <AuthContext.Provider
       value={{
-        signIn: () => {
-          // Perform sign-in logic here
-          setSession("xxx");
+        signIn: (data) => {
+          setSession(data);
         },
         signOut: () => {
           setSession(null);
         },
         session,
-        isLoading
+        loading
       }}
     >
       {children}
     </AuthContext.Provider>
   );
-}
+};
