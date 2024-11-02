@@ -1,3 +1,4 @@
+import { Feed } from "@/components/home/feed";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import normalizeFont from "@/helpers/normalize-font";
 import { useAuthStore } from "@/store/auth";
@@ -23,6 +24,8 @@ export default function HomeScreen() {
       </View>
 
       <Button title="Sign out" onPress={() => signOut()} />
+
+      <Feed />
     </SafeAreaView>
   );
 }

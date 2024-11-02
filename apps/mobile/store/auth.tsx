@@ -4,6 +4,7 @@ import { create } from "zustand";
 type Session = {
   accessToken: string | null;
   refreshToken: string | null;
+  id: string | null;
 };
 
 type AuthState = {
@@ -30,17 +31,20 @@ export const getStorageItem = (key: string) => {
   return SecureStore.getItem(key);
 };
 
+const id = getStorageItem("id");
 const accessToken = getStorageItem("accessToken");
 const refreshToken = getStorageItem("refreshToken");
 
 export const useAuthStore = create<AuthState>()((set) => ({
   session: {
-    accessToken: null,
-    refreshToken: null
+    id,
+    accessToken,
+    refreshToken
   },
   authenticated: Boolean(accessToken) && Boolean(refreshToken),
   signIn: (data: Session) => {
-    const { accessToken, refreshToken } = data;
+    const { accessToken, refreshToken, id } = data;
+    setStorageItemAsync("id", id);
     setStorageItemAsync("accessToken", accessToken);
     setStorageItemAsync("refreshToken", refreshToken);
     set({
@@ -49,19 +53,23 @@ export const useAuthStore = create<AuthState>()((set) => ({
     });
   },
   signOut: () => {
+    setStorageItemAsync("id", null);
     setStorageItemAsync("accessToken", null);
     setStorageItemAsync("refreshToken", null);
     set({
       session: {
         accessToken: null,
-        refreshToken: null
+        refreshToken: null,
+        id: null
       },
       authenticated: false
     });
   },
   hydrate: () => {
-    return { accessToken, refreshToken } as Session;
+    return { accessToken, refreshToken, id } as Session;
   }
 }));
 
 export const hydrateSession = () => useAuthStore.getState().hydrate();
+export const signIn = (tokens: Session) =>
+  useAuthStore.getState().signIn(tokens);

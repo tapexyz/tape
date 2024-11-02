@@ -41,7 +41,8 @@ export const Scan = () => {
     if (refresh) {
       signIn({
         accessToken: refresh.accessToken,
-        refreshToken: refresh.refreshToken
+        refreshToken: refresh.refreshToken,
+        id: profileId
       });
     }
   };
