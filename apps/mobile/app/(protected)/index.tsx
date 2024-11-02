@@ -1,9 +1,9 @@
 import { HelloWave } from "@/components/hello-wave";
-import { useSession } from "@/store/auth";
+import { useAuthStore } from "@/store/auth";
 import { Button, StyleSheet, Text, View } from "react-native";
 
 export default function HomeScreen() {
-  const { signOut } = useSession();
+  const signOut = useAuthStore((state) => state.signOut);
   return (
     <View style={styles.titleContainer}>
       <Text style={styles.title}>Protected Home!</Text>

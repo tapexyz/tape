@@ -7594,6 +7594,13 @@ export type PublicationsQuery = { __typename?: 'Query', publications: { __typena
       & { ' $fragmentRefs'?: { 'QuoteFieldsFragment': QuoteFieldsFragment } }
     )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
+export type RefreshMutationVariables = Exact<{
+  request: RefreshRequest;
+}>;
+
+
+export type RefreshMutation = { __typename?: 'Mutation', refresh: { __typename?: 'AuthenticationResult', accessToken: any, refreshToken: any } };
+
 export type RevenueFromPublicationQueryVariables = Exact<{
   request: RevenueFromPublicationRequest;
 }>;
@@ -7735,7 +7742,7 @@ export class TypedDocumentString<TResult, TVariables>
 {
   __apiType?: DocumentTypeDecoration<TResult, TVariables>['__apiType'];
 
-  constructor(private value: string, public __meta__?: Record<string, any>) {
+  constructor(private value: string, public __meta__?: Record<string, any> | undefined) {
     super(value);
   }
 
@@ -20936,6 +20943,14 @@ fragment QuoteFields on Quote {
     ...PrimaryPublicationFields
   }
 }`) as unknown as TypedDocumentString<PublicationsQuery, PublicationsQueryVariables>;
+export const RefreshDocument = new TypedDocumentString(`
+    mutation Refresh($request: RefreshRequest!) {
+  refresh(request: $request) {
+    accessToken
+    refreshToken
+  }
+}
+    `) as unknown as TypedDocumentString<RefreshMutation, RefreshMutationVariables>;
 export const RevenueFromPublicationDocument = new TypedDocumentString(`
     query RevenueFromPublication($request: RevenueFromPublicationRequest!) {
   revenueFromPublication(request: $request) {

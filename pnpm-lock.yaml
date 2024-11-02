@@ -224,6 +224,9 @@ importers:
       '@react-navigation/native':
         specifier: ^6.0.2
         version: 6.1.18(react-native@0.74.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@5.0.10))(react@18.2.0)
+      '@tanstack/react-query':
+        specifier: ^5.59.16
+        version: 5.59.16(react@18.2.0)
       expo:
         specifier: ~51.0.28
         version: 51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(bufferutil@4.0.8)(utf-8-validate@5.0.10)
@@ -293,10 +296,22 @@ importers:
       react-native-web:
         specifier: ~0.19.10
         version: 0.19.13(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      zustand:
+        specifier: ^5.0.1
+        version: 5.0.1(@types/react@18.2.79)(immer@10.0.2)(react@18.2.0)(use-sync-external-store@1.2.2(react@18.2.0))
     devDependencies:
       '@babel/core':
         specifier: ^7.20.0
         version: 7.26.0
+      '@tape.xyz/constants':
+        specifier: workspace:*
+        version: link:../../packages/constants
+      '@tape.xyz/generic':
+        specifier: workspace:*
+        version: link:../../packages/generic
+      '@tape.xyz/lens':
+        specifier: workspace:*
+        version: link:../../packages/lens
       '@types/react':
         specifier: ~18.2.79
         version: 18.2.79
@@ -17205,6 +17220,11 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       react-native: 0.74.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10)
 
+  '@tanstack/react-query@5.59.16(react@18.2.0)':
+    dependencies:
+      '@tanstack/query-core': 5.59.16
+      react: 18.2.0
+
   '@tanstack/react-query@5.59.16(react@18.3.1)':
     dependencies:
       '@tanstack/query-core': 5.59.16
@@ -23886,6 +23906,11 @@ snapshots:
     dependencies:
       react: 18.3.1
 
+  use-sync-external-store@1.2.2(react@18.2.0):
+    dependencies:
+      react: 18.2.0
+    optional: true
+
   use-sync-external-store@1.2.2(react@18.3.1):
     dependencies:
       react: 18.3.1
@@ -24267,6 +24292,13 @@ snapshots:
       immer: 10.0.2
       react: 18.3.1
       use-sync-external-store: 1.2.0(react@18.3.1)
+
+  zustand@5.0.1(@types/react@18.2.79)(immer@10.0.2)(react@18.2.0)(use-sync-external-store@1.2.2(react@18.2.0)):
+    optionalDependencies:
+      '@types/react': 18.2.79
+      immer: 10.0.2
+      react: 18.2.0
+      use-sync-external-store: 1.2.2(react@18.2.0)
 
   zustand@5.0.1(@types/react@18.3.12)(immer@10.0.2)(react@18.3.1)(use-sync-external-store@1.2.0(react@18.3.1)):
     optionalDependencies:

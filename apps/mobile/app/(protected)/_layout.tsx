@@ -1,11 +1,13 @@
-import { SplashScreen } from "@/components/shared/splash/screen";
-import { useSession } from "@/store/auth";
+import { SplashScreen } from "@/components/splash/screen";
+import { useAuthStore } from "@/store/auth";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import "react-native-reanimated";
 
 export default function RootLayout() {
-  const { session, loading } = useSession();
+  const loading = useAuthStore((state) => state.loading);
+  const authenticated = useAuthStore((state) => state.authenticated);
+
   const [fontLoaded] = useFonts({
     Sans: require("../../assets/fonts/sans.ttf"),
     Serif: require("../../assets/fonts/serif.ttf")
@@ -15,7 +17,7 @@ export default function RootLayout() {
     return null;
   }
 
-  if (!session || loading) {
+  if (!authenticated || loading) {
     return <SplashScreen />;
   }
 

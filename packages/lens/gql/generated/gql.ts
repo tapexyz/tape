@@ -12,6 +12,7 @@ import * as types from './graphql';
  * 3. It does not support dead code elimination, so it will add unused operations.
  *
  * Therefore it is highly recommended to use the babel or swc plugin for production.
+ * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 const documents = {
     "fragment AmountFields on Amount {\n  asset {\n    ...Erc20Fields\n  }\n  value\n}": types.AmountFieldsFragmentDoc,
@@ -111,6 +112,7 @@ const documents = {
     "query PublicationBookmarks($request: PublicationBookmarksRequest!) {\n  publicationBookmarks(request: $request) {\n    items {\n      ... on Post {\n        ...PostFields\n      }\n      ... on Comment {\n        ...CommentFields\n      }\n      ... on Mirror {\n        ...MirrorFields\n      }\n      ... on Quote {\n        ...QuoteFields\n      }\n    }\n    pageInfo {\n      next\n    }\n  }\n}": types.PublicationBookmarksDocument,
     "query Publication($request: PublicationRequest!) {\n  publication(request: $request) {\n    ... on Post {\n      ...PostFields\n    }\n    ... on Comment {\n      ...CommentFields\n    }\n    ... on Mirror {\n      ...MirrorFields\n    }\n    ... on Quote {\n      ...QuoteFields\n    }\n  }\n}": types.PublicationDocument,
     "query Publications($request: PublicationsRequest!) {\n  publications(request: $request) {\n    items {\n      ... on Post {\n        ...PostFields\n      }\n      ... on Comment {\n        ...CommentFields\n      }\n      ... on Mirror {\n        ...MirrorFields\n      }\n      ... on Quote {\n        ...QuoteFields\n      }\n    }\n    pageInfo {\n      next\n    }\n  }\n}": types.PublicationsDocument,
+    "mutation Refresh($request: RefreshRequest!) {\n  refresh(request: $request) {\n    accessToken\n    refreshToken\n  }\n}": types.RefreshDocument,
     "query RevenueFromPublication($request: RevenueFromPublicationRequest!) {\n  revenueFromPublication(request: $request) {\n    publication {\n      ... on Post {\n        ...PostFields\n      }\n      ... on Comment {\n        ...CommentFields\n      }\n      ... on Mirror {\n        ...MirrorFields\n      }\n      ... on Quote {\n        ...QuoteFields\n      }\n    }\n    revenue {\n      total {\n        ...AmountFields\n      }\n    }\n  }\n}": types.RevenueFromPublicationDocument,
     "query RevenueFromPublications($request: RevenueFromPublicationsRequest!) {\n  revenueFromPublications(request: $request) {\n    items {\n      publication {\n        ... on Post {\n          ...PostFields\n        }\n        ... on Comment {\n          ...CommentFields\n        }\n        ... on Mirror {\n          ...MirrorFields\n        }\n        ... on Quote {\n          ...QuoteFields\n        }\n      }\n      revenue {\n        total {\n          ...AmountFields\n        }\n      }\n    }\n  }\n}": types.RevenueFromPublicationsDocument,
     "mutation RevokeAuthentication($request: RevokeAuthenticationRequest!) {\n  revokeAuthentication(request: $request)\n}": types.RevokeAuthenticationDocument,
@@ -513,6 +515,10 @@ export function graphql(source: "query Publication($request: PublicationRequest!
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "query Publications($request: PublicationsRequest!) {\n  publications(request: $request) {\n    items {\n      ... on Post {\n        ...PostFields\n      }\n      ... on Comment {\n        ...CommentFields\n      }\n      ... on Mirror {\n        ...MirrorFields\n      }\n      ... on Quote {\n        ...QuoteFields\n      }\n    }\n    pageInfo {\n      next\n    }\n  }\n}"): typeof import('./graphql').PublicationsDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "mutation Refresh($request: RefreshRequest!) {\n  refresh(request: $request) {\n    accessToken\n    refreshToken\n  }\n}"): typeof import('./graphql').RefreshDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

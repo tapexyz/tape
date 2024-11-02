@@ -30,13 +30,13 @@ export const Background = ({ children }: PropsWithChildren) => {
     <View style={styles.container}>
       <AnimatedExpoImage
         style={[{ width: 400, height: 400, marginTop: -300 }, animatedStyle]}
-        source={require("../../../assets/images/splash-el.png")}
+        source={require("../../assets/images/splash-el.png")}
         contentFit="contain"
         transition={500}
       />
       <AnimatedExpoImage
         style={[{ width: 400, height: 400, marginBottom: -300 }, animatedStyle]}
-        source={require("../../../assets/images/splash-el.png")}
+        source={require("../../assets/images/splash-el.png")}
         contentFit="contain"
         transition={500}
       />

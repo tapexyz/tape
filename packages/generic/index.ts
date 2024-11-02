@@ -29,7 +29,7 @@ export * from "./functions/image-cdn";
 export * from "./functions/isOpenActionAllowed";
 export * from "./functions/isWatchable";
 export * from "./functions/omitKey";
-export * from "./functions/parseJwt";
+export * from "./functions/parse-jwt";
 export * from "./functions/resolveDid";
 export * from "./functions/sanitizeDStorageUrl";
 export * from "./functions/sanitizeProfileInterests";

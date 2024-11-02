@@ -1,46 +1,71 @@
-import { type PropsWithChildren, createContext, useContext } from "react";
-import { useStorageState } from "./secure";
+import * as SecureStore from "expo-secure-store";
+import { create } from "zustand";
 
-const AuthContext = createContext<{
-  signIn: (data: string) => void;
-  signOut: () => void;
-  session?: string | null;
+type Session = {
+  accessToken: string | null;
+  refreshToken: string | null;
+};
+
+type AuthState = {
+  session: Session;
   loading: boolean;
-}>({
-  signIn: () => null,
-  signOut: () => null,
-  session: null,
-  loading: false
-});
+  signIn: (data: Session) => void;
+  signOut: () => void;
+  authenticated: boolean;
+  hydrate: () => Promise<Session>;
+};
 
-export const useSession = () => {
-  const value = useContext(AuthContext);
-  if (process.env.NODE_ENV !== "production") {
-    if (!value) {
-      throw new Error("useSession must be wrapped in a <SessionProvider />");
+const setStorageItemAsync = async (key: string, value: string | null) => {
+  try {
+    if (value == null) {
+      await SecureStore.deleteItemAsync(key);
+    } else {
+      await SecureStore.setItemAsync(key, value);
     }
+  } catch (error) {
+    console.error("Error setting storage item:", error);
   }
-
-  return value;
 };
 
-export const SessionProvider = ({ children }: PropsWithChildren) => {
-  const [[loading, session], setSession] = useStorageState("session");
-
-  return (
-    <AuthContext.Provider
-      value={{
-        signIn: (data) => {
-          setSession(data);
-        },
-        signOut: () => {
-          setSession(null);
-        },
-        session,
-        loading
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+export const getStorageItemAsync = async (key: string) => {
+  return await SecureStore.getItemAsync(key);
 };
+
+export const useAuthStore = create<AuthState>()((set) => ({
+  session: {
+    accessToken: null,
+    refreshToken: null
+  },
+  loading: false,
+  authenticated: false,
+  signIn: (data: Session) => {
+    const { accessToken, refreshToken } = data;
+    setStorageItemAsync("accessToken", accessToken);
+    setStorageItemAsync("refreshToken", refreshToken);
+    set({
+      session: data,
+      loading: false,
+      authenticated: Boolean(accessToken) && Boolean(refreshToken)
+    });
+  },
+  signOut: () => {
+    setStorageItemAsync("accessToken", null);
+    setStorageItemAsync("refreshToken", null);
+    set({
+      session: {
+        accessToken: null,
+        refreshToken: null
+      },
+      loading: false,
+      authenticated: false
+    });
+  },
+  hydrate: async () => {
+    return {
+      accessToken: await getStorageItemAsync("accessToken"),
+      refreshToken: await getStorageItemAsync("refreshToken")
+    } as Session;
+  }
+}));
+
+export const hydrateSession = () => useAuthStore.getState().hydrate();
