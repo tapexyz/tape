@@ -8,7 +8,8 @@ export const profileByIdQuery = (forProfileId: string | null) => {
     queryFn: () =>
       execute(ProfileDocument, {
         request: { forProfileId }
-      })
+      }),
+    enabled: Boolean(forProfileId)
   });
 };
 

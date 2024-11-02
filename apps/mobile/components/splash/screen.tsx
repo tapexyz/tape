@@ -1,13 +1,10 @@
-import { AnimatedButton } from "@/components/ui/animated-button";
 import { Colors } from "@/helpers/colors";
-import { haptic } from "@/helpers/haptics";
 import normalizeFont from "@/helpers/normalize-font";
 import { useAuthStore } from "@/store/auth";
 import { BlurView } from "expo-blur";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
-import { useState } from "react";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text } from "react-native";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -18,7 +15,6 @@ import { Scan } from "./scan";
 
 export const SplashScreen = () => {
   const authenticated = useAuthStore((state) => state.authenticated);
-  const [readyToScan, setReadyToScan] = useState(false);
 
   const opacity = useSharedValue(0);
 
@@ -50,22 +46,7 @@ export const SplashScreen = () => {
             ]}
           >
             <Text style={styles.tape}>tape</Text>
-            {!authenticated && (
-              <>
-                <Scan ready={readyToScan} />
-                <View style={{ paddingHorizontal: 10, width: "100%" }}>
-                  <AnimatedButton
-                    onPress={() => {
-                      if (!readyToScan) {
-                        setReadyToScan(true);
-                      }
-                      haptic();
-                    }}
-                    text={readyToScan ? "Sign in" : "Scan now"}
-                  />
-                </View>
-              </>
-            )}
+            {!authenticated && <Scan />}
           </Animated.View>
         </SafeAreaView>
       </BlurView>

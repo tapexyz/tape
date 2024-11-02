@@ -1,17 +1,29 @@
 import { Colors } from "@/helpers/colors";
 import { haptic } from "@/helpers/haptics";
+import normalizeFont from "@/helpers/normalize-font";
 import { useAuthStore } from "@/store/auth";
-import { parseJwt } from "@tape.xyz/generic";
+import { useQuery } from "@tanstack/react-query";
+import { getProfile, parseJwt } from "@tape.xyz/generic";
+import type { Profile } from "@tape.xyz/lens/gql";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import { PressableOpacity } from "pressto";
+import { useState } from "react";
 import { Linking, StyleSheet, Text, View } from "react-native";
 import { rqClient } from "../providers/react-query";
+import { AnimatedButton } from "../ui/animated-button";
 import { Instructions } from "./instructions";
 import { profileByIdQuery, tokensQuery } from "./queries";
 
-export const Scan = ({ ready }: { ready: boolean }) => {
+export const Scan = () => {
+  const [readyToScan, setReadyToScan] = useState(false);
+  const [profileId, setProfileId] = useState<string | null>(null);
+  const [tempToken, setTempToken] = useState<string | null>(null);
+
   const [permission, requestPermission] = useCameraPermissions();
+
   const signIn = useAuthStore((state) => state.signIn);
+  const { data } = useQuery(profileByIdQuery(profileId));
+  const profile = data?.profile as Profile;
 
   const requestPermissionHandler = () => {
     if (permission?.canAskAgain) {
@@ -22,14 +34,10 @@ export const Scan = ({ ready }: { ready: boolean }) => {
     haptic();
   };
 
-  const onScan = async (data: string) => {
-    const id = parseJwt(data)?.id;
-    if (!id) return;
+  const signUserIn = async () => {
+    const { refresh } = await rqClient.fetchQuery(tokensQuery(tempToken));
 
-    const { profile } = await rqClient.fetchQuery(profileByIdQuery(id));
-    const { refresh } = await rqClient.fetchQuery(tokensQuery(data));
-
-    if (profile && refresh) {
+    if (refresh) {
       signIn({
         accessToken: refresh.accessToken,
         refreshToken: refresh.refreshToken
@@ -38,24 +46,51 @@ export const Scan = ({ ready }: { ready: boolean }) => {
   };
 
   return (
-    <View style={styles.container}>
-      {ready ? (
-        <CameraView
-          style={styles.camera}
-          onBarcodeScanned={({ data }) => onScan(data)}
-        >
-          {permission?.granted ? (
-            <Text style={styles.text}>Show QR</Text>
+    <>
+      <View style={styles.container}>
+        {readyToScan ? (
+          profile ? (
+            <Text style={{ fontFamily: "Sans", fontSize: normalizeFont(16) }}>
+              {getProfile(profile).slugWithPrefix}
+            </Text>
           ) : (
-            <PressableOpacity onPress={requestPermissionHandler}>
-              <Text style={styles.text}>Allow camera?</Text>
-            </PressableOpacity>
-          )}
-        </CameraView>
-      ) : (
-        <Instructions />
-      )}
-    </View>
+            <CameraView
+              style={styles.camera}
+              onBarcodeScanned={({ data }) => {
+                const id = parseJwt(data)?.id;
+                if (!id) return;
+                setProfileId(id);
+                setTempToken(data);
+              }}
+            >
+              {permission?.granted ? (
+                <Text style={styles.text}>Show QR</Text>
+              ) : (
+                <PressableOpacity onPress={requestPermissionHandler}>
+                  <Text style={styles.text}>Allow camera?</Text>
+                </PressableOpacity>
+              )}
+            </CameraView>
+          )
+        ) : (
+          <Instructions />
+        )}
+      </View>
+      <View style={{ paddingHorizontal: 10, width: "100%" }}>
+        <AnimatedButton
+          onPress={() => {
+            if (!readyToScan) {
+              setReadyToScan(true);
+            }
+            if (profile) {
+              signUserIn();
+            }
+            haptic();
+          }}
+          text={readyToScan ? "Sign in" : "Scan now"}
+        />
+      </View>
+    </>
   );
 };
 
@@ -72,6 +107,7 @@ const styles = StyleSheet.create({
     overflow: "hidden"
   },
   text: {
+    fontFamily: "Sans",
     color: Colors.white
   }
 });
