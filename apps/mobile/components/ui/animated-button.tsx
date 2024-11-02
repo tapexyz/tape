@@ -1,28 +1,25 @@
-import normalizeFont from "@/helpers/normalize-font";
 import { LinearGradient } from "expo-linear-gradient";
 import { PressableOpacity } from "pressto";
 import type React from "react";
-import { StyleSheet, Text, type TextStyle, type ViewStyle } from "react-native";
+import { StyleSheet, type ViewStyle } from "react-native";
 
 interface AnimatedButtonProps {
   onPress: () => void;
-  text: string;
+  children: React.ReactNode;
   colors?: string[];
-  buttonStyle?: ViewStyle;
-  textStyle?: TextStyle;
+  style?: ViewStyle;
 }
 
 export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
   onPress,
-  text,
+  children,
   colors = ["#FFFFFF", "#E3E3E3"],
-  buttonStyle = {},
-  textStyle = {}
+  style = {}
 }) => {
   return (
     <PressableOpacity onPress={onPress}>
-      <LinearGradient colors={colors} style={[styles.button, buttonStyle]}>
-        <Text style={[styles.text, textStyle]}>{text}</Text>
+      <LinearGradient colors={colors} style={[styles.button, style]}>
+        {children}
       </LinearGradient>
     </PressableOpacity>
   );
@@ -30,16 +27,11 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
 
 const styles = StyleSheet.create({
   button: {
-    padding: 15,
+    flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     borderRadius: 100,
     borderColor: "#22222220",
     borderWidth: 0.5
-  },
-  text: {
-    fontFamily: "Sans",
-    fontSize: normalizeFont(14),
-    color: "#000",
-    textAlign: "center"
   }
 });

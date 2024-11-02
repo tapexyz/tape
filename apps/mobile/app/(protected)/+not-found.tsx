@@ -30,10 +30,12 @@ const styles = StyleSheet.create({
     paddingVertical: 15
   },
   linkText: {
+    fontFamily: "Sans",
     fontSize: normalizeFont(14),
     color: "#2e78b7"
   },
   pathname: {
+    fontFamily: "Sans",
     fontSize: normalizeFont(14),
     color: "#666"
   },

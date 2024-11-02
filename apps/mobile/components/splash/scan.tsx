@@ -1,5 +1,6 @@
 import { Colors } from "@/helpers/colors";
 import { haptic } from "@/helpers/haptics";
+import normalizeFont from "@/helpers/normalize-font";
 import { useAuthStore } from "@/store/auth";
 import { useQuery } from "@tanstack/react-query";
 import { parseJwt } from "@tape.xyz/generic";
@@ -76,6 +77,7 @@ export const Scan = () => {
       </View>
       <View style={{ paddingHorizontal: 10, width: "100%" }}>
         <AnimatedButton
+          style={{ padding: 15 }}
           onPress={() => {
             if (!readyToScan) {
               setReadyToScan(true);
@@ -85,8 +87,11 @@ export const Scan = () => {
             }
             haptic();
           }}
-          text={readyToScan ? "Sign in" : "Scan now"}
-        />
+        >
+          <Text style={styles.buttonText}>
+            {readyToScan ? "Sign in" : "Scan now"}
+          </Text>
+        </AnimatedButton>
       </View>
     </>
   );
@@ -97,8 +102,8 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   camera: {
-    height: 200,
-    width: 200,
+    height: 250,
+    width: 250,
     borderRadius: 30,
     justifyContent: "center",
     alignItems: "center",
@@ -107,5 +112,11 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: "Sans",
     color: Colors.white
+  },
+  buttonText: {
+    fontFamily: "Sans",
+    fontSize: normalizeFont(14),
+    color: "#000",
+    textAlign: "center"
   }
 });

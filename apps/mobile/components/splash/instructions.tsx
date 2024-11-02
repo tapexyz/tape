@@ -83,7 +83,7 @@ export const Instructions = () => {
   return (
     <View style={{ gap: 10, marginTop: -20 }}>
       <Animated.Text style={[styles.text, animatedStyle1]}>
-        ✳︎ Go to tape.xyz/connect
+        ✳︎ Go to tape.xyz/settings/sessions
       </Animated.Text>
       <Animated.Text style={[styles.text, animatedStyle2]}>
         ✳︎ Sign in if you haven't already

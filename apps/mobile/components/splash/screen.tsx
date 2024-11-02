@@ -4,12 +4,13 @@ import { useAuthStore } from "@/store/auth";
 import { BlurView } from "expo-blur";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
-import { SafeAreaView, StyleSheet, Text } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming
 } from "react-native-reanimated";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Background } from "./background";
 import { Scan } from "./scan";
 
