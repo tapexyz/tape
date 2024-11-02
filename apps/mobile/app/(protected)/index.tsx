@@ -1,14 +1,12 @@
 import { HelloWave } from "@/components/hello-wave";
-import { ThemedText } from "@/components/shared/themed-text";
-import { ThemedView } from "@/components/shared/themed-view";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 export default function HomeScreen() {
   return (
-    <ThemedView style={styles.titleContainer}>
-      <ThemedText type="title">Protected Home!</ThemedText>
+    <View style={styles.titleContainer}>
+      <Text style={styles.title}>Protected Home!</Text>
       <HelloWave />
-    </ThemedView>
+    </View>
   );
 }
 
@@ -17,5 +15,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 8
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    fontFamily: "Serif"
   }
 });

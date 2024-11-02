@@ -1,17 +1,18 @@
-import { ThemedText } from "@/components/shared/themed-text";
+import { SplashScreen } from "@/components/shared/splash-screen";
 import { useSession } from "@/store/auth";
-import { Redirect, Stack } from "expo-router";
+import { useFonts } from "expo-font";
+import { Stack } from "expo-router";
 import "react-native-reanimated";
 
 export default function RootLayout() {
-  const { session, isLoading } = useSession();
+  const { session } = useSession();
+  const [fontLoaded] = useFonts({
+    Sans: require("../../assets/fonts/sans.ttf"),
+    Serif: require("../../assets/fonts/serif.ttf")
+  });
 
-  if (isLoading) {
-    return <ThemedText>Loading...</ThemedText>;
-  }
-
-  if (!session) {
-    return <Redirect href="/sign-in" />;
+  if (!fontLoaded || !session) {
+    return <SplashScreen />;
   }
 
   return (

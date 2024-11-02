@@ -37,8 +37,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
         signOut: () => {
           setSession(null);
         },
-        session: "xxx" ?? session,
-        // session,
+        session,
         isLoading
       }}
     >
