@@ -1,4 +1,5 @@
 import { HelloWave } from "@/components/hello-wave";
+import normalizeFont from "@/helpers/normalize-font";
 import { useAuthStore } from "@/store/auth";
 import { Button, StyleSheet, Text, View } from "react-native";
 
@@ -21,7 +22,7 @@ const styles = StyleSheet.create({
     paddingVertical: 50
   },
   title: {
-    fontSize: 24,
+    fontSize: normalizeFont(24),
     fontWeight: "bold",
     fontFamily: "Serif"
   }

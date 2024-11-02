@@ -1,5 +1,6 @@
+import normalizeFont from "@/helpers/normalize-font";
 import { useEffect } from "react";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -80,22 +81,23 @@ export const Instructions = () => {
   }));
 
   return (
-    <View style={{ gap: 10 }}>
-      <Animated.Text
-        style={[{ fontFamily: "Sans", fontSize: 16 }, animatedStyle1]}
-      >
+    <View style={{ gap: 10, marginTop: -20 }}>
+      <Animated.Text style={[styles.text, animatedStyle1]}>
         ✳︎ Go to tape.xyz/connect
       </Animated.Text>
-      <Animated.Text
-        style={[{ fontFamily: "Sans", fontSize: 16 }, animatedStyle2]}
-      >
+      <Animated.Text style={[styles.text, animatedStyle2]}>
         ✳︎ Sign in if you haven't already
       </Animated.Text>
-      <Animated.Text
-        style={[{ fontFamily: "Sans", fontSize: 16 }, animatedStyle3]}
-      >
+      <Animated.Text style={[styles.text, animatedStyle3]}>
         ✳︎ Scan the QR code
       </Animated.Text>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  text: {
+    fontFamily: "Sans",
+    fontSize: normalizeFont(14)
+  }
+});

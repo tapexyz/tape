@@ -1,3 +1,4 @@
+import normalizeFont from "@/helpers/normalize-font";
 import { Link, Stack, usePathname } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -29,16 +30,15 @@ const styles = StyleSheet.create({
     paddingVertical: 15
   },
   linkText: {
-    fontSize: 14,
+    fontSize: normalizeFont(14),
     color: "#2e78b7"
   },
   pathname: {
-    fontSize: 14,
+    fontSize: normalizeFont(14),
     color: "#666"
   },
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
+    fontSize: normalizeFont(20),
     fontFamily: "Serif"
   }
 });

@@ -1,6 +1,7 @@
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { Colors } from "@/helpers/colors";
 import { haptic } from "@/helpers/haptics";
+import normalizeFont from "@/helpers/normalize-font";
 import { useAuthStore } from "@/store/auth";
 import { BlurView } from "expo-blur";
 import { StatusBar } from "expo-status-bar";
@@ -87,15 +88,9 @@ const styles = StyleSheet.create({
   },
   tape: {
     fontFamily: "Serif",
-    fontSize: 52,
-    lineHeight: 52,
-    paddingVertical: 20,
+    fontSize: normalizeFont(42),
+    lineHeight: normalizeFont(42),
+    paddingTop: 20,
     color: Colors.text
-  },
-  text: {
-    fontFamily: "Sans",
-    fontSize: 16,
-    color: Colors.buttonText,
-    textAlign: "center"
   }
 });

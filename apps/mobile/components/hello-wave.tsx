@@ -1,3 +1,4 @@
+import normalizeFont from "@/helpers/normalize-font";
 import { StyleSheet, Text } from "react-native";
 import Animated, {
   useSharedValue,
@@ -31,7 +32,7 @@ export const HelloWave = () => {
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 28,
+    fontSize: normalizeFont(28),
     lineHeight: 32,
     marginTop: -6
   }

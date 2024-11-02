@@ -1,3 +1,4 @@
+import normalizeFont from "@/helpers/normalize-font";
 import { LinearGradient } from "expo-linear-gradient";
 import { PressableOpacity } from "pressto";
 import type React from "react";
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: "Sans",
-    fontSize: 16,
+    fontSize: normalizeFont(14),
     color: "#000",
     textAlign: "center"
   }
