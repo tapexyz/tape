@@ -1,18 +1,17 @@
 import { Colors } from "@/helpers/colors";
 import { haptic } from "@/helpers/haptics";
-import normalizeFont from "@/helpers/normalize-font";
 import { useAuthStore } from "@/store/auth";
 import { useQuery } from "@tanstack/react-query";
-import { getProfile, getProfilePicture, parseJwt } from "@tape.xyz/generic";
+import { parseJwt } from "@tape.xyz/generic";
 import type { Profile } from "@tape.xyz/lens/gql";
 import { CameraView, useCameraPermissions } from "expo-camera";
-import { Image } from "expo-image";
 import { PressableOpacity } from "pressto";
 import { useState } from "react";
 import { Linking, StyleSheet, Text, View } from "react-native";
 import { rqClient } from "../providers/react-query";
 import { AnimatedButton } from "../ui/animated-button";
 import { Instructions } from "./instructions";
+import { ProfileView } from "./profile";
 import { profileByIdQuery, tokensQuery } from "./queries";
 
 export const Scan = () => {
@@ -51,15 +50,7 @@ export const Scan = () => {
       <View style={styles.container}>
         {readyToScan ? (
           profile ? (
-            <View style={{ alignItems: "center", gap: 10 }}>
-              <Image
-                source={{ uri: getProfilePicture(profile) }}
-                style={{ width: 50, borderRadius: 100, height: 50 }}
-              />
-              <Text style={{ fontFamily: "Sans", fontSize: normalizeFont(16) }}>
-                {getProfile(profile).slugWithPrefix}
-              </Text>
-            </View>
+            <ProfileView profile={profile} />
           ) : (
             <CameraView
               style={styles.camera}
