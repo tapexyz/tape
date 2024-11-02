@@ -28,8 +28,8 @@
     "expo-system-ui": "~3.0.7",
     "expo-web-browser": "~13.0.3",
     "pressto": "^0.1.9",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
     "react-native": "0.74.5",
     "react-native-gesture-handler": "~2.16.1",
     "react-native-reanimated": "~3.10.1",
@@ -43,7 +43,7 @@
     "@tape.xyz/constants": "workspace:*",
     "@tape.xyz/generic": "workspace:*",
     "@tape.xyz/lens": "workspace:*",
-    "@types/react": "~18.2.79",
+    "@types/react": "~18.3.12",
     "typescript": "~5.3.3"
   }
 }

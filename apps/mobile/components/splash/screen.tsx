@@ -3,6 +3,7 @@ import { Colors } from "@/helpers/colors";
 import { haptic } from "@/helpers/haptics";
 import { useAuthStore } from "@/store/auth";
 import { BlurView } from "expo-blur";
+import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { useState } from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
@@ -32,7 +33,9 @@ export const SplashScreen = () => {
 
   return (
     <Background>
+      <StatusBar style="dark" />
       <BlurView
+        tint="light"
         style={styles.blurView}
         intensity={100}
         experimentalBlurMethod="dimezisBlurView"
