@@ -138,3 +138,18 @@ export type SupportedOpenActionModuleType =
   | MultirecipientFeeCollectOpenActionSettings
   | LegacySimpleCollectModuleSettings
   | LegacyMultirecipientFeeCollectModuleSettings;
+
+export type TapePublicationData = {
+  title?: string;
+  content?: string;
+  asset?: {
+    uri: string;
+    cover?: string;
+    artist?: string;
+    title?: string;
+    duration?: number;
+  };
+  attachments?: {
+    uri: string;
+  }[];
+};

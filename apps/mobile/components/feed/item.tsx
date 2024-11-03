@@ -9,7 +9,7 @@ import {
 import type { FeedItem } from "@tape.xyz/lens/gql";
 import { Image } from "expo-image";
 import { StyleSheet, Text, View } from "react-native";
-import { AnimatedButton } from "../ui/animated-button";
+import { Media } from "./media";
 
 export const Item = ({ item }: { item: FeedItem }) => {
   const height = windowHeight * 0.75;
@@ -22,16 +22,12 @@ export const Item = ({ item }: { item: FeedItem }) => {
     <View style={[styles.itemContainer, { height }]}>
       <View style={styles.itemContent}>
         <View style={styles.itemHeader}>
-          <AnimatedButton
-            onPress={() => {}}
+          <Image
+            source={{ uri: getProfilePicture(publication.by) }}
             style={{ width: 40, height: 40, borderRadius: 10 }}
-          >
-            <Image
-              source={{ uri: getProfilePicture(publication.by) }}
-              style={StyleSheet.absoluteFillObject}
-              contentFit="cover"
-            />
-          </AnimatedButton>
+            contentFit="cover"
+            transition={300}
+          />
           <View>
             <Text
               style={{
@@ -46,7 +42,10 @@ export const Item = ({ item }: { item: FeedItem }) => {
             </Text>
           </View>
         </View>
-        <Text style={styles.itemText}>{meta?.content}</Text>
+        {meta && <Media meta={meta} />}
+        <Text style={styles.itemText} numberOfLines={3}>
+          {meta?.content}
+        </Text>
         <Text style={styles.itemText}>{publication.__typename}</Text>
         <Text style={styles.itemText}>{publication.metadata.__typename}</Text>
       </View>

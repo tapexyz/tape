@@ -1,11 +1,14 @@
 fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
   ... on PublicationMetadataMediaVideo {
+    __typename
     ...PublicationMetadataMediaVideoFields
   }
   ... on PublicationMetadataMediaImage {
+    __typename
     ...PublicationMetadataMediaImageFields
   }
   ... on PublicationMetadataMediaAudio {
+    __typename
     ...PublicationMetadataMediaAudioFields
   }
 }

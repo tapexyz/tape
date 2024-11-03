@@ -6697,17 +6697,17 @@ export type LiveStreamMetadataV3FieldsFragment = { __typename: 'LiveStreamMetada
 export type PublicationMetadataMediaAudioFieldsFragment = { __typename?: 'PublicationMetadataMediaAudio', duration?: number | null, audio: { __typename?: 'EncryptableAudioSet', raw: { __typename?: 'EncryptableAudio', uri: any }, optimized?: { __typename?: 'Audio', uri: any } | null }, cover?: { __typename?: 'EncryptableImageSet', raw: { __typename?: 'EncryptableImage', uri: any }, optimized?: { __typename?: 'Image', uri: any } | null } | null } & { ' $fragmentName'?: 'PublicationMetadataMediaAudioFieldsFragment' };
 
 type PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment = (
-  { __typename?: 'PublicationMetadataMediaAudio' }
+  { __typename: 'PublicationMetadataMediaAudio' }
   & { ' $fragmentRefs'?: { 'PublicationMetadataMediaAudioFieldsFragment': PublicationMetadataMediaAudioFieldsFragment } }
 ) & { ' $fragmentName'?: 'PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment' };
 
 type PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment = (
-  { __typename?: 'PublicationMetadataMediaImage' }
+  { __typename: 'PublicationMetadataMediaImage' }
   & { ' $fragmentRefs'?: { 'PublicationMetadataMediaImageFieldsFragment': PublicationMetadataMediaImageFieldsFragment } }
 ) & { ' $fragmentName'?: 'PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment' };
 
 type PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment = (
-  { __typename?: 'PublicationMetadataMediaVideo' }
+  { __typename: 'PublicationMetadataMediaVideo' }
   & { ' $fragmentRefs'?: { 'PublicationMetadataMediaVideoFieldsFragment': PublicationMetadataMediaVideoFieldsFragment } }
 ) & { ' $fragmentName'?: 'PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment' };
 
@@ -8207,12 +8207,15 @@ export const PublicationMetadataMediaAudioFieldsFragmentDoc = new TypedDocumentS
 export const PublicationMetadataMediaFieldsFragmentDoc = new TypedDocumentString(`
     fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
   ... on PublicationMetadataMediaVideo {
+    __typename
     ...PublicationMetadataMediaVideoFields
   }
   ... on PublicationMetadataMediaImage {
+    __typename
     ...PublicationMetadataMediaImageFields
   }
   ... on PublicationMetadataMediaAudio {
+    __typename
     ...PublicationMetadataMediaAudioFields
   }
 }
@@ -8310,12 +8313,15 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
 }
 fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
   ... on PublicationMetadataMediaVideo {
+    __typename
     ...PublicationMetadataMediaVideoFields
   }
   ... on PublicationMetadataMediaImage {
+    __typename
     ...PublicationMetadataMediaImageFields
   }
   ... on PublicationMetadataMediaAudio {
+    __typename
     ...PublicationMetadataMediaAudioFields
   }
 }
@@ -8393,12 +8399,15 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
 }
 fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
   ... on PublicationMetadataMediaVideo {
+    __typename
     ...PublicationMetadataMediaVideoFields
   }
   ... on PublicationMetadataMediaImage {
+    __typename
     ...PublicationMetadataMediaImageFields
   }
   ... on PublicationMetadataMediaAudio {
+    __typename
     ...PublicationMetadataMediaAudioFields
   }
 }
@@ -8476,12 +8485,15 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
 }
 fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
   ... on PublicationMetadataMediaVideo {
+    __typename
     ...PublicationMetadataMediaVideoFields
   }
   ... on PublicationMetadataMediaImage {
+    __typename
     ...PublicationMetadataMediaImageFields
   }
   ... on PublicationMetadataMediaAudio {
+    __typename
     ...PublicationMetadataMediaAudioFields
   }
 }
@@ -8556,12 +8568,15 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
 }
 fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
   ... on PublicationMetadataMediaVideo {
+    __typename
     ...PublicationMetadataMediaVideoFields
   }
   ... on PublicationMetadataMediaImage {
+    __typename
     ...PublicationMetadataMediaImageFields
   }
   ... on PublicationMetadataMediaAudio {
+    __typename
     ...PublicationMetadataMediaAudioFields
   }
 }
@@ -8641,12 +8656,15 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
 }
 fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
   ... on PublicationMetadataMediaVideo {
+    __typename
     ...PublicationMetadataMediaVideoFields
   }
   ... on PublicationMetadataMediaImage {
+    __typename
     ...PublicationMetadataMediaImageFields
   }
   ... on PublicationMetadataMediaAudio {
+    __typename
     ...PublicationMetadataMediaAudioFields
   }
 }
@@ -8721,12 +8739,15 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
 }
 fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
   ... on PublicationMetadataMediaVideo {
+    __typename
     ...PublicationMetadataMediaVideoFields
   }
   ... on PublicationMetadataMediaImage {
+    __typename
     ...PublicationMetadataMediaImageFields
   }
   ... on PublicationMetadataMediaAudio {
+    __typename
     ...PublicationMetadataMediaAudioFields
   }
 }
@@ -8897,12 +8918,15 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
 }
 fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
   ... on PublicationMetadataMediaVideo {
+    __typename
     ...PublicationMetadataMediaVideoFields
   }
   ... on PublicationMetadataMediaImage {
+    __typename
     ...PublicationMetadataMediaImageFields
   }
   ... on PublicationMetadataMediaAudio {
+    __typename
     ...PublicationMetadataMediaAudioFields
   }
 }
@@ -9550,12 +9574,15 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
 }
 fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
   ... on PublicationMetadataMediaVideo {
+    __typename
     ...PublicationMetadataMediaVideoFields
   }
   ... on PublicationMetadataMediaImage {
+    __typename
     ...PublicationMetadataMediaImageFields
   }
   ... on PublicationMetadataMediaAudio {
+    __typename
     ...PublicationMetadataMediaAudioFields
   }
 }
@@ -10128,12 +10155,15 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
 }
 fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
   ... on PublicationMetadataMediaVideo {
+    __typename
     ...PublicationMetadataMediaVideoFields
   }
   ... on PublicationMetadataMediaImage {
+    __typename
     ...PublicationMetadataMediaImageFields
   }
   ... on PublicationMetadataMediaAudio {
+    __typename
     ...PublicationMetadataMediaAudioFields
   }
 }
@@ -10675,12 +10705,15 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
 }
 fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
   ... on PublicationMetadataMediaVideo {
+    __typename
     ...PublicationMetadataMediaVideoFields
   }
   ... on PublicationMetadataMediaImage {
+    __typename
     ...PublicationMetadataMediaImageFields
   }
   ... on PublicationMetadataMediaAudio {
+    __typename
     ...PublicationMetadataMediaAudioFields
   }
 }
@@ -11264,12 +11297,15 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
 }
 fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
   ... on PublicationMetadataMediaVideo {
+    __typename
     ...PublicationMetadataMediaVideoFields
   }
   ... on PublicationMetadataMediaImage {
+    __typename
     ...PublicationMetadataMediaImageFields
   }
   ... on PublicationMetadataMediaAudio {
+    __typename
     ...PublicationMetadataMediaAudioFields
   }
 }
@@ -11887,12 +11923,15 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
 }
 fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
   ... on PublicationMetadataMediaVideo {
+    __typename
     ...PublicationMetadataMediaVideoFields
   }
   ... on PublicationMetadataMediaImage {
+    __typename
     ...PublicationMetadataMediaImageFields
   }
   ... on PublicationMetadataMediaAudio {
+    __typename
     ...PublicationMetadataMediaAudioFields
   }
 }
@@ -12519,12 +12558,15 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
 }
 fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
   ... on PublicationMetadataMediaVideo {
+    __typename
     ...PublicationMetadataMediaVideoFields
   }
   ... on PublicationMetadataMediaImage {
+    __typename
     ...PublicationMetadataMediaImageFields
   }
   ... on PublicationMetadataMediaAudio {
+    __typename
     ...PublicationMetadataMediaAudioFields
   }
 }
@@ -13142,12 +13184,15 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
 }
 fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
   ... on PublicationMetadataMediaVideo {
+    __typename
     ...PublicationMetadataMediaVideoFields
   }
   ... on PublicationMetadataMediaImage {
+    __typename
     ...PublicationMetadataMediaImageFields
   }
   ... on PublicationMetadataMediaAudio {
+    __typename
     ...PublicationMetadataMediaAudioFields
   }
 }
@@ -14893,12 +14938,15 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
 }
 fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
   ... on PublicationMetadataMediaVideo {
+    __typename
     ...PublicationMetadataMediaVideoFields
   }
   ... on PublicationMetadataMediaImage {
+    __typename
     ...PublicationMetadataMediaImageFields
   }
   ... on PublicationMetadataMediaAudio {
+    __typename
     ...PublicationMetadataMediaAudioFields
   }
 }
@@ -15531,12 +15579,15 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
 }
 fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
   ... on PublicationMetadataMediaVideo {
+    __typename
     ...PublicationMetadataMediaVideoFields
   }
   ... on PublicationMetadataMediaImage {
+    __typename
     ...PublicationMetadataMediaImageFields
   }
   ... on PublicationMetadataMediaAudio {
+    __typename
     ...PublicationMetadataMediaAudioFields
   }
 }
@@ -16614,12 +16665,15 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
 }
 fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
   ... on PublicationMetadataMediaVideo {
+    __typename
     ...PublicationMetadataMediaVideoFields
   }
   ... on PublicationMetadataMediaImage {
+    __typename
     ...PublicationMetadataMediaImageFields
   }
   ... on PublicationMetadataMediaAudio {
+    __typename
     ...PublicationMetadataMediaAudioFields
   }
 }
@@ -17562,12 +17616,15 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
 }
 fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
   ... on PublicationMetadataMediaVideo {
+    __typename
     ...PublicationMetadataMediaVideoFields
   }
   ... on PublicationMetadataMediaImage {
+    __typename
     ...PublicationMetadataMediaImageFields
   }
   ... on PublicationMetadataMediaAudio {
+    __typename
     ...PublicationMetadataMediaAudioFields
   }
 }
@@ -18230,12 +18287,15 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
 }
 fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
   ... on PublicationMetadataMediaVideo {
+    __typename
     ...PublicationMetadataMediaVideoFields
   }
   ... on PublicationMetadataMediaImage {
+    __typename
     ...PublicationMetadataMediaImageFields
   }
   ... on PublicationMetadataMediaAudio {
+    __typename
     ...PublicationMetadataMediaAudioFields
   }
 }
@@ -19509,12 +19569,15 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
 }
 fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
   ... on PublicationMetadataMediaVideo {
+    __typename
     ...PublicationMetadataMediaVideoFields
   }
   ... on PublicationMetadataMediaImage {
+    __typename
     ...PublicationMetadataMediaImageFields
   }
   ... on PublicationMetadataMediaAudio {
+    __typename
     ...PublicationMetadataMediaAudioFields
   }
 }
@@ -20169,12 +20232,15 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
 }
 fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
   ... on PublicationMetadataMediaVideo {
+    __typename
     ...PublicationMetadataMediaVideoFields
   }
   ... on PublicationMetadataMediaImage {
+    __typename
     ...PublicationMetadataMediaImageFields
   }
   ... on PublicationMetadataMediaAudio {
+    __typename
     ...PublicationMetadataMediaAudioFields
   }
 }
@@ -20834,12 +20900,15 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
 }
 fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
   ... on PublicationMetadataMediaVideo {
+    __typename
     ...PublicationMetadataMediaVideoFields
   }
   ... on PublicationMetadataMediaImage {
+    __typename
     ...PublicationMetadataMediaImageFields
   }
   ... on PublicationMetadataMediaAudio {
+    __typename
     ...PublicationMetadataMediaAudioFields
   }
 }
@@ -21501,12 +21570,15 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
 }
 fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
   ... on PublicationMetadataMediaVideo {
+    __typename
     ...PublicationMetadataMediaVideoFields
   }
   ... on PublicationMetadataMediaImage {
+    __typename
     ...PublicationMetadataMediaImageFields
   }
   ... on PublicationMetadataMediaAudio {
+    __typename
     ...PublicationMetadataMediaAudioFields
   }
 }
@@ -22170,12 +22242,15 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
 }
 fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
   ... on PublicationMetadataMediaVideo {
+    __typename
     ...PublicationMetadataMediaVideoFields
   }
   ... on PublicationMetadataMediaImage {
+    __typename
     ...PublicationMetadataMediaImageFields
   }
   ... on PublicationMetadataMediaAudio {
+    __typename
     ...PublicationMetadataMediaAudioFields
   }
 }
@@ -23002,12 +23077,15 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
 }
 fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
   ... on PublicationMetadataMediaVideo {
+    __typename
     ...PublicationMetadataMediaVideoFields
   }
   ... on PublicationMetadataMediaImage {
+    __typename
     ...PublicationMetadataMediaImageFields
   }
   ... on PublicationMetadataMediaAudio {
+    __typename
     ...PublicationMetadataMediaAudioFields
   }
 }

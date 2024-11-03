@@ -1,25 +1,13 @@
 import type { PublicationMetadata } from "@tape.xyz/lens";
 
+import type { TapePublicationData } from "@tape.xyz/lens/custom-types";
 import { getAttachmentsData } from "./getAttachmentsData";
 import { getPublicationMediaUrl } from "./getPublicationMediaUrl";
 import { getThumbnailUrl } from "./getThumbnailUrl";
 
 export const getPublicationData = (
   metadata: PublicationMetadata
-): {
-  title?: string;
-  content?: string;
-  asset?: {
-    uri: string;
-    cover?: string;
-    artist?: string;
-    title?: string;
-    duration?: number;
-  };
-  attachments?: {
-    uri: string;
-  }[];
-} | null => {
+): TapePublicationData | null => {
   switch (metadata.__typename) {
     case "ArticleMetadataV3":
       return {
