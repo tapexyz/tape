@@ -1,6 +1,6 @@
 import { execute } from "@/helpers/execute";
 import { queryOptions } from "@tanstack/react-query";
-import { ProfileDocument, RefreshDocument } from "@tape.xyz/lens/gql";
+import { ProfileDocument } from "@tape.xyz/lens/gql";
 
 export const profileByIdQuery = (forProfileId: string | null) => {
   return queryOptions({
@@ -10,17 +10,5 @@ export const profileByIdQuery = (forProfileId: string | null) => {
         request: { forProfileId }
       }),
     enabled: Boolean(forProfileId)
-  });
-};
-
-export const tokensQuery = (refreshToken: string | null) => {
-  return queryOptions({
-    queryKey: ["tokens"],
-    queryFn: () =>
-      execute(RefreshDocument, {
-        request: { refreshToken }
-      }),
-    gcTime: 0,
-    staleTime: 0
   });
 };

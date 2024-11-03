@@ -9,10 +9,20 @@ type Session = {
 
 type AuthState = {
   session: Session;
-  signIn: (data: Session) => void;
-  signOut: () => void;
   authenticated: boolean;
-  hydrate: () => Session;
+  signOut: () => Promise<void>;
+  hydrate: () => Promise<void>;
+  getSession: () => Promise<Session>;
+  signIn: (session: Session) => Promise<void>;
+};
+
+const getStorageItemAsync = async (key: string) => {
+  try {
+    return await SecureStore.getItemAsync(key);
+  } catch (error) {
+    console.error("Error getting storage item:", error);
+    return null;
+  }
 };
 
 const setStorageItemAsync = async (key: string, value: string | null) => {
@@ -24,52 +34,60 @@ const setStorageItemAsync = async (key: string, value: string | null) => {
     }
   } catch (error) {
     console.error("Error setting storage item:", error);
+    return null;
   }
 };
-
-export const getStorageItem = (key: string) => {
-  return SecureStore.getItem(key);
-};
-
-const id = getStorageItem("id");
-const accessToken = getStorageItem("accessToken");
-const refreshToken = getStorageItem("refreshToken");
 
 export const useAuthStore = create<AuthState>()((set) => ({
   session: {
-    id,
-    accessToken,
-    refreshToken
+    id: null,
+    accessToken: null,
+    refreshToken: null
   },
-  authenticated: Boolean(accessToken) && Boolean(refreshToken),
-  signIn: (data: Session) => {
-    const { accessToken, refreshToken, id } = data;
-    setStorageItemAsync("id", id);
-    setStorageItemAsync("accessToken", accessToken);
-    setStorageItemAsync("refreshToken", refreshToken);
+  authenticated: false,
+  signIn: async (session: Session) => {
+    const { accessToken, refreshToken, id } = session;
     set({
-      session: data,
+      session,
       authenticated: Boolean(accessToken) && Boolean(refreshToken)
     });
+    await setStorageItemAsync("id", id);
+    await setStorageItemAsync("accessToken", accessToken);
+    await setStorageItemAsync("refreshToken", refreshToken);
   },
-  signOut: () => {
-    setStorageItemAsync("id", null);
-    setStorageItemAsync("accessToken", null);
-    setStorageItemAsync("refreshToken", null);
+  signOut: async () => {
     set({
       session: {
+        id: null,
         accessToken: null,
-        refreshToken: null,
-        id: null
+        refreshToken: null
       },
       authenticated: false
     });
+    await setStorageItemAsync("id", null);
+    await setStorageItemAsync("accessToken", null);
+    await setStorageItemAsync("refreshToken", null);
   },
-  hydrate: () => {
-    return { accessToken, refreshToken, id } as Session;
+  getSession: async () => {
+    return {
+      id: await getStorageItemAsync("id"),
+      accessToken: await getStorageItemAsync("accessToken"),
+      refreshToken: await getStorageItemAsync("refreshToken")
+    };
+  },
+  hydrate: async () => {
+    const id = await getStorageItemAsync("id");
+    const accessToken = await getStorageItemAsync("accessToken");
+    const refreshToken = await getStorageItemAsync("refreshToken");
+
+    set({
+      session: { id, accessToken, refreshToken },
+      authenticated: Boolean(accessToken) && Boolean(refreshToken)
+    });
   }
 }));
 
+export const signOut = () => useAuthStore.getState().signOut();
+export const getSession = () => useAuthStore.getState().getSession();
 export const hydrateSession = () => useAuthStore.getState().hydrate();
-export const signIn = (tokens: Session) =>
-  useAuthStore.getState().signIn(tokens);
+export const signIn = (s: Session) => useAuthStore.getState().signIn(s);

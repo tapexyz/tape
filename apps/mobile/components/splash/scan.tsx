@@ -1,6 +1,7 @@
 import { Colors } from "@/helpers/colors";
 import { haptic } from "@/helpers/haptics";
 import normalizeFont from "@/helpers/normalize-font";
+import { refreshAuthTokens } from "@/helpers/refresh";
 import { useAuthStore } from "@/store/auth";
 import { useQuery } from "@tanstack/react-query";
 import { parseJwt } from "@tape.xyz/generic";
@@ -9,16 +10,15 @@ import { CameraView, useCameraPermissions } from "expo-camera";
 import { PressableOpacity } from "pressto";
 import { useState } from "react";
 import { Linking, StyleSheet, Text, View } from "react-native";
-import { rqClient } from "../providers/react-query";
 import { AnimatedButton } from "../ui/animated-button";
 import { Instructions } from "./instructions";
 import { ProfileView } from "./profile";
-import { profileByIdQuery, tokensQuery } from "./queries";
+import { profileByIdQuery } from "./queries";
 
 export const Scan = () => {
   const [readyToScan, setReadyToScan] = useState(false);
-  const [profileId, setProfileId] = useState<string | null>(null);
-  const [tempToken, setTempToken] = useState<string | null>(null);
+  const [profileId, setProfileId] = useState("");
+  const [tempToken, setTempToken] = useState("");
 
   const [permission, requestPermission] = useCameraPermissions();
 
@@ -36,13 +36,13 @@ export const Scan = () => {
   };
 
   const signUserIn = async () => {
-    const { refresh } = await rqClient.fetchQuery(tokensQuery(tempToken));
+    const refresh = await refreshAuthTokens(tempToken);
 
     if (refresh) {
-      signIn({
+      await signIn({
+        id: profileId,
         accessToken: refresh.accessToken,
-        refreshToken: refresh.refreshToken,
-        id: profileId
+        refreshToken: refresh.refreshToken
       });
     }
   };
