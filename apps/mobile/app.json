@@ -10,7 +10,10 @@
     "userInterfaceStyle": "automatic",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "xyz.tape.mobile"
+      "bundleIdentifier": "xyz.tape.mobile",
+      "entitlements": {
+        "com.apple.developer.networking.wifi-info": true
+      }
     },
     "android": {
       "adaptiveIcon": {

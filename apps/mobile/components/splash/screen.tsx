@@ -32,12 +32,7 @@ export const SplashScreen = () => {
   return (
     <Background>
       <StatusBar style="dark" />
-      <BlurView
-        tint="light"
-        style={styles.blurView}
-        intensity={100}
-        experimentalBlurMethod="dimezisBlurView"
-      >
+      <BlurView tint="light" style={styles.blurView} intensity={100}>
         <SafeAreaView style={{ flex: 1 }}>
           <Animated.View
             style={[
