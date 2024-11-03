@@ -6249,7 +6249,7 @@ type AnyPublicationMetadataFields_VideoMetadataV3_Fragment = (
 
 export type AnyPublicationMetadataFieldsFragment = AnyPublicationMetadataFields_ArticleMetadataV3_Fragment | AnyPublicationMetadataFields_AudioMetadataV3_Fragment | AnyPublicationMetadataFields_CheckingInMetadataV3_Fragment | AnyPublicationMetadataFields_EmbedMetadataV3_Fragment | AnyPublicationMetadataFields_EventMetadataV3_Fragment | AnyPublicationMetadataFields_ImageMetadataV3_Fragment | AnyPublicationMetadataFields_LinkMetadataV3_Fragment | AnyPublicationMetadataFields_LiveStreamMetadataV3_Fragment | AnyPublicationMetadataFields_MintMetadataV3_Fragment | AnyPublicationMetadataFields_SpaceMetadataV3_Fragment | AnyPublicationMetadataFields_StoryMetadataV3_Fragment | AnyPublicationMetadataFields_TextOnlyMetadataV3_Fragment | AnyPublicationMetadataFields_ThreeDMetadataV3_Fragment | AnyPublicationMetadataFields_TransactionMetadataV3_Fragment | AnyPublicationMetadataFields_VideoMetadataV3_Fragment;
 
-export type CommentBaseFieldsFragment = { __typename?: 'Comment', id: any, isHidden: boolean, txHash?: any | null, createdAt: any, publishedOn?: { __typename?: 'App', id: any } | null, momoka?: { __typename?: 'MomokaInfo', proof: any } | null, by: (
+export type CommentBaseFieldsFragment = { __typename: 'Comment', id: any, isHidden: boolean, txHash?: any | null, createdAt: any, publishedOn?: { __typename?: 'App', id: any } | null, momoka?: { __typename?: 'MomokaInfo', proof: any } | null, by: (
     { __typename?: 'Profile' }
     & { ' $fragmentRefs'?: { 'ProfileFieldsFragment': ProfileFieldsFragment } }
   ), stats: (
@@ -6473,7 +6473,7 @@ type OpenActionModulesFields_UnknownOpenActionModuleSettings_Fragment = { __type
 
 export type OpenActionModulesFieldsFragment = OpenActionModulesFields_LegacyAaveFeeCollectModuleSettings_Fragment | OpenActionModulesFields_LegacyErc4626FeeCollectModuleSettings_Fragment | OpenActionModulesFields_LegacyFeeCollectModuleSettings_Fragment | OpenActionModulesFields_LegacyFreeCollectModuleSettings_Fragment | OpenActionModulesFields_LegacyLimitedFeeCollectModuleSettings_Fragment | OpenActionModulesFields_LegacyLimitedTimedFeeCollectModuleSettings_Fragment | OpenActionModulesFields_LegacyMultirecipientFeeCollectModuleSettings_Fragment | OpenActionModulesFields_LegacyRevertCollectModuleSettings_Fragment | OpenActionModulesFields_LegacySimpleCollectModuleSettings_Fragment | OpenActionModulesFields_LegacyTimedFeeCollectModuleSettings_Fragment | OpenActionModulesFields_MultirecipientFeeCollectOpenActionSettings_Fragment | OpenActionModulesFields_ProtocolSharedRevenueCollectOpenActionSettings_Fragment | OpenActionModulesFields_SimpleCollectOpenActionSettings_Fragment | OpenActionModulesFields_UnknownOpenActionModuleSettings_Fragment;
 
-export type PostFieldsFragment = { __typename?: 'Post', id: any, isHidden: boolean, txHash?: any | null, createdAt: any, publishedOn?: { __typename?: 'App', id: any } | null, momoka?: { __typename?: 'MomokaInfo', proof: any } | null, by: (
+export type PostFieldsFragment = { __typename: 'Post', id: any, isHidden: boolean, txHash?: any | null, createdAt: any, publishedOn?: { __typename?: 'App', id: any } | null, momoka?: { __typename?: 'MomokaInfo', proof: any } | null, by: (
     { __typename?: 'Profile' }
     & { ' $fragmentRefs'?: { 'ProfileFieldsFragment': ProfileFieldsFragment } }
   ), stats: (
@@ -6757,7 +6757,7 @@ export type PublicationOperationFieldsFragment = { __typename?: 'PublicationOper
 
 export type PublicationStatsFieldsFragment = { __typename?: 'PublicationStats', id: any, comments: number, mirrors: number, quotes: number, reactions: number, countOpenActions: number } & { ' $fragmentName'?: 'PublicationStatsFieldsFragment' };
 
-export type QuoteBaseFieldsFragment = { __typename?: 'Quote', id: any, isHidden: boolean, txHash?: any | null, createdAt: any, publishedOn?: { __typename?: 'App', id: any } | null, momoka?: { __typename?: 'MomokaInfo', proof: any } | null, by: (
+export type QuoteBaseFieldsFragment = { __typename: 'Quote', id: any, isHidden: boolean, txHash?: any | null, createdAt: any, publishedOn?: { __typename?: 'App', id: any } | null, momoka?: { __typename?: 'MomokaInfo', proof: any } | null, by: (
     { __typename?: 'Profile' }
     & { ' $fragmentRefs'?: { 'ProfileFieldsFragment': ProfileFieldsFragment } }
   ), stats: (
@@ -7471,7 +7471,10 @@ export type FeedQuery = { __typename?: 'Query', feed: { __typename?: 'PaginatedF
       ) | (
         { __typename?: 'Post' }
         & { ' $fragmentRefs'?: { 'PostFieldsFragment': PostFieldsFragment } }
-      ) | { __typename?: 'Quote' } }>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
+      ) | (
+        { __typename?: 'Quote' }
+        & { ' $fragmentRefs'?: { 'QuoteFieldsFragment': QuoteFieldsFragment } }
+      ) }>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
 export type ProfileFollowModuleQueryVariables = Exact<{
   request: ProfileRequest;
@@ -9122,6 +9125,7 @@ fragment NetworkAddressFields on NetworkAddress {
 }`, {"fragmentName":"OpenActionModulesFields"}) as unknown as TypedDocumentString<OpenActionModulesFieldsFragment, unknown>;
 export const PostFieldsFragmentDoc = new TypedDocumentString(`
     fragment PostFields on Post {
+  __typename
   id
   publishedOn {
     id
@@ -9668,6 +9672,7 @@ fragment PublicationStatsFields on PublicationStats {
 }`, {"fragmentName":"PostFields"}) as unknown as TypedDocumentString<PostFieldsFragment, unknown>;
 export const CommentBaseFieldsFragmentDoc = new TypedDocumentString(`
     fragment CommentBaseFields on Comment {
+  __typename
   id
   publishedOn {
     id
@@ -9900,6 +9905,7 @@ fragment OpenActionModulesFields on OpenActionModule {
   }
 }
 fragment PostFields on Post {
+  __typename
   id
   publishedOn {
     id
@@ -10244,6 +10250,7 @@ fragment PublicationStatsFields on PublicationStats {
 }`, {"fragmentName":"CommentBaseFields"}) as unknown as TypedDocumentString<CommentBaseFieldsFragment, unknown>;
 export const QuoteBaseFieldsFragmentDoc = new TypedDocumentString(`
     fragment QuoteBaseFields on Quote {
+  __typename
   id
   publishedOn {
     id
@@ -10830,6 +10837,7 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
 }
 fragment CommentBaseFields on Comment {
+  __typename
   id
   publishedOn {
     id
@@ -11033,6 +11041,7 @@ fragment OpenActionModulesFields on OpenActionModule {
   }
 }
 fragment PostFields on Post {
+  __typename
   id
   publishedOn {
     id
@@ -11376,6 +11385,7 @@ fragment PublicationStatsFields on PublicationStats {
   countOpenActions
 }
 fragment QuoteBaseFields on Quote {
+  __typename
   id
   publishedOn {
     id
@@ -11439,6 +11449,7 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
 }
 fragment CommentBaseFields on Comment {
+  __typename
   id
   publishedOn {
     id
@@ -11642,6 +11653,7 @@ fragment OpenActionModulesFields on OpenActionModule {
   }
 }
 fragment PostFields on Post {
+  __typename
   id
   publishedOn {
     id
@@ -11996,6 +12008,7 @@ fragment PublicationStatsFields on PublicationStats {
   countOpenActions
 }
 fragment QuoteBaseFields on Quote {
+  __typename
   id
   publishedOn {
     id
@@ -12068,6 +12081,7 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
 }
 fragment CommentBaseFields on Comment {
+  __typename
   id
   publishedOn {
     id
@@ -12271,6 +12285,7 @@ fragment OpenActionModulesFields on OpenActionModule {
   }
 }
 fragment PostFields on Post {
+  __typename
   id
   publishedOn {
     id
@@ -12625,6 +12640,7 @@ fragment PublicationStatsFields on PublicationStats {
   countOpenActions
 }
 fragment QuoteBaseFields on Quote {
+  __typename
   id
   publishedOn {
     id
@@ -12688,6 +12704,7 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
 }
 fragment CommentBaseFields on Comment {
+  __typename
   id
   publishedOn {
     id
@@ -12891,6 +12908,7 @@ fragment OpenActionModulesFields on OpenActionModule {
   }
 }
 fragment PostFields on Post {
+  __typename
   id
   publishedOn {
     id
@@ -13245,6 +13263,7 @@ fragment PublicationStatsFields on PublicationStats {
   countOpenActions
 }
 fragment QuoteBaseFields on Quote {
+  __typename
   id
   publishedOn {
     id
@@ -14436,6 +14455,7 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
 }
 fragment CommentBaseFields on Comment {
+  __typename
   id
   publishedOn {
     id
@@ -14639,6 +14659,7 @@ fragment OpenActionModulesFields on OpenActionModule {
   }
 }
 fragment PostFields on Post {
+  __typename
   id
   publishedOn {
     id
@@ -14993,6 +15014,7 @@ fragment PublicationStatsFields on PublicationStats {
   countOpenActions
 }
 fragment QuoteBaseFields on Quote {
+  __typename
   id
   publishedOn {
     id
@@ -15071,6 +15093,7 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
 }
 fragment CommentBaseFields on Comment {
+  __typename
   id
   publishedOn {
     id
@@ -15274,6 +15297,7 @@ fragment OpenActionModulesFields on OpenActionModule {
   }
 }
 fragment PostFields on Post {
+  __typename
   id
   publishedOn {
     id
@@ -15628,6 +15652,7 @@ fragment PublicationStatsFields on PublicationStats {
   countOpenActions
 }
 fragment QuoteBaseFields on Quote {
+  __typename
   id
   publishedOn {
     id
@@ -16145,6 +16170,7 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
 }
 fragment CommentBaseFields on Comment {
+  __typename
   id
   publishedOn {
     id
@@ -16354,6 +16380,7 @@ fragment OpenActionModulesFields on OpenActionModule {
   }
 }
 fragment PostFields on Post {
+  __typename
   id
   publishedOn {
     id
@@ -16708,6 +16735,7 @@ fragment PublicationStatsFields on PublicationStats {
   countOpenActions
 }
 fragment QuoteBaseFields on Quote {
+  __typename
   id
   publishedOn {
     id
@@ -17075,6 +17103,7 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
 }
 fragment CommentBaseFields on Comment {
+  __typename
   id
   publishedOn {
     id
@@ -17299,6 +17328,7 @@ fragment OpenActionModulesFields on OpenActionModule {
   }
 }
 fragment PostFields on Post {
+  __typename
   id
   publishedOn {
     id
@@ -17653,6 +17683,7 @@ fragment PublicationStatsFields on PublicationStats {
   countOpenActions
 }
 fragment QuoteBaseFields on Quote {
+  __typename
   id
   publishedOn {
     id
@@ -17715,6 +17746,9 @@ export const FeedDocument = new TypedDocumentString(`
         ... on Comment {
           ...CommentFields
         }
+        ... on Quote {
+          ...QuoteFields
+        }
       }
     }
     pageInfo {
@@ -17752,6 +17786,7 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
 }
 fragment CommentBaseFields on Comment {
+  __typename
   id
   publishedOn {
     id
@@ -17961,6 +17996,7 @@ fragment OpenActionModulesFields on OpenActionModule {
   }
 }
 fragment PostFields on Post {
+  __typename
   id
   publishedOn {
     id
@@ -18315,6 +18351,7 @@ fragment PublicationStatsFields on PublicationStats {
   countOpenActions
 }
 fragment QuoteBaseFields on Quote {
+  __typename
   id
   publishedOn {
     id
@@ -18339,6 +18376,12 @@ fragment QuoteBaseFields on Quote {
   }
   openActionModules {
     ...OpenActionModulesFields
+  }
+}
+fragment QuoteFields on Quote {
+  ...QuoteBaseFields
+  quoteOn {
+    ...PrimaryPublicationFields
   }
 }`) as unknown as TypedDocumentString<FeedQuery, FeedQueryVariables>;
 export const ProfileFollowModuleDocument = new TypedDocumentString(`
@@ -19007,6 +19050,7 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
 }
 fragment CommentBaseFields on Comment {
+  __typename
   id
   publishedOn {
     id
@@ -19231,6 +19275,7 @@ fragment OpenActionModulesFields on OpenActionModule {
   }
 }
 fragment PostFields on Post {
+  __typename
   id
   publishedOn {
     id
@@ -19585,6 +19630,7 @@ fragment PublicationStatsFields on PublicationStats {
   countOpenActions
 }
 fragment QuoteBaseFields on Quote {
+  __typename
   id
   publishedOn {
     id
@@ -19664,6 +19710,7 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
 }
 fragment CommentBaseFields on Comment {
+  __typename
   id
   publishedOn {
     id
@@ -19888,6 +19935,7 @@ fragment OpenActionModulesFields on OpenActionModule {
   }
 }
 fragment PostFields on Post {
+  __typename
   id
   publishedOn {
     id
@@ -20242,6 +20290,7 @@ fragment PublicationStatsFields on PublicationStats {
   countOpenActions
 }
 fragment QuoteBaseFields on Quote {
+  __typename
   id
   publishedOn {
     id
@@ -20326,6 +20375,7 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
 }
 fragment CommentBaseFields on Comment {
+  __typename
   id
   publishedOn {
     id
@@ -20550,6 +20600,7 @@ fragment OpenActionModulesFields on OpenActionModule {
   }
 }
 fragment PostFields on Post {
+  __typename
   id
   publishedOn {
     id
@@ -20904,6 +20955,7 @@ fragment PublicationStatsFields on PublicationStats {
   countOpenActions
 }
 fragment QuoteBaseFields on Quote {
+  __typename
   id
   publishedOn {
     id
@@ -20990,6 +21042,7 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
 }
 fragment CommentBaseFields on Comment {
+  __typename
   id
   publishedOn {
     id
@@ -21214,6 +21267,7 @@ fragment OpenActionModulesFields on OpenActionModule {
   }
 }
 fragment PostFields on Post {
+  __typename
   id
   publishedOn {
     id
@@ -21568,6 +21622,7 @@ fragment PublicationStatsFields on PublicationStats {
   countOpenActions
 }
 fragment QuoteBaseFields on Quote {
+  __typename
   id
   publishedOn {
     id
@@ -21656,6 +21711,7 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
 }
 fragment CommentBaseFields on Comment {
+  __typename
   id
   publishedOn {
     id
@@ -21880,6 +21936,7 @@ fragment OpenActionModulesFields on OpenActionModule {
   }
 }
 fragment PostFields on Post {
+  __typename
   id
   publishedOn {
     id
@@ -22234,6 +22291,7 @@ fragment PublicationStatsFields on PublicationStats {
   countOpenActions
 }
 fragment QuoteBaseFields on Quote {
+  __typename
   id
   publishedOn {
     id
@@ -22500,6 +22558,7 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
 }
 fragment CommentBaseFields on Comment {
+  __typename
   id
   publishedOn {
     id
@@ -22709,6 +22768,7 @@ fragment OpenActionModulesFields on OpenActionModule {
   }
 }
 fragment PostFields on Post {
+  __typename
   id
   publishedOn {
     id
@@ -23063,6 +23123,7 @@ fragment PublicationStatsFields on PublicationStats {
   countOpenActions
 }
 fragment QuoteBaseFields on Quote {
+  __typename
   id
   publishedOn {
     id

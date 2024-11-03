@@ -1,4 +1,5 @@
 fragment CommentBaseFields on Comment {
+  __typename
   id
   publishedOn {
     id

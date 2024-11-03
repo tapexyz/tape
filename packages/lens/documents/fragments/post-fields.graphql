@@ -1,4 +1,5 @@
 fragment PostFields on Post {
+  __typename
   id
   publishedOn {
     id

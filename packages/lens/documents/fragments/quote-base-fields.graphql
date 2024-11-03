@@ -1,4 +1,5 @@
 fragment QuoteBaseFields on Quote {
+  __typename
   id
   publishedOn {
     id

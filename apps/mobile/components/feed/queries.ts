@@ -4,12 +4,16 @@ import { FeedDocument, FeedEventItemType } from "@tape.xyz/lens/gql";
 
 export const feedQuery = (profileId: string) =>
   infiniteQueryOptions({
-    queryKey: ["feed"],
+    queryKey: ["feed", profileId],
     queryFn: ({ pageParam }) =>
       execute(FeedDocument, {
         request: {
           where: {
-            feedEventItemTypes: [FeedEventItemType.Post],
+            feedEventItemTypes: [
+              FeedEventItemType.Post,
+              FeedEventItemType.Mirror,
+              FeedEventItemType.Quote
+            ],
             for: profileId
           },
           cursor: pageParam

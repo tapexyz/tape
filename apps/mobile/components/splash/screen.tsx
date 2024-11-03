@@ -1,6 +1,9 @@
 import { Colors } from "@/helpers/colors";
 import normalizeFont from "@/helpers/normalize-font";
 import { useAuthStore } from "@/store/auth";
+import { useActiveProfile } from "@/store/profile";
+import { useQuery } from "@tanstack/react-query";
+import type { Profile } from "@tape.xyz/lens/gql";
 import { BlurView } from "expo-blur";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
@@ -12,26 +15,32 @@ import Animated, {
 } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Background } from "./background";
+import { profileByIdQuery } from "./queries";
 import { Scan } from "./scan";
 
 export const SplashScreen = () => {
+  const id = useAuthStore((state) => state.session.id);
   const authenticated = useAuthStore((state) => state.authenticated);
+  const setActiveProfile = useActiveProfile((state) => state.setProfile);
+
+  const { data } = useQuery(profileByIdQuery(id));
+  useEffect(() => {
+    if (data?.profile) {
+      setActiveProfile(data.profile as Profile);
+    }
+  }, [data]);
 
   const opacity = useSharedValue(0);
-
   useEffect(() => {
-    opacity.value = withTiming(1, {
-      duration: 300
-    });
+    opacity.value = withTiming(1, { duration: 300 });
   }, []);
-
   const opacityStyle = useAnimatedStyle(() => ({
     opacity: opacity.value
   }));
 
   return (
     <Background>
-      <StatusBar style="dark" />
+      <StatusBar style="dark" key="splash" />
       <BlurView tint="light" style={styles.blurView} intensity={100}>
         <SafeAreaView style={{ flex: 1 }}>
           <Animated.View
