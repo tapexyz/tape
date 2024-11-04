@@ -42,6 +42,8 @@ const PaginationDot = ({ index, activeIndex }: PaginationDotProps) => {
   return <Animated.View style={[styles.dot, animatedStyle]} />;
 };
 
+const CONTAINER_HEIGHT = 250;
+
 export const Media = ({ meta }: MediaProps) => {
   const { attachments, asset } = meta;
 
@@ -74,7 +76,7 @@ export const Media = ({ meta }: MediaProps) => {
 
   const renderItem = useCallback(
     ({ item }: { item: { uri: string } }) => (
-      <View style={{ width: containerWidth, height: 200 }}>
+      <View style={{ width: containerWidth, height: CONTAINER_HEIGHT }}>
         <Image
           source={{ uri: item.uri }}
           style={styles.image}
@@ -120,7 +122,7 @@ export const Media = ({ meta }: MediaProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 200,
+    height: CONTAINER_HEIGHT,
     width: "100%",
     borderRadius: 10,
     overflow: "hidden"

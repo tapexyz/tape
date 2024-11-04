@@ -32,12 +32,19 @@ export const Item = ({ item }: { item: FeedItem }) => {
             <Text
               style={{
                 fontFamily: "SansSB",
-                fontSize: normalizeFont(14)
+                fontSize: normalizeFont(14),
+                letterSpacing: -0.3
               }}
             >
               {profileMeta?.displayName}
             </Text>
-            <Text style={{ fontFamily: "Sans", fontSize: normalizeFont(10) }}>
+            <Text
+              style={{
+                fontFamily: "Sans",
+                fontSize: normalizeFont(12),
+                color: Colors.textSecondary
+              }}
+            >
               /{profileMeta.slug}
             </Text>
           </View>
@@ -65,9 +72,9 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     backgroundColor: Colors.white,
-    borderRadius: 15,
+    borderRadius: 25,
     padding: 20,
-    gap: 10
+    gap: 15
   },
   itemText: {
     fontFamily: "Sans",

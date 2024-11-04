@@ -19,7 +19,7 @@ export const Header = () => {
       </View>
       <AnimatedButton
         onPress={() => signOut()}
-        style={{ width: 35, height: 35, borderRadius: 10 }}
+        style={{ width: 35, height: 35 }}
       >
         <Image
           source={{ uri: getProfilePicture(profile) }}

@@ -1,7 +1,7 @@
 import "react-native-reanimated";
-import { rqClient } from "@/components/providers/react-query";
+import { rqClient, rqPersister } from "@/components/providers/react-query";
 import { useReactQueryDevTools } from "@dev-plugins/react-query";
-import { QueryClientProvider } from "@tanstack/react-query";
+import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import { Slot } from "expo-router";
 import { PressablesConfig } from "pressto";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -10,17 +10,19 @@ import { NetInfoProvider } from "../components/providers/net-info";
 
 export default function Layout() {
   useReactQueryDevTools(rqClient);
-
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <QueryClientProvider client={rqClient}>
+      <PersistQueryClientProvider
+        client={rqClient}
+        persistOptions={{ persister: rqPersister }}
+      >
         <PressablesConfig animationType="spring">
           <SafeAreaProvider>
             <NetInfoProvider />
             <Slot />
           </SafeAreaProvider>
         </PressablesConfig>
-      </QueryClientProvider>
+      </PersistQueryClientProvider>
     </GestureHandlerRootView>
   );
 }

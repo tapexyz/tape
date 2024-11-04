@@ -1,4 +1,6 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import NetInfo from "@react-native-community/netinfo";
+import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister";
 import { QueryClient } from "@tanstack/react-query";
 import { onlineManager } from "@tanstack/react-query";
 
@@ -15,8 +17,7 @@ const getQueryClient = () => {
     gQueryClient = new QueryClient({
       defaultOptions: {
         queries: {
-          gcTime: 10 * 60 * 1000,
-          staleTime: 60 * 60 * 1000,
+          gcTime: 1000 * 60 * 60 * 24,
           retry: 2
         }
       }
@@ -26,3 +27,6 @@ const getQueryClient = () => {
 };
 
 export const rqClient = getQueryClient();
+export const rqPersister = createAsyncStoragePersister({
+  storage: AsyncStorage
+});
