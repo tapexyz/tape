@@ -23,6 +23,10 @@ export const Item = ({ item }: ItemProps) => {
   const publication = getPublication(item.root);
   const meta = getPublicationData(publication.metadata);
   const profileMeta = getProfile(publication.by);
+  const textOnly = publication.metadata.__typename === "TextOnlyMetadataV3";
+  const limit = textOnly ? 500 : 200;
+  const content = meta?.content ?? "";
+  const trimmedContent = `${content.slice(0, limit)}${content.length > limit ? "..." : ""}`;
 
   return (
     <View style={[styles.itemContainer, { height }]}>
@@ -55,9 +59,10 @@ export const Item = ({ item }: ItemProps) => {
           </View>
         </View>
         {meta && <Media meta={meta} />}
-        {meta?.content && <RenderMarkdown content={meta.content} />}
-        <Text style={styles.itemText}>{publication.__typename}</Text>
-        <Text style={styles.itemText}>{publication.metadata.__typename}</Text>
+        {trimmedContent && <RenderMarkdown content={trimmedContent} />}
+        <Text style={styles.itemText}>
+          {publication.__typename}/{publication.metadata.__typename}
+        </Text>
       </View>
     </View>
   );
