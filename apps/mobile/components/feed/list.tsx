@@ -12,9 +12,8 @@ export const List = () => {
   const height = windowHeight * 0.75;
 
   const profileId = useAuthStore((state) => state.session.id);
-  const { data, isLoading, refetch } = useInfiniteQuery(
-    feedQuery(profileId ?? "")
-  );
+  const { data, isLoading, refetch, hasNextPage, fetchNextPage } =
+    useInfiniteQuery(feedQuery(profileId ?? ""));
   const allPublications = data?.pages.flatMap(
     (page) => page.feed.items
   ) as FeedItem[];
@@ -38,8 +37,11 @@ export const List = () => {
         estimatedItemSize={height}
         onRefresh={() => refetch()}
         ListHeaderComponent={Header}
+        onEndReachedThreshold={0.8}
         showsVerticalScrollIndicator={false}
+        getItemType={({ root }) => root.__typename}
         renderItem={({ item }) => <Item item={item} />}
+        onEndReached={hasNextPage ? fetchNextPage : null}
         keyExtractor={(item, index) => `${item.id}_${index}`}
       />
     </View>

@@ -104,7 +104,6 @@ export const Media = ({ meta }: MediaProps) => {
             contentFit="cover"
             style={styles.asset}
             contentPosition="top"
-            cachePolicy="memory-disk"
             source={{ uri: item.uri }}
           />
         )}

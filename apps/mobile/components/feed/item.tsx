@@ -12,9 +12,13 @@ import { Image } from "expo-image";
 import { StyleSheet, Text, View } from "react-native";
 import { Media } from "./media";
 
-export const Item = ({ item }: { item: FeedItem }) => {
-  const height = windowHeight * 0.75;
+type ItemProps = {
+  item: FeedItem;
+};
 
+const height = windowHeight * 0.75;
+
+export const Item = ({ item }: ItemProps) => {
   const publication = getPublication(item.root);
   const meta = getPublicationData(publication.metadata);
   const profileMeta = getProfile(publication.by);
