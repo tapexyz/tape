@@ -32,7 +32,7 @@ export const SplashScreen = () => {
 
   const opacity = useSharedValue(0);
   useEffect(() => {
-    opacity.value = withTiming(1, { duration: 300 });
+    opacity.value = withTiming(1, { duration: 200 });
   }, []);
   const opacityStyle = useAnimatedStyle(() => ({
     opacity: opacity.value

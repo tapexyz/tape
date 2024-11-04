@@ -2,6 +2,7 @@ query Notifications($request: NotificationRequest!) {
   notifications(request: $request) {
     items {
       ... on ReactionNotification {
+        __typename
         id
         publication {
           ... on Post {
@@ -21,12 +22,14 @@ query Notifications($request: NotificationRequest!) {
         }
       }
       ... on CommentNotification {
+        __typename
         id
         comment {
           ...CommentFields
         }
       }
       ... on MirrorNotification {
+        __typename
         id
         mirrors {
           mirrorId
@@ -47,12 +50,14 @@ query Notifications($request: NotificationRequest!) {
         }
       }
       ... on QuoteNotification {
+        __typename
         id
         quote {
           ...QuoteFields
         }
       }
       ... on ActedNotification {
+        __typename
         id
         actions {
           actedAt
@@ -73,12 +78,14 @@ query Notifications($request: NotificationRequest!) {
         }
       }
       ... on FollowNotification {
+        __typename
         id
         followers {
           ...ProfileFields
         }
       }
       ... on MentionNotification {
+        __typename
         id
         publication {
           ... on Post {

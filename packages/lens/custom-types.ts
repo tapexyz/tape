@@ -143,6 +143,7 @@ export type TapePublicationData = {
   title?: string;
   content?: string;
   asset?: {
+    type: "VIDEO" | "IMAGE" | "AUDIO";
     uri: string;
     cover?: string;
     artist?: string;
@@ -151,5 +152,6 @@ export type TapePublicationData = {
   };
   attachments?: {
     uri: string;
+    type: "VIDEO" | "IMAGE" | "AUDIO";
   }[];
 };

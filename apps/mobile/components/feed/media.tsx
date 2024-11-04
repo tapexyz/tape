@@ -1,7 +1,8 @@
+import { useDevice } from "@/store/device";
 import { FlashList } from "@shopify/flash-list";
 import type { TapePublicationData } from "@tape.xyz/lens/custom-types";
 import { Image } from "expo-image";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { type LayoutChangeEvent, StyleSheet, View } from "react-native";
 import type { ViewToken } from "react-native";
 import Animated, {
@@ -15,10 +16,10 @@ interface MediaProps {
   meta: TapePublicationData;
 }
 
-interface PaginationDotProps {
+type PaginationDotProps = {
   index: number;
   activeIndex: SharedValue<number>;
-}
+};
 
 const PaginationDot = ({ index, activeIndex }: PaginationDotProps) => {
   const animatedStyle = useAnimatedStyle(() => {
@@ -48,7 +49,8 @@ export const Media = ({ meta }: MediaProps) => {
   const { attachments, asset } = meta;
 
   const activeIndex = useSharedValue(0);
-  const [containerWidth, setContainerWidth] = useState(0);
+  const feedItemWidth = useDevice((state) => state.feedItemWidth);
+  const setFeedItemWidth = useDevice((state) => state.setFeedItemWidth);
 
   const images = [
     ...(asset?.uri ? [{ uri: asset.uri }] : []),
@@ -59,7 +61,7 @@ export const Media = ({ meta }: MediaProps) => {
 
   const handleLayout = useCallback((event: LayoutChangeEvent) => {
     const { width } = event.nativeEvent.layout;
-    setContainerWidth(width);
+    setFeedItemWidth(width);
   }, []);
 
   const onViewableItemsChanged = useCallback(
@@ -76,24 +78,25 @@ export const Media = ({ meta }: MediaProps) => {
 
   const renderItem = useCallback(
     ({ item }: { item: { uri: string } }) => (
-      <View style={{ width: containerWidth, height: CONTAINER_HEIGHT }}>
+      <View style={{ width: feedItemWidth, height: CONTAINER_HEIGHT }}>
         <Image
-          source={{ uri: item.uri }}
-          style={styles.image}
           contentFit="cover"
-          transition={300}
+          style={styles.image}
           contentPosition="top"
-          cachePolicy="memory-disk"
+          source={{ uri: item.uri }}
         />
       </View>
     ),
-    [containerWidth]
+    [feedItemWidth]
   );
 
   if (!images.length) return null;
 
   return (
-    <View style={styles.container} onLayout={handleLayout}>
+    <View
+      style={styles.container}
+      onLayout={!feedItemWidth ? handleLayout : undefined}
+    >
       <FlashList
         horizontal
         pagingEnabled
@@ -101,7 +104,7 @@ export const Media = ({ meta }: MediaProps) => {
         bounces={false}
         renderItem={renderItem}
         decelerationRate="fast"
-        snapToInterval={containerWidth}
+        snapToInterval={feedItemWidth}
         showsHorizontalScrollIndicator={false}
         onViewableItemsChanged={onViewableItemsChanged}
         viewabilityConfig={{
@@ -124,7 +127,7 @@ const styles = StyleSheet.create({
   container: {
     height: CONTAINER_HEIGHT,
     width: "100%",
-    borderRadius: 10,
+    borderRadius: 15,
     overflow: "hidden"
   },
   image: {

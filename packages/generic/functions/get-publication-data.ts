@@ -1,9 +1,9 @@
 import type { PublicationMetadata } from "@tape.xyz/lens";
 
 import type { TapePublicationData } from "@tape.xyz/lens/custom-types";
-import { getAttachmentsData } from "./getAttachmentsData";
+import { getAttachmentsData } from "./get-attachments-data";
+import { getThumbnailUrl } from "./get-thumbnail-url";
 import { getPublicationMediaUrl } from "./getPublicationMediaUrl";
-import { getThumbnailUrl } from "./getThumbnailUrl";
 
 export const getPublicationData = (
   metadata: PublicationMetadata
@@ -28,6 +28,7 @@ export const getPublicationData = (
         title: metadata.title,
         content: metadata.content,
         asset: {
+          type: "IMAGE",
           uri: getPublicationMediaUrl(metadata)
         },
         attachments: getAttachmentsData(metadata.attachments)
@@ -37,6 +38,7 @@ export const getPublicationData = (
         title: metadata.title,
         content: metadata.content,
         asset: {
+          type: "AUDIO",
           uri: getPublicationMediaUrl(metadata),
           cover: getThumbnailUrl(metadata),
           artist: metadata.asset.artist,
@@ -49,20 +51,11 @@ export const getPublicationData = (
         title: metadata.title,
         content: metadata.content,
         asset: {
+          type: "VIDEO",
           uri: getPublicationMediaUrl(metadata),
           duration: metadata.asset.duration || 0,
           cover: getThumbnailUrl(metadata)
         },
-        attachments: getAttachmentsData(metadata.attachments)
-      };
-    case "MintMetadataV3":
-      return {
-        content: metadata.content,
-        attachments: getAttachmentsData(metadata.attachments)
-      };
-    case "EmbedMetadataV3":
-      return {
-        content: metadata.content,
         attachments: getAttachmentsData(metadata.attachments)
       };
     case "LiveStreamMetadataV3":
@@ -71,9 +64,17 @@ export const getPublicationData = (
         content: metadata.content,
         attachments: getAttachmentsData(metadata.attachments),
         asset: {
+          type: "VIDEO",
           uri: getPublicationMediaUrl(metadata),
           cover: getThumbnailUrl(metadata)
         }
+      };
+    case "MintMetadataV3":
+    case "EmbedMetadataV3":
+    case "CheckingInMetadataV3":
+      return {
+        content: metadata.content,
+        attachments: getAttachmentsData(metadata.attachments)
       };
     default:
       return null;

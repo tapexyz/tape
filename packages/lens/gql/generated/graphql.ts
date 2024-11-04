@@ -6387,7 +6387,7 @@ export type FollowModuleFieldsFragment = FollowModuleFields_FeeFollowModuleSetti
 
 export type HandleInfoFieldsFragment = { __typename?: 'HandleInfo', id: any, fullHandle: any, localName: string, ownedBy: any } & { ' $fragmentName'?: 'HandleInfoFieldsFragment' };
 
-export type ImageSetFieldsFragment = { __typename?: 'ImageSet', raw: { __typename?: 'Image', uri: any }, optimized?: { __typename?: 'Image', uri: any } | null } & { ' $fragmentName'?: 'ImageSetFieldsFragment' };
+export type ImageSetFieldsFragment = { __typename: 'ImageSet', raw: { __typename?: 'Image', uri: any }, optimized?: { __typename?: 'Image', uri: any } | null } & { ' $fragmentName'?: 'ImageSetFieldsFragment' };
 
 export type MetadataAttributeFieldsFragment = { __typename?: 'MetadataAttribute', type: MetadataAttributeType, key: string, value: string } & { ' $fragmentName'?: 'MetadataAttributeFieldsFragment' };
 
@@ -6648,6 +6648,20 @@ export type AudioMetadataV3FieldsFragment = { __typename: 'AudioMetadataV3', id:
     { __typename?: 'PublicationMetadataMediaVideo' }
     & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment } }
   )> | null } & { ' $fragmentName'?: 'AudioMetadataV3FieldsFragment' };
+
+export type CheckingInMetadataV3FieldsFragment = { __typename: 'CheckingInMetadataV3', id: string, location: any, tags?: Array<string> | null, content: any, geographic?: { __typename?: 'GeoLocation', latitude?: number | null, longitude?: number | null } | null, attributes?: Array<(
+    { __typename?: 'MetadataAttribute' }
+    & { ' $fragmentRefs'?: { 'MetadataAttributeFieldsFragment': MetadataAttributeFieldsFragment } }
+  )> | null, attachments?: Array<(
+    { __typename?: 'PublicationMetadataMediaAudio' }
+    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment } }
+  ) | (
+    { __typename?: 'PublicationMetadataMediaImage' }
+    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment } }
+  ) | (
+    { __typename?: 'PublicationMetadataMediaVideo' }
+    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment } }
+  )> | null } & { ' $fragmentName'?: 'CheckingInMetadataV3FieldsFragment' };
 
 export type ImageMetadataV3FieldsFragment = { __typename: 'ImageMetadataV3', id: string, rawURI: any, tags?: Array<string> | null, contentWarning?: PublicationContentWarningType | null, title: string, content: any, attributes?: Array<(
     { __typename?: 'MetadataAttribute' }
@@ -7397,7 +7411,7 @@ export type NotificationsQueryVariables = Exact<{
 }>;
 
 
-export type NotificationsQuery = { __typename?: 'Query', notifications: { __typename?: 'PaginatedNotificationResult', items: Array<{ __typename?: 'ActedNotification', id: any, actions: Array<{ __typename?: 'OpenActionProfileActed', actedAt: any, by: (
+export type NotificationsQuery = { __typename?: 'Query', notifications: { __typename?: 'PaginatedNotificationResult', items: Array<{ __typename: 'ActedNotification', id: any, actions: Array<{ __typename?: 'OpenActionProfileActed', actedAt: any, by: (
           { __typename?: 'Profile' }
           & { ' $fragmentRefs'?: { 'ProfileFieldsFragment': ProfileFieldsFragment } }
         ) }>, publication: (
@@ -7409,13 +7423,13 @@ export type NotificationsQuery = { __typename?: 'Query', notifications: { __type
       ) | (
         { __typename?: 'Post' }
         & { ' $fragmentRefs'?: { 'PostFieldsFragment': PostFieldsFragment } }
-      ) | { __typename?: 'Quote' } } | { __typename?: 'CommentNotification', id: any, comment: (
+      ) | { __typename?: 'Quote' } } | { __typename: 'CommentNotification', id: any, comment: (
         { __typename?: 'Comment' }
         & { ' $fragmentRefs'?: { 'CommentFieldsFragment': CommentFieldsFragment } }
-      ) } | { __typename?: 'FollowNotification', id: any, followers: Array<(
+      ) } | { __typename: 'FollowNotification', id: any, followers: Array<(
         { __typename?: 'Profile' }
         & { ' $fragmentRefs'?: { 'ProfileFieldsFragment': ProfileFieldsFragment } }
-      )> } | { __typename?: 'MentionNotification', id: any, publication: (
+      )> } | { __typename: 'MentionNotification', id: any, publication: (
         { __typename?: 'Comment' }
         & { ' $fragmentRefs'?: { 'CommentFieldsFragment': CommentFieldsFragment } }
       ) | (
@@ -7424,7 +7438,7 @@ export type NotificationsQuery = { __typename?: 'Query', notifications: { __type
       ) | (
         { __typename?: 'Quote' }
         & { ' $fragmentRefs'?: { 'QuoteFieldsFragment': QuoteFieldsFragment } }
-      ) } | { __typename?: 'MirrorNotification', id: any, mirrors: Array<{ __typename?: 'ProfileMirrorResult', mirrorId: any, profile: (
+      ) } | { __typename: 'MirrorNotification', id: any, mirrors: Array<{ __typename?: 'ProfileMirrorResult', mirrorId: any, profile: (
           { __typename?: 'Profile' }
           & { ' $fragmentRefs'?: { 'ProfileFieldsFragment': ProfileFieldsFragment } }
         ) }>, publication: (
@@ -7436,10 +7450,10 @@ export type NotificationsQuery = { __typename?: 'Query', notifications: { __type
       ) | (
         { __typename?: 'Quote' }
         & { ' $fragmentRefs'?: { 'QuoteFieldsFragment': QuoteFieldsFragment } }
-      ) } | { __typename?: 'QuoteNotification', id: any, quote: (
+      ) } | { __typename: 'QuoteNotification', id: any, quote: (
         { __typename?: 'Quote' }
         & { ' $fragmentRefs'?: { 'QuoteFieldsFragment': QuoteFieldsFragment } }
-      ) } | { __typename?: 'ReactionNotification', id: any, publication: (
+      ) } | { __typename: 'ReactionNotification', id: any, publication: (
         { __typename?: 'Comment' }
         & { ' $fragmentRefs'?: { 'CommentFieldsFragment': CommentFieldsFragment } }
       ) | (
@@ -7788,6 +7802,7 @@ export const ProfileOperationsFieldsFragmentDoc = new TypedDocumentString(`
     `, {"fragmentName":"ProfileOperationsFields"}) as unknown as TypedDocumentString<ProfileOperationsFieldsFragment, unknown>;
 export const ImageSetFieldsFragmentDoc = new TypedDocumentString(`
     fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -7826,6 +7841,7 @@ export const ProfileMetadataFieldsFragmentDoc = new TypedDocumentString(`
   }
 }
     fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -8042,6 +8058,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -9248,6 +9265,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -9801,6 +9819,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -10379,6 +10398,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -10943,6 +10963,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -11558,6 +11579,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -12193,6 +12215,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -12709,6 +12732,91 @@ fragment QuoteBaseFields on Quote {
     ...OpenActionModulesFields
   }
 }`, {"fragmentName":"MirrorFields"}) as unknown as TypedDocumentString<MirrorFieldsFragment, unknown>;
+export const CheckingInMetadataV3FieldsFragmentDoc = new TypedDocumentString(`
+    fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  __typename
+  id
+  location
+  tags
+  geographic {
+    latitude
+    longitude
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}
+    fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}
+fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
+  audio {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+  cover {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+  duration
+}
+fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
+  ... on PublicationMetadataMediaVideo {
+    __typename
+    ...PublicationMetadataMediaVideoFields
+  }
+  ... on PublicationMetadataMediaImage {
+    __typename
+    ...PublicationMetadataMediaImageFields
+  }
+  ... on PublicationMetadataMediaAudio {
+    __typename
+    ...PublicationMetadataMediaAudioFields
+  }
+}
+fragment PublicationMetadataMediaImageFields on PublicationMetadataMediaImage {
+  image {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+}
+fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
+  video {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+  cover {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+  duration
+}`, {"fragmentName":"CheckingInMetadataV3Fields"}) as unknown as TypedDocumentString<CheckingInMetadataV3FieldsFragment, unknown>;
 export const QuoteFieldsFragmentDoc = new TypedDocumentString(`
     fragment QuoteFields on Quote {
   ...QuoteBaseFields
@@ -12819,6 +12927,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -14334,6 +14443,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -14573,6 +14683,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -15214,6 +15325,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -15796,6 +15908,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -15976,6 +16089,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -16300,6 +16414,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -16906,6 +17021,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -17031,6 +17147,7 @@ export const NotificationsDocument = new TypedDocumentString(`
   notifications(request: $request) {
     items {
       ... on ReactionNotification {
+        __typename
         id
         publication {
           ... on Post {
@@ -17050,12 +17167,14 @@ export const NotificationsDocument = new TypedDocumentString(`
         }
       }
       ... on CommentNotification {
+        __typename
         id
         comment {
           ...CommentFields
         }
       }
       ... on MirrorNotification {
+        __typename
         id
         mirrors {
           mirrorId
@@ -17076,12 +17195,14 @@ export const NotificationsDocument = new TypedDocumentString(`
         }
       }
       ... on QuoteNotification {
+        __typename
         id
         quote {
           ...QuoteFields
         }
       }
       ... on ActedNotification {
+        __typename
         id
         actions {
           actedAt
@@ -17102,12 +17223,14 @@ export const NotificationsDocument = new TypedDocumentString(`
         }
       }
       ... on FollowNotification {
+        __typename
         id
         followers {
           ...ProfileFields
         }
       }
       ... on MentionNotification {
+        __typename
         id
         publication {
           ... on Post {
@@ -17236,6 +17359,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -17922,6 +18046,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -18575,6 +18700,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -18758,6 +18884,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -18938,6 +19065,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -19189,6 +19317,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -19852,6 +19981,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -20520,6 +20650,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -21190,6 +21321,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -21862,6 +21994,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -22464,6 +22597,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -22712,6 +22846,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -23299,6 +23434,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -23479,6 +23615,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }
@@ -23661,6 +23798,7 @@ fragment HandleInfoFields on HandleInfo {
   ownedBy
 }
 fragment ImageSetFields on ImageSet {
+  __typename
   raw {
     uri
   }

@@ -6,7 +6,7 @@ import {
 } from "@tape.xyz/constants";
 import type { MirrorablePublication } from "@tape.xyz/lens";
 
-import { getPublicationData } from "./getPublicationData";
+import { getPublicationData } from "./get-publication-data";
 
 type Link = "tape" | "hey" | "x" | "reddit" | "linkedin";
 

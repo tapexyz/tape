@@ -5,6 +5,7 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { useEffect } from "react";
 import "react-native-reanimated";
+import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 
 export default function RootLayout() {
   const hydrate = useAuthStore((state) => state.hydrate);
@@ -28,7 +29,15 @@ export default function RootLayout() {
   }
 
   if (!authenticated || !profile) {
-    return <SplashScreen />;
+    return (
+      <Animated.View
+        entering={FadeIn.duration(300)}
+        exiting={FadeOut.duration(300)}
+        style={{ flex: 1 }}
+      >
+        <SplashScreen />
+      </Animated.View>
+    );
   }
 
   return (

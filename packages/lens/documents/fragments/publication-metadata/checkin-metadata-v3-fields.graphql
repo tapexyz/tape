@@ -1,0 +1,17 @@
+fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  __typename
+  id
+  location
+  tags
+  geographic {
+    latitude
+    longitude
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}

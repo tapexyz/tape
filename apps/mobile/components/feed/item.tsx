@@ -26,7 +26,6 @@ export const Item = ({ item }: { item: FeedItem }) => {
             source={{ uri: getProfilePicture(publication.by) }}
             style={{ width: 40, height: 40, borderRadius: 10 }}
             contentFit="cover"
-            transition={300}
           />
           <View>
             <Text
@@ -63,26 +62,26 @@ export const Item = ({ item }: { item: FeedItem }) => {
 const styles = StyleSheet.create({
   itemContainer: {
     width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
+    paddingVertical: 6,
     paddingHorizontal: 10,
-    paddingVertical: 6
+    alignItems: "center",
+    justifyContent: "center"
   },
   itemContent: {
+    gap: 15,
+    padding: 15,
     width: "100%",
     height: "100%",
-    backgroundColor: Colors.white,
     borderRadius: 25,
-    padding: 20,
-    gap: 15
+    backgroundColor: Colors.white
   },
   itemText: {
     fontFamily: "Sans",
     fontSize: normalizeFont(14)
   },
   itemHeader: {
+    gap: 10,
     flexDirection: "row",
-    alignItems: "center",
-    gap: 10
+    alignItems: "center"
   }
 });
