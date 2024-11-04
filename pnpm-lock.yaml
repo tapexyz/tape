@@ -127,8 +127,8 @@ importers:
   apps/cron:
     dependencies:
       '@aws-sdk/client-s3':
-        specifier: 3.682.0
-        version: 3.682.0
+        specifier: 3.685.0
+        version: 3.685.0
       node-cron:
         specifier: ^3.0.3
         version: 3.0.3
@@ -280,7 +280,7 @@ importers:
         version: 6.3.1(expo@51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(bufferutil@4.0.8)(utf-8-validate@5.0.10))
       expo-router:
         specifier: ~3.5.23
-        version: 3.5.23(ifyoucn62wn4ofy2deftankgje)
+        version: 3.5.23(pjyn46i2mdkomvin5bfkxpwi3m)
       expo-secure-store:
         specifier: ^13.0.2
         version: 13.0.2(expo@51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(bufferutil@4.0.8)(utf-8-validate@5.0.10))
@@ -346,8 +346,8 @@ importers:
         specifier: ~18.3.12
         version: 18.3.12
       typescript:
-        specifier: ~5.3.3
-        version: 5.3.3
+        specifier: ~5.6.3
+        version: 5.6.3
 
   apps/og:
     dependencies:
@@ -653,11 +653,11 @@ importers:
   packages/browser:
     dependencies:
       '@aws-sdk/client-s3':
-        specifier: 3.682.0
-        version: 3.682.0
+        specifier: 3.685.0
+        version: 3.685.0
       '@aws-sdk/lib-storage':
-        specifier: 3.682.0
-        version: 3.682.0(@aws-sdk/client-s3@3.682.0)
+        specifier: 3.685.0
+        version: 3.685.0(@aws-sdk/client-s3@3.685.0)
       '@livepeer/react':
         specifier: 3.1.9
         version: 3.1.9(@types/react-dom@18.3.1)(@types/react@18.3.12)(immer@10.0.2)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)
@@ -1049,8 +1049,8 @@ packages:
   '@aws-crypto/util@5.2.0':
     resolution: {integrity: sha512-4RkU9EsI6ZpBve5fseQlGNUWKMa1RLPQ1dnjnQoe07ldfIzcsGb5hC5W0Dm7u423KWzawlrpbjXBrXCEv9zazQ==}
 
-  '@aws-sdk/client-s3@3.682.0':
-    resolution: {integrity: sha512-gn8yPhOmExhqRENnR/vKvsbTw9jaRPbfNE8fQ2j91ejXhpj632QDNdobY8TxxPm2UEW2ISAVM55r2/UPl0YP1Q==}
+  '@aws-sdk/client-s3@3.685.0':
+    resolution: {integrity: sha512-ClvMeQHbLhWkpxnVymo4qWS5/yZcPXjorDbSday3joCWYWCSHTO409nWd+jx6eA4MKT/EY/uJ6ZBJRFfByKLuA==}
     engines: {node: '>=16.0.0'}
 
   '@aws-sdk/client-sso-oidc@3.682.0':
@@ -1103,11 +1103,11 @@ packages:
     peerDependencies:
       '@aws-sdk/client-sts': ^3.679.0
 
-  '@aws-sdk/lib-storage@3.682.0':
-    resolution: {integrity: sha512-MtG/uE5iVpxW+nC+QZTbQhoMWdDNXtAtPaO6vTNvc+q8PWvOnIjY3KmaFpEC1CbHYSFvRdidGL33iONWX18ZYg==}
+  '@aws-sdk/lib-storage@3.685.0':
+    resolution: {integrity: sha512-6oGVXmtSr04xzq5XVBHj3yZTWJVfhUElEER5Bg9SrdoWTFRUsjnbOzqOAhYmlrEmEoGTtnZyj7wDI2EY7iCBTQ==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
-      '@aws-sdk/client-s3': ^3.682.0
+      '@aws-sdk/client-s3': ^3.685.0
 
   '@aws-sdk/middleware-bucket-endpoint@3.679.0':
     resolution: {integrity: sha512-5EpiPhhGgnF+uJR4DzWUk6Lx3pOn9oM6JGXxeHsiynfoBfq7vHMleq+uABHHSQS+y7XzbyZ7x8tXNQlliMwOsg==}
@@ -1137,8 +1137,8 @@ packages:
     resolution: {integrity: sha512-sQoAZFsQiW/LL3DfKMYwBoGjYDEnMbA9WslWN8xneCmBAwKo6IcSksvYs23PP8XMIoBGe2I2J9BSr654XWygTQ==}
     engines: {node: '>=16.0.0'}
 
-  '@aws-sdk/middleware-sdk-s3@3.682.0':
-    resolution: {integrity: sha512-Tqndx8elRD4xDR8f5Cng6jpZ/odcm1ZTOtGRFMzHgOCij4BeMf4+/+ecQScobcrAZpUTCUTCzaTvdCdJw8MYJA==}
+  '@aws-sdk/middleware-sdk-s3@3.685.0':
+    resolution: {integrity: sha512-C4w92b3A99NbghrA2Ssw6y1RbDF3I3Bgzi2Izh0pXgyIoDiX0xs9bUs/FGYLK4uepYr78DAZY8DwEpzjWIXkSA==}
     engines: {node: '>=16.0.0'}
 
   '@aws-sdk/middleware-ssec@3.679.0':
@@ -1153,8 +1153,8 @@ packages:
     resolution: {integrity: sha512-Ybx54P8Tg6KKq5ck7uwdjiKif7n/8g1x+V0V9uTjBjRWqaIgiqzXwKWoPj6NCNkE7tJNtqI4JrNxp/3S3HvmRw==}
     engines: {node: '>=16.0.0'}
 
-  '@aws-sdk/signature-v4-multi-region@3.682.0':
-    resolution: {integrity: sha512-y7RAQSCb9pH8wCX5We9UXfiqPVwBLLvSljhuXC31mibHmYaZnpNEwHiQlRNQPblyaNpiKnXXQ0H3Ns3FDyDYdQ==}
+  '@aws-sdk/signature-v4-multi-region@3.685.0':
+    resolution: {integrity: sha512-IHLwuAZGqfUWVrNqw0ugnBa7iL8uBP4x6A7bfBDXRXWCWjUCed/1/D//0lKDHwpFkV74fGW6KoBacnWSUlXmwA==}
     engines: {node: '>=16.0.0'}
 
   '@aws-sdk/token-providers@3.679.0':
@@ -10718,11 +10718,6 @@ packages:
   typedarray@0.0.6:
     resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
 
-  typescript@5.3.3:
-    resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==}
-    engines: {node: '>=14.17'}
-    hasBin: true
-
   typescript@5.6.3:
     resolution: {integrity: sha512-hjcS1mhfuyi4WW8IWtjP7brDrG2cuDZukyrYrSauoXGNgx0S7zceP07adYkJycEr56BOUTNPzbInooiN3fn1qw==}
     engines: {node: '>=14.17'}
@@ -11520,7 +11515,7 @@ snapshots:
       '@smithy/util-utf8': 2.3.0
       tslib: 2.8.1
 
-  '@aws-sdk/client-s3@3.682.0':
+  '@aws-sdk/client-s3@3.685.0':
     dependencies:
       '@aws-crypto/sha1-browser': 5.2.0
       '@aws-crypto/sha256-browser': 5.2.0
@@ -11536,11 +11531,11 @@ snapshots:
       '@aws-sdk/middleware-location-constraint': 3.679.0
       '@aws-sdk/middleware-logger': 3.679.0
       '@aws-sdk/middleware-recursion-detection': 3.679.0
-      '@aws-sdk/middleware-sdk-s3': 3.682.0
+      '@aws-sdk/middleware-sdk-s3': 3.685.0
       '@aws-sdk/middleware-ssec': 3.679.0
       '@aws-sdk/middleware-user-agent': 3.682.0
       '@aws-sdk/region-config-resolver': 3.679.0
-      '@aws-sdk/signature-v4-multi-region': 3.682.0
+      '@aws-sdk/signature-v4-multi-region': 3.685.0
       '@aws-sdk/types': 3.679.0
       '@aws-sdk/util-endpoints': 3.679.0
       '@aws-sdk/util-user-agent-browser': 3.679.0
@@ -11821,9 +11816,9 @@ snapshots:
       '@smithy/types': 3.6.0
       tslib: 2.8.1
 
-  '@aws-sdk/lib-storage@3.682.0(@aws-sdk/client-s3@3.682.0)':
+  '@aws-sdk/lib-storage@3.685.0(@aws-sdk/client-s3@3.685.0)':
     dependencies:
-      '@aws-sdk/client-s3': 3.682.0
+      '@aws-sdk/client-s3': 3.685.0
       '@smithy/abort-controller': 3.1.6
       '@smithy/middleware-endpoint': 3.2.1
       '@smithy/smithy-client': 3.4.2
@@ -11889,7 +11884,7 @@ snapshots:
       '@smithy/types': 3.6.0
       tslib: 2.8.1
 
-  '@aws-sdk/middleware-sdk-s3@3.682.0':
+  '@aws-sdk/middleware-sdk-s3@3.685.0':
     dependencies:
       '@aws-sdk/core': 3.679.0
       '@aws-sdk/types': 3.679.0
@@ -11931,9 +11926,9 @@ snapshots:
       '@smithy/util-middleware': 3.0.8
       tslib: 2.8.1
 
-  '@aws-sdk/signature-v4-multi-region@3.682.0':
+  '@aws-sdk/signature-v4-multi-region@3.685.0':
     dependencies:
-      '@aws-sdk/middleware-sdk-s3': 3.682.0
+      '@aws-sdk/middleware-sdk-s3': 3.685.0
       '@aws-sdk/types': 3.679.0
       '@smithy/protocol-http': 4.1.5
       '@smithy/signature-v4': 4.2.1
@@ -13794,9 +13789,9 @@ snapshots:
 
   '@expo/sdk-runtime-versions@1.0.0': {}
 
-  '@expo/server@0.4.4(typescript@5.3.3)':
+  '@expo/server@0.4.4(typescript@5.6.3)':
     dependencies:
-      '@remix-run/node': 2.13.1(typescript@5.3.3)
+      '@remix-run/node': 2.13.1(typescript@5.6.3)
       abort-controller: 3.0.0
       debug: 4.3.7(supports-color@8.1.1)
       source-map-support: 0.5.21
@@ -16561,9 +16556,9 @@ snapshots:
     dependencies:
       '@redis/client': 1.6.0
 
-  '@remix-run/node@2.13.1(typescript@5.3.3)':
+  '@remix-run/node@2.13.1(typescript@5.6.3)':
     dependencies:
-      '@remix-run/server-runtime': 2.13.1(typescript@5.3.3)
+      '@remix-run/server-runtime': 2.13.1(typescript@5.6.3)
       '@remix-run/web-fetch': 4.4.2
       '@web3-storage/multipart-parser': 1.0.0
       cookie-signature: 1.2.2
@@ -16571,11 +16566,11 @@ snapshots:
       stream-slice: 0.1.2
       undici: 6.20.1
     optionalDependencies:
-      typescript: 5.3.3
+      typescript: 5.6.3
 
   '@remix-run/router@1.20.0': {}
 
-  '@remix-run/server-runtime@2.13.1(typescript@5.3.3)':
+  '@remix-run/server-runtime@2.13.1(typescript@5.6.3)':
     dependencies:
       '@remix-run/router': 1.20.0
       '@types/cookie': 0.6.0
@@ -16585,7 +16580,7 @@ snapshots:
       source-map: 0.7.4
       turbo-stream: 2.4.0
     optionalDependencies:
-      typescript: 5.3.3
+      typescript: 5.6.3
 
   '@remix-run/web-blob@3.1.0':
     dependencies:
@@ -19841,10 +19836,10 @@ snapshots:
     dependencies:
       invariant: 2.2.4
 
-  expo-router@3.5.23(ifyoucn62wn4ofy2deftankgje):
+  expo-router@3.5.23(pjyn46i2mdkomvin5bfkxpwi3m):
     dependencies:
       '@expo/metro-runtime': 3.2.3(react-native@0.74.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10))
-      '@expo/server': 0.4.4(typescript@5.3.3)
+      '@expo/server': 0.4.4(typescript@5.6.3)
       '@radix-ui/react-slot': 1.0.1(react@18.3.1)
       '@react-navigation/bottom-tabs': 6.5.20(@react-navigation/native@6.1.18(react-native@0.74.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1))(react-native-safe-area-context@4.10.5(react-native@0.74.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1))(react-native-screens@3.31.1(react-native@0.74.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1))(react-native@0.74.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)
       '@react-navigation/native': 6.1.18(react-native@0.74.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)
@@ -23895,8 +23890,6 @@ snapshots:
       typed-array-byte-offset: 1.0.2
 
   typedarray@0.0.6: {}
-
-  typescript@5.3.3: {}
 
   typescript@5.6.3: {}
 
