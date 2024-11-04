@@ -21,7 +21,7 @@ export const getPublicationData = (
       };
     case "LinkMetadataV3":
       return {
-        content: metadata.sharingLink
+        content: metadata.sharingLink || metadata.content
       };
     case "ImageMetadataV3":
       return {

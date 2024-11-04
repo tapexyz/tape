@@ -1,6 +1,7 @@
 import { Colors } from "@/helpers/colors";
 import { useDevice } from "@/store/device";
 import { FlashList } from "@shopify/flash-list";
+import { FALLBACK_THUMBNAIL_URL } from "@tape.xyz/constants";
 import type { TapePublicationData } from "@tape.xyz/lens/custom-types";
 import { Image } from "expo-image";
 import { useCallback } from "react";
@@ -25,15 +26,27 @@ type PaginationDotProps = {
 
 const PaginationDot = ({ index, activeIndex }: PaginationDotProps) => {
   const animatedStyle = useAnimatedStyle(() => {
+    const inputRange = [index - 1, index, index + 1];
+    const outputRange = [0.8, 1.2, 0.8];
+    const opacityRange = [0.5, 1, 0.5];
+
+    if (index === 0) {
+      inputRange.unshift(-1);
+      outputRange.unshift(0.8);
+      opacityRange.unshift(0.5);
+    }
+
     const scale = interpolate(
       activeIndex.value,
-      [index - 1, index, index + 1],
-      [0.8, 1.2, 0.8]
+      inputRange,
+      outputRange,
+      "clamp"
     );
     const opacity = interpolate(
       activeIndex.value,
-      [index - 1, index, index + 1],
-      [0.5, 1, 0.5]
+      inputRange,
+      opacityRange,
+      "clamp"
     );
 
     return {
@@ -84,7 +97,7 @@ export const Media = ({ meta }: MediaProps) => {
     ({ item }: { item: { uri: string; type: string; cover?: string } }) => (
       <View style={{ width: feedItemWidth, height: CONTAINER_HEIGHT }}>
         {item.type === "VIDEO" ? (
-          <MVideo uri={item.uri} cover={item.cover ?? ""} />
+          <MVideo uri={item.uri} cover={item.cover ?? FALLBACK_THUMBNAIL_URL} />
         ) : (
           <Image
             transition={100}
@@ -112,16 +125,14 @@ export const Media = ({ meta }: MediaProps) => {
         horizontal
         pagingEnabled
         bounces={false}
-        renderItem={renderItem}
+        removeClippedSubviews
         decelerationRate="fast"
+        renderItem={renderItem}
         snapToInterval={feedItemWidth}
+        estimatedItemSize={all.length}
         showsHorizontalScrollIndicator={false}
         onViewableItemsChanged={onViewableItemsChanged}
-        removeClippedSubviews
-        viewabilityConfig={{
-          itemVisiblePercentThreshold: 50
-        }}
-        estimatedItemSize={all.length}
+        viewabilityConfig={{ itemVisiblePercentThreshold: 50 }}
       />
       {all.length > 1 && (
         <View style={styles.pagination}>

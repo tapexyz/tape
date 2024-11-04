@@ -40,6 +40,7 @@ export const List = () => {
         ListHeaderComponent={Header}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => <Item item={item} />}
+        keyExtractor={(item, index) => `${item.id}_${index}`}
       />
     </View>
   );
