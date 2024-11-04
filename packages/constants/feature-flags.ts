@@ -17,6 +17,6 @@ export const featureFlags: FeatureFlag[] = [
   },
   {
     flag: FEATURE_FLAGS.TAPE_CONNECT,
-    enabledFor: IS_MAINNET ? ["0x2d"] : []
+    enabledFor: IS_MAINNET ? ["0x2d", "0xc001"] : []
   }
 ];
