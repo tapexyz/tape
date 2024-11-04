@@ -10,6 +10,7 @@ import {
 import type { FeedItem } from "@tape.xyz/lens/gql";
 import { Image } from "expo-image";
 import { StyleSheet, Text, View } from "react-native";
+import { RenderMarkdown } from "../ui/render-markdown";
 import { Media } from "./media";
 
 type ItemProps = {
@@ -54,9 +55,7 @@ export const Item = ({ item }: ItemProps) => {
           </View>
         </View>
         {meta && <Media meta={meta} />}
-        <Text style={styles.itemText} numberOfLines={3}>
-          {meta?.content}
-        </Text>
+        {meta?.content && <RenderMarkdown content={meta.content} />}
         <Text style={styles.itemText}>{publication.__typename}</Text>
         <Text style={styles.itemText}>{publication.metadata.__typename}</Text>
       </View>

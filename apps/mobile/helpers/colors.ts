@@ -5,5 +5,6 @@ export const Colors = {
   black: "#000000",
   buttonText: "#000000",
   background: "#F5F5F5",
-  border: "#22222220"
+  border: "#22222220",
+  link: "#3F88C5"
 };
