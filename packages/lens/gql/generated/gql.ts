@@ -16,7 +16,7 @@ import * as types from './graphql';
  */
 const documents = {
     "fragment AmountFields on Amount {\n  asset {\n    ...Erc20Fields\n  }\n  value\n}": types.AmountFieldsFragmentDoc,
-    "fragment AnyPublicationMetadataFields on PublicationMetadata {\n  ... on VideoMetadataV3 {\n    ...VideoMetadataV3Fields\n  }\n  ... on AudioMetadataV3 {\n    ...AudioMetadataV3Fields\n  }\n  ... on ImageMetadataV3 {\n    ...ImageMetadataV3Fields\n  }\n  ... on LinkMetadataV3 {\n    ...LinkMetadataV3Fields\n  }\n  ... on LiveStreamMetadataV3 {\n    ...LiveStreamMetadataV3Fields\n  }\n  ... on MintMetadataV3 {\n    ...MintMetadataV3Fields\n  }\n  ... on TextOnlyMetadataV3 {\n    ...TextOnlyMetadataV3Fields\n  }\n}": types.AnyPublicationMetadataFieldsFragmentDoc,
+    "fragment AnyPublicationMetadataFields on PublicationMetadata {\n  ... on VideoMetadataV3 {\n    ...VideoMetadataV3Fields\n  }\n  ... on ArticleMetadataV3 {\n    ...ArticleMetadataV3Fields\n  }\n  ... on AudioMetadataV3 {\n    ...AudioMetadataV3Fields\n  }\n  ... on ImageMetadataV3 {\n    ...ImageMetadataV3Fields\n  }\n  ... on LinkMetadataV3 {\n    ...LinkMetadataV3Fields\n  }\n  ... on LiveStreamMetadataV3 {\n    ...LiveStreamMetadataV3Fields\n  }\n  ... on MintMetadataV3 {\n    ...MintMetadataV3Fields\n  }\n  ... on TextOnlyMetadataV3 {\n    ...TextOnlyMetadataV3Fields\n  }\n  ... on CheckingInMetadataV3 {\n    ...CheckingInMetadataV3Fields\n  }\n}": types.AnyPublicationMetadataFieldsFragmentDoc,
     "fragment CommentBaseFields on Comment {\n  __typename\n  id\n  publishedOn {\n    id\n  }\n  isHidden\n  momoka {\n    proof\n  }\n  txHash\n  createdAt\n  by {\n    ...ProfileFields\n  }\n  stats {\n    ...PublicationStatsFields\n  }\n  operations {\n    ...PublicationOperationFields\n  }\n  metadata {\n    ...AnyPublicationMetadataFields\n  }\n  openActionModules {\n    ...OpenActionModulesFields\n  }\n  root {\n    ...PostFields\n  }\n}": types.CommentBaseFieldsFragmentDoc,
     "fragment CommentFields on Comment {\n  ...CommentBaseFields\n  commentOn {\n    ...PrimaryPublicationFields\n  }\n}": types.CommentFieldsFragmentDoc,
     "fragment Erc20Fields on Asset {\n  ... on Erc20 {\n    name\n    symbol\n    decimals\n    contract {\n      ...NetworkAddressFields\n    }\n  }\n}": types.Erc20FieldsFragmentDoc,
@@ -34,6 +34,7 @@ const documents = {
     "fragment ProfileMetadataFields on ProfileMetadata {\n  displayName\n  bio\n  rawURI\n  picture {\n    ... on ImageSet {\n      ...ImageSetFields\n    }\n    ... on NftImage {\n      image {\n        ...ImageSetFields\n      }\n    }\n  }\n  coverPicture {\n    ...ImageSetFields\n  }\n  attributes {\n    ...MetadataAttributeFields\n  }\n}": types.ProfileMetadataFieldsFragmentDoc,
     "fragment ProfileOperationsFields on ProfileOperations {\n  id\n  isBlockedByMe {\n    value\n  }\n  isFollowedByMe {\n    value\n  }\n  isFollowingMe {\n    value\n  }\n  canBlock\n  canUnblock\n  canFollow\n  canUnfollow\n}": types.ProfileOperationsFieldsFragmentDoc,
     "fragment ProfileStatsFields on ProfileStats {\n  id\n  followers\n  following\n  comments\n  posts\n  mirrors\n  quotes\n  publications\n  reactions\n  reacted\n  countOpenActions\n  lensClassifierScore\n}": types.ProfileStatsFieldsFragmentDoc,
+    "fragment ArticleMetadataV3Fields on ArticleMetadataV3 {\n  __typename\n  id\n  content\n  tags\n  attributes {\n    ...MetadataAttributeFields\n  }\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n}": types.ArticleMetadataV3FieldsFragmentDoc,
     "fragment AudioMetadataV3Fields on AudioMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  asset {\n    ...PublicationMetadataMediaAudioFields\n  }\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  title\n  content\n}": types.AudioMetadataV3FieldsFragmentDoc,
     "fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {\n  __typename\n  id\n  location\n  tags\n  geographic {\n    latitude\n    longitude\n  }\n  attributes {\n    ...MetadataAttributeFields\n  }\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  content\n}": types.CheckingInMetadataV3FieldsFragmentDoc,
     "fragment ImageMetadataV3Fields on ImageMetadataV3 {\n  __typename\n  id\n  rawURI\n  tags\n  contentWarning\n  attributes {\n    ...MetadataAttributeFields\n  }\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n  asset {\n    ...PublicationMetadataMediaImageFields\n  }\n  title\n  content\n}": types.ImageMetadataV3FieldsFragmentDoc,
@@ -134,7 +135,7 @@ export function graphql(source: "fragment AmountFields on Amount {\n  asset {\n 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "fragment AnyPublicationMetadataFields on PublicationMetadata {\n  ... on VideoMetadataV3 {\n    ...VideoMetadataV3Fields\n  }\n  ... on AudioMetadataV3 {\n    ...AudioMetadataV3Fields\n  }\n  ... on ImageMetadataV3 {\n    ...ImageMetadataV3Fields\n  }\n  ... on LinkMetadataV3 {\n    ...LinkMetadataV3Fields\n  }\n  ... on LiveStreamMetadataV3 {\n    ...LiveStreamMetadataV3Fields\n  }\n  ... on MintMetadataV3 {\n    ...MintMetadataV3Fields\n  }\n  ... on TextOnlyMetadataV3 {\n    ...TextOnlyMetadataV3Fields\n  }\n}"): typeof import('./graphql').AnyPublicationMetadataFieldsFragmentDoc;
+export function graphql(source: "fragment AnyPublicationMetadataFields on PublicationMetadata {\n  ... on VideoMetadataV3 {\n    ...VideoMetadataV3Fields\n  }\n  ... on ArticleMetadataV3 {\n    ...ArticleMetadataV3Fields\n  }\n  ... on AudioMetadataV3 {\n    ...AudioMetadataV3Fields\n  }\n  ... on ImageMetadataV3 {\n    ...ImageMetadataV3Fields\n  }\n  ... on LinkMetadataV3 {\n    ...LinkMetadataV3Fields\n  }\n  ... on LiveStreamMetadataV3 {\n    ...LiveStreamMetadataV3Fields\n  }\n  ... on MintMetadataV3 {\n    ...MintMetadataV3Fields\n  }\n  ... on TextOnlyMetadataV3 {\n    ...TextOnlyMetadataV3Fields\n  }\n  ... on CheckingInMetadataV3 {\n    ...CheckingInMetadataV3Fields\n  }\n}"): typeof import('./graphql').AnyPublicationMetadataFieldsFragmentDoc;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -203,6 +204,10 @@ export function graphql(source: "fragment ProfileOperationsFields on ProfileOper
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "fragment ProfileStatsFields on ProfileStats {\n  id\n  followers\n  following\n  comments\n  posts\n  mirrors\n  quotes\n  publications\n  reactions\n  reacted\n  countOpenActions\n  lensClassifierScore\n}"): typeof import('./graphql').ProfileStatsFieldsFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment ArticleMetadataV3Fields on ArticleMetadataV3 {\n  __typename\n  id\n  content\n  tags\n  attributes {\n    ...MetadataAttributeFields\n  }\n  attachments {\n    ...PublicationMetadataMediaFields\n  }\n}"): typeof import('./graphql').ArticleMetadataV3FieldsFragmentDoc;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

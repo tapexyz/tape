@@ -1,0 +1,12 @@
+fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
+  __typename
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}

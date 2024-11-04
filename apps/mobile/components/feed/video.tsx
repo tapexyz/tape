@@ -17,12 +17,12 @@ export const MVideo = ({ uri, cover }: MVideoProps) => {
     <View style={{ flex: 1 }}>
       <Video
         source={{ uri }}
-        posterSource={{ uri: cover }}
-        style={styles.asset}
-        useNativeControls={false}
-        resizeMode={ResizeMode.COVER}
-        shouldPlay={!isMuted}
         isMuted={isMuted}
+        style={styles.asset}
+        shouldPlay={!isMuted}
+        useNativeControls={false}
+        posterSource={{ uri: cover }}
+        resizeMode={ResizeMode.COVER}
       />
       <View
         style={{

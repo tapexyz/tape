@@ -3,6 +3,10 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
     ...VideoMetadataV3Fields
   }
 
+  ... on ArticleMetadataV3 {
+    ...ArticleMetadataV3Fields
+  }
+
   ... on AudioMetadataV3 {
     ...AudioMetadataV3Fields
   }
@@ -25,5 +29,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
 
   ... on TextOnlyMetadataV3 {
     ...TextOnlyMetadataV3Fields
+  }
+
+  ... on CheckingInMetadataV3 {
+    ...CheckingInMetadataV3Fields
   }
 }

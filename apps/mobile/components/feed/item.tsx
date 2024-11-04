@@ -1,4 +1,5 @@
 import { Colors } from "@/helpers/colors";
+import { getShortHandTime } from "@/helpers/date-time";
 import normalizeFont, { windowHeight } from "@/helpers/normalize-font";
 import {
   getProfile,
@@ -44,7 +45,7 @@ export const Item = ({ item }: { item: FeedItem }) => {
                 color: Colors.textSecondary
               }}
             >
-              /{profileMeta.slug}
+              /{profileMeta.slug} ⋅ {getShortHandTime(publication.createdAt)}
             </Text>
           </View>
         </View>

@@ -6196,14 +6196,20 @@ export type AmountFieldsFragment = { __typename?: 'Amount', value: string, asset
     & { ' $fragmentRefs'?: { 'Erc20FieldsFragment': Erc20FieldsFragment } }
   ) } & { ' $fragmentName'?: 'AmountFieldsFragment' };
 
-type AnyPublicationMetadataFields_ArticleMetadataV3_Fragment = { __typename?: 'ArticleMetadataV3' } & { ' $fragmentName'?: 'AnyPublicationMetadataFields_ArticleMetadataV3_Fragment' };
+type AnyPublicationMetadataFields_ArticleMetadataV3_Fragment = (
+  { __typename?: 'ArticleMetadataV3' }
+  & { ' $fragmentRefs'?: { 'ArticleMetadataV3FieldsFragment': ArticleMetadataV3FieldsFragment } }
+) & { ' $fragmentName'?: 'AnyPublicationMetadataFields_ArticleMetadataV3_Fragment' };
 
 type AnyPublicationMetadataFields_AudioMetadataV3_Fragment = (
   { __typename?: 'AudioMetadataV3' }
   & { ' $fragmentRefs'?: { 'AudioMetadataV3FieldsFragment': AudioMetadataV3FieldsFragment } }
 ) & { ' $fragmentName'?: 'AnyPublicationMetadataFields_AudioMetadataV3_Fragment' };
 
-type AnyPublicationMetadataFields_CheckingInMetadataV3_Fragment = { __typename?: 'CheckingInMetadataV3' } & { ' $fragmentName'?: 'AnyPublicationMetadataFields_CheckingInMetadataV3_Fragment' };
+type AnyPublicationMetadataFields_CheckingInMetadataV3_Fragment = (
+  { __typename?: 'CheckingInMetadataV3' }
+  & { ' $fragmentRefs'?: { 'CheckingInMetadataV3FieldsFragment': CheckingInMetadataV3FieldsFragment } }
+) & { ' $fragmentName'?: 'AnyPublicationMetadataFields_CheckingInMetadataV3_Fragment' };
 
 type AnyPublicationMetadataFields_EmbedMetadataV3_Fragment = { __typename?: 'EmbedMetadataV3' } & { ' $fragmentName'?: 'AnyPublicationMetadataFields_EmbedMetadataV3_Fragment' };
 
@@ -6631,6 +6637,20 @@ export type ProfileMetadataFieldsFragment = { __typename?: 'ProfileMetadata', di
 export type ProfileOperationsFieldsFragment = { __typename?: 'ProfileOperations', id: any, canBlock: boolean, canUnblock: boolean, canFollow: TriStateValue, canUnfollow: boolean, isBlockedByMe: { __typename?: 'OptimisticStatusResult', value: boolean }, isFollowedByMe: { __typename?: 'OptimisticStatusResult', value: boolean }, isFollowingMe: { __typename?: 'OptimisticStatusResult', value: boolean } } & { ' $fragmentName'?: 'ProfileOperationsFieldsFragment' };
 
 export type ProfileStatsFieldsFragment = { __typename?: 'ProfileStats', id: any, followers: number, following: number, comments: number, posts: number, mirrors: number, quotes: number, publications: number, reactions: number, reacted: number, countOpenActions: number, lensClassifierScore?: number | null } & { ' $fragmentName'?: 'ProfileStatsFieldsFragment' };
+
+export type ArticleMetadataV3FieldsFragment = { __typename: 'ArticleMetadataV3', id: string, content: any, tags?: Array<string> | null, attributes?: Array<(
+    { __typename?: 'MetadataAttribute' }
+    & { ' $fragmentRefs'?: { 'MetadataAttributeFieldsFragment': MetadataAttributeFieldsFragment } }
+  )> | null, attachments?: Array<(
+    { __typename?: 'PublicationMetadataMediaAudio' }
+    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment } }
+  ) | (
+    { __typename?: 'PublicationMetadataMediaImage' }
+    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment } }
+  ) | (
+    { __typename?: 'PublicationMetadataMediaVideo' }
+    & { ' $fragmentRefs'?: { 'PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment': PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment } }
+  )> | null } & { ' $fragmentName'?: 'ArticleMetadataV3FieldsFragment' };
 
 export type AudioMetadataV3FieldsFragment = { __typename: 'AudioMetadataV3', id: string, rawURI: any, tags?: Array<string> | null, contentWarning?: PublicationContentWarningType | null, title: string, content: any, attributes?: Array<(
     { __typename?: 'MetadataAttribute' }
@@ -8371,6 +8391,86 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
   }
   duration
 }`, {"fragmentName":"VideoMetadataV3Fields"}) as unknown as TypedDocumentString<VideoMetadataV3FieldsFragment, unknown>;
+export const ArticleMetadataV3FieldsFragmentDoc = new TypedDocumentString(`
+    fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
+  __typename
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
+    fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}
+fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
+  audio {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+  cover {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+  duration
+}
+fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
+  ... on PublicationMetadataMediaVideo {
+    __typename
+    ...PublicationMetadataMediaVideoFields
+  }
+  ... on PublicationMetadataMediaImage {
+    __typename
+    ...PublicationMetadataMediaImageFields
+  }
+  ... on PublicationMetadataMediaAudio {
+    __typename
+    ...PublicationMetadataMediaAudioFields
+  }
+}
+fragment PublicationMetadataMediaImageFields on PublicationMetadataMediaImage {
+  image {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+}
+fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
+  video {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+  cover {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+  duration
+}`, {"fragmentName":"ArticleMetadataV3Fields"}) as unknown as TypedDocumentString<ArticleMetadataV3FieldsFragment, unknown>;
 export const AudioMetadataV3FieldsFragmentDoc = new TypedDocumentString(`
     fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
@@ -8814,10 +8914,98 @@ export const TextOnlyMetadataV3FieldsFragmentDoc = new TypedDocumentString(`
   key
   value
 }`, {"fragmentName":"TextOnlyMetadataV3Fields"}) as unknown as TypedDocumentString<TextOnlyMetadataV3FieldsFragment, unknown>;
+export const CheckingInMetadataV3FieldsFragmentDoc = new TypedDocumentString(`
+    fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  __typename
+  id
+  location
+  tags
+  geographic {
+    latitude
+    longitude
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}
+    fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}
+fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
+  audio {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+  cover {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+  duration
+}
+fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
+  ... on PublicationMetadataMediaVideo {
+    __typename
+    ...PublicationMetadataMediaVideoFields
+  }
+  ... on PublicationMetadataMediaImage {
+    __typename
+    ...PublicationMetadataMediaImageFields
+  }
+  ... on PublicationMetadataMediaAudio {
+    __typename
+    ...PublicationMetadataMediaAudioFields
+  }
+}
+fragment PublicationMetadataMediaImageFields on PublicationMetadataMediaImage {
+  image {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+}
+fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
+  video {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+  cover {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+  duration
+}`, {"fragmentName":"CheckingInMetadataV3Fields"}) as unknown as TypedDocumentString<CheckingInMetadataV3FieldsFragment, unknown>;
 export const AnyPublicationMetadataFieldsFragmentDoc = new TypedDocumentString(`
     fragment AnyPublicationMetadataFields on PublicationMetadata {
   ... on VideoMetadataV3 {
     ...VideoMetadataV3Fields
+  }
+  ... on ArticleMetadataV3 {
+    ...ArticleMetadataV3Fields
   }
   ... on AudioMetadataV3 {
     ...AudioMetadataV3Fields
@@ -8837,11 +9025,26 @@ export const AnyPublicationMetadataFieldsFragmentDoc = new TypedDocumentString(`
   ... on TextOnlyMetadataV3 {
     ...TextOnlyMetadataV3Fields
   }
+  ... on CheckingInMetadataV3 {
+    ...CheckingInMetadataV3Fields
+  }
 }
     fragment MetadataAttributeFields on MetadataAttribute {
   type
   key
   value
+}
+fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
+  __typename
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
 }
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
@@ -8859,6 +9062,23 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
     ...PublicationMetadataMediaFields
   }
   title
+  content
+}
+fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  __typename
+  id
+  location
+  tags
+  geographic {
+    latitude
+    longitude
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
@@ -9203,6 +9423,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   ... on VideoMetadataV3 {
     ...VideoMetadataV3Fields
   }
+  ... on ArticleMetadataV3 {
+    ...ArticleMetadataV3Fields
+  }
   ... on AudioMetadataV3 {
     ...AudioMetadataV3Fields
   }
@@ -9220,6 +9443,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
   ... on TextOnlyMetadataV3 {
     ...TextOnlyMetadataV3Fields
+  }
+  ... on CheckingInMetadataV3 {
+    ...CheckingInMetadataV3Fields
   }
 }
 fragment Erc20Fields on Asset {
@@ -9500,6 +9726,18 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
+fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
+  __typename
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -9516,6 +9754,23 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
     ...PublicationMetadataMediaFields
   }
   title
+  content
+}
+fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  __typename
+  id
+  location
+  tags
+  geographic {
+    latitude
+    longitude
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
@@ -9757,6 +10012,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   ... on VideoMetadataV3 {
     ...VideoMetadataV3Fields
   }
+  ... on ArticleMetadataV3 {
+    ...ArticleMetadataV3Fields
+  }
   ... on AudioMetadataV3 {
     ...AudioMetadataV3Fields
   }
@@ -9774,6 +10032,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
   ... on TextOnlyMetadataV3 {
     ...TextOnlyMetadataV3Fields
+  }
+  ... on CheckingInMetadataV3 {
+    ...CheckingInMetadataV3Fields
   }
 }
 fragment Erc20Fields on Asset {
@@ -10082,6 +10343,18 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
+fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
+  __typename
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -10098,6 +10371,23 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
     ...PublicationMetadataMediaFields
   }
   title
+  content
+}
+fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  __typename
+  id
+  location
+  tags
+  geographic {
+    latitude
+    longitude
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
@@ -10336,6 +10626,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   ... on VideoMetadataV3 {
     ...VideoMetadataV3Fields
   }
+  ... on ArticleMetadataV3 {
+    ...ArticleMetadataV3Fields
+  }
   ... on AudioMetadataV3 {
     ...AudioMetadataV3Fields
   }
@@ -10353,6 +10646,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
   ... on TextOnlyMetadataV3 {
     ...TextOnlyMetadataV3Fields
+  }
+  ... on CheckingInMetadataV3 {
+    ...CheckingInMetadataV3Fields
   }
 }
 fragment Erc20Fields on Asset {
@@ -10633,6 +10929,18 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
+fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
+  __typename
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -10649,6 +10957,23 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
     ...PublicationMetadataMediaFields
   }
   title
+  content
+}
+fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  __typename
+  id
+  location
+  tags
+  geographic {
+    latitude
+    longitude
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
@@ -10870,6 +11195,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   ... on VideoMetadataV3 {
     ...VideoMetadataV3Fields
   }
+  ... on ArticleMetadataV3 {
+    ...ArticleMetadataV3Fields
+  }
   ... on AudioMetadataV3 {
     ...AudioMetadataV3Fields
   }
@@ -10887,6 +11215,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
   ... on TextOnlyMetadataV3 {
     ...TextOnlyMetadataV3Fields
+  }
+  ... on CheckingInMetadataV3 {
+    ...CheckingInMetadataV3Fields
   }
 }
 fragment CommentBaseFields on Comment {
@@ -11226,6 +11557,18 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
+fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
+  __typename
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -11242,6 +11585,23 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
     ...PublicationMetadataMediaFields
   }
   title
+  content
+}
+fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  __typename
+  id
+  location
+  tags
+  geographic {
+    latitude
+    longitude
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
@@ -11486,6 +11846,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   ... on VideoMetadataV3 {
     ...VideoMetadataV3Fields
   }
+  ... on ArticleMetadataV3 {
+    ...ArticleMetadataV3Fields
+  }
   ... on AudioMetadataV3 {
     ...AudioMetadataV3Fields
   }
@@ -11503,6 +11866,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
   ... on TextOnlyMetadataV3 {
     ...TextOnlyMetadataV3Fields
+  }
+  ... on CheckingInMetadataV3 {
+    ...CheckingInMetadataV3Fields
   }
 }
 fragment CommentBaseFields on Comment {
@@ -11853,6 +12219,18 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
+fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
+  __typename
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -11869,6 +12247,23 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
     ...PublicationMetadataMediaFields
   }
   title
+  content
+}
+fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  __typename
+  id
+  location
+  tags
+  geographic {
+    latitude
+    longitude
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
@@ -12122,6 +12517,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   ... on VideoMetadataV3 {
     ...VideoMetadataV3Fields
   }
+  ... on ArticleMetadataV3 {
+    ...ArticleMetadataV3Fields
+  }
   ... on AudioMetadataV3 {
     ...AudioMetadataV3Fields
   }
@@ -12139,6 +12537,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
   ... on TextOnlyMetadataV3 {
     ...TextOnlyMetadataV3Fields
+  }
+  ... on CheckingInMetadataV3 {
+    ...CheckingInMetadataV3Fields
   }
 }
 fragment CommentBaseFields on Comment {
@@ -12489,6 +12890,18 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
+fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
+  __typename
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -12505,6 +12918,23 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
     ...PublicationMetadataMediaFields
   }
   title
+  content
+}
+fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  __typename
+  id
+  location
+  tags
+  geographic {
+    latitude
+    longitude
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
@@ -12732,91 +13162,6 @@ fragment QuoteBaseFields on Quote {
     ...OpenActionModulesFields
   }
 }`, {"fragmentName":"MirrorFields"}) as unknown as TypedDocumentString<MirrorFieldsFragment, unknown>;
-export const CheckingInMetadataV3FieldsFragmentDoc = new TypedDocumentString(`
-    fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
-  __typename
-  id
-  location
-  tags
-  geographic {
-    latitude
-    longitude
-  }
-  attributes {
-    ...MetadataAttributeFields
-  }
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  content
-}
-    fragment MetadataAttributeFields on MetadataAttribute {
-  type
-  key
-  value
-}
-fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
-  audio {
-    raw {
-      uri
-    }
-    optimized {
-      uri
-    }
-  }
-  cover {
-    raw {
-      uri
-    }
-    optimized {
-      uri
-    }
-  }
-  duration
-}
-fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
-  ... on PublicationMetadataMediaVideo {
-    __typename
-    ...PublicationMetadataMediaVideoFields
-  }
-  ... on PublicationMetadataMediaImage {
-    __typename
-    ...PublicationMetadataMediaImageFields
-  }
-  ... on PublicationMetadataMediaAudio {
-    __typename
-    ...PublicationMetadataMediaAudioFields
-  }
-}
-fragment PublicationMetadataMediaImageFields on PublicationMetadataMediaImage {
-  image {
-    raw {
-      uri
-    }
-    optimized {
-      uri
-    }
-  }
-}
-fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
-  video {
-    raw {
-      uri
-    }
-    optimized {
-      uri
-    }
-  }
-  cover {
-    raw {
-      uri
-    }
-    optimized {
-      uri
-    }
-  }
-  duration
-}`, {"fragmentName":"CheckingInMetadataV3Fields"}) as unknown as TypedDocumentString<CheckingInMetadataV3FieldsFragment, unknown>;
 export const QuoteFieldsFragmentDoc = new TypedDocumentString(`
     fragment QuoteFields on Quote {
   ...QuoteBaseFields
@@ -12833,6 +13178,9 @@ export const QuoteFieldsFragmentDoc = new TypedDocumentString(`
 fragment AnyPublicationMetadataFields on PublicationMetadata {
   ... on VideoMetadataV3 {
     ...VideoMetadataV3Fields
+  }
+  ... on ArticleMetadataV3 {
+    ...ArticleMetadataV3Fields
   }
   ... on AudioMetadataV3 {
     ...AudioMetadataV3Fields
@@ -12851,6 +13199,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
   ... on TextOnlyMetadataV3 {
     ...TextOnlyMetadataV3Fields
+  }
+  ... on CheckingInMetadataV3 {
+    ...CheckingInMetadataV3Fields
   }
 }
 fragment CommentBaseFields on Comment {
@@ -13201,6 +13552,18 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
+fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
+  __typename
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -13217,6 +13580,23 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
     ...PublicationMetadataMediaFields
   }
   title
+  content
+}
+fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  __typename
+  id
+  location
+  tags
+  geographic {
+    latitude
+    longitude
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
@@ -14590,6 +14970,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   ... on VideoMetadataV3 {
     ...VideoMetadataV3Fields
   }
+  ... on ArticleMetadataV3 {
+    ...ArticleMetadataV3Fields
+  }
   ... on AudioMetadataV3 {
     ...AudioMetadataV3Fields
   }
@@ -14607,6 +14990,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
   ... on TextOnlyMetadataV3 {
     ...TextOnlyMetadataV3Fields
+  }
+  ... on CheckingInMetadataV3 {
+    ...CheckingInMetadataV3Fields
   }
 }
 fragment CommentBaseFields on Comment {
@@ -14957,6 +15343,18 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
+fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
+  __typename
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -14973,6 +15371,23 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
     ...PublicationMetadataMediaFields
   }
   title
+  content
+}
+fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  __typename
+  id
+  location
+  tags
+  geographic {
+    latitude
+    longitude
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
@@ -15232,6 +15647,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   ... on VideoMetadataV3 {
     ...VideoMetadataV3Fields
   }
+  ... on ArticleMetadataV3 {
+    ...ArticleMetadataV3Fields
+  }
   ... on AudioMetadataV3 {
     ...AudioMetadataV3Fields
   }
@@ -15249,6 +15667,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
   ... on TextOnlyMetadataV3 {
     ...TextOnlyMetadataV3Fields
+  }
+  ... on CheckingInMetadataV3 {
+    ...CheckingInMetadataV3Fields
   }
 }
 fragment CommentBaseFields on Comment {
@@ -15599,6 +16020,18 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
+fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
+  __typename
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -15615,6 +16048,23 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
     ...PublicationMetadataMediaFields
   }
   title
+  content
+}
+fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  __typename
+  id
+  location
+  tags
+  geographic {
+    latitude
+    longitude
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
@@ -16315,6 +16765,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   ... on VideoMetadataV3 {
     ...VideoMetadataV3Fields
   }
+  ... on ArticleMetadataV3 {
+    ...ArticleMetadataV3Fields
+  }
   ... on AudioMetadataV3 {
     ...AudioMetadataV3Fields
   }
@@ -16332,6 +16785,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
   ... on TextOnlyMetadataV3 {
     ...TextOnlyMetadataV3Fields
+  }
+  ... on CheckingInMetadataV3 {
+    ...CheckingInMetadataV3Fields
   }
 }
 fragment CommentBaseFields on Comment {
@@ -16688,6 +17144,18 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
+fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
+  __typename
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -16704,6 +17172,23 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
     ...PublicationMetadataMediaFields
   }
   title
+  content
+}
+fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  __typename
+  id
+  location
+  tags
+  geographic {
+    latitude
+    longitude
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
@@ -17260,6 +17745,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   ... on VideoMetadataV3 {
     ...VideoMetadataV3Fields
   }
+  ... on ArticleMetadataV3 {
+    ...ArticleMetadataV3Fields
+  }
   ... on AudioMetadataV3 {
     ...AudioMetadataV3Fields
   }
@@ -17277,6 +17765,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
   ... on TextOnlyMetadataV3 {
     ...TextOnlyMetadataV3Fields
+  }
+  ... on CheckingInMetadataV3 {
+    ...CheckingInMetadataV3Fields
   }
 }
 fragment CommentBaseFields on Comment {
@@ -17648,6 +18139,18 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
+fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
+  __typename
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -17664,6 +18167,23 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
     ...PublicationMetadataMediaFields
   }
   title
+  content
+}
+fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  __typename
+  id
+  location
+  tags
+  geographic {
+    latitude
+    longitude
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
@@ -17947,6 +18467,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   ... on VideoMetadataV3 {
     ...VideoMetadataV3Fields
   }
+  ... on ArticleMetadataV3 {
+    ...ArticleMetadataV3Fields
+  }
   ... on AudioMetadataV3 {
     ...AudioMetadataV3Fields
   }
@@ -17964,6 +18487,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
   ... on TextOnlyMetadataV3 {
     ...TextOnlyMetadataV3Fields
+  }
+  ... on CheckingInMetadataV3 {
+    ...CheckingInMetadataV3Fields
   }
 }
 fragment CommentBaseFields on Comment {
@@ -18320,6 +18846,18 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
+fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
+  __typename
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -18336,6 +18874,23 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
     ...PublicationMetadataMediaFields
   }
   title
+  content
+}
+fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  __typename
+  id
+  location
+  tags
+  geographic {
+    latitude
+    longitude
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
@@ -19218,6 +19773,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   ... on VideoMetadataV3 {
     ...VideoMetadataV3Fields
   }
+  ... on ArticleMetadataV3 {
+    ...ArticleMetadataV3Fields
+  }
   ... on AudioMetadataV3 {
     ...AudioMetadataV3Fields
   }
@@ -19235,6 +19793,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
   ... on TextOnlyMetadataV3 {
     ...TextOnlyMetadataV3Fields
+  }
+  ... on CheckingInMetadataV3 {
+    ...CheckingInMetadataV3Fields
   }
 }
 fragment CommentBaseFields on Comment {
@@ -19606,6 +20167,18 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
+fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
+  __typename
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -19622,6 +20195,23 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
     ...PublicationMetadataMediaFields
   }
   title
+  content
+}
+fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  __typename
+  id
+  location
+  tags
+  geographic {
+    latitude
+    longitude
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
@@ -19882,6 +20472,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   ... on VideoMetadataV3 {
     ...VideoMetadataV3Fields
   }
+  ... on ArticleMetadataV3 {
+    ...ArticleMetadataV3Fields
+  }
   ... on AudioMetadataV3 {
     ...AudioMetadataV3Fields
   }
@@ -19899,6 +20492,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
   ... on TextOnlyMetadataV3 {
     ...TextOnlyMetadataV3Fields
+  }
+  ... on CheckingInMetadataV3 {
+    ...CheckingInMetadataV3Fields
   }
 }
 fragment CommentBaseFields on Comment {
@@ -20270,6 +20866,18 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
+fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
+  __typename
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -20286,6 +20894,23 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
     ...PublicationMetadataMediaFields
   }
   title
+  content
+}
+fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  __typename
+  id
+  location
+  tags
+  geographic {
+    latitude
+    longitude
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
@@ -20551,6 +21176,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   ... on VideoMetadataV3 {
     ...VideoMetadataV3Fields
   }
+  ... on ArticleMetadataV3 {
+    ...ArticleMetadataV3Fields
+  }
   ... on AudioMetadataV3 {
     ...AudioMetadataV3Fields
   }
@@ -20568,6 +21196,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
   ... on TextOnlyMetadataV3 {
     ...TextOnlyMetadataV3Fields
+  }
+  ... on CheckingInMetadataV3 {
+    ...CheckingInMetadataV3Fields
   }
 }
 fragment CommentBaseFields on Comment {
@@ -20939,6 +21570,18 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
+fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
+  __typename
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -20955,6 +21598,23 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
     ...PublicationMetadataMediaFields
   }
   title
+  content
+}
+fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  __typename
+  id
+  location
+  tags
+  geographic {
+    latitude
+    longitude
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
@@ -21222,6 +21882,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   ... on VideoMetadataV3 {
     ...VideoMetadataV3Fields
   }
+  ... on ArticleMetadataV3 {
+    ...ArticleMetadataV3Fields
+  }
   ... on AudioMetadataV3 {
     ...AudioMetadataV3Fields
   }
@@ -21239,6 +21902,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
   ... on TextOnlyMetadataV3 {
     ...TextOnlyMetadataV3Fields
+  }
+  ... on CheckingInMetadataV3 {
+    ...CheckingInMetadataV3Fields
   }
 }
 fragment CommentBaseFields on Comment {
@@ -21610,6 +22276,18 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
+fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
+  __typename
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -21626,6 +22304,23 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
     ...PublicationMetadataMediaFields
   }
   title
+  content
+}
+fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  __typename
+  id
+  location
+  tags
+  geographic {
+    latitude
+    longitude
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
@@ -21895,6 +22590,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   ... on VideoMetadataV3 {
     ...VideoMetadataV3Fields
   }
+  ... on ArticleMetadataV3 {
+    ...ArticleMetadataV3Fields
+  }
   ... on AudioMetadataV3 {
     ...AudioMetadataV3Fields
   }
@@ -21912,6 +22610,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
   ... on TextOnlyMetadataV3 {
     ...TextOnlyMetadataV3Fields
+  }
+  ... on CheckingInMetadataV3 {
+    ...CheckingInMetadataV3Fields
   }
 }
 fragment CommentBaseFields on Comment {
@@ -22283,6 +22984,18 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
+fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
+  __typename
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -22299,6 +23012,23 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
     ...PublicationMetadataMediaFields
   }
   title
+  content
+}
+fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  __typename
+  id
+  location
+  tags
+  geographic {
+    latitude
+    longitude
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
@@ -22747,6 +23477,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   ... on VideoMetadataV3 {
     ...VideoMetadataV3Fields
   }
+  ... on ArticleMetadataV3 {
+    ...ArticleMetadataV3Fields
+  }
   ... on AudioMetadataV3 {
     ...AudioMetadataV3Fields
   }
@@ -22764,6 +23497,9 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
   }
   ... on TextOnlyMetadataV3 {
     ...TextOnlyMetadataV3Fields
+  }
+  ... on CheckingInMetadataV3 {
+    ...CheckingInMetadataV3Fields
   }
 }
 fragment CommentBaseFields on Comment {
@@ -23120,6 +23856,18 @@ fragment ProfileStatsFields on ProfileStats {
   countOpenActions
   lensClassifierScore
 }
+fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
+  __typename
+  id
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   __typename
   id
@@ -23136,6 +23884,23 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
     ...PublicationMetadataMediaFields
   }
   title
+  content
+}
+fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  __typename
+  id
+  location
+  tags
+  geographic {
+    latitude
+    longitude
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
   content
 }
 fragment ImageMetadataV3Fields on ImageMetadataV3 {

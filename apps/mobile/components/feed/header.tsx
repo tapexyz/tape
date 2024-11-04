@@ -22,9 +22,9 @@ export const Header = () => {
         style={{ width: 35, height: 35 }}
       >
         <Image
-          source={{ uri: getProfilePicture(profile) }}
-          style={StyleSheet.absoluteFillObject}
           contentFit="cover"
+          style={StyleSheet.absoluteFillObject}
+          source={{ uri: getProfilePicture(profile) }}
         />
       </AnimatedButton>
     </View>
