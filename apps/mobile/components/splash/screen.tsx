@@ -1,9 +1,6 @@
 import { Colors } from "@/helpers/colors";
 import normalizeFont from "@/helpers/normalize-font";
 import { useAuthStore } from "@/store/auth";
-import { useActiveProfile } from "@/store/profile";
-import { useQuery } from "@tanstack/react-query";
-import type { Profile } from "@tape.xyz/lens/gql";
 import { BlurView } from "expo-blur";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
@@ -15,20 +12,10 @@ import Animated, {
 } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Background } from "./background";
-import { profileByIdQuery } from "./queries";
 import { Scan } from "./scan";
 
 export const SplashScreen = () => {
   const id = useAuthStore((state) => state.session.id);
-  const authenticated = useAuthStore((state) => state.authenticated);
-  const setActiveProfile = useActiveProfile((state) => state.setProfile);
-
-  const { data } = useQuery(profileByIdQuery(id));
-  useEffect(() => {
-    if (data?.profile) {
-      setActiveProfile(data.profile as Profile);
-    }
-  }, [data]);
 
   const opacity = useSharedValue(0);
   useEffect(() => {
@@ -47,11 +34,11 @@ export const SplashScreen = () => {
             style={[
               opacityStyle,
               styles.container,
-              { justifyContent: authenticated ? "center" : "space-between" }
+              { justifyContent: id ? "center" : "space-between" }
             ]}
           >
             <Text style={styles.tape}>tape</Text>
-            {!authenticated && <Scan />}
+            {!id && <Scan />}
           </Animated.View>
         </SafeAreaView>
       </BlurView>

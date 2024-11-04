@@ -52,7 +52,7 @@ export const Media = ({ meta }: MediaProps) => {
   const feedItemWidth = useDevice((state) => state.feedItemWidth);
   const setFeedItemWidth = useDevice((state) => state.setFeedItemWidth);
 
-  const images = [
+  const all = [
     ...(asset?.uri ? [{ uri: asset.uri }] : []),
     ...(attachments || [])
   ].filter(
@@ -83,6 +83,8 @@ export const Media = ({ meta }: MediaProps) => {
           contentFit="cover"
           style={styles.image}
           contentPosition="top"
+          cachePolicy="memory-disk"
+          transition={100}
           source={{ uri: item.uri }}
         />
       </View>
@@ -90,7 +92,7 @@ export const Media = ({ meta }: MediaProps) => {
     [feedItemWidth]
   );
 
-  if (!images.length) return null;
+  if (!all.length) return null;
 
   return (
     <View
@@ -98,9 +100,9 @@ export const Media = ({ meta }: MediaProps) => {
       onLayout={!feedItemWidth ? handleLayout : undefined}
     >
       <FlashList
+        data={all}
         horizontal
         pagingEnabled
-        data={images}
         bounces={false}
         renderItem={renderItem}
         decelerationRate="fast"
@@ -110,11 +112,11 @@ export const Media = ({ meta }: MediaProps) => {
         viewabilityConfig={{
           itemVisiblePercentThreshold: 50
         }}
-        estimatedItemSize={images.length}
+        estimatedItemSize={all.length}
       />
-      {images.length > 1 && (
+      {all.length > 1 && (
         <View style={styles.pagination}>
-          {images.map(({ uri }, index) => (
+          {all.map(({ uri }, index) => (
             <PaginationDot key={uri} index={index} activeIndex={activeIndex} />
           ))}
         </View>

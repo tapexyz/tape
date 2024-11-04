@@ -2,9 +2,11 @@ import { Colors } from "@/helpers/colors";
 import { Image } from "expo-image";
 import type { PropsWithChildren } from "react";
 import { useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import Animated, {
   Easing,
+  FadeOut,
+  FadeIn,
   useAnimatedStyle,
   useSharedValue,
   withTiming
@@ -27,7 +29,11 @@ export const Background = ({ children }: PropsWithChildren) => {
   }));
 
   return (
-    <View style={styles.container}>
+    <Animated.View
+      entering={FadeIn.duration(200)}
+      exiting={FadeOut.duration(200)}
+      style={styles.container}
+    >
       <AnimatedExpoImage
         style={[{ width: 400, height: 400, marginTop: -300 }, animatedStyle]}
         source={require("../../assets/images/splash-el.png")}
@@ -41,7 +47,7 @@ export const Background = ({ children }: PropsWithChildren) => {
         transition={500}
       />
       {children}
-    </View>
+    </Animated.View>
   );
 };
 

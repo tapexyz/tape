@@ -9,7 +9,6 @@ export const profileByIdQuery = (forProfileId: string | null) => {
       execute(ProfileDocument, {
         request: { forProfileId }
       }),
-    enabled: Boolean(forProfileId),
-    gcTime: 0
+    enabled: Boolean(forProfileId)
   });
 };

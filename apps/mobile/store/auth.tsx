@@ -9,7 +9,7 @@ type Session = {
 
 type AuthState = {
   session: Session;
-  authenticated: boolean;
+  hydrated: boolean;
   signOut: () => Promise<void>;
   hydrate: () => Promise<void>;
   getSession: () => Promise<Session>;
@@ -44,12 +44,12 @@ export const useAuthStore = create<AuthState>()((set) => ({
     accessToken: null,
     refreshToken: null
   },
-  authenticated: false,
+  hydrated: false,
   signIn: async (session: Session) => {
     const { accessToken, refreshToken, id } = session;
     set({
       session,
-      authenticated: Boolean(accessToken) && Boolean(refreshToken)
+      hydrated: Boolean(accessToken) && Boolean(refreshToken)
     });
     await setStorageItemAsync("id", id);
     await setStorageItemAsync("accessToken", accessToken);
@@ -61,8 +61,7 @@ export const useAuthStore = create<AuthState>()((set) => ({
         id: null,
         accessToken: null,
         refreshToken: null
-      },
-      authenticated: false
+      }
     });
     await setStorageItemAsync("id", null);
     await setStorageItemAsync("accessToken", null);
@@ -82,7 +81,7 @@ export const useAuthStore = create<AuthState>()((set) => ({
 
     set({
       session: { id, accessToken, refreshToken },
-      authenticated: Boolean(accessToken) && Boolean(refreshToken)
+      hydrated: true
     });
   }
 }));
