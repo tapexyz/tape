@@ -4,5 +4,6 @@ export const Colors = {
   white: "#ffffff",
   black: "#000000",
   buttonText: "#000000",
-  background: "#F5F5F5"
+  background: "#F5F5F5",
+  border: "#22222220"
 };

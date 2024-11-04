@@ -20,7 +20,7 @@ export default function FeedLayout() {
       <Slot />
       <View style={{ position: "absolute", bottom, right: 10, zIndex: 1 }}>
         <AnimatedButton onPress={() => {}} style={{ width: 55, height: 55 }}>
-          <Octicons name="plus" size={22} color="black" />
+          <Octicons name="plus" size={25} color="black" />
         </AnimatedButton>
       </View>
     </Animated.View>

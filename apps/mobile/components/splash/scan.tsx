@@ -1,5 +1,4 @@
 import { Colors } from "@/helpers/colors";
-import { haptic } from "@/helpers/haptics";
 import normalizeFont from "@/helpers/normalize-font";
 import { refreshAuthTokens } from "@/helpers/refresh";
 import { useAuthStore } from "@/store/auth";
@@ -32,7 +31,6 @@ export const Scan = () => {
     } else {
       Linking.openSettings();
     }
-    haptic();
   };
 
   const signUserIn = async () => {
@@ -86,7 +84,6 @@ export const Scan = () => {
             if (profile) {
               signUserIn();
             }
-            haptic();
           }}
         >
           <Text style={styles.buttonText}>

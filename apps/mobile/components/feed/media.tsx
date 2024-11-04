@@ -1,3 +1,4 @@
+import { Colors } from "@/helpers/colors";
 import { useDevice } from "@/store/device";
 import { FlashList } from "@shopify/flash-list";
 import type { TapePublicationData } from "@tape.xyz/lens/custom-types";
@@ -11,6 +12,7 @@ import Animated, {
   interpolate,
   type SharedValue
 } from "react-native-reanimated";
+import { MVideo } from "./video";
 
 interface MediaProps {
   meta: TapePublicationData;
@@ -53,7 +55,9 @@ export const Media = ({ meta }: MediaProps) => {
   const setFeedItemWidth = useDevice((state) => state.setFeedItemWidth);
 
   const all = [
-    ...(asset?.uri ? [{ uri: asset.uri }] : []),
+    ...(asset?.uri
+      ? [{ uri: asset.uri, type: asset.type, cover: asset.cover }]
+      : []),
     ...(attachments || [])
   ].filter(
     (image, index, self) => index === self.findIndex((t) => t.uri === image.uri)
@@ -77,16 +81,20 @@ export const Media = ({ meta }: MediaProps) => {
   );
 
   const renderItem = useCallback(
-    ({ item }: { item: { uri: string } }) => (
+    ({ item }: { item: { uri: string; type: string; cover?: string } }) => (
       <View style={{ width: feedItemWidth, height: CONTAINER_HEIGHT }}>
-        <Image
-          contentFit="cover"
-          style={styles.image}
-          contentPosition="top"
-          cachePolicy="memory-disk"
-          transition={100}
-          source={{ uri: item.uri }}
-        />
+        {item.type === "VIDEO" ? (
+          <MVideo uri={item.uri} cover={item.cover ?? ""} />
+        ) : (
+          <Image
+            transition={100}
+            contentFit="cover"
+            style={styles.asset}
+            contentPosition="top"
+            cachePolicy="memory-disk"
+            source={{ uri: item.uri }}
+          />
+        )}
       </View>
     ),
     [feedItemWidth]
@@ -109,6 +117,7 @@ export const Media = ({ meta }: MediaProps) => {
         snapToInterval={feedItemWidth}
         showsHorizontalScrollIndicator={false}
         onViewableItemsChanged={onViewableItemsChanged}
+        removeClippedSubviews
         viewabilityConfig={{
           itemVisiblePercentThreshold: 50
         }}
@@ -132,9 +141,10 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     overflow: "hidden"
   },
-  image: {
+  asset: {
     width: "100%",
-    height: "100%"
+    height: "100%",
+    backgroundColor: Colors.background
   },
   pagination: {
     flexDirection: "row",
