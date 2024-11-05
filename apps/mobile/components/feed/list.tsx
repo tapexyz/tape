@@ -1,3 +1,4 @@
+import { Colors } from "@/helpers/colors";
 import { windowHeight } from "@/helpers/normalize-font";
 import { useAuthStore } from "@/store/auth";
 import { FlashList } from "@shopify/flash-list";
@@ -19,7 +20,7 @@ export const List = () => {
   ) as FeedItem[];
 
   if (isLoading) {
-    return <ActivityIndicator style={{ flex: 1 }} />;
+    return <ActivityIndicator style={{ flex: 1 }} color={Colors.black} />;
   }
 
   return (
@@ -35,9 +36,9 @@ export const List = () => {
         disableIntervalMomentum
         snapToInterval={height}
         estimatedItemSize={height}
+        onEndReachedThreshold={0.8}
         onRefresh={() => refetch()}
         ListHeaderComponent={Header}
-        onEndReachedThreshold={0.8}
         showsVerticalScrollIndicator={false}
         getItemType={({ root }) => root.__typename}
         renderItem={({ item }) => <Item item={item} />}

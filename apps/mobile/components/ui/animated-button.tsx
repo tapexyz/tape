@@ -17,7 +17,7 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
 }) => {
   return (
     <TouchableOpacity
-      activeOpacity={0.8}
+      activeOpacity={0.6}
       onPress={() => {
         onPress();
         haptic();
