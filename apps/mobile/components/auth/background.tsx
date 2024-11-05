@@ -37,11 +37,11 @@ export const Background = ({ children }: PropsWithChildren) => {
     >
       <Animated.Image
         style={[{ width: 400, height: 400, marginTop: -300 }, animatedStyle]}
-        source={require("../../assets/images/splash-el.png")}
+        source={require("../../assets/images/auth-el.png")}
       />
       <Animated.Image
         style={[{ width: 400, height: 400, marginBottom: -300 }, animatedStyle]}
-        source={require("../../assets/images/splash-el.png")}
+        source={require("../../assets/images/auth-el.png")}
       />
       {children}
     </Animated.View>

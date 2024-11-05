@@ -14,7 +14,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Background } from "./background";
 import { Scan } from "./scan";
 
-export const SplashScreen = () => {
+export const AuthScreen = () => {
   const id = useAuthStore((state) => state.session.id);
 
   const opacity = useSharedValue(0);
@@ -30,7 +30,7 @@ export const SplashScreen = () => {
 
   return (
     <Background>
-      <StatusBar style="dark" key="splash" />
+      <StatusBar style="dark" key="auth" />
       <BlurView tint="light" style={styles.blurView} intensity={100}>
         <SafeAreaView style={{ flex: 1 }}>
           <Animated.View

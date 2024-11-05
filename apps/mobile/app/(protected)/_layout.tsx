@@ -1,5 +1,5 @@
-import { profileByIdQuery } from "@/components/splash/queries";
-import { SplashScreen } from "@/components/splash/screen";
+import { profileByIdQuery } from "@/components/auth/queries";
+import { AuthScreen } from "@/components/auth/screen";
 import { useAuthStore } from "@/store/auth";
 import { useActiveProfile } from "@/store/profile";
 import { useQuery } from "@tanstack/react-query";
@@ -30,7 +30,7 @@ export default function RootLayout() {
   }
 
   if (!id) {
-    return <SplashScreen />;
+    return <AuthScreen />;
   }
 
   return (
