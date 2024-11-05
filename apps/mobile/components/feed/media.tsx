@@ -105,7 +105,6 @@ export const Media = ({ meta }: MediaProps) => {
             transition={100}
             contentFit="cover"
             style={styles.asset}
-            contentPosition="top"
             source={{ uri: item.uri }}
           />
         )}
