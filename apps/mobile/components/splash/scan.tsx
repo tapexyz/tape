@@ -23,6 +23,7 @@ export const Scan = () => {
   const [readyToScan, setReadyToScan] = useState(false);
   const [profileId, setProfileId] = useState("");
   const [tempToken, setTempToken] = useState("");
+  const [cameraKey, setCameraKey] = useState(0);
 
   const [permission, requestPermission] = useCameraPermissions();
 
@@ -30,9 +31,12 @@ export const Scan = () => {
   const { data } = useQuery(profileByIdQuery(profileId));
   const profile = data?.profile as Profile;
 
-  const requestPermissionHandler = () => {
+  const requestPermissionHandler = async () => {
     if (permission?.canAskAgain) {
-      requestPermission();
+      const result = await requestPermission();
+      if (result.granted) {
+        setCameraKey((prev) => prev + 1);
+      }
     } else {
       Linking.openSettings();
     }
@@ -58,6 +62,7 @@ export const Scan = () => {
             <ProfileView profile={profile} />
           ) : (
             <CameraView
+              key={cameraKey}
               style={styles.camera}
               onBarcodeScanned={({ data }) => {
                 const id = parseJwt(data)?.id;
@@ -113,7 +118,8 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     justifyContent: "center",
     alignItems: "center",
-    overflow: "hidden"
+    overflow: "hidden",
+    backgroundColor: Colors.black
   },
   text: {
     fontFamily: "Sans",
