@@ -7,6 +7,7 @@
     "owner": "sasicodes",
     "icon": "./assets/images/icon.png",
     "scheme": "tape",
+    "newArchEnabled": true,
     "userInterfaceStyle": "automatic",
     "ios": {
       "supportsTablet": true,
@@ -27,7 +28,6 @@
       "package": "xyz.tape.mobile"
     },
     "plugins": [
-      "expo-router",
       [
         "expo-camera",
         {
@@ -35,7 +35,10 @@
           "microphonePermission": "Let’s capture your voice! Grant mic access.",
           "recordAudioAndroid": true
         }
-      ]
+      ],
+      "expo-font",
+      "expo-router",
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true

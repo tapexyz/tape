@@ -1,18 +1,15 @@
 import { Colors } from "@/helpers/colors";
-import { Image } from "expo-image";
 import type { PropsWithChildren } from "react";
 import { useEffect } from "react";
 import { StyleSheet } from "react-native";
 import Animated, {
-  Easing,
   FadeOut,
   FadeIn,
   useAnimatedStyle,
   useSharedValue,
-  withTiming
+  withTiming,
+  Easing
 } from "react-native-reanimated";
-
-const AnimatedExpoImage = Animated.createAnimatedComponent(Image);
 
 export const Background = ({ children }: PropsWithChildren) => {
   const rotation = useSharedValue(0);
@@ -24,9 +21,13 @@ export const Background = ({ children }: PropsWithChildren) => {
     });
   }, []);
 
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ rotate: `${rotation.value % 360}deg` }]
-  }));
+  const animatedStyle = useAnimatedStyle(() => {
+    "worklet";
+    const rotationValue = rotation.value % 360;
+    return {
+      transform: [{ rotate: `${rotationValue}deg` }]
+    };
+  });
 
   return (
     <Animated.View
@@ -34,17 +35,13 @@ export const Background = ({ children }: PropsWithChildren) => {
       exiting={FadeOut.duration(200)}
       style={styles.container}
     >
-      <AnimatedExpoImage
+      <Animated.Image
         style={[{ width: 400, height: 400, marginTop: -300 }, animatedStyle]}
         source={require("../../assets/images/splash-el.png")}
-        contentFit="contain"
-        transition={500}
       />
-      <AnimatedExpoImage
+      <Animated.Image
         style={[{ width: 400, height: 400, marginBottom: -300 }, animatedStyle]}
         source={require("../../assets/images/splash-el.png")}
-        contentFit="contain"
-        transition={500}
       />
       {children}
     </Animated.View>

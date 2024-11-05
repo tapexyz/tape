@@ -65,20 +65,35 @@ export const Instructions = () => {
     );
   }, []);
 
-  const animatedStyle1 = useAnimatedStyle(() => ({
-    opacity: opacity1.value,
-    transform: [{ translateY: translateY1.value }]
-  }));
+  const animatedStyle1 = useAnimatedStyle(() => {
+    "worklet";
+    const opacity = opacity1.value;
+    const translateY = translateY1.value;
+    return {
+      opacity,
+      transform: [{ translateY }]
+    };
+  });
 
-  const animatedStyle2 = useAnimatedStyle(() => ({
-    opacity: opacity2.value,
-    transform: [{ translateY: translateY2.value }]
-  }));
+  const animatedStyle2 = useAnimatedStyle(() => {
+    "worklet";
+    const opacity = opacity2.value;
+    const translateY = translateY2.value;
+    return {
+      opacity,
+      transform: [{ translateY }]
+    };
+  });
 
-  const animatedStyle3 = useAnimatedStyle(() => ({
-    opacity: opacity3.value,
-    transform: [{ translateY: translateY3.value }]
-  }));
+  const animatedStyle3 = useAnimatedStyle(() => {
+    "worklet";
+    const opacity = opacity3.value;
+    const translateY = translateY3.value;
+    return {
+      opacity,
+      transform: [{ translateY }]
+    };
+  });
 
   return (
     <View style={{ gap: 10, marginTop: -20 }}>

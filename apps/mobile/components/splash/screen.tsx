@@ -21,9 +21,12 @@ export const SplashScreen = () => {
   useEffect(() => {
     opacity.value = withTiming(1, { duration: 200 });
   }, []);
-  const opacityStyle = useAnimatedStyle(() => ({
-    opacity: opacity.value
-  }));
+  const opacityStyle = useAnimatedStyle(() => {
+    "worklet";
+    return {
+      opacity: opacity.value
+    };
+  });
 
   return (
     <Background>

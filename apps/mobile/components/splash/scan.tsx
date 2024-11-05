@@ -6,9 +6,14 @@ import { useQuery } from "@tanstack/react-query";
 import { parseJwt } from "@tape.xyz/generic";
 import type { Profile } from "@tape.xyz/lens/gql";
 import { CameraView, useCameraPermissions } from "expo-camera";
-import { PressableOpacity } from "pressto";
 import { useState } from "react";
-import { Linking, StyleSheet, Text, View } from "react-native";
+import {
+  Linking,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
+} from "react-native";
 import { AnimatedButton } from "../ui/animated-button";
 import { Instructions } from "./instructions";
 import { ProfileView } from "./profile";
@@ -64,9 +69,12 @@ export const Scan = () => {
               {permission?.granted ? (
                 <Text style={styles.text}>Show QR</Text>
               ) : (
-                <PressableOpacity onPress={requestPermissionHandler}>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={requestPermissionHandler}
+                >
                   <Text style={styles.text}>Allow camera?</Text>
-                </PressableOpacity>
+                </TouchableOpacity>
               )}
             </CameraView>
           )

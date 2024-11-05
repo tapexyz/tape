@@ -1,7 +1,12 @@
 import { Colors } from "@/helpers/colors";
 import normalizeFont from "@/helpers/normalize-font";
-import { COMMON_REGEX } from "@tape.xyz/constants";
+import {
+  COMMON_REGEX,
+  LEGACY_LENS_HANDLE_SUFFIX,
+  LENS_NAMESPACE_PREFIX
+} from "@tape.xyz/constants";
 import { Text, type TextStyle } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import Markdown, {
   MarkdownIt,
   type RenderRules
@@ -74,11 +79,16 @@ const rules: RenderRules = {
   link: ({ attributes, key }, children) => {
     return (
       <ExternalLink href={attributes.href} key={key}>
-        <Text style={{ textDecorationStyle: "dotted" }}>{children}</Text>
+        <TouchableOpacity activeOpacity={0.6}>
+          <Text style={{ textDecorationStyle: "dotted" }}>{children}</Text>
+        </TouchableOpacity>
       </ExternalLink>
     );
   },
   mention: ({ key, content }) => {
+    const handle = content
+      .replace(LENS_NAMESPACE_PREFIX, "")
+      .replace(LEGACY_LENS_HANDLE_SUFFIX, "");
     return (
       <Text
         key={key}
@@ -87,8 +97,9 @@ const rules: RenderRules = {
           fontSize: normalizeFont(14),
           color: Colors.link
         }}
+        suppressHighlighting
       >
-        {content}
+        {handle}
       </Text>
     );
   }

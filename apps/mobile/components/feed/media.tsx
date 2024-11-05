@@ -26,6 +26,7 @@ type PaginationDotProps = {
 
 const PaginationDot = ({ index, activeIndex }: PaginationDotProps) => {
   const animatedStyle = useAnimatedStyle(() => {
+    "worklet";
     const inputRange = [index - 1, index, index + 1];
     const outputRange = [0.8, 1.2, 0.8];
     const opacityRange = [0.5, 1, 0.5];
@@ -83,6 +84,7 @@ export const Media = ({ meta }: MediaProps) => {
 
   const onViewableItemsChanged = useCallback(
     ({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
+      "worklet";
       if (
         viewableItems.length > 0 &&
         typeof viewableItems[0]?.index === "number"
