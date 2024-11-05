@@ -11,7 +11,6 @@
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
       "backgroundColor": "#f5f5f5"
     },
     "ios": {
