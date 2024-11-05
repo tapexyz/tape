@@ -16,7 +16,7 @@ export default function FeedLayout() {
       <Slot />
       <View style={{ position: "absolute", bottom, right: 10, zIndex: 1 }}>
         <Link href="/create" asChild>
-          <AnimatedButton onPress={() => {}} style={{ width: 55, height: 55 }}>
+          <AnimatedButton style={{ width: 55, height: 55 }}>
             <Octicons name="plus" size={25} color="black" />
           </AnimatedButton>
         </Link>

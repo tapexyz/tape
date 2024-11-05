@@ -1,11 +1,12 @@
 import "react-native-reanimated";
 import { rqClient, rqPersister } from "@/components/providers/react-query";
+import { useAuthStore } from "@/store/auth";
 import { useReactQueryDevTools } from "@dev-plugins/react-query";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import { useFonts } from "expo-font";
 import { Slot } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NetInfoProvider } from "../components/providers/net-info";
@@ -21,16 +22,18 @@ export default function Layout() {
     SansB: require("../assets/fonts/sans-b.ttf"),
     Serif: require("../assets/fonts/serif.ttf")
   });
+  const hydrate = useAuthStore((state) => state.hydrate);
 
-  const hideSplashScreen = useCallback(async () => {
-    if (fontLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontLoaded]);
+  const hideSplash = async () => {
+    await SplashScreen.hideAsync();
+  };
 
   useEffect(() => {
-    hideSplashScreen();
-  }, [hideSplashScreen]);
+    if (fontLoaded) {
+      hydrate();
+      hideSplash();
+    }
+  }, [fontLoaded]);
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>

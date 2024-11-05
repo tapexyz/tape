@@ -30,11 +30,7 @@ export const Background = ({ children }: PropsWithChildren) => {
   });
 
   return (
-    <Animated.View
-      entering={FadeIn.duration(200)}
-      exiting={FadeOut.duration(200)}
-      style={styles.container}
-    >
+    <Animated.View entering={FadeIn} exiting={FadeOut} style={styles.container}>
       <Animated.Image
         style={[{ width: 400, height: 400, marginTop: -300 }, animatedStyle]}
         source={require("../../assets/images/auth-el.png")}

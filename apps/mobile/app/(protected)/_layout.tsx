@@ -10,7 +10,6 @@ import "react-native-reanimated";
 
 export default function RootLayout() {
   const id = useAuthStore((state) => state.session.id);
-  const hydrate = useAuthStore((state) => state.hydrate);
   const hydrated = useAuthStore((state) => state.hydrated);
   const setActiveProfile = useActiveProfile((state) => state.setProfile);
 
@@ -20,10 +19,6 @@ export default function RootLayout() {
       setActiveProfile(data.profile as Profile);
     }
   }, [data]);
-
-  useEffect(() => {
-    hydrate();
-  }, []);
 
   if (!hydrated) {
     return null;

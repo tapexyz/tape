@@ -18,15 +18,15 @@ export const AuthScreen = () => {
   const id = useAuthStore((state) => state.session.id);
 
   const opacity = useSharedValue(0);
-  useEffect(() => {
-    opacity.value = withTiming(1, { duration: 200 });
-  }, []);
   const opacityStyle = useAnimatedStyle(() => {
     "worklet";
     return {
       opacity: opacity.value
     };
   });
+  useEffect(() => {
+    opacity.value = withTiming(1, { duration: 200 });
+  }, []);
 
   return (
     <Background>

@@ -5,8 +5,8 @@ import type React from "react";
 import { StyleSheet, TouchableOpacity, type ViewStyle } from "react-native";
 
 interface AnimatedButtonProps {
-  onPress: () => void;
   children: React.ReactNode;
+  onPress?: () => void;
   style?: ViewStyle;
 }
 
@@ -19,7 +19,7 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
     <TouchableOpacity
       activeOpacity={0.6}
       onPress={() => {
-        onPress();
+        onPress?.();
         haptic();
       }}
     >
