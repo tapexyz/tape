@@ -26,19 +26,21 @@ export const Scan = () => {
   const [cameraKey, setCameraKey] = useState(0);
 
   const [permission, requestPermission] = useCameraPermissions();
+  const hasPermission = permission?.granted;
 
   const signIn = useAuthStore((state) => state.signIn);
   const { data } = useQuery(profileByIdQuery(profileId));
   const profile = data?.profile as Profile;
 
   const requestPermissionHandler = async () => {
-    if (permission?.canAskAgain) {
-      const result = await requestPermission();
-      if (result.granted) {
-        setCameraKey((prev) => prev + 1);
-      }
-    } else {
+    if (hasPermission) return;
+    if (!permission?.canAskAgain) {
       Linking.openSettings();
+      return;
+    }
+    const { granted } = await requestPermission();
+    if (granted) {
+      setCameraKey((prev) => prev + 1);
     }
   };
 
@@ -71,7 +73,7 @@ export const Scan = () => {
                 setTempToken(data);
               }}
             >
-              {permission?.granted ? (
+              {hasPermission ? (
                 <Text style={styles.text}>Show QR</Text>
               ) : (
                 <TouchableOpacity
@@ -92,6 +94,7 @@ export const Scan = () => {
           style={{ padding: 15 }}
           onPress={() => {
             if (!readyToScan) {
+              requestPermissionHandler();
               setReadyToScan(true);
             }
             if (profile) {
