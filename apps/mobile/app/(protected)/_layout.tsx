@@ -4,20 +4,11 @@ import { useAuthStore } from "@/store/auth";
 import { useActiveProfile } from "@/store/profile";
 import { useQuery } from "@tanstack/react-query";
 import type { Profile } from "@tape.xyz/lens/gql";
-import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { useEffect } from "react";
 import "react-native-reanimated";
 
 export default function RootLayout() {
-  const [fontLoaded] = useFonts({
-    Sans: require("../../assets/fonts/sans.ttf"),
-    SansM: require("../../assets/fonts/sans-m.ttf"),
-    SansSB: require("../../assets/fonts/sans-sb.ttf"),
-    SansB: require("../../assets/fonts/sans-b.ttf"),
-    Serif: require("../../assets/fonts/serif.ttf")
-  });
-
   const id = useAuthStore((state) => state.session.id);
   const hydrate = useAuthStore((state) => state.hydrate);
   const hydrated = useAuthStore((state) => state.hydrated);
@@ -34,7 +25,7 @@ export default function RootLayout() {
     hydrate();
   }, []);
 
-  if (!fontLoaded || !hydrated) {
+  if (!hydrated) {
     return null;
   }
 

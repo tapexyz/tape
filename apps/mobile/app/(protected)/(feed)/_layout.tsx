@@ -11,11 +11,7 @@ export default function FeedLayout() {
   const { bottom } = useSafeAreaInsets();
 
   return (
-    <Animated.View
-      entering={FadeIn.duration(200)}
-      exiting={FadeOut.duration(200)}
-      style={{ flex: 1 }}
-    >
+    <Animated.View entering={FadeIn} exiting={FadeOut} style={{ flex: 1 }}>
       <EdgeGradient />
       <Slot />
       <View style={{ position: "absolute", bottom, right: 10, zIndex: 1 }}>
