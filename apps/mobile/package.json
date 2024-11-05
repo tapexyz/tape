@@ -24,6 +24,7 @@
     "expo-blur": "~14.0.1",
     "expo-camera": "^16.0.3",
     "expo-constants": "~17.0.2",
+    "expo-dev-client": "~5.0.0-preview.6",
     "expo-font": "~13.0.0",
     "expo-haptics": "^14.0.0",
     "expo-image": "2.0.0-preview.1",
