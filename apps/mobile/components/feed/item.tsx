@@ -5,13 +5,13 @@ import {
   getProfile,
   getProfilePicture,
   getPublication,
-  getPublicationData
+  getPublicationData,
+  trimNewLines
 } from "@tape.xyz/generic";
 import type { FeedItem } from "@tape.xyz/lens/gql";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
-import { RenderMarkdown } from "../ui/render-markdown";
 import { Media } from "./media";
 
 type ItemProps = {
@@ -25,19 +25,12 @@ export const Item = ({ item }: ItemProps) => {
   const meta = getPublicationData(publication.metadata);
   const profileMeta = getProfile(publication.by);
   const textOnly = publication.metadata.__typename === "TextOnlyMetadataV3";
-  const limit = textOnly ? 500 : 200;
-  const content = meta?.content ?? "";
-  const trimmedContent = `${content.slice(0, limit)}${content.length > limit ? "..." : ""}`;
+  const content = trimNewLines(meta?.content ?? "");
 
   return (
     <View style={[styles.itemContainer, { height }]}>
-      <Link
-        href={{
-          pathname: "/watch/[id]",
-          params: { id: publication.id }
-        }}
-      >
-        <View style={styles.itemContent}>
+      <View style={styles.itemContent}>
+        <View style={{ gap: 15 }}>
           <View style={styles.itemHeader}>
             <Image
               source={{ uri: getProfilePicture(publication.by) }}
@@ -66,12 +59,23 @@ export const Item = ({ item }: ItemProps) => {
             </View>
           </View>
           {meta && <Media meta={meta} />}
-          {trimmedContent && <RenderMarkdown content={trimmedContent} />}
-          <Text style={styles.itemText}>
-            {publication.__typename}/{publication.metadata.__typename}
-          </Text>
+          {content && (
+            <Link
+              href={{
+                pathname: "/watch/[id]",
+                params: { id: publication.id }
+              }}
+            >
+              <Text style={styles.itemText} numberOfLines={textOnly ? 20 : 10}>
+                {content}
+              </Text>
+            </Link>
+          )}
         </View>
-      </Link>
+        <Text style={styles.itemText}>
+          {publication.__typename}/{publication.metadata.__typename}
+        </Text>
+      </View>
     </View>
   );
 };
@@ -90,6 +94,8 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     borderRadius: 25,
+    flexDirection: "column",
+    justifyContent: "space-between",
     backgroundColor: Colors.white
   },
   itemText: {

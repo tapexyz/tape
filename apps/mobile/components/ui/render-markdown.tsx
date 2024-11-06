@@ -6,7 +6,6 @@ import {
   LENS_NAMESPACE_PREFIX
 } from "@tape.xyz/constants";
 import { Text, type TextStyle } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import Markdown, {
   MarkdownIt,
   type RenderRules
@@ -68,20 +67,11 @@ const style: Record<string, TextStyle> = {
   list_item: { color: Colors.text, paddingBottom: 10, fontFamily: "Sans" }
 };
 
-const rules: RenderRules = {
-  paragraph: (node, children, _parent, styles) => {
-    return (
-      <Text key={node.key} style={styles._VIEW_SAFE_paragraph}>
-        {children}
-      </Text>
-    );
-  },
+const commonRules: RenderRules = {
   link: ({ attributes, key }, children) => {
     return (
-      <ExternalLink href={attributes.href} key={key}>
-        <TouchableOpacity activeOpacity={0.6}>
-          <Text style={{ textDecorationStyle: "dotted" }}>{children}</Text>
-        </TouchableOpacity>
+      <ExternalLink key={key} href={attributes.href}>
+        <Text style={{ textDecorationStyle: "dotted" }}>{children}</Text>
       </ExternalLink>
     );
   },
@@ -105,7 +95,27 @@ const rules: RenderRules = {
   }
 };
 
-export const RenderMarkdown = ({ content }: { content: string }) => {
+type RenderMarkdownProps = {
+  content: string;
+  lines?: number;
+};
+
+export const RenderMarkdown = ({ content, lines }: RenderMarkdownProps) => {
+  const rules: RenderRules = {
+    ...commonRules,
+    paragraph: (node, children, _parent, styles) => {
+      return (
+        <Text
+          key={node.key}
+          style={styles._VIEW_SAFE_paragraph}
+          numberOfLines={lines}
+        >
+          {children}
+        </Text>
+      );
+    }
+  };
+
   return (
     <Markdown style={style} rules={rules} markdownit={markdownItInstance}>
       {content}
