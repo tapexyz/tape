@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     flexDirection: "column",
     justifyContent: "space-between",
+    overflow: "hidden",
     backgroundColor: Colors.white
   },
   itemText: {

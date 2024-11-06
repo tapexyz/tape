@@ -36,7 +36,7 @@ export * from "./functions/sanitizeProfileInterests";
 export * from "./functions/shortenAddress";
 export * from "./functions/splitNumber";
 export * from "./functions/trimify";
-export * from "./functions/trimNewLines";
+export * from "./functions/trim-new-lines";
 export * from "./functions/truncate";
 export * from "./functions/uploadToAr";
 export * from "./logger";
