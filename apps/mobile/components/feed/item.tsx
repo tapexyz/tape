@@ -26,7 +26,7 @@ const Publication = ({ publication }: { publication: PrimaryPublication }) => {
   const profileMeta = getProfile(publication.by);
   const content = meta?.content ?? "";
   return (
-    <View>
+    <View style={{ gap: 5 }}>
       <View style={styles.itemHeader}>
         <Image
           source={{ uri: getProfilePicture(publication.by) }}

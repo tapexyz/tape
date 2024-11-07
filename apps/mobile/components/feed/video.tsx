@@ -1,6 +1,6 @@
 import { Colors } from "@/helpers/colors";
-import Octicons from "@expo/vector-icons/Octicons";
 import { ResizeMode, Video } from "expo-av";
+import { Volume2, VolumeOff } from "lucide-react-native";
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { AnimatedButton } from "../ui/animated-button";
@@ -37,12 +37,15 @@ export const MVideo = ({ uri, cover }: MVideoProps) => {
           onPress={() => setIsMuted(!isMuted)}
           style={{ width: 30, height: 30 }}
         >
-          <Octicons
-            size={14}
-            name={isMuted ? "mute" : "unmute"}
-            color={Colors.textSecondary}
-            style={{ marginTop: 0.5 }}
-          />
+          {isMuted ? (
+            <VolumeOff size={14} color={Colors.textSecondary} />
+          ) : (
+            <Volume2
+              size={14}
+              color={Colors.textSecondary}
+              style={{ marginTop: 0.5 }}
+            />
+          )}
         </AnimatedButton>
       </View>
     </View>
