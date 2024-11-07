@@ -96,11 +96,11 @@ const commonRules: RenderRules = {
 };
 
 type RenderMarkdownProps = {
-  content: string;
+  children: React.ReactNode;
   lines?: number;
 };
 
-export const RenderMarkdown = ({ content, lines }: RenderMarkdownProps) => {
+export const RenderMarkdown = ({ children, lines }: RenderMarkdownProps) => {
   const rules: RenderRules = {
     ...commonRules,
     paragraph: (node, children, _parent, styles) => {
@@ -118,7 +118,7 @@ export const RenderMarkdown = ({ content, lines }: RenderMarkdownProps) => {
 
   return (
     <Markdown style={style} rules={rules} markdownit={markdownItInstance}>
-      {content}
+      {children}
     </Markdown>
   );
 };

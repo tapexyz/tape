@@ -5,9 +5,10 @@
   },
   "build": {
     "development": {
+      "developmentClient": false,
       "distribution": "internal",
       "ios": {
-        "credentialsSource": "local"
+        "credentialsSource": "remote"
       }
     },
     "preview": {

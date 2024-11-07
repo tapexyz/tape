@@ -11,7 +11,6 @@ export const feedQuery = (profileId: string) =>
           where: {
             feedEventItemTypes: [
               FeedEventItemType.Post,
-              FeedEventItemType.Mirror,
               FeedEventItemType.Quote
             ],
             for: profileId
