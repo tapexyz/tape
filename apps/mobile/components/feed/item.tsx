@@ -90,9 +90,9 @@ export const Item = ({ item }: ItemProps) => {
           )}
         </View>
 
-        <Text style={styles.itemText}>
+        {/* <Text style={styles.itemText}>
           {publication.__typename}/{publication.metadata.__typename}
-        </Text>
+        </Text> */}
 
         <Actions />
       </View>

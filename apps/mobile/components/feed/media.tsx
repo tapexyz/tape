@@ -59,8 +59,6 @@ const PaginationDot = ({ index, activeIndex }: PaginationDotProps) => {
   return <Animated.View style={[styles.dot, animatedStyle]} />;
 };
 
-const CONTAINER_HEIGHT = 250;
-
 export const Media = ({ meta }: MediaProps) => {
   const { attachments, asset } = meta;
 
@@ -97,7 +95,12 @@ export const Media = ({ meta }: MediaProps) => {
 
   const renderItem = useCallback(
     ({ item }: { item: { uri: string; type: string; cover?: string } }) => (
-      <View style={{ width: feedItemWidth, height: CONTAINER_HEIGHT }}>
+      <View
+        style={{
+          width: feedItemWidth,
+          height: item.type === "VIDEO" ? 200 : 270
+        }}
+      >
         {item.type === "VIDEO" ? (
           <MVideo uri={item.uri} cover={item.cover ?? FALLBACK_THUMBNAIL_URL} />
         ) : (
@@ -147,7 +150,6 @@ export const Media = ({ meta }: MediaProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: CONTAINER_HEIGHT,
     width: "100%",
     borderRadius: 15,
     overflow: "hidden"

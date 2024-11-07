@@ -1,6 +1,6 @@
 import { Colors } from "@/helpers/colors";
 import { Heart, MessageCircle, Repeat } from "lucide-react-native";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { AnimatedButton } from "../ui/animated-button";
 
 export const Actions = () => {
@@ -15,6 +15,9 @@ export const Actions = () => {
         </AnimatedButton>
         <AnimatedButton style={{ width: 40, height: 40 }}>
           <Repeat size={18} color="black" />
+        </AnimatedButton>
+        <AnimatedButton style={{ paddingHorizontal: 15, paddingVertical: 10 }}>
+          <Text>Mint</Text>
         </AnimatedButton>
       </View>
     </View>
@@ -34,6 +37,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "flex-end",
+    alignItems: "center",
     width: "100%",
     gap: 10
   }
