@@ -216,8 +216,8 @@ export const HEY_WEBSITE_URL = IS_MAINNET
   : "https://testnet.hey.xyz";
 
 // banners
-export const SHOW_GITCOIN_BANNER = true;
-export const GITCOIN_LIVE_ROUND = 22;
+export const SHOW_GITCOIN_BANNER = false;
+export const GITCOIN_LIVE_ROUND = 23;
 
 // cache control
 export const CACHE_CONTROL = {
