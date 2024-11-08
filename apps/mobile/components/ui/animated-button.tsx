@@ -8,11 +8,13 @@ interface AnimatedButtonProps {
   children: React.ReactNode;
   onPress?: () => void;
   style?: ViewStyle;
+  disabled?: boolean;
 }
 
 export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
   onPress,
   children,
+  disabled,
   style = {}
 }) => {
   return (
@@ -22,6 +24,7 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
         onPress?.();
         haptic();
       }}
+      disabled={disabled}
     >
       <LinearGradient
         colors={["#FFFFFF", "#E3E3E3"]}

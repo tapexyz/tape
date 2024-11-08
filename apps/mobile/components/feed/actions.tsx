@@ -8,13 +8,13 @@ export const Actions = () => {
     <View style={styles.wrapper}>
       <View style={styles.container}>
         <AnimatedButton style={{ width: 40, height: 40 }}>
-          <Heart size={18} color="black" />
+          <Heart size={18} color="black" strokeWidth={1.5} />
         </AnimatedButton>
         <AnimatedButton style={{ width: 40, height: 40 }}>
-          <MessageCircle size={18} color="black" />
+          <MessageCircle size={18} color="black" strokeWidth={1.5} />
         </AnimatedButton>
         <AnimatedButton style={{ width: 40, height: 40 }}>
-          <Repeat size={18} color="black" />
+          <Repeat size={18} color="black" strokeWidth={1.5} />
         </AnimatedButton>
         <AnimatedButton style={{ paddingHorizontal: 15, paddingVertical: 10 }}>
           <Text style={{ fontFamily: "SansM" }}>Mint</Text>

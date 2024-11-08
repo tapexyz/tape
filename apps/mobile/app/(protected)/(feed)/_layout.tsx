@@ -17,7 +17,7 @@ export default function FeedLayout() {
       <View style={{ position: "absolute", bottom, right: 10, zIndex: 1 }}>
         <Link href="/create" asChild>
           <AnimatedButton style={{ width: 55, height: 55 }}>
-            <Plus size={30} color="black" />
+            <Plus size={30} color="black" strokeWidth={1.5} />
           </AnimatedButton>
         </Link>
       </View>

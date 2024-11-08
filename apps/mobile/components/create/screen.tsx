@@ -1,8 +1,10 @@
 import { Colors } from "@/helpers/colors";
-import { CameraView, useCameraPermissions } from "expo-camera";
+import { windowHeight } from "@/helpers/normalize-font";
+import { type CameraType, CameraView, useCameraPermissions } from "expo-camera";
 import { router } from "expo-router";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
+  ActivityIndicator,
   Linking,
   SafeAreaView,
   StyleSheet,
@@ -12,12 +14,16 @@ import {
 } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { runOnJS } from "react-native-reanimated";
-import { Actions } from "./actions";
+import { Controls } from "./controls";
 
 export const CreateScreen = () => {
   const [permission, requestPermission] = useCameraPermissions();
   const hasPermission = permission?.granted;
+
+  const [zoom, setZoom] = useState(0);
+  const [isReady, setIsReady] = useState(false);
   const [cameraKey, setCameraKey] = useState(0);
+  const [facing, setFacing] = useState<CameraType>("back");
   const [camera, setCamera] = useState<CameraView | null>(null);
 
   const requestPermissionHandler = async () => {
@@ -31,24 +37,67 @@ export const CreateScreen = () => {
       setCameraKey((prev) => prev + 1);
     }
   };
+  const THRESHOLD = windowHeight * 0.125;
+  const SENSITIVITY = 1200;
 
-  const swipeGesture = Gesture.Pan().onEnd((event) => {
-    "worklet";
-    if (event.translationY > 100) {
-      runOnJS(router.back)();
-    }
-  });
+  const zoomSwipeGesture = useMemo(
+    () =>
+      Gesture.Pan()
+        .minDistance(0)
+        .activeOffsetY([-20, 20])
+        .onUpdate((event) => {
+          "worklet";
+          const startY = event.absoluteY;
+          if (startY > THRESHOLD && startY < windowHeight - THRESHOLD) {
+            const targetZoom = Math.min(
+              Math.max(event.translationY / -SENSITIVITY, 0),
+              1
+            );
+            const newZoom = zoom + (targetZoom - zoom) * 0.3;
+            runOnJS(setZoom)(newZoom);
+          }
+        }),
+    [zoom]
+  );
+
+  const swipeDownCloseGesture = useMemo(
+    () =>
+      Gesture.Pan().onEnd((event) => {
+        "worklet";
+        if (event.translationY > 100) {
+          runOnJS(router.back)();
+        }
+      }),
+    []
+  );
+
+  const toggleFacing = useCallback(() => {
+    setFacing((prev) => (prev === "back" ? "front" : "back"));
+  }, []);
+
+  const cameraProps = useMemo(
+    () => ({
+      zoom,
+      mode: "video" as const,
+      facing,
+      style: { flex: 1 },
+      videoStabilizationMode: "auto" as const,
+      onCameraReady: () => setIsReady(true)
+    }),
+    [zoom, facing]
+  );
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.black }}>
-      <GestureDetector gesture={swipeGesture}>
+      <GestureDetector gesture={swipeDownCloseGesture}>
         <CameraView
-          ref={(ref) => setCamera(ref)}
+          {...cameraProps}
           key={cameraKey}
-          style={{ flex: 1 }}
+          ref={(ref) => setCamera(ref)}
         >
           <SafeAreaView style={styles.overlay}>
             <View />
+            {!isReady && <ActivityIndicator color={Colors.white} />}
             {!hasPermission ? (
               <TouchableOpacity
                 activeOpacity={0.8}
@@ -57,7 +106,10 @@ export const CreateScreen = () => {
                 <Text style={styles.text}>Allow camera?</Text>
               </TouchableOpacity>
             ) : null}
-            {camera && <Actions camera={camera} />}
+            {camera && <Controls camera={camera} toggleFacing={toggleFacing} />}
+            <GestureDetector gesture={zoomSwipeGesture}>
+              <View style={styles.rightHitSlop} />
+            </GestureDetector>
           </SafeAreaView>
         </CameraView>
       </GestureDetector>
@@ -66,6 +118,14 @@ export const CreateScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  rightHitSlop: {
+    position: "absolute",
+    right: 0,
+    top: 0,
+    width: 20,
+    height: windowHeight,
+    zIndex: 100
+  },
   text: {
     fontFamily: "Sans",
     color: Colors.white

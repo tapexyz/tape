@@ -38,11 +38,16 @@ export const MVideo = ({ uri, cover }: MVideoProps) => {
           style={{ width: 30, height: 30 }}
         >
           {isMuted ? (
-            <VolumeOff size={14} color={Colors.textSecondary} />
+            <VolumeOff
+              size={14}
+              color={Colors.textSecondary}
+              strokeWidth={1.5}
+            />
           ) : (
             <Volume2
               size={14}
               color={Colors.textSecondary}
+              strokeWidth={1.5}
               style={{ marginTop: 0.5 }}
             />
           )}
