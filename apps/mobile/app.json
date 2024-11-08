@@ -40,6 +40,12 @@
           "recordAudioAndroid": true
         }
       ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Let Tape access your photos to let you share them with your friends."
+        }
+      ],
       "expo-font",
       "expo-router",
       "expo-secure-store"
