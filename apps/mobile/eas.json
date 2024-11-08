@@ -5,7 +5,6 @@
   },
   "build": {
     "development": {
-      "developmentClient": false,
       "distribution": "internal",
       "ios": {
         "credentialsSource": "remote"
