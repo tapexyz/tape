@@ -9,10 +9,7 @@ export const feedQuery = (profileId: string) =>
       execute(FeedDocument, {
         request: {
           where: {
-            feedEventItemTypes: [
-              FeedEventItemType.Post,
-              FeedEventItemType.Quote
-            ],
+            feedEventItemTypes: [FeedEventItemType.Post],
             for: profileId
           },
           cursor: pageParam

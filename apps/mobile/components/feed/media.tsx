@@ -98,7 +98,7 @@ export const Media = ({ meta }: MediaProps) => {
       <View
         style={{
           width: feedItemWidth,
-          height: item.type === "VIDEO" ? 200 : 270
+          height: 270
         }}
       >
         {item.type === "VIDEO" ? (

@@ -71,29 +71,11 @@ const Publication = ({ publication }: { publication: PrimaryPublication }) => {
 
 export const Item = ({ item }: ItemProps) => {
   const publication = getPublication(item.root);
-  const isQuote = publication.__typename === "Quote";
 
   return (
     <View style={[styles.itemContainer, { height }]}>
       <View style={styles.itemContent}>
-        <View
-          style={{
-            flexDirection: "column",
-            justifyContent: "space-between"
-          }}
-        >
-          <Publication publication={publication} />
-          {isQuote && (
-            <View style={styles.quoteContainer}>
-              <Publication publication={publication.quoteOn} />
-            </View>
-          )}
-        </View>
-
-        {/* <Text style={styles.itemText}>
-          {publication.__typename}/{publication.metadata.__typename}
-        </Text> */}
-
+        <Publication publication={publication} />
         <Actions />
       </View>
     </View>
@@ -101,13 +83,6 @@ export const Item = ({ item }: ItemProps) => {
 };
 
 const styles = StyleSheet.create({
-  quoteContainer: {
-    padding: 15,
-    borderColor: Colors.border,
-    borderWidth: 1,
-    borderStyle: "dashed",
-    borderRadius: 15
-  },
   itemContainer: {
     width: "100%",
     paddingVertical: 6,
