@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { runOnJS } from "react-native-reanimated";
-import { AnimatedButton } from "../ui/animated-button";
+import { Actions } from "./actions";
 
 export const CreateScreen = () => {
   const [permission, requestPermission] = useCameraPermissions();
@@ -32,21 +32,6 @@ export const CreateScreen = () => {
     }
   };
 
-  const takePhoto = async () => {
-    if (!camera) return;
-
-    try {
-      const photo = await camera.takePictureAsync({
-        quality: 1,
-        base64: false
-      });
-
-      console.info(photo?.uri);
-    } catch (err) {
-      console.error("Failed to take picture:", err);
-    }
-  };
-
   const swipeGesture = Gesture.Pan().onEnd((event) => {
     "worklet";
     if (event.translationY > 100) {
@@ -63,6 +48,7 @@ export const CreateScreen = () => {
           style={{ flex: 1 }}
         >
           <SafeAreaView style={styles.overlay}>
+            <View />
             {!hasPermission ? (
               <TouchableOpacity
                 activeOpacity={0.8}
@@ -71,30 +57,7 @@ export const CreateScreen = () => {
                 <Text style={styles.text}>Allow camera?</Text>
               </TouchableOpacity>
             ) : null}
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "center",
-                paddingHorizontal: 15,
-                paddingBottom: 15
-              }}
-            >
-              <AnimatedButton
-                style={{ width: 75, height: 75, padding: 5 }}
-                onPress={() => takePhoto()}
-              >
-                <View
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    borderRadius: 100,
-                    borderWidth: 2,
-                    borderColor: Colors.black,
-                    backgroundColor: Colors.white
-                  }}
-                />
-              </AnimatedButton>
-            </View>
+            {camera && <Actions camera={camera} />}
           </SafeAreaView>
         </CameraView>
       </GestureDetector>
@@ -110,7 +73,8 @@ const styles = StyleSheet.create({
   overlay: {
     flex: 1,
     flexDirection: "column",
-    justifyContent: "flex-end"
+    justifyContent: "space-between",
+    alignItems: "center"
   },
   closeButton: {
     width: 40,

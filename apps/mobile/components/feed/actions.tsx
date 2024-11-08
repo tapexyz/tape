@@ -17,7 +17,7 @@ export const Actions = () => {
           <Repeat size={18} color="black" />
         </AnimatedButton>
         <AnimatedButton style={{ paddingHorizontal: 15, paddingVertical: 10 }}>
-          <Text>Mint</Text>
+          <Text style={{ fontFamily: "SansM" }}>Mint</Text>
         </AnimatedButton>
       </View>
     </View>
