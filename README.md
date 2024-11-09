@@ -76,7 +76,7 @@ and visit http://localhost:4783
 
 ## 🤝 Contributors
 
-We love contributors! Feel free to contribute to this project but please read the [Contributing Guidelines](CONTRIBUTING.md) before opening an issue or PR so you understand the branching strategy and local development environment.
+We love contributors! Feel free to contribute to this project but please read the [Contributing Guidelines](https://github.com/tapexyz/tape/blob/0bc66629c6560ecf9cac4a8503be8619ff5eba27/.github/CONTRIBUTING.md) before opening an issue or PR so you understand the branching strategy and local development environment.
 
 <a href="https://github.com/tapexyz/tape/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=tapexyz/tape" />
