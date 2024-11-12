@@ -22,7 +22,7 @@
     "@vidstack/react": "^1.12.11",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "framer-motion": "^11.11.11",
+    "framer-motion": "^11.11.13",
     "react": "^18.3.1",
     "sonner": "^1.5.0",
     "tailwind-merge": "^2.5.3",
@@ -33,7 +33,7 @@
     "@tape.xyz/tsconfig": "workspace:*",
     "@types/react": "^18.3.12",
     "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.47",
+    "postcss": "^8.4.49",
     "typescript": "^5.6.3"
   }
 }
