@@ -24,7 +24,7 @@
     "dayjs": "^1.11.13",
     "emoji-mart": "^5.6.0",
     "filereader-stream": "^2.0.0",
-    "framer-motion": "^11.11.13",
+    "framer-motion": "^11.11.17",
     "graphql": "^16.9.0",
     "idb-keyval": "^6.2.1",
     "interweave": "^13.1.0",
@@ -42,8 +42,8 @@
     "react-use-websocket": "^4.9.0",
     "textarea-caret": "^3.1.0",
     "uuid": "^11.0.3",
-    "viem": "^2.21.44",
-    "wagmi": "^2.12.30",
+    "viem": "^2.21.45",
+    "wagmi": "^2.12.33",
     "zod": "^3.23.8",
     "zustand": "^5.0.1"
   },
@@ -64,7 +64,7 @@
     "@types/uuid": "^10.0.0",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.14",
+    "tailwindcss": "^3.4.15",
     "typescript": "^5.6.3"
   }
 }

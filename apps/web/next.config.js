@@ -8,7 +8,8 @@ const moduleExports = {
     "@tape.xyz/lens",
     "@tape.xyz/browser",
     "@tape.xyz/generic",
-    "@tape.xyz/ui"
+    "@tape.xyz/ui",
+    "react-use-websocket"
   ],
   reactStrictMode: process.env.NODE_ENV === "production",
   rewrites() {
