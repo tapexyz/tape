@@ -11,7 +11,7 @@ import {
 
 export const publicationQuery = (id: string) =>
   queryOptions({
-    queryKey: ["publication", id],
+    queryKey: ["post", id],
     queryFn: () =>
       execute(PublicationDocument, {
         request: {

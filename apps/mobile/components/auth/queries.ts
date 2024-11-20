@@ -4,7 +4,7 @@ import { ProfileDocument } from "@tape.xyz/lens/gql";
 
 export const profileByIdQuery = (forProfileId: string | null) => {
   return queryOptions({
-    queryKey: ["profile", forProfileId],
+    queryKey: ["account", forProfileId],
     queryFn: () =>
       execute(ProfileDocument, {
         request: { forProfileId }

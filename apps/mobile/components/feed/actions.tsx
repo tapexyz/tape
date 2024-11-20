@@ -1,4 +1,5 @@
 import { Colors } from "@/helpers/colors";
+import { LinearGradient } from "expo-linear-gradient";
 import { Heart, MessageCircle, Repeat } from "lucide-react-native";
 import { StyleSheet, Text, View } from "react-native";
 import { AnimatedButton } from "../ui/animated-button";
@@ -6,6 +7,12 @@ import { AnimatedButton } from "../ui/animated-button";
 export const Actions = () => {
   return (
     <View style={styles.wrapper}>
+      <View style={styles.fade}>
+        <LinearGradient
+          colors={["#FFFFFF00", "#FFFFFF"]}
+          style={StyleSheet.absoluteFillObject}
+        />
+      </View>
       <View style={styles.container}>
         <AnimatedButton style={{ width: 40, height: 40 }}>
           <Heart size={18} color="black" strokeWidth={1.5} />
@@ -25,6 +32,13 @@ export const Actions = () => {
 };
 
 const styles = StyleSheet.create({
+  fade: {
+    position: "absolute",
+    height: 15,
+    top: -15,
+    left: 0,
+    right: 0
+  },
   wrapper: {
     bottom: 0,
     left: 0,
