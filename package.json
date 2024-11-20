@@ -11,7 +11,6 @@
     "start": "pnpm -r --parallel run start",
     "build": "pnpm -r --parallel run build",
     "codegen": "pnpm -r --parallel run codegen",
-    "codegenv3": "pnpm -r --parallel run codegenv3",
     "prepare": "husky",
     "typecheck": "pnpm -r --parallel run typecheck",
     "biome:check": "biome check . && pnpm typecheck",

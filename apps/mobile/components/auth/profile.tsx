@@ -2,7 +2,7 @@ import normalizeFont from "@/helpers/normalize-font";
 import { getProfile } from "@tape.xyz/generic";
 
 import { getProfilePicture } from "@tape.xyz/generic";
-import type { Profile as ProfileType } from "@tape.xyz/lens/gql";
+import type { Profile as ProfileType } from "@tape.xyz/indexer";
 import { Image } from "expo-image";
 import { Text, View } from "react-native";
 

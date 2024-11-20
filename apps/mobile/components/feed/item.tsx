@@ -7,7 +7,7 @@ import {
   getPublication,
   getPublicationData
 } from "@tape.xyz/generic";
-import type { FeedItem, PrimaryPublication } from "@tape.xyz/lens/gql";
+import type { FeedItem, PrimaryPublication } from "@tape.xyz/indexer";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";

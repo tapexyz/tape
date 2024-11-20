@@ -4,7 +4,7 @@ import {
   getProfilePicture,
   getPublicationData
 } from "@tape.xyz/generic";
-import type { PrimaryPublication } from "@tape.xyz/lens/gql";
+import type { PrimaryPublication } from "@tape.xyz/indexer";
 import { Avatar, AvatarImage } from "@tape.xyz/winder";
 
 type Props = {

@@ -7,7 +7,7 @@ import {
   PublicationMetadataMainFocusType,
   PublicationsDocument,
   execute
-} from "@tape.xyz/lens/gql";
+} from "@tape.xyz/indexer";
 
 export const publicationQuery = (id: string) =>
   queryOptions({

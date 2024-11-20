@@ -10,7 +10,7 @@ import {
   ModExplorePublicationsDocument,
   PublicationMetadataMainFocusType,
   execute
-} from "@tape.xyz/lens/gql";
+} from "@tape.xyz/indexer";
 
 export const modExplorePublicationsQuery = infiniteQueryOptions({
   queryKey: ["mod-explore-publications"],

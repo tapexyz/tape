@@ -3,7 +3,7 @@ import { windowHeight } from "@/helpers/normalize-font";
 import { useAuthStore } from "@/store/auth";
 import { FlashList } from "@shopify/flash-list";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import type { FeedItem } from "@tape.xyz/lens/gql";
+import type { FeedItem } from "@tape.xyz/indexer";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { Header } from "./header";
 import { Item } from "./item";

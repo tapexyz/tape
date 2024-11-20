@@ -1,5 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import { PublicationDocument, execute } from "@tape.xyz/lens/gql";
+import { PublicationDocument, execute } from "@tape.xyz/indexer";
 
 export const publicationQuery = (id: string) =>
   queryOptions({

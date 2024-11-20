@@ -6,7 +6,7 @@ import {
   getProfileCoverPicture,
   getProfilePicture
 } from "@tape.xyz/generic";
-import type { Profile as ProfileType } from "@tape.xyz/lens/gql";
+import type { Profile as ProfileType } from "@tape.xyz/indexer";
 import {
   Avatar,
   AvatarImage,

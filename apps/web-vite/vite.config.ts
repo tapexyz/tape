@@ -59,7 +59,7 @@ export default defineConfig(({ mode }) => {
             virtual: ["react-virtuoso"],
             hooks: ["@uidotdev/usehooks"],
             idb: ["idb-keyval"],
-            lens: ["@tape.xyz/lens"],
+            indexer: ["@tape.xyz/indexer"],
             generic: ["@tape.xyz/generic"],
             tw: ["@tape.xyz/winder/src/tw"],
             icons: ["@tape.xyz/winder/src/icons"],

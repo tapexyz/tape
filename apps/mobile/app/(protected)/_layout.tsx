@@ -3,7 +3,7 @@ import { AuthScreen } from "@/components/auth/screen";
 import { useAuthStore } from "@/store/auth";
 import { useActiveProfile } from "@/store/profile";
 import { useQuery } from "@tanstack/react-query";
-import type { Profile } from "@tape.xyz/lens/gql";
+import type { Profile } from "@tape.xyz/indexer";
 import { Stack } from "expo-router";
 import { useEffect } from "react";
 import "react-native-reanimated";

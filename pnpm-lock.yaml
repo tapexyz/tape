@@ -342,9 +342,9 @@ importers:
       '@tape.xyz/generic':
         specifier: workspace:*
         version: link:../../packages/generic
-      '@tape.xyz/lens':
+      '@tape.xyz/indexer':
         specifier: workspace:*
-        version: link:../../packages/lens
+        version: link:../../packages/indexer
       '@types/react':
         specifier: ~18.3.12
         version: 18.3.12
@@ -597,9 +597,9 @@ importers:
       '@tape.xyz/generic':
         specifier: workspace:*
         version: link:../../packages/generic
-      '@tape.xyz/lens':
+      '@tape.xyz/indexer':
         specifier: workspace:*
-        version: link:../../packages/lens
+        version: link:../../packages/indexer
       '@tape.xyz/tsconfig':
         specifier: workspace:*
         version: link:../../packages/tsconfig
@@ -747,6 +747,46 @@ importers:
       '@tape.xyz/lens':
         specifier: workspace:*
         version: link:../lens
+      '@tape.xyz/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      '@types/node':
+        specifier: ^22.9.1
+        version: 22.9.1
+      typescript:
+        specifier: ^5.6.3
+        version: 5.6.3
+
+  packages/indexer:
+    dependencies:
+      '@graphql-codegen/client-preset':
+        specifier: ^4.5.0
+        version: 4.5.0(graphql@16.9.0)
+      '@lens-protocol/metadata':
+        specifier: ^1.2.0
+        version: 1.2.0(zod@3.23.8)
+    devDependencies:
+      '@graphql-codegen/cli':
+        specifier: ^5.0.2
+        version: 5.0.3(@parcel/watcher@2.5.0)(@types/node@22.9.1)(bufferutil@4.0.8)(enquirer@2.4.1)(graphql@16.9.0)(typescript@5.6.3)(utf-8-validate@5.0.10)
+      '@graphql-codegen/fragment-matcher':
+        specifier: ^5.0.2
+        version: 5.0.2(graphql@16.9.0)
+      '@graphql-codegen/typescript':
+        specifier: ^4.1.1
+        version: 4.1.1(graphql@16.9.0)
+      '@graphql-codegen/typescript-operations':
+        specifier: ^4.3.1
+        version: 4.3.1(graphql@16.9.0)
+      '@graphql-codegen/typescript-react-apollo':
+        specifier: ^4.3.2
+        version: 4.3.2(graphql@16.9.0)
+      '@graphql-typed-document-node/core':
+        specifier: ^3.2.0
+        version: 3.2.0(graphql@16.9.0)
+      '@tape.xyz/constants':
+        specifier: workspace:*
+        version: link:../constants
       '@tape.xyz/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig

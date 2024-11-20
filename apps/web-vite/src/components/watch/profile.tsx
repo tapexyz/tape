@@ -8,7 +8,7 @@ import {
   getProfilePicture,
   getPublication
 } from "@tape.xyz/generic";
-import type { AnyPublication } from "@tape.xyz/lens/gql";
+import type { AnyPublication } from "@tape.xyz/indexer";
 import {
   Avatar,
   AvatarImage,

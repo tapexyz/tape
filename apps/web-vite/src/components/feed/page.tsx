@@ -1,6 +1,6 @@
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { getPublication } from "@tape.xyz/generic";
-import type { AnyPublication } from "@tape.xyz/lens/gql";
+import type { AnyPublication } from "@tape.xyz/indexer";
 import { Virtualized } from "../shared/virtualized";
 import { Byte } from "./byte";
 import { bytesQuery } from "./queries";

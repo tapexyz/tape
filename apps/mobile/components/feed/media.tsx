@@ -2,7 +2,7 @@ import { Colors } from "@/helpers/colors";
 import { useDevice } from "@/store/device";
 import { FlashList } from "@shopify/flash-list";
 import { FALLBACK_THUMBNAIL_URL } from "@tape.xyz/constants";
-import type { TapePublicationData } from "@tape.xyz/lens/custom-types";
+import type { TapePublicationData } from "@tape.xyz/indexer/custom-types";
 import { Image } from "expo-image";
 import { useCallback } from "react";
 import { type LayoutChangeEvent, StyleSheet, View } from "react-native";

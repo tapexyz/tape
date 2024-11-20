@@ -1,4 +1,4 @@
-import type { Profile } from "@tape.xyz/lens/gql";
+import type { Profile } from "@tape.xyz/indexer";
 import { create } from "zustand";
 
 type State = {
