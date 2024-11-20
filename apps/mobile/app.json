@@ -35,15 +35,15 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "Let Tape capture your best moments! Allow camera access.",
-          "microphonePermission": "Let’s capture your voice! Grant mic access.",
+          "cameraPermission": "Tape needs access to your camera to see your world.",
+          "microphonePermission": "Tape needs access to your microphone to hear your world.",
           "recordAudioAndroid": true
         }
       ],
       [
         "expo-image-picker",
         {
-          "photosPermission": "Let Tape access your photos to let you share them with your friends."
+          "photosPermission": "Tape needs access to your photos to let you share them with your friends."
         }
       ],
       "expo-font",
