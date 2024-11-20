@@ -23,7 +23,7 @@
     "@graphql-typed-document-node/core": "^3.2.0",
     "@tape.xyz/constants": "workspace:*",
     "@tape.xyz/tsconfig": "workspace:*",
-    "@types/node": "^22.8.5",
+    "@types/node": "^22.9.1",
     "typescript": "^5.6.3"
   }
 }
