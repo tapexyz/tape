@@ -1,4 +1,3 @@
-import { Link } from "@tanstack/react-router";
 import { TAPE_STATUS_PAGE, TAPE_X_HANDLE } from "@tape.xyz/constants";
 import {
   Button,
@@ -99,9 +98,7 @@ export const Footer = () => {
   return (
     <footer className="flex flex-wrap justify-between gap-5 px-5 py-[26px]">
       <div className="flex w-1/3 gap-6">
-        <Link to="/">
-          <Logo />
-        </Link>
+        <Logo />
         <div className="flex items-center space-x-3">
           <a href={xLink} target="_blank" rel="noreferrer">
             <XLogo
