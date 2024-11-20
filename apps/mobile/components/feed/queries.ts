@@ -1,6 +1,6 @@
 import { execute } from "@/helpers/execute";
 import { infiniteQueryOptions } from "@tanstack/react-query";
-import { FeedDocument, FeedEventItemType } from "@tape.xyz/lens/gql";
+import { FeedDocument, FeedEventItemType } from "@tape.xyz/indexer";
 
 export const feedQuery = (profileId: string) =>
   infiniteQueryOptions({

@@ -5,7 +5,7 @@ import {
   getPublicationMediaUrl,
   getThumbnailUrl
 } from "@tape.xyz/generic";
-import type { PrimaryPublication } from "@tape.xyz/lens/gql";
+import type { PrimaryPublication } from "@tape.xyz/indexer";
 import {
   Avatar,
   AvatarImage,

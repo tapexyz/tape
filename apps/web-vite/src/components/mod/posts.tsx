@@ -1,7 +1,7 @@
 import { Virtualized } from "@/components/shared/virtualized";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { getPublication, getPublicationMediaUrl } from "@tape.xyz/generic";
-import type { AnyPublication } from "@tape.xyz/lens/gql";
+import type { AnyPublication } from "@tape.xyz/indexer";
 import { modExplorePublicationsQuery } from "./queries";
 
 export const Posts = () => {

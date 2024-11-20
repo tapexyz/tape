@@ -6,7 +6,7 @@ import {
   getThumbnailUrl,
   isWatchable
 } from "@tape.xyz/generic";
-import type { AnyPublication } from "@tape.xyz/lens/gql";
+import type { AnyPublication } from "@tape.xyz/indexer";
 import { VideoPlayer } from "@tape.xyz/winder";
 import { publicationQuery } from "./queries";
 import { TopControls } from "./top";

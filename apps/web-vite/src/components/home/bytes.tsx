@@ -6,7 +6,7 @@ import {
   getThumbnailUrl,
   imageCdn
 } from "@tape.xyz/generic";
-import type { PrimaryPublication } from "@tape.xyz/lens";
+import type { PrimaryPublication } from "@tape.xyz/indexer";
 import { curatedBytesQuery } from "./queries";
 
 export const Bytes = () => {

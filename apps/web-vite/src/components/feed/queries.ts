@@ -6,7 +6,7 @@ import {
   PublicationType,
   PublicationsDocument,
   execute
-} from "@tape.xyz/lens/gql";
+} from "@tape.xyz/indexer";
 
 export const bytesQuery = infiniteQueryOptions({
   queryKey: ["bytes"],

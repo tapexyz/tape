@@ -1,7 +1,7 @@
 import { getSession, signIn } from "@/store/auth";
 import { LENS_API_URL, TAPE_USER_AGENT } from "@tape.xyz/constants";
 import { parseJwt } from "@tape.xyz/generic";
-import type { TypedDocumentString } from "@tape.xyz/lens/gql";
+import type { TypedDocumentString } from "@tape.xyz/indexer";
 import { refreshAuthTokens } from "./refresh";
 
 export const execute = async <TResult, TVariables>(

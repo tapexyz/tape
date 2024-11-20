@@ -4,7 +4,7 @@ import { refreshAuthTokens } from "@/helpers/refresh";
 import { useAuthStore } from "@/store/auth";
 import { useQuery } from "@tanstack/react-query";
 import { parseJwt } from "@tape.xyz/generic";
-import type { Profile } from "@tape.xyz/lens/gql";
+import type { Profile } from "@tape.xyz/indexer";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import { useState } from "react";
 import {

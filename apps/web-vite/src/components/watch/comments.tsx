@@ -5,7 +5,7 @@ import {
   getProfilePicture,
   getPublicationData
 } from "@tape.xyz/generic";
-import type { Comment as CommentType } from "@tape.xyz/lens/gql";
+import type { Comment as CommentType } from "@tape.xyz/indexer";
 import {
   Avatar,
   AvatarImage,

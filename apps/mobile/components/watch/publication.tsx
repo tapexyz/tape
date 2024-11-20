@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getPublicationData } from "@tape.xyz/generic";
 import { getPublication } from "@tape.xyz/generic";
-import type { AnyPublication } from "@tape.xyz/lens/gql";
+import type { AnyPublication } from "@tape.xyz/indexer";
 import { ActivityIndicator, View } from "react-native";
 import { RenderMarkdown } from "../ui/render-markdown";
 import { publicationQuery } from "./queries";

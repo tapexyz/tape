@@ -28,7 +28,7 @@
     "@tanstack/router-plugin": "^1.81.9",
     "@tape.xyz/constants": "workspace:*",
     "@tape.xyz/generic": "workspace:*",
-    "@tape.xyz/lens": "workspace:*",
+    "@tape.xyz/indexer": "workspace:*",
     "@tape.xyz/tsconfig": "workspace:*",
     "@tape.xyz/winder": "workspace:*",
     "@types/node": "^22.9.1",

@@ -6,7 +6,7 @@ import {
   getPublicationMediaUrl,
   getThumbnailUrl
 } from "@tape.xyz/generic";
-import type { AnyPublication } from "@tape.xyz/lens/gql";
+import type { AnyPublication } from "@tape.xyz/indexer";
 import { VideoPlayer } from "@tape.xyz/winder";
 import { Content } from "./content";
 import { CreatorAndComments } from "./creator";
