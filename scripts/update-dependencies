@@ -16,7 +16,7 @@ git checkout -b "$branch_name"
 pnpm update --interactive --recursive --latest
 
 # Check for changes
-if [[ ! $(git status --porcelain) ]]; then
+if [[ $(git status --porcelain) ]]; then
   echo "No changes in dependencies. Exiting."
   exit 0
 fi
