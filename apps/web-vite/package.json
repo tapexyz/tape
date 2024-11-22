@@ -12,19 +12,19 @@
     "typecheck": "tsc --pretty --noEmit"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.60.6",
-    "@tanstack/react-query-persist-client": "^5.60.6",
-    "@tanstack/react-router": "^1.82.1",
+    "@tanstack/react-query": "^5.61.0",
+    "@tanstack/react-query-persist-client": "^5.61.0",
+    "@tanstack/react-router": "^1.82.2",
     "@uidotdev/usehooks": "^2.4.1",
     "framer-motion": "^11.11.17",
     "idb-keyval": "^6.2.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-virtuoso": "^4.12.0"
+    "react-virtuoso": "^4.12.1"
   },
   "devDependencies": {
-    "@tanstack/react-query-devtools": "^5.60.6",
-    "@tanstack/router-devtools": "^1.82.1",
+    "@tanstack/react-query-devtools": "^5.61.0",
+    "@tanstack/router-devtools": "^1.82.2",
     "@tanstack/router-plugin": "^1.81.9",
     "@tape.xyz/constants": "workspace:*",
     "@tape.xyz/generic": "workspace:*",
