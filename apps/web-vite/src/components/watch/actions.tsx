@@ -15,16 +15,16 @@ export const Actions = () => {
         <Lightning className="size-5" weight="fill" />
       </Button>
       <Button size="icon" variant="secondary">
-        <Heart className="size-5" weight="bold" />
+        <Heart className="size-5" />
       </Button>
       <Button size="icon" variant="secondary">
-        <ShareFat className="size-5" weight="bold" />
+        <ShareFat className="size-5" />
       </Button>
       <Button size="icon" variant="secondary">
-        <ArrowsClockwise className="size-5" weight="bold" />
+        <ArrowsClockwise className="size-5" />
       </Button>
       <Button size="icon" variant="secondary">
-        <DotsThreeVertical className="size-5" weight="bold" />
+        <DotsThreeVertical className="size-5" />
       </Button>
     </div>
   );
