@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 @font-face {
   font-family: "GeistSans";
   src: url("/fonts/sans.woff2") format("woff2");
@@ -20,9 +22,18 @@
   font-display: swap;
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@plugin "@vidstack/react/tailwind.cjs";
+@plugin "tailwindcss-animate";
+@plugin "@tailwindcss/typography";
+
+/* Custom no-scrollbar utility */
+@utility no-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
 
 @layer base {
   :root {
@@ -57,9 +68,7 @@
     --divider: 0, 0%, 100%, 0.1;
     --text-muted: 0, 0%, 100%, 0.4;
   }
-}
 
-@layer base {
   * {
     scrollbar-color: var(--scrollbar-thumb) transparent;
   }
@@ -67,4 +76,43 @@
     font-family: var(--tape-font-sans);
     @apply scroll-smooth bg-site antialiased text-primary;
   }
+  button {
+    @apply cursor-pointer;
+  }
+}
+
+@theme {
+  /* Font families */
+  --font-sans: var(--tape-font-sans);
+  --font-serif: var(--tape-font-serif);
+  --font-mono: var(--tape-font-mono);
+
+  /* Colors */
+  --color-primary: hsl(var(--primary));
+  --color-secondary: hsl(var(--secondary));
+  --color-destructive: hsl(var(--destructive));
+  --color-upbyte: hsl(var(--upbyte));
+  --color-theme: hsl(var(--theme));
+
+  /* Background colors */
+  --background-color-site: hsl(var(--site-background));
+
+  /* Border colors */
+  --border-color-custom: hsl(var(--border));
+  --divide-color-custom: hsl(var(--divider));
+  --ring-color-custom: hsl(var(--border));
+
+  /* Text colors */
+  --text-color-muted: hsl(var(--text-muted));
+
+  /* Border radius */
+  --radius-custom: var(--radius);
+  --radius-card-sm: calc(var(--radius) + 6px);
+  --radius-card: calc(var(--radius) + 11px);
+
+  /* Breakpoints */
+  --breakpoint-3xl: 1800px;
+
+  /* Transition Properties */
+  --transition-property-filter: filter;
 }
