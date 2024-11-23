@@ -12,6 +12,10 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NetInfoProvider } from "../components/providers/net-info";
 
 SplashScreen.preventAutoHideAsync();
+SplashScreen.setOptions({
+  duration: 300,
+  fade: true
+});
 
 export default function Layout() {
   useReactQueryDevTools(rqClient);
@@ -24,14 +28,10 @@ export default function Layout() {
   });
   const hydrate = useAuthStore((state) => state.hydrate);
 
-  const hideSplash = async () => {
-    await SplashScreen.hideAsync();
-  };
-
   useEffect(() => {
     if (fontLoaded) {
       hydrate();
-      hideSplash();
+      SplashScreen.hide();
     }
   }, [fontLoaded]);
 

@@ -9,10 +9,6 @@
     "scheme": "tape",
     "newArchEnabled": true,
     "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./assets/images/splash.png",
-      "backgroundColor": "#f5f5f5"
-    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "xyz.tape.mobile",
@@ -32,6 +28,14 @@
       "package": "xyz.tape.mobile"
     },
     "plugins": [
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#f5f5f5",
+          "image": "./assets/images/splash.png",
+          "resizeMode": "cover"
+        }
+      ],
       [
         "expo-camera",
         {
