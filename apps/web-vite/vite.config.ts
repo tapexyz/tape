@@ -1,4 +1,5 @@
 import path from "node:path";
+import tailwindcss from "@tailwindcss/vite";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 import swcReact from "@vitejs/plugin-react-swc";
 import { visualizer } from "rollup-plugin-visualizer";
@@ -15,6 +16,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [
+      tailwindcss(),
       TanStackRouterVite(),
       swcReact(),
       !isProd &&

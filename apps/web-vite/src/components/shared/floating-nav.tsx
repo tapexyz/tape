@@ -91,7 +91,7 @@ const Panel = memo(() => {
         transition: {
           duration: 0.2,
           type: "spring",
-          bounce: 0
+          bounce: 0.2
         }
       }}
       className="flex w-full flex-col justify-end overflow-hidden rounded-[14px] bg-black/95 backdrop-blur-2xl will-change-auto"

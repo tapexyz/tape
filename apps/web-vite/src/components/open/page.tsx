@@ -19,7 +19,7 @@ export const OpenPage = () => {
   const { acts, comments, mirrors, posts, creatorEarnings } = data;
 
   return (
-    <div className="container grid min-h-screen max-w-6xl place-items-center">
+    <div className="container mx-auto grid min-h-screen max-w-6xl place-items-center">
       <Comets />
       <div className="grid w-full bg-theme/20 backdrop-blur-sm *:flex *:flex-col *:justify-between *:overflow-hidden md:grid-cols-4 lg:grid-rows-3">
         <div className="col-span-2 row-span-2 border-custom p-6 md:col-span-1 md:border">

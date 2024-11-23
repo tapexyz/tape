@@ -21,7 +21,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         ) : null}
         <textarea
           className={tw(
-            "flex min-h-[80px] w-full break-words rounded-custom border border-custom bg-transparent px-3.5 py-2 text-sm transition-colors placeholder:text-muted hover:border-primary/20 focus-visible:border-primary/40 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+            "field-sizing-content flex min-h-[80px] w-full break-words rounded-custom border border-custom bg-transparent px-3.5 py-2 text-sm transition-colors placeholder:text-muted hover:border-primary/20 focus-visible:border-primary/40 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
             className
           )}
           ref={ref}
