@@ -83,7 +83,7 @@ export const Profile = () => {
                 <XLogo className="size-5" weight="fill" />
               </Button>
               <span>
-                <div className="mx-3 h-5 w-[1px] rounded bg-primary/10" />
+                <div className="mx-3 h-5 w-[1px] rounded-sm bg-primary/10" />
               </span>
               <Actions />
             </div>
