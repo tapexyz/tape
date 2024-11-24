@@ -138,7 +138,7 @@ const Panel = memo(() => {
             <span>Filters</span>
             <FunnelSimple className="size-4" weight="bold" />
           </span>
-          <span className="rounded bg-white/20 px-1.5 py-0.5 text-white text-xs tabular-nums">
+          <span className="rounded-sm bg-white/20 px-1.5 py-0.5 text-white text-xs tabular-nums">
             2
           </span>
         </button>
@@ -151,7 +151,7 @@ const Bar = memo(() => {
   const matchRoute = useMatchRoute();
 
   return (
-    <div className="mt-1.5 flex items-center space-x-1.5 rounded-[14px] border border-custom bg-black/95 p-1.5 font-semibold shadow backdrop-blur-2xl *:flex-1 *:rounded-custom *:px-[13px] *:py-[6px] *:text-center *:text-sm">
+    <div className="mt-1.5 flex items-center space-x-1.5 rounded-[14px] border border-custom bg-black/95 p-1.5 font-semibold shadow-sm backdrop-blur-2xl *:flex-1 *:rounded-custom *:px-[13px] *:py-[6px] *:text-center *:text-sm">
       <Link
         to="/"
         className={tw(

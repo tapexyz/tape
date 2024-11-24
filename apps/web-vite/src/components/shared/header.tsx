@@ -163,7 +163,7 @@ export const Header = () => {
             >
               Discover
             </Link>
-            <div className="h-3 w-[1px] rounded bg-primary/10" />
+            <div className="h-3 w-[1px] rounded-sm bg-primary/10" />
             <Link to="/feed" preload="viewport">
               {({ isActive }) => {
                 return (
