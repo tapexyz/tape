@@ -19,7 +19,7 @@
     "@lens-protocol/metadata": "^1.2.0",
     "@livepeer/react": "3.1.9",
     "@tailwindcss/aspect-ratio": "^0.4.2",
-    "@tanstack/react-query": "^5.61.0",
+    "@tanstack/react-query": "^5.61.3",
     "axios": "^1.7.7",
     "dayjs": "^1.11.13",
     "emoji-mart": "^5.6.0",
@@ -65,6 +65,6 @@
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.15",
-    "typescript": "^5.6.3"
+    "typescript": "^5.7.2"
   }
 }

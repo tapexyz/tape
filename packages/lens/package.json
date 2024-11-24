@@ -23,6 +23,6 @@
     "@tape.xyz/constants": "workspace:*",
     "@tape.xyz/tsconfig": "workspace:*",
     "@types/node": "^22.9.1",
-    "typescript": "^5.6.3"
+    "typescript": "^5.7.2"
   }
 }
