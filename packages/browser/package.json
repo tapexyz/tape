@@ -9,8 +9,8 @@
     "postinstall": "pnpm build:sw"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "3.698.0",
-    "@aws-sdk/lib-storage": "3.698.0",
+    "@aws-sdk/client-s3": "3.699.0",
+    "@aws-sdk/lib-storage": "3.699.0",
     "@livepeer/react": "3.1.9",
     "@rajesh896/broprint.js": "^2.1.1",
     "axios": "^1.7.7",
@@ -30,6 +30,6 @@
     "@types/react": "^18.3.12",
     "@types/uuid": "^10.0.0",
     "esbuild": "^0.24.0",
-    "typescript": "^5.6.3"
+    "typescript": "^5.7.2"
   }
 }

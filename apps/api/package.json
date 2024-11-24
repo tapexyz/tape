@@ -11,7 +11,7 @@
     "typecheck": "tsc --pretty --noEmit"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "3.696.0",
+    "@aws-sdk/client-sts": "3.699.0",
     "@hono/node-server": "^1.13.4",
     "@hono/zod-validator": "^0.4.1",
     "@irys/upload": "^0.0.14",
@@ -34,6 +34,6 @@
     "@types/node": "^22.9.1",
     "@types/ua-parser-js": "^0.7.39",
     "tsx": "^4.19.2",
-    "typescript": "^5.6.3"
+    "typescript": "^5.7.2"
   }
 }
