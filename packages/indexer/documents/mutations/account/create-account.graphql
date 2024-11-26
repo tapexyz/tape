@@ -1,0 +1,21 @@
+mutation CreateAccountWithUsername(
+  $request: CreateAccountWithUsernameRequest!
+) {
+  createAccountWithUsername(request: $request) {
+    ... on CreateAccountResponse {
+      hash
+    }
+    ... on InvalidUsername {
+      invalidUsernameReason: reason
+    }
+    ... on SelfFundedTransactionRequest {
+      selfFundedTransactionRequestReason: reason
+    }
+    ... on SponsoredTransactionRequest {
+      sponsoredTransactionRequestReason: reason
+    }
+    ... on TransactionWillFail {
+      transactionWillFailReason: reason
+    }
+  }
+}

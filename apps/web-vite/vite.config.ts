@@ -1,4 +1,5 @@
 import path from "node:path";
+import MillionLint from "@million/lint";
 import tailwindcss from "@tailwindcss/vite";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 import swcReact from "@vitejs/plugin-react-swc";
@@ -16,17 +17,21 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [
-      tailwindcss(),
       TanStackRouterVite(),
+      tailwindcss(),
       swcReact(),
-      !isProd &&
-        (visualizer({
-          filename: "./dist/stats.html",
-          open: true,
-          gzipSize: true,
-          brotliSize: true
-        }) as PluginOption)
-    ].filter(Boolean),
+      ...(!isProd
+        ? [
+            MillionLint.vite(),
+            visualizer({
+              filename: "./dist/stats.html",
+              open: true,
+              gzipSize: true,
+              brotliSize: true
+            }) as PluginOption
+          ]
+        : [])
+    ],
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "./src")

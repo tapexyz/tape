@@ -57,3 +57,5 @@ ios/
 android/
 *.ipa
 *.apk
+
+.million/

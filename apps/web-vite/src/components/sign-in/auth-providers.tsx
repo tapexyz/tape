@@ -29,7 +29,7 @@ export const AuthProviders = () => {
         </Button>
       </div>
       <form>
-        <span className="relative flex items-center gap-2">
+        <span className="relative flex items-center">
           <Input type="email" placeholder="Enter your email" required />
           <span className="absolute right-1">
             <Button type="submit" variant="outline" className="group h-9">

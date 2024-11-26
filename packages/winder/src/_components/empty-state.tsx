@@ -12,7 +12,7 @@ import { tw } from "../tw";
 type Props = {
   title: string;
   description?: string;
-  action?: React.ReactNode;
+  more?: React.ReactNode;
   className?: string;
 };
 
@@ -28,12 +28,7 @@ const RandomIcon = emptyIcons[
   Math.floor(Math.random() * emptyIcons.length)
 ] as Icon;
 
-export const EmptyState = ({
-  title,
-  description,
-  action,
-  className
-}: Props) => {
+export const EmptyState = ({ title, description, more, className }: Props) => {
   return (
     <div className={tw("grid place-items-center", className)}>
       <div className="flex max-w-xs flex-col items-center gap-4 text-center">
@@ -44,7 +39,7 @@ export const EmptyState = ({
             <span className="text-muted text-sm">{description}</span>
           ) : null}
         </div>
-        {action}
+        {more}
       </div>
     </div>
   );

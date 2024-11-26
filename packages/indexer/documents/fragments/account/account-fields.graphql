@@ -15,16 +15,6 @@ fragment AccountFields on Account {
     ...UsernameFields
   }
   operations {
-    id
-    isFollowedByMe
-    isFollowingMe
-    canFollow
-    canUnfollow
-    isMutedByMe
-    isBlockedByMe
-    hasBlockedMe
-    canBlock
-    canUnblock
-    hasReported
+    ...LoggedInAccountOperationsFields
   }
 }

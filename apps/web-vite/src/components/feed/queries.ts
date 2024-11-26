@@ -1,11 +1,11 @@
+import { execute } from "@/helpers/execute";
 import { infiniteQueryOptions } from "@tanstack/react-query";
 import { LENSTUBE_BYTES_APP_ID, TAPE_APP_ID } from "@tape.xyz/constants";
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   PublicationType,
-  PublicationsDocument,
-  execute
+  PublicationsDocument
 } from "@tape.xyz/indexer";
 
 export const bytesQuery = infiniteQueryOptions({

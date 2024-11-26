@@ -1,3 +1,4 @@
+import { execute } from "@/helpers/execute";
 import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
 import {
   CommentRankingFilterType,
@@ -5,8 +6,7 @@ import {
   LimitType,
   PublicationDocument,
   PublicationMetadataMainFocusType,
-  PublicationsDocument,
-  execute
+  PublicationsDocument
 } from "@tape.xyz/indexer";
 
 export const publicationQuery = (id: string) =>

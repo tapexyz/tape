@@ -20,12 +20,17 @@ export const Route = createRootRouteWithContext<RootRouteContext>()({
       <ScrollRestoration />
     </Providers>
   ),
-  errorComponent: () => (
+  errorComponent: ({ error }) => (
     <div className="grid min-h-screen place-items-center">
       <EmptyState
         title="Internal Error"
         description="An error occurred while rendering this page.
         Please try again later."
+        more={
+          <pre className="max-w-sm overflow-auto whitespace-pre-wrap rounded-custom bg-theme/40 p-5 text-xs">
+            <code>{error.message}</code>
+          </pre>
+        }
       />
     </div>
   ),
@@ -35,7 +40,7 @@ export const Route = createRootRouteWithContext<RootRouteContext>()({
         <EmptyState
           title="Page Not Found"
           description="The page you are looking for does not exist."
-          action={
+          more={
             <Link to="/">
               <Button variant="outline">Start Over</Button>
             </Link>

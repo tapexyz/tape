@@ -4721,19 +4721,38 @@ export type _Service = {
   sdl?: Maybe<Scalars['String']['output']>;
 };
 
+export type AccountManagerPermissionsFragment = { __typename?: 'AccountManagerPermissions', canExecuteTransactions: boolean, canSetMetadataUri: boolean, canTransferNative: boolean, canTransferTokens: boolean } & { ' $fragmentName'?: 'AccountManagerPermissionsFragment' };
+
 export type AccountFieldsFragment = { __typename?: 'Account', address: any, score: number, metadata?: { __typename?: 'AccountMetadata', bio?: string | null, coverPicture?: any | null, id: string, name?: string | null, picture?: any | null, attributes: Array<(
       { __typename?: 'MetadataAttribute' }
       & { ' $fragmentRefs'?: { 'MetadataAttributeFieldsFragment': MetadataAttributeFieldsFragment } }
     )> } | null, username?: (
     { __typename?: 'Username' }
     & { ' $fragmentRefs'?: { 'UsernameFieldsFragment': UsernameFieldsFragment } }
-  ) | null, operations?: { __typename?: 'LoggedInAccountOperations', id: string, isFollowedByMe: boolean, isFollowingMe: boolean, canFollow: TriStateValue, canUnfollow: boolean, isMutedByMe: boolean, isBlockedByMe: boolean, hasBlockedMe: boolean, canBlock: boolean, canUnblock: boolean, hasReported: boolean } | null } & { ' $fragmentName'?: 'AccountFieldsFragment' };
+  ) | null, operations?: (
+    { __typename?: 'LoggedInAccountOperations' }
+    & { ' $fragmentRefs'?: { 'LoggedInAccountOperationsFieldsFragment': LoggedInAccountOperationsFieldsFragment } }
+  ) | null } & { ' $fragmentName'?: 'AccountFieldsFragment' };
 
-export type AccountManagerPermissionsFragment = { __typename?: 'AccountManagerPermissions', canExecuteTransactions: boolean, canSetMetadataUri: boolean, canTransferNative: boolean, canTransferTokens: boolean } & { ' $fragmentName'?: 'AccountManagerPermissionsFragment' };
+export type AccountMetadataFieldsFragment = { __typename?: 'AccountMetadata', bio?: string | null, coverPicture?: any | null, id: string, name?: string | null, picture?: any | null, attributes: Array<(
+    { __typename?: 'MetadataAttribute' }
+    & { ' $fragmentRefs'?: { 'MetadataAttributeFieldsFragment': MetadataAttributeFieldsFragment } }
+  )> } & { ' $fragmentName'?: 'AccountMetadataFieldsFragment' };
+
+export type LoggedInAccountOperationsFieldsFragment = { __typename?: 'LoggedInAccountOperations', id: string, isFollowedByMe: boolean, isFollowingMe: boolean, canFollow: TriStateValue, canUnfollow: boolean, isMutedByMe: boolean, isBlockedByMe: boolean, hasBlockedMe: boolean, canBlock: boolean, canUnblock: boolean, hasReported: boolean } & { ' $fragmentName'?: 'LoggedInAccountOperationsFieldsFragment' };
+
+export type GroupFieldsFragment = { __typename?: 'Group', address: any, timestamp: any, metadata?: { __typename?: 'GroupMetadata', description?: string | null, icon?: any | null, name: string, slug: string, id: string } | null } & { ' $fragmentName'?: 'GroupFieldsFragment' };
 
 export type MetadataAttributeFieldsFragment = { __typename?: 'MetadataAttribute', type: MetadataAttributeType, key: string, value: string } & { ' $fragmentName'?: 'MetadataAttributeFieldsFragment' };
 
 export type UsernameFieldsFragment = { __typename?: 'Username', id: string, value: any, localName: string, linkedTo?: any | null, ownedBy: any, timestamp: any, namespace: { __typename?: 'UsernameNamespace', address: any, namespace: string, metadata?: { __typename?: 'UsernameNamespaceMetadata', description?: string | null, id: string } | null } } & { ' $fragmentName'?: 'UsernameFieldsFragment' };
+
+export type CreateAccountWithUsernameMutationVariables = Exact<{
+  request: CreateAccountWithUsernameRequest;
+}>;
+
+
+export type CreateAccountWithUsernameMutation = { __typename?: 'Mutation', createAccountWithUsername: { __typename?: 'CreateAccountResponse', hash: any } | { __typename?: 'InvalidUsername', invalidUsernameReason: string } | { __typename?: 'SelfFundedTransactionRequest', selfFundedTransactionRequestReason?: SelfFundedFallbackReason | null } | { __typename?: 'SponsoredTransactionRequest', sponsoredTransactionRequestReason?: SponsoredFallbackReason | null } | { __typename?: 'TransactionWillFail', transactionWillFailReason: string } };
 
 export type AuthenticateMutationVariables = Exact<{
   request: SignedAuthChallenge;
@@ -4826,13 +4845,6 @@ export type AuthenticatedSessionsQueryVariables = Exact<{
 
 export type AuthenticatedSessionsQuery = { __typename?: 'Query', authenticatedSessions: { __typename?: 'PaginatedActiveAuthenticationsResult', items: Array<{ __typename?: 'AuthenticatedSession', authenticationId: any, app: any, browser?: string | null, device?: string | null, os?: string | null, origin?: any | null, signer: any, createdAt: any, updatedAt: any }>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
-export type FeedQueryVariables = Exact<{
-  request: FeedRequest;
-}>;
-
-
-export type FeedQuery = { __typename?: 'Query', feed?: { __typename?: 'Feed', address: any } | null };
-
 export type FollowersYouKnowQueryVariables = Exact<{
   request: FollowersYouKnowRequest;
 }>;
@@ -4863,6 +4875,22 @@ export type FollowingQuery = { __typename?: 'Query', following: { __typename?: '
         & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
       ) }>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
+export type LastLoggedInAccountQueryVariables = Exact<{
+  request: LastLoggedInAccountRequest;
+}>;
+
+
+export type LastLoggedInAccountQuery = { __typename?: 'Query', lastLoggedInAccount?: { __typename?: 'Account', address: any, owner: any, score: number, metadata?: (
+      { __typename?: 'AccountMetadata' }
+      & { ' $fragmentRefs'?: { 'AccountMetadataFieldsFragment': AccountMetadataFieldsFragment } }
+    ) | null, username?: (
+      { __typename?: 'Username' }
+      & { ' $fragmentRefs'?: { 'UsernameFieldsFragment': UsernameFieldsFragment } }
+    ) | null, operations?: (
+      { __typename?: 'LoggedInAccountOperations' }
+      & { ' $fragmentRefs'?: { 'LoggedInAccountOperationsFieldsFragment': LoggedInAccountOperationsFieldsFragment } }
+    ) | null } | null };
+
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -4884,6 +4912,23 @@ export type UsernamesQuery = { __typename?: 'Query', usernames: { __typename?: '
       & { ' $fragmentRefs'?: { 'UsernameFieldsFragment': UsernameFieldsFragment } }
     )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
+export type FeedQueryVariables = Exact<{
+  request: FeedRequest;
+}>;
+
+
+export type FeedQuery = { __typename?: 'Query', feed?: { __typename?: 'Feed', address: any } | null };
+
+export type GroupQueryVariables = Exact<{
+  request: GroupRequest;
+}>;
+
+
+export type GroupQuery = { __typename?: 'Query', group?: (
+    { __typename?: 'Group' }
+    & { ' $fragmentRefs'?: { 'GroupFieldsFragment': GroupFieldsFragment } }
+  ) | null };
+
 export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
@@ -4898,6 +4943,14 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
+export const AccountManagerPermissionsFragmentDoc = new TypedDocumentString(`
+    fragment AccountManagerPermissions on AccountManagerPermissions {
+  canExecuteTransactions
+  canSetMetadataUri
+  canTransferNative
+  canTransferTokens
+}
+    `, {"fragmentName":"AccountManagerPermissions"}) as unknown as TypedDocumentString<AccountManagerPermissionsFragment, unknown>;
 export const MetadataAttributeFieldsFragmentDoc = new TypedDocumentString(`
     fragment MetadataAttributeFields on MetadataAttribute {
   type
@@ -4923,6 +4976,21 @@ export const UsernameFieldsFragmentDoc = new TypedDocumentString(`
   timestamp
 }
     `, {"fragmentName":"UsernameFields"}) as unknown as TypedDocumentString<UsernameFieldsFragment, unknown>;
+export const LoggedInAccountOperationsFieldsFragmentDoc = new TypedDocumentString(`
+    fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
+  id
+  isFollowedByMe
+  isFollowingMe
+  canFollow
+  canUnfollow
+  isMutedByMe
+  isBlockedByMe
+  hasBlockedMe
+  canBlock
+  canUnblock
+  hasReported
+}
+    `, {"fragmentName":"LoggedInAccountOperationsFields"}) as unknown as TypedDocumentString<LoggedInAccountOperationsFieldsFragment, unknown>;
 export const AccountFieldsFragmentDoc = new TypedDocumentString(`
     fragment AccountFields on Account {
   address
@@ -4941,20 +5009,23 @@ export const AccountFieldsFragmentDoc = new TypedDocumentString(`
     ...UsernameFields
   }
   operations {
-    id
-    isFollowedByMe
-    isFollowingMe
-    canFollow
-    canUnfollow
-    isMutedByMe
-    isBlockedByMe
-    hasBlockedMe
-    canBlock
-    canUnblock
-    hasReported
+    ...LoggedInAccountOperationsFields
   }
 }
-    fragment MetadataAttributeFields on MetadataAttribute {
+    fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
+  id
+  isFollowedByMe
+  isFollowingMe
+  canFollow
+  canUnfollow
+  isMutedByMe
+  isBlockedByMe
+  hasBlockedMe
+  canBlock
+  canUnblock
+  hasReported
+}
+fragment MetadataAttributeFields on MetadataAttribute {
   type
   key
   value
@@ -4975,14 +5046,56 @@ fragment UsernameFields on Username {
   ownedBy
   timestamp
 }`, {"fragmentName":"AccountFields"}) as unknown as TypedDocumentString<AccountFieldsFragment, unknown>;
-export const AccountManagerPermissionsFragmentDoc = new TypedDocumentString(`
-    fragment AccountManagerPermissions on AccountManagerPermissions {
-  canExecuteTransactions
-  canSetMetadataUri
-  canTransferNative
-  canTransferTokens
+export const AccountMetadataFieldsFragmentDoc = new TypedDocumentString(`
+    fragment AccountMetadataFields on AccountMetadata {
+  bio
+  coverPicture
+  id
+  name
+  picture
+  attributes {
+    ...MetadataAttributeFields
+  }
 }
-    `, {"fragmentName":"AccountManagerPermissions"}) as unknown as TypedDocumentString<AccountManagerPermissionsFragment, unknown>;
+    fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}`, {"fragmentName":"AccountMetadataFields"}) as unknown as TypedDocumentString<AccountMetadataFieldsFragment, unknown>;
+export const GroupFieldsFragmentDoc = new TypedDocumentString(`
+    fragment GroupFields on Group {
+  address
+  timestamp
+  metadata {
+    description
+    icon
+    name
+    slug
+    id
+  }
+}
+    `, {"fragmentName":"GroupFields"}) as unknown as TypedDocumentString<GroupFieldsFragment, unknown>;
+export const CreateAccountWithUsernameDocument = new TypedDocumentString(`
+    mutation CreateAccountWithUsername($request: CreateAccountWithUsernameRequest!) {
+  createAccountWithUsername(request: $request) {
+    ... on CreateAccountResponse {
+      hash
+    }
+    ... on InvalidUsername {
+      invalidUsernameReason: reason
+    }
+    ... on SelfFundedTransactionRequest {
+      selfFundedTransactionRequestReason: reason
+    }
+    ... on SponsoredTransactionRequest {
+      sponsoredTransactionRequestReason: reason
+    }
+    ... on TransactionWillFail {
+      transactionWillFailReason: reason
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CreateAccountWithUsernameMutation, CreateAccountWithUsernameMutationVariables>;
 export const AuthenticateDocument = new TypedDocumentString(`
     mutation Authenticate($request: SignedAuthChallenge!) {
   authenticate(request: $request) {
@@ -5080,18 +5193,21 @@ export const AccountDocument = new TypedDocumentString(`
     ...UsernameFields
   }
   operations {
-    id
-    isFollowedByMe
-    isFollowingMe
-    canFollow
-    canUnfollow
-    isMutedByMe
-    isBlockedByMe
-    hasBlockedMe
-    canBlock
-    canUnblock
-    hasReported
+    ...LoggedInAccountOperationsFields
   }
+}
+fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
+  id
+  isFollowedByMe
+  isFollowingMe
+  canFollow
+  canUnfollow
+  isMutedByMe
+  isBlockedByMe
+  hasBlockedMe
+  canBlock
+  canUnblock
+  hasReported
 }
 fragment MetadataAttributeFields on MetadataAttribute {
   type
@@ -5139,7 +5255,13 @@ export const AccountsAvailableDocument = new TypedDocumentString(`
     }
   }
 }
-    fragment AccountFields on Account {
+    fragment AccountManagerPermissions on AccountManagerPermissions {
+  canExecuteTransactions
+  canSetMetadataUri
+  canTransferNative
+  canTransferTokens
+}
+fragment AccountFields on Account {
   address
   score
   metadata {
@@ -5156,24 +5278,21 @@ export const AccountsAvailableDocument = new TypedDocumentString(`
     ...UsernameFields
   }
   operations {
-    id
-    isFollowedByMe
-    isFollowingMe
-    canFollow
-    canUnfollow
-    isMutedByMe
-    isBlockedByMe
-    hasBlockedMe
-    canBlock
-    canUnblock
-    hasReported
+    ...LoggedInAccountOperationsFields
   }
 }
-fragment AccountManagerPermissions on AccountManagerPermissions {
-  canExecuteTransactions
-  canSetMetadataUri
-  canTransferNative
-  canTransferTokens
+fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
+  id
+  isFollowedByMe
+  isFollowingMe
+  canFollow
+  canUnfollow
+  isMutedByMe
+  isBlockedByMe
+  hasBlockedMe
+  canBlock
+  canUnblock
+  hasReported
 }
 fragment MetadataAttributeFields on MetadataAttribute {
   type
@@ -5227,18 +5346,21 @@ export const AccountsBlockedDocument = new TypedDocumentString(`
     ...UsernameFields
   }
   operations {
-    id
-    isFollowedByMe
-    isFollowingMe
-    canFollow
-    canUnfollow
-    isMutedByMe
-    isBlockedByMe
-    hasBlockedMe
-    canBlock
-    canUnblock
-    hasReported
+    ...LoggedInAccountOperationsFields
   }
+}
+fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
+  id
+  isFollowedByMe
+  isFollowingMe
+  canFollow
+  canUnfollow
+  isMutedByMe
+  isBlockedByMe
+  hasBlockedMe
+  canBlock
+  canUnblock
+  hasReported
 }
 fragment MetadataAttributeFields on MetadataAttribute {
   type
@@ -5284,18 +5406,21 @@ export const AccountsDocument = new TypedDocumentString(`
     ...UsernameFields
   }
   operations {
-    id
-    isFollowedByMe
-    isFollowingMe
-    canFollow
-    canUnfollow
-    isMutedByMe
-    isBlockedByMe
-    hasBlockedMe
-    canBlock
-    canUnblock
-    hasReported
+    ...LoggedInAccountOperationsFields
   }
+}
+fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
+  id
+  isFollowedByMe
+  isFollowingMe
+  canFollow
+  canUnfollow
+  isMutedByMe
+  isBlockedByMe
+  hasBlockedMe
+  canBlock
+  canUnblock
+  hasReported
 }
 fragment MetadataAttributeFields on MetadataAttribute {
   type
@@ -5338,13 +5463,6 @@ export const AuthenticatedSessionsDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<AuthenticatedSessionsQuery, AuthenticatedSessionsQueryVariables>;
-export const FeedDocument = new TypedDocumentString(`
-    query Feed($request: FeedRequest!) {
-  feed(request: $request) {
-    address
-  }
-}
-    `) as unknown as TypedDocumentString<FeedQuery, FeedQueryVariables>;
 export const FollowersYouKnowDocument = new TypedDocumentString(`
     query FollowersYouKnow($request: FollowersYouKnowRequest!) {
   followersYouKnow(request: $request) {
@@ -5376,18 +5494,21 @@ export const FollowersYouKnowDocument = new TypedDocumentString(`
     ...UsernameFields
   }
   operations {
-    id
-    isFollowedByMe
-    isFollowingMe
-    canFollow
-    canUnfollow
-    isMutedByMe
-    isBlockedByMe
-    hasBlockedMe
-    canBlock
-    canUnblock
-    hasReported
+    ...LoggedInAccountOperationsFields
   }
+}
+fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
+  id
+  isFollowedByMe
+  isFollowingMe
+  canFollow
+  canUnfollow
+  isMutedByMe
+  isBlockedByMe
+  hasBlockedMe
+  canBlock
+  canUnblock
+  hasReported
 }
 fragment MetadataAttributeFields on MetadataAttribute {
   type
@@ -5441,18 +5562,21 @@ export const FollowersDocument = new TypedDocumentString(`
     ...UsernameFields
   }
   operations {
-    id
-    isFollowedByMe
-    isFollowingMe
-    canFollow
-    canUnfollow
-    isMutedByMe
-    isBlockedByMe
-    hasBlockedMe
-    canBlock
-    canUnblock
-    hasReported
+    ...LoggedInAccountOperationsFields
   }
+}
+fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
+  id
+  isFollowedByMe
+  isFollowingMe
+  canFollow
+  canUnfollow
+  isMutedByMe
+  isBlockedByMe
+  hasBlockedMe
+  canBlock
+  canUnblock
+  hasReported
 }
 fragment MetadataAttributeFields on MetadataAttribute {
   type
@@ -5506,18 +5630,21 @@ export const FollowingDocument = new TypedDocumentString(`
     ...UsernameFields
   }
   operations {
-    id
-    isFollowedByMe
-    isFollowingMe
-    canFollow
-    canUnfollow
-    isMutedByMe
-    isBlockedByMe
-    hasBlockedMe
-    canBlock
-    canUnblock
-    hasReported
+    ...LoggedInAccountOperationsFields
   }
+}
+fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
+  id
+  isFollowedByMe
+  isFollowingMe
+  canFollow
+  canUnfollow
+  isMutedByMe
+  isBlockedByMe
+  hasBlockedMe
+  canBlock
+  canUnblock
+  hasReported
 }
 fragment MetadataAttributeFields on MetadataAttribute {
   type
@@ -5540,6 +5667,67 @@ fragment UsernameFields on Username {
   ownedBy
   timestamp
 }`) as unknown as TypedDocumentString<FollowingQuery, FollowingQueryVariables>;
+export const LastLoggedInAccountDocument = new TypedDocumentString(`
+    query LastLoggedInAccount($request: LastLoggedInAccountRequest!) {
+  lastLoggedInAccount(request: $request) {
+    address
+    owner
+    score
+    metadata {
+      ...AccountMetadataFields
+    }
+    username {
+      ...UsernameFields
+    }
+    operations {
+      ...LoggedInAccountOperationsFields
+    }
+  }
+}
+    fragment AccountMetadataFields on AccountMetadata {
+  bio
+  coverPicture
+  id
+  name
+  picture
+  attributes {
+    ...MetadataAttributeFields
+  }
+}
+fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
+  id
+  isFollowedByMe
+  isFollowingMe
+  canFollow
+  canUnfollow
+  isMutedByMe
+  isBlockedByMe
+  hasBlockedMe
+  canBlock
+  canUnblock
+  hasReported
+}
+fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}
+fragment UsernameFields on Username {
+  id
+  value
+  namespace {
+    address
+    namespace
+    metadata {
+      description
+      id
+    }
+  }
+  localName
+  linkedTo
+  ownedBy
+  timestamp
+}`) as unknown as TypedDocumentString<LastLoggedInAccountQuery, LastLoggedInAccountQueryVariables>;
 export const MeDocument = new TypedDocumentString(`
     query Me {
   me {
@@ -5585,18 +5773,21 @@ export const MeDocument = new TypedDocumentString(`
     ...UsernameFields
   }
   operations {
-    id
-    isFollowedByMe
-    isFollowingMe
-    canFollow
-    canUnfollow
-    isMutedByMe
-    isBlockedByMe
-    hasBlockedMe
-    canBlock
-    canUnblock
-    hasReported
+    ...LoggedInAccountOperationsFields
   }
+}
+fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
+  id
+  isFollowedByMe
+  isFollowingMe
+  canFollow
+  canUnfollow
+  isMutedByMe
+  isBlockedByMe
+  hasBlockedMe
+  canBlock
+  canUnblock
+  hasReported
 }
 fragment MetadataAttributeFields on MetadataAttribute {
   type
@@ -5646,3 +5837,27 @@ export const UsernamesDocument = new TypedDocumentString(`
   ownedBy
   timestamp
 }`) as unknown as TypedDocumentString<UsernamesQuery, UsernamesQueryVariables>;
+export const FeedDocument = new TypedDocumentString(`
+    query Feed($request: FeedRequest!) {
+  feed(request: $request) {
+    address
+  }
+}
+    `) as unknown as TypedDocumentString<FeedQuery, FeedQueryVariables>;
+export const GroupDocument = new TypedDocumentString(`
+    query Group($request: GroupRequest!) {
+  group(request: $request) {
+    ...GroupFields
+  }
+}
+    fragment GroupFields on Group {
+  address
+  timestamp
+  metadata {
+    description
+    icon
+    name
+    slug
+    id
+  }
+}`) as unknown as TypedDocumentString<GroupQuery, GroupQueryVariables>;
