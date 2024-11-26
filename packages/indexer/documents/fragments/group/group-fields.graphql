@@ -1,0 +1,11 @@
+fragment GroupFields on Group {
+  address
+  timestamp
+  metadata {
+    description
+    icon
+    name
+    slug
+    id
+  }
+}
