@@ -1,3 +1,4 @@
+import { execute } from "@/helpers/execute";
 import { infiniteQueryOptions } from "@tanstack/react-query";
 import {
   ALLOWED_APP_IDS,
@@ -8,8 +9,7 @@ import {
   ExplorePublicationsOrderByType,
   ModExplorePublicationType,
   ModExplorePublicationsDocument,
-  PublicationMetadataMainFocusType,
-  execute
+  PublicationMetadataMainFocusType
 } from "@tape.xyz/indexer";
 
 export const modExplorePublicationsQuery = infiniteQueryOptions({

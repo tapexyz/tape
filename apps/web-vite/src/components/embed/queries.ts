@@ -1,5 +1,6 @@
+import { execute } from "@/helpers/execute";
 import { queryOptions } from "@tanstack/react-query";
-import { PublicationDocument, execute } from "@tape.xyz/indexer";
+import { PublicationDocument } from "@tape.xyz/indexer";
 
 export const publicationQuery = (id: string) =>
   queryOptions({

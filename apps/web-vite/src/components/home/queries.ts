@@ -1,3 +1,4 @@
+import { execute } from "@/helpers/execute";
 import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
 import {
   LENSTUBE_APP_ID,
@@ -9,8 +10,7 @@ import {
   LimitType,
   PublicationMetadataMainFocusType,
   PublicationType,
-  PublicationsDocument,
-  execute
+  PublicationsDocument
 } from "@tape.xyz/indexer";
 
 export const publicationsQuery = infiniteQueryOptions({

@@ -1,0 +1,10 @@
+fragment AccountMetadataFields on AccountMetadata {
+  bio
+  coverPicture
+  id
+  name
+  picture
+  attributes {
+    ...MetadataAttributeFields
+  }
+}

@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import type { Connector } from "wagmi";
 import { useAccount, useConnect } from "wagmi";
 import { AuthProviders } from "./auth-providers";
+import { SIWE } from "./siwe";
 
 export const ConnectWallet = () => {
   //   const { addEventToQueue } = useSw();
@@ -66,7 +67,7 @@ export const ConnectWallet = () => {
           </Button>
         ))}
       </div>
-      {/* <Authenticate /> */}
+      <SIWE />
       {error?.message ? (
         <Alert variant="destructive">
           <Warning className="size-4" />

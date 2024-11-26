@@ -523,7 +523,7 @@ export const components = [
             <EmptyState
               title="No comments found"
               description="Users can comment on videos by clicking the + icon in the top right corner of the screen."
-              action={
+              more={
                 <Button
                   className="w-28"
                   variant="secondary"

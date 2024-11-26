@@ -12,19 +12,20 @@
     "typecheck": "tsc --pretty --noEmit"
   },
   "dependencies": {
+    "@million/lint": "^1.0.12",
     "@tanstack/react-query": "^5.61.3",
     "@tanstack/react-query-persist-client": "^5.61.3",
     "@tanstack/react-router": "^1.82.2",
     "@uidotdev/usehooks": "^2.4.1",
     "framer-motion": "^11.11.17",
     "idb-keyval": "^6.2.1",
-    "react": "^18.3.1",
     "js-cookie": "^3.0.5",
-    "zustand": "^5.0.1",
+    "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-virtuoso": "^4.12.1",
     "viem": "^2.21.49",
     "wagmi": "^2.13.0",
-    "react-virtuoso": "^4.12.1"
+    "zustand": "^5.0.1"
   },
   "devDependencies": {
     "@tailwindcss/vite": "4.0.0-beta.2",

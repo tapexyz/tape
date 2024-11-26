@@ -1,0 +1,16 @@
+query LastLoggedInAccount($request: LastLoggedInAccountRequest!) {
+  lastLoggedInAccount(request: $request) {
+    address
+    owner
+    score
+    metadata {
+      ...AccountMetadataFields
+    }
+    username {
+      ...UsernameFields
+    }
+    operations {
+      ...LoggedInAccountOperationsFields
+    }
+  }
+}

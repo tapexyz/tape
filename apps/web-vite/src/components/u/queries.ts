@@ -1,6 +1,7 @@
+import { execute } from "@/helpers/execute";
 import { queryOptions } from "@tanstack/react-query";
 import { LENS_NAMESPACE_PREFIX } from "@tape.xyz/constants";
-import { ProfileDocument, execute } from "@tape.xyz/indexer";
+import { ProfileDocument } from "@tape.xyz/indexer";
 
 export const profileQuery = (handle: string) => {
   const isValidId = /^~/.test(handle);
