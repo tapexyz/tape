@@ -1,13 +1,10 @@
 query AccountManagers($request: AccountManagersRequest!) {
   accountManagers(request: $request) {
     items {
-      address
+      manager
       isLensManager
       permissions {
-        canExecuteTransactions
-        canTransferTokens
-        canTransferNative
-        canSetMetadataUri
+        ...AccountManagerPermissions
       }
       addedAt
     }

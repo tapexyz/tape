@@ -1,0 +1,16 @@
+fragment UsernameFields on Username {
+  id
+  value
+  namespace {
+    address
+    namespace
+    metadata {
+      description
+      id
+    }
+  }
+  localName
+  linkedTo
+  ownedBy
+  timestamp
+}

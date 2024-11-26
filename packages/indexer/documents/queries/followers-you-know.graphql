@@ -1,7 +1,10 @@
 query FollowersYouKnow($request: FollowersYouKnowRequest!) {
   followersYouKnow(request: $request) {
     items {
-      ...AccountFields
+      follower {
+        ...AccountFields
+      }
+      followedOn
     }
     pageInfo {
       next

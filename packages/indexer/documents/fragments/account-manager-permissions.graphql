@@ -1,0 +1,6 @@
+fragment AccountManagerPermissions on AccountManagerPermissions {
+  canExecuteTransactions
+  canSetMetadataUri
+  canTransferNative
+  canTransferTokens
+}

@@ -3,7 +3,7 @@ import { LensEndpoint } from "@tape.xyz/constants";
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: LensEndpoint.Staging,
+  schema: LensEndpoint.Testnet,
   documents: "./documents/**/*.graphql",
   customFetch: "node-fetch",
   generates: {

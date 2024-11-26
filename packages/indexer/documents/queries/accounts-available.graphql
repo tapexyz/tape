@@ -1,9 +1,12 @@
-query Me {
-  me {
-    account {
+query AccountsAvailable($request: AccountsAvailableRequest!) {
+  accountsAvailable(request: $request) {
+    items {
       ... on AccountManaged {
         account {
           ...AccountFields
+        }
+        permissions {
+          ...AccountManagerPermissions
         }
         addedAt
       }
@@ -14,14 +17,8 @@ query Me {
         addedAt
       }
     }
-    isSignless
-    isSponsored
-    appLoggedIn
-    limit {
-      window
-      allowanceLeft
-      allowanceUsed
-      allowance
+    pageInfo {
+      next
     }
   }
 }

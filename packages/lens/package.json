@@ -5,7 +5,6 @@
   "main": "./generated.ts",
   "private": true,
   "scripts": {
-    "codegen": "graphql-codegen",
     "typecheck": "tsc --pretty --noEmit"
   },
   "dependencies": {
