@@ -48,7 +48,7 @@ const DialogContent = forwardRef<
     <DialogPrimitive.Content
       className={tw(
         "-translate-x-1/2 -translate-y-1/2 fixed top-1/2 left-1/2 z-50 grid w-full max-w-lg overflow-hidden rounded-card-sm border border-custom bg-theme dark:bg-site",
-        "data-[state=closed]:fade-out data-[state=open]:fade-in data-[state=closed]:zoom-out-90 data-[state=open]:zoom-in-90 data-[state=closed]:animate-out data-[state=open]:animate-in",
+        "data-[state=closed]:fade-out data-[state=open]:fade-in data-[state=closed]:zoom-out-90 data-[state=open]:zoom-in-90",
         className
       )}
       ref={ref}

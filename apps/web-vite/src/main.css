@@ -1,0 +1,7 @@
+* {
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
+button {
+  @apply cursor-pointer;
+}

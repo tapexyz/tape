@@ -45,6 +45,9 @@
     --radius: 9px;
     --upbyte: 15 100% 64;
     --scrollbar-thumb: #c7c7c7;
+    --border-strong: #e4e5ea;
+    --shadow: 0 0 0 1px #ffffff17, 0 1px 1px #0000000a, 0 4px 8px -4px #00000014,
+      0 16px 24px -8px #0000001f;
 
     --site-background: 0 0% 95%;
     --primary: 0 0% 0%;
@@ -58,6 +61,7 @@
 
   .dark {
     --scrollbar-thumb: #4d4d4d;
+    --border-strong: #23232a;
 
     --site-background: 0 0% 16%;
     --primary: 0 0% 100%;
@@ -69,15 +73,9 @@
     --text-muted: 0, 0%, 100%, 0.4;
   }
 
-  * {
-    scrollbar-color: var(--scrollbar-thumb) transparent;
-  }
   html {
     font-family: var(--tape-font-sans);
     @apply scroll-smooth bg-site antialiased text-primary;
-  }
-  button {
-    @apply cursor-pointer;
   }
 }
 
@@ -99,8 +97,12 @@
 
   /* Border colors */
   --border-color-custom: hsl(var(--border));
+  --border-color-strong: var(--border-strong);
   --divide-color-custom: hsl(var(--divider));
   --ring-color-custom: hsl(var(--border));
+
+  /* Shadows */
+  --shadow-custom: var(--shadow);
 
   /* Text colors */
   --text-color-muted: hsl(var(--text-muted));

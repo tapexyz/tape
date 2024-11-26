@@ -38,12 +38,12 @@ const DropdownMenuSubContent = forwardRef<
     sideOffset={sideOffset}
     className={tw(
       "data-[side=bottom]:slide-in-from-top-2",
-      "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
+      "data-[state=closed]:fade-out data-[state=open]:fade-in",
+      "data-[state=closed]:zoom-out-90 data-[state=open]:zoom-in-90",
       "data-[align=start]:data-[state=closed]:slide-out-to-left-2 data-[align=start]:data-[state=open]:slide-in-from-left-2",
       "data-[align=center]:data-[state=closed]:slide-out-to-top-2 data-[align=center]:data-[state=open]:slide-in-from-top-2",
       "data-[align=end]:data-[state=closed]:slide-out-to-right-2 data-[align=end]:data-[state=open]:slide-in-from-right-2",
-      "data-[state=closed]:fade-out data-[state=open]:fade-in data-[state=closed]:animate-out data-[state=open]:animate-in",
-      "z-50 min-w-[8rem] overflow-hidden rounded-custom border border-custom bg-theme p-1 shadow dark:bg-site",
+      "z-50 min-w-[8rem] overflow-hidden rounded-custom border border-strong bg-theme p-1 shadow-custom dark:bg-site",
       className
     )}
     {...props}
@@ -60,12 +60,12 @@ const DropdownMenuContent = forwardRef<
       sideOffset={sideOffset}
       className={tw(
         "data-[side=bottom]:slide-in-from-top-2",
-        "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
+        "data-[state=closed]:fade-out data-[state=open]:fade-in",
+        "data-[state=closed]:zoom-out-90 data-[state=open]:zoom-in-90",
         "data-[align=start]:data-[state=closed]:slide-out-to-left-2 data-[align=start]:data-[state=open]:slide-in-from-left-2",
         "data-[align=center]:data-[state=closed]:slide-out-to-top-2 data-[align=center]:data-[state=open]:slide-in-from-top-2",
         "data-[align=end]:data-[state=closed]:slide-out-to-right-2 data-[align=end]:data-[state=open]:slide-in-from-right-2",
-        "data-[state=closed]:fade-out data-[state=open]:fade-in data-[state=closed]:animate-out data-[state=open]:animate-in",
-        "z-50 min-w-[8rem] overflow-hidden rounded-custom border border-custom bg-theme p-1 shadow dark:bg-site",
+        "z-50 min-w-[8rem] overflow-hidden rounded-custom border border-strong bg-theme p-1 shadow-custom dark:bg-site",
         className
       )}
       {...props}

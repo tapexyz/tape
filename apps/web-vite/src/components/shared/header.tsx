@@ -117,7 +117,7 @@ const RightSection = memo(() => {
             <AvatarImage src={`${WORKER_AVATAR_URL}/0x2d`} />
           </Avatar>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-44">
+        <DropdownMenuContent align="end" className="w-48">
           <DropdownMenuItem className="flex items-center gap-2">
             <User />
             <span>Profile</span>
