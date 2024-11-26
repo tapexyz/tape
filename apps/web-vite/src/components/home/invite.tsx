@@ -38,7 +38,7 @@ export const Invite = memo(() => {
           x: backgroundX,
           y: backgroundY
         }}
-        className="-inset-5 absolute bg-[url(/images/hero.webp)] bg-center bg-cover bg-no-repeat"
+        className="-inset-5 absolute bg-[url(/images/hero.webp)] bg-center bg-cover bg-no-repeat will-change-transform"
       />
       <div className="relative flex flex-wrap items-end justify-between gap-4 bg-gradient-to-t from-black/70 p-5">
         <h2 className="max-w-xl text-[28px] text-white leading-[26px] tracking-tighter">

@@ -227,7 +227,7 @@ const Nav = () => {
         animate={{ opacity: 1, filter: "blur(0px)" }}
         exit={{ opacity: 0, filter: "blur(4px)" }}
         transition={{ duration: 0.2, ease: "easeInOut", delay: 0.1 }}
-        className="fixed inset-x-0 bottom-6 z-50 hidden w-[calc(100%-var(--removed-body-scroll-bar-size,0px))] justify-center md:flex 2xl:bottom-10"
+        className="fixed inset-x-0 bottom-6 z-50 hidden w-[calc(100%-var(--removed-body-scroll-bar-size,0px))] justify-center will-change-transform md:flex 2xl:bottom-10"
       >
         {show ? (
           <div className="w-[357px]">
