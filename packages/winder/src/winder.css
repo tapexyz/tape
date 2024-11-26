@@ -72,11 +72,6 @@
     --divider: 0, 0%, 100%, 0.1;
     --text-muted: 0, 0%, 100%, 0.4;
   }
-
-  html {
-    font-family: var(--tape-font-sans);
-    @apply scroll-smooth bg-site antialiased text-primary;
-  }
 }
 
 @theme {

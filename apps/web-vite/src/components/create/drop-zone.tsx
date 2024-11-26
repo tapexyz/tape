@@ -1,5 +1,5 @@
 import { ALLOWED_UPLOAD_MIME_TYPES } from "@tape.xyz/constants";
-import { Button, Comets, Morph, toast } from "@tape.xyz/winder";
+import { Button, Morph, toast } from "@tape.xyz/winder";
 import { useEffect, useState } from "react";
 import { useDragAndDrop } from "./drag-and-drop";
 
@@ -64,7 +64,6 @@ const DropZone = () => {
       onDragOver={onDragOver}
       onDragLeave={onDragLeave}
     >
-      <Comets />
       <input
         type="file"
         id="dropMedia"

@@ -51,7 +51,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       >
         <AnimatePresence mode="popLayout" initial={false}>
           <m.span
-            className="inline-flex items-center space-x-1 whitespace-nowrap"
+            className="inline-flex flex-1 items-center space-x-1 whitespace-nowrap"
             key={loading ? "loading" : "idle"}
             transition={{ type: "spring", duration: 0.3, bounce: 0 }}
             initial={{ opacity: 0, y: -25 }}

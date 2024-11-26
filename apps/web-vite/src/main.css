@@ -1,5 +1,12 @@
+@import "@tape.xyz/winder/src/winder.css";
+
 * {
   scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
+html {
+  font-family: var(--tape-font-sans);
+  @apply scroll-smooth bg-site antialiased text-primary;
 }
 
 button {

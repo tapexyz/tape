@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as WinderIndexImport } from './routes/winder/index'
+import { Route as SignInIndexImport } from './routes/sign-in/index'
 import { Route as OpenIndexImport } from './routes/open/index'
 import { Route as EmbedPubIdImport } from './routes/embed/$pubId'
 import { Route as LayoutHomeImport } from './routes/_layout/_home'
@@ -37,6 +38,12 @@ const LayoutRoute = LayoutImport.update({
 const WinderIndexRoute = WinderIndexImport.update({
   id: '/winder/',
   path: '/winder/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SignInIndexRoute = SignInIndexImport.update({
+  id: '/sign-in/',
+  path: '/sign-in/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -147,6 +154,13 @@ declare module '@tanstack/react-router' {
       path: '/open'
       fullPath: '/open'
       preLoaderRoute: typeof OpenIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/sign-in/': {
+      id: '/sign-in/'
+      path: '/sign-in'
+      fullPath: '/sign-in'
+      preLoaderRoute: typeof SignInIndexImport
       parentRoute: typeof rootRoute
     }
     '/winder/': {
@@ -276,6 +290,7 @@ export interface FileRoutesByFullPath {
   '': typeof LayoutHomeRouteWithChildren
   '/embed/$pubId': typeof EmbedPubIdRoute
   '/open': typeof OpenIndexRoute
+  '/sign-in': typeof SignInIndexRoute
   '/winder': typeof WinderIndexRoute
   '/explore': typeof LayoutHomeExploreRoute
   '/following': typeof LayoutHomeFollowingRoute
@@ -293,6 +308,7 @@ export interface FileRoutesByTo {
   '': typeof LayoutRouteWithChildren
   '/embed/$pubId': typeof EmbedPubIdRoute
   '/open': typeof OpenIndexRoute
+  '/sign-in': typeof SignInIndexRoute
   '/winder': typeof WinderIndexRoute
   '/explore': typeof LayoutHomeExploreRoute
   '/following': typeof LayoutHomeFollowingRoute
@@ -312,6 +328,7 @@ export interface FileRoutesById {
   '/_layout/_home': typeof LayoutHomeRouteWithChildren
   '/embed/$pubId': typeof EmbedPubIdRoute
   '/open/': typeof OpenIndexRoute
+  '/sign-in/': typeof SignInIndexRoute
   '/winder/': typeof WinderIndexRoute
   '/_layout/_home/explore': typeof LayoutHomeExploreRoute
   '/_layout/_home/following': typeof LayoutHomeFollowingRoute
@@ -331,6 +348,7 @@ export interface FileRouteTypes {
     | ''
     | '/embed/$pubId'
     | '/open'
+    | '/sign-in'
     | '/winder'
     | '/explore'
     | '/following'
@@ -347,6 +365,7 @@ export interface FileRouteTypes {
     | ''
     | '/embed/$pubId'
     | '/open'
+    | '/sign-in'
     | '/winder'
     | '/explore'
     | '/following'
@@ -364,6 +383,7 @@ export interface FileRouteTypes {
     | '/_layout/_home'
     | '/embed/$pubId'
     | '/open/'
+    | '/sign-in/'
     | '/winder/'
     | '/_layout/_home/explore'
     | '/_layout/_home/following'
@@ -382,6 +402,7 @@ export interface RootRouteChildren {
   LayoutRoute: typeof LayoutRouteWithChildren
   EmbedPubIdRoute: typeof EmbedPubIdRoute
   OpenIndexRoute: typeof OpenIndexRoute
+  SignInIndexRoute: typeof SignInIndexRoute
   WinderIndexRoute: typeof WinderIndexRoute
 }
 
@@ -389,6 +410,7 @@ const rootRouteChildren: RootRouteChildren = {
   LayoutRoute: LayoutRouteWithChildren,
   EmbedPubIdRoute: EmbedPubIdRoute,
   OpenIndexRoute: OpenIndexRoute,
+  SignInIndexRoute: SignInIndexRoute,
   WinderIndexRoute: WinderIndexRoute,
 }
 
@@ -405,6 +427,7 @@ export const routeTree = rootRoute
         "/_layout",
         "/embed/$pubId",
         "/open/",
+        "/sign-in/",
         "/winder/"
       ]
     },
@@ -435,6 +458,9 @@ export const routeTree = rootRoute
     },
     "/open/": {
       "filePath": "open/index.tsx"
+    },
+    "/sign-in/": {
+      "filePath": "sign-in/index.tsx"
     },
     "/winder/": {
       "filePath": "winder/index.tsx"

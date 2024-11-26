@@ -7,6 +7,7 @@ import type { ReactNode } from "react";
 import { Log } from "./log";
 import { rqClient, rqPersister } from "./react-query";
 import { ServiceWorkerProvider } from "./sw-provider";
+import { WalletProvider } from "./wallet";
 
 const loadFeatures = () => import("./animations").then((res) => res.default);
 
@@ -16,16 +17,18 @@ export const Providers = ({ children }: Readonly<{ children: ReactNode }>) => {
       client={rqClient}
       persistOptions={{ persister: rqPersister }}
     >
-      <ServiceWorkerProvider>
-        <LazyMotion features={loadFeatures} strict>
-          <ThemeProvider>
-            {children}
-            <Toaster />
-          </ThemeProvider>
-          <Log />
-          <Devtools />
-        </LazyMotion>
-      </ServiceWorkerProvider>
+      <WalletProvider>
+        <ServiceWorkerProvider>
+          <LazyMotion features={loadFeatures} strict>
+            <ThemeProvider>
+              {children}
+              <Toaster />
+            </ThemeProvider>
+            <Log />
+            <Devtools />
+          </LazyMotion>
+        </ServiceWorkerProvider>
+      </WalletProvider>
     </PersistQueryClientProvider>
   );
 };
