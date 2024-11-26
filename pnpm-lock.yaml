@@ -575,6 +575,9 @@ importers:
       idb-keyval:
         specifier: ^6.2.1
         version: 6.2.1
+      js-cookie:
+        specifier: ^3.0.5
+        version: 3.0.5
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -584,6 +587,9 @@ importers:
       react-virtuoso:
         specifier: ^4.12.1
         version: 4.12.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      zustand:
+        specifier: ^5.0.1
+        version: 5.0.1(@types/react@18.3.12)(immer@10.0.2)(react@18.3.1)(use-sync-external-store@1.2.2(react@18.3.1))
     devDependencies:
       '@tailwindcss/vite':
         specifier: 4.0.0-beta.2
