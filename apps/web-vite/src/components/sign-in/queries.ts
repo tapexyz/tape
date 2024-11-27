@@ -1,6 +1,10 @@
 import { execute } from "@/helpers/execute";
-import { infiniteQueryOptions } from "@tanstack/react-query";
-import { AccountsAvailableDocument, PageSize } from "@tape.xyz/indexer";
+import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
+import {
+  AccountsAvailableDocument,
+  LastLoggedInAccountDocument,
+  PageSize
+} from "@tape.xyz/indexer";
 
 export const accountsAvailableQuery = (managedBy: string) =>
   infiniteQueryOptions({
@@ -17,4 +21,16 @@ export const accountsAvailableQuery = (managedBy: string) =>
     initialPageParam: null,
     getNextPageParam: (lastPage) => lastPage.accountsAvailable.pageInfo.next,
     enabled: Boolean(managedBy)
+  });
+
+export const lastLoggedInAccountQuery = (address: string) =>
+  queryOptions({
+    queryKey: ["last-logged-in-account"],
+    queryFn: () =>
+      execute(LastLoggedInAccountDocument, {
+        request: {
+          address
+        }
+      }),
+    enabled: Boolean(address)
   });

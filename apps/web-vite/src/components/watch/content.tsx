@@ -1,6 +1,6 @@
 import { ShowMore, tw } from "@tape.xyz/winder";
 import { useMeasure } from "@uidotdev/usehooks";
-import { m } from "framer-motion";
+import { m } from "motion/react";
 import { useState } from "react";
 
 export const Content = ({ content }: { content?: string }) => {

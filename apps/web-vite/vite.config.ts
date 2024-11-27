@@ -62,7 +62,7 @@ export default defineConfig(({ mode }) => {
             dom: ["react-dom"],
             router: ["@tanstack/react-router"],
             query: ["@tanstack/react-query"],
-            framer: ["framer-motion"],
+            motion: ["motion"],
             virtual: ["react-virtuoso"],
             hooks: ["@uidotdev/usehooks"],
             idb: ["idb-keyval"],

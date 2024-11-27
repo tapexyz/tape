@@ -11,7 +11,7 @@ import {
   tw
 } from "@tape.xyz/winder";
 import { useNetworkState } from "@uidotdev/usehooks";
-import { m } from "framer-motion";
+import { m } from "motion/react";
 import { useState } from "react";
 import { Logo } from "./header";
 

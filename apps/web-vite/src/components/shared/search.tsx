@@ -14,7 +14,7 @@ import {
   tw
 } from "@tape.xyz/winder";
 import { useDebounce } from "@uidotdev/usehooks";
-import { m } from "framer-motion";
+import { m } from "motion/react";
 import { memo, useState } from "react";
 
 const data = [

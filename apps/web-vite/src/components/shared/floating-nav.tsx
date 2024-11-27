@@ -3,7 +3,7 @@ import { Link, useMatchRoute } from "@tanstack/react-router";
 import { TAPE_MEDIA_CATEGORIES } from "@tape.xyz/constants";
 import { FunnelSimple, ScrollArea, tw } from "@tape.xyz/winder";
 import { useClickAway, useMeasure } from "@uidotdev/usehooks";
-import { AnimatePresence, m, useScroll, useTransform } from "framer-motion";
+import { AnimatePresence, m, useScroll, useTransform } from "motion/react";
 import {
   type ReactNode,
   type RefObject,

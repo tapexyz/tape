@@ -3,7 +3,7 @@ import { STATIC_ASSETS } from "@tape.xyz/constants";
 import { Morph } from "@tape.xyz/winder";
 import { useDebounce } from "@uidotdev/usehooks";
 import { useHover } from "@uidotdev/usehooks";
-import { AnimatePresence, m } from "framer-motion";
+import { AnimatePresence, m } from "motion/react";
 
 export const MiddleGridItem = () => {
   const [ref, hovering] = useHover();

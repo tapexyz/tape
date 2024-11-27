@@ -68,8 +68,8 @@ const SelectContent = React.forwardRef<
       ref={ref}
       className={tw(
         "data-[side=bottom]:slide-in-from-top-2",
-        "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
-        "data-[state=closed]:fade-out data-[state=open]:fade-in data-[state=closed]:animate-out data-[state=open]:animate-in",
+        "data-[state=closed]:zoom-out-90 data-[state=open]:zoom-in-90",
+        "data-[state=closed]:fade-out data-[state=open]:fade-in",
         "relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-custom border border-custom bg-theme dark:bg-site",
         position === "popper" &&
           "data-[side=left]:-translate-x-1 data-[side=top]:-translate-y-1 data-[side=right]:translate-x-1 data-[side=bottom]:translate-y-1",
@@ -107,24 +107,31 @@ const SelectLabel = React.forwardRef<
 const SelectItem = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
->(({ className, children, ...props }, ref) => (
-  <SelectPrimitive.Item
-    ref={ref}
-    className={tw(
-      "relative flex w-full cursor-default select-none items-center rounded-md py-2.5 pr-8 pl-3 text-sm outline-none focus:bg-secondary data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-      className
-    )}
-    {...props}
-  >
-    <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+>(({ className, children, ...props }, ref) => {
+  const memoizedItem = React.useMemo(
+    () => (
+      <SelectPrimitive.Item
+        ref={ref}
+        className={tw(
+          "relative flex w-full cursor-default select-none items-center rounded-md py-2.5 pr-8 pl-3 text-sm outline-none focus:bg-secondary data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+          className
+        )}
+        {...props}
+      >
+        <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
 
-    <span className="absolute right-3.5 flex size-3.5 items-center justify-center">
-      <SelectPrimitive.ItemIndicator>
-        <Check />
-      </SelectPrimitive.ItemIndicator>
-    </span>
-  </SelectPrimitive.Item>
-));
+        <span className="absolute right-3.5 flex size-3.5 items-center justify-center">
+          <SelectPrimitive.ItemIndicator>
+            <Check />
+          </SelectPrimitive.ItemIndicator>
+        </span>
+      </SelectPrimitive.Item>
+    ),
+    [className, children, props, ref]
+  );
+
+  return memoizedItem;
+});
 
 const SelectSeparator = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Separator>,

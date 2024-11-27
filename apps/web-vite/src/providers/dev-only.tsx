@@ -1,10 +1,15 @@
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { IS_DEVELOPMENT } from "@tape.xyz/constants";
-import { m } from "framer-motion";
+import { m } from "motion/react";
+
+import { useMemo } from "react";
 
 const Devtools = () => {
   if (!IS_DEVELOPMENT) return null;
+
+  const memoizedReactQueryDevtools = useMemo(() => <ReactQueryDevtools />, []);
+
   return (
     <>
       <m.div
@@ -20,7 +25,7 @@ const Devtools = () => {
         <span className="3xl:block hidden">3xl</span>
       </m.div>
       <TanStackRouterDevtools />
-      <ReactQueryDevtools />
+      {memoizedReactQueryDevtools}
     </>
   );
 };

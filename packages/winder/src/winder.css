@@ -112,4 +112,16 @@
 
   /* Transition Properties */
   --transition-property-filter: filter;
+
+  /* Animations */
+  --animate-shimmer: shimmer 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  @keyframes shimmer {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+  }
 }

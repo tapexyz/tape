@@ -2,7 +2,7 @@ import { Devtools } from "@/providers/dev-only";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import { Toaster } from "@tape.xyz/winder";
 import { ThemeProvider } from "@tape.xyz/winder";
-import { LazyMotion } from "framer-motion";
+import { LazyMotion } from "motion/react";
 import type { ReactNode } from "react";
 import { Log } from "./log";
 import { rqClient, rqPersister } from "./react-query";

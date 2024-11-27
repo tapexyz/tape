@@ -1,6 +1,6 @@
 import { type VariantProps, cva } from "class-variance-authority";
 import { AnimatePresence, m } from "framer-motion";
-import { type ButtonHTMLAttributes, forwardRef } from "react";
+import { type ButtonHTMLAttributes, forwardRef, memo } from "react";
 import { tw } from "../tw";
 import { Spinner } from "./spinner";
 
@@ -40,30 +40,32 @@ interface ButtonProps
   loading?: boolean;
 }
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, loading, ...props }, ref) => {
-    return (
-      <button
-        ref={ref}
-        className={tw(buttonVariants({ variant, size, className }))}
-        disabled={loading}
-        {...props}
-      >
-        <AnimatePresence mode="popLayout" initial={false}>
-          <m.span
-            className="inline-flex flex-1 items-center space-x-1 whitespace-nowrap"
-            key={loading ? "loading" : "idle"}
-            transition={{ type: "spring", duration: 0.3, bounce: 0 }}
-            initial={{ opacity: 0, y: -25 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 25, transition: { duration: 0.1 } }}
-          >
-            {loading ? <Spinner /> : props.children}
-          </m.span>
-        </AnimatePresence>
-      </button>
-    );
-  }
+const Button = memo(
+  forwardRef<HTMLButtonElement, ButtonProps>(
+    ({ className, variant, size, loading, ...props }, ref) => {
+      return (
+        <button
+          ref={ref}
+          className={tw(buttonVariants({ variant, size, className }))}
+          disabled={loading}
+          {...props}
+        >
+          <AnimatePresence mode="popLayout" initial={false}>
+            <m.span
+              className="inline-flex flex-1 items-center justify-center space-x-1 whitespace-nowrap"
+              key={loading ? "loading" : "idle"}
+              transition={{ type: "spring", duration: 0.3, bounce: 0 }}
+              initial={{ opacity: 0, y: -25 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 25, transition: { duration: 0.1 } }}
+            >
+              {loading ? <Spinner /> : props.children}
+            </m.span>
+          </AnimatePresence>
+        </button>
+      );
+    }
+  )
 );
 
 export { Button };

@@ -1,5 +1,5 @@
 import { Button } from "@tape.xyz/winder";
-import { m, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { m, useMotionValue, useSpring, useTransform } from "motion/react";
 import { memo } from "react";
 
 export const Invite = memo(() => {

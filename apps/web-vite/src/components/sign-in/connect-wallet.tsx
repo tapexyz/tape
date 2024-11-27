@@ -1,11 +1,11 @@
 import { Alert, Button, Check, Warning } from "@tape.xyz/winder";
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import type { Connector } from "wagmi";
 import { useAccount, useConnect } from "wagmi";
 import { AuthProviders } from "./auth-providers";
-import { SIWE } from "./siwe";
+import { Authenticate } from "./authenticate";
 
-export const ConnectWallet = () => {
+export const ConnectWallet = memo(() => {
   //   const { addEventToQueue } = useSw();
   //   const { activeProfile } = useProfileStore();
   //   const handleWrongNetwork = useHandleWrongNetwork();
@@ -67,7 +67,7 @@ export const ConnectWallet = () => {
           </Button>
         ))}
       </div>
-      <SIWE />
+      <Authenticate />
       {error?.message ? (
         <Alert variant="destructive">
           <Warning className="size-4" />
@@ -76,4 +76,4 @@ export const ConnectWallet = () => {
       ) : null}
     </div>
   );
-};
+});

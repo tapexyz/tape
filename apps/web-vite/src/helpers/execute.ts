@@ -1,5 +1,9 @@
 import { hydrateAuthTokens } from "@/store/cookie";
-import { LensEndpoint, TAPE_USER_AGENT } from "@tape.xyz/constants";
+import {
+  TAPE_USER_AGENT,
+  TAPE_WEBSITE_URL,
+  TESTNET_API_URL
+} from "@tape.xyz/constants";
 import type { TypedDocumentString } from "@tape.xyz/indexer";
 
 export const execute = async <TResult, TVariables>(
@@ -8,12 +12,13 @@ export const execute = async <TResult, TVariables>(
 ) => {
   const { accessToken } = hydrateAuthTokens();
   try {
-    const response = await fetch(LensEndpoint.Staging, {
+    const response = await fetch(TESTNET_API_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "User-Agent": TAPE_USER_AGENT,
         Accept: "application/graphql-response+json",
+        origin: TAPE_WEBSITE_URL,
         ...(accessToken && {
           "x-access-token": `Bearer ${accessToken}`
         })

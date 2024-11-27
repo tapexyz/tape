@@ -1,6 +1,6 @@
 import { STATIC_ASSETS } from "@tape.xyz/constants";
 import { imageCdn } from "@tape.xyz/generic";
-import { type MotionProps, m } from "framer-motion";
+import { type MotionProps, m } from "motion/react";
 import type { SVGProps } from "react";
 
 const AnimatedRect = (props: SVGProps<SVGRectElement> & MotionProps) => {
