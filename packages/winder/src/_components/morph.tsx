@@ -1,4 +1,4 @@
-import { AnimatePresence, m } from "framer-motion";
+import { AnimatePresence, m } from "motion/react";
 
 export const Morph = ({ children }: { children: string }) => {
   const generateKeys = (text: string) => {

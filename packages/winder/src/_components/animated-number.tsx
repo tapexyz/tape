@@ -1,4 +1,4 @@
-import { type SpringOptions, m, useSpring, useTransform } from "framer-motion";
+import { type SpringOptions, m, useSpring, useTransform } from "motion/react";
 import { useEffect } from "react";
 import { tw } from "../tw";
 

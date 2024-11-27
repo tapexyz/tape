@@ -1,4 +1,4 @@
-import { m } from "framer-motion";
+import { m } from "motion/react";
 import { Desktop, Moon, Sun } from "../icons";
 import { useTheme } from "../theme";
 import { Button } from "./button";

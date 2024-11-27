@@ -1,5 +1,5 @@
 import { type VariantProps, cva } from "class-variance-authority";
-import { AnimatePresence, m } from "framer-motion";
+import { AnimatePresence, m } from "motion/react";
 import { type ButtonHTMLAttributes, forwardRef, memo } from "react";
 import { tw } from "../tw";
 import { Spinner } from "./spinner";

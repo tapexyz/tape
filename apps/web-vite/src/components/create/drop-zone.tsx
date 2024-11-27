@@ -25,7 +25,7 @@ const AnimatedHint = () => {
 };
 
 const DropZone = () => {
-  const { setDragOver, onDragOver, onDragLeave } = useDragAndDrop();
+  const { setDragOver, onDragOver, onDragLeave, dragOver } = useDragAndDrop();
 
   const handleUpload = async (file: File) => {
     if (file) {
@@ -64,6 +64,12 @@ const DropZone = () => {
       onDragOver={onDragOver}
       onDragLeave={onDragLeave}
     >
+      {dragOver && (
+        <>
+          <div className="absolute inset-6 rounded-custom border-2 border-custom border-dashed" />
+          <div className="absolute inset-12 rounded-custom border-2 border-custom border-dashed" />
+        </>
+      )}
       <input
         type="file"
         id="dropMedia"
