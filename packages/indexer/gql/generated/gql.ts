@@ -19,8 +19,18 @@ const documents = {
     "fragment AccountFields on Account {\n  address\n  score\n  metadata {\n    bio\n    coverPicture\n    id\n    name\n    picture\n    attributes {\n      ...MetadataAttributeFields\n    }\n  }\n  username {\n    ...UsernameFields\n  }\n  operations {\n    ...LoggedInAccountOperationsFields\n  }\n}": types.AccountFieldsFragmentDoc,
     "fragment AccountMetadataFields on AccountMetadata {\n  bio\n  coverPicture\n  id\n  name\n  picture\n  attributes {\n    ...MetadataAttributeFields\n  }\n}": types.AccountMetadataFieldsFragmentDoc,
     "fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {\n  id\n  isFollowedByMe\n  isFollowingMe\n  canFollow\n  canUnfollow\n  isMutedByMe\n  isBlockedByMe\n  hasBlockedMe\n  canBlock\n  canUnblock\n  hasReported\n}": types.LoggedInAccountOperationsFieldsFragmentDoc,
+    "fragment AppFields on App {\n  address\n  defaultFeedAddress\n  graphAddress\n  namespaceAddress\n  sponsorshipAddress\n  treasuryAddress\n  createdAt\n  metadata {\n    description\n    developer\n    logo\n    name\n    platforms\n    privacyPolicy\n    termsOfService\n    url\n  }\n}": types.AppFieldsFragmentDoc,
     "fragment GroupFields on Group {\n  address\n  timestamp\n  metadata {\n    description\n    icon\n    name\n    slug\n    id\n  }\n}": types.GroupFieldsFragmentDoc,
     "fragment MetadataAttributeFields on MetadataAttribute {\n  type\n  key\n  value\n}": types.MetadataAttributeFieldsFragmentDoc,
+    "fragment MediaAudioFields on MediaAudio {\n  artist\n  item\n  cover\n  license\n}": types.MediaAudioFieldsFragmentDoc,
+    "fragment MediaFields on AnyMedia {\n  ... on MediaVideo {\n    ...MediaVideoFields\n  }\n  ... on MediaImage {\n    ...MediaImageFields\n  }\n  ... on MediaAudio {\n    ...MediaAudioFields\n  }\n}": types.MediaFieldsFragmentDoc,
+    "fragment MediaImageFields on MediaImage {\n  altTag\n  attributes {\n    ...MetadataAttributeFields\n  }\n  item\n  license\n}": types.MediaImageFieldsFragmentDoc,
+    "fragment MediaVideoFields on MediaVideo {\n  altTag\n  attributes {\n    ...MetadataAttributeFields\n  }\n  cover\n  duration\n  item\n  license\n}": types.MediaVideoFieldsFragmentDoc,
+    "fragment VideoMetadataFields on VideoMetadata {\n  __typename\n  title\n  content\n  tags\n  attributes {\n    ...MetadataAttributeFields\n  }\n  attachments {\n    ...MediaFields\n  }\n  video {\n    ...MediaVideoFields\n  }\n}": types.VideoMetadataFieldsFragmentDoc,
+    "fragment PostFields on Post {\n  id\n  author {\n    ...AccountFields\n  }\n  feed {\n    address\n  }\n  isEdited\n  isDeleted\n  timestamp\n  app {\n    ...AppFields\n  }\n  metadata {\n    ...PostMetadataFields\n  }\n  root {\n    ... on Post {\n      id\n      author {\n        ...AccountFields\n      }\n      timestamp\n      metadata {\n        ...PostMetadataFields\n      }\n    }\n    ... on PostReference {\n      id\n    }\n  }\n  quoteOf {\n    ... on Post {\n      id\n      author {\n        ...AccountFields\n      }\n      timestamp\n      metadata {\n        ...PostMetadataFields\n      }\n    }\n    ... on PostReference {\n      id\n    }\n  }\n  commentOn {\n    ... on Post {\n      id\n      author {\n        ...AccountFields\n      }\n      timestamp\n      metadata {\n        ...PostMetadataFields\n      }\n    }\n    ... on PostReference {\n      id\n    }\n  }\n  stats {\n    ...PostStatsFields\n  }\n  mentions {\n    account\n    namespace\n    replace {\n      from\n      to\n    }\n  }\n  operations {\n    canComment\n    canRepost\n    canQuote\n    hasReacted\n    hasReposted {\n      optimistic\n    }\n  }\n}": types.PostFieldsFragmentDoc,
+    "fragment PostMetadataFields on PostMetadata {\n  __typename\n  ... on VideoMetadata {\n    ...VideoMetadataFields\n  }\n}": types.PostMetadataFieldsFragmentDoc,
+    "fragment PostStatsFields on PostStats {\n  bookmarks\n  collects\n  comments\n  quotes\n  reactions\n  reposts\n}": types.PostStatsFieldsFragmentDoc,
+    "fragment RepostFields on Repost {\n  id\n  author {\n    ...AccountFields\n  }\n  isDeleted\n  timestamp\n  app {\n    ...AppFields\n  }\n  repostOf {\n    ...PostFields\n  }\n}": types.RepostFieldsFragmentDoc,
     "fragment UsernameFields on Username {\n  id\n  value\n  namespace {\n    address\n    namespace\n    metadata {\n      description\n      id\n    }\n  }\n  localName\n  linkedTo\n  ownedBy\n  timestamp\n}": types.UsernameFieldsFragmentDoc,
     "mutation CreateAccountWithUsername($request: CreateAccountWithUsernameRequest!) {\n  createAccountWithUsername(request: $request) {\n    ... on CreateAccountResponse {\n      hash\n    }\n    ... on InvalidUsername {\n      invalidUsernameReason: reason\n    }\n    ... on SelfFundedTransactionRequest {\n      selfFundedTransactionRequestReason: reason\n    }\n    ... on SponsoredTransactionRequest {\n      sponsoredTransactionRequestReason: reason\n    }\n    ... on TransactionWillFail {\n      transactionWillFailReason: reason\n    }\n  }\n}": types.CreateAccountWithUsernameDocument,
     "mutation Authenticate($request: SignedAuthChallenge!) {\n  authenticate(request: $request) {\n    ... on AuthenticationTokens {\n      __typename\n      accessToken\n      refreshToken\n      idToken\n    }\n    ... on ExpiredChallengeError {\n      __typename\n      reason\n    }\n    ... on ForbiddenError {\n      __typename\n      reason\n    }\n    ... on WrongSignerError {\n      __typename\n      reason\n    }\n  }\n}": types.AuthenticateDocument,
@@ -39,8 +49,8 @@ const documents = {
     "query LastLoggedInAccount($request: LastLoggedInAccountRequest!) {\n  lastLoggedInAccount(request: $request) {\n    address\n    owner\n    score\n    metadata {\n      ...AccountMetadataFields\n    }\n    username {\n      ...UsernameFields\n    }\n    operations {\n      ...LoggedInAccountOperationsFields\n    }\n  }\n}": types.LastLoggedInAccountDocument,
     "query Me {\n  me {\n    account {\n      ... on AccountManaged {\n        account {\n          ...AccountFields\n        }\n        addedAt\n      }\n      ... on AccountOwned {\n        account {\n          ...AccountFields\n        }\n        addedAt\n      }\n    }\n    isSignless\n    isSponsored\n    appLoggedIn\n    limit {\n      window\n      allowanceLeft\n      allowanceUsed\n      allowance\n    }\n  }\n}": types.MeDocument,
     "query Usernames($request: UsernamesRequest!) {\n  usernames(request: $request) {\n    items {\n      ...UsernameFields\n    }\n    pageInfo {\n      next\n    }\n  }\n}": types.UsernamesDocument,
-    "query Feed($request: FeedRequest!) {\n  feed(request: $request) {\n    address\n  }\n}": types.FeedDocument,
     "query Group($request: GroupRequest!) {\n  group(request: $request) {\n    ...GroupFields\n  }\n}": types.GroupDocument,
+    "query Posts($request: PostsRequest!) {\n  posts(request: $request) {\n    items {\n      ... on Post {\n        ...PostFields\n      }\n      ... on Repost {\n        ...RepostFields\n      }\n    }\n    pageInfo {\n      next\n    }\n  }\n}": types.PostsDocument,
 };
 
 /**
@@ -62,11 +72,51 @@ export function graphql(source: "fragment LoggedInAccountOperationsFields on Log
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "fragment AppFields on App {\n  address\n  defaultFeedAddress\n  graphAddress\n  namespaceAddress\n  sponsorshipAddress\n  treasuryAddress\n  createdAt\n  metadata {\n    description\n    developer\n    logo\n    name\n    platforms\n    privacyPolicy\n    termsOfService\n    url\n  }\n}"): typeof import('./graphql').AppFieldsFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "fragment GroupFields on Group {\n  address\n  timestamp\n  metadata {\n    description\n    icon\n    name\n    slug\n    id\n  }\n}"): typeof import('./graphql').GroupFieldsFragmentDoc;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "fragment MetadataAttributeFields on MetadataAttribute {\n  type\n  key\n  value\n}"): typeof import('./graphql').MetadataAttributeFieldsFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment MediaAudioFields on MediaAudio {\n  artist\n  item\n  cover\n  license\n}"): typeof import('./graphql').MediaAudioFieldsFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment MediaFields on AnyMedia {\n  ... on MediaVideo {\n    ...MediaVideoFields\n  }\n  ... on MediaImage {\n    ...MediaImageFields\n  }\n  ... on MediaAudio {\n    ...MediaAudioFields\n  }\n}"): typeof import('./graphql').MediaFieldsFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment MediaImageFields on MediaImage {\n  altTag\n  attributes {\n    ...MetadataAttributeFields\n  }\n  item\n  license\n}"): typeof import('./graphql').MediaImageFieldsFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment MediaVideoFields on MediaVideo {\n  altTag\n  attributes {\n    ...MetadataAttributeFields\n  }\n  cover\n  duration\n  item\n  license\n}"): typeof import('./graphql').MediaVideoFieldsFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment VideoMetadataFields on VideoMetadata {\n  __typename\n  title\n  content\n  tags\n  attributes {\n    ...MetadataAttributeFields\n  }\n  attachments {\n    ...MediaFields\n  }\n  video {\n    ...MediaVideoFields\n  }\n}"): typeof import('./graphql').VideoMetadataFieldsFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment PostFields on Post {\n  id\n  author {\n    ...AccountFields\n  }\n  feed {\n    address\n  }\n  isEdited\n  isDeleted\n  timestamp\n  app {\n    ...AppFields\n  }\n  metadata {\n    ...PostMetadataFields\n  }\n  root {\n    ... on Post {\n      id\n      author {\n        ...AccountFields\n      }\n      timestamp\n      metadata {\n        ...PostMetadataFields\n      }\n    }\n    ... on PostReference {\n      id\n    }\n  }\n  quoteOf {\n    ... on Post {\n      id\n      author {\n        ...AccountFields\n      }\n      timestamp\n      metadata {\n        ...PostMetadataFields\n      }\n    }\n    ... on PostReference {\n      id\n    }\n  }\n  commentOn {\n    ... on Post {\n      id\n      author {\n        ...AccountFields\n      }\n      timestamp\n      metadata {\n        ...PostMetadataFields\n      }\n    }\n    ... on PostReference {\n      id\n    }\n  }\n  stats {\n    ...PostStatsFields\n  }\n  mentions {\n    account\n    namespace\n    replace {\n      from\n      to\n    }\n  }\n  operations {\n    canComment\n    canRepost\n    canQuote\n    hasReacted\n    hasReposted {\n      optimistic\n    }\n  }\n}"): typeof import('./graphql').PostFieldsFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment PostMetadataFields on PostMetadata {\n  __typename\n  ... on VideoMetadata {\n    ...VideoMetadataFields\n  }\n}"): typeof import('./graphql').PostMetadataFieldsFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment PostStatsFields on PostStats {\n  bookmarks\n  collects\n  comments\n  quotes\n  reactions\n  reposts\n}"): typeof import('./graphql').PostStatsFieldsFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment RepostFields on Repost {\n  id\n  author {\n    ...AccountFields\n  }\n  isDeleted\n  timestamp\n  app {\n    ...AppFields\n  }\n  repostOf {\n    ...PostFields\n  }\n}"): typeof import('./graphql').RepostFieldsFragmentDoc;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -142,11 +192,11 @@ export function graphql(source: "query Usernames($request: UsernamesRequest!) {\
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query Feed($request: FeedRequest!) {\n  feed(request: $request) {\n    address\n  }\n}"): typeof import('./graphql').FeedDocument;
+export function graphql(source: "query Group($request: GroupRequest!) {\n  group(request: $request) {\n    ...GroupFields\n  }\n}"): typeof import('./graphql').GroupDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query Group($request: GroupRequest!) {\n  group(request: $request) {\n    ...GroupFields\n  }\n}"): typeof import('./graphql').GroupDocument;
+export function graphql(source: "query Posts($request: PostsRequest!) {\n  posts(request: $request) {\n    items {\n      ... on Post {\n        ...PostFields\n      }\n      ... on Repost {\n        ...RepostFields\n      }\n    }\n    pageInfo {\n      next\n    }\n  }\n}"): typeof import('./graphql').PostsDocument;
 
 
 export function graphql(source: string) {

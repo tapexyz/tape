@@ -4741,9 +4741,305 @@ export type AccountMetadataFieldsFragment = { __typename?: 'AccountMetadata', bi
 
 export type LoggedInAccountOperationsFieldsFragment = { __typename?: 'LoggedInAccountOperations', id: string, isFollowedByMe: boolean, isFollowingMe: boolean, canFollow: TriStateValue, canUnfollow: boolean, isMutedByMe: boolean, isBlockedByMe: boolean, hasBlockedMe: boolean, canBlock: boolean, canUnblock: boolean, hasReported: boolean } & { ' $fragmentName'?: 'LoggedInAccountOperationsFieldsFragment' };
 
+export type AppFieldsFragment = { __typename?: 'App', address: any, defaultFeedAddress?: any | null, graphAddress?: any | null, namespaceAddress?: any | null, sponsorshipAddress?: any | null, treasuryAddress?: any | null, createdAt: any, metadata?: { __typename?: 'AppMetadata', description?: string | null, developer: string, logo?: any | null, name: string, platforms: Array<AppMetadataLensPlatformsItem>, privacyPolicy?: any | null, termsOfService?: any | null, url: any } | null } & { ' $fragmentName'?: 'AppFieldsFragment' };
+
 export type GroupFieldsFragment = { __typename?: 'Group', address: any, timestamp: any, metadata?: { __typename?: 'GroupMetadata', description?: string | null, icon?: any | null, name: string, slug: string, id: string } | null } & { ' $fragmentName'?: 'GroupFieldsFragment' };
 
 export type MetadataAttributeFieldsFragment = { __typename?: 'MetadataAttribute', type: MetadataAttributeType, key: string, value: string } & { ' $fragmentName'?: 'MetadataAttributeFieldsFragment' };
+
+export type MediaAudioFieldsFragment = { __typename?: 'MediaAudio', artist?: any | null, item: any, cover?: any | null, license?: MetadataLicenseType | null } & { ' $fragmentName'?: 'MediaAudioFieldsFragment' };
+
+type MediaFields_MediaAudio_Fragment = (
+  { __typename?: 'MediaAudio' }
+  & { ' $fragmentRefs'?: { 'MediaAudioFieldsFragment': MediaAudioFieldsFragment } }
+) & { ' $fragmentName'?: 'MediaFields_MediaAudio_Fragment' };
+
+type MediaFields_MediaImage_Fragment = (
+  { __typename?: 'MediaImage' }
+  & { ' $fragmentRefs'?: { 'MediaImageFieldsFragment': MediaImageFieldsFragment } }
+) & { ' $fragmentName'?: 'MediaFields_MediaImage_Fragment' };
+
+type MediaFields_MediaVideo_Fragment = (
+  { __typename?: 'MediaVideo' }
+  & { ' $fragmentRefs'?: { 'MediaVideoFieldsFragment': MediaVideoFieldsFragment } }
+) & { ' $fragmentName'?: 'MediaFields_MediaVideo_Fragment' };
+
+export type MediaFieldsFragment = MediaFields_MediaAudio_Fragment | MediaFields_MediaImage_Fragment | MediaFields_MediaVideo_Fragment;
+
+export type MediaImageFieldsFragment = { __typename?: 'MediaImage', altTag?: any | null, item: any, license?: MetadataLicenseType | null, attributes: Array<(
+    { __typename?: 'MetadataAttribute' }
+    & { ' $fragmentRefs'?: { 'MetadataAttributeFieldsFragment': MetadataAttributeFieldsFragment } }
+  )> } & { ' $fragmentName'?: 'MediaImageFieldsFragment' };
+
+export type MediaVideoFieldsFragment = { __typename?: 'MediaVideo', altTag?: any | null, cover?: any | null, duration?: number | null, item: any, license?: MetadataLicenseType | null, attributes: Array<(
+    { __typename?: 'MetadataAttribute' }
+    & { ' $fragmentRefs'?: { 'MetadataAttributeFieldsFragment': MetadataAttributeFieldsFragment } }
+  )> } & { ' $fragmentName'?: 'MediaVideoFieldsFragment' };
+
+export type VideoMetadataFieldsFragment = { __typename: 'VideoMetadata', title?: string | null, content: any, tags?: Array<any> | null, attributes: Array<(
+    { __typename?: 'MetadataAttribute' }
+    & { ' $fragmentRefs'?: { 'MetadataAttributeFieldsFragment': MetadataAttributeFieldsFragment } }
+  )>, attachments: Array<(
+    { __typename?: 'MediaAudio' }
+    & { ' $fragmentRefs'?: { 'MediaFields_MediaAudio_Fragment': MediaFields_MediaAudio_Fragment } }
+  ) | (
+    { __typename?: 'MediaImage' }
+    & { ' $fragmentRefs'?: { 'MediaFields_MediaImage_Fragment': MediaFields_MediaImage_Fragment } }
+  ) | (
+    { __typename?: 'MediaVideo' }
+    & { ' $fragmentRefs'?: { 'MediaFields_MediaVideo_Fragment': MediaFields_MediaVideo_Fragment } }
+  )>, video: (
+    { __typename?: 'MediaVideo' }
+    & { ' $fragmentRefs'?: { 'MediaVideoFieldsFragment': MediaVideoFieldsFragment } }
+  ) } & { ' $fragmentName'?: 'VideoMetadataFieldsFragment' };
+
+export type PostFieldsFragment = { __typename?: 'Post', id: any, isEdited: boolean, isDeleted: boolean, timestamp: any, author: (
+    { __typename?: 'Account' }
+    & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
+  ), feed: { __typename?: 'Feed', address: any }, app?: (
+    { __typename?: 'App' }
+    & { ' $fragmentRefs'?: { 'AppFieldsFragment': AppFieldsFragment } }
+  ) | null, metadata: (
+    { __typename?: 'ArticleMetadata' }
+    & { ' $fragmentRefs'?: { 'PostMetadataFields_ArticleMetadata_Fragment': PostMetadataFields_ArticleMetadata_Fragment } }
+  ) | (
+    { __typename?: 'AudioMetadata' }
+    & { ' $fragmentRefs'?: { 'PostMetadataFields_AudioMetadata_Fragment': PostMetadataFields_AudioMetadata_Fragment } }
+  ) | (
+    { __typename?: 'CheckingInMetadata' }
+    & { ' $fragmentRefs'?: { 'PostMetadataFields_CheckingInMetadata_Fragment': PostMetadataFields_CheckingInMetadata_Fragment } }
+  ) | (
+    { __typename?: 'EmbedMetadata' }
+    & { ' $fragmentRefs'?: { 'PostMetadataFields_EmbedMetadata_Fragment': PostMetadataFields_EmbedMetadata_Fragment } }
+  ) | (
+    { __typename?: 'EventMetadata' }
+    & { ' $fragmentRefs'?: { 'PostMetadataFields_EventMetadata_Fragment': PostMetadataFields_EventMetadata_Fragment } }
+  ) | (
+    { __typename?: 'ImageMetadata' }
+    & { ' $fragmentRefs'?: { 'PostMetadataFields_ImageMetadata_Fragment': PostMetadataFields_ImageMetadata_Fragment } }
+  ) | (
+    { __typename?: 'LinkMetadata' }
+    & { ' $fragmentRefs'?: { 'PostMetadataFields_LinkMetadata_Fragment': PostMetadataFields_LinkMetadata_Fragment } }
+  ) | (
+    { __typename?: 'LivestreamMetadata' }
+    & { ' $fragmentRefs'?: { 'PostMetadataFields_LivestreamMetadata_Fragment': PostMetadataFields_LivestreamMetadata_Fragment } }
+  ) | (
+    { __typename?: 'MintMetadata' }
+    & { ' $fragmentRefs'?: { 'PostMetadataFields_MintMetadata_Fragment': PostMetadataFields_MintMetadata_Fragment } }
+  ) | (
+    { __typename?: 'SpaceMetadata' }
+    & { ' $fragmentRefs'?: { 'PostMetadataFields_SpaceMetadata_Fragment': PostMetadataFields_SpaceMetadata_Fragment } }
+  ) | (
+    { __typename?: 'StoryMetadata' }
+    & { ' $fragmentRefs'?: { 'PostMetadataFields_StoryMetadata_Fragment': PostMetadataFields_StoryMetadata_Fragment } }
+  ) | (
+    { __typename?: 'TextOnlyMetadata' }
+    & { ' $fragmentRefs'?: { 'PostMetadataFields_TextOnlyMetadata_Fragment': PostMetadataFields_TextOnlyMetadata_Fragment } }
+  ) | (
+    { __typename?: 'ThreeDMetadata' }
+    & { ' $fragmentRefs'?: { 'PostMetadataFields_ThreeDMetadata_Fragment': PostMetadataFields_ThreeDMetadata_Fragment } }
+  ) | (
+    { __typename?: 'TransactionMetadata' }
+    & { ' $fragmentRefs'?: { 'PostMetadataFields_TransactionMetadata_Fragment': PostMetadataFields_TransactionMetadata_Fragment } }
+  ) | (
+    { __typename?: 'VideoMetadata' }
+    & { ' $fragmentRefs'?: { 'PostMetadataFields_VideoMetadata_Fragment': PostMetadataFields_VideoMetadata_Fragment } }
+  ), root?: { __typename?: 'Post', id: any, timestamp: any, author: (
+      { __typename?: 'Account' }
+      & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
+    ), metadata: (
+      { __typename?: 'ArticleMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_ArticleMetadata_Fragment': PostMetadataFields_ArticleMetadata_Fragment } }
+    ) | (
+      { __typename?: 'AudioMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_AudioMetadata_Fragment': PostMetadataFields_AudioMetadata_Fragment } }
+    ) | (
+      { __typename?: 'CheckingInMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_CheckingInMetadata_Fragment': PostMetadataFields_CheckingInMetadata_Fragment } }
+    ) | (
+      { __typename?: 'EmbedMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_EmbedMetadata_Fragment': PostMetadataFields_EmbedMetadata_Fragment } }
+    ) | (
+      { __typename?: 'EventMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_EventMetadata_Fragment': PostMetadataFields_EventMetadata_Fragment } }
+    ) | (
+      { __typename?: 'ImageMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_ImageMetadata_Fragment': PostMetadataFields_ImageMetadata_Fragment } }
+    ) | (
+      { __typename?: 'LinkMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_LinkMetadata_Fragment': PostMetadataFields_LinkMetadata_Fragment } }
+    ) | (
+      { __typename?: 'LivestreamMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_LivestreamMetadata_Fragment': PostMetadataFields_LivestreamMetadata_Fragment } }
+    ) | (
+      { __typename?: 'MintMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_MintMetadata_Fragment': PostMetadataFields_MintMetadata_Fragment } }
+    ) | (
+      { __typename?: 'SpaceMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_SpaceMetadata_Fragment': PostMetadataFields_SpaceMetadata_Fragment } }
+    ) | (
+      { __typename?: 'StoryMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_StoryMetadata_Fragment': PostMetadataFields_StoryMetadata_Fragment } }
+    ) | (
+      { __typename?: 'TextOnlyMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_TextOnlyMetadata_Fragment': PostMetadataFields_TextOnlyMetadata_Fragment } }
+    ) | (
+      { __typename?: 'ThreeDMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_ThreeDMetadata_Fragment': PostMetadataFields_ThreeDMetadata_Fragment } }
+    ) | (
+      { __typename?: 'TransactionMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_TransactionMetadata_Fragment': PostMetadataFields_TransactionMetadata_Fragment } }
+    ) | (
+      { __typename?: 'VideoMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_VideoMetadata_Fragment': PostMetadataFields_VideoMetadata_Fragment } }
+    ) } | { __typename?: 'PostReference', id: any } | null, quoteOf?: { __typename?: 'Post', id: any, timestamp: any, author: (
+      { __typename?: 'Account' }
+      & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
+    ), metadata: (
+      { __typename?: 'ArticleMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_ArticleMetadata_Fragment': PostMetadataFields_ArticleMetadata_Fragment } }
+    ) | (
+      { __typename?: 'AudioMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_AudioMetadata_Fragment': PostMetadataFields_AudioMetadata_Fragment } }
+    ) | (
+      { __typename?: 'CheckingInMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_CheckingInMetadata_Fragment': PostMetadataFields_CheckingInMetadata_Fragment } }
+    ) | (
+      { __typename?: 'EmbedMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_EmbedMetadata_Fragment': PostMetadataFields_EmbedMetadata_Fragment } }
+    ) | (
+      { __typename?: 'EventMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_EventMetadata_Fragment': PostMetadataFields_EventMetadata_Fragment } }
+    ) | (
+      { __typename?: 'ImageMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_ImageMetadata_Fragment': PostMetadataFields_ImageMetadata_Fragment } }
+    ) | (
+      { __typename?: 'LinkMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_LinkMetadata_Fragment': PostMetadataFields_LinkMetadata_Fragment } }
+    ) | (
+      { __typename?: 'LivestreamMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_LivestreamMetadata_Fragment': PostMetadataFields_LivestreamMetadata_Fragment } }
+    ) | (
+      { __typename?: 'MintMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_MintMetadata_Fragment': PostMetadataFields_MintMetadata_Fragment } }
+    ) | (
+      { __typename?: 'SpaceMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_SpaceMetadata_Fragment': PostMetadataFields_SpaceMetadata_Fragment } }
+    ) | (
+      { __typename?: 'StoryMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_StoryMetadata_Fragment': PostMetadataFields_StoryMetadata_Fragment } }
+    ) | (
+      { __typename?: 'TextOnlyMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_TextOnlyMetadata_Fragment': PostMetadataFields_TextOnlyMetadata_Fragment } }
+    ) | (
+      { __typename?: 'ThreeDMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_ThreeDMetadata_Fragment': PostMetadataFields_ThreeDMetadata_Fragment } }
+    ) | (
+      { __typename?: 'TransactionMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_TransactionMetadata_Fragment': PostMetadataFields_TransactionMetadata_Fragment } }
+    ) | (
+      { __typename?: 'VideoMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_VideoMetadata_Fragment': PostMetadataFields_VideoMetadata_Fragment } }
+    ) } | { __typename?: 'PostReference', id: any } | null, commentOn?: { __typename?: 'Post', id: any, timestamp: any, author: (
+      { __typename?: 'Account' }
+      & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
+    ), metadata: (
+      { __typename?: 'ArticleMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_ArticleMetadata_Fragment': PostMetadataFields_ArticleMetadata_Fragment } }
+    ) | (
+      { __typename?: 'AudioMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_AudioMetadata_Fragment': PostMetadataFields_AudioMetadata_Fragment } }
+    ) | (
+      { __typename?: 'CheckingInMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_CheckingInMetadata_Fragment': PostMetadataFields_CheckingInMetadata_Fragment } }
+    ) | (
+      { __typename?: 'EmbedMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_EmbedMetadata_Fragment': PostMetadataFields_EmbedMetadata_Fragment } }
+    ) | (
+      { __typename?: 'EventMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_EventMetadata_Fragment': PostMetadataFields_EventMetadata_Fragment } }
+    ) | (
+      { __typename?: 'ImageMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_ImageMetadata_Fragment': PostMetadataFields_ImageMetadata_Fragment } }
+    ) | (
+      { __typename?: 'LinkMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_LinkMetadata_Fragment': PostMetadataFields_LinkMetadata_Fragment } }
+    ) | (
+      { __typename?: 'LivestreamMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_LivestreamMetadata_Fragment': PostMetadataFields_LivestreamMetadata_Fragment } }
+    ) | (
+      { __typename?: 'MintMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_MintMetadata_Fragment': PostMetadataFields_MintMetadata_Fragment } }
+    ) | (
+      { __typename?: 'SpaceMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_SpaceMetadata_Fragment': PostMetadataFields_SpaceMetadata_Fragment } }
+    ) | (
+      { __typename?: 'StoryMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_StoryMetadata_Fragment': PostMetadataFields_StoryMetadata_Fragment } }
+    ) | (
+      { __typename?: 'TextOnlyMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_TextOnlyMetadata_Fragment': PostMetadataFields_TextOnlyMetadata_Fragment } }
+    ) | (
+      { __typename?: 'ThreeDMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_ThreeDMetadata_Fragment': PostMetadataFields_ThreeDMetadata_Fragment } }
+    ) | (
+      { __typename?: 'TransactionMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_TransactionMetadata_Fragment': PostMetadataFields_TransactionMetadata_Fragment } }
+    ) | (
+      { __typename?: 'VideoMetadata' }
+      & { ' $fragmentRefs'?: { 'PostMetadataFields_VideoMetadata_Fragment': PostMetadataFields_VideoMetadata_Fragment } }
+    ) } | { __typename?: 'PostReference', id: any } | null, stats: (
+    { __typename?: 'PostStats' }
+    & { ' $fragmentRefs'?: { 'PostStatsFieldsFragment': PostStatsFieldsFragment } }
+  ), mentions: Array<{ __typename?: 'AccountMention', account: any, namespace: any, replace: { __typename?: 'AccountMentionReplace', from: string, to: string } }>, operations?: { __typename?: 'LoggedInPostOperations', canComment: TriStateValue, canRepost: TriStateValue, canQuote: TriStateValue, hasReacted: boolean, hasReposted: { __typename?: 'BooleanValue', optimistic: boolean } } | null } & { ' $fragmentName'?: 'PostFieldsFragment' };
+
+type PostMetadataFields_ArticleMetadata_Fragment = { __typename: 'ArticleMetadata' } & { ' $fragmentName'?: 'PostMetadataFields_ArticleMetadata_Fragment' };
+
+type PostMetadataFields_AudioMetadata_Fragment = { __typename: 'AudioMetadata' } & { ' $fragmentName'?: 'PostMetadataFields_AudioMetadata_Fragment' };
+
+type PostMetadataFields_CheckingInMetadata_Fragment = { __typename: 'CheckingInMetadata' } & { ' $fragmentName'?: 'PostMetadataFields_CheckingInMetadata_Fragment' };
+
+type PostMetadataFields_EmbedMetadata_Fragment = { __typename: 'EmbedMetadata' } & { ' $fragmentName'?: 'PostMetadataFields_EmbedMetadata_Fragment' };
+
+type PostMetadataFields_EventMetadata_Fragment = { __typename: 'EventMetadata' } & { ' $fragmentName'?: 'PostMetadataFields_EventMetadata_Fragment' };
+
+type PostMetadataFields_ImageMetadata_Fragment = { __typename: 'ImageMetadata' } & { ' $fragmentName'?: 'PostMetadataFields_ImageMetadata_Fragment' };
+
+type PostMetadataFields_LinkMetadata_Fragment = { __typename: 'LinkMetadata' } & { ' $fragmentName'?: 'PostMetadataFields_LinkMetadata_Fragment' };
+
+type PostMetadataFields_LivestreamMetadata_Fragment = { __typename: 'LivestreamMetadata' } & { ' $fragmentName'?: 'PostMetadataFields_LivestreamMetadata_Fragment' };
+
+type PostMetadataFields_MintMetadata_Fragment = { __typename: 'MintMetadata' } & { ' $fragmentName'?: 'PostMetadataFields_MintMetadata_Fragment' };
+
+type PostMetadataFields_SpaceMetadata_Fragment = { __typename: 'SpaceMetadata' } & { ' $fragmentName'?: 'PostMetadataFields_SpaceMetadata_Fragment' };
+
+type PostMetadataFields_StoryMetadata_Fragment = { __typename: 'StoryMetadata' } & { ' $fragmentName'?: 'PostMetadataFields_StoryMetadata_Fragment' };
+
+type PostMetadataFields_TextOnlyMetadata_Fragment = { __typename: 'TextOnlyMetadata' } & { ' $fragmentName'?: 'PostMetadataFields_TextOnlyMetadata_Fragment' };
+
+type PostMetadataFields_ThreeDMetadata_Fragment = { __typename: 'ThreeDMetadata' } & { ' $fragmentName'?: 'PostMetadataFields_ThreeDMetadata_Fragment' };
+
+type PostMetadataFields_TransactionMetadata_Fragment = { __typename: 'TransactionMetadata' } & { ' $fragmentName'?: 'PostMetadataFields_TransactionMetadata_Fragment' };
+
+type PostMetadataFields_VideoMetadata_Fragment = (
+  { __typename: 'VideoMetadata' }
+  & { ' $fragmentRefs'?: { 'VideoMetadataFieldsFragment': VideoMetadataFieldsFragment } }
+) & { ' $fragmentName'?: 'PostMetadataFields_VideoMetadata_Fragment' };
+
+export type PostMetadataFieldsFragment = PostMetadataFields_ArticleMetadata_Fragment | PostMetadataFields_AudioMetadata_Fragment | PostMetadataFields_CheckingInMetadata_Fragment | PostMetadataFields_EmbedMetadata_Fragment | PostMetadataFields_EventMetadata_Fragment | PostMetadataFields_ImageMetadata_Fragment | PostMetadataFields_LinkMetadata_Fragment | PostMetadataFields_LivestreamMetadata_Fragment | PostMetadataFields_MintMetadata_Fragment | PostMetadataFields_SpaceMetadata_Fragment | PostMetadataFields_StoryMetadata_Fragment | PostMetadataFields_TextOnlyMetadata_Fragment | PostMetadataFields_ThreeDMetadata_Fragment | PostMetadataFields_TransactionMetadata_Fragment | PostMetadataFields_VideoMetadata_Fragment;
+
+export type PostStatsFieldsFragment = { __typename?: 'PostStats', bookmarks: number, collects: number, comments: number, quotes: number, reactions: number, reposts: number } & { ' $fragmentName'?: 'PostStatsFieldsFragment' };
+
+export type RepostFieldsFragment = { __typename?: 'Repost', id: any, isDeleted: boolean, timestamp: any, author: (
+    { __typename?: 'Account' }
+    & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
+  ), app?: (
+    { __typename?: 'App' }
+    & { ' $fragmentRefs'?: { 'AppFieldsFragment': AppFieldsFragment } }
+  ) | null, repostOf: (
+    { __typename?: 'Post' }
+    & { ' $fragmentRefs'?: { 'PostFieldsFragment': PostFieldsFragment } }
+  ) } & { ' $fragmentName'?: 'RepostFieldsFragment' };
 
 export type UsernameFieldsFragment = { __typename?: 'Username', id: string, value: any, localName: string, linkedTo?: any | null, ownedBy: any, timestamp: any, namespace: { __typename?: 'UsernameNamespace', address: any, namespace: string, metadata?: { __typename?: 'UsernameNamespaceMetadata', description?: string | null, id: string } | null } } & { ' $fragmentName'?: 'UsernameFieldsFragment' };
 
@@ -4912,13 +5208,6 @@ export type UsernamesQuery = { __typename?: 'Query', usernames: { __typename?: '
       & { ' $fragmentRefs'?: { 'UsernameFieldsFragment': UsernameFieldsFragment } }
     )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
-export type FeedQueryVariables = Exact<{
-  request: FeedRequest;
-}>;
-
-
-export type FeedQuery = { __typename?: 'Query', feed?: { __typename?: 'Feed', address: any } | null };
-
 export type GroupQueryVariables = Exact<{
   request: GroupRequest;
 }>;
@@ -4928,6 +5217,19 @@ export type GroupQuery = { __typename?: 'Query', group?: (
     { __typename?: 'Group' }
     & { ' $fragmentRefs'?: { 'GroupFieldsFragment': GroupFieldsFragment } }
   ) | null };
+
+export type PostsQueryVariables = Exact<{
+  request: PostsRequest;
+}>;
+
+
+export type PostsQuery = { __typename?: 'Query', posts: { __typename?: 'PaginatedAnyPostsResult', items: Array<(
+      { __typename?: 'Post' }
+      & { ' $fragmentRefs'?: { 'PostFieldsFragment': PostFieldsFragment } }
+    ) | (
+      { __typename?: 'Repost' }
+      & { ' $fragmentRefs'?: { 'RepostFieldsFragment': RepostFieldsFragment } }
+    )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -4958,6 +5260,35 @@ export const MetadataAttributeFieldsFragmentDoc = new TypedDocumentString(`
   value
 }
     `, {"fragmentName":"MetadataAttributeFields"}) as unknown as TypedDocumentString<MetadataAttributeFieldsFragment, unknown>;
+export const AccountMetadataFieldsFragmentDoc = new TypedDocumentString(`
+    fragment AccountMetadataFields on AccountMetadata {
+  bio
+  coverPicture
+  id
+  name
+  picture
+  attributes {
+    ...MetadataAttributeFields
+  }
+}
+    fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}`, {"fragmentName":"AccountMetadataFields"}) as unknown as TypedDocumentString<AccountMetadataFieldsFragment, unknown>;
+export const GroupFieldsFragmentDoc = new TypedDocumentString(`
+    fragment GroupFields on Group {
+  address
+  timestamp
+  metadata {
+    description
+    icon
+    name
+    slug
+    id
+  }
+}
+    `, {"fragmentName":"GroupFields"}) as unknown as TypedDocumentString<GroupFieldsFragment, unknown>;
 export const UsernameFieldsFragmentDoc = new TypedDocumentString(`
     fragment UsernameFields on Username {
   id
@@ -5046,35 +5377,690 @@ fragment UsernameFields on Username {
   ownedBy
   timestamp
 }`, {"fragmentName":"AccountFields"}) as unknown as TypedDocumentString<AccountFieldsFragment, unknown>;
-export const AccountMetadataFieldsFragmentDoc = new TypedDocumentString(`
-    fragment AccountMetadataFields on AccountMetadata {
-  bio
-  coverPicture
-  id
-  name
-  picture
+export const AppFieldsFragmentDoc = new TypedDocumentString(`
+    fragment AppFields on App {
+  address
+  defaultFeedAddress
+  graphAddress
+  namespaceAddress
+  sponsorshipAddress
+  treasuryAddress
+  createdAt
+  metadata {
+    description
+    developer
+    logo
+    name
+    platforms
+    privacyPolicy
+    termsOfService
+    url
+  }
+}
+    `, {"fragmentName":"AppFields"}) as unknown as TypedDocumentString<AppFieldsFragment, unknown>;
+export const MediaVideoFieldsFragmentDoc = new TypedDocumentString(`
+    fragment MediaVideoFields on MediaVideo {
+  altTag
   attributes {
     ...MetadataAttributeFields
+  }
+  cover
+  duration
+  item
+  license
+}
+    fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}`, {"fragmentName":"MediaVideoFields"}) as unknown as TypedDocumentString<MediaVideoFieldsFragment, unknown>;
+export const MediaImageFieldsFragmentDoc = new TypedDocumentString(`
+    fragment MediaImageFields on MediaImage {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  item
+  license
+}
+    fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}`, {"fragmentName":"MediaImageFields"}) as unknown as TypedDocumentString<MediaImageFieldsFragment, unknown>;
+export const MediaAudioFieldsFragmentDoc = new TypedDocumentString(`
+    fragment MediaAudioFields on MediaAudio {
+  artist
+  item
+  cover
+  license
+}
+    `, {"fragmentName":"MediaAudioFields"}) as unknown as TypedDocumentString<MediaAudioFieldsFragment, unknown>;
+export const MediaFieldsFragmentDoc = new TypedDocumentString(`
+    fragment MediaFields on AnyMedia {
+  ... on MediaVideo {
+    ...MediaVideoFields
+  }
+  ... on MediaImage {
+    ...MediaImageFields
+  }
+  ... on MediaAudio {
+    ...MediaAudioFields
   }
 }
     fragment MetadataAttributeFields on MetadataAttribute {
   type
   key
   value
-}`, {"fragmentName":"AccountMetadataFields"}) as unknown as TypedDocumentString<AccountMetadataFieldsFragment, unknown>;
-export const GroupFieldsFragmentDoc = new TypedDocumentString(`
-    fragment GroupFields on Group {
-  address
-  timestamp
-  metadata {
-    description
-    icon
-    name
-    slug
-    id
+}
+fragment MediaAudioFields on MediaAudio {
+  artist
+  item
+  cover
+  license
+}
+fragment MediaImageFields on MediaImage {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  item
+  license
+}
+fragment MediaVideoFields on MediaVideo {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  cover
+  duration
+  item
+  license
+}`, {"fragmentName":"MediaFields"}) as unknown as TypedDocumentString<MediaFieldsFragment, unknown>;
+export const VideoMetadataFieldsFragmentDoc = new TypedDocumentString(`
+    fragment VideoMetadataFields on VideoMetadata {
+  __typename
+  title
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...MediaFields
+  }
+  video {
+    ...MediaVideoFields
   }
 }
-    `, {"fragmentName":"GroupFields"}) as unknown as TypedDocumentString<GroupFieldsFragment, unknown>;
+    fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}
+fragment MediaAudioFields on MediaAudio {
+  artist
+  item
+  cover
+  license
+}
+fragment MediaFields on AnyMedia {
+  ... on MediaVideo {
+    ...MediaVideoFields
+  }
+  ... on MediaImage {
+    ...MediaImageFields
+  }
+  ... on MediaAudio {
+    ...MediaAudioFields
+  }
+}
+fragment MediaImageFields on MediaImage {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  item
+  license
+}
+fragment MediaVideoFields on MediaVideo {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  cover
+  duration
+  item
+  license
+}`, {"fragmentName":"VideoMetadataFields"}) as unknown as TypedDocumentString<VideoMetadataFieldsFragment, unknown>;
+export const PostMetadataFieldsFragmentDoc = new TypedDocumentString(`
+    fragment PostMetadataFields on PostMetadata {
+  __typename
+  ... on VideoMetadata {
+    ...VideoMetadataFields
+  }
+}
+    fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}
+fragment MediaAudioFields on MediaAudio {
+  artist
+  item
+  cover
+  license
+}
+fragment MediaFields on AnyMedia {
+  ... on MediaVideo {
+    ...MediaVideoFields
+  }
+  ... on MediaImage {
+    ...MediaImageFields
+  }
+  ... on MediaAudio {
+    ...MediaAudioFields
+  }
+}
+fragment MediaImageFields on MediaImage {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  item
+  license
+}
+fragment MediaVideoFields on MediaVideo {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  cover
+  duration
+  item
+  license
+}
+fragment VideoMetadataFields on VideoMetadata {
+  __typename
+  title
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...MediaFields
+  }
+  video {
+    ...MediaVideoFields
+  }
+}`, {"fragmentName":"PostMetadataFields"}) as unknown as TypedDocumentString<PostMetadataFieldsFragment, unknown>;
+export const PostStatsFieldsFragmentDoc = new TypedDocumentString(`
+    fragment PostStatsFields on PostStats {
+  bookmarks
+  collects
+  comments
+  quotes
+  reactions
+  reposts
+}
+    `, {"fragmentName":"PostStatsFields"}) as unknown as TypedDocumentString<PostStatsFieldsFragment, unknown>;
+export const PostFieldsFragmentDoc = new TypedDocumentString(`
+    fragment PostFields on Post {
+  id
+  author {
+    ...AccountFields
+  }
+  feed {
+    address
+  }
+  isEdited
+  isDeleted
+  timestamp
+  app {
+    ...AppFields
+  }
+  metadata {
+    ...PostMetadataFields
+  }
+  root {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  quoteOf {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  commentOn {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  stats {
+    ...PostStatsFields
+  }
+  mentions {
+    account
+    namespace
+    replace {
+      from
+      to
+    }
+  }
+  operations {
+    canComment
+    canRepost
+    canQuote
+    hasReacted
+    hasReposted {
+      optimistic
+    }
+  }
+}
+    fragment AccountFields on Account {
+  address
+  score
+  metadata {
+    bio
+    coverPicture
+    id
+    name
+    picture
+    attributes {
+      ...MetadataAttributeFields
+    }
+  }
+  username {
+    ...UsernameFields
+  }
+  operations {
+    ...LoggedInAccountOperationsFields
+  }
+}
+fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
+  id
+  isFollowedByMe
+  isFollowingMe
+  canFollow
+  canUnfollow
+  isMutedByMe
+  isBlockedByMe
+  hasBlockedMe
+  canBlock
+  canUnblock
+  hasReported
+}
+fragment AppFields on App {
+  address
+  defaultFeedAddress
+  graphAddress
+  namespaceAddress
+  sponsorshipAddress
+  treasuryAddress
+  createdAt
+  metadata {
+    description
+    developer
+    logo
+    name
+    platforms
+    privacyPolicy
+    termsOfService
+    url
+  }
+}
+fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}
+fragment MediaAudioFields on MediaAudio {
+  artist
+  item
+  cover
+  license
+}
+fragment MediaFields on AnyMedia {
+  ... on MediaVideo {
+    ...MediaVideoFields
+  }
+  ... on MediaImage {
+    ...MediaImageFields
+  }
+  ... on MediaAudio {
+    ...MediaAudioFields
+  }
+}
+fragment MediaImageFields on MediaImage {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  item
+  license
+}
+fragment MediaVideoFields on MediaVideo {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  cover
+  duration
+  item
+  license
+}
+fragment VideoMetadataFields on VideoMetadata {
+  __typename
+  title
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...MediaFields
+  }
+  video {
+    ...MediaVideoFields
+  }
+}
+fragment PostMetadataFields on PostMetadata {
+  __typename
+  ... on VideoMetadata {
+    ...VideoMetadataFields
+  }
+}
+fragment PostStatsFields on PostStats {
+  bookmarks
+  collects
+  comments
+  quotes
+  reactions
+  reposts
+}
+fragment UsernameFields on Username {
+  id
+  value
+  namespace {
+    address
+    namespace
+    metadata {
+      description
+      id
+    }
+  }
+  localName
+  linkedTo
+  ownedBy
+  timestamp
+}`, {"fragmentName":"PostFields"}) as unknown as TypedDocumentString<PostFieldsFragment, unknown>;
+export const RepostFieldsFragmentDoc = new TypedDocumentString(`
+    fragment RepostFields on Repost {
+  id
+  author {
+    ...AccountFields
+  }
+  isDeleted
+  timestamp
+  app {
+    ...AppFields
+  }
+  repostOf {
+    ...PostFields
+  }
+}
+    fragment AccountFields on Account {
+  address
+  score
+  metadata {
+    bio
+    coverPicture
+    id
+    name
+    picture
+    attributes {
+      ...MetadataAttributeFields
+    }
+  }
+  username {
+    ...UsernameFields
+  }
+  operations {
+    ...LoggedInAccountOperationsFields
+  }
+}
+fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
+  id
+  isFollowedByMe
+  isFollowingMe
+  canFollow
+  canUnfollow
+  isMutedByMe
+  isBlockedByMe
+  hasBlockedMe
+  canBlock
+  canUnblock
+  hasReported
+}
+fragment AppFields on App {
+  address
+  defaultFeedAddress
+  graphAddress
+  namespaceAddress
+  sponsorshipAddress
+  treasuryAddress
+  createdAt
+  metadata {
+    description
+    developer
+    logo
+    name
+    platforms
+    privacyPolicy
+    termsOfService
+    url
+  }
+}
+fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}
+fragment MediaAudioFields on MediaAudio {
+  artist
+  item
+  cover
+  license
+}
+fragment MediaFields on AnyMedia {
+  ... on MediaVideo {
+    ...MediaVideoFields
+  }
+  ... on MediaImage {
+    ...MediaImageFields
+  }
+  ... on MediaAudio {
+    ...MediaAudioFields
+  }
+}
+fragment MediaImageFields on MediaImage {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  item
+  license
+}
+fragment MediaVideoFields on MediaVideo {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  cover
+  duration
+  item
+  license
+}
+fragment VideoMetadataFields on VideoMetadata {
+  __typename
+  title
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...MediaFields
+  }
+  video {
+    ...MediaVideoFields
+  }
+}
+fragment PostFields on Post {
+  id
+  author {
+    ...AccountFields
+  }
+  feed {
+    address
+  }
+  isEdited
+  isDeleted
+  timestamp
+  app {
+    ...AppFields
+  }
+  metadata {
+    ...PostMetadataFields
+  }
+  root {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  quoteOf {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  commentOn {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  stats {
+    ...PostStatsFields
+  }
+  mentions {
+    account
+    namespace
+    replace {
+      from
+      to
+    }
+  }
+  operations {
+    canComment
+    canRepost
+    canQuote
+    hasReacted
+    hasReposted {
+      optimistic
+    }
+  }
+}
+fragment PostMetadataFields on PostMetadata {
+  __typename
+  ... on VideoMetadata {
+    ...VideoMetadataFields
+  }
+}
+fragment PostStatsFields on PostStats {
+  bookmarks
+  collects
+  comments
+  quotes
+  reactions
+  reposts
+}
+fragment UsernameFields on Username {
+  id
+  value
+  namespace {
+    address
+    namespace
+    metadata {
+      description
+      id
+    }
+  }
+  localName
+  linkedTo
+  ownedBy
+  timestamp
+}`, {"fragmentName":"RepostFields"}) as unknown as TypedDocumentString<RepostFieldsFragment, unknown>;
 export const CreateAccountWithUsernameDocument = new TypedDocumentString(`
     mutation CreateAccountWithUsername($request: CreateAccountWithUsernameRequest!) {
   createAccountWithUsername(request: $request) {
@@ -5852,13 +6838,6 @@ export const UsernamesDocument = new TypedDocumentString(`
   ownedBy
   timestamp
 }`) as unknown as TypedDocumentString<UsernamesQuery, UsernamesQueryVariables>;
-export const FeedDocument = new TypedDocumentString(`
-    query Feed($request: FeedRequest!) {
-  feed(request: $request) {
-    address
-  }
-}
-    `) as unknown as TypedDocumentString<FeedQuery, FeedQueryVariables>;
 export const GroupDocument = new TypedDocumentString(`
     query Group($request: GroupRequest!) {
   group(request: $request) {
@@ -5876,3 +6855,253 @@ export const GroupDocument = new TypedDocumentString(`
     id
   }
 }`) as unknown as TypedDocumentString<GroupQuery, GroupQueryVariables>;
+export const PostsDocument = new TypedDocumentString(`
+    query Posts($request: PostsRequest!) {
+  posts(request: $request) {
+    items {
+      ... on Post {
+        ...PostFields
+      }
+      ... on Repost {
+        ...RepostFields
+      }
+    }
+    pageInfo {
+      next
+    }
+  }
+}
+    fragment AccountFields on Account {
+  address
+  score
+  metadata {
+    bio
+    coverPicture
+    id
+    name
+    picture
+    attributes {
+      ...MetadataAttributeFields
+    }
+  }
+  username {
+    ...UsernameFields
+  }
+  operations {
+    ...LoggedInAccountOperationsFields
+  }
+}
+fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
+  id
+  isFollowedByMe
+  isFollowingMe
+  canFollow
+  canUnfollow
+  isMutedByMe
+  isBlockedByMe
+  hasBlockedMe
+  canBlock
+  canUnblock
+  hasReported
+}
+fragment AppFields on App {
+  address
+  defaultFeedAddress
+  graphAddress
+  namespaceAddress
+  sponsorshipAddress
+  treasuryAddress
+  createdAt
+  metadata {
+    description
+    developer
+    logo
+    name
+    platforms
+    privacyPolicy
+    termsOfService
+    url
+  }
+}
+fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}
+fragment MediaAudioFields on MediaAudio {
+  artist
+  item
+  cover
+  license
+}
+fragment MediaFields on AnyMedia {
+  ... on MediaVideo {
+    ...MediaVideoFields
+  }
+  ... on MediaImage {
+    ...MediaImageFields
+  }
+  ... on MediaAudio {
+    ...MediaAudioFields
+  }
+}
+fragment MediaImageFields on MediaImage {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  item
+  license
+}
+fragment MediaVideoFields on MediaVideo {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  cover
+  duration
+  item
+  license
+}
+fragment VideoMetadataFields on VideoMetadata {
+  __typename
+  title
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...MediaFields
+  }
+  video {
+    ...MediaVideoFields
+  }
+}
+fragment PostFields on Post {
+  id
+  author {
+    ...AccountFields
+  }
+  feed {
+    address
+  }
+  isEdited
+  isDeleted
+  timestamp
+  app {
+    ...AppFields
+  }
+  metadata {
+    ...PostMetadataFields
+  }
+  root {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  quoteOf {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  commentOn {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  stats {
+    ...PostStatsFields
+  }
+  mentions {
+    account
+    namespace
+    replace {
+      from
+      to
+    }
+  }
+  operations {
+    canComment
+    canRepost
+    canQuote
+    hasReacted
+    hasReposted {
+      optimistic
+    }
+  }
+}
+fragment PostMetadataFields on PostMetadata {
+  __typename
+  ... on VideoMetadata {
+    ...VideoMetadataFields
+  }
+}
+fragment PostStatsFields on PostStats {
+  bookmarks
+  collects
+  comments
+  quotes
+  reactions
+  reposts
+}
+fragment RepostFields on Repost {
+  id
+  author {
+    ...AccountFields
+  }
+  isDeleted
+  timestamp
+  app {
+    ...AppFields
+  }
+  repostOf {
+    ...PostFields
+  }
+}
+fragment UsernameFields on Username {
+  id
+  value
+  namespace {
+    address
+    namespace
+    metadata {
+      description
+      id
+    }
+  }
+  localName
+  linkedTo
+  ownedBy
+  timestamp
+}`) as unknown as TypedDocumentString<PostsQuery, PostsQueryVariables>;

@@ -1,0 +1,8 @@
+fragment MediaImageFields on MediaImage {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  item
+  license
+}

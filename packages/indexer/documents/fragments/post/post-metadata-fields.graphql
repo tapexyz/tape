@@ -1,0 +1,48 @@
+fragment PostMetadataFields on PostMetadata {
+  __typename
+  # ... on ArticleMetadata {
+  #   ...ArticleMetadataFields
+  # }
+  # ... on AudioMetadata {
+  #   ...AudioMetadataFields
+  # }
+  # ... on CheckingInMetadata {
+  #   ...CheckingInMetadataFields
+  # }
+  # ... on EmbedMetadata {
+  #   ...EmbedMetadataFields
+  # }
+  # ... on EventMetadata {
+  #   ...EventMetadataFields
+  # }
+  # ... on ImageMetadata {
+  #   ...ImageMetadataFields
+  # }
+  # ... on LinkMetadata {
+  #   ...LinkMetadataFields
+  # }
+  # ... on LivestreamMetadata {
+  #   ...LivestreamMetadataFields
+  # }
+  # ... on MintMetadata {
+  #   ...MintMetadataFields
+  # }
+  # ... on SpaceMetadata {
+  #   ...SpaceMetadataFields
+  # }
+  # ... on StoryMetadata {
+  #   ...StoryMetadataFields
+  # }
+  # ... on TextOnlyMetadata {
+  #   ...TextOnlyMetadataFields
+  # }
+  # ... on ThreeDMetadata {
+  #   ...ThreeDMetadataFields
+  # }
+  # ... on TransactionMetadata {
+  #   ...TransactionMetadataFields
+  # }
+  ... on VideoMetadata {
+    ...VideoMetadataFields
+  }
+}

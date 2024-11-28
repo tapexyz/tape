@@ -1,0 +1,14 @@
+fragment RepostFields on Repost {
+  id
+  author {
+    ...AccountFields
+  }
+  isDeleted
+  timestamp
+  app {
+    ...AppFields
+  }
+  repostOf {
+    ...PostFields
+  }
+}

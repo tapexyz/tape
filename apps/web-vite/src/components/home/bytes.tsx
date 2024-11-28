@@ -1,18 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
+import { getPostMetadata } from "@/helpers/get-post-metadata";
+import { useBytesQuery } from "@/queries/post";
 import { Link } from "@tanstack/react-router";
 import { FALLBACK_THUMBNAIL_URL } from "@tape.xyz/constants";
-import {
-  getPublicationData,
-  getThumbnailUrl,
-  imageCdn
-} from "@tape.xyz/generic";
-import type { PrimaryPublication } from "@tape.xyz/indexer";
-import { curatedBytesQuery } from "./queries";
+import type { Post } from "@tape.xyz/indexer";
 
 export const Bytes = () => {
-  const { data, error } = useQuery(curatedBytesQuery);
+  const { data, error } = useBytesQuery();
 
-  const bytes = data?.publications?.items as PrimaryPublication[];
+  const bytes = data?.pages.flatMap((page) => page.posts.items) as Post[];
 
   if (!bytes?.length || error) {
     return null;
@@ -27,7 +22,7 @@ export const Bytes = () => {
       >
         <img
           className="aspect-[9/16] h-full object-cover"
-          src={imageCdn(getThumbnailUrl(byte.metadata))}
+          src={getPostMetadata(byte.metadata)?.asset.cover}
           alt="thumbnail"
           height={1000}
           width={600}
@@ -38,7 +33,7 @@ export const Bytes = () => {
         />
         <div className="absolute right-0 bottom-0 left-0 bg-gradient-to-b from-transparent to-black/50 px-4 py-2 text-xs">
           <h1 className="line-clamp-2 break-words text-white">
-            {getPublicationData(byte.metadata)?.title}
+            {getPostMetadata(byte.metadata)?.content}
           </h1>
         </div>
       </Link>
