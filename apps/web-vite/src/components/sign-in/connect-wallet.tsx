@@ -1,3 +1,8 @@
+import {
+  useAccountsAvailableQuery,
+  useLastLoggedInAccountQuery
+} from "@/queries/account";
+import type { Account, AccountAvailable } from "@tape.xyz/indexer";
 import { Alert, Button, Check, Warning } from "@tape.xyz/winder";
 import { memo, useMemo } from "react";
 import type { Connector } from "wagmi";
@@ -6,18 +11,29 @@ import { AuthProviders } from "./auth-providers";
 import { Authenticate } from "./authenticate";
 
 export const ConnectWallet = memo(() => {
-  //   const { addEventToQueue } = useSw();
-  //   const { activeProfile } = useProfileStore();
-  //   const handleWrongNetwork = useHandleWrongNetwork();
-
-  const { connector: connected } = useAccount();
+  const { address, connector } = useAccount();
   const { connectors, connectAsync, isPending, error } = useConnect();
+  const { data, isLoading: isAccountsLoading } = useAccountsAvailableQuery();
+  const {
+    data: lastLoggedInAccountData,
+    isLoading: isLastLoggedInAccountLoading
+  } = useLastLoggedInAccountQuery(address as string);
+
+  const lastUsedAccount =
+    lastLoggedInAccountData?.lastLoggedInAccount as Account;
+  const accounts = data?.pages.flatMap(
+    (page) => page.accountsAvailable.items
+  ) as AccountAvailable[];
+  const sortedAccounts = useMemo(() => {
+    if (!accounts?.length) return [];
+    return accounts.sort((a) =>
+      a.account.address === lastUsedAccount?.address ? -1 : 1
+    );
+  }, [accounts, lastUsedAccount]);
 
   const onChooseConnector = async (connector: Connector) => {
     try {
-      //   await handleWrongNetwork();
       await connectAsync({ connector });
-      //   addEventToQueue(EVENTS.AUTH.CONNECT_WALLET, { connector: connector.id });
     } catch {}
   };
 
@@ -39,10 +55,6 @@ export const ConnectWallet = memo(() => {
     );
   }, [connectors]);
 
-  //   if (activeProfile?.id) {
-  //     return <Authenticate />;
-  //   }
-
   return (
     <div className="flex flex-col gap-6">
       <AuthProviders />
@@ -58,16 +70,19 @@ export const ConnectWallet = memo(() => {
             variant="outline"
             className="h-11 px-3.5 font-normal"
             onClick={() => onChooseConnector(c)}
-            disabled={c.id === connected?.id || isPending}
+            disabled={c.id === connector?.id || isPending}
           >
             <div className="flex w-full items-center justify-between">
               <span>{getConnectorName(c)}</span>
-              {c.id === connected?.id && <Check className="size-3" />}
+              {c.id === connector?.id && <Check className="size-3" />}
             </div>
           </Button>
         ))}
       </div>
-      <Authenticate />
+      <Authenticate
+        accounts={sortedAccounts}
+        loading={isAccountsLoading || isLastLoggedInAccountLoading}
+      />
       {error?.message ? (
         <Alert variant="destructive">
           <Warning className="size-4" />

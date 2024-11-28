@@ -34,6 +34,7 @@ export const IMAGE_TRANSFORMATIONS = {
 // lens
 export const MAINNET_API_URL = LensEndpoint.Mainnet;
 export const TESTNET_API_URL = LensEndpoint.Testnet;
+export const STAGING_API_URL = LensEndpoint.Staging;
 export const LENS_API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL;
 
 // api urls

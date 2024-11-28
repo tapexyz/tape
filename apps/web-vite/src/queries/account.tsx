@@ -1,18 +1,20 @@
 import { execute } from "@/helpers/execute";
-import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import {
   AccountsAvailableDocument,
   LastLoggedInAccountDocument,
   PageSize
 } from "@tape.xyz/indexer";
+import { useAccount } from "wagmi";
 
-export const accountsAvailableQuery = (managedBy: string) =>
-  infiniteQueryOptions({
+export const useAccountsAvailableQuery = () => {
+  const { address } = useAccount();
+  return useInfiniteQuery({
     queryKey: ["accounts-available"],
     queryFn: ({ pageParam }) =>
       execute(AccountsAvailableDocument, {
         request: {
-          managedBy,
+          managedBy: address,
           includeOwned: true,
           pageSize: PageSize.Fifty,
           cursor: pageParam
@@ -20,11 +22,12 @@ export const accountsAvailableQuery = (managedBy: string) =>
       }),
     initialPageParam: null,
     getNextPageParam: (lastPage) => lastPage.accountsAvailable.pageInfo.next,
-    enabled: Boolean(managedBy)
+    enabled: Boolean(address)
   });
+};
 
-export const lastLoggedInAccountQuery = (address: string) =>
-  queryOptions({
+export const useLastLoggedInAccountQuery = (address: string) => {
+  return useQuery({
     queryKey: ["last-logged-in-account"],
     queryFn: () =>
       execute(LastLoggedInAccountDocument, {
@@ -34,3 +37,4 @@ export const lastLoggedInAccountQuery = (address: string) =>
       }),
     enabled: Boolean(address)
   });
+};

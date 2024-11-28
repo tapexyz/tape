@@ -2,6 +2,7 @@ query AccountsAvailable($request: AccountsAvailableRequest!) {
   accountsAvailable(request: $request) {
     items {
       ... on AccountManaged {
+        __typename
         account {
           ...AccountFields
         }
@@ -11,6 +12,7 @@ query AccountsAvailable($request: AccountsAvailableRequest!) {
         addedAt
       }
       ... on AccountOwned {
+        __typename
         account {
           ...AccountFields
         }

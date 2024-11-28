@@ -4142,8 +4142,8 @@ export type SelfFundedTransactionRequest = {
    * Use this object if your library does not have a parser for the encoded transaction data.
    */
   raw: Eip1559TransactionRequest;
-  /** The reason for the fallback. */
-  reason?: Maybe<SelfFundedFallbackReason>;
+  reason: Scalars['String']['output'];
+  selfFundedReason?: Maybe<SelfFundedFallbackReason>;
 };
 
 export type SetAccountMetadataRequest = {
@@ -4234,8 +4234,8 @@ export type SponsoredTransactionRequest = {
    * Use this object if your library does not have a parser for the encoded transaction data.
    */
   raw: Eip712TransactionRequest;
-  /** The reason for the fallback. */
-  reason?: Maybe<SponsoredFallbackReason>;
+  reason: Scalars['String']['output'];
+  sponsoredReason?: Maybe<SponsoredFallbackReason>;
 };
 
 export type SponsorshipAllowance = {
@@ -4752,14 +4752,14 @@ export type CreateAccountWithUsernameMutationVariables = Exact<{
 }>;
 
 
-export type CreateAccountWithUsernameMutation = { __typename?: 'Mutation', createAccountWithUsername: { __typename?: 'CreateAccountResponse', hash: any } | { __typename?: 'InvalidUsername', invalidUsernameReason: string } | { __typename?: 'SelfFundedTransactionRequest', selfFundedTransactionRequestReason?: SelfFundedFallbackReason | null } | { __typename?: 'SponsoredTransactionRequest', sponsoredTransactionRequestReason?: SponsoredFallbackReason | null } | { __typename?: 'TransactionWillFail', transactionWillFailReason: string } };
+export type CreateAccountWithUsernameMutation = { __typename?: 'Mutation', createAccountWithUsername: { __typename?: 'CreateAccountResponse', hash: any } | { __typename?: 'InvalidUsername', invalidUsernameReason: string } | { __typename?: 'SelfFundedTransactionRequest', selfFundedTransactionRequestReason: string } | { __typename?: 'SponsoredTransactionRequest', sponsoredTransactionRequestReason: string } | { __typename?: 'TransactionWillFail', transactionWillFailReason: string } };
 
 export type AuthenticateMutationVariables = Exact<{
   request: SignedAuthChallenge;
 }>;
 
 
-export type AuthenticateMutation = { __typename?: 'Mutation', authenticate: { __typename?: 'AuthenticationTokens', accessToken: any, refreshToken: any, idToken: any } | { __typename?: 'ExpiredChallengeError' } | { __typename?: 'ForbiddenError' } | { __typename?: 'WrongSignerError' } };
+export type AuthenticateMutation = { __typename?: 'Mutation', authenticate: { __typename: 'AuthenticationTokens', accessToken: any, refreshToken: any, idToken: any } | { __typename: 'ExpiredChallengeError', reason: string } | { __typename: 'ForbiddenError', reason: string } | { __typename: 'WrongSignerError', reason: string } };
 
 export type ChallengeMutationVariables = Exact<{
   request: ChallengeRequest;
@@ -4807,13 +4807,13 @@ export type AccountsAvailableQueryVariables = Exact<{
 }>;
 
 
-export type AccountsAvailableQuery = { __typename?: 'Query', accountsAvailable: { __typename?: 'PaginatedAccountsAvailableResult', items: Array<{ __typename?: 'AccountManaged', addedAt: any, account: (
+export type AccountsAvailableQuery = { __typename?: 'Query', accountsAvailable: { __typename?: 'PaginatedAccountsAvailableResult', items: Array<{ __typename: 'AccountManaged', addedAt: any, account: (
         { __typename?: 'Account' }
         & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
       ), permissions: (
         { __typename?: 'AccountManagerPermissions' }
         & { ' $fragmentRefs'?: { 'AccountManagerPermissionsFragment': AccountManagerPermissionsFragment } }
-      ) } | { __typename?: 'AccountOwned', addedAt: any, account: (
+      ) } | { __typename: 'AccountOwned', addedAt: any, account: (
         { __typename?: 'Account' }
         & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
       ) }>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
@@ -5100,9 +5100,22 @@ export const AuthenticateDocument = new TypedDocumentString(`
     mutation Authenticate($request: SignedAuthChallenge!) {
   authenticate(request: $request) {
     ... on AuthenticationTokens {
+      __typename
       accessToken
       refreshToken
       idToken
+    }
+    ... on ExpiredChallengeError {
+      __typename
+      reason
+    }
+    ... on ForbiddenError {
+      __typename
+      reason
+    }
+    ... on WrongSignerError {
+      __typename
+      reason
     }
   }
 }
@@ -5235,6 +5248,7 @@ export const AccountsAvailableDocument = new TypedDocumentString(`
   accountsAvailable(request: $request) {
     items {
       ... on AccountManaged {
+        __typename
         account {
           ...AccountFields
         }
@@ -5244,6 +5258,7 @@ export const AccountsAvailableDocument = new TypedDocumentString(`
         addedAt
       }
       ... on AccountOwned {
+        __typename
         account {
           ...AccountFields
         }
