@@ -1,4 +1,4 @@
-import { getPostMetadata } from "@/helpers/get-post-metadata";
+import { getPostMetadata } from "@/helpers/metadata";
 import { useBytesQuery } from "@/queries/post";
 import { Link } from "@tanstack/react-router";
 import { FALLBACK_THUMBNAIL_URL } from "@tape.xyz/constants";
