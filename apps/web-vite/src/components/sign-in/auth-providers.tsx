@@ -2,8 +2,9 @@ import { STATIC_ASSETS } from "@tape.xyz/constants";
 import { Input } from "@tape.xyz/winder";
 import { ArrowRight } from "@tape.xyz/winder";
 import { Button } from "@tape.xyz/winder";
+import { memo } from "react";
 
-export const AuthProviders = () => {
+export const AuthProviders = memo(() => {
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-center gap-2 *:flex-1">
@@ -29,11 +30,11 @@ export const AuthProviders = () => {
           <Input type="email" placeholder="Enter your email" required />
           <span className="absolute right-1">
             <Button type="submit" variant="outline" className="group h-9">
-              <ArrowRight className="size-4 opacity-50 group-hover:opacity-100" />
+              <ArrowRight className="size-4 opacity-50 group-hover:opacity-100 group-focus:opacity-100" />
             </Button>
           </span>
         </span>
       </form>
     </div>
   );
-};
+});

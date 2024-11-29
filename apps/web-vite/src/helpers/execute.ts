@@ -24,7 +24,7 @@ export const execute = async <TResult, TVariables>(
         })
       },
       body: JSON.stringify({
-        query: query,
+        query,
         variables
       })
     });

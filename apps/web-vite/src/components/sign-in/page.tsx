@@ -1,8 +1,17 @@
-import { Link } from "@tanstack/react-router";
+import { useCookieStore } from "@/store/cookie";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { ConnectWallet } from "./connect-wallet";
 import { SignInFrame } from "./frame";
 
 export const SignInPage = () => {
+  const navigate = useNavigate();
+  const isAuthenticated = useCookieStore((state) => state.isAuthenticated);
+
+  if (isAuthenticated) {
+    navigate({ to: "/" });
+    return null;
+  }
+
   return (
     <div className="relative flex h-screen w-screen overflow-hidden">
       <div className="grid h-full w-full place-items-center">

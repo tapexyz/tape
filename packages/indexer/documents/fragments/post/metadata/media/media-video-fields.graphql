@@ -1,0 +1,10 @@
+fragment MediaVideoFields on MediaVideo {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  cover
+  duration
+  item
+  license
+}

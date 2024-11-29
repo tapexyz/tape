@@ -1,0 +1,19 @@
+fragment AppFields on App {
+  address
+  defaultFeedAddress
+  graphAddress
+  namespaceAddress
+  sponsorshipAddress
+  treasuryAddress
+  createdAt
+  metadata {
+    description
+    developer
+    logo
+    name
+    platforms
+    privacyPolicy
+    termsOfService
+    url
+  }
+}

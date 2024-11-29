@@ -1,6 +1,12 @@
 import Cookies from "js-cookie";
 import { create } from "zustand";
 
+const COOKIE_KEYS = {
+  ACCESS_TOKEN: "accessToken",
+  REFRESH_TOKEN: "refreshToken",
+  IDENTITY_TOKEN: "identityToken"
+};
+
 type Tokens = {
   accessToken: string;
   refreshToken: string;
@@ -20,29 +26,35 @@ const cookieConfig: Cookies.CookieAttributes = {
 };
 
 export const useCookieStore = create<CookieState>((set) => ({
-  isAuthenticated: false,
+  isAuthenticated: Boolean(Cookies.get(COOKIE_KEYS.ACCESS_TOKEN)),
   signIn: ({ accessToken, refreshToken, identityToken }) => {
-    Cookies.set("accessToken", accessToken, { ...cookieConfig, expires: 1 });
-    Cookies.set("refreshToken", refreshToken, { ...cookieConfig, expires: 7 });
+    Cookies.set(COOKIE_KEYS.ACCESS_TOKEN, accessToken, {
+      ...cookieConfig,
+      expires: 1
+    });
+    Cookies.set(COOKIE_KEYS.REFRESH_TOKEN, refreshToken, {
+      ...cookieConfig,
+      expires: 7
+    });
     const expiryDate = new Date(new Date().getTime() + 30 * 60 * 1000); // 30 minutes
-    Cookies.set("identityToken", identityToken, {
+    Cookies.set(COOKIE_KEYS.IDENTITY_TOKEN, identityToken, {
       ...cookieConfig,
       expires: expiryDate
     });
     set({ isAuthenticated: true });
   },
   signOut: () => {
-    Cookies.remove("accessToken");
-    Cookies.remove("refreshToken");
-    Cookies.remove("identityToken");
+    Cookies.remove(COOKIE_KEYS.ACCESS_TOKEN);
+    Cookies.remove(COOKIE_KEYS.REFRESH_TOKEN);
+    Cookies.remove(COOKIE_KEYS.IDENTITY_TOKEN);
     set({ isAuthenticated: false });
     localStorage.removeItem(BrowserStore.COOKIE_STORE);
   },
   hydrateAuthTokens: () => {
     return {
-      accessToken: Cookies.get("accessToken") ?? "",
-      refreshToken: Cookies.get("refreshToken") ?? "",
-      identityToken: Cookies.get("identityToken") ?? ""
+      accessToken: Cookies.get(COOKIE_KEYS.ACCESS_TOKEN) ?? "",
+      refreshToken: Cookies.get(COOKIE_KEYS.REFRESH_TOKEN) ?? "",
+      identityToken: Cookies.get(COOKIE_KEYS.IDENTITY_TOKEN) ?? ""
     };
   }
 }));

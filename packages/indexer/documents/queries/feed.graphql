@@ -1,5 +1,0 @@
-query Feed($request: FeedRequest!) {
-  feed(request: $request) {
-    address
-  }
-}

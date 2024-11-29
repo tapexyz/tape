@@ -1,9 +1,22 @@
 mutation Authenticate($request: SignedAuthChallenge!) {
   authenticate(request: $request) {
     ... on AuthenticationTokens {
+      __typename
       accessToken
       refreshToken
       idToken
+    }
+    ... on ExpiredChallengeError {
+      __typename
+      reason
+    }
+    ... on ForbiddenError {
+      __typename
+      reason
+    }
+    ... on WrongSignerError {
+      __typename
+      reason
     }
   }
 }

@@ -1,0 +1,15 @@
+query Posts($request: PostsRequest!) {
+  posts(request: $request) {
+    items {
+      ... on Post {
+        ...PostFields
+      }
+      ... on Repost {
+        ...RepostFields
+      }
+    }
+    pageInfo {
+      next
+    }
+  }
+}
