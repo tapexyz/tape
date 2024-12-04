@@ -14,9 +14,9 @@
     "@openzeppelin/contracts-upgradeable": "^5.0.2",
     "@openzeppelin/hardhat-upgrades": "^3.4.0",
     "@tape.xyz/tsconfig": "workspace:*",
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.4.7",
     "ethers": "^6.13.3",
-    "hardhat": "^2.22.16",
+    "hardhat": "^2.22.17",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
   }
