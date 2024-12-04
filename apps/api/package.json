@@ -17,7 +17,7 @@
     "@irys/upload": "^0.0.14",
     "@irys/upload-ethereum": "^0.0.14",
     "@lens-protocol/metadata": "^1.2.0",
-    "@prisma/client": "^6.0.0",
+    "@prisma/client": "^6.0.1",
     "base64url": "^3.0.1",
     "hono": "^4.6.11",
     "linkedom": "^0.18.4",

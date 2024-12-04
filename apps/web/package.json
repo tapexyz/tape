@@ -24,7 +24,7 @@
     "dayjs": "^1.11.13",
     "emoji-mart": "^5.6.0",
     "filereader-stream": "^2.0.0",
-    "framer-motion": "^11.11.17",
+    "framer-motion": "^11.13.1",
     "graphql": "^16.9.0",
     "idb-keyval": "^6.2.1",
     "interweave": "^13.1.0",
@@ -64,7 +64,7 @@
     "@types/uuid": "^10.0.0",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.15",
+    "tailwindcss": "^3.4.16",
     "typescript": "^5.7.2"
   }
 }
