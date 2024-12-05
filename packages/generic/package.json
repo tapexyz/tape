@@ -8,8 +8,8 @@
   },
   "dependencies": {
     "@lens-protocol/metadata": "^1.2.0",
-    "axios": "^1.7.7",
-    "viem": "^2.21.53"
+    "axios": "^1.7.9",
+    "viem": "^2.21.54"
   },
   "devDependencies": {
     "@tape.xyz/constants": "workspace:*",

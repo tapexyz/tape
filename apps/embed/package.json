@@ -26,7 +26,7 @@
     "@tape.xyz/tsconfig": "workspace:*",
     "@tape.xyz/ui": "workspace:*",
     "@types/node": "^22.9.1",
-    "@types/react": "^18.3.12",
+    "@types/react": "^18.3.13",
     "@types/react-dom": "^18.3.0",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",

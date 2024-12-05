@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@tape.xyz/tsconfig": "workspace:*",
-    "@types/react": "^18.3.12",
+    "@types/react": "^18.3.13",
     "typescript": "^5.7.2"
   }
 }

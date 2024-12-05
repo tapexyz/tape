@@ -23,9 +23,9 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-virtuoso": "^4.12.3",
-    "viem": "^2.21.53",
+    "viem": "^2.21.54",
     "wagmi": "^2.13.3",
-    "zustand": "^5.0.1"
+    "zustand": "^5.0.2"
   },
   "devDependencies": {
     "@tailwindcss/vite": "4.0.0-beta.4",
@@ -38,7 +38,7 @@
     "@tape.xyz/tsconfig": "workspace:*",
     "@tape.xyz/winder": "workspace:*",
     "@types/node": "^22.9.1",
-    "@types/react": "^18.3.12",
+    "@types/react": "^18.3.13",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "esbuild": "^0.24.0",
