@@ -22,7 +22,7 @@
     "hono": "^4.6.11",
     "linkedom": "^0.18.4",
     "ua-parser-js": "2.0.0",
-    "viem": "^2.21.53",
+    "viem": "^2.21.54",
     "zod": "^3.23.8"
   },
   "devDependencies": {

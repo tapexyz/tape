@@ -19,7 +19,7 @@
     "expo": "~52.0.10",
     "expo-av": "~15.0.1",
     "expo-blur": "~14.0.1",
-    "expo-camera": "^16.0.6",
+    "expo-camera": "^16.0.9",
     "expo-constants": "~17.0.3",
     "expo-font": "~13.0.1",
     "expo-haptics": "^14.0.0",
@@ -45,7 +45,7 @@
     "react-native-screens": "4.1.0",
     "react-native-svg": "15.8.0",
     "react-native-web": "~0.19.10",
-    "zustand": "^5.0.1"
+    "zustand": "^5.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -53,7 +53,7 @@
     "@tape.xyz/generic": "workspace:*",
     "@tape.xyz/indexer": "workspace:*",
     "@tape.xyz/lens": "workspace:*",
-    "@types/react": "~18.3.12",
+    "@types/react": "~18.3.13",
     "typescript": "~5.7.2"
   }
 }
