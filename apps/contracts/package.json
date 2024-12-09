@@ -12,7 +12,7 @@
     "@nomicfoundation/hardhat-verify": "^2.0.12",
     "@openzeppelin/contracts": "^5.0.2",
     "@openzeppelin/contracts-upgradeable": "^5.0.2",
-    "@openzeppelin/hardhat-upgrades": "^3.4.0",
+    "@openzeppelin/hardhat-upgrades": "^3.7.0",
     "@tape.xyz/tsconfig": "workspace:*",
     "dotenv": "^16.4.7",
     "ethers": "^6.13.3",
