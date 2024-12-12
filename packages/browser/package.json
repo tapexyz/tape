@@ -9,8 +9,8 @@
     "postinstall": "pnpm build:sw"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "3.705.0",
-    "@aws-sdk/lib-storage": "3.705.0",
+    "@aws-sdk/client-s3": "3.709.0",
+    "@aws-sdk/lib-storage": "3.709.0",
     "@livepeer/react": "3.1.9",
     "@rajesh896/broprint.js": "^2.1.1",
     "axios": "^1.7.9",
@@ -26,7 +26,7 @@
     "@tape.xyz/generic": "workspace:*",
     "@tape.xyz/lens": "workspace:*",
     "@tape.xyz/tsconfig": "workspace:*",
-    "@types/node": "^22.9.1",
+    "@types/node": "^22.10.2",
     "@types/react": "^18.3.13",
     "@types/uuid": "^10.0.0",
     "esbuild": "^0.24.0",
