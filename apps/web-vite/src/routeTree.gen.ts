@@ -15,7 +15,7 @@ import { Route as LayoutImport } from './routes/_layout'
 import { Route as WinderIndexImport } from './routes/winder/index'
 import { Route as SignInIndexImport } from './routes/sign-in/index'
 import { Route as OpenIndexImport } from './routes/open/index'
-import { Route as EmbedPubIdImport } from './routes/embed/$pubId'
+import { Route as EmbedPostIdImport } from './routes/embed/$postId'
 import { Route as LayoutHomeImport } from './routes/_layout/_home'
 import { Route as LayoutTermsIndexImport } from './routes/_layout/terms/index'
 import { Route as LayoutPrivacyIndexImport } from './routes/_layout/privacy/index'
@@ -23,7 +23,7 @@ import { Route as LayoutModIndexImport } from './routes/_layout/mod/index'
 import { Route as LayoutFeedIndexImport } from './routes/_layout/feed/index'
 import { Route as LayoutCreateIndexImport } from './routes/_layout/create/index'
 import { Route as LayoutHomeIndexImport } from './routes/_layout/_home/index'
-import { Route as LayoutWatchPubIdImport } from './routes/_layout/watch/$pubId'
+import { Route as LayoutWatchPostIdImport } from './routes/_layout/watch/$postId'
 import { Route as LayoutUHandleImport } from './routes/_layout/u/$handle'
 import { Route as LayoutHomeFollowingImport } from './routes/_layout/_home/following'
 import { Route as LayoutHomeExploreImport } from './routes/_layout/_home/explore'
@@ -53,9 +53,9 @@ const OpenIndexRoute = OpenIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const EmbedPubIdRoute = EmbedPubIdImport.update({
-  id: '/embed/$pubId',
-  path: '/embed/$pubId',
+const EmbedPostIdRoute = EmbedPostIdImport.update({
+  id: '/embed/$postId',
+  path: '/embed/$postId',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -100,9 +100,9 @@ const LayoutHomeIndexRoute = LayoutHomeIndexImport.update({
   getParentRoute: () => LayoutHomeRoute,
 } as any)
 
-const LayoutWatchPubIdRoute = LayoutWatchPubIdImport.update({
-  id: '/watch/$pubId',
-  path: '/watch/$pubId',
+const LayoutWatchPostIdRoute = LayoutWatchPostIdImport.update({
+  id: '/watch/$postId',
+  path: '/watch/$postId',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -142,11 +142,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutHomeImport
       parentRoute: typeof LayoutImport
     }
-    '/embed/$pubId': {
-      id: '/embed/$pubId'
-      path: '/embed/$pubId'
-      fullPath: '/embed/$pubId'
-      preLoaderRoute: typeof EmbedPubIdImport
+    '/embed/$postId': {
+      id: '/embed/$postId'
+      path: '/embed/$postId'
+      fullPath: '/embed/$postId'
+      preLoaderRoute: typeof EmbedPostIdImport
       parentRoute: typeof rootRoute
     }
     '/open/': {
@@ -191,11 +191,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutUHandleImport
       parentRoute: typeof LayoutImport
     }
-    '/_layout/watch/$pubId': {
-      id: '/_layout/watch/$pubId'
-      path: '/watch/$pubId'
-      fullPath: '/watch/$pubId'
-      preLoaderRoute: typeof LayoutWatchPubIdImport
+    '/_layout/watch/$postId': {
+      id: '/_layout/watch/$postId'
+      path: '/watch/$postId'
+      fullPath: '/watch/$postId'
+      preLoaderRoute: typeof LayoutWatchPostIdImport
       parentRoute: typeof LayoutImport
     }
     '/_layout/_home/': {
@@ -264,7 +264,7 @@ const LayoutHomeRouteWithChildren = LayoutHomeRoute._addFileChildren(
 interface LayoutRouteChildren {
   LayoutHomeRoute: typeof LayoutHomeRouteWithChildren
   LayoutUHandleRoute: typeof LayoutUHandleRoute
-  LayoutWatchPubIdRoute: typeof LayoutWatchPubIdRoute
+  LayoutWatchPostIdRoute: typeof LayoutWatchPostIdRoute
   LayoutCreateIndexRoute: typeof LayoutCreateIndexRoute
   LayoutFeedIndexRoute: typeof LayoutFeedIndexRoute
   LayoutModIndexRoute: typeof LayoutModIndexRoute
@@ -275,7 +275,7 @@ interface LayoutRouteChildren {
 const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutHomeRoute: LayoutHomeRouteWithChildren,
   LayoutUHandleRoute: LayoutUHandleRoute,
-  LayoutWatchPubIdRoute: LayoutWatchPubIdRoute,
+  LayoutWatchPostIdRoute: LayoutWatchPostIdRoute,
   LayoutCreateIndexRoute: LayoutCreateIndexRoute,
   LayoutFeedIndexRoute: LayoutFeedIndexRoute,
   LayoutModIndexRoute: LayoutModIndexRoute,
@@ -288,14 +288,14 @@ const LayoutRouteWithChildren =
 
 export interface FileRoutesByFullPath {
   '': typeof LayoutHomeRouteWithChildren
-  '/embed/$pubId': typeof EmbedPubIdRoute
+  '/embed/$postId': typeof EmbedPostIdRoute
   '/open': typeof OpenIndexRoute
   '/sign-in': typeof SignInIndexRoute
   '/winder': typeof WinderIndexRoute
   '/explore': typeof LayoutHomeExploreRoute
   '/following': typeof LayoutHomeFollowingRoute
   '/u/$handle': typeof LayoutUHandleRoute
-  '/watch/$pubId': typeof LayoutWatchPubIdRoute
+  '/watch/$postId': typeof LayoutWatchPostIdRoute
   '/': typeof LayoutHomeIndexRoute
   '/create': typeof LayoutCreateIndexRoute
   '/feed': typeof LayoutFeedIndexRoute
@@ -306,14 +306,14 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '': typeof LayoutRouteWithChildren
-  '/embed/$pubId': typeof EmbedPubIdRoute
+  '/embed/$postId': typeof EmbedPostIdRoute
   '/open': typeof OpenIndexRoute
   '/sign-in': typeof SignInIndexRoute
   '/winder': typeof WinderIndexRoute
   '/explore': typeof LayoutHomeExploreRoute
   '/following': typeof LayoutHomeFollowingRoute
   '/u/$handle': typeof LayoutUHandleRoute
-  '/watch/$pubId': typeof LayoutWatchPubIdRoute
+  '/watch/$postId': typeof LayoutWatchPostIdRoute
   '/': typeof LayoutHomeIndexRoute
   '/create': typeof LayoutCreateIndexRoute
   '/feed': typeof LayoutFeedIndexRoute
@@ -326,14 +326,14 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_layout': typeof LayoutRouteWithChildren
   '/_layout/_home': typeof LayoutHomeRouteWithChildren
-  '/embed/$pubId': typeof EmbedPubIdRoute
+  '/embed/$postId': typeof EmbedPostIdRoute
   '/open/': typeof OpenIndexRoute
   '/sign-in/': typeof SignInIndexRoute
   '/winder/': typeof WinderIndexRoute
   '/_layout/_home/explore': typeof LayoutHomeExploreRoute
   '/_layout/_home/following': typeof LayoutHomeFollowingRoute
   '/_layout/u/$handle': typeof LayoutUHandleRoute
-  '/_layout/watch/$pubId': typeof LayoutWatchPubIdRoute
+  '/_layout/watch/$postId': typeof LayoutWatchPostIdRoute
   '/_layout/_home/': typeof LayoutHomeIndexRoute
   '/_layout/create/': typeof LayoutCreateIndexRoute
   '/_layout/feed/': typeof LayoutFeedIndexRoute
@@ -346,14 +346,14 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | ''
-    | '/embed/$pubId'
+    | '/embed/$postId'
     | '/open'
     | '/sign-in'
     | '/winder'
     | '/explore'
     | '/following'
     | '/u/$handle'
-    | '/watch/$pubId'
+    | '/watch/$postId'
     | '/'
     | '/create'
     | '/feed'
@@ -363,14 +363,14 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | ''
-    | '/embed/$pubId'
+    | '/embed/$postId'
     | '/open'
     | '/sign-in'
     | '/winder'
     | '/explore'
     | '/following'
     | '/u/$handle'
-    | '/watch/$pubId'
+    | '/watch/$postId'
     | '/'
     | '/create'
     | '/feed'
@@ -381,14 +381,14 @@ export interface FileRouteTypes {
     | '__root__'
     | '/_layout'
     | '/_layout/_home'
-    | '/embed/$pubId'
+    | '/embed/$postId'
     | '/open/'
     | '/sign-in/'
     | '/winder/'
     | '/_layout/_home/explore'
     | '/_layout/_home/following'
     | '/_layout/u/$handle'
-    | '/_layout/watch/$pubId'
+    | '/_layout/watch/$postId'
     | '/_layout/_home/'
     | '/_layout/create/'
     | '/_layout/feed/'
@@ -400,7 +400,7 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   LayoutRoute: typeof LayoutRouteWithChildren
-  EmbedPubIdRoute: typeof EmbedPubIdRoute
+  EmbedPostIdRoute: typeof EmbedPostIdRoute
   OpenIndexRoute: typeof OpenIndexRoute
   SignInIndexRoute: typeof SignInIndexRoute
   WinderIndexRoute: typeof WinderIndexRoute
@@ -408,7 +408,7 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   LayoutRoute: LayoutRouteWithChildren,
-  EmbedPubIdRoute: EmbedPubIdRoute,
+  EmbedPostIdRoute: EmbedPostIdRoute,
   OpenIndexRoute: OpenIndexRoute,
   SignInIndexRoute: SignInIndexRoute,
   WinderIndexRoute: WinderIndexRoute,
@@ -425,7 +425,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/_layout",
-        "/embed/$pubId",
+        "/embed/$postId",
         "/open/",
         "/sign-in/",
         "/winder/"
@@ -436,7 +436,7 @@ export const routeTree = rootRoute
       "children": [
         "/_layout/_home",
         "/_layout/u/$handle",
-        "/_layout/watch/$pubId",
+        "/_layout/watch/$postId",
         "/_layout/create/",
         "/_layout/feed/",
         "/_layout/mod/",
@@ -453,8 +453,8 @@ export const routeTree = rootRoute
         "/_layout/_home/"
       ]
     },
-    "/embed/$pubId": {
-      "filePath": "embed/$pubId.tsx"
+    "/embed/$postId": {
+      "filePath": "embed/$postId.tsx"
     },
     "/open/": {
       "filePath": "open/index.tsx"
@@ -477,8 +477,8 @@ export const routeTree = rootRoute
       "filePath": "_layout/u/$handle.tsx",
       "parent": "/_layout"
     },
-    "/_layout/watch/$pubId": {
-      "filePath": "_layout/watch/$pubId.tsx",
+    "/_layout/watch/$postId": {
+      "filePath": "_layout/watch/$postId.tsx",
       "parent": "/_layout"
     },
     "/_layout/_home/": {

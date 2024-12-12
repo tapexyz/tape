@@ -1,16 +1,14 @@
 import { Virtualized } from "@/components/shared/virtualized";
-import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
-import { getPublication, getPublicationMediaUrl } from "@tape.xyz/generic";
-import type { AnyPublication } from "@tape.xyz/indexer";
-import { modExplorePublicationsQuery } from "./queries";
+import { getPostMetadata } from "@/helpers/metadata";
+import { usePostsQuery } from "@/queries/post";
+import type { Post } from "@tape.xyz/indexer";
 
 export const Posts = () => {
-  const { data, fetchNextPage, isLoading, hasNextPage } =
-    useSuspenseInfiniteQuery(modExplorePublicationsQuery);
+  const { data, fetchNextPage, isLoading, hasNextPage } = usePostsQuery();
 
-  const allPublications = data.pages.flatMap(
-    (page) => page.modExplorePublications.items
-  ) as AnyPublication[];
+  const allPublications = data?.pages.flatMap(
+    (page) => page.posts.items
+  ) as Post[];
 
   if (isLoading) {
     return <div>loading</div>;
@@ -27,14 +25,13 @@ export const Posts = () => {
         data={allPublications}
         endReached={fetchNextPage}
         hasNextPage={hasNextPage}
-        itemContent={(_index, anyPublication) => {
-          const publication = getPublication(anyPublication);
-          const url = getPublicationMediaUrl(publication.metadata);
+        itemContent={(_index, post) => {
+          const metadata = getPostMetadata(post.metadata);
           return (
             <div className="p-5">
-              {publication.metadata.content}
+              {metadata?.content}
               <video controls className="aspect-video w-full rounded-custom">
-                <source src={url} type="video/mp4" />
+                <source src={metadata?.asset?.uri} type="video/mp4" />
                 <track kind="captions" />
               </video>
             </div>

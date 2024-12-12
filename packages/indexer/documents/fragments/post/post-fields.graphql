@@ -63,14 +63,6 @@ fragment PostFields on Post {
   stats {
     ...PostStatsFields
   }
-  mentions {
-    account
-    namespace
-    replace {
-      from
-      to
-    }
-  }
   operations {
     canComment
     canRepost

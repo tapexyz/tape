@@ -1,4 +1,4 @@
-import { Route } from "@/routes/_layout/watch/$pubId";
+import { Route } from "@/routes/_layout/watch/$postId";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import {
   getProfile,

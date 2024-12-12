@@ -1,11 +1,5 @@
-import {
-  getProfile,
-  getProfilePicture,
-  getPublicationData,
-  getPublicationMediaUrl,
-  getThumbnailUrl
-} from "@tape.xyz/generic";
-import type { PrimaryPublication } from "@tape.xyz/indexer";
+import { getPostMetadata } from "@/helpers/metadata";
+import type { Post } from "@tape.xyz/indexer";
 import {
   Avatar,
   AvatarImage,
@@ -20,10 +14,6 @@ import {
   VideoPlayer
 } from "@tape.xyz/winder";
 import { memo } from "react";
-
-type ByteProps = {
-  publication: PrimaryPublication;
-};
 
 const Stats = () => {
   return (
@@ -44,18 +34,18 @@ const Stats = () => {
   );
 };
 
-const Info = memo(({ publication }: ByteProps) => {
-  const metadata = getPublicationData(publication.metadata);
+const Info = memo(({ post }: { post: Post }) => {
+  const metadata = getPostMetadata(post.metadata);
 
   return (
     <div className="flex items-center space-x-2 px-3 pt-2 pb-4">
       <Avatar>
-        <AvatarImage src={getProfilePicture(publication.by)} />
+        <AvatarImage src={post.author.metadata?.picture} />
       </Avatar>
       <div className="flex flex-col">
         <span className="-mb-0.5 line-clamp-1">{metadata?.title}</span>
         <span className="-mt-0.5 text-sm text-white/40">
-          {getProfile(publication.by).displayName}
+          {post.author.username?.localName}
         </span>
       </div>
     </div>
@@ -108,9 +98,8 @@ const Actions = () => {
   );
 };
 
-export const Byte = ({ publication }: ByteProps) => {
-  const thumbnail = getThumbnailUrl(publication.metadata);
-  const videoUrl = getPublicationMediaUrl(publication.metadata);
+export const Byte = ({ post }: { post: Post }) => {
+  const metadata = getPostMetadata(post.metadata);
   return (
     <div className="relative mb-2.5 rounded-card bg-black/80 px-1.5 text-white">
       <Stats />
@@ -118,8 +107,8 @@ export const Byte = ({ publication }: ByteProps) => {
         aspectRatio="9/16"
         className="rounded-card"
         posterClassName="rounded-card"
-        src={{ src: videoUrl, type: "video/mp4" }}
-        poster={thumbnail}
+        src={{ src: metadata?.asset.uri, type: "video/mp4" }}
+        poster={metadata?.asset.cover}
         load="visible"
         posterLoad="idle"
         autoPlay={false}
@@ -130,7 +119,7 @@ export const Byte = ({ publication }: ByteProps) => {
           </div>
         }
       />
-      <Info publication={publication} />
+      <Info post={post} />
       <Actions />
     </div>
   );

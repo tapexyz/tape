@@ -1,26 +1,21 @@
-import { Route } from "@/routes/_layout/watch/$pubId";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import {
-  getPublication,
-  getPublicationData,
-  getPublicationMediaUrl,
-  getThumbnailUrl
-} from "@tape.xyz/generic";
-import type { AnyPublication } from "@tape.xyz/indexer";
+import { getPostMetadata } from "@/helpers/metadata";
+import { usePostQuery } from "@/queries/post";
+import { Route } from "@/routes/_layout/watch/$postId";
+import type { Post } from "@tape.xyz/indexer";
 import { VideoPlayer } from "@tape.xyz/winder";
 import { Content } from "./content";
 import { CreatorAndComments } from "./creator";
-import { publicationQuery } from "./queries";
 import { StatsAndActions } from "./stats-and-actions";
 
 export const Publication = () => {
   const pubId = Route.useParams().pubId;
-  const { data } = useSuspenseQuery(publicationQuery(pubId));
+  const { data } = usePostQuery(pubId);
 
-  const publication = getPublication(data.publication as AnyPublication);
-  const thumbnail = getThumbnailUrl(publication.metadata, true);
-  const videoUrl = getPublicationMediaUrl(publication.metadata);
-  const meta = getPublicationData(publication.metadata);
+  const post = data?.post as Post;
+  const metadata = getPostMetadata(post.metadata);
+
+  const thumbnail = metadata?.asset.cover;
+  const videoUrl = metadata?.asset.uri;
 
   return (
     <div className="gap-4 md:flex">
@@ -36,12 +31,12 @@ export const Publication = () => {
           />
         </div>
         <h1 className="mt-2 mb-4 font-serif text-[38px] leading-[38px]">
-          {meta?.title}
+          {metadata?.title}
         </h1>
         <StatsAndActions />
         <span className="text-muted">Published 2 months ago</span>
         <hr className="my-4 w-full border-custom" />
-        <Content content={meta?.content} />
+        <Content content={metadata?.content} />
       </div>
       <CreatorAndComments />
     </div>

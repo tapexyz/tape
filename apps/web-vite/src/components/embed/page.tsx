@@ -1,5 +1,5 @@
-import { Publication } from "./publication";
+import { PostEmbed } from "./post";
 
 export const EmbedPage = () => {
-  return <Publication />;
+  return <PostEmbed />;
 };
