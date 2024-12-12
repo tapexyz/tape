@@ -1,50 +1,83 @@
 import { execute } from "@/helpers/execute";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import {
+  infiniteQueryOptions,
+  queryOptions,
+  useInfiniteQuery,
+  useQuery,
+  useSuspenseInfiniteQuery,
+  useSuspenseQuery
+} from "@tanstack/react-query";
 import {
   MainContentFocus,
   PageSize,
+  PostDocument,
   PostType,
   PostsDocument
 } from "@tape.xyz/indexer";
 
-export const usePostsQuery = () => {
-  return useInfiniteQuery({
-    queryKey: ["posts"],
-    queryFn: ({ pageParam }) =>
-      execute(PostsDocument, {
+export const postQuery = (id: string) =>
+  queryOptions({
+    queryKey: ["post", id],
+    queryFn: () =>
+      execute(PostDocument, {
         request: {
-          filter: {
-            postTypes: [PostType.Root],
-            metadata: {
-              mainContentFocus: [MainContentFocus.Video]
-            }
-          },
-          pageSize: PageSize.Fifty,
-          cursor: pageParam
+          post: id
         }
-      }),
-    initialPageParam: null,
-    getNextPageParam: (lastPage) => lastPage.posts.pageInfo.next
+      })
   });
+
+export const usePostQuery = (id: string) => {
+  return useQuery(postQuery(id));
+};
+export const usePostSuspenseQuery = (id: string) => {
+  return useSuspenseQuery(postQuery(id));
 };
 
+export const postsQuery = infiniteQueryOptions({
+  queryKey: ["posts"],
+  queryFn: ({ pageParam }) =>
+    execute(PostsDocument, {
+      request: {
+        filter: {
+          postTypes: [PostType.Root],
+          metadata: {
+            mainContentFocus: [MainContentFocus.Video]
+          }
+        },
+        pageSize: PageSize.Fifty,
+        cursor: pageParam
+      }
+    }),
+  initialPageParam: null,
+  getNextPageParam: (lastPage) => lastPage.posts.pageInfo.next
+});
+
+export const usePostsQuery = () => {
+  return useInfiniteQuery(postsQuery);
+};
+
+export const bytesQuery = infiniteQueryOptions({
+  queryKey: ["bytes"],
+  queryFn: ({ pageParam }) =>
+    execute(PostsDocument, {
+      request: {
+        filter: {
+          postTypes: [PostType.Root],
+          metadata: {
+            mainContentFocus: [MainContentFocus.ShortVideo]
+          }
+        },
+        pageSize: PageSize.Fifty,
+        cursor: pageParam
+      }
+    }),
+  initialPageParam: null,
+  getNextPageParam: (lastPage) => lastPage.posts.pageInfo.next
+});
+
 export const useBytesQuery = () => {
-  return useInfiniteQuery({
-    queryKey: ["bytes"],
-    queryFn: ({ pageParam }) =>
-      execute(PostsDocument, {
-        request: {
-          filter: {
-            postTypes: [PostType.Root],
-            metadata: {
-              mainContentFocus: [MainContentFocus.ShortVideo]
-            }
-          },
-          pageSize: PageSize.Fifty,
-          cursor: pageParam
-        }
-      }),
-    initialPageParam: null,
-    getNextPageParam: (lastPage) => lastPage.posts.pageInfo.next
-  });
+  return useInfiniteQuery(bytesQuery);
+};
+export const useBytesSuspenseQuery = () => {
+  return useSuspenseInfiniteQuery(bytesQuery);
 };

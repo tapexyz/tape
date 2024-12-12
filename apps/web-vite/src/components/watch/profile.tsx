@@ -1,4 +1,4 @@
-import { Route } from "@/routes/_layout/watch/$pubId";
+import { Route } from "@/routes/_layout/watch/$postId";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { WORKER_AVATAR_URL } from "@tape.xyz/constants";

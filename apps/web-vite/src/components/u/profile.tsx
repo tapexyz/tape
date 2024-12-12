@@ -1,12 +1,8 @@
+import { accountQuery } from "@/queries/account";
 import { Route } from "@/routes/_layout/u/$handle";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { WORKER_AVATAR_URL } from "@tape.xyz/constants";
-import {
-  getProfile,
-  getProfileCoverPicture,
-  getProfilePicture
-} from "@tape.xyz/generic";
-import type { Profile as ProfileType } from "@tape.xyz/indexer";
+import type { Account } from "@tape.xyz/indexer";
 import {
   Avatar,
   AvatarImage,
@@ -22,16 +18,14 @@ import {
   YoutubeLogo
 } from "@tape.xyz/winder";
 import { Actions } from "./actions";
-import { profileQuery } from "./queries";
 
 export const Profile = () => {
   const { handle } = Route.useParams();
-  const { data } = useSuspenseQuery(profileQuery(handle));
+  const { data } = useSuspenseQuery(accountQuery(handle));
 
-  const profile = data.profile as ProfileType;
-  const meta = getProfile(profile);
+  const account = data.account as Account;
 
-  if (!profile.metadata) {
+  if (!account.metadata) {
     return null;
   }
 
@@ -39,7 +33,7 @@ export const Profile = () => {
     <div>
       <div className="relative">
         <img
-          src={getProfileCoverPicture(profile.metadata)}
+          src={account.metadata.coverPicture}
           className="-z-10 h-72 w-full select-none object-cover"
           alt="cover"
           draggable={false}
@@ -51,7 +45,7 @@ export const Profile = () => {
           <div className="flex w-full items-end justify-between">
             <span className="rounded-xl bg-theme p-1">
               <Avatar size="3xl">
-                <AvatarImage src={getProfilePicture(profile)} />
+                <AvatarImage src={account.metadata.picture} />
               </Avatar>
             </span>
             <div className="flex items-center space-x-1.5">
@@ -90,9 +84,9 @@ export const Profile = () => {
           </div>
         </div>
         <div className="space-y-2.5">
-          <span className="font-semibold">{meta.slugWithPrefix}</span>
+          <span className="font-semibold">@{account.username?.localName}</span>
           <h1 className="font-serif text-[44px] leading-[44px]">
-            {meta.displayName}
+            {account.metadata.name}
           </h1>
           <div className="flex items-center space-x-2 text-sm">
             <p>
@@ -104,8 +98,8 @@ export const Profile = () => {
           </div>
 
           <div>
-            {profile.metadata.bio && (
-              <p className="my-6">{profile.metadata.bio}</p>
+            {account.metadata.bio && (
+              <p className="my-6">{account.metadata.bio}</p>
             )}
           </div>
 

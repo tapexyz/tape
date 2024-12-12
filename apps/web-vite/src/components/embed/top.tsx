@@ -1,45 +1,40 @@
+import { getPostMetadata } from "@/helpers/metadata";
 import { TAPE_LOGO, TAPE_WEBSITE_URL } from "@tape.xyz/constants";
-import {
-  getProfile,
-  getProfilePicture,
-  getPublicationData
-} from "@tape.xyz/generic";
-import type { PrimaryPublication } from "@tape.xyz/indexer";
+import type { Post } from "@tape.xyz/indexer";
 import { Avatar, AvatarImage } from "@tape.xyz/winder";
 
 type Props = {
-  publication: PrimaryPublication;
+  post: Post;
 };
 
-export const TopControls = ({ publication }: Props) => {
-  const metadata = getPublicationData(publication.metadata);
+export const TopControls = ({ post }: Props) => {
+  const metadata = getPostMetadata(post.metadata);
+  const account = post.author;
 
   return (
     <div className="flex items-center justify-between gap-4">
       <div className="inline-flex items-center gap-4">
         <a
-          href={`${TAPE_WEBSITE_URL}${getProfile(publication.by)?.link}`}
+          href={`${TAPE_WEBSITE_URL}/u/${account.username?.localName}`}
           target="_blank"
           rel="noreferrer"
         >
           <Avatar>
-            <AvatarImage src={getProfilePicture(publication.by)} />
+            <AvatarImage src={account.metadata?.picture} />
           </Avatar>
         </a>
         <a
           className="flex flex-col"
-          href={`${TAPE_WEBSITE_URL}/watch/${publication.id}`}
+          href={`${TAPE_WEBSITE_URL}/watch/${post.id}`}
           target="_blank"
           rel="noreferrer"
         >
           <h1 className="font-medium">{metadata?.title}</h1>
-          <span className="text-xs">
-            {getProfile(publication.by)?.slugWithPrefix}
-          </span>
+          <span className="text-xs">{account.username?.localName}</span>
         </a>
       </div>
       <a
-        href={`${TAPE_WEBSITE_URL}/watch/${publication.id}`}
+        href={`${TAPE_WEBSITE_URL}/watch/${post.id}`}
         target="_blank"
         rel="noreferrer"
       >

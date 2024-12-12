@@ -1,5 +1,5 @@
 import { FeedPage } from "@/components/feed/page";
-import { bytesQuery } from "@/components/feed/queries";
+import { bytesQuery } from "@/queries/post";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_layout/feed/")({

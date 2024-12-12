@@ -13,8 +13,8 @@ export const Hero = memo(() => {
         </p>
       </h1>
       <div className="space-x-4 *:underline *:underline-offset-2">
-        <Link to="/">Create an account</Link>
-        <Link to="/">Sign in</Link>
+        <Link to="/sign-in">Create an account</Link>
+        <Link to="/sign-in">Sign in</Link>
       </div>
     </div>
   );

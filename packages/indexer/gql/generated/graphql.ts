@@ -33,6 +33,7 @@ export type Scalars = {
   MetadataId: { input: any; output: any; }
   PostId: { input: any; output: any; }
   RefreshToken: { input: any; output: any; }
+  ServerAPIKey: { input: any; output: any; }
   Signature: { input: any; output: any; }
   Tag: { input: any; output: any; }
   TxHash: { input: any; output: any; }
@@ -69,6 +70,11 @@ export type AccessConditionType = AdvancedContractCondition | CollectCondition |
 export type Account = {
   __typename?: 'Account';
   address: Scalars['EvmAddress']['output'];
+  /**
+   * The account created at. Note if they are using a standard EOA this will be genesis block
+   * timestamp
+   */
+  createdAt: Scalars['DateTime']['output'];
   /** The metadata of the account. */
   metadata?: Maybe<AccountMetadata>;
   /** The operations for the account. */
@@ -78,10 +84,17 @@ export type Account = {
    * address of the account itself.
    */
   owner: Scalars['EvmAddress']['output'];
+  /** Get the rules for the account. */
+  rules: FollowRulesConfig;
   /** The score of the account. */
   score: Scalars['Int']['output'];
   /** The username linked to the account. */
   username?: Maybe<Username>;
+};
+
+
+export type AccountRulesArgs = {
+  request?: InputMaybe<RuleInput>;
 };
 
 
@@ -215,13 +228,7 @@ export type AccountMention = {
    * The replacement information.
    * Use to replace mentions in the post content.
    */
-  replace: AccountMentionReplace;
-};
-
-export type AccountMentionReplace = {
-  __typename?: 'AccountMentionReplace';
-  from: Scalars['String']['output'];
-  to: Scalars['String']['output'];
+  replace: MentionReplace;
 };
 
 export type AccountMetadata = {
@@ -294,24 +301,6 @@ export type AccountRequest = {
   username?: InputMaybe<UsernameInput>;
 };
 
-export enum AccountSearchOrderBy {
-  AccountScore = 'ACCOUNT_SCORE',
-  Default = 'DEFAULT'
-}
-
-export type AccountSearchRequest = {
-  /** The cursor. */
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The local name to search for. */
-  localName: Scalars['String']['input'];
-  /** Optional. The username prefix to search for. */
-  namespace?: InputMaybe<Array<Scalars['String']['input']>>;
-  /** The order by. */
-  orderBy?: AccountSearchOrderBy;
-  /** The page size. */
-  pageSize?: PageSize;
-};
-
 export type AccountStats = {
   __typename?: 'AccountStats';
   /** The stats for the feeds. */
@@ -354,13 +343,34 @@ export type AccountsBlockedRequest = {
   pageSize?: PageSize;
 };
 
-export type AccountsRequest = {
+export type AccountsBulkRequest = {
   /** The addresses to get. */
   addresses?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
   /** The legacy profile IDs to get. */
   legacyProfileIds?: InputMaybe<Array<Scalars['LegacyProfileId']['input']>>;
   /** The usernames to get. */
   usernames?: InputMaybe<Array<UsernameInput>>;
+};
+
+export type AccountsFilterRequest = {
+  /** The optional filter to narrow accounts by search query. */
+  searchBy?: InputMaybe<UsernameSearchInput>;
+};
+
+export enum AccountsOrderBy {
+  AccountScore = 'ACCOUNT_SCORE',
+  Alphabetical = 'ALPHABETICAL',
+  BestMatch = 'BEST_MATCH'
+}
+
+export type AccountsRequest = {
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<AccountsFilterRequest>;
+  /** The order by. */
+  orderBy?: AccountsOrderBy;
+  /** The page size. */
+  pageSize?: PageSize;
 };
 
 export type ActionFilter = {
@@ -386,12 +396,48 @@ export type AddAccountManagerRequest = {
 
 export type AddAccountManagerResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
+export type AddAdminsRequest = {
+  /** The graph/app/sponsor/feed/username/group address which manages these admins */
+  address: Scalars['EvmAddress']['input'];
+  /** The addresses to add as admins */
+  admins: Array<Scalars['EvmAddress']['input']>;
+};
+
+export type AddAdminsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
 export type AddAppAuthorizationEndpointRequest = {
   /** The app. */
   app: Scalars['EvmAddress']['input'];
   /** The app authorization endpoint. */
   endpoint: Scalars['URL']['input'];
 };
+
+export type AddAppFeedsRequest = {
+  /** The app to update */
+  app: Scalars['EvmAddress']['input'];
+  /** The app feeds (max 10 per request) */
+  feeds: Array<Scalars['EvmAddress']['input']>;
+};
+
+export type AddAppFeedsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type AddAppGroupsRequest = {
+  /** The app to update */
+  app: Scalars['EvmAddress']['input'];
+  /** The app groups (max 10 per request) */
+  groups: Array<Scalars['EvmAddress']['input']>;
+};
+
+export type AddAppGroupsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type AddAppSignersRequest = {
+  /** The app to update */
+  app: Scalars['EvmAddress']['input'];
+  /** The app signers (max 10 per request) */
+  signers: Array<Scalars['EvmAddress']['input']>;
+};
+
+export type AddAppSignersResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type AddReactionFailure = {
   __typename?: 'AddReactionFailure';
@@ -411,6 +457,19 @@ export type AddReactionResponse = {
 };
 
 export type AddReactionResult = AddReactionFailure | AddReactionResponse;
+
+export type Admin = {
+  __typename?: 'Admin';
+  addedAt: Scalars['DateTime']['output'];
+  address: Scalars['EvmAddress']['output'];
+};
+
+export type AdminsForRequest = {
+  /** The graph/app/sponsor/feed/username/group address */
+  address: Scalars['EvmAddress']['input'];
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  pageSize?: PageSize;
+};
 
 export type AdvancedContractCondition = {
   __typename?: 'AdvancedContractCondition';
@@ -495,8 +554,34 @@ export type App = {
   graphAddress?: Maybe<Scalars['EvmAddress']['output']>;
   metadata?: Maybe<AppMetadata>;
   namespaceAddress?: Maybe<Scalars['EvmAddress']['output']>;
+  owner: Scalars['EvmAddress']['output'];
   sponsorshipAddress?: Maybe<Scalars['EvmAddress']['output']>;
   treasuryAddress?: Maybe<Scalars['EvmAddress']['output']>;
+  verificationEnabled: Scalars['Boolean']['output'];
+};
+
+export type AppFeed = {
+  __typename?: 'AppFeed';
+  feed: Scalars['EvmAddress']['output'];
+  timestamp: Scalars['DateTime']['output'];
+};
+
+export type AppFeedsRequest = {
+  /** The app address */
+  app: Scalars['EvmAddress']['input'];
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** The page size. */
+  pageSize?: PageSize;
+};
+
+export type AppGroupsRequest = {
+  /** The app address */
+  app: Scalars['EvmAddress']['input'];
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** The page size. */
+  pageSize?: PageSize;
 };
 
 export type AppMetadata = {
@@ -513,6 +598,8 @@ export type AppMetadata = {
   platforms: Array<AppMetadataLensPlatformsItem>;
   /** The privacy policy for the app. */
   privacyPolicy?: Maybe<Scalars['URI']['output']>;
+  /** The tagline of the app. */
+  tagline?: Maybe<Scalars['String']['output']>;
   /** The terms of service for the app. */
   termsOfService?: Maybe<Scalars['URI']['output']>;
   /** The url of the app. */
@@ -532,6 +619,57 @@ export type AppRequest = {
   txHash?: InputMaybe<Scalars['TxHash']['input']>;
 };
 
+export type AppServerApiKeyRequest = {
+  /** The app address. */
+  app: Scalars['EvmAddress']['input'];
+};
+
+export type AppSigner = {
+  __typename?: 'AppSigner';
+  signer: Scalars['EvmAddress']['output'];
+  timestamp: Scalars['DateTime']['output'];
+};
+
+export type AppSignersRequest = {
+  /** The app address */
+  app: Scalars['EvmAddress']['input'];
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** The page size. */
+  pageSize?: PageSize;
+};
+
+export type AppUser = {
+  __typename?: 'AppUser';
+  account: Account;
+  firstLoginOn: Scalars['DateTime']['output'];
+  lastActiveOn: Scalars['DateTime']['output'];
+};
+
+export type AppUsersRequest = {
+  /** The App to filter by. */
+  app: Scalars['EvmAddress']['input'];
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** The page size. */
+  pageSize?: PageSize;
+};
+
+export type ApprovalGroupRule = {
+  __typename?: 'ApprovalGroupRule';
+  rule: Scalars['EvmAddress']['output'];
+};
+
+export type AppsFilterRequest = {
+  /** The optional filter to get apps managed by address */
+  managedBy?: InputMaybe<ManagedBy>;
+  /**
+   * The optional filter to narrow apps by search query.
+   * Uses fuzzy search on app name
+   */
+  searchQuery?: InputMaybe<Scalars['String']['input']>;
+};
+
 export enum AppsOrderBy {
   Alphabetical = 'ALPHABETICAL',
   LatestFirst = 'LATEST_FIRST',
@@ -539,9 +677,19 @@ export enum AppsOrderBy {
 }
 
 export type AppsRequest = {
+  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<AppsFilterRequest>;
+  /** The order by. */
   orderBy?: AppsOrderBy;
+  /** The page size. */
   pageSize?: PageSize;
+};
+
+export type AppsResult = {
+  __typename?: 'AppsResult';
+  items: Array<App>;
+  pageInfo: PaginatedResultInfo;
 };
 
 export type ArticleMetadata = {
@@ -613,6 +761,7 @@ export type AuthenticatedSession = {
   browser?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
   device?: Maybe<Scalars['String']['output']>;
+  expiresAt: Scalars['DateTime']['output'];
   origin?: Maybe<Scalars['URL']['output']>;
   os?: Maybe<Scalars['String']['output']>;
   signer: Scalars['EvmAddress']['output'];
@@ -718,6 +867,17 @@ export type ChallengeRequest = {
   onboardingUser?: InputMaybe<OnboardingUserChallengeRequest>;
 };
 
+export type CharsetUsernameNamespaceRule = {
+  __typename?: 'CharsetUsernameNamespaceRule';
+  allowLatinLowercase: Scalars['Boolean']['output'];
+  allowLatinUppercase: Scalars['Boolean']['output'];
+  allowNumeric: Scalars['Boolean']['output'];
+  cannotStartWith?: Maybe<Scalars['String']['output']>;
+  customAllowedCharset?: Maybe<Array<Scalars['String']['output']>>;
+  customDisallowedCharset?: Maybe<Array<Scalars['String']['output']>>;
+  rule: Scalars['EvmAddress']['output'];
+};
+
 export type CheckingInMetadata = {
   __typename?: 'CheckingInMetadata';
   /** The optional address of the location. */
@@ -807,6 +967,11 @@ export type CreateAppRequest = {
   signers?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
   /** The app treasury leave empty if none */
   treasury?: InputMaybe<Scalars['EvmAddress']['input']>;
+  /**
+   * If the app has verification enabled meaning
+   * you can only do stuff with the app if its signed by one of the signers
+   */
+  verification: Scalars['Boolean']['input'];
 };
 
 export type CreateAppResponse = {
@@ -1004,8 +1169,13 @@ export type Eip712TransactionRequest = {
   from: Scalars['EvmAddress']['output'];
   /** The maximum amount of gas to allow this transaction to consume. */
   gasLimit: Scalars['Int']['output'];
-  /** The gas price to use. */
-  gasPrice: Scalars['BigInt']['output'];
+  /**
+   * The maximum total fee to pay per gas. The actual
+   * value used is protocol enforced to be the block's base fee.
+   */
+  maxFeePerGas: Scalars['BigInt']['output'];
+  /** The maximum priority fee to pay per gas. */
+  maxPriorityFeePerGas: Scalars['BigInt']['output'];
   /** The nonce of the transaction, used to prevent replay attacks. */
   nonce: Scalars['Int']['output'];
   /** The target of the transaction. */
@@ -1013,7 +1183,7 @@ export type Eip712TransactionRequest = {
   /** The transaction type: 113 for EIP-712 transactions. */
   type: Scalars['Int']['output'];
   /** The transaction value (in wei). */
-  value?: Maybe<Scalars['BigInt']['output']>;
+  value: Scalars['BigInt']['output'];
 };
 
 export type Eip1559TransactionRequest = {
@@ -1027,11 +1197,11 @@ export type Eip1559TransactionRequest = {
   /** The maximum amount of gas to allow this transaction to consume. */
   gasLimit: Scalars['Int']['output'];
   /**
-   * The EIP_1559 maximum total fee to pay per gas. The actual
+   * The maximum total fee to pay per gas. The actual
    * value used is protocol enforced to be the block's base fee.
    */
   maxFeePerGas: Scalars['BigInt']['output'];
-  /** The EIP_1559 maximum priority fee to pay per gas. */
+  /** The maximum priority fee to pay per gas. */
   maxPriorityFeePerGas: Scalars['BigInt']['output'];
   /** The nonce of the transaction, used to prevent replay attacks. */
   nonce: Scalars['Int']['output'];
@@ -1040,7 +1210,7 @@ export type Eip1559TransactionRequest = {
   /** The transaction type: 2 for EIP-1559 transactions. */
   type: Scalars['Int']['output'];
   /** The transaction value (in wei). */
-  value?: Maybe<Scalars['BigInt']['output']>;
+  value: Scalars['BigInt']['output'];
 };
 
 export type EmbedMetadata = {
@@ -1614,7 +1784,16 @@ export type FeeFollowRuleInput = {
 export type Feed = {
   __typename?: 'Feed';
   address: Scalars['EvmAddress']['output'];
+  createdAt: Scalars['DateTime']['output'];
   metadata?: Maybe<FeedMetadata>;
+  operations?: Maybe<LoggedInFeedPostOperations>;
+  owner: Scalars['EvmAddress']['output'];
+  rules: FeedRulesConfig;
+};
+
+
+export type FeedRulesArgs = {
+  request?: InputMaybe<RuleInput>;
 };
 
 export type FeedMetadata = {
@@ -1639,8 +1818,42 @@ export type FeedRequest = {
   txHash?: InputMaybe<Scalars['TxHash']['input']>;
 };
 
+export type FeedRule = GroupGatedFeedRule | RestrictedSignersFeedRule | SimplePaymentFeedRule | TokenGatedFeedRule | UnknownFeedRule | UserBlockingRule;
+
+export type FeedRulesConfig = {
+  __typename?: 'FeedRulesConfig';
+  anyOf: Array<FeedRule>;
+  required: Array<FeedRule>;
+};
+
 export type FeedRulesInput = {
   unknownFeedRule?: InputMaybe<UnknownFeedRuleInput>;
+};
+
+export type FeedsFilterRequest = {
+  /** The optional filter to get feeds managed by address */
+  managedBy?: InputMaybe<ManagedBy>;
+  /**
+   * The optional filter to narrow feeds by search query.
+   * Uses fuzzy search on feed name
+   */
+  searchQuery?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum FeedsOrderBy {
+  Alphabetical = 'ALPHABETICAL',
+  LatestFirst = 'LATEST_FIRST',
+  OldestFirst = 'OLDEST_FIRST'
+}
+
+export type FeedsRequest = {
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<FeedsFilterRequest>;
+  /** The order by. */
+  orderBy?: FeedsOrderBy;
+  /** The page size. */
+  pageSize?: PageSize;
 };
 
 /**
@@ -1682,6 +1895,14 @@ export type FollowResponse = {
 
 export type FollowResult = FollowResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
+export type FollowRule = SimplePaymentFollowRule | TokenGatedFollowRule | UnknownFollowRule;
+
+export type FollowRulesConfig = {
+  __typename?: 'FollowRulesConfig';
+  anyOf: Array<FollowRule>;
+  required: Array<FollowRule>;
+};
+
 export type FollowRulesInput = {
   feeFollowRule?: InputMaybe<FeeFollowRuleInput>;
   unknownFollowRule?: InputMaybe<UnknownFollowRuleInput>;
@@ -1705,6 +1926,15 @@ export type Follower = {
   followedOn: Scalars['DateTime']['output'];
   /** The account which is following */
   follower: Account;
+};
+
+export type FollowerOnlyPostRule = {
+  __typename?: 'FollowerOnlyPostRule';
+  graph: Scalars['EvmAddress']['output'];
+  quotesRestricted: Scalars['Boolean']['output'];
+  repliesRestricted: Scalars['Boolean']['output'];
+  repostsRestricted: Scalars['Boolean']['output'];
+  rule: Scalars['EvmAddress']['output'];
 };
 
 export enum FollowersOrderBy {
@@ -1782,6 +2012,12 @@ export type FollowingRequest = {
   pageSize?: PageSize;
 };
 
+export enum ForYouSource {
+  Curated = 'CURATED',
+  Following = 'FOLLOWING',
+  Popular = 'POPULAR'
+}
+
 export type ForbiddenError = {
   __typename?: 'ForbiddenError';
   reason: Scalars['String']['output'];
@@ -1790,7 +2026,15 @@ export type ForbiddenError = {
 export type Graph = {
   __typename?: 'Graph';
   address: Scalars['EvmAddress']['output'];
+  createdAt: Scalars['DateTime']['output'];
   metadata?: Maybe<GraphMetadata>;
+  owner: Scalars['EvmAddress']['output'];
+  rules: GraphRulesConfig;
+};
+
+
+export type GraphRulesArgs = {
+  request?: InputMaybe<RuleInput>;
 };
 
 export type GraphMetadata = {
@@ -1815,15 +2059,66 @@ export type GraphRequest = {
   txHash?: InputMaybe<Scalars['TxHash']['input']>;
 };
 
+export type GraphRule = RestrictedSignerGraphRule | TokenGatedGraphRule | UnknownGraphRule | UserBlockingRule;
+
+export type GraphRulesConfig = {
+  __typename?: 'GraphRulesConfig';
+  anyOf: Array<GraphRule>;
+  required: Array<GraphRule>;
+};
+
 export type GraphRulesInput = {
   unknownGraphRule?: InputMaybe<UnknownGraphRuleInput>;
+};
+
+export type GraphsFilterRequest = {
+  /** The optional filter to get graphs managed by address */
+  managedBy?: InputMaybe<ManagedBy>;
+  /**
+   * The optional filter to narrow graphs by search query.
+   * Uses fuzzy search on graph name
+   */
+  searchQuery?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum GraphsOrderBy {
+  Alphabetical = 'ALPHABETICAL',
+  LatestFirst = 'LATEST_FIRST',
+  OldestFirst = 'OLDEST_FIRST'
+}
+
+export type GraphsRequest = {
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<GraphsFilterRequest>;
+  /** The order by. */
+  orderBy?: GraphsOrderBy;
+  pageSize?: PageSize;
 };
 
 export type Group = {
   __typename?: 'Group';
   address: Scalars['EvmAddress']['output'];
+  /**
+   * Check if the authenticated account is a member of the group.
+   * Will return null if the account is not logged in.
+   */
+  isMember?: Maybe<Scalars['Boolean']['output']>;
   metadata?: Maybe<GroupMetadata>;
+  owner: Scalars['EvmAddress']['output'];
+  rules: GroupRulesConfig;
   timestamp: Scalars['DateTime']['output'];
+};
+
+
+export type GroupRulesArgs = {
+  request?: InputMaybe<RuleInput>;
+};
+
+export type GroupGatedFeedRule = {
+  __typename?: 'GroupGatedFeedRule';
+  group: Group;
+  rule: Scalars['EvmAddress']['output'];
 };
 
 export enum GroupMembersOrderBy {
@@ -1843,8 +2138,21 @@ export type GroupMembersRequest = {
   pageSize?: PageSize;
 };
 
+export type GroupMention = {
+  __typename?: 'GroupMention';
+  /** The group that was mentioned */
+  group: Scalars['EvmAddress']['output'];
+  /**
+   * The replacement information.
+   * Use to replace mentions in the post content.
+   */
+  replace: MentionReplace;
+};
+
 export type GroupMetadata = {
   __typename?: 'GroupMetadata';
+  /** The Group cover picture. */
+  coverPicture?: Maybe<Scalars['URI']['output']>;
   /** Optional markdown formatted description of the Community. */
   description?: Maybe<Scalars['String']['output']>;
   /** Optional uri of the Community's icon. */
@@ -1856,8 +2164,6 @@ export type GroupMetadata = {
   id: Scalars['String']['output'];
   /** The name of the Community. */
   name: Scalars['String']['output'];
-  /** The slug for the Community. */
-  slug: Scalars['String']['output'];
 };
 
 export type GroupRequest = {
@@ -1867,23 +2173,46 @@ export type GroupRequest = {
   txHash?: InputMaybe<Scalars['TxHash']['input']>;
 };
 
-export type GroupsFilter = {
-  /** The name of the group */
-  name?: InputMaybe<Scalars['String']['input']>;
+export type GroupRule = ApprovalGroupRule | SimplePaymentGroupRule | TokenGatedGroupRule | UnknownGroupRule;
+
+export type GroupRulesConfig = {
+  __typename?: 'GroupRulesConfig';
+  anyOf: Array<GroupRule>;
+  required: Array<GroupRule>;
+};
+
+export type GroupStatsRequest = {
+  /** The group address to check its total members. */
+  group: Scalars['EvmAddress']['input'];
+};
+
+export type GroupStatsResponse = {
+  __typename?: 'GroupStatsResponse';
+  totalMembers: Scalars['Int']['output'];
+};
+
+export type GroupsFilterRequest = {
+  /** The optional filter to get groups managed by address */
+  managedBy?: InputMaybe<ManagedBy>;
+  /** The optional filter to get groups where account is a member */
+  member?: InputMaybe<Scalars['EvmAddress']['input']>;
+  /**
+   * The optional filter to narrow groups by search query.
+   * Uses fuzzy search on group name
+   */
+  searchQuery?: InputMaybe<Scalars['String']['input']>;
 };
 
 export enum GroupsOrderBy {
-  LatestJoined = 'LATEST_JOINED',
-  Name = 'NAME'
+  Alphabetical = 'ALPHABETICAL',
+  LatestFirst = 'LATEST_FIRST',
+  OldestFirst = 'OLDEST_FIRST'
 }
 
 export type GroupsRequest = {
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The filter */
-  filter?: InputMaybe<GroupsFilter>;
-  /** Get the groups this account is a member of */
-  member: Scalars['EvmAddress']['input'];
+  filter?: InputMaybe<GroupsFilterRequest>;
   /** The order by. */
   orderBy?: GroupsOrderBy;
   /** The page size. */
@@ -1953,6 +2282,12 @@ export type JoinGroupResponse = {
 
 export type JoinGroupResult = JoinGroupResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
+export type KeyValue = {
+  __typename?: 'KeyValue';
+  key: Scalars['String']['output'];
+  value: Scalars['String']['output'];
+};
+
 export type KnownAction = {
   __typename?: 'KnownAction';
   actionInput: Array<ActionInputInfo>;
@@ -1980,6 +2315,13 @@ export type LeaveGroupResponse = {
 };
 
 export type LeaveGroupResult = LeaveGroupResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type LengthUsernameNamespaceRule = {
+  __typename?: 'LengthUsernameNamespaceRule';
+  maxLength: Scalars['Int']['output'];
+  minLength: Scalars['Int']['output'];
+  rule: Scalars['EvmAddress']['output'];
+};
 
 export type LinkMetadata = {
   __typename?: 'LinkMetadata';
@@ -2118,6 +2460,11 @@ export type LoggedInAccountOperationsIsFollowingMeArgs = {
   request?: InputMaybe<IsFollowingMeRequest>;
 };
 
+export type LoggedInFeedPostOperations = {
+  __typename?: 'LoggedInFeedPostOperations';
+  canPost: RulesOutcome;
+};
+
 export type LoggedInPostOperations = {
   __typename?: 'LoggedInPostOperations';
   canComment: TriStateValue;
@@ -2163,10 +2510,15 @@ export enum ManagedAccountsVisibility {
   NoneHidden = 'NONE_HIDDEN'
 }
 
+export type ManagedBy = {
+  /** The address for a user to see what apps they manage. */
+  address: Scalars['EvmAddress']['input'];
+  /** Whether to include the apps which is owned by the address. */
+  includeOwners?: Scalars['Boolean']['input'];
+};
+
 export type MeResult = {
   __typename?: 'MeResult';
-  /** The logged in account. */
-  account: AccountAvailable;
   /** The app the account is logged in to. */
   appLoggedIn: Scalars['EvmAddress']['output'];
   /** Whether the account is signless. */
@@ -2175,6 +2527,8 @@ export type MeResult = {
   isSponsored: Scalars['Boolean']['output'];
   /** The sponsorship allowance for the account. */
   limit: SponsorshipAllowance;
+  /** The logged in account. */
+  loggedInAs: AccountAvailable;
 };
 
 /**
@@ -2586,6 +2940,12 @@ export type MentionNotification = {
   post: Post;
 };
 
+export type MentionReplace = {
+  __typename?: 'MentionReplace';
+  from: Scalars['String']['output'];
+  to: Scalars['String']['output'];
+};
+
 export type MetadataAttribute = {
   __typename?: 'MetadataAttribute';
   key: Scalars['String']['output'];
@@ -2664,6 +3024,40 @@ export type MintMetadata = {
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
 };
 
+export type MlaccountRecommendationsRequest = {
+  /** The account to get recommendations for. */
+  account: Scalars['EvmAddress']['input'];
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** The page size. */
+  pageSize?: PageSize;
+  /** Shuffle the recommendations. */
+  shuffle?: Scalars['Boolean']['input'];
+};
+
+export type MlexplorePostsFilter = {
+  since?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type MlexplorePostsRequest = {
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<MlexplorePostsFilter>;
+  /** The page size. */
+  pageSize?: PageSize;
+};
+
+export type MlpostsForYouRequest = {
+  /** The account to get for you for. */
+  account: Scalars['EvmAddress']['input'];
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** The page size. */
+  pageSize?: PageSize;
+  /** Shuffle the for you posts. */
+  shuffle?: Scalars['Boolean']['input'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   /**
@@ -2673,17 +3067,47 @@ export type Mutation = {
    */
   addAccountManager: AddAccountManagerResult;
   /**
+   * Add admins to a graph/app/sponsor/feed/username/group.
+   *
+   * You MUST be authenticated as Account Owner to use this mutation.
+   */
+  addAdmins: AddAdminsResult;
+  /**
    * Add an app authorization endpoint.
    *
    * You MUST be authenticated as a builder to use this mutation.
    */
   addAppAuthorizationEndpoint: Scalars['Void']['output'];
   /**
+   * Add feeds to an app
+   *
+   * You MUST be authenticated as a builder to use this mutation.
+   */
+  addAppFeeds: AddAppFeedsResult;
+  /**
+   * Add groups to an app
+   *
+   * You MUST be authenticated as a builder to use this mutation.
+   */
+  addAppGroups: AddAppGroupsResult;
+  /**
+   * Add signers to an app
+   *
+   * You MUST be authenticated as a builder to use this mutation.
+   */
+  addAppSigners: AddAppSignersResult;
+  /**
    * React to a post.
    *
    * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
    */
   addReaction: AddReactionResult;
+  /**
+   * Refresh the server side api key for an app
+   *
+   * You MUST be authenticated as a builder to use this mutation.
+   */
+  appRefreshServerApiKey: Scalars['ServerAPIKey']['output'];
   /**
    * Assign a username to an account.
    *
@@ -2841,6 +3265,30 @@ export type Mutation = {
    */
   removeAccountManager: RemoveAccountManagerResult;
   /**
+   * Remove admins from a graph/app/sponsor/feed/username/group.
+   *
+   * You MUST be authenticated as Account Owner to use this mutation.
+   */
+  removeAdmins: RemoveAdminsResult;
+  /**
+   * Remove feeds to an app
+   *
+   * You MUST be authenticated as a builder to use this mutation.
+   */
+  removeAppFeeds: RemoveAppFeedsResult;
+  /**
+   * Remove groups to an app
+   *
+   * You MUST be authenticated as a builder to use this mutation.
+   */
+  removeAppGroups: RemoveAppGroupsResult;
+  /**
+   * Remove signers to an app
+   *
+   * You MUST be authenticated as a builder to use this mutation.
+   */
+  removeAppSigners: RemoveAppSignersResult;
+  /**
    * Remove Signless experience for the authenticated account.
    *
    * You MUST be authenticated as Account Owner to use this mutation.
@@ -2876,8 +3324,58 @@ export type Mutation = {
    * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
    */
   setAccountMetadata: SetAccountMetadataResult;
+  /**
+   * Set graph for an app
+   *
+   * You MUST be authenticated as a builder to use this mutation.
+   */
+  setAppGraph: SetAppGraphResult;
+  /**
+   * Set metadata for an app
+   *
+   * You MUST be authenticated as a builder to use this mutation.
+   */
+  setAppMetadata: SetAppMetadataResult;
+  /**
+   * Set sponsorship for an app
+   *
+   * You MUST be authenticated as a builder to use this mutation.
+   */
+  setAppSponsorship: SetAppSponsorshipResult;
+  /**
+   * Set treasury for an app
+   *
+   * You MUST be authenticated as a builder to use this mutation.
+   */
+  setAppTreasury: SetAppTreasuryResult;
+  /**
+   * Set username namespace for an app
+   *
+   * You MUST be authenticated as a builder to use this mutation.
+   */
+  setAppUsernameNamespace: SetAppUsernameNamespaceResult;
+  /**
+   * Set if the app verification is enabled
+   * App needs to have authorization endpoint enabled
+   * App needs to return `verification_endpoint` from the authorization endpoint
+   *
+   * You MUST be authenticated as a builder to use this mutation.
+   */
+  setAppVerification: SetAppVerificationResult;
+  /**
+   * Set default feed for an app
+   *
+   * You MUST be authenticated as a builder to use this mutation.
+   */
+  setDefaultAppFeed: SetDefaultAppFeedResult;
   /** You MUST be authenticated as Account Owner or Account Manager to use this mutation. */
   switchAccount: SwitchAccountResult;
+  /**
+   * Transfer primitive ownership for the graph/app/sponsor/feed/username/group.
+   *
+   * You MUST be authenticated as Account Owner to use this mutation.
+   */
+  transferPrimitiveOwnership: TransferPrimitiveOwnershipResult;
   /**
    * Unassign a username from the logged-in user's Account.
    *
@@ -2943,13 +3441,38 @@ export type MutationAddAccountManagerArgs = {
 };
 
 
+export type MutationAddAdminsArgs = {
+  request: AddAdminsRequest;
+};
+
+
 export type MutationAddAppAuthorizationEndpointArgs = {
   request: AddAppAuthorizationEndpointRequest;
 };
 
 
+export type MutationAddAppFeedsArgs = {
+  request: AddAppFeedsRequest;
+};
+
+
+export type MutationAddAppGroupsArgs = {
+  request: AddAppGroupsRequest;
+};
+
+
+export type MutationAddAppSignersArgs = {
+  request: AddAppSignersRequest;
+};
+
+
 export type MutationAddReactionArgs = {
   request: AddReactionRequest;
+};
+
+
+export type MutationAppRefreshServerApiKeyArgs = {
+  request: RefreshAppServerApiKeyRequest;
 };
 
 
@@ -3078,6 +3601,26 @@ export type MutationRemoveAccountManagerArgs = {
 };
 
 
+export type MutationRemoveAdminsArgs = {
+  request: RemoveAdminsRequest;
+};
+
+
+export type MutationRemoveAppFeedsArgs = {
+  request: RemoveAppFeedsRequest;
+};
+
+
+export type MutationRemoveAppGroupsArgs = {
+  request: RemoveAppGroupsRequest;
+};
+
+
+export type MutationRemoveAppSignersArgs = {
+  request: RemoveAppSignersRequest;
+};
+
+
 export type MutationReportAccountArgs = {
   request: ReportAccountRequest;
 };
@@ -3103,8 +3646,48 @@ export type MutationSetAccountMetadataArgs = {
 };
 
 
+export type MutationSetAppGraphArgs = {
+  request: SetAppGraphRequest;
+};
+
+
+export type MutationSetAppMetadataArgs = {
+  request: SetAppMetadataRequest;
+};
+
+
+export type MutationSetAppSponsorshipArgs = {
+  request: SetAppSponsorshipRequest;
+};
+
+
+export type MutationSetAppTreasuryArgs = {
+  request: SetAppTreasuryRequest;
+};
+
+
+export type MutationSetAppUsernameNamespaceArgs = {
+  request: SetAppUsernameNamespaceRequest;
+};
+
+
+export type MutationSetAppVerificationArgs = {
+  request: SetAppVerificationRequest;
+};
+
+
+export type MutationSetDefaultAppFeedArgs = {
+  request: SetDefaultAppFeedRequest;
+};
+
+
 export type MutationSwitchAccountArgs = {
   request: SwitchAccountRequest;
+};
+
+
+export type MutationTransferPrimitiveOwnershipArgs = {
+  request: TransferPrimitiveOwnershipRequest;
 };
 
 
@@ -3160,6 +3743,38 @@ export type MutationUpdateAccountManagerArgs = {
 export type MuteRequest = {
   /** The account to mute. */
   account: Scalars['EvmAddress']['input'];
+};
+
+export type NamespacesFilterRequest = {
+  /** The optional filter to get namespaces managed by address */
+  managedBy?: InputMaybe<ManagedBy>;
+  /**
+   * The optional filter to narrow namespaces by search query.
+   * Uses fuzzy search on namespace name
+   */
+  searchQuery?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum NamespacesOrderBy {
+  Alphabetical = 'ALPHABETICAL',
+  LatestFirst = 'LATEST_FIRST',
+  OldestFirst = 'OLDEST_FIRST'
+}
+
+export type NamespacesRequest = {
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<NamespacesFilterRequest>;
+  /** The order by. */
+  orderBy?: NamespacesOrderBy;
+  /** The page size. */
+  pageSize?: PageSize;
+};
+
+export type NamespacesResult = {
+  __typename?: 'NamespacesResult';
+  items: Array<UsernameNamespace>;
+  pageInfo: PaginatedResultInfo;
 };
 
 export type NestedPost = Post | PostReference;
@@ -3312,15 +3927,41 @@ export type PaginatedActiveAuthenticationsResult = {
   pageInfo: PaginatedResultInfo;
 };
 
+export type PaginatedAdminsResult = {
+  __typename?: 'PaginatedAdminsResult';
+  items: Array<Admin>;
+  pageInfo: PaginatedResultInfo;
+};
+
 export type PaginatedAnyPostsResult = {
   __typename?: 'PaginatedAnyPostsResult';
   items: Array<AnyPost>;
   pageInfo: PaginatedResultInfo;
 };
 
-export type PaginatedAppsResult = {
-  __typename?: 'PaginatedAppsResult';
-  items: Array<App>;
+export type PaginatedAppFeedsResult = {
+  __typename?: 'PaginatedAppFeedsResult';
+  /** The feeds */
+  items: Array<AppFeed>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedAppSignersResult = {
+  __typename?: 'PaginatedAppSignersResult';
+  /** The signers */
+  items: Array<AppSigner>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedAppUsersResult = {
+  __typename?: 'PaginatedAppUsersResult';
+  items: Array<AppUser>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedFeedsResult = {
+  __typename?: 'PaginatedFeedsResult';
+  items: Array<Feed>;
   pageInfo: PaginatedResultInfo;
 };
 
@@ -3333,6 +3974,12 @@ export type PaginatedFollowersResult = {
 export type PaginatedFollowingResult = {
   __typename?: 'PaginatedFollowingResult';
   items: Array<Following>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedGraphsResult = {
+  __typename?: 'PaginatedGraphsResult';
+  items: Array<Graph>;
   pageInfo: PaginatedResultInfo;
 };
 
@@ -3349,6 +3996,12 @@ export type PaginatedNotificationResult = {
   pageInfo: PaginatedResultInfo;
 };
 
+export type PaginatedPostEditsResult = {
+  __typename?: 'PaginatedPostEditsResult';
+  items: Array<PostEdit>;
+  pageInfo: PaginatedResultInfo;
+};
+
 export type PaginatedPostReactionsResult = {
   __typename?: 'PaginatedPostReactionsResult';
   items: Array<AccountPostReaction>;
@@ -3358,6 +4011,12 @@ export type PaginatedPostReactionsResult = {
 export type PaginatedPostTagsResult = {
   __typename?: 'PaginatedPostTagsResult';
   items: Array<Scalars['Tag']['output']>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedPostsForYouResult = {
+  __typename?: 'PaginatedPostsForYouResult';
+  items: Array<PostForYou>;
   pageInfo: PaginatedResultInfo;
 };
 
@@ -3439,13 +4098,19 @@ export type Post = {
   id: Scalars['PostId']['output'];
   isDeleted: Scalars['Boolean']['output'];
   isEdited: Scalars['Boolean']['output'];
-  mentions: Array<AccountMention>;
+  mentions: Array<PostMention>;
   metadata: PostMetadata;
   operations?: Maybe<LoggedInPostOperations>;
   quoteOf?: Maybe<NestedPost>;
   root?: Maybe<NestedPost>;
+  rules: PostRulesConfig;
   stats: PostStats;
   timestamp: Scalars['DateTime']['output'];
+};
+
+
+export type PostRulesArgs = {
+  request?: InputMaybe<RuleInput>;
 };
 
 export type PostAccountPair = {
@@ -3488,6 +4153,26 @@ export type PostBookmarksRequest = {
   forFeeds?: Array<Scalars['EvmAddress']['input']>;
   pageSize?: PageSize;
 };
+
+export type PostEdit = {
+  __typename?: 'PostEdit';
+  metadata: PostMetadata;
+  timestamp: Scalars['DateTime']['output'];
+};
+
+export type PostEditsRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  pageSize?: PageSize;
+  post: Scalars['PostId']['input'];
+};
+
+export type PostForYou = {
+  __typename?: 'PostForYou';
+  post: Post;
+  source: ForYouSource;
+};
+
+export type PostMention = AccountMention | GroupMention;
 
 export type PostMetadata = ArticleMetadata | AudioMetadata | CheckingInMetadata | EmbedMetadata | EventMetadata | ImageMetadata | LinkMetadata | LivestreamMetadata | MintMetadata | SpaceMetadata | StoryMetadata | TextOnlyMetadata | ThreeDMetadata | TransactionMetadata | VideoMetadata;
 
@@ -3613,6 +4298,14 @@ export type PostResponse = {
 
 export type PostResult = PostResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
+export type PostRule = FollowerOnlyPostRule | UnknownPostRule;
+
+export type PostRulesConfig = {
+  __typename?: 'PostRulesConfig';
+  anyOf: Array<PostRule>;
+  required: Array<PostRule>;
+};
+
 export type PostStats = {
   __typename?: 'PostStats';
   /** The total number of bookmarks. */
@@ -3668,6 +4361,8 @@ export type PostsFilterRequest = {
   authors?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
   metadata?: InputMaybe<PostMetadataFilter>;
   postTypes?: InputMaybe<Array<PostType>>;
+  /** The optional query text to search for in the post content or metadata tags. */
+  searchQuery?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type PostsRequest = {
@@ -3701,8 +4396,8 @@ export type Query = {
   accountManagers: PaginatedAccountManagersResult;
   /** Get the stats for an account. */
   accountStats: AccountStats;
-  /** Get accounts by address, username, or legacy profile ID. */
-  accounts: Array<Account>;
+  /** Get accounts. */
+  accounts: PaginatedAccountsResult;
   /** Get the accounts which are available to use for the given address */
   accountsAvailable: PaginatedAccountsAvailableResult;
   /**
@@ -3711,8 +4406,28 @@ export type Query = {
    * You MUST be authenticated to use this query.
    */
   accountsBlocked: PaginatedAccountsBlockedResult;
+  /** Get accounts by address, username, or legacy profile ID. */
+  accountsBulk: Array<Account>;
+  /** Get admins for a graph/app/sponsor/feed/username/group address */
+  adminsFor: PaginatedAdminsResult;
+  /** Get an app */
   app?: Maybe<App>;
-  apps: PaginatedAppsResult;
+  /** Get the feeds for an app */
+  appFeeds: PaginatedAppFeedsResult;
+  /** Get the groups for an app */
+  appGroups: PaginatedGroupsResult;
+  /**
+   * Get the server side API key for the app you must be the owner of the app to see it.
+   *
+   * You MUST be authenticated as a builder to use this mutation.
+   */
+  appServerApiKey: Scalars['ServerAPIKey']['output'];
+  /** Get the signers for an app */
+  appSigners: PaginatedAppSignersResult;
+  /** Get accounts for an app. */
+  appUsers: PaginatedAppUsersResult;
+  /** Get the apps. */
+  apps: AppsResult;
   /**
    * List all active authenticated sessions for the current account.
    *
@@ -3728,15 +4443,21 @@ export type Query = {
   debugMetadata: DebugPostMetadataResult;
   debugTransactionStatusFailed?: Maybe<DebugTransactionStatusResult>;
   feed?: Maybe<Feed>;
+  /** Get the feeds. */
+  feeds: PaginatedFeedsResult;
   followStatus: Array<FollowStatusResult>;
   followers: PaginatedFollowersResult;
   followersYouKnow: PaginatedFollowersResult;
   following: PaginatedFollowingResult;
   graph?: Maybe<Graph>;
+  /** Get the graphs. */
+  graphs: PaginatedGraphsResult;
   group?: Maybe<Group>;
   /** Get the members of the group */
   groupMembers: PaginatedAccountsResult;
-  /** Get the groups this account is a member of */
+  /** Get the number of members in a Group */
+  groupStats: GroupStatsResponse;
+  /** Get the groups. */
   groups: PaginatedGroupsResult;
   health: Scalars['Boolean']['output'];
   /** Get the last logged in account for the given address and app if specified. */
@@ -3747,6 +4468,11 @@ export type Query = {
    * You MUST be authenticated to use this query.
    */
   me: MeResult;
+  mlAccountRecommendations: PaginatedAccountsResult;
+  mlPostsExplore?: Maybe<PaginatedPostsResult>;
+  mlPostsForYou: PaginatedPostsForYouResult;
+  /** Get the namespaces. */
+  namespaces: NamespacesResult;
   /**
    * Get account notifications.
    *
@@ -3756,17 +4482,13 @@ export type Query = {
   post?: Maybe<AnyPost>;
   postActions: PaginatedActions;
   postBookmarks: PaginatedAnyPostsResult;
+  postEdits: PaginatedPostEditsResult;
   postReactionStatus: Array<PostReactionStatus>;
   /** Get the reactions added to a post. */
   postReactions: PaginatedPostReactionsResult;
   postReferences: PaginatedAnyPostsResult;
   postTags: PaginatedPostTagsResult;
   posts: PaginatedAnyPostsResult;
-  /** Search for accounts by usernames. */
-  searchAccounts: PaginatedAccountsResult;
-  /** Search for groups */
-  searchGroups: PaginatedGroupsResult;
-  searchPosts: PaginatedAnyPostsResult;
   /**
    * Get account timeline.
    *
@@ -3827,8 +4549,43 @@ export type QueryAccountsBlockedArgs = {
 };
 
 
+export type QueryAccountsBulkArgs = {
+  request: AccountsBulkRequest;
+};
+
+
+export type QueryAdminsForArgs = {
+  request: AdminsForRequest;
+};
+
+
 export type QueryAppArgs = {
   request: AppRequest;
+};
+
+
+export type QueryAppFeedsArgs = {
+  request: AppFeedsRequest;
+};
+
+
+export type QueryAppGroupsArgs = {
+  request: AppGroupsRequest;
+};
+
+
+export type QueryAppServerApiKeyArgs = {
+  request: AppServerApiKeyRequest;
+};
+
+
+export type QueryAppSignersArgs = {
+  request: AppSignersRequest;
+};
+
+
+export type QueryAppUsersArgs = {
+  request: AppUsersRequest;
 };
 
 
@@ -3857,6 +4614,11 @@ export type QueryFeedArgs = {
 };
 
 
+export type QueryFeedsArgs = {
+  request: FeedsRequest;
+};
+
+
 export type QueryFollowStatusArgs = {
   request: FollowStatusRequest;
 };
@@ -3882,6 +4644,11 @@ export type QueryGraphArgs = {
 };
 
 
+export type QueryGraphsArgs = {
+  request: GraphsRequest;
+};
+
+
 export type QueryGroupArgs = {
   request: GroupRequest;
 };
@@ -3892,6 +4659,11 @@ export type QueryGroupMembersArgs = {
 };
 
 
+export type QueryGroupStatsArgs = {
+  request: GroupStatsRequest;
+};
+
+
 export type QueryGroupsArgs = {
   request: GroupsRequest;
 };
@@ -3899,6 +4671,26 @@ export type QueryGroupsArgs = {
 
 export type QueryLastLoggedInAccountArgs = {
   request: LastLoggedInAccountRequest;
+};
+
+
+export type QueryMlAccountRecommendationsArgs = {
+  request: MlaccountRecommendationsRequest;
+};
+
+
+export type QueryMlPostsExploreArgs = {
+  request: MlexplorePostsRequest;
+};
+
+
+export type QueryMlPostsForYouArgs = {
+  request: MlpostsForYouRequest;
+};
+
+
+export type QueryNamespacesArgs = {
+  request: NamespacesRequest;
 };
 
 
@@ -3919,6 +4711,11 @@ export type QueryPostActionsArgs = {
 
 export type QueryPostBookmarksArgs = {
   request: PostBookmarksRequest;
+};
+
+
+export type QueryPostEditsArgs = {
+  request: PostEditsRequest;
 };
 
 
@@ -3944,21 +4741,6 @@ export type QueryPostTagsArgs = {
 
 export type QueryPostsArgs = {
   request: PostsRequest;
-};
-
-
-export type QuerySearchAccountsArgs = {
-  request: AccountSearchRequest;
-};
-
-
-export type QuerySearchGroupsArgs = {
-  request: SearchGroupsRequest;
-};
-
-
-export type QuerySearchPostsArgs = {
-  request: SearchPostsRequest;
 };
 
 
@@ -4035,6 +4817,11 @@ export type ReferencingPostInput = {
   post: Scalars['PostId']['input'];
 };
 
+export type RefreshAppServerApiKeyRequest = {
+  /** The app to refresh the server side api key for */
+  app: Scalars['EvmAddress']['input'];
+};
+
 export type RefreshRequest = {
   refreshToken: Scalars['RefreshToken']['input'];
 };
@@ -4047,6 +4834,42 @@ export type RemoveAccountManagerRequest = {
 };
 
 export type RemoveAccountManagerResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type RemoveAdminsRequest = {
+  /** The graph/app/sponsor/feed/username/group address which manages these admins */
+  address: Scalars['EvmAddress']['input'];
+  /** The addresses to remove as admins */
+  admins: Array<Scalars['EvmAddress']['input']>;
+};
+
+export type RemoveAdminsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type RemoveAppFeedsRequest = {
+  /** The app to update */
+  app: Scalars['EvmAddress']['input'];
+  /** The app feeds (max 10 per request) */
+  feeds: Array<Scalars['EvmAddress']['input']>;
+};
+
+export type RemoveAppFeedsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type RemoveAppGroupsRequest = {
+  /** The app to update */
+  app: Scalars['EvmAddress']['input'];
+  /** The app groups (max 10 per request) */
+  groups: Array<Scalars['EvmAddress']['input']>;
+};
+
+export type RemoveAppGroupsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type RemoveAppSignersRequest = {
+  /** The app to update */
+  app: Scalars['EvmAddress']['input'];
+  /** The app signers (max 10 per request) */
+  signers: Array<Scalars['EvmAddress']['input']>;
+};
+
+export type RemoveAppSignersResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type RemoveSignlessResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
@@ -4084,6 +4907,24 @@ export type RepostNotification = {
   reposts: Array<NotificationAccountRepost>;
 };
 
+export type RestrictedSigner = {
+  __typename?: 'RestrictedSigner';
+  label: Scalars['String']['output'];
+  signer: Scalars['EvmAddress']['output'];
+};
+
+export type RestrictedSignerGraphRule = {
+  __typename?: 'RestrictedSignerGraphRule';
+  rule: Scalars['EvmAddress']['output'];
+  signers: Array<RestrictedSigner>;
+};
+
+export type RestrictedSignersFeedRule = {
+  __typename?: 'RestrictedSignersFeedRule';
+  rule: Scalars['EvmAddress']['output'];
+  signers: Array<RestrictedSigner>;
+};
+
 export type RevokeAuthenticationRequest = {
   authenticationId: Scalars['UUID']['input'];
 };
@@ -4095,38 +4936,21 @@ export type RolloverRefreshRequest = {
   refreshToken: Scalars['LegacyRefreshToken']['input'];
 };
 
-export type SearchGroupsRequest = {
-  /** The cursor. */
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The page size. */
-  pageSize?: PageSize;
-  /** The search query */
-  query: Scalars['String']['input'];
+export type RuleInput = {
+  rules: Array<Scalars['EvmAddress']['input']>;
 };
 
-export type SearchPostsFilter = {
-  /** The optional metadata filter. */
-  metadata?: InputMaybe<PostMetadataFilter>;
-  /** The post types to filter by. */
-  postTypes?: InputMaybe<Array<PostType>>;
+export type RulesFailed = {
+  __typename?: 'RulesFailed';
+  unsatisfiedRules: Array<UnsatisfiedRule>;
 };
 
-export type SearchPostsRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The optional post types to filter by. */
-  filter?: InputMaybe<SearchPostsFilter>;
-  /** The feeds to search in. */
-  forFeeds?: Array<Scalars['EvmAddress']['input']>;
-  pageSize?: PageSize;
-  /**
-   * The query text to search for in the post content or metadata tags.
-   * The passed strings supports web search syntax similar to the search engines:
-   * - individual words match independently.
-   * - double-quoted phrases match as a single unit.
-   * - the word or (case-insensitive) specifies an “or” condition between two words or phrases
-   * - a "-" prefix specifies to not match the following word or phrase.
-   */
-  query: Scalars['String']['input'];
+export type RulesOutcome = RulesFailed | RulesSucceeded;
+
+export type RulesSucceeded = {
+  __typename?: 'RulesSucceeded';
+  extraChecksRequired: Array<UnknownRule>;
+  restrictedSignerRequired: Scalars['Boolean']['output'];
 };
 
 export enum SelfFundedFallbackReason {
@@ -4158,6 +4982,69 @@ export type SetAccountMetadataResponse = {
 
 export type SetAccountMetadataResult = SelfFundedTransactionRequest | SetAccountMetadataResponse | SponsoredTransactionRequest | TransactionWillFail;
 
+export type SetAppGraphRequest = {
+  /** The app to update */
+  app: Scalars['EvmAddress']['input'];
+  /** The app graph to set */
+  graph: Scalars['EvmAddress']['input'];
+};
+
+export type SetAppGraphResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type SetAppMetadataRequest = {
+  /** The app to update */
+  app: Scalars['EvmAddress']['input'];
+  /** The app metadata to set */
+  metadataUri: Scalars['String']['input'];
+};
+
+export type SetAppMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type SetAppSponsorshipRequest = {
+  /** The app to update */
+  app: Scalars['EvmAddress']['input'];
+  /** The app sponsorship to set */
+  sponsorship: Scalars['EvmAddress']['input'];
+};
+
+export type SetAppSponsorshipResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type SetAppTreasuryRequest = {
+  /** The app to update */
+  app: Scalars['EvmAddress']['input'];
+  /** The app treasury to set */
+  treasury: Scalars['EvmAddress']['input'];
+};
+
+export type SetAppTreasuryResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type SetAppUsernameNamespaceRequest = {
+  /** The app to update */
+  app: Scalars['EvmAddress']['input'];
+  /** The app username namespace to set */
+  usernameNamespace: Scalars['EvmAddress']['input'];
+};
+
+export type SetAppUsernameNamespaceResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type SetAppVerificationRequest = {
+  /** The app to update */
+  app: Scalars['EvmAddress']['input'];
+  /** The new verification state */
+  enabled: Scalars['Boolean']['input'];
+};
+
+export type SetAppVerificationResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type SetDefaultAppFeedRequest = {
+  /** The app to update */
+  app: Scalars['EvmAddress']['input'];
+  /** The app default feed to set */
+  feed: Scalars['EvmAddress']['input'];
+};
+
+export type SetDefaultAppFeedResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
 export type SignedAuthChallenge = {
   id: Scalars['UUID']['input'];
   signature: Scalars['Signature']['input'];
@@ -4184,6 +5071,34 @@ export type SimpleCollectActionSettings = {
   recipient: Scalars['EvmAddress']['output'];
   recipients: Array<RecipientDataOutput>;
   referralFee: Scalars['Float']['output'];
+};
+
+export type SimplePaymentFeedRule = {
+  __typename?: 'SimplePaymentFeedRule';
+  amount: Amount;
+  recipient: Scalars['EvmAddress']['output'];
+  rule: Scalars['EvmAddress']['output'];
+};
+
+export type SimplePaymentFollowRule = {
+  __typename?: 'SimplePaymentFollowRule';
+  amount: Amount;
+  recipient: Scalars['EvmAddress']['output'];
+  rule: Scalars['EvmAddress']['output'];
+};
+
+export type SimplePaymentGroupRule = {
+  __typename?: 'SimplePaymentGroupRule';
+  amount: Amount;
+  recipient: Scalars['EvmAddress']['output'];
+  rule: Scalars['EvmAddress']['output'];
+};
+
+export type SimplePaymentUsernameNamespaceRule = {
+  __typename?: 'SimplePaymentUsernameNamespaceRule';
+  amount: Amount;
+  recipient: Scalars['EvmAddress']['output'];
+  rule: Scalars['EvmAddress']['output'];
 };
 
 export type SpaceMetadata = {
@@ -4395,6 +5310,57 @@ export type TimelineRequest = {
   forFeeds?: Array<Scalars['EvmAddress']['input']>;
 };
 
+export type TokenGatedFeedRule = {
+  __typename?: 'TokenGatedFeedRule';
+  amount: Amount;
+  rule: Scalars['EvmAddress']['output'];
+  token: Scalars['EvmAddress']['output'];
+  tokenStandard: TokenStandard;
+  typeId: Scalars['BigInt']['output'];
+};
+
+export type TokenGatedFollowRule = {
+  __typename?: 'TokenGatedFollowRule';
+  amount: Amount;
+  rule: Scalars['EvmAddress']['output'];
+  token: Scalars['EvmAddress']['output'];
+  tokenStandard: TokenStandard;
+  typeId: Scalars['BigInt']['output'];
+};
+
+export type TokenGatedGraphRule = {
+  __typename?: 'TokenGatedGraphRule';
+  amount: Amount;
+  rule: Scalars['EvmAddress']['output'];
+  token: Scalars['EvmAddress']['output'];
+  tokenStandard: TokenStandard;
+  typeId: Scalars['BigInt']['output'];
+};
+
+export type TokenGatedGroupRule = {
+  __typename?: 'TokenGatedGroupRule';
+  amount: Amount;
+  rule: Scalars['EvmAddress']['output'];
+  token: Scalars['EvmAddress']['output'];
+  tokenStandard: TokenStandard;
+  typeId: Scalars['BigInt']['output'];
+};
+
+export type TokenGatedUsernameNamespaceRule = {
+  __typename?: 'TokenGatedUsernameNamespaceRule';
+  amount: Amount;
+  rule: Scalars['EvmAddress']['output'];
+  token: Scalars['EvmAddress']['output'];
+  tokenStandard: TokenStandard;
+  typeId: Scalars['BigInt']['output'];
+};
+
+export enum TokenStandard {
+  Erc_20 = 'ERC_20',
+  Erc_721 = 'ERC_721',
+  Erc_1155 = 'ERC_1155'
+}
+
 /** AccessCondition */
 export type TopLevelAccessCondition = {
   __typename?: 'TopLevelAccessCondition';
@@ -4446,6 +5412,15 @@ export type TransactionWillFail = {
   __typename?: 'TransactionWillFail';
   reason: Scalars['String']['output'];
 };
+
+export type TransferPrimitiveOwnershipRequest = {
+  /** The graph/app/sponsor/feed/username/group address to change ownership for */
+  address: Scalars['EvmAddress']['input'];
+  /** The address of the new owner */
+  newOwner: Scalars['EvmAddress']['input'];
+};
+
+export type TransferPrimitiveOwnershipResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export enum TriStateValue {
   No = 'NO',
@@ -4547,11 +5522,23 @@ export type UnknownActionSettings = {
   verified: Scalars['Boolean']['output'];
 };
 
+export type UnknownFeedRule = {
+  __typename?: 'UnknownFeedRule';
+  configData: Scalars['BlockchainData']['output'];
+  rule: Scalars['EvmAddress']['output'];
+};
+
 export type UnknownFeedRuleInput = {
   /** The rule contract address. */
   address: Scalars['EvmAddress']['input'];
   /** The encoded rule execution data. */
   data: Scalars['BlockchainData']['input'];
+};
+
+export type UnknownFollowRule = {
+  __typename?: 'UnknownFollowRule';
+  configData: Scalars['BlockchainData']['output'];
+  rule: Scalars['EvmAddress']['output'];
 };
 
 export type UnknownFollowRuleInput = {
@@ -4561,11 +5548,48 @@ export type UnknownFollowRuleInput = {
   data: Scalars['BlockchainData']['input'];
 };
 
+export type UnknownGraphRule = {
+  __typename?: 'UnknownGraphRule';
+  configData: Scalars['BlockchainData']['output'];
+  rule: Scalars['EvmAddress']['output'];
+};
+
 export type UnknownGraphRuleInput = {
   /** The rule contract address. */
   address: Scalars['EvmAddress']['input'];
   /** The encoded rule execution data. */
   data: Scalars['BlockchainData']['input'];
+};
+
+export type UnknownGroupRule = {
+  __typename?: 'UnknownGroupRule';
+  configData: Scalars['BlockchainData']['output'];
+  rule: Scalars['EvmAddress']['output'];
+};
+
+export type UnknownPostRule = {
+  __typename?: 'UnknownPostRule';
+  configData: Scalars['BlockchainData']['output'];
+  rule: Scalars['EvmAddress']['output'];
+};
+
+export type UnknownRule = {
+  __typename?: 'UnknownRule';
+  configParams: Array<KeyValue>;
+  rule: Scalars['EvmAddress']['output'];
+};
+
+export type UnknownUsernameNamespaceRule = {
+  __typename?: 'UnknownUsernameNamespaceRule';
+  configData: Scalars['BlockchainData']['output'];
+  rule: Scalars['EvmAddress']['output'];
+};
+
+export type UnsatisfiedRule = {
+  __typename?: 'UnsatisfiedRule';
+  name: Scalars['String']['output'];
+  reason: Scalars['String']['output'];
+  rule: Scalars['EvmAddress']['output'];
 };
 
 export type UpdateAccountManagerRequest = {
@@ -4577,6 +5601,12 @@ export type UpdateAccountManagerRequest = {
 
 export type UpdateAccountManagerResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
+export type UserBlockingRule = {
+  __typename?: 'UserBlockingRule';
+  blockedUsers: Array<Scalars['EvmAddress']['output']>;
+  rule: Scalars['EvmAddress']['output'];
+};
+
 export type Username = {
   __typename?: 'Username';
   /** A unique identifier for the username entry. */
@@ -4585,7 +5615,6 @@ export type Username = {
   linkedTo?: Maybe<Scalars['EvmAddress']['output']>;
   /** The local name of the username (e.g., bob). */
   localName: Scalars['String']['output'];
-  /** The namespace of the username */
   namespace: UsernameNamespace;
   /** The address that owns the username entry. */
   ownedBy: Scalars['EvmAddress']['output'];
@@ -4596,7 +5625,7 @@ export type Username = {
 };
 
 export type UsernameInput = {
-  /** The local name to create - should not include the namespace */
+  /** The local name, should not include the namespace */
   localName: Scalars['String']['input'];
   /** The namespace. Defaults to lens namespace */
   namespace?: Scalars['EvmAddress']['input'];
@@ -4606,9 +5635,17 @@ export type UsernameNamespace = {
   __typename?: 'UsernameNamespace';
   /** The address of the namespace. */
   address: Scalars['EvmAddress']['output'];
+  createdAt: Scalars['DateTime']['output'];
   metadata?: Maybe<UsernameNamespaceMetadata>;
   /** The namespace for example `lens` */
   namespace: Scalars['String']['output'];
+  owner: Scalars['EvmAddress']['output'];
+  rules: UsernameNamespaceRulesConfig;
+};
+
+
+export type UsernameNamespaceRulesArgs = {
+  request?: InputMaybe<RuleInput>;
 };
 
 export type UsernameNamespaceMetadata = {
@@ -4629,12 +5666,30 @@ export type UsernameNamespaceRequest = {
   txHash?: InputMaybe<Scalars['TxHash']['input']>;
 };
 
+export type UsernameNamespaceRule = CharsetUsernameNamespaceRule | LengthUsernameNamespaceRule | SimplePaymentUsernameNamespaceRule | TokenGatedUsernameNamespaceRule | UnknownUsernameNamespaceRule;
+
+export type UsernameNamespaceRulesConfig = {
+  __typename?: 'UsernameNamespaceRulesConfig';
+  anyOf: Array<UsernameNamespaceRule>;
+  required: Array<UsernameNamespaceRule>;
+};
+
 /** You must provide either an id or a username, not both. */
 export type UsernameRequest = {
   /** The username ID. */
   id?: InputMaybe<Scalars['ID']['input']>;
   /** The username namespace and local name. */
   username?: InputMaybe<UsernameInput>;
+};
+
+export type UsernameSearchInput = {
+  /**
+   * The local name to search for
+   * Uses fuzzy search on username name
+   */
+  localNameQuery: Scalars['String']['input'];
+  /** The namespaces to search for local name in. Defaults to global namespace */
+  namespaces?: Array<Scalars['EvmAddress']['input']>;
 };
 
 export type UsernamesRequest = {
@@ -4743,7 +5798,7 @@ export type LoggedInAccountOperationsFieldsFragment = { __typename?: 'LoggedInAc
 
 export type AppFieldsFragment = { __typename?: 'App', address: any, defaultFeedAddress?: any | null, graphAddress?: any | null, namespaceAddress?: any | null, sponsorshipAddress?: any | null, treasuryAddress?: any | null, createdAt: any, metadata?: { __typename?: 'AppMetadata', description?: string | null, developer: string, logo?: any | null, name: string, platforms: Array<AppMetadataLensPlatformsItem>, privacyPolicy?: any | null, termsOfService?: any | null, url: any } | null } & { ' $fragmentName'?: 'AppFieldsFragment' };
 
-export type GroupFieldsFragment = { __typename?: 'Group', address: any, timestamp: any, metadata?: { __typename?: 'GroupMetadata', description?: string | null, icon?: any | null, name: string, slug: string, id: string } | null } & { ' $fragmentName'?: 'GroupFieldsFragment' };
+export type GroupFieldsFragment = { __typename?: 'Group', address: any, timestamp: any, metadata?: { __typename?: 'GroupMetadata', description?: string | null, icon?: any | null, name: string, id: string } | null } & { ' $fragmentName'?: 'GroupFieldsFragment' };
 
 export type MetadataAttributeFieldsFragment = { __typename?: 'MetadataAttribute', type: MetadataAttributeType, key: string, value: string } & { ' $fragmentName'?: 'MetadataAttributeFieldsFragment' };
 
@@ -4991,7 +6046,7 @@ export type PostFieldsFragment = { __typename?: 'Post', id: any, isEdited: boole
     ) } | { __typename?: 'PostReference', id: any } | null, stats: (
     { __typename?: 'PostStats' }
     & { ' $fragmentRefs'?: { 'PostStatsFieldsFragment': PostStatsFieldsFragment } }
-  ), mentions: Array<{ __typename?: 'AccountMention', account: any, namespace: any, replace: { __typename?: 'AccountMentionReplace', from: string, to: string } }>, operations?: { __typename?: 'LoggedInPostOperations', canComment: TriStateValue, canRepost: TriStateValue, canQuote: TriStateValue, hasReacted: boolean, hasReposted: { __typename?: 'BooleanValue', optimistic: boolean } } | null } & { ' $fragmentName'?: 'PostFieldsFragment' };
+  ), operations?: { __typename?: 'LoggedInPostOperations', canComment: TriStateValue, canRepost: TriStateValue, canQuote: TriStateValue, hasReacted: boolean, hasReposted: { __typename?: 'BooleanValue', optimistic: boolean } } | null } & { ' $fragmentName'?: 'PostFieldsFragment' };
 
 type PostMetadataFields_ArticleMetadata_Fragment = { __typename: 'ArticleMetadata' } & { ' $fragmentName'?: 'PostMetadataFields_ArticleMetadata_Fragment' };
 
@@ -5129,10 +6184,10 @@ export type AccountsQueryVariables = Exact<{
 }>;
 
 
-export type AccountsQuery = { __typename?: 'Query', accounts: Array<(
-    { __typename?: 'Account' }
-    & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
-  )> };
+export type AccountsQuery = { __typename?: 'Query', accounts: { __typename?: 'PaginatedAccountsResult', items: Array<(
+      { __typename?: 'Account' }
+      & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
+    )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
 export type AuthenticatedSessionsQueryVariables = Exact<{
   request: AuthenticatedSessionsRequest;
@@ -5190,7 +6245,7 @@ export type LastLoggedInAccountQuery = { __typename?: 'Query', lastLoggedInAccou
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me: { __typename?: 'MeResult', isSignless: boolean, isSponsored: boolean, appLoggedIn: any, account: { __typename?: 'AccountManaged', addedAt: any, account: (
+export type MeQuery = { __typename?: 'Query', me: { __typename?: 'MeResult', isSignless: boolean, isSponsored: boolean, appLoggedIn: any, loggedInAs: { __typename?: 'AccountManaged', addedAt: any, account: (
         { __typename?: 'Account' }
         & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
       ) } | { __typename?: 'AccountOwned', addedAt: any, account: (
@@ -5217,6 +6272,26 @@ export type GroupQuery = { __typename?: 'Query', group?: (
     { __typename?: 'Group' }
     & { ' $fragmentRefs'?: { 'GroupFieldsFragment': GroupFieldsFragment } }
   ) | null };
+
+export type PostReferencesQueryVariables = Exact<{
+  request: PostReferencesRequest;
+}>;
+
+
+export type PostReferencesQuery = { __typename?: 'Query', postReferences: { __typename?: 'PaginatedAnyPostsResult', items: Array<(
+      { __typename?: 'Post' }
+      & { ' $fragmentRefs'?: { 'PostFieldsFragment': PostFieldsFragment } }
+    ) | { __typename?: 'Repost' }>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
+
+export type PostQueryVariables = Exact<{
+  request: PostRequest;
+}>;
+
+
+export type PostQuery = { __typename?: 'Query', post?: (
+    { __typename?: 'Post' }
+    & { ' $fragmentRefs'?: { 'PostFieldsFragment': PostFieldsFragment } }
+  ) | { __typename?: 'Repost' } | null };
 
 export type PostsQueryVariables = Exact<{
   request: PostsRequest;
@@ -5284,7 +6359,6 @@ export const GroupFieldsFragmentDoc = new TypedDocumentString(`
     description
     icon
     name
-    slug
     id
   }
 }
@@ -5671,14 +6745,6 @@ export const PostFieldsFragmentDoc = new TypedDocumentString(`
   stats {
     ...PostStatsFields
   }
-  mentions {
-    account
-    namespace
-    replace {
-      from
-      to
-    }
-  }
   operations {
     canComment
     canRepost
@@ -6012,14 +7078,6 @@ fragment PostFields on Post {
   }
   stats {
     ...PostStatsFields
-  }
-  mentions {
-    account
-    namespace
-    replace {
-      from
-      to
-    }
   }
   operations {
     canComment
@@ -6387,7 +7445,12 @@ fragment UsernameFields on Username {
 export const AccountsDocument = new TypedDocumentString(`
     query Accounts($request: AccountsRequest!) {
   accounts(request: $request) {
-    ...AccountFields
+    items {
+      ...AccountFields
+    }
+    pageInfo {
+      next
+    }
   }
 }
     fragment AccountFields on Account {
@@ -6732,7 +7795,7 @@ fragment UsernameFields on Username {
 export const MeDocument = new TypedDocumentString(`
     query Me {
   me {
-    account {
+    loggedInAs {
       ... on AccountManaged {
         account {
           ...AccountFields
@@ -6851,10 +7914,450 @@ export const GroupDocument = new TypedDocumentString(`
     description
     icon
     name
-    slug
     id
   }
 }`) as unknown as TypedDocumentString<GroupQuery, GroupQueryVariables>;
+export const PostReferencesDocument = new TypedDocumentString(`
+    query PostReferences($request: PostReferencesRequest!) {
+  postReferences(request: $request) {
+    items {
+      ...PostFields
+    }
+    pageInfo {
+      next
+    }
+  }
+}
+    fragment AccountFields on Account {
+  address
+  score
+  metadata {
+    bio
+    coverPicture
+    id
+    name
+    picture
+    attributes {
+      ...MetadataAttributeFields
+    }
+  }
+  username {
+    ...UsernameFields
+  }
+  operations {
+    ...LoggedInAccountOperationsFields
+  }
+}
+fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
+  id
+  isFollowedByMe
+  isFollowingMe
+  canFollow
+  canUnfollow
+  isMutedByMe
+  isBlockedByMe
+  hasBlockedMe
+  canBlock
+  canUnblock
+  hasReported
+}
+fragment AppFields on App {
+  address
+  defaultFeedAddress
+  graphAddress
+  namespaceAddress
+  sponsorshipAddress
+  treasuryAddress
+  createdAt
+  metadata {
+    description
+    developer
+    logo
+    name
+    platforms
+    privacyPolicy
+    termsOfService
+    url
+  }
+}
+fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}
+fragment MediaAudioFields on MediaAudio {
+  artist
+  item
+  cover
+  license
+}
+fragment MediaFields on AnyMedia {
+  ... on MediaVideo {
+    ...MediaVideoFields
+  }
+  ... on MediaImage {
+    ...MediaImageFields
+  }
+  ... on MediaAudio {
+    ...MediaAudioFields
+  }
+}
+fragment MediaImageFields on MediaImage {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  item
+  license
+}
+fragment MediaVideoFields on MediaVideo {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  cover
+  duration
+  item
+  license
+}
+fragment VideoMetadataFields on VideoMetadata {
+  __typename
+  title
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...MediaFields
+  }
+  video {
+    ...MediaVideoFields
+  }
+}
+fragment PostFields on Post {
+  id
+  author {
+    ...AccountFields
+  }
+  feed {
+    address
+  }
+  isEdited
+  isDeleted
+  timestamp
+  app {
+    ...AppFields
+  }
+  metadata {
+    ...PostMetadataFields
+  }
+  root {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  quoteOf {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  commentOn {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  stats {
+    ...PostStatsFields
+  }
+  operations {
+    canComment
+    canRepost
+    canQuote
+    hasReacted
+    hasReposted {
+      optimistic
+    }
+  }
+}
+fragment PostMetadataFields on PostMetadata {
+  __typename
+  ... on VideoMetadata {
+    ...VideoMetadataFields
+  }
+}
+fragment PostStatsFields on PostStats {
+  bookmarks
+  collects
+  comments
+  quotes
+  reactions
+  reposts
+}
+fragment UsernameFields on Username {
+  id
+  value
+  namespace {
+    address
+    namespace
+    metadata {
+      description
+      id
+    }
+  }
+  localName
+  linkedTo
+  ownedBy
+  timestamp
+}`) as unknown as TypedDocumentString<PostReferencesQuery, PostReferencesQueryVariables>;
+export const PostDocument = new TypedDocumentString(`
+    query Post($request: PostRequest!) {
+  post(request: $request) {
+    ...PostFields
+  }
+}
+    fragment AccountFields on Account {
+  address
+  score
+  metadata {
+    bio
+    coverPicture
+    id
+    name
+    picture
+    attributes {
+      ...MetadataAttributeFields
+    }
+  }
+  username {
+    ...UsernameFields
+  }
+  operations {
+    ...LoggedInAccountOperationsFields
+  }
+}
+fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
+  id
+  isFollowedByMe
+  isFollowingMe
+  canFollow
+  canUnfollow
+  isMutedByMe
+  isBlockedByMe
+  hasBlockedMe
+  canBlock
+  canUnblock
+  hasReported
+}
+fragment AppFields on App {
+  address
+  defaultFeedAddress
+  graphAddress
+  namespaceAddress
+  sponsorshipAddress
+  treasuryAddress
+  createdAt
+  metadata {
+    description
+    developer
+    logo
+    name
+    platforms
+    privacyPolicy
+    termsOfService
+    url
+  }
+}
+fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}
+fragment MediaAudioFields on MediaAudio {
+  artist
+  item
+  cover
+  license
+}
+fragment MediaFields on AnyMedia {
+  ... on MediaVideo {
+    ...MediaVideoFields
+  }
+  ... on MediaImage {
+    ...MediaImageFields
+  }
+  ... on MediaAudio {
+    ...MediaAudioFields
+  }
+}
+fragment MediaImageFields on MediaImage {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  item
+  license
+}
+fragment MediaVideoFields on MediaVideo {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  cover
+  duration
+  item
+  license
+}
+fragment VideoMetadataFields on VideoMetadata {
+  __typename
+  title
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...MediaFields
+  }
+  video {
+    ...MediaVideoFields
+  }
+}
+fragment PostFields on Post {
+  id
+  author {
+    ...AccountFields
+  }
+  feed {
+    address
+  }
+  isEdited
+  isDeleted
+  timestamp
+  app {
+    ...AppFields
+  }
+  metadata {
+    ...PostMetadataFields
+  }
+  root {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  quoteOf {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  commentOn {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  stats {
+    ...PostStatsFields
+  }
+  operations {
+    canComment
+    canRepost
+    canQuote
+    hasReacted
+    hasReposted {
+      optimistic
+    }
+  }
+}
+fragment PostMetadataFields on PostMetadata {
+  __typename
+  ... on VideoMetadata {
+    ...VideoMetadataFields
+  }
+}
+fragment PostStatsFields on PostStats {
+  bookmarks
+  collects
+  comments
+  quotes
+  reactions
+  reposts
+}
+fragment UsernameFields on Username {
+  id
+  value
+  namespace {
+    address
+    namespace
+    metadata {
+      description
+      id
+    }
+  }
+  localName
+  linkedTo
+  ownedBy
+  timestamp
+}`) as unknown as TypedDocumentString<PostQuery, PostQueryVariables>;
 export const PostsDocument = new TypedDocumentString(`
     query Posts($request: PostsRequest!) {
   posts(request: $request) {
@@ -7042,14 +8545,6 @@ fragment PostFields on Post {
   }
   stats {
     ...PostStatsFields
-  }
-  mentions {
-    account
-    namespace
-    replace {
-      from
-      to
-    }
   }
   operations {
     canComment

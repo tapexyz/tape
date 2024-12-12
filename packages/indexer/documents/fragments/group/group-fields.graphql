@@ -5,7 +5,6 @@ fragment GroupFields on Group {
     description
     icon
     name
-    slug
     id
   }
 }

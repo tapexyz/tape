@@ -1,17 +1,12 @@
-import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
-import { getPublication } from "@tape.xyz/generic";
-import type { AnyPublication } from "@tape.xyz/indexer";
+import { useBytesSuspenseQuery } from "@/queries/post";
+import type { Post } from "@tape.xyz/indexer";
 import { Virtualized } from "../shared/virtualized";
 import { Byte } from "./byte";
-import { bytesQuery } from "./queries";
 
 export const FeedPage = () => {
-  const { data, fetchNextPage, hasNextPage } =
-    useSuspenseInfiniteQuery(bytesQuery);
+  const { data, fetchNextPage, hasNextPage } = useBytesSuspenseQuery();
 
-  const allBytes = data.pages.flatMap(
-    (page) => page.publications.items
-  ) as AnyPublication[];
+  const allBytes = data.pages.flatMap((page) => page.posts.items) as Post[];
 
   return (
     <div className="flex flex-col items-center p-5">
@@ -21,10 +16,7 @@ export const FeedPage = () => {
           data={allBytes}
           endReached={fetchNextPage}
           hasNextPage={hasNextPage}
-          itemContent={(_index, anyPublication) => {
-            const publication = getPublication(anyPublication);
-            return <Byte publication={publication} />;
-          }}
+          itemContent={(_index, post) => <Byte post={post} />}
         />
       </div>
     </div>

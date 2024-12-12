@@ -1,5 +1,5 @@
 import { EmbedPage } from "@/components/embed/page";
-import { publicationQuery } from "@/components/embed/queries";
+import { postQuery } from "@/queries/post";
 import { createFileRoute } from "@tanstack/react-router";
 
 type EmbedSearchParams = {
@@ -8,9 +8,9 @@ type EmbedSearchParams = {
   autoplay: number;
 };
 
-export const Route = createFileRoute("/embed/$pubId")({
-  loader: ({ context: { rqClient }, params: { pubId } }) => {
-    return rqClient.ensureQueryData(publicationQuery(pubId));
+export const Route = createFileRoute("/embed/$postId")({
+  loader: ({ context: { rqClient }, params: { postId } }) => {
+    return rqClient.ensureQueryData(postQuery(postId));
   },
   validateSearch: (search: Record<string, unknown>): EmbedSearchParams => {
     return {
