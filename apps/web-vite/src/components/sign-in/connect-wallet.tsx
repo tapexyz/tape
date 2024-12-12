@@ -7,7 +7,6 @@ import { Alert, Button, Check, Warning } from "@tape.xyz/winder";
 import { memo, useMemo } from "react";
 import type { Connector } from "wagmi";
 import { useAccount, useConnect } from "wagmi";
-import { AuthProviders } from "./auth-providers";
 import { Authenticate } from "./authenticate";
 
 export const ConnectWallet = memo(() => {
@@ -57,12 +56,12 @@ export const ConnectWallet = memo(() => {
 
   return (
     <div className="flex flex-col gap-6">
-      <AuthProviders />
+      {/* <AuthProviders />
       <div className="flex items-center space-x-4">
         <div className="h-px flex-1 bg-secondary" />
         <span className="text-muted text-sm">or</span>
         <div className="h-px flex-1 bg-secondary" />
-      </div>
+      </div> */}
       <div className="flex flex-col gap-2">
         {filteredConnectors.map((c) => (
           <Button

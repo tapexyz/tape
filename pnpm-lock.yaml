@@ -303,10 +303,10 @@ importers:
         specifier: ^14.1.0
         version: 14.1.0
       react:
-        specifier: 18.3.1
+        specifier: ^18.3.1
         version: 18.3.1
       react-dom:
-        specifier: 18.3.1
+        specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
       react-native:
         specifier: 0.76.3
@@ -352,10 +352,10 @@ importers:
         specifier: workspace:*
         version: link:../../packages/lens
       '@types/react':
-        specifier: ~18.3.13
+        specifier: ^18.3.13
         version: 18.3.16
       typescript:
-        specifier: ~5.7.2
+        specifier: ^5.7.2
         version: 5.7.2
 
   apps/og:
@@ -560,6 +560,9 @@ importers:
 
   apps/web-vite:
     dependencies:
+      '@lens-network/sdk':
+        specifier: canary
+        version: 0.0.0-canary-20241203140504(ethers@6.13.4(bufferutil@4.0.8)(utf-8-validate@5.0.10))(viem@2.21.54(bufferutil@4.0.8)(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.24.1))
       '@million/lint':
         specifier: ^1.0.14
         version: 1.0.14(bufferutil@4.0.8)(rollup@4.28.1)(utf-8-validate@5.0.10)
@@ -3208,6 +3211,21 @@ packages:
 
   '@kamilkisiela/fast-url-parser@1.1.4':
     resolution: {integrity: sha512-gbkePEBupNydxCelHCESvFSFM8XPh1Zs/OAVRW/rKpEqPAl5PbOM90Si8mv9bvnR53uPD2s/FiRxdvSejpRJew==}
+
+  '@lens-network/sdk@0.0.0-canary-20241203140504':
+    resolution: {integrity: sha512-w5mNEXQTP0pSkCq6b8sgM2/87dad1gFTP7hbaDxy4lXnM1fBrVA5OzxWRfCIJJY8/NGdw4RYhEzJoXf4IRR97w==}
+    engines: {node: '>=18', pnpm: '>=9.1.2'}
+    peerDependencies:
+      ethers: ^6.12.1
+      viem: ^2.12.0
+      zksync-ethers: ^6.7.1
+    peerDependenciesMeta:
+      ethers:
+        optional: true
+      viem:
+        optional: true
+      zksync-ethers:
+        optional: true
 
   '@lens-protocol/metadata@1.2.0':
     resolution: {integrity: sha512-fUB8+GvYiVt1uMqYJi/iN/aw/lzE+oEfpTjraTI87MqWPgYubbx0vFySjJs7uAdI7oftczvlwhthmMUl5DDuGA==}
@@ -15199,6 +15217,11 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.5.0
 
   '@kamilkisiela/fast-url-parser@1.1.4': {}
+
+  '@lens-network/sdk@0.0.0-canary-20241203140504(ethers@6.13.4(bufferutil@4.0.8)(utf-8-validate@5.0.10))(viem@2.21.54(bufferutil@4.0.8)(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.24.1))':
+    optionalDependencies:
+      ethers: 6.13.4(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      viem: 2.21.54(bufferutil@4.0.8)(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.24.1)
 
   '@lens-protocol/metadata@1.2.0(zod@3.24.1)':
     dependencies:

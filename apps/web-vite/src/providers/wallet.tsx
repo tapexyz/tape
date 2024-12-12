@@ -1,31 +1,24 @@
-import { WC_PROJECT_ID } from "@tape.xyz/constants";
+import { chains } from "@lens-network/sdk/viem";
+import {
+  LENS_TESTNET_RPCS,
+  TAPE_APP_NAME,
+  WC_PROJECT_ID
+} from "@tape.xyz/constants";
 import type { FC, ReactNode } from "react";
-import type { Chain } from "viem";
-import { http, WagmiProvider, createConfig } from "wagmi";
-import { injected, walletConnect } from "wagmi/connectors";
+import { http, WagmiProvider, createConfig, fallback } from "wagmi";
+import { coinbaseWallet, injected, walletConnect } from "wagmi/connectors";
 
-const lensTestnet = {
-  id: 37111,
-  name: "Lens Network Sepolia Testnet",
-  nativeCurrency: { name: "Grass", symbol: "GRASS", decimals: 18 },
-  rpcUrls: {
-    default: { http: ["https://rpc.testnet.lens.dev"] }
-  },
-  blockExplorers: {
-    default: {
-      name: "Lens Testnet Explorer",
-      url: "https://block-explorer.testnet.lens.dev"
-    }
-  }
-} as const satisfies Chain;
-
-const connectors = [injected(), walletConnect({ projectId: WC_PROJECT_ID })];
+const connectors = [
+  injected(),
+  coinbaseWallet({ appName: TAPE_APP_NAME }),
+  walletConnect({ projectId: WC_PROJECT_ID })
+];
 
 const wagmiConfig = createConfig({
   connectors,
-  chains: [lensTestnet],
+  chains: [chains.testnet],
   transports: {
-    [lensTestnet.id]: http()
+    [chains.testnet.id]: fallback(LENS_TESTNET_RPCS.map((rpc) => http(rpc)))
   }
 });
 

@@ -82,6 +82,9 @@ export const TESTNET_ALLOWED_TOKENS = [
   }
 ];
 
+// lens
+export const LENS_TESTNET_RPCS = ["https://rpc.testnet.lens.dev"];
+
 // polygon
 export const POLYGON_RPC_URLS = IS_MAINNET
   ? [
