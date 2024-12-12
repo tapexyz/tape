@@ -26,7 +26,7 @@ import {
   tw
 } from "@tape.xyz/winder";
 import { memo } from "react";
-import { Search } from "./search";
+import { SearchTrigger } from "./search";
 
 export const Logo = memo(() => {
   return (
@@ -198,7 +198,7 @@ export const Header = () => {
         </Button>
       </div>
 
-      <Search />
+      <SearchTrigger />
 
       <RightSection />
     </header>

@@ -1,0 +1,17 @@
+query Search($postsRequest: PostsRequest!, $accountsRequest: AccountsRequest!) {
+  posts(request: $postsRequest) {
+    items {
+      ... on Post {
+        ...PostFields
+      }
+      ... on Repost {
+        ...RepostFields
+      }
+    }
+  }
+  accounts(request: $accountsRequest) {
+    items {
+      ...AccountFields
+    }
+  }
+}

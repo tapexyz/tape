@@ -26,12 +26,9 @@ export const postQuery = (id: string) =>
       })
   });
 
-export const usePostQuery = (id: string) => {
-  return useQuery(postQuery(id));
-};
-export const usePostSuspenseQuery = (id: string) => {
-  return useSuspenseQuery(postQuery(id));
-};
+export const usePostQuery = (id: string) => useQuery(postQuery(id));
+export const usePostSuspenseQuery = (id: string) =>
+  useSuspenseQuery(postQuery(id));
 
 export const postsQuery = infiniteQueryOptions({
   queryKey: ["posts"],
@@ -52,9 +49,7 @@ export const postsQuery = infiniteQueryOptions({
   getNextPageParam: (lastPage) => lastPage.posts.pageInfo.next
 });
 
-export const usePostsQuery = () => {
-  return useInfiniteQuery(postsQuery);
-};
+export const usePostsQuery = () => useInfiniteQuery(postsQuery);
 
 export const bytesQuery = infiniteQueryOptions({
   queryKey: ["bytes"],
@@ -75,9 +70,5 @@ export const bytesQuery = infiniteQueryOptions({
   getNextPageParam: (lastPage) => lastPage.posts.pageInfo.next
 });
 
-export const useBytesQuery = () => {
-  return useInfiniteQuery(bytesQuery);
-};
-export const useBytesSuspenseQuery = () => {
-  return useSuspenseInfiniteQuery(bytesQuery);
-};
+export const useBytesQuery = () => useInfiniteQuery(bytesQuery);
+export const useBytesSuspenseQuery = () => useSuspenseInfiniteQuery(bytesQuery);

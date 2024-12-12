@@ -6306,6 +6306,23 @@ export type PostsQuery = { __typename?: 'Query', posts: { __typename?: 'Paginate
       & { ' $fragmentRefs'?: { 'RepostFieldsFragment': RepostFieldsFragment } }
     )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
+export type SearchQueryVariables = Exact<{
+  postsRequest: PostsRequest;
+  accountsRequest: AccountsRequest;
+}>;
+
+
+export type SearchQuery = { __typename?: 'Query', posts: { __typename?: 'PaginatedAnyPostsResult', items: Array<(
+      { __typename?: 'Post' }
+      & { ' $fragmentRefs'?: { 'PostFieldsFragment': PostFieldsFragment } }
+    ) | (
+      { __typename?: 'Repost' }
+      & { ' $fragmentRefs'?: { 'RepostFieldsFragment': RepostFieldsFragment } }
+    )> }, accounts: { __typename?: 'PaginatedAccountsResult', items: Array<(
+      { __typename?: 'Account' }
+      & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
+    )> } };
+
 export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
@@ -8600,3 +8617,247 @@ fragment UsernameFields on Username {
   ownedBy
   timestamp
 }`) as unknown as TypedDocumentString<PostsQuery, PostsQueryVariables>;
+export const SearchDocument = new TypedDocumentString(`
+    query Search($postsRequest: PostsRequest!, $accountsRequest: AccountsRequest!) {
+  posts(request: $postsRequest) {
+    items {
+      ... on Post {
+        ...PostFields
+      }
+      ... on Repost {
+        ...RepostFields
+      }
+    }
+  }
+  accounts(request: $accountsRequest) {
+    items {
+      ...AccountFields
+    }
+  }
+}
+    fragment AccountFields on Account {
+  address
+  score
+  metadata {
+    bio
+    coverPicture
+    id
+    name
+    picture
+    attributes {
+      ...MetadataAttributeFields
+    }
+  }
+  username {
+    ...UsernameFields
+  }
+  operations {
+    ...LoggedInAccountOperationsFields
+  }
+}
+fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
+  id
+  isFollowedByMe
+  isFollowingMe
+  canFollow
+  canUnfollow
+  isMutedByMe
+  isBlockedByMe
+  hasBlockedMe
+  canBlock
+  canUnblock
+  hasReported
+}
+fragment AppFields on App {
+  address
+  defaultFeedAddress
+  graphAddress
+  namespaceAddress
+  sponsorshipAddress
+  treasuryAddress
+  createdAt
+  metadata {
+    description
+    developer
+    logo
+    name
+    platforms
+    privacyPolicy
+    termsOfService
+    url
+  }
+}
+fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}
+fragment MediaAudioFields on MediaAudio {
+  artist
+  item
+  cover
+  license
+}
+fragment MediaFields on AnyMedia {
+  ... on MediaVideo {
+    ...MediaVideoFields
+  }
+  ... on MediaImage {
+    ...MediaImageFields
+  }
+  ... on MediaAudio {
+    ...MediaAudioFields
+  }
+}
+fragment MediaImageFields on MediaImage {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  item
+  license
+}
+fragment MediaVideoFields on MediaVideo {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  cover
+  duration
+  item
+  license
+}
+fragment VideoMetadataFields on VideoMetadata {
+  __typename
+  title
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...MediaFields
+  }
+  video {
+    ...MediaVideoFields
+  }
+}
+fragment PostFields on Post {
+  id
+  author {
+    ...AccountFields
+  }
+  feed {
+    address
+  }
+  isEdited
+  isDeleted
+  timestamp
+  app {
+    ...AppFields
+  }
+  metadata {
+    ...PostMetadataFields
+  }
+  root {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  quoteOf {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  commentOn {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  stats {
+    ...PostStatsFields
+  }
+  operations {
+    canComment
+    canRepost
+    canQuote
+    hasReacted
+    hasReposted {
+      optimistic
+    }
+  }
+}
+fragment PostMetadataFields on PostMetadata {
+  __typename
+  ... on VideoMetadata {
+    ...VideoMetadataFields
+  }
+}
+fragment PostStatsFields on PostStats {
+  bookmarks
+  collects
+  comments
+  quotes
+  reactions
+  reposts
+}
+fragment RepostFields on Repost {
+  id
+  author {
+    ...AccountFields
+  }
+  isDeleted
+  timestamp
+  app {
+    ...AppFields
+  }
+  repostOf {
+    ...PostFields
+  }
+}
+fragment UsernameFields on Username {
+  id
+  value
+  namespace {
+    address
+    namespace
+    metadata {
+      description
+      id
+    }
+  }
+  localName
+  linkedTo
+  ownedBy
+  timestamp
+}`) as unknown as TypedDocumentString<SearchQuery, SearchQueryVariables>;

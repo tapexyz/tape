@@ -59,6 +59,5 @@ export const accountQuery = (handle: string) => {
   });
 };
 
-export const useAccountQuery = (handle: string) => {
-  return useQuery(accountQuery(handle));
-};
+export const useAccountQuery = (handle: string) =>
+  useQuery(accountQuery(handle));

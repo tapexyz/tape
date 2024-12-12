@@ -24,6 +24,5 @@ export const commentsQuery = (id: string) =>
     getNextPageParam: (lastPage) => lastPage.postReferences.pageInfo.next
   });
 
-export const useCommentsQuery = (id: string) => {
-  return useInfiniteQuery(commentsQuery(id));
-};
+export const useCommentsQuery = (id: string) =>
+  useInfiniteQuery(commentsQuery(id));

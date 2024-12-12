@@ -53,6 +53,7 @@ const documents = {
     "query PostReferences($request: PostReferencesRequest!) {\n  postReferences(request: $request) {\n    items {\n      ...PostFields\n    }\n    pageInfo {\n      next\n    }\n  }\n}": types.PostReferencesDocument,
     "query Post($request: PostRequest!) {\n  post(request: $request) {\n    ...PostFields\n  }\n}": types.PostDocument,
     "query Posts($request: PostsRequest!) {\n  posts(request: $request) {\n    items {\n      ... on Post {\n        ...PostFields\n      }\n      ... on Repost {\n        ...RepostFields\n      }\n    }\n    pageInfo {\n      next\n    }\n  }\n}": types.PostsDocument,
+    "query Search($postsRequest: PostsRequest!, $accountsRequest: AccountsRequest!) {\n  posts(request: $postsRequest) {\n    items {\n      ... on Post {\n        ...PostFields\n      }\n      ... on Repost {\n        ...RepostFields\n      }\n    }\n  }\n  accounts(request: $accountsRequest) {\n    items {\n      ...AccountFields\n    }\n  }\n}": types.SearchDocument,
 };
 
 /**
@@ -207,6 +208,10 @@ export function graphql(source: "query Post($request: PostRequest!) {\n  post(re
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "query Posts($request: PostsRequest!) {\n  posts(request: $request) {\n    items {\n      ... on Post {\n        ...PostFields\n      }\n      ... on Repost {\n        ...RepostFields\n      }\n    }\n    pageInfo {\n      next\n    }\n  }\n}"): typeof import('./graphql').PostsDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query Search($postsRequest: PostsRequest!, $accountsRequest: AccountsRequest!) {\n  posts(request: $postsRequest) {\n    items {\n      ... on Post {\n        ...PostFields\n      }\n      ... on Repost {\n        ...RepostFields\n      }\n    }\n  }\n  accounts(request: $accountsRequest) {\n    items {\n      ...AccountFields\n    }\n  }\n}"): typeof import('./graphql').SearchDocument;
 
 
 export function graphql(source: string) {
