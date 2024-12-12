@@ -1,11 +1,8 @@
+import { getPostMetadata } from "@/helpers/metadata";
+import { commentsQuery } from "@/queries/comment";
 import { Route } from "@/routes/_layout/watch/$postId";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
-import {
-  getProfile,
-  getProfilePicture,
-  getPublicationData
-} from "@tape.xyz/generic";
-import type { Comment as CommentType } from "@tape.xyz/indexer";
+import type { Post } from "@tape.xyz/indexer";
 import {
   Avatar,
   AvatarImage,
@@ -16,22 +13,21 @@ import {
   Plus
 } from "@tape.xyz/winder";
 import { memo } from "react";
-import { commentsQuery } from "./queries";
 
-const Comment = ({ comment }: { comment: CommentType }) => {
-  const profileMeta = getProfile(comment.by);
-  const metadata = getPublicationData(comment.metadata);
+const Comment = ({ comment }: { comment: Post }) => {
+  const account = comment.author;
+  const metadata = getPostMetadata(comment.metadata);
 
   return (
     <div>
       <hr className="my-4 w-full border-custom" />
       <div className="flex space-x-1.5">
         <Avatar size="md">
-          <AvatarImage src={getProfilePicture(comment.by)} />
+          <AvatarImage src={account.metadata?.picture} />
         </Avatar>
         <div className="space-y-1 text-sm">
           <div className="truncate font-semibold">
-            {profileMeta.displayName}
+            {account.username?.localName}
           </div>
           <p>{metadata?.content}</p>
           <div className="flex space-x-1.5 pt-2">
@@ -56,12 +52,12 @@ const Comment = ({ comment }: { comment: CommentType }) => {
 };
 
 export const Comments = memo(() => {
-  const pubId = Route.useParams().pubId;
-  const { data } = useSuspenseInfiniteQuery(commentsQuery(pubId));
+  const postId = Route.useParams().postId;
+  const { data } = useSuspenseInfiniteQuery(commentsQuery(postId));
 
   const comments = data.pages.flatMap(
-    (page) => page.publications.items
-  ) as CommentType[];
+    (page) => page.postReferences.items
+  ) as Post[];
 
   return (
     <div className="overflow-hidden rounded-card border border-custom bg-[#F7F7F7] px-5 py-4 dark:bg-[#202020]">

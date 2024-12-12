@@ -47,10 +47,10 @@ const List = ({ onNavigate }: { onNavigate: () => void }) => {
         return (
           <Link
             key={item.label}
-            to={isUser ? "/u/$handle" : "/watch/$pubId"}
+            to={isUser ? "/u/$handle" : "/watch/$postId"}
             params={{
               handle: isUser ? item.label : "",
-              pubId: "0x2d-0x022f-DA-7918bc14"
+              postId: "0x2d-0x022f-DA-7918bc14"
             }}
             onClick={onNavigate}
           >

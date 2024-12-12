@@ -1,5 +1,5 @@
 import { ProfilePage } from "@/components/u/page";
-import { profileQuery } from "@/components/u/queries";
+import { accountQuery } from "@/queries/account";
 import { createFileRoute } from "@tanstack/react-router";
 import { Spinner } from "@tape.xyz/winder";
 
@@ -11,7 +11,7 @@ type ProfileSearchParams = {
 
 export const Route = createFileRoute("/_layout/u/$handle")({
   loader: ({ context: { rqClient }, params: { handle } }) => {
-    return rqClient.ensureQueryData(profileQuery(handle));
+    return rqClient.ensureQueryData(accountQuery(handle));
   },
   validateSearch: (search: Record<string, unknown>): ProfileSearchParams => {
     return {

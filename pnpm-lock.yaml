@@ -621,9 +621,6 @@ importers:
       '@tape.xyz/constants':
         specifier: workspace:*
         version: link:../../packages/constants
-      '@tape.xyz/generic':
-        specifier: workspace:*
-        version: link:../../packages/generic
       '@tape.xyz/indexer':
         specifier: workspace:*
         version: link:../../packages/indexer

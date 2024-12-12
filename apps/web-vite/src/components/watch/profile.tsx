@@ -1,32 +1,26 @@
+import { postQuery } from "@/queries/post";
 import { Route } from "@/routes/_layout/watch/$postId";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { WORKER_AVATAR_URL } from "@tape.xyz/constants";
-import {
-  getProfile,
-  getProfileCoverPicture,
-  getProfilePicture,
-  getPublication
-} from "@tape.xyz/generic";
-import type { AnyPublication } from "@tape.xyz/indexer";
+import type { Post } from "@tape.xyz/indexer";
 import {
   Avatar,
   AvatarImage,
   Button,
   DotsThreeVertical
 } from "@tape.xyz/winder";
-import { publicationQuery } from "./queries";
 
 export const Profile = () => {
-  const pubId = Route.useParams().pubId;
+  const postId = Route.useParams().postId;
   const navigate = useNavigate();
-  const { data } = useSuspenseQuery(publicationQuery(pubId));
-  const publication = getPublication(data.publication as AnyPublication);
+  const { data } = useSuspenseQuery(postQuery(postId));
+  const post = data.post as Post;
 
-  const profile = publication.by;
-  const meta = getProfile(profile);
+  const account = post.author;
+  const metadata = account.metadata;
 
-  if (!profile.metadata) {
+  if (!metadata) {
     return null;
   }
 
@@ -34,7 +28,7 @@ export const Profile = () => {
     <div className="overflow-hidden rounded-card border border-custom bg-[#F7F7F7] dark:bg-[#202020]">
       <div className="relative">
         <img
-          src={getProfileCoverPicture(profile.metadata)}
+          src={metadata.coverPicture}
           className="-z-10 h-24 w-full object-cover"
           alt="cover"
           draggable={false}
@@ -44,12 +38,12 @@ export const Profile = () => {
       <div className="-mt-10 relative z-10 flex flex-col items-center space-y-4 px-5">
         <div className="rounded-xl bg-theme p-1">
           <Avatar size="2xl">
-            <AvatarImage src={getProfilePicture(profile)} />
+            <AvatarImage src={metadata.picture} />
           </Avatar>
         </div>
         <div className="space-y-1.5">
           <h1 className="text-center font-serif text-[28px] leading-[28px]">
-            {meta.displayName}
+            {account.username?.localName}
           </h1>
           <div className="flex items-center justify-center space-x-2 text-sm">
             <p>
@@ -69,7 +63,7 @@ export const Profile = () => {
             onClick={() =>
               navigate({
                 to: "/u/$handle",
-                params: { handle: meta.param },
+                params: { handle: account.username?.localName as string },
                 search: { media: "videos" }
               })
             }
@@ -81,7 +75,7 @@ export const Profile = () => {
           </Button>
         </div>
         <p className="line-clamp-2 px-5 text-center text-primary/60 text-sm">
-          {profile.metadata.bio}
+          {metadata.bio}
         </p>
         <span className="-space-x-1.5 flex rounded-full bg-primary/10 p-1">
           {[100000, 6000, 3090, 4000, 5600].map((item) => (

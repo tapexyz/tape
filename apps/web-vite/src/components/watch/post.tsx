@@ -7,9 +7,9 @@ import { Content } from "./content";
 import { CreatorAndComments } from "./creator";
 import { StatsAndActions } from "./stats-and-actions";
 
-export const Publication = () => {
-  const pubId = Route.useParams().pubId;
-  const { data } = usePostQuery(pubId);
+export const WatchPost = () => {
+  const postId = Route.useParams().postId;
+  const { data } = usePostQuery(postId);
 
   const post = data?.post as Post;
   const metadata = getPostMetadata(post.metadata);

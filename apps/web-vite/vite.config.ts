@@ -58,21 +58,21 @@ export default defineConfig(({ mode }) => {
           },
           assetFileNames: "assets/[name].[hash].[ext]",
           manualChunks: {
+            viem: ["viem"],
             react: ["react"],
-            dom: ["react-dom"],
-            router: ["@tanstack/react-router"],
-            query: ["@tanstack/react-query"],
+            wagmi: ["wagmi"],
             motion: ["motion"],
+            dom: ["react-dom"],
+            idb: ["idb-keyval"],
             virtual: ["react-virtuoso"],
             hooks: ["@uidotdev/usehooks"],
-            idb: ["idb-keyval"],
             indexer: ["@tape.xyz/indexer"],
-            generic: ["@tape.xyz/generic"],
             tw: ["@tape.xyz/winder/src/tw"],
+            router: ["@tanstack/react-router"],
             icons: ["@tape.xyz/winder/src/icons"],
             toast: ["@tape.xyz/winder/src/_components/toast"],
-            "video-player": ["@tape.xyz/winder/src/_components/video-player"],
-            "audio-player": ["@tape.xyz/winder/src/_components/audio-player"]
+            vplayer: ["@tape.xyz/winder/src/_components/video-player"],
+            aplayer: ["@tape.xyz/winder/src/_components/audio-player"]
           }
         }
       }

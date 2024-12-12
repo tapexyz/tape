@@ -1,5 +1,4 @@
 import { IPFS_GATEWAY_URL, WORKER_AVATAR_URL } from "@tape.xyz/constants";
-import { imageCdn } from "@tape.xyz/generic";
 import {
   AudioPlayer,
   Avatar,
@@ -413,9 +412,7 @@ export const components = [
             <img
               className="size-full"
               loading="eager"
-              src={imageCdn(
-                `${IPFS_GATEWAY_URL}/bafybeihoqqifnyzrx66h4i7om4f6prc7xgs3qydlce4ujrmjjazomyvoxq`
-              )}
+              src={`${IPFS_GATEWAY_URL}/bafybeihoqqifnyzrx66h4i7om4f6prc7xgs3qydlce4ujrmjjazomyvoxq`}
               alt="poster"
               draggable={false}
             />
@@ -564,9 +561,7 @@ export const components = [
               src: "https://files.tape.xyz/samples/16-9.mp4",
               type: "video/mp4"
             }}
-            poster={imageCdn(
-              `${IPFS_GATEWAY_URL}/bafybeiaikdpxnqig7ta5z5ahqav7p2z3lrijp5ym3ctg4on5reiktdh2lu`
-            )}
+            poster={`${IPFS_GATEWAY_URL}/bafybeiaikdpxnqig7ta5z5ahqav7p2z3lrijp5ym3ctg4on5reiktdh2lu`}
             load="visible"
             posterLoad="idle"
             autoPlay={false}
@@ -601,9 +596,7 @@ export const components = [
                 src: "https://files.tape.xyz/samples/audio-1.mp3",
                 type: "audio/mp3"
               }}
-              poster={imageCdn(
-                `${IPFS_GATEWAY_URL}/bafkreiam4w73hooyzel2674k6vr52civh4miazhfuxefqpy6n4qwqvwtp4`
-              )}
+              poster={`${IPFS_GATEWAY_URL}/bafkreiam4w73hooyzel2674k6vr52civh4miazhfuxefqpy6n4qwqvwtp4`}
               load="visible"
               posterLoad="idle"
               autoPlay={false}
@@ -616,9 +609,7 @@ export const components = [
               src: "https://files.tape.xyz/samples/audio-2.wav",
               type: "audio/mp3"
             }}
-            poster={imageCdn(
-              `${IPFS_GATEWAY_URL}/QmVg5mLJJsx9JZvyR6j4ej1b8WGBXZmi9bQNbwQDQ7pLEc`
-            )}
+            poster={`${IPFS_GATEWAY_URL}/QmVg5mLJJsx9JZvyR6j4ej1b8WGBXZmi9bQNbwQDQ7pLEc`}
             load="visible"
             posterLoad="idle"
             layout="horizontal"
