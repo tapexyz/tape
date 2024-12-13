@@ -1,6 +1,5 @@
-import { postQuery } from "@/queries/post";
+import { usePostSuspenseQuery } from "@/queries/post";
 import { Route } from "@/routes/_layout/watch/$postId";
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { WORKER_AVATAR_URL } from "@tape.xyz/constants";
 import type { Post } from "@tape.xyz/indexer";
@@ -11,12 +10,12 @@ import {
   DotsThreeVertical
 } from "@tape.xyz/winder";
 
-export const Profile = () => {
+export const Account = () => {
   const postId = Route.useParams().postId;
   const navigate = useNavigate();
-  const { data } = useSuspenseQuery(postQuery(postId));
-  const post = data.post as Post;
 
+  const { data } = usePostSuspenseQuery(postId);
+  const post = data.post as Post;
   const account = post.author;
   const metadata = account.metadata;
 

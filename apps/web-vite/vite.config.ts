@@ -59,6 +59,7 @@ export default defineConfig(({ mode }) => {
           assetFileNames: "assets/[name].[hash].[ext]",
           manualChunks: {
             viem: ["viem"],
+            bnjs: ["bn.js"],
             react: ["react"],
             wagmi: ["wagmi"],
             motion: ["motion"],
@@ -70,6 +71,7 @@ export default defineConfig(({ mode }) => {
             tw: ["@tape.xyz/winder/src/tw"],
             router: ["@tanstack/react-router"],
             icons: ["@tape.xyz/winder/src/icons"],
+            walletconnect: ["@walletconnect/utils"],
             toast: ["@tape.xyz/winder/src/_components/toast"],
             vplayer: ["@tape.xyz/winder/src/_components/video-player"],
             aplayer: ["@tape.xyz/winder/src/_components/audio-player"]

@@ -6,16 +6,21 @@ import {
 } from "@tape.xyz/constants";
 import type { FC, ReactNode } from "react";
 import { http, WagmiProvider, createConfig, fallback } from "wagmi";
-import { coinbaseWallet, injected, walletConnect } from "wagmi/connectors";
 
-const connectors = [
-  injected(),
-  coinbaseWallet({ appName: TAPE_APP_NAME }),
-  walletConnect({ projectId: WC_PROJECT_ID })
-];
+const getConnectors = async () => {
+  const { injected } = await import("wagmi/connectors");
+  const { coinbaseWallet } = await import("wagmi/connectors");
+  const { walletConnect } = await import("wagmi/connectors");
+
+  return [
+    injected(),
+    coinbaseWallet({ appName: TAPE_APP_NAME }),
+    walletConnect({ projectId: WC_PROJECT_ID })
+  ] as const;
+};
 
 const wagmiConfig = createConfig({
-  connectors,
+  connectors: await getConnectors(),
   chains: [chains.testnet],
   transports: {
     [chains.testnet.id]: fallback(LENS_TESTNET_RPCS.map((rpc) => http(rpc)))
