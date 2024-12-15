@@ -1,11 +1,13 @@
 mutation Refresh($request: RefreshRequest!) {
   refresh(request: $request) {
     ... on AuthenticationTokens {
+      __typename
       accessToken
       refreshToken
       idToken
     }
     ... on ForbiddenError {
+      __typename
       reason
     }
   }

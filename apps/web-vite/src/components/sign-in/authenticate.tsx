@@ -61,7 +61,7 @@ export const Authenticate = ({ accounts, loading }: AuthenticateProps) => {
             onValueChange={(value) => setChosenAccount(value)}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Select account" />
+              <SelectValue placeholder="Select an account" />
             </SelectTrigger>
             <SelectContent>
               {accounts.map(({ account }) => (

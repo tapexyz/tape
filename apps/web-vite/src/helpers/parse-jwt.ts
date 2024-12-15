@@ -1,7 +1,5 @@
 type ReturnType = {
-  id: string;
-  role: string;
-  authorizationId: string;
+  sub: string;
   iat: number;
   exp: number;
 };
@@ -15,11 +13,11 @@ export const parseJwt = (token: string): ReturnType => {
     const splited = token.split(".")[1] ?? "";
     return JSON.parse(decoded(splited));
   } catch {
-    return { id: "", role: "", authorizationId: "", iat: 0, exp: 0 };
+    return { sub: "", iat: 0, exp: 0 };
   }
 };
 
-export const isTokenExpired = (token: string) => {
+export const shouldRefreshTokens = (token: string) => {
   const { exp } = parseJwt(token);
   return Date.now() >= exp * 1000;
 };

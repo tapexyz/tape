@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { Button, CassetteTape } from "@tape.xyz/winder";
 
 export const About = () => {
@@ -22,8 +23,12 @@ export const About = () => {
       </div>
       <div className="flex justify-between">
         <div className="flex space-x-1.5">
-          <Button>Create an account</Button>
-          <Button variant="secondary">Sign in</Button>
+          <Link to="/sign-in">
+            <Button>Create an account</Button>
+          </Link>
+          <Link to="/sign-in">
+            <Button variant="secondary">Sign in</Button>
+          </Link>
         </div>
         <CassetteTape className="size-10" weight="thin" />
       </div>

@@ -5,12 +5,20 @@ import {
   TESTNET_API_URL
 } from "@tape.xyz/constants";
 import type { TypedDocumentString } from "@tape.xyz/indexer";
+import { shouldRefreshTokens } from "./parse-jwt";
+import { refreshTokens } from "./refresh-tokens";
 
 export const execute = async <TResult, TVariables>(
   query: TypedDocumentString<TResult, TVariables>,
   ...[variables]: TVariables extends Record<string, never> ? [] : [TVariables]
 ) => {
-  const { accessToken } = hydrateAuthTokens();
+  let { accessToken, refreshToken } = hydrateAuthTokens();
+
+  if (accessToken && shouldRefreshTokens(accessToken)) {
+    await refreshTokens(refreshToken);
+    ({ accessToken, refreshToken } = hydrateAuthTokens());
+  }
+
   try {
     const response = await fetch(TESTNET_API_URL, {
       method: "POST",

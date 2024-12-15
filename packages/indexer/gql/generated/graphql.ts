@@ -6124,7 +6124,7 @@ export type RefreshMutationVariables = Exact<{
 }>;
 
 
-export type RefreshMutation = { __typename?: 'Mutation', refresh: { __typename?: 'AuthenticationTokens', accessToken: any, refreshToken: any, idToken: any } | { __typename?: 'ForbiddenError', reason: string } };
+export type RefreshMutation = { __typename?: 'Mutation', refresh: { __typename: 'AuthenticationTokens', accessToken: any, refreshToken: any, idToken: any } | { __typename: 'ForbiddenError', reason: string } };
 
 export type AccountManagersQueryVariables = Exact<{
   request: AccountManagersRequest;
@@ -7193,11 +7193,13 @@ export const RefreshDocument = new TypedDocumentString(`
     mutation Refresh($request: RefreshRequest!) {
   refresh(request: $request) {
     ... on AuthenticationTokens {
+      __typename
       accessToken
       refreshToken
       idToken
     }
     ... on ForbiddenError {
+      __typename
       reason
     }
   }

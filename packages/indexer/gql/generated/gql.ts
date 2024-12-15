@@ -35,7 +35,7 @@ const documents = {
     "mutation CreateAccountWithUsername($request: CreateAccountWithUsernameRequest!) {\n  createAccountWithUsername(request: $request) {\n    ... on CreateAccountResponse {\n      hash\n    }\n    ... on InvalidUsername {\n      invalidUsernameReason: reason\n    }\n    ... on SelfFundedTransactionRequest {\n      selfFundedTransactionRequestReason: reason\n    }\n    ... on SponsoredTransactionRequest {\n      sponsoredTransactionRequestReason: reason\n    }\n    ... on TransactionWillFail {\n      transactionWillFailReason: reason\n    }\n  }\n}": types.CreateAccountWithUsernameDocument,
     "mutation Authenticate($request: SignedAuthChallenge!) {\n  authenticate(request: $request) {\n    ... on AuthenticationTokens {\n      __typename\n      accessToken\n      refreshToken\n      idToken\n    }\n    ... on ExpiredChallengeError {\n      __typename\n      reason\n    }\n    ... on ForbiddenError {\n      __typename\n      reason\n    }\n    ... on WrongSignerError {\n      __typename\n      reason\n    }\n  }\n}": types.AuthenticateDocument,
     "mutation Challenge($request: ChallengeRequest!) {\n  challenge(request: $request) {\n    id\n    text\n  }\n}": types.ChallengeDocument,
-    "mutation Refresh($request: RefreshRequest!) {\n  refresh(request: $request) {\n    ... on AuthenticationTokens {\n      accessToken\n      refreshToken\n      idToken\n    }\n    ... on ForbiddenError {\n      reason\n    }\n  }\n}": types.RefreshDocument,
+    "mutation Refresh($request: RefreshRequest!) {\n  refresh(request: $request) {\n    ... on AuthenticationTokens {\n      __typename\n      accessToken\n      refreshToken\n      idToken\n    }\n    ... on ForbiddenError {\n      __typename\n      reason\n    }\n  }\n}": types.RefreshDocument,
     "query AccountManagers($request: AccountManagersRequest!) {\n  accountManagers(request: $request) {\n    items {\n      manager\n      isLensManager\n      permissions {\n        ...AccountManagerPermissions\n      }\n      addedAt\n    }\n    pageInfo {\n      next\n    }\n  }\n}": types.AccountManagersDocument,
     "query AccountStats($request: AccountStatsRequest!) {\n  accountStats(request: $request) {\n    feedStats {\n      posts\n      comments\n      reposts\n      quotes\n      reacted\n      reactions\n      collects\n    }\n    graphFollowStats {\n      followers\n      following\n    }\n  }\n}": types.AccountStatsDocument,
     "query Account($request: AccountRequest!) {\n  account(request: $request) {\n    ...AccountFields\n  }\n}": types.AccountDocument,
@@ -139,7 +139,7 @@ export function graphql(source: "mutation Challenge($request: ChallengeRequest!)
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "mutation Refresh($request: RefreshRequest!) {\n  refresh(request: $request) {\n    ... on AuthenticationTokens {\n      accessToken\n      refreshToken\n      idToken\n    }\n    ... on ForbiddenError {\n      reason\n    }\n  }\n}"): typeof import('./graphql').RefreshDocument;
+export function graphql(source: "mutation Refresh($request: RefreshRequest!) {\n  refresh(request: $request) {\n    ... on AuthenticationTokens {\n      __typename\n      accessToken\n      refreshToken\n      idToken\n    }\n    ... on ForbiddenError {\n      __typename\n      reason\n    }\n  }\n}"): typeof import('./graphql').RefreshDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

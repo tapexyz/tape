@@ -1,4 +1,4 @@
-import { useCookieStore } from "@/store/cookie";
+import { signOut, useCookieStore } from "@/store/cookie";
 import { Link, useMatchRoute } from "@tanstack/react-router";
 import { WORKER_AVATAR_URL } from "@tape.xyz/constants";
 import {
@@ -142,7 +142,10 @@ const RightSection = memo(() => {
             <PlusCircle />
             <span>Create</span>
           </DropdownMenuItem>
-          <DropdownMenuItem className="flex items-center gap-2">
+          <DropdownMenuItem
+            className="flex items-center gap-2"
+            onClick={() => signOut()}
+          >
             <SignOut />
             <span>Sign out</span>
           </DropdownMenuItem>

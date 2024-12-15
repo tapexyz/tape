@@ -2,6 +2,7 @@ import Cookies from "js-cookie";
 import { create } from "zustand";
 
 const COOKIE_KEYS = {
+  STORE: "tape.cookie.store",
   ACCESS_TOKEN: "accessToken",
   REFRESH_TOKEN: "refreshToken",
   IDENTITY_TOKEN: "identityToken"
@@ -48,7 +49,7 @@ export const useCookieStore = create<CookieState>((set) => ({
     Cookies.remove(COOKIE_KEYS.REFRESH_TOKEN);
     Cookies.remove(COOKIE_KEYS.IDENTITY_TOKEN);
     set({ isAuthenticated: false });
-    localStorage.removeItem(BrowserStore.COOKIE_STORE);
+    localStorage.removeItem(COOKIE_KEYS.STORE);
   },
   hydrateAuthTokens: () => {
     return {
