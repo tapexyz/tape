@@ -14,7 +14,7 @@ export const execute = async <TResult, TVariables>(
 ) => {
   let { accessToken, refreshToken } = hydrateAuthTokens();
 
-  if (accessToken && shouldRefreshTokens(accessToken)) {
+  if (shouldRefreshTokens(accessToken)) {
     await refreshTokens(refreshToken);
     ({ accessToken, refreshToken } = hydrateAuthTokens());
   }

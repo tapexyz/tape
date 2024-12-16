@@ -1,4 +1,4 @@
-import { getPostMetadata } from "@/helpers/metadata";
+import { getAccountMetadata, getPostMetadata } from "@/helpers/metadata";
 import type { Post } from "@tape.xyz/indexer";
 import {
   Avatar,
@@ -36,17 +36,16 @@ const Stats = () => {
 
 const Info = memo(({ post }: { post: Post }) => {
   const metadata = getPostMetadata(post.metadata);
+  const { picture, handle } = getAccountMetadata(post.author);
 
   return (
     <div className="flex items-center space-x-2 px-3 pt-2 pb-4">
       <Avatar>
-        <AvatarImage src={post.author.metadata?.picture} />
+        <AvatarImage src={picture} />
       </Avatar>
       <div className="flex flex-col">
         <span className="-mb-0.5 line-clamp-1">{metadata?.title}</span>
-        <span className="-mt-0.5 text-sm text-white/40">
-          {post.author.username?.localName}
-        </span>
+        <span className="-mt-0.5 text-sm text-white/40">{handle}</span>
       </div>
     </div>
   );

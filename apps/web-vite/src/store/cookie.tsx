@@ -1,3 +1,4 @@
+import { shouldRefreshTokens } from "@/helpers/parse-jwt";
 import Cookies from "js-cookie";
 import { create } from "zustand";
 
@@ -26,39 +27,45 @@ const cookieConfig: Cookies.CookieAttributes = {
   secure: true
 };
 
-export const useCookieStore = create<CookieState>((set) => ({
-  isAuthenticated: Boolean(Cookies.get(COOKIE_KEYS.ACCESS_TOKEN)),
-  signIn: ({ accessToken, refreshToken, identityToken }) => {
-    Cookies.set(COOKIE_KEYS.ACCESS_TOKEN, accessToken, {
-      ...cookieConfig,
-      expires: 1
-    });
-    Cookies.set(COOKIE_KEYS.REFRESH_TOKEN, refreshToken, {
-      ...cookieConfig,
-      expires: 7
-    });
-    const expiryDate = new Date(new Date().getTime() + 30 * 60 * 1000); // 30 minutes
-    Cookies.set(COOKIE_KEYS.IDENTITY_TOKEN, identityToken, {
-      ...cookieConfig,
-      expires: expiryDate
-    });
-    set({ isAuthenticated: true });
-  },
-  signOut: () => {
-    Cookies.remove(COOKIE_KEYS.ACCESS_TOKEN);
-    Cookies.remove(COOKIE_KEYS.REFRESH_TOKEN);
-    Cookies.remove(COOKIE_KEYS.IDENTITY_TOKEN);
-    set({ isAuthenticated: false });
-    localStorage.removeItem(COOKIE_KEYS.STORE);
-  },
-  hydrateAuthTokens: () => {
-    return {
-      accessToken: Cookies.get(COOKIE_KEYS.ACCESS_TOKEN) ?? "",
-      refreshToken: Cookies.get(COOKIE_KEYS.REFRESH_TOKEN) ?? "",
-      identityToken: Cookies.get(COOKIE_KEYS.IDENTITY_TOKEN) ?? ""
-    };
-  }
-}));
+export const useCookieStore = create<CookieState>((set) => {
+  const accessToken = Cookies.get(COOKIE_KEYS.ACCESS_TOKEN) ?? "";
+  const refreshToken = Cookies.get(COOKIE_KEYS.REFRESH_TOKEN) ?? "";
+
+  return {
+    isAuthenticated: Boolean(refreshToken) && !shouldRefreshTokens(accessToken),
+    signIn: ({ accessToken, refreshToken, identityToken }) => {
+      const expiryDate = new Date(new Date().getTime() + 10 * 60 * 1000); // 10 minutes
+
+      Cookies.set(COOKIE_KEYS.ACCESS_TOKEN, accessToken, {
+        ...cookieConfig,
+        expires: expiryDate
+      });
+      Cookies.set(COOKIE_KEYS.IDENTITY_TOKEN, identityToken, {
+        ...cookieConfig,
+        expires: expiryDate
+      });
+      Cookies.set(COOKIE_KEYS.REFRESH_TOKEN, refreshToken, {
+        ...cookieConfig,
+        expires: 7 // 7 days
+      });
+      set({ isAuthenticated: true });
+    },
+    signOut: () => {
+      Cookies.remove(COOKIE_KEYS.ACCESS_TOKEN);
+      Cookies.remove(COOKIE_KEYS.REFRESH_TOKEN);
+      Cookies.remove(COOKIE_KEYS.IDENTITY_TOKEN);
+      set({ isAuthenticated: false });
+      localStorage.removeItem(COOKIE_KEYS.STORE);
+    },
+    hydrateAuthTokens: () => {
+      return {
+        accessToken: Cookies.get(COOKIE_KEYS.ACCESS_TOKEN) ?? "",
+        refreshToken: Cookies.get(COOKIE_KEYS.REFRESH_TOKEN) ?? "",
+        identityToken: Cookies.get(COOKIE_KEYS.IDENTITY_TOKEN) ?? ""
+      };
+    }
+  };
+});
 
 export const signIn = (tokens: Tokens) =>
   useCookieStore.getState().signIn(tokens);

@@ -184,6 +184,7 @@ export const ALLOWED_APP_IDS = [
 
 // official
 export const TAPE_X_HANDLE = "tapexyz";
+export const ADMIN_X_HANDLE = "sasicodes";
 export const TAPE_GITHUB_HANDLE = "tapexyz";
 export const TAPE_LOGO = `${STATIC_ASSETS}/brand/logo.svg`;
 export const TAPE_STATUS_PAGE = "https://status.tape.xyz";

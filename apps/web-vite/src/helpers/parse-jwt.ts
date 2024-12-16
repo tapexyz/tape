@@ -17,7 +17,7 @@ export const parseJwt = (token: string): ReturnType => {
   }
 };
 
-export const shouldRefreshTokens = (token: string) => {
+export const shouldRefreshTokens = (token = "") => {
   const { exp } = parseJwt(token);
   return Date.now() >= exp * 1000;
 };

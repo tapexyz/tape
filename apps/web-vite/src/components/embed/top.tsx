@@ -1,4 +1,4 @@
-import { getPostMetadata } from "@/helpers/metadata";
+import { getAccountMetadata, getPostMetadata } from "@/helpers/metadata";
 import { TAPE_LOGO, TAPE_WEBSITE_URL } from "@tape.xyz/constants";
 import type { Post } from "@tape.xyz/indexer";
 import { Avatar, AvatarImage } from "@tape.xyz/winder";
@@ -10,17 +10,18 @@ type Props = {
 export const TopControls = ({ post }: Props) => {
   const metadata = getPostMetadata(post.metadata);
   const account = post.author;
+  const { picture, handle } = getAccountMetadata(account);
 
   return (
     <div className="flex items-center justify-between gap-4">
       <div className="inline-flex items-center gap-4">
         <a
-          href={`${TAPE_WEBSITE_URL}/u/${account.username?.localName}`}
+          href={`${TAPE_WEBSITE_URL}/u/${handle}`}
           target="_blank"
           rel="noreferrer"
         >
           <Avatar>
-            <AvatarImage src={account.metadata?.picture} />
+            <AvatarImage src={picture} />
           </Avatar>
         </a>
         <a
@@ -30,7 +31,7 @@ export const TopControls = ({ post }: Props) => {
           rel="noreferrer"
         >
           <h1 className="font-medium">{metadata?.title}</h1>
-          <span className="text-xs">{account.username?.localName}</span>
+          <span className="text-xs">{handle}</span>
         </a>
       </div>
       <a

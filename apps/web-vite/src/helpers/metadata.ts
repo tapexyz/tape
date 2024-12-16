@@ -1,4 +1,4 @@
-import type { PostMetadata } from "@tape.xyz/indexer";
+import type { Account, PostMetadata } from "@tape.xyz/indexer";
 
 export const getPostMetadata = (metadata: PostMetadata) => {
   switch (metadata.__typename) {
@@ -47,4 +47,16 @@ export const getPostMetadata = (metadata: PostMetadata) => {
     default:
       return null;
   }
+};
+
+export const getAccountMetadata = (account: Account) => {
+  return {
+    name: account.metadata?.name,
+    bio: account.metadata?.bio,
+    picture: account.metadata?.picture,
+    coverPicture: account.metadata?.coverPicture,
+    handle: account?.username?.localName,
+    handleWithPrefix: `@${account?.username?.localName}`,
+    namespace: account.username?.namespace.namespace
+  };
 };

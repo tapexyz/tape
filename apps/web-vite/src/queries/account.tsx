@@ -1,13 +1,16 @@
 import { execute } from "@/helpers/execute";
+import { useCookieStore } from "@/store/cookie";
 import {
   queryOptions,
   useInfiniteQuery,
-  useQuery
+  useQuery,
+  useSuspenseQuery
 } from "@tanstack/react-query";
 import {
   AccountDocument,
   AccountsAvailableDocument,
   LastLoggedInAccountDocument,
+  MeDocument,
   PageSize
 } from "@tape.xyz/indexer";
 import { isAddress } from "viem";
@@ -61,3 +64,10 @@ export const accountQuery = (handle: string) => {
 
 export const useAccountQuery = (handle: string) =>
   useQuery(accountQuery(handle));
+
+export const meQuery = queryOptions({
+  queryKey: ["me"],
+  queryFn: () => execute(MeDocument),
+  enabled: useCookieStore.getState().isAuthenticated
+});
+export const useMeSuspenseQuery = () => useSuspenseQuery(meQuery);

@@ -1,4 +1,5 @@
 import { ButtonShimmer } from "@/components/shared/shimmers/button";
+import { getAccountMetadata } from "@/helpers/metadata";
 import { useAuthenticateMutation } from "@/queries/auth";
 import { signIn } from "@/store/cookie";
 import { useNavigate } from "@tanstack/react-router";
@@ -64,12 +65,14 @@ export const Authenticate = ({ accounts, loading }: AuthenticateProps) => {
               <SelectValue placeholder="Select an account" />
             </SelectTrigger>
             <SelectContent>
-              {accounts.map(({ account }) => (
-                <SelectItem key={account.address} value={account.address}>
-                  {account.username?.namespace.namespace}/
-                  {account.username?.localName}
-                </SelectItem>
-              ))}
+              {accounts.map(({ account }) => {
+                const { namespace, handle } = getAccountMetadata(account);
+                return (
+                  <SelectItem key={account.address} value={account.address}>
+                    {namespace}/{handle}
+                  </SelectItem>
+                );
+              })}
             </SelectContent>
           </Select>
           <Button className="h-11 w-full" onClick={siwe} loading={isPending}>

@@ -1,3 +1,4 @@
+import { getAccountMetadata } from "@/helpers/metadata";
 import { accountQuery } from "@/queries/account";
 import { Route } from "@/routes/_layout/u/$handle";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -20,8 +21,8 @@ import {
 import { Actions } from "./actions";
 
 export const Profile = () => {
-  const { handle } = Route.useParams();
-  const { data } = useSuspenseQuery(accountQuery(handle));
+  const { handle: handleParam } = Route.useParams();
+  const { data } = useSuspenseQuery(accountQuery(handleParam));
 
   const account = data.account as Account;
 
@@ -29,11 +30,14 @@ export const Profile = () => {
     return null;
   }
 
+  const { name, bio, handleWithPrefix, picture, coverPicture } =
+    getAccountMetadata(account);
+
   return (
     <div>
       <div className="relative">
         <img
-          src={account.metadata.coverPicture}
+          src={coverPicture}
           className="-z-10 h-72 w-full select-none object-cover"
           alt="cover"
           draggable={false}
@@ -45,7 +49,7 @@ export const Profile = () => {
           <div className="flex w-full items-end justify-between">
             <span className="rounded-xl bg-theme p-1">
               <Avatar size="3xl">
-                <AvatarImage src={account.metadata.picture} />
+                <AvatarImage src={picture} />
               </Avatar>
             </span>
             <div className="flex items-center space-x-1.5">
@@ -84,10 +88,8 @@ export const Profile = () => {
           </div>
         </div>
         <div className="space-y-2.5">
-          <span className="font-semibold">@{account.username?.localName}</span>
-          <h1 className="font-serif text-[44px] leading-[44px]">
-            {account.metadata.name}
-          </h1>
+          <span className="font-semibold">{handleWithPrefix}</span>
+          <h1 className="font-serif text-[44px] leading-[44px]">{name}</h1>
           <div className="flex items-center space-x-2 text-sm">
             <p>
               14k <span className="text-muted">followers</span>
@@ -97,11 +99,7 @@ export const Profile = () => {
             </p>
           </div>
 
-          <div>
-            {account.metadata.bio && (
-              <p className="my-6">{account.metadata.bio}</p>
-            )}
-          </div>
+          <div>{bio && <p className="my-6">{bio}</p>}</div>
 
           <Tabs defaultValue="videos">
             <TabsList className="text-[20px]">

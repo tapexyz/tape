@@ -1,4 +1,4 @@
-import { getPostMetadata } from "@/helpers/metadata";
+import { getAccountMetadata, getPostMetadata } from "@/helpers/metadata";
 import { commentsQuery } from "@/queries/comment";
 import { Route } from "@/routes/_layout/watch/$postId";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
@@ -17,18 +17,17 @@ import { memo } from "react";
 const Comment = ({ comment }: { comment: Post }) => {
   const account = comment.author;
   const metadata = getPostMetadata(comment.metadata);
+  const { handle, picture } = getAccountMetadata(account);
 
   return (
     <div>
       <hr className="my-4 w-full border-custom" />
       <div className="flex space-x-1.5">
         <Avatar size="md">
-          <AvatarImage src={account.metadata?.picture} />
+          <AvatarImage src={picture} />
         </Avatar>
         <div className="space-y-1 text-sm">
-          <div className="truncate font-semibold">
-            {account.username?.localName}
-          </div>
+          <div className="truncate font-semibold">{handle}</div>
           <p>{metadata?.content}</p>
           <div className="flex space-x-1.5 pt-2">
             <Button variant="secondary" size="xs">

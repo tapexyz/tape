@@ -1,21 +1,9 @@
-import { signOut, useCookieStore } from "@/store/cookie";
+import { useCookieStore } from "@/store/cookie";
 import { Link } from "@tanstack/react-router";
-import { WORKER_AVATAR_URL } from "@tape.xyz/constants";
-import {
-  ArrowRight,
-  Avatar,
-  AvatarImage,
-  Button,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  PlusCircle,
-  SignOut,
-  User
-} from "@tape.xyz/winder";
+import { ArrowRight, Button, PlusCircle } from "@tape.xyz/winder";
 import { memo } from "react";
 import { Notifications } from "./notifications";
+import { UserMenu } from "./user-menu";
 
 export const RightSection = memo(() => {
   const isAuthenticated = useCookieStore((state) => state.isAuthenticated);
@@ -42,30 +30,7 @@ export const RightSection = memo(() => {
           <PlusCircle className="size-5" weight="fill" />
         </Button>
       </Link>
-      <DropdownMenu>
-        <DropdownMenuTrigger className="rounded-custom">
-          <Avatar size="md" className="select-none">
-            <AvatarImage src={`${WORKER_AVATAR_URL}/0x2d`} />
-          </Avatar>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-48">
-          <DropdownMenuItem className="flex items-center gap-2">
-            <User />
-            <span>Profile</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem className="flex items-center gap-2">
-            <PlusCircle />
-            <span>Create</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            className="flex items-center gap-2"
-            onClick={() => signOut()}
-          >
-            <SignOut />
-            <span>Sign out</span>
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <UserMenu />
     </div>
   );
 });

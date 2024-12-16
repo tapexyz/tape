@@ -1,3 +1,4 @@
+import { getAccountMetadata } from "@/helpers/metadata";
 import { usePostSuspenseQuery } from "@/queries/post";
 import { Route } from "@/routes/_layout/watch/$postId";
 import { useNavigate } from "@tanstack/react-router";
@@ -17,9 +18,9 @@ export const Account = () => {
   const { data } = usePostSuspenseQuery(postId);
   const post = data.post as Post;
   const account = post.author;
-  const metadata = account.metadata;
+  const { bio, handle, picture, coverPicture } = getAccountMetadata(account);
 
-  if (!metadata) {
+  if (!handle) {
     return null;
   }
 
@@ -27,7 +28,7 @@ export const Account = () => {
     <div className="overflow-hidden rounded-card border border-custom bg-[#F7F7F7] dark:bg-[#202020]">
       <div className="relative">
         <img
-          src={metadata.coverPicture}
+          src={coverPicture}
           className="-z-10 h-24 w-full object-cover"
           alt="cover"
           draggable={false}
@@ -37,12 +38,12 @@ export const Account = () => {
       <div className="-mt-10 relative z-10 flex flex-col items-center space-y-4 px-5">
         <div className="rounded-xl bg-theme p-1">
           <Avatar size="2xl">
-            <AvatarImage src={metadata.picture} />
+            <AvatarImage src={picture} />
           </Avatar>
         </div>
         <div className="space-y-1.5">
           <h1 className="text-center font-serif text-[28px] leading-[28px]">
-            {account.username?.localName}
+            {handle}
           </h1>
           <div className="flex items-center justify-center space-x-2 text-sm">
             <p>
@@ -62,7 +63,7 @@ export const Account = () => {
             onClick={() =>
               navigate({
                 to: "/u/$handle",
-                params: { handle: account.username?.localName as string },
+                params: { handle: handle },
                 search: { media: "videos" }
               })
             }
@@ -73,9 +74,11 @@ export const Account = () => {
             <DotsThreeVertical className="size-5" weight="bold" />
           </Button>
         </div>
-        <p className="line-clamp-2 px-5 text-center text-primary/60 text-sm">
-          {metadata.bio}
-        </p>
+        {bio && (
+          <p className="line-clamp-2 px-5 text-center text-primary/60 text-sm">
+            {bio}
+          </p>
+        )}
         <span className="-space-x-1.5 flex rounded-full bg-primary/10 p-1">
           {[100000, 6000, 3090, 4000, 5600].map((item) => (
             <Avatar size="xs" shape="circle" key={item}>
