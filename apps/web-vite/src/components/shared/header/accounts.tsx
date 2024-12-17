@@ -26,11 +26,11 @@ export const Accounts = () => {
           <button
             type="button"
             key={account.address}
-            className="flex items-center justify-between gap-2 px-4 py-2 transition-colors hover:bg-secondary"
+            className="flex items-center justify-between gap-2 px-4 py-1.5 transition-colors hover:bg-secondary"
           >
             <span className="flex items-center gap-2">
-              <div className="flex items-center justify-between gap-2.5">
-                <Avatar size="lg">
+              <div className="flex items-center justify-between gap-2">
+                <Avatar size="md">
                   <AvatarImage src={picture} />
                 </Avatar>
                 <div className="flex flex-col justify-center text-left">

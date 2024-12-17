@@ -1,6 +1,7 @@
 import { getAccountMetadata } from "@/helpers/metadata";
 import { useMeSuspenseQuery } from "@/queries/account";
 import { signOut } from "@/store/cookie";
+import { Link } from "@tanstack/react-router";
 import type { Account } from "@tape.xyz/indexer";
 import {
   Avatar,
@@ -28,8 +29,11 @@ export const UserMenu = memo(() => {
   const [elementRef, bounds] = useMeasure();
   const { data } = useMeSuspenseQuery();
 
+  if (!data) return null;
+
   const account = data.me.loggedInAs.account as Account;
-  const { name, handleWithPrefix, picture } = getAccountMetadata(account);
+  const { name, handleWithPrefix, picture, handle } =
+    getAccountMetadata(account);
 
   return (
     <DropdownMenu>
@@ -79,26 +83,36 @@ export const UserMenu = memo(() => {
                 }}
               >
                 {showAccounts ? (
-                  <ScrollArea className="-mx-2 h-64 max-h-64">
+                  <ScrollArea className="-mx-2 max-h-64 min-h-24">
                     <Accounts />
                   </ScrollArea>
                 ) : (
                   <>
-                    <DropdownMenuItem className="flex items-center gap-2 py-2.5">
-                      <User className="size-4" />
-                      <span>Profile</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="flex items-center gap-2 py-2.5">
-                      <VinylRecord className="size-4" />
-                      <span>Studio</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="flex items-center gap-2 py-2.5">
-                      <SlidersHorizontal className="size-4 rotate-90" />
-                      <span>Settings</span>
-                    </DropdownMenuItem>
+                    <Link
+                      to="/u/$handle"
+                      params={{ handle: handle as string }}
+                      search={{ media: "videos" }}
+                    >
+                      <DropdownMenuItem className="flex items-center gap-2 py-2">
+                        <User className="size-4" />
+                        <span>Profile</span>
+                      </DropdownMenuItem>
+                    </Link>
+                    <Link to="/settings">
+                      <DropdownMenuItem className="flex items-center gap-2 py-2">
+                        <VinylRecord className="size-4" />
+                        <span>Studio</span>
+                      </DropdownMenuItem>
+                    </Link>
+                    <Link to="/settings">
+                      <DropdownMenuItem className="flex items-center gap-2 py-2">
+                        <SlidersHorizontal className="size-4 rotate-90" />
+                        <span>Settings</span>
+                      </DropdownMenuItem>
+                    </Link>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
-                      className="flex items-center gap-2 py-2.5 focus:bg-destructive/10"
+                      className="flex items-center gap-2 py-2 focus:bg-destructive/5 dark:focus:bg-destructive/10"
                       onClick={() => signOut()}
                     >
                       <SignOut className="size-4" />

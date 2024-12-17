@@ -8,7 +8,7 @@ import { UserMenu } from "./user-menu";
 export const RightSection = memo(() => {
   const isAuthenticated = useCookieStore((state) => state.isAuthenticated);
 
-  if (!isAuthenticated)
+  if (!isAuthenticated) {
     return (
       <div className="flex w-1/3 justify-end">
         <Link to="/sign-in">
@@ -20,6 +20,7 @@ export const RightSection = memo(() => {
         </Link>
       </div>
     );
+  }
 
   return (
     <div className="flex w-1/3 justify-end gap-1.5">

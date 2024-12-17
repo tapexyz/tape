@@ -18,6 +18,7 @@ import { Route as OpenIndexImport } from './routes/open/index'
 import { Route as EmbedPostIdImport } from './routes/embed/$postId'
 import { Route as LayoutHomeImport } from './routes/_layout/_home'
 import { Route as LayoutTermsIndexImport } from './routes/_layout/terms/index'
+import { Route as LayoutSettingsIndexImport } from './routes/_layout/settings/index'
 import { Route as LayoutPrivacyIndexImport } from './routes/_layout/privacy/index'
 import { Route as LayoutModIndexImport } from './routes/_layout/mod/index'
 import { Route as LayoutFeedIndexImport } from './routes/_layout/feed/index'
@@ -67,6 +68,12 @@ const LayoutHomeRoute = LayoutHomeImport.update({
 const LayoutTermsIndexRoute = LayoutTermsIndexImport.update({
   id: '/terms/',
   path: '/terms/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutSettingsIndexRoute = LayoutSettingsIndexImport.update({
+  id: '/settings/',
+  path: '/settings/',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -233,6 +240,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutPrivacyIndexImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/settings/': {
+      id: '/_layout/settings/'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof LayoutSettingsIndexImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/terms/': {
       id: '/_layout/terms/'
       path: '/terms'
@@ -269,6 +283,7 @@ interface LayoutRouteChildren {
   LayoutFeedIndexRoute: typeof LayoutFeedIndexRoute
   LayoutModIndexRoute: typeof LayoutModIndexRoute
   LayoutPrivacyIndexRoute: typeof LayoutPrivacyIndexRoute
+  LayoutSettingsIndexRoute: typeof LayoutSettingsIndexRoute
   LayoutTermsIndexRoute: typeof LayoutTermsIndexRoute
 }
 
@@ -280,6 +295,7 @@ const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutFeedIndexRoute: LayoutFeedIndexRoute,
   LayoutModIndexRoute: LayoutModIndexRoute,
   LayoutPrivacyIndexRoute: LayoutPrivacyIndexRoute,
+  LayoutSettingsIndexRoute: LayoutSettingsIndexRoute,
   LayoutTermsIndexRoute: LayoutTermsIndexRoute,
 }
 
@@ -301,6 +317,7 @@ export interface FileRoutesByFullPath {
   '/feed': typeof LayoutFeedIndexRoute
   '/mod': typeof LayoutModIndexRoute
   '/privacy': typeof LayoutPrivacyIndexRoute
+  '/settings': typeof LayoutSettingsIndexRoute
   '/terms': typeof LayoutTermsIndexRoute
 }
 
@@ -319,6 +336,7 @@ export interface FileRoutesByTo {
   '/feed': typeof LayoutFeedIndexRoute
   '/mod': typeof LayoutModIndexRoute
   '/privacy': typeof LayoutPrivacyIndexRoute
+  '/settings': typeof LayoutSettingsIndexRoute
   '/terms': typeof LayoutTermsIndexRoute
 }
 
@@ -339,6 +357,7 @@ export interface FileRoutesById {
   '/_layout/feed/': typeof LayoutFeedIndexRoute
   '/_layout/mod/': typeof LayoutModIndexRoute
   '/_layout/privacy/': typeof LayoutPrivacyIndexRoute
+  '/_layout/settings/': typeof LayoutSettingsIndexRoute
   '/_layout/terms/': typeof LayoutTermsIndexRoute
 }
 
@@ -359,6 +378,7 @@ export interface FileRouteTypes {
     | '/feed'
     | '/mod'
     | '/privacy'
+    | '/settings'
     | '/terms'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -376,6 +396,7 @@ export interface FileRouteTypes {
     | '/feed'
     | '/mod'
     | '/privacy'
+    | '/settings'
     | '/terms'
   id:
     | '__root__'
@@ -394,6 +415,7 @@ export interface FileRouteTypes {
     | '/_layout/feed/'
     | '/_layout/mod/'
     | '/_layout/privacy/'
+    | '/_layout/settings/'
     | '/_layout/terms/'
   fileRoutesById: FileRoutesById
 }
@@ -441,6 +463,7 @@ export const routeTree = rootRoute
         "/_layout/feed/",
         "/_layout/mod/",
         "/_layout/privacy/",
+        "/_layout/settings/",
         "/_layout/terms/"
       ]
     },
@@ -499,6 +522,10 @@ export const routeTree = rootRoute
     },
     "/_layout/privacy/": {
       "filePath": "_layout/privacy/index.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/settings/": {
+      "filePath": "_layout/settings/index.tsx",
       "parent": "/_layout"
     },
     "/_layout/terms/": {
