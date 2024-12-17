@@ -25,7 +25,6 @@ export const postQuery = (id: string) =>
         }
       })
   });
-
 export const usePostQuery = (id: string) => useQuery(postQuery(id));
 export const usePostSuspenseQuery = (id: string) =>
   useSuspenseQuery(postQuery(id));
@@ -48,7 +47,6 @@ export const postsQuery = infiniteQueryOptions({
   initialPageParam: null,
   getNextPageParam: (lastPage) => lastPage.posts.pageInfo.next
 });
-
 export const usePostsQuery = () => useInfiniteQuery(postsQuery);
 
 export const bytesQuery = infiniteQueryOptions({
@@ -69,6 +67,5 @@ export const bytesQuery = infiniteQueryOptions({
   initialPageParam: null,
   getNextPageParam: (lastPage) => lastPage.posts.pageInfo.next
 });
-
 export const useBytesQuery = () => useInfiniteQuery(bytesQuery);
 export const useBytesSuspenseQuery = () => useSuspenseInfiniteQuery(bytesQuery);

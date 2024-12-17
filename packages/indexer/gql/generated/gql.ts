@@ -22,6 +22,12 @@ const documents = {
     "fragment AppFields on App {\n  address\n  defaultFeedAddress\n  graphAddress\n  namespaceAddress\n  sponsorshipAddress\n  treasuryAddress\n  createdAt\n  metadata {\n    description\n    developer\n    logo\n    name\n    platforms\n    privacyPolicy\n    termsOfService\n    url\n  }\n}": types.AppFieldsFragmentDoc,
     "fragment GroupFields on Group {\n  address\n  timestamp\n  metadata {\n    description\n    icon\n    name\n    id\n  }\n}": types.GroupFieldsFragmentDoc,
     "fragment MetadataAttributeFields on MetadataAttribute {\n  type\n  key\n  value\n}": types.MetadataAttributeFieldsFragmentDoc,
+    "fragment CommentNotificationFields on CommentNotification {\n  id\n  comment {\n    ...PostFields\n  }\n}": types.CommentNotificationFieldsFragmentDoc,
+    "fragment FollowNotificationFields on FollowNotification {\n  id\n  followers {\n    account {\n      ...AccountFields\n    }\n  }\n}": types.FollowNotificationFieldsFragmentDoc,
+    "fragment MentionNotificationFields on MentionNotification {\n  id\n  post {\n    ...PostFields\n  }\n}": types.MentionNotificationFieldsFragmentDoc,
+    "fragment QuoteNotificationFields on QuoteNotification {\n  id\n  quote {\n    ...PostFields\n  }\n}": types.QuoteNotificationFieldsFragmentDoc,
+    "fragment ReactionNotificationFields on ReactionNotification {\n  id\n  post {\n    ...PostFields\n  }\n  reactions {\n    account {\n      ...AccountFields\n    }\n  }\n}": types.ReactionNotificationFieldsFragmentDoc,
+    "fragment RepostNotificationFields on RepostNotification {\n  id\n  post {\n    ...PostFields\n  }\n  reposts {\n    account {\n      ...AccountFields\n    }\n    repostedAt\n  }\n}": types.RepostNotificationFieldsFragmentDoc,
     "fragment MediaAudioFields on MediaAudio {\n  artist\n  item\n  cover\n  license\n}": types.MediaAudioFieldsFragmentDoc,
     "fragment MediaFields on AnyMedia {\n  ... on MediaVideo {\n    ...MediaVideoFields\n  }\n  ... on MediaImage {\n    ...MediaImageFields\n  }\n  ... on MediaAudio {\n    ...MediaAudioFields\n  }\n}": types.MediaFieldsFragmentDoc,
     "fragment MediaImageFields on MediaImage {\n  altTag\n  attributes {\n    ...MetadataAttributeFields\n  }\n  item\n  license\n}": types.MediaImageFieldsFragmentDoc,
@@ -48,6 +54,7 @@ const documents = {
     "query Following($request: FollowingRequest!) {\n  following(request: $request) {\n    items {\n      following {\n        ...AccountFields\n      }\n      followedOn\n    }\n    pageInfo {\n      next\n    }\n  }\n}": types.FollowingDocument,
     "query LastLoggedInAccount($request: LastLoggedInAccountRequest!) {\n  lastLoggedInAccount(request: $request) {\n    address\n    owner\n    score\n    metadata {\n      ...AccountMetadataFields\n    }\n    username {\n      ...UsernameFields\n    }\n    operations {\n      ...LoggedInAccountOperationsFields\n    }\n  }\n}": types.LastLoggedInAccountDocument,
     "query Me {\n  me {\n    loggedInAs {\n      ... on AccountManaged {\n        account {\n          ...AccountFields\n        }\n        addedAt\n      }\n      ... on AccountOwned {\n        account {\n          ...AccountFields\n        }\n        addedAt\n      }\n    }\n    isSignless\n    isSponsored\n    appLoggedIn\n    limit {\n      window\n      allowanceLeft\n      allowanceUsed\n      allowance\n    }\n  }\n}": types.MeDocument,
+    "query Notifications($request: NotificationRequest!) {\n  notifications(request: $request) {\n    items {\n      ... on CommentNotification {\n        ...CommentNotificationFields\n      }\n      ... on FollowNotification {\n        ...FollowNotificationFields\n      }\n      ... on MentionNotification {\n        ...MentionNotificationFields\n      }\n      ... on QuoteNotification {\n        ...QuoteNotificationFields\n      }\n      ... on ReactionNotification {\n        ...ReactionNotificationFields\n      }\n      ... on RepostNotification {\n        ...RepostNotificationFields\n      }\n    }\n    pageInfo {\n      next\n    }\n  }\n}": types.NotificationsDocument,
     "query Usernames($request: UsernamesRequest!) {\n  usernames(request: $request) {\n    items {\n      ...UsernameFields\n    }\n    pageInfo {\n      next\n    }\n  }\n}": types.UsernamesDocument,
     "query Group($request: GroupRequest!) {\n  group(request: $request) {\n    ...GroupFields\n  }\n}": types.GroupDocument,
     "query PostReferences($request: PostReferencesRequest!) {\n  postReferences(request: $request) {\n    items {\n      ...PostFields\n    }\n    pageInfo {\n      next\n    }\n  }\n}": types.PostReferencesDocument,
@@ -84,6 +91,30 @@ export function graphql(source: "fragment GroupFields on Group {\n  address\n  t
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "fragment MetadataAttributeFields on MetadataAttribute {\n  type\n  key\n  value\n}"): typeof import('./graphql').MetadataAttributeFieldsFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment CommentNotificationFields on CommentNotification {\n  id\n  comment {\n    ...PostFields\n  }\n}"): typeof import('./graphql').CommentNotificationFieldsFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment FollowNotificationFields on FollowNotification {\n  id\n  followers {\n    account {\n      ...AccountFields\n    }\n  }\n}"): typeof import('./graphql').FollowNotificationFieldsFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment MentionNotificationFields on MentionNotification {\n  id\n  post {\n    ...PostFields\n  }\n}"): typeof import('./graphql').MentionNotificationFieldsFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment QuoteNotificationFields on QuoteNotification {\n  id\n  quote {\n    ...PostFields\n  }\n}"): typeof import('./graphql').QuoteNotificationFieldsFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment ReactionNotificationFields on ReactionNotification {\n  id\n  post {\n    ...PostFields\n  }\n  reactions {\n    account {\n      ...AccountFields\n    }\n  }\n}"): typeof import('./graphql').ReactionNotificationFieldsFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment RepostNotificationFields on RepostNotification {\n  id\n  post {\n    ...PostFields\n  }\n  reposts {\n    account {\n      ...AccountFields\n    }\n    repostedAt\n  }\n}"): typeof import('./graphql').RepostNotificationFieldsFragmentDoc;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -188,6 +219,10 @@ export function graphql(source: "query LastLoggedInAccount($request: LastLoggedI
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "query Me {\n  me {\n    loggedInAs {\n      ... on AccountManaged {\n        account {\n          ...AccountFields\n        }\n        addedAt\n      }\n      ... on AccountOwned {\n        account {\n          ...AccountFields\n        }\n        addedAt\n      }\n    }\n    isSignless\n    isSponsored\n    appLoggedIn\n    limit {\n      window\n      allowanceLeft\n      allowanceUsed\n      allowance\n    }\n  }\n}"): typeof import('./graphql').MeDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query Notifications($request: NotificationRequest!) {\n  notifications(request: $request) {\n    items {\n      ... on CommentNotification {\n        ...CommentNotificationFields\n      }\n      ... on FollowNotification {\n        ...FollowNotificationFields\n      }\n      ... on MentionNotification {\n        ...MentionNotificationFields\n      }\n      ... on QuoteNotification {\n        ...QuoteNotificationFields\n      }\n      ... on ReactionNotification {\n        ...ReactionNotificationFields\n      }\n      ... on RepostNotification {\n        ...RepostNotificationFields\n      }\n    }\n    pageInfo {\n      next\n    }\n  }\n}"): typeof import('./graphql').NotificationsDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

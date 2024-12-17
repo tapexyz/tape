@@ -5802,6 +5802,42 @@ export type GroupFieldsFragment = { __typename?: 'Group', address: any, timestam
 
 export type MetadataAttributeFieldsFragment = { __typename?: 'MetadataAttribute', type: MetadataAttributeType, key: string, value: string } & { ' $fragmentName'?: 'MetadataAttributeFieldsFragment' };
 
+export type CommentNotificationFieldsFragment = { __typename?: 'CommentNotification', id: any, comment: (
+    { __typename?: 'Post' }
+    & { ' $fragmentRefs'?: { 'PostFieldsFragment': PostFieldsFragment } }
+  ) } & { ' $fragmentName'?: 'CommentNotificationFieldsFragment' };
+
+export type FollowNotificationFieldsFragment = { __typename?: 'FollowNotification', id: any, followers: Array<{ __typename?: 'NotificationAccountFollow', account: (
+      { __typename?: 'Account' }
+      & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
+    ) }> } & { ' $fragmentName'?: 'FollowNotificationFieldsFragment' };
+
+export type MentionNotificationFieldsFragment = { __typename?: 'MentionNotification', id: any, post: (
+    { __typename?: 'Post' }
+    & { ' $fragmentRefs'?: { 'PostFieldsFragment': PostFieldsFragment } }
+  ) } & { ' $fragmentName'?: 'MentionNotificationFieldsFragment' };
+
+export type QuoteNotificationFieldsFragment = { __typename?: 'QuoteNotification', id: any, quote: (
+    { __typename?: 'Post' }
+    & { ' $fragmentRefs'?: { 'PostFieldsFragment': PostFieldsFragment } }
+  ) } & { ' $fragmentName'?: 'QuoteNotificationFieldsFragment' };
+
+export type ReactionNotificationFieldsFragment = { __typename?: 'ReactionNotification', id: any, post: (
+    { __typename?: 'Post' }
+    & { ' $fragmentRefs'?: { 'PostFieldsFragment': PostFieldsFragment } }
+  ), reactions: Array<{ __typename?: 'NotificationAccountPostReaction', account: (
+      { __typename?: 'Account' }
+      & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
+    ) }> } & { ' $fragmentName'?: 'ReactionNotificationFieldsFragment' };
+
+export type RepostNotificationFieldsFragment = { __typename?: 'RepostNotification', id: any, post: (
+    { __typename?: 'Post' }
+    & { ' $fragmentRefs'?: { 'PostFieldsFragment': PostFieldsFragment } }
+  ), reposts: Array<{ __typename?: 'NotificationAccountRepost', repostedAt: any, account: (
+      { __typename?: 'Account' }
+      & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
+    ) }> } & { ' $fragmentName'?: 'RepostNotificationFieldsFragment' };
+
 export type MediaAudioFieldsFragment = { __typename?: 'MediaAudio', artist?: any | null, item: any, cover?: any | null, license?: MetadataLicenseType | null } & { ' $fragmentName'?: 'MediaAudioFieldsFragment' };
 
 type MediaFields_MediaAudio_Fragment = (
@@ -6252,6 +6288,31 @@ export type MeQuery = { __typename?: 'Query', me: { __typename?: 'MeResult', isS
         { __typename?: 'Account' }
         & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
       ) }, limit: { __typename?: 'SponsorshipAllowance', window: SponsorLimitType, allowanceLeft: number, allowanceUsed: number, allowance: number } } };
+
+export type NotificationsQueryVariables = Exact<{
+  request: NotificationRequest;
+}>;
+
+
+export type NotificationsQuery = { __typename?: 'Query', notifications: { __typename?: 'PaginatedNotificationResult', items: Array<(
+      { __typename?: 'CommentNotification' }
+      & { ' $fragmentRefs'?: { 'CommentNotificationFieldsFragment': CommentNotificationFieldsFragment } }
+    ) | (
+      { __typename?: 'FollowNotification' }
+      & { ' $fragmentRefs'?: { 'FollowNotificationFieldsFragment': FollowNotificationFieldsFragment } }
+    ) | (
+      { __typename?: 'MentionNotification' }
+      & { ' $fragmentRefs'?: { 'MentionNotificationFieldsFragment': MentionNotificationFieldsFragment } }
+    ) | (
+      { __typename?: 'QuoteNotification' }
+      & { ' $fragmentRefs'?: { 'QuoteNotificationFieldsFragment': QuoteNotificationFieldsFragment } }
+    ) | (
+      { __typename?: 'ReactionNotification' }
+      & { ' $fragmentRefs'?: { 'ReactionNotificationFieldsFragment': ReactionNotificationFieldsFragment } }
+    ) | (
+      { __typename?: 'RepostNotification' }
+      & { ' $fragmentRefs'?: { 'RepostNotificationFieldsFragment': RepostNotificationFieldsFragment } }
+    )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
 export type UsernamesQueryVariables = Exact<{
   request: UsernamesRequest;
@@ -6909,6 +6970,1175 @@ fragment UsernameFields on Username {
   ownedBy
   timestamp
 }`, {"fragmentName":"PostFields"}) as unknown as TypedDocumentString<PostFieldsFragment, unknown>;
+export const CommentNotificationFieldsFragmentDoc = new TypedDocumentString(`
+    fragment CommentNotificationFields on CommentNotification {
+  id
+  comment {
+    ...PostFields
+  }
+}
+    fragment AccountFields on Account {
+  address
+  score
+  metadata {
+    bio
+    coverPicture
+    id
+    name
+    picture
+    attributes {
+      ...MetadataAttributeFields
+    }
+  }
+  username {
+    ...UsernameFields
+  }
+  operations {
+    ...LoggedInAccountOperationsFields
+  }
+}
+fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
+  id
+  isFollowedByMe
+  isFollowingMe
+  canFollow
+  canUnfollow
+  isMutedByMe
+  isBlockedByMe
+  hasBlockedMe
+  canBlock
+  canUnblock
+  hasReported
+}
+fragment AppFields on App {
+  address
+  defaultFeedAddress
+  graphAddress
+  namespaceAddress
+  sponsorshipAddress
+  treasuryAddress
+  createdAt
+  metadata {
+    description
+    developer
+    logo
+    name
+    platforms
+    privacyPolicy
+    termsOfService
+    url
+  }
+}
+fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}
+fragment MediaAudioFields on MediaAudio {
+  artist
+  item
+  cover
+  license
+}
+fragment MediaFields on AnyMedia {
+  ... on MediaVideo {
+    ...MediaVideoFields
+  }
+  ... on MediaImage {
+    ...MediaImageFields
+  }
+  ... on MediaAudio {
+    ...MediaAudioFields
+  }
+}
+fragment MediaImageFields on MediaImage {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  item
+  license
+}
+fragment MediaVideoFields on MediaVideo {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  cover
+  duration
+  item
+  license
+}
+fragment VideoMetadataFields on VideoMetadata {
+  __typename
+  title
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...MediaFields
+  }
+  video {
+    ...MediaVideoFields
+  }
+}
+fragment PostFields on Post {
+  id
+  author {
+    ...AccountFields
+  }
+  feed {
+    address
+  }
+  isEdited
+  isDeleted
+  timestamp
+  app {
+    ...AppFields
+  }
+  metadata {
+    ...PostMetadataFields
+  }
+  root {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  quoteOf {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  commentOn {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  stats {
+    ...PostStatsFields
+  }
+  operations {
+    canComment
+    canRepost
+    canQuote
+    hasReacted
+    hasReposted {
+      optimistic
+    }
+  }
+}
+fragment PostMetadataFields on PostMetadata {
+  __typename
+  ... on VideoMetadata {
+    ...VideoMetadataFields
+  }
+}
+fragment PostStatsFields on PostStats {
+  bookmarks
+  collects
+  comments
+  quotes
+  reactions
+  reposts
+}
+fragment UsernameFields on Username {
+  id
+  value
+  namespace {
+    address
+    namespace
+    metadata {
+      description
+      id
+    }
+  }
+  localName
+  linkedTo
+  ownedBy
+  timestamp
+}`, {"fragmentName":"CommentNotificationFields"}) as unknown as TypedDocumentString<CommentNotificationFieldsFragment, unknown>;
+export const FollowNotificationFieldsFragmentDoc = new TypedDocumentString(`
+    fragment FollowNotificationFields on FollowNotification {
+  id
+  followers {
+    account {
+      ...AccountFields
+    }
+  }
+}
+    fragment AccountFields on Account {
+  address
+  score
+  metadata {
+    bio
+    coverPicture
+    id
+    name
+    picture
+    attributes {
+      ...MetadataAttributeFields
+    }
+  }
+  username {
+    ...UsernameFields
+  }
+  operations {
+    ...LoggedInAccountOperationsFields
+  }
+}
+fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
+  id
+  isFollowedByMe
+  isFollowingMe
+  canFollow
+  canUnfollow
+  isMutedByMe
+  isBlockedByMe
+  hasBlockedMe
+  canBlock
+  canUnblock
+  hasReported
+}
+fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}
+fragment UsernameFields on Username {
+  id
+  value
+  namespace {
+    address
+    namespace
+    metadata {
+      description
+      id
+    }
+  }
+  localName
+  linkedTo
+  ownedBy
+  timestamp
+}`, {"fragmentName":"FollowNotificationFields"}) as unknown as TypedDocumentString<FollowNotificationFieldsFragment, unknown>;
+export const MentionNotificationFieldsFragmentDoc = new TypedDocumentString(`
+    fragment MentionNotificationFields on MentionNotification {
+  id
+  post {
+    ...PostFields
+  }
+}
+    fragment AccountFields on Account {
+  address
+  score
+  metadata {
+    bio
+    coverPicture
+    id
+    name
+    picture
+    attributes {
+      ...MetadataAttributeFields
+    }
+  }
+  username {
+    ...UsernameFields
+  }
+  operations {
+    ...LoggedInAccountOperationsFields
+  }
+}
+fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
+  id
+  isFollowedByMe
+  isFollowingMe
+  canFollow
+  canUnfollow
+  isMutedByMe
+  isBlockedByMe
+  hasBlockedMe
+  canBlock
+  canUnblock
+  hasReported
+}
+fragment AppFields on App {
+  address
+  defaultFeedAddress
+  graphAddress
+  namespaceAddress
+  sponsorshipAddress
+  treasuryAddress
+  createdAt
+  metadata {
+    description
+    developer
+    logo
+    name
+    platforms
+    privacyPolicy
+    termsOfService
+    url
+  }
+}
+fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}
+fragment MediaAudioFields on MediaAudio {
+  artist
+  item
+  cover
+  license
+}
+fragment MediaFields on AnyMedia {
+  ... on MediaVideo {
+    ...MediaVideoFields
+  }
+  ... on MediaImage {
+    ...MediaImageFields
+  }
+  ... on MediaAudio {
+    ...MediaAudioFields
+  }
+}
+fragment MediaImageFields on MediaImage {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  item
+  license
+}
+fragment MediaVideoFields on MediaVideo {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  cover
+  duration
+  item
+  license
+}
+fragment VideoMetadataFields on VideoMetadata {
+  __typename
+  title
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...MediaFields
+  }
+  video {
+    ...MediaVideoFields
+  }
+}
+fragment PostFields on Post {
+  id
+  author {
+    ...AccountFields
+  }
+  feed {
+    address
+  }
+  isEdited
+  isDeleted
+  timestamp
+  app {
+    ...AppFields
+  }
+  metadata {
+    ...PostMetadataFields
+  }
+  root {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  quoteOf {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  commentOn {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  stats {
+    ...PostStatsFields
+  }
+  operations {
+    canComment
+    canRepost
+    canQuote
+    hasReacted
+    hasReposted {
+      optimistic
+    }
+  }
+}
+fragment PostMetadataFields on PostMetadata {
+  __typename
+  ... on VideoMetadata {
+    ...VideoMetadataFields
+  }
+}
+fragment PostStatsFields on PostStats {
+  bookmarks
+  collects
+  comments
+  quotes
+  reactions
+  reposts
+}
+fragment UsernameFields on Username {
+  id
+  value
+  namespace {
+    address
+    namespace
+    metadata {
+      description
+      id
+    }
+  }
+  localName
+  linkedTo
+  ownedBy
+  timestamp
+}`, {"fragmentName":"MentionNotificationFields"}) as unknown as TypedDocumentString<MentionNotificationFieldsFragment, unknown>;
+export const QuoteNotificationFieldsFragmentDoc = new TypedDocumentString(`
+    fragment QuoteNotificationFields on QuoteNotification {
+  id
+  quote {
+    ...PostFields
+  }
+}
+    fragment AccountFields on Account {
+  address
+  score
+  metadata {
+    bio
+    coverPicture
+    id
+    name
+    picture
+    attributes {
+      ...MetadataAttributeFields
+    }
+  }
+  username {
+    ...UsernameFields
+  }
+  operations {
+    ...LoggedInAccountOperationsFields
+  }
+}
+fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
+  id
+  isFollowedByMe
+  isFollowingMe
+  canFollow
+  canUnfollow
+  isMutedByMe
+  isBlockedByMe
+  hasBlockedMe
+  canBlock
+  canUnblock
+  hasReported
+}
+fragment AppFields on App {
+  address
+  defaultFeedAddress
+  graphAddress
+  namespaceAddress
+  sponsorshipAddress
+  treasuryAddress
+  createdAt
+  metadata {
+    description
+    developer
+    logo
+    name
+    platforms
+    privacyPolicy
+    termsOfService
+    url
+  }
+}
+fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}
+fragment MediaAudioFields on MediaAudio {
+  artist
+  item
+  cover
+  license
+}
+fragment MediaFields on AnyMedia {
+  ... on MediaVideo {
+    ...MediaVideoFields
+  }
+  ... on MediaImage {
+    ...MediaImageFields
+  }
+  ... on MediaAudio {
+    ...MediaAudioFields
+  }
+}
+fragment MediaImageFields on MediaImage {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  item
+  license
+}
+fragment MediaVideoFields on MediaVideo {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  cover
+  duration
+  item
+  license
+}
+fragment VideoMetadataFields on VideoMetadata {
+  __typename
+  title
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...MediaFields
+  }
+  video {
+    ...MediaVideoFields
+  }
+}
+fragment PostFields on Post {
+  id
+  author {
+    ...AccountFields
+  }
+  feed {
+    address
+  }
+  isEdited
+  isDeleted
+  timestamp
+  app {
+    ...AppFields
+  }
+  metadata {
+    ...PostMetadataFields
+  }
+  root {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  quoteOf {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  commentOn {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  stats {
+    ...PostStatsFields
+  }
+  operations {
+    canComment
+    canRepost
+    canQuote
+    hasReacted
+    hasReposted {
+      optimistic
+    }
+  }
+}
+fragment PostMetadataFields on PostMetadata {
+  __typename
+  ... on VideoMetadata {
+    ...VideoMetadataFields
+  }
+}
+fragment PostStatsFields on PostStats {
+  bookmarks
+  collects
+  comments
+  quotes
+  reactions
+  reposts
+}
+fragment UsernameFields on Username {
+  id
+  value
+  namespace {
+    address
+    namespace
+    metadata {
+      description
+      id
+    }
+  }
+  localName
+  linkedTo
+  ownedBy
+  timestamp
+}`, {"fragmentName":"QuoteNotificationFields"}) as unknown as TypedDocumentString<QuoteNotificationFieldsFragment, unknown>;
+export const ReactionNotificationFieldsFragmentDoc = new TypedDocumentString(`
+    fragment ReactionNotificationFields on ReactionNotification {
+  id
+  post {
+    ...PostFields
+  }
+  reactions {
+    account {
+      ...AccountFields
+    }
+  }
+}
+    fragment AccountFields on Account {
+  address
+  score
+  metadata {
+    bio
+    coverPicture
+    id
+    name
+    picture
+    attributes {
+      ...MetadataAttributeFields
+    }
+  }
+  username {
+    ...UsernameFields
+  }
+  operations {
+    ...LoggedInAccountOperationsFields
+  }
+}
+fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
+  id
+  isFollowedByMe
+  isFollowingMe
+  canFollow
+  canUnfollow
+  isMutedByMe
+  isBlockedByMe
+  hasBlockedMe
+  canBlock
+  canUnblock
+  hasReported
+}
+fragment AppFields on App {
+  address
+  defaultFeedAddress
+  graphAddress
+  namespaceAddress
+  sponsorshipAddress
+  treasuryAddress
+  createdAt
+  metadata {
+    description
+    developer
+    logo
+    name
+    platforms
+    privacyPolicy
+    termsOfService
+    url
+  }
+}
+fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}
+fragment MediaAudioFields on MediaAudio {
+  artist
+  item
+  cover
+  license
+}
+fragment MediaFields on AnyMedia {
+  ... on MediaVideo {
+    ...MediaVideoFields
+  }
+  ... on MediaImage {
+    ...MediaImageFields
+  }
+  ... on MediaAudio {
+    ...MediaAudioFields
+  }
+}
+fragment MediaImageFields on MediaImage {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  item
+  license
+}
+fragment MediaVideoFields on MediaVideo {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  cover
+  duration
+  item
+  license
+}
+fragment VideoMetadataFields on VideoMetadata {
+  __typename
+  title
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...MediaFields
+  }
+  video {
+    ...MediaVideoFields
+  }
+}
+fragment PostFields on Post {
+  id
+  author {
+    ...AccountFields
+  }
+  feed {
+    address
+  }
+  isEdited
+  isDeleted
+  timestamp
+  app {
+    ...AppFields
+  }
+  metadata {
+    ...PostMetadataFields
+  }
+  root {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  quoteOf {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  commentOn {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  stats {
+    ...PostStatsFields
+  }
+  operations {
+    canComment
+    canRepost
+    canQuote
+    hasReacted
+    hasReposted {
+      optimistic
+    }
+  }
+}
+fragment PostMetadataFields on PostMetadata {
+  __typename
+  ... on VideoMetadata {
+    ...VideoMetadataFields
+  }
+}
+fragment PostStatsFields on PostStats {
+  bookmarks
+  collects
+  comments
+  quotes
+  reactions
+  reposts
+}
+fragment UsernameFields on Username {
+  id
+  value
+  namespace {
+    address
+    namespace
+    metadata {
+      description
+      id
+    }
+  }
+  localName
+  linkedTo
+  ownedBy
+  timestamp
+}`, {"fragmentName":"ReactionNotificationFields"}) as unknown as TypedDocumentString<ReactionNotificationFieldsFragment, unknown>;
+export const RepostNotificationFieldsFragmentDoc = new TypedDocumentString(`
+    fragment RepostNotificationFields on RepostNotification {
+  id
+  post {
+    ...PostFields
+  }
+  reposts {
+    account {
+      ...AccountFields
+    }
+    repostedAt
+  }
+}
+    fragment AccountFields on Account {
+  address
+  score
+  metadata {
+    bio
+    coverPicture
+    id
+    name
+    picture
+    attributes {
+      ...MetadataAttributeFields
+    }
+  }
+  username {
+    ...UsernameFields
+  }
+  operations {
+    ...LoggedInAccountOperationsFields
+  }
+}
+fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
+  id
+  isFollowedByMe
+  isFollowingMe
+  canFollow
+  canUnfollow
+  isMutedByMe
+  isBlockedByMe
+  hasBlockedMe
+  canBlock
+  canUnblock
+  hasReported
+}
+fragment AppFields on App {
+  address
+  defaultFeedAddress
+  graphAddress
+  namespaceAddress
+  sponsorshipAddress
+  treasuryAddress
+  createdAt
+  metadata {
+    description
+    developer
+    logo
+    name
+    platforms
+    privacyPolicy
+    termsOfService
+    url
+  }
+}
+fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}
+fragment MediaAudioFields on MediaAudio {
+  artist
+  item
+  cover
+  license
+}
+fragment MediaFields on AnyMedia {
+  ... on MediaVideo {
+    ...MediaVideoFields
+  }
+  ... on MediaImage {
+    ...MediaImageFields
+  }
+  ... on MediaAudio {
+    ...MediaAudioFields
+  }
+}
+fragment MediaImageFields on MediaImage {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  item
+  license
+}
+fragment MediaVideoFields on MediaVideo {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  cover
+  duration
+  item
+  license
+}
+fragment VideoMetadataFields on VideoMetadata {
+  __typename
+  title
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...MediaFields
+  }
+  video {
+    ...MediaVideoFields
+  }
+}
+fragment PostFields on Post {
+  id
+  author {
+    ...AccountFields
+  }
+  feed {
+    address
+  }
+  isEdited
+  isDeleted
+  timestamp
+  app {
+    ...AppFields
+  }
+  metadata {
+    ...PostMetadataFields
+  }
+  root {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  quoteOf {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  commentOn {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  stats {
+    ...PostStatsFields
+  }
+  operations {
+    canComment
+    canRepost
+    canQuote
+    hasReacted
+    hasReposted {
+      optimistic
+    }
+  }
+}
+fragment PostMetadataFields on PostMetadata {
+  __typename
+  ... on VideoMetadata {
+    ...VideoMetadataFields
+  }
+}
+fragment PostStatsFields on PostStats {
+  bookmarks
+  collects
+  comments
+  quotes
+  reactions
+  reposts
+}
+fragment UsernameFields on Username {
+  id
+  value
+  namespace {
+    address
+    namespace
+    metadata {
+      description
+      id
+    }
+  }
+  localName
+  linkedTo
+  ownedBy
+  timestamp
+}`, {"fragmentName":"RepostNotificationFields"}) as unknown as TypedDocumentString<RepostNotificationFieldsFragment, unknown>;
 export const RepostFieldsFragmentDoc = new TypedDocumentString(`
     fragment RepostFields on Repost {
   id
@@ -7893,6 +9123,295 @@ fragment UsernameFields on Username {
   ownedBy
   timestamp
 }`) as unknown as TypedDocumentString<MeQuery, MeQueryVariables>;
+export const NotificationsDocument = new TypedDocumentString(`
+    query Notifications($request: NotificationRequest!) {
+  notifications(request: $request) {
+    items {
+      ... on CommentNotification {
+        ...CommentNotificationFields
+      }
+      ... on FollowNotification {
+        ...FollowNotificationFields
+      }
+      ... on MentionNotification {
+        ...MentionNotificationFields
+      }
+      ... on QuoteNotification {
+        ...QuoteNotificationFields
+      }
+      ... on ReactionNotification {
+        ...ReactionNotificationFields
+      }
+      ... on RepostNotification {
+        ...RepostNotificationFields
+      }
+    }
+    pageInfo {
+      next
+    }
+  }
+}
+    fragment AccountFields on Account {
+  address
+  score
+  metadata {
+    bio
+    coverPicture
+    id
+    name
+    picture
+    attributes {
+      ...MetadataAttributeFields
+    }
+  }
+  username {
+    ...UsernameFields
+  }
+  operations {
+    ...LoggedInAccountOperationsFields
+  }
+}
+fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
+  id
+  isFollowedByMe
+  isFollowingMe
+  canFollow
+  canUnfollow
+  isMutedByMe
+  isBlockedByMe
+  hasBlockedMe
+  canBlock
+  canUnblock
+  hasReported
+}
+fragment AppFields on App {
+  address
+  defaultFeedAddress
+  graphAddress
+  namespaceAddress
+  sponsorshipAddress
+  treasuryAddress
+  createdAt
+  metadata {
+    description
+    developer
+    logo
+    name
+    platforms
+    privacyPolicy
+    termsOfService
+    url
+  }
+}
+fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}
+fragment CommentNotificationFields on CommentNotification {
+  id
+  comment {
+    ...PostFields
+  }
+}
+fragment FollowNotificationFields on FollowNotification {
+  id
+  followers {
+    account {
+      ...AccountFields
+    }
+  }
+}
+fragment MentionNotificationFields on MentionNotification {
+  id
+  post {
+    ...PostFields
+  }
+}
+fragment QuoteNotificationFields on QuoteNotification {
+  id
+  quote {
+    ...PostFields
+  }
+}
+fragment ReactionNotificationFields on ReactionNotification {
+  id
+  post {
+    ...PostFields
+  }
+  reactions {
+    account {
+      ...AccountFields
+    }
+  }
+}
+fragment RepostNotificationFields on RepostNotification {
+  id
+  post {
+    ...PostFields
+  }
+  reposts {
+    account {
+      ...AccountFields
+    }
+    repostedAt
+  }
+}
+fragment MediaAudioFields on MediaAudio {
+  artist
+  item
+  cover
+  license
+}
+fragment MediaFields on AnyMedia {
+  ... on MediaVideo {
+    ...MediaVideoFields
+  }
+  ... on MediaImage {
+    ...MediaImageFields
+  }
+  ... on MediaAudio {
+    ...MediaAudioFields
+  }
+}
+fragment MediaImageFields on MediaImage {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  item
+  license
+}
+fragment MediaVideoFields on MediaVideo {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  cover
+  duration
+  item
+  license
+}
+fragment VideoMetadataFields on VideoMetadata {
+  __typename
+  title
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...MediaFields
+  }
+  video {
+    ...MediaVideoFields
+  }
+}
+fragment PostFields on Post {
+  id
+  author {
+    ...AccountFields
+  }
+  feed {
+    address
+  }
+  isEdited
+  isDeleted
+  timestamp
+  app {
+    ...AppFields
+  }
+  metadata {
+    ...PostMetadataFields
+  }
+  root {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  quoteOf {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  commentOn {
+    ... on Post {
+      id
+      author {
+        ...AccountFields
+      }
+      timestamp
+      metadata {
+        ...PostMetadataFields
+      }
+    }
+    ... on PostReference {
+      id
+    }
+  }
+  stats {
+    ...PostStatsFields
+  }
+  operations {
+    canComment
+    canRepost
+    canQuote
+    hasReacted
+    hasReposted {
+      optimistic
+    }
+  }
+}
+fragment PostMetadataFields on PostMetadata {
+  __typename
+  ... on VideoMetadata {
+    ...VideoMetadataFields
+  }
+}
+fragment PostStatsFields on PostStats {
+  bookmarks
+  collects
+  comments
+  quotes
+  reactions
+  reposts
+}
+fragment UsernameFields on Username {
+  id
+  value
+  namespace {
+    address
+    namespace
+    metadata {
+      description
+      id
+    }
+  }
+  localName
+  linkedTo
+  ownedBy
+  timestamp
+}`) as unknown as TypedDocumentString<NotificationsQuery, NotificationsQueryVariables>;
 export const UsernamesDocument = new TypedDocumentString(`
     query Usernames($request: UsernamesRequest!) {
   usernames(request: $request) {
