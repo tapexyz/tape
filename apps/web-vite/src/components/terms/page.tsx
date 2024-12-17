@@ -11,7 +11,7 @@ export const TermsPage = () => {
           <p className="mt-4 text-muted">Effective on Oct 31, 2023</p>
         </div>
       </div>
-      <div className="prose-sm md:prose dark:prose-invert mx-auto prose-a:font-semibold prose-a:text-primary hover:prose-a:underline">
+      <div className="prose-sm md:prose dark:prose-invert mx-auto prose-a:font-medium prose-a:text-primary hover:prose-a:underline">
         <h2>1. Overview</h2>
         <p>
           The website tape.xyz (the “Site”) provides tools, services, and

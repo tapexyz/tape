@@ -17,7 +17,7 @@ export const LeftSection = memo(() => {
       <ThemeSwitcher />
       <Button
         variant="secondary"
-        className="hidden p-0 font-semibold text-sm backdrop-blur-3xl lg:block"
+        className="hidden p-0 font-medium text-sm backdrop-blur-3xl lg:block"
       >
         <div className="inline-flex items-center">
           <Link

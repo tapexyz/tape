@@ -11,28 +11,29 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as LayoutImport } from './routes/_layout'
+import { Route as LayoutHocImport } from './routes/_layout-hoc'
 import { Route as WinderIndexImport } from './routes/winder/index'
 import { Route as SignInIndexImport } from './routes/sign-in/index'
 import { Route as OpenIndexImport } from './routes/open/index'
 import { Route as EmbedPostIdImport } from './routes/embed/$postId'
-import { Route as LayoutHomeImport } from './routes/_layout/_home'
-import { Route as LayoutTermsIndexImport } from './routes/_layout/terms/index'
-import { Route as LayoutSettingsIndexImport } from './routes/_layout/settings/index'
-import { Route as LayoutPrivacyIndexImport } from './routes/_layout/privacy/index'
-import { Route as LayoutModIndexImport } from './routes/_layout/mod/index'
-import { Route as LayoutFeedIndexImport } from './routes/_layout/feed/index'
-import { Route as LayoutCreateIndexImport } from './routes/_layout/create/index'
-import { Route as LayoutHomeIndexImport } from './routes/_layout/_home/index'
-import { Route as LayoutWatchPostIdImport } from './routes/_layout/watch/$postId'
-import { Route as LayoutUHandleImport } from './routes/_layout/u/$handle'
-import { Route as LayoutHomeFollowingImport } from './routes/_layout/_home/following'
-import { Route as LayoutHomeExploreImport } from './routes/_layout/_home/explore'
+import { Route as LayoutHocSettingsHocImport } from './routes/_layout-hoc/_settings-hoc'
+import { Route as LayoutHocHomeHocImport } from './routes/_layout-hoc/_home-hoc'
+import { Route as LayoutHocTermsIndexImport } from './routes/_layout-hoc/terms/index'
+import { Route as LayoutHocPrivacyIndexImport } from './routes/_layout-hoc/privacy/index'
+import { Route as LayoutHocModIndexImport } from './routes/_layout-hoc/mod/index'
+import { Route as LayoutHocFeedIndexImport } from './routes/_layout-hoc/feed/index'
+import { Route as LayoutHocCreateIndexImport } from './routes/_layout-hoc/create/index'
+import { Route as LayoutHocHomeHocIndexImport } from './routes/_layout-hoc/_home-hoc/index'
+import { Route as LayoutHocWatchPostIdImport } from './routes/_layout-hoc/watch/$postId'
+import { Route as LayoutHocUHandleImport } from './routes/_layout-hoc/u/$handle'
+import { Route as LayoutHocHomeHocFollowingImport } from './routes/_layout-hoc/_home-hoc/following'
+import { Route as LayoutHocHomeHocExploreImport } from './routes/_layout-hoc/_home-hoc/explore'
+import { Route as LayoutHocSettingsHocSettingsMeImport } from './routes/_layout-hoc/_settings-hoc/settings/me'
 
 // Create/Update Routes
 
-const LayoutRoute = LayoutImport.update({
-  id: '/_layout',
+const LayoutHocRoute = LayoutHocImport.update({
+  id: '/_layout-hoc',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -60,94 +61,107 @@ const EmbedPostIdRoute = EmbedPostIdImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const LayoutHomeRoute = LayoutHomeImport.update({
-  id: '/_home',
-  getParentRoute: () => LayoutRoute,
+const LayoutHocSettingsHocRoute = LayoutHocSettingsHocImport.update({
+  id: '/_settings-hoc',
+  getParentRoute: () => LayoutHocRoute,
 } as any)
 
-const LayoutTermsIndexRoute = LayoutTermsIndexImport.update({
+const LayoutHocHomeHocRoute = LayoutHocHomeHocImport.update({
+  id: '/_home-hoc',
+  getParentRoute: () => LayoutHocRoute,
+} as any)
+
+const LayoutHocTermsIndexRoute = LayoutHocTermsIndexImport.update({
   id: '/terms/',
   path: '/terms/',
-  getParentRoute: () => LayoutRoute,
+  getParentRoute: () => LayoutHocRoute,
 } as any)
 
-const LayoutSettingsIndexRoute = LayoutSettingsIndexImport.update({
-  id: '/settings/',
-  path: '/settings/',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
-const LayoutPrivacyIndexRoute = LayoutPrivacyIndexImport.update({
+const LayoutHocPrivacyIndexRoute = LayoutHocPrivacyIndexImport.update({
   id: '/privacy/',
   path: '/privacy/',
-  getParentRoute: () => LayoutRoute,
+  getParentRoute: () => LayoutHocRoute,
 } as any)
 
-const LayoutModIndexRoute = LayoutModIndexImport.update({
+const LayoutHocModIndexRoute = LayoutHocModIndexImport.update({
   id: '/mod/',
   path: '/mod/',
-  getParentRoute: () => LayoutRoute,
+  getParentRoute: () => LayoutHocRoute,
 } as any)
 
-const LayoutFeedIndexRoute = LayoutFeedIndexImport.update({
+const LayoutHocFeedIndexRoute = LayoutHocFeedIndexImport.update({
   id: '/feed/',
   path: '/feed/',
-  getParentRoute: () => LayoutRoute,
+  getParentRoute: () => LayoutHocRoute,
 } as any)
 
-const LayoutCreateIndexRoute = LayoutCreateIndexImport.update({
+const LayoutHocCreateIndexRoute = LayoutHocCreateIndexImport.update({
   id: '/create/',
   path: '/create/',
-  getParentRoute: () => LayoutRoute,
+  getParentRoute: () => LayoutHocRoute,
 } as any)
 
-const LayoutHomeIndexRoute = LayoutHomeIndexImport.update({
+const LayoutHocHomeHocIndexRoute = LayoutHocHomeHocIndexImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => LayoutHomeRoute,
+  getParentRoute: () => LayoutHocHomeHocRoute,
 } as any)
 
-const LayoutWatchPostIdRoute = LayoutWatchPostIdImport.update({
+const LayoutHocWatchPostIdRoute = LayoutHocWatchPostIdImport.update({
   id: '/watch/$postId',
   path: '/watch/$postId',
-  getParentRoute: () => LayoutRoute,
+  getParentRoute: () => LayoutHocRoute,
 } as any)
 
-const LayoutUHandleRoute = LayoutUHandleImport.update({
+const LayoutHocUHandleRoute = LayoutHocUHandleImport.update({
   id: '/u/$handle',
   path: '/u/$handle',
-  getParentRoute: () => LayoutRoute,
+  getParentRoute: () => LayoutHocRoute,
 } as any)
 
-const LayoutHomeFollowingRoute = LayoutHomeFollowingImport.update({
+const LayoutHocHomeHocFollowingRoute = LayoutHocHomeHocFollowingImport.update({
   id: '/following',
   path: '/following',
-  getParentRoute: () => LayoutHomeRoute,
+  getParentRoute: () => LayoutHocHomeHocRoute,
 } as any)
 
-const LayoutHomeExploreRoute = LayoutHomeExploreImport.update({
+const LayoutHocHomeHocExploreRoute = LayoutHocHomeHocExploreImport.update({
   id: '/explore',
   path: '/explore',
-  getParentRoute: () => LayoutHomeRoute,
+  getParentRoute: () => LayoutHocHomeHocRoute,
 } as any)
+
+const LayoutHocSettingsHocSettingsMeRoute =
+  LayoutHocSettingsHocSettingsMeImport.update({
+    id: '/settings/me',
+    path: '/settings/me',
+    getParentRoute: () => LayoutHocSettingsHocRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/_layout': {
-      id: '/_layout'
+    '/_layout-hoc': {
+      id: '/_layout-hoc'
       path: ''
       fullPath: ''
-      preLoaderRoute: typeof LayoutImport
+      preLoaderRoute: typeof LayoutHocImport
       parentRoute: typeof rootRoute
     }
-    '/_layout/_home': {
-      id: '/_layout/_home'
+    '/_layout-hoc/_home-hoc': {
+      id: '/_layout-hoc/_home-hoc'
       path: ''
       fullPath: ''
-      preLoaderRoute: typeof LayoutHomeImport
-      parentRoute: typeof LayoutImport
+      preLoaderRoute: typeof LayoutHocHomeHocImport
+      parentRoute: typeof LayoutHocImport
+    }
+    '/_layout-hoc/_settings-hoc': {
+      id: '/_layout-hoc/_settings-hoc'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof LayoutHocSettingsHocImport
+      parentRoute: typeof LayoutHocImport
     }
     '/embed/$postId': {
       id: '/embed/$postId'
@@ -177,188 +191,200 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WinderIndexImport
       parentRoute: typeof rootRoute
     }
-    '/_layout/_home/explore': {
-      id: '/_layout/_home/explore'
+    '/_layout-hoc/_home-hoc/explore': {
+      id: '/_layout-hoc/_home-hoc/explore'
       path: '/explore'
       fullPath: '/explore'
-      preLoaderRoute: typeof LayoutHomeExploreImport
-      parentRoute: typeof LayoutHomeImport
+      preLoaderRoute: typeof LayoutHocHomeHocExploreImport
+      parentRoute: typeof LayoutHocHomeHocImport
     }
-    '/_layout/_home/following': {
-      id: '/_layout/_home/following'
+    '/_layout-hoc/_home-hoc/following': {
+      id: '/_layout-hoc/_home-hoc/following'
       path: '/following'
       fullPath: '/following'
-      preLoaderRoute: typeof LayoutHomeFollowingImport
-      parentRoute: typeof LayoutHomeImport
+      preLoaderRoute: typeof LayoutHocHomeHocFollowingImport
+      parentRoute: typeof LayoutHocHomeHocImport
     }
-    '/_layout/u/$handle': {
-      id: '/_layout/u/$handle'
+    '/_layout-hoc/u/$handle': {
+      id: '/_layout-hoc/u/$handle'
       path: '/u/$handle'
       fullPath: '/u/$handle'
-      preLoaderRoute: typeof LayoutUHandleImport
-      parentRoute: typeof LayoutImport
+      preLoaderRoute: typeof LayoutHocUHandleImport
+      parentRoute: typeof LayoutHocImport
     }
-    '/_layout/watch/$postId': {
-      id: '/_layout/watch/$postId'
+    '/_layout-hoc/watch/$postId': {
+      id: '/_layout-hoc/watch/$postId'
       path: '/watch/$postId'
       fullPath: '/watch/$postId'
-      preLoaderRoute: typeof LayoutWatchPostIdImport
-      parentRoute: typeof LayoutImport
+      preLoaderRoute: typeof LayoutHocWatchPostIdImport
+      parentRoute: typeof LayoutHocImport
     }
-    '/_layout/_home/': {
-      id: '/_layout/_home/'
+    '/_layout-hoc/_home-hoc/': {
+      id: '/_layout-hoc/_home-hoc/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof LayoutHomeIndexImport
-      parentRoute: typeof LayoutHomeImport
+      preLoaderRoute: typeof LayoutHocHomeHocIndexImport
+      parentRoute: typeof LayoutHocHomeHocImport
     }
-    '/_layout/create/': {
-      id: '/_layout/create/'
+    '/_layout-hoc/create/': {
+      id: '/_layout-hoc/create/'
       path: '/create'
       fullPath: '/create'
-      preLoaderRoute: typeof LayoutCreateIndexImport
-      parentRoute: typeof LayoutImport
+      preLoaderRoute: typeof LayoutHocCreateIndexImport
+      parentRoute: typeof LayoutHocImport
     }
-    '/_layout/feed/': {
-      id: '/_layout/feed/'
+    '/_layout-hoc/feed/': {
+      id: '/_layout-hoc/feed/'
       path: '/feed'
       fullPath: '/feed'
-      preLoaderRoute: typeof LayoutFeedIndexImport
-      parentRoute: typeof LayoutImport
+      preLoaderRoute: typeof LayoutHocFeedIndexImport
+      parentRoute: typeof LayoutHocImport
     }
-    '/_layout/mod/': {
-      id: '/_layout/mod/'
+    '/_layout-hoc/mod/': {
+      id: '/_layout-hoc/mod/'
       path: '/mod'
       fullPath: '/mod'
-      preLoaderRoute: typeof LayoutModIndexImport
-      parentRoute: typeof LayoutImport
+      preLoaderRoute: typeof LayoutHocModIndexImport
+      parentRoute: typeof LayoutHocImport
     }
-    '/_layout/privacy/': {
-      id: '/_layout/privacy/'
+    '/_layout-hoc/privacy/': {
+      id: '/_layout-hoc/privacy/'
       path: '/privacy'
       fullPath: '/privacy'
-      preLoaderRoute: typeof LayoutPrivacyIndexImport
-      parentRoute: typeof LayoutImport
+      preLoaderRoute: typeof LayoutHocPrivacyIndexImport
+      parentRoute: typeof LayoutHocImport
     }
-    '/_layout/settings/': {
-      id: '/_layout/settings/'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof LayoutSettingsIndexImport
-      parentRoute: typeof LayoutImport
-    }
-    '/_layout/terms/': {
-      id: '/_layout/terms/'
+    '/_layout-hoc/terms/': {
+      id: '/_layout-hoc/terms/'
       path: '/terms'
       fullPath: '/terms'
-      preLoaderRoute: typeof LayoutTermsIndexImport
-      parentRoute: typeof LayoutImport
+      preLoaderRoute: typeof LayoutHocTermsIndexImport
+      parentRoute: typeof LayoutHocImport
+    }
+    '/_layout-hoc/_settings-hoc/settings/me': {
+      id: '/_layout-hoc/_settings-hoc/settings/me'
+      path: '/settings/me'
+      fullPath: '/settings/me'
+      preLoaderRoute: typeof LayoutHocSettingsHocSettingsMeImport
+      parentRoute: typeof LayoutHocSettingsHocImport
     }
   }
 }
 
 // Create and export the route tree
 
-interface LayoutHomeRouteChildren {
-  LayoutHomeExploreRoute: typeof LayoutHomeExploreRoute
-  LayoutHomeFollowingRoute: typeof LayoutHomeFollowingRoute
-  LayoutHomeIndexRoute: typeof LayoutHomeIndexRoute
+interface LayoutHocHomeHocRouteChildren {
+  LayoutHocHomeHocExploreRoute: typeof LayoutHocHomeHocExploreRoute
+  LayoutHocHomeHocFollowingRoute: typeof LayoutHocHomeHocFollowingRoute
+  LayoutHocHomeHocIndexRoute: typeof LayoutHocHomeHocIndexRoute
 }
 
-const LayoutHomeRouteChildren: LayoutHomeRouteChildren = {
-  LayoutHomeExploreRoute: LayoutHomeExploreRoute,
-  LayoutHomeFollowingRoute: LayoutHomeFollowingRoute,
-  LayoutHomeIndexRoute: LayoutHomeIndexRoute,
+const LayoutHocHomeHocRouteChildren: LayoutHocHomeHocRouteChildren = {
+  LayoutHocHomeHocExploreRoute: LayoutHocHomeHocExploreRoute,
+  LayoutHocHomeHocFollowingRoute: LayoutHocHomeHocFollowingRoute,
+  LayoutHocHomeHocIndexRoute: LayoutHocHomeHocIndexRoute,
 }
 
-const LayoutHomeRouteWithChildren = LayoutHomeRoute._addFileChildren(
-  LayoutHomeRouteChildren,
+const LayoutHocHomeHocRouteWithChildren =
+  LayoutHocHomeHocRoute._addFileChildren(LayoutHocHomeHocRouteChildren)
+
+interface LayoutHocSettingsHocRouteChildren {
+  LayoutHocSettingsHocSettingsMeRoute: typeof LayoutHocSettingsHocSettingsMeRoute
+}
+
+const LayoutHocSettingsHocRouteChildren: LayoutHocSettingsHocRouteChildren = {
+  LayoutHocSettingsHocSettingsMeRoute: LayoutHocSettingsHocSettingsMeRoute,
+}
+
+const LayoutHocSettingsHocRouteWithChildren =
+  LayoutHocSettingsHocRoute._addFileChildren(LayoutHocSettingsHocRouteChildren)
+
+interface LayoutHocRouteChildren {
+  LayoutHocHomeHocRoute: typeof LayoutHocHomeHocRouteWithChildren
+  LayoutHocSettingsHocRoute: typeof LayoutHocSettingsHocRouteWithChildren
+  LayoutHocUHandleRoute: typeof LayoutHocUHandleRoute
+  LayoutHocWatchPostIdRoute: typeof LayoutHocWatchPostIdRoute
+  LayoutHocCreateIndexRoute: typeof LayoutHocCreateIndexRoute
+  LayoutHocFeedIndexRoute: typeof LayoutHocFeedIndexRoute
+  LayoutHocModIndexRoute: typeof LayoutHocModIndexRoute
+  LayoutHocPrivacyIndexRoute: typeof LayoutHocPrivacyIndexRoute
+  LayoutHocTermsIndexRoute: typeof LayoutHocTermsIndexRoute
+}
+
+const LayoutHocRouteChildren: LayoutHocRouteChildren = {
+  LayoutHocHomeHocRoute: LayoutHocHomeHocRouteWithChildren,
+  LayoutHocSettingsHocRoute: LayoutHocSettingsHocRouteWithChildren,
+  LayoutHocUHandleRoute: LayoutHocUHandleRoute,
+  LayoutHocWatchPostIdRoute: LayoutHocWatchPostIdRoute,
+  LayoutHocCreateIndexRoute: LayoutHocCreateIndexRoute,
+  LayoutHocFeedIndexRoute: LayoutHocFeedIndexRoute,
+  LayoutHocModIndexRoute: LayoutHocModIndexRoute,
+  LayoutHocPrivacyIndexRoute: LayoutHocPrivacyIndexRoute,
+  LayoutHocTermsIndexRoute: LayoutHocTermsIndexRoute,
+}
+
+const LayoutHocRouteWithChildren = LayoutHocRoute._addFileChildren(
+  LayoutHocRouteChildren,
 )
 
-interface LayoutRouteChildren {
-  LayoutHomeRoute: typeof LayoutHomeRouteWithChildren
-  LayoutUHandleRoute: typeof LayoutUHandleRoute
-  LayoutWatchPostIdRoute: typeof LayoutWatchPostIdRoute
-  LayoutCreateIndexRoute: typeof LayoutCreateIndexRoute
-  LayoutFeedIndexRoute: typeof LayoutFeedIndexRoute
-  LayoutModIndexRoute: typeof LayoutModIndexRoute
-  LayoutPrivacyIndexRoute: typeof LayoutPrivacyIndexRoute
-  LayoutSettingsIndexRoute: typeof LayoutSettingsIndexRoute
-  LayoutTermsIndexRoute: typeof LayoutTermsIndexRoute
-}
-
-const LayoutRouteChildren: LayoutRouteChildren = {
-  LayoutHomeRoute: LayoutHomeRouteWithChildren,
-  LayoutUHandleRoute: LayoutUHandleRoute,
-  LayoutWatchPostIdRoute: LayoutWatchPostIdRoute,
-  LayoutCreateIndexRoute: LayoutCreateIndexRoute,
-  LayoutFeedIndexRoute: LayoutFeedIndexRoute,
-  LayoutModIndexRoute: LayoutModIndexRoute,
-  LayoutPrivacyIndexRoute: LayoutPrivacyIndexRoute,
-  LayoutSettingsIndexRoute: LayoutSettingsIndexRoute,
-  LayoutTermsIndexRoute: LayoutTermsIndexRoute,
-}
-
-const LayoutRouteWithChildren =
-  LayoutRoute._addFileChildren(LayoutRouteChildren)
-
 export interface FileRoutesByFullPath {
-  '': typeof LayoutHomeRouteWithChildren
+  '': typeof LayoutHocSettingsHocRouteWithChildren
   '/embed/$postId': typeof EmbedPostIdRoute
   '/open': typeof OpenIndexRoute
   '/sign-in': typeof SignInIndexRoute
   '/winder': typeof WinderIndexRoute
-  '/explore': typeof LayoutHomeExploreRoute
-  '/following': typeof LayoutHomeFollowingRoute
-  '/u/$handle': typeof LayoutUHandleRoute
-  '/watch/$postId': typeof LayoutWatchPostIdRoute
-  '/': typeof LayoutHomeIndexRoute
-  '/create': typeof LayoutCreateIndexRoute
-  '/feed': typeof LayoutFeedIndexRoute
-  '/mod': typeof LayoutModIndexRoute
-  '/privacy': typeof LayoutPrivacyIndexRoute
-  '/settings': typeof LayoutSettingsIndexRoute
-  '/terms': typeof LayoutTermsIndexRoute
+  '/explore': typeof LayoutHocHomeHocExploreRoute
+  '/following': typeof LayoutHocHomeHocFollowingRoute
+  '/u/$handle': typeof LayoutHocUHandleRoute
+  '/watch/$postId': typeof LayoutHocWatchPostIdRoute
+  '/': typeof LayoutHocHomeHocIndexRoute
+  '/create': typeof LayoutHocCreateIndexRoute
+  '/feed': typeof LayoutHocFeedIndexRoute
+  '/mod': typeof LayoutHocModIndexRoute
+  '/privacy': typeof LayoutHocPrivacyIndexRoute
+  '/terms': typeof LayoutHocTermsIndexRoute
+  '/settings/me': typeof LayoutHocSettingsHocSettingsMeRoute
 }
 
 export interface FileRoutesByTo {
-  '': typeof LayoutRouteWithChildren
+  '': typeof LayoutHocSettingsHocRouteWithChildren
   '/embed/$postId': typeof EmbedPostIdRoute
   '/open': typeof OpenIndexRoute
   '/sign-in': typeof SignInIndexRoute
   '/winder': typeof WinderIndexRoute
-  '/explore': typeof LayoutHomeExploreRoute
-  '/following': typeof LayoutHomeFollowingRoute
-  '/u/$handle': typeof LayoutUHandleRoute
-  '/watch/$postId': typeof LayoutWatchPostIdRoute
-  '/': typeof LayoutHomeIndexRoute
-  '/create': typeof LayoutCreateIndexRoute
-  '/feed': typeof LayoutFeedIndexRoute
-  '/mod': typeof LayoutModIndexRoute
-  '/privacy': typeof LayoutPrivacyIndexRoute
-  '/settings': typeof LayoutSettingsIndexRoute
-  '/terms': typeof LayoutTermsIndexRoute
+  '/explore': typeof LayoutHocHomeHocExploreRoute
+  '/following': typeof LayoutHocHomeHocFollowingRoute
+  '/u/$handle': typeof LayoutHocUHandleRoute
+  '/watch/$postId': typeof LayoutHocWatchPostIdRoute
+  '/': typeof LayoutHocHomeHocIndexRoute
+  '/create': typeof LayoutHocCreateIndexRoute
+  '/feed': typeof LayoutHocFeedIndexRoute
+  '/mod': typeof LayoutHocModIndexRoute
+  '/privacy': typeof LayoutHocPrivacyIndexRoute
+  '/terms': typeof LayoutHocTermsIndexRoute
+  '/settings/me': typeof LayoutHocSettingsHocSettingsMeRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/_layout': typeof LayoutRouteWithChildren
-  '/_layout/_home': typeof LayoutHomeRouteWithChildren
+  '/_layout-hoc': typeof LayoutHocRouteWithChildren
+  '/_layout-hoc/_home-hoc': typeof LayoutHocHomeHocRouteWithChildren
+  '/_layout-hoc/_settings-hoc': typeof LayoutHocSettingsHocRouteWithChildren
   '/embed/$postId': typeof EmbedPostIdRoute
   '/open/': typeof OpenIndexRoute
   '/sign-in/': typeof SignInIndexRoute
   '/winder/': typeof WinderIndexRoute
-  '/_layout/_home/explore': typeof LayoutHomeExploreRoute
-  '/_layout/_home/following': typeof LayoutHomeFollowingRoute
-  '/_layout/u/$handle': typeof LayoutUHandleRoute
-  '/_layout/watch/$postId': typeof LayoutWatchPostIdRoute
-  '/_layout/_home/': typeof LayoutHomeIndexRoute
-  '/_layout/create/': typeof LayoutCreateIndexRoute
-  '/_layout/feed/': typeof LayoutFeedIndexRoute
-  '/_layout/mod/': typeof LayoutModIndexRoute
-  '/_layout/privacy/': typeof LayoutPrivacyIndexRoute
-  '/_layout/settings/': typeof LayoutSettingsIndexRoute
-  '/_layout/terms/': typeof LayoutTermsIndexRoute
+  '/_layout-hoc/_home-hoc/explore': typeof LayoutHocHomeHocExploreRoute
+  '/_layout-hoc/_home-hoc/following': typeof LayoutHocHomeHocFollowingRoute
+  '/_layout-hoc/u/$handle': typeof LayoutHocUHandleRoute
+  '/_layout-hoc/watch/$postId': typeof LayoutHocWatchPostIdRoute
+  '/_layout-hoc/_home-hoc/': typeof LayoutHocHomeHocIndexRoute
+  '/_layout-hoc/create/': typeof LayoutHocCreateIndexRoute
+  '/_layout-hoc/feed/': typeof LayoutHocFeedIndexRoute
+  '/_layout-hoc/mod/': typeof LayoutHocModIndexRoute
+  '/_layout-hoc/privacy/': typeof LayoutHocPrivacyIndexRoute
+  '/_layout-hoc/terms/': typeof LayoutHocTermsIndexRoute
+  '/_layout-hoc/_settings-hoc/settings/me': typeof LayoutHocSettingsHocSettingsMeRoute
 }
 
 export interface FileRouteTypes {
@@ -378,8 +404,8 @@ export interface FileRouteTypes {
     | '/feed'
     | '/mod'
     | '/privacy'
-    | '/settings'
     | '/terms'
+    | '/settings/me'
   fileRoutesByTo: FileRoutesByTo
   to:
     | ''
@@ -396,32 +422,33 @@ export interface FileRouteTypes {
     | '/feed'
     | '/mod'
     | '/privacy'
-    | '/settings'
     | '/terms'
+    | '/settings/me'
   id:
     | '__root__'
-    | '/_layout'
-    | '/_layout/_home'
+    | '/_layout-hoc'
+    | '/_layout-hoc/_home-hoc'
+    | '/_layout-hoc/_settings-hoc'
     | '/embed/$postId'
     | '/open/'
     | '/sign-in/'
     | '/winder/'
-    | '/_layout/_home/explore'
-    | '/_layout/_home/following'
-    | '/_layout/u/$handle'
-    | '/_layout/watch/$postId'
-    | '/_layout/_home/'
-    | '/_layout/create/'
-    | '/_layout/feed/'
-    | '/_layout/mod/'
-    | '/_layout/privacy/'
-    | '/_layout/settings/'
-    | '/_layout/terms/'
+    | '/_layout-hoc/_home-hoc/explore'
+    | '/_layout-hoc/_home-hoc/following'
+    | '/_layout-hoc/u/$handle'
+    | '/_layout-hoc/watch/$postId'
+    | '/_layout-hoc/_home-hoc/'
+    | '/_layout-hoc/create/'
+    | '/_layout-hoc/feed/'
+    | '/_layout-hoc/mod/'
+    | '/_layout-hoc/privacy/'
+    | '/_layout-hoc/terms/'
+    | '/_layout-hoc/_settings-hoc/settings/me'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  LayoutRoute: typeof LayoutRouteWithChildren
+  LayoutHocRoute: typeof LayoutHocRouteWithChildren
   EmbedPostIdRoute: typeof EmbedPostIdRoute
   OpenIndexRoute: typeof OpenIndexRoute
   SignInIndexRoute: typeof SignInIndexRoute
@@ -429,7 +456,7 @@ export interface RootRouteChildren {
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  LayoutRoute: LayoutRouteWithChildren,
+  LayoutHocRoute: LayoutHocRouteWithChildren,
   EmbedPostIdRoute: EmbedPostIdRoute,
   OpenIndexRoute: OpenIndexRoute,
   SignInIndexRoute: SignInIndexRoute,
@@ -446,34 +473,41 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/_layout",
+        "/_layout-hoc",
         "/embed/$postId",
         "/open/",
         "/sign-in/",
         "/winder/"
       ]
     },
-    "/_layout": {
-      "filePath": "_layout.tsx",
+    "/_layout-hoc": {
+      "filePath": "_layout-hoc.tsx",
       "children": [
-        "/_layout/_home",
-        "/_layout/u/$handle",
-        "/_layout/watch/$postId",
-        "/_layout/create/",
-        "/_layout/feed/",
-        "/_layout/mod/",
-        "/_layout/privacy/",
-        "/_layout/settings/",
-        "/_layout/terms/"
+        "/_layout-hoc/_home-hoc",
+        "/_layout-hoc/_settings-hoc",
+        "/_layout-hoc/u/$handle",
+        "/_layout-hoc/watch/$postId",
+        "/_layout-hoc/create/",
+        "/_layout-hoc/feed/",
+        "/_layout-hoc/mod/",
+        "/_layout-hoc/privacy/",
+        "/_layout-hoc/terms/"
       ]
     },
-    "/_layout/_home": {
-      "filePath": "_layout/_home.tsx",
-      "parent": "/_layout",
+    "/_layout-hoc/_home-hoc": {
+      "filePath": "_layout-hoc/_home-hoc.tsx",
+      "parent": "/_layout-hoc",
       "children": [
-        "/_layout/_home/explore",
-        "/_layout/_home/following",
-        "/_layout/_home/"
+        "/_layout-hoc/_home-hoc/explore",
+        "/_layout-hoc/_home-hoc/following",
+        "/_layout-hoc/_home-hoc/"
+      ]
+    },
+    "/_layout-hoc/_settings-hoc": {
+      "filePath": "_layout-hoc/_settings-hoc.tsx",
+      "parent": "/_layout-hoc",
+      "children": [
+        "/_layout-hoc/_settings-hoc/settings/me"
       ]
     },
     "/embed/$postId": {
@@ -488,49 +522,49 @@ export const routeTree = rootRoute
     "/winder/": {
       "filePath": "winder/index.tsx"
     },
-    "/_layout/_home/explore": {
-      "filePath": "_layout/_home/explore.tsx",
-      "parent": "/_layout/_home"
+    "/_layout-hoc/_home-hoc/explore": {
+      "filePath": "_layout-hoc/_home-hoc/explore.tsx",
+      "parent": "/_layout-hoc/_home-hoc"
     },
-    "/_layout/_home/following": {
-      "filePath": "_layout/_home/following.tsx",
-      "parent": "/_layout/_home"
+    "/_layout-hoc/_home-hoc/following": {
+      "filePath": "_layout-hoc/_home-hoc/following.tsx",
+      "parent": "/_layout-hoc/_home-hoc"
     },
-    "/_layout/u/$handle": {
-      "filePath": "_layout/u/$handle.tsx",
-      "parent": "/_layout"
+    "/_layout-hoc/u/$handle": {
+      "filePath": "_layout-hoc/u/$handle.tsx",
+      "parent": "/_layout-hoc"
     },
-    "/_layout/watch/$postId": {
-      "filePath": "_layout/watch/$postId.tsx",
-      "parent": "/_layout"
+    "/_layout-hoc/watch/$postId": {
+      "filePath": "_layout-hoc/watch/$postId.tsx",
+      "parent": "/_layout-hoc"
     },
-    "/_layout/_home/": {
-      "filePath": "_layout/_home/index.tsx",
-      "parent": "/_layout/_home"
+    "/_layout-hoc/_home-hoc/": {
+      "filePath": "_layout-hoc/_home-hoc/index.tsx",
+      "parent": "/_layout-hoc/_home-hoc"
     },
-    "/_layout/create/": {
-      "filePath": "_layout/create/index.tsx",
-      "parent": "/_layout"
+    "/_layout-hoc/create/": {
+      "filePath": "_layout-hoc/create/index.tsx",
+      "parent": "/_layout-hoc"
     },
-    "/_layout/feed/": {
-      "filePath": "_layout/feed/index.tsx",
-      "parent": "/_layout"
+    "/_layout-hoc/feed/": {
+      "filePath": "_layout-hoc/feed/index.tsx",
+      "parent": "/_layout-hoc"
     },
-    "/_layout/mod/": {
-      "filePath": "_layout/mod/index.tsx",
-      "parent": "/_layout"
+    "/_layout-hoc/mod/": {
+      "filePath": "_layout-hoc/mod/index.tsx",
+      "parent": "/_layout-hoc"
     },
-    "/_layout/privacy/": {
-      "filePath": "_layout/privacy/index.tsx",
-      "parent": "/_layout"
+    "/_layout-hoc/privacy/": {
+      "filePath": "_layout-hoc/privacy/index.tsx",
+      "parent": "/_layout-hoc"
     },
-    "/_layout/settings/": {
-      "filePath": "_layout/settings/index.tsx",
-      "parent": "/_layout"
+    "/_layout-hoc/terms/": {
+      "filePath": "_layout-hoc/terms/index.tsx",
+      "parent": "/_layout-hoc"
     },
-    "/_layout/terms/": {
-      "filePath": "_layout/terms/index.tsx",
-      "parent": "/_layout"
+    "/_layout-hoc/_settings-hoc/settings/me": {
+      "filePath": "_layout-hoc/_settings-hoc/settings/me.tsx",
+      "parent": "/_layout-hoc/_settings-hoc"
     }
   }
 }

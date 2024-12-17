@@ -631,7 +631,7 @@ export const components = [
           </Button>
         </PopoverTrigger>
         <PopoverContent align="start">
-          <h1 className="mb-2 font-semibold text-xl">Notifications</h1>
+          <h1 className="mb-2 font-medium text-xl">Notifications</h1>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem nobis
           quidem similique! Consequatur ut quasi fugit ex earum cumque
           temporibus ab fugiat! Ipsa quis repudiandae fugit reprehenderit facere

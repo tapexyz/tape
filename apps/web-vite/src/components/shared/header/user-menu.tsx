@@ -98,13 +98,13 @@ export const UserMenu = memo(() => {
                         <span>Profile</span>
                       </DropdownMenuItem>
                     </Link>
-                    <Link to="/settings">
+                    <Link to="/settings/me">
                       <DropdownMenuItem className="flex items-center gap-2 py-2">
                         <VinylRecord className="size-4" />
                         <span>Studio</span>
                       </DropdownMenuItem>
                     </Link>
-                    <Link to="/settings">
+                    <Link to="/settings/me">
                       <DropdownMenuItem className="flex items-center gap-2 py-2">
                         <SlidersHorizontal className="size-4 rotate-90" />
                         <span>Settings</span>

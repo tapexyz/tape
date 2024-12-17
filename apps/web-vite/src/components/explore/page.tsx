@@ -1,4 +1,4 @@
-import { Route } from "@/routes/_layout/_home/explore";
+import { Route } from "@/routes/_layout-hoc/_home-hoc/explore";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@tape.xyz/winder";
 
 export const ExplorePage = () => {

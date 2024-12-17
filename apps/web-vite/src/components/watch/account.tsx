@@ -1,6 +1,6 @@
 import { getAccountMetadata } from "@/helpers/metadata";
 import { usePostSuspenseQuery } from "@/queries/post";
-import { Route } from "@/routes/_layout/watch/$postId";
+import { Route } from "@/routes/_layout-hoc/watch/$postId";
 import { useNavigate } from "@tanstack/react-router";
 import { WORKER_AVATAR_URL } from "@tape.xyz/constants";
 import type { Post } from "@tape.xyz/indexer";

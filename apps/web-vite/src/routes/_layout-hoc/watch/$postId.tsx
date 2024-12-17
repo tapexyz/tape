@@ -4,7 +4,7 @@ import { postQuery } from "@/queries/post";
 import { createFileRoute } from "@tanstack/react-router";
 import { Spinner } from "@tape.xyz/winder";
 
-export const Route = createFileRoute("/_layout/watch/$postId")({
+export const Route = createFileRoute("/_layout-hoc/watch/$postId")({
   loader: ({ context: { rqClient }, params: { postId } }) => {
     rqClient.ensureQueryData(postQuery(postId));
     return rqClient.ensureInfiniteQueryData(commentsQuery(postId));

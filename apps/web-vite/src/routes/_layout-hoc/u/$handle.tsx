@@ -9,7 +9,7 @@ type ProfileSearchParams = {
   media: (typeof media)[number];
 };
 
-export const Route = createFileRoute("/_layout/u/$handle")({
+export const Route = createFileRoute("/_layout-hoc/u/$handle")({
   loader: ({ context: { rqClient }, params: { handle } }) => {
     return rqClient.ensureQueryData(accountQuery(handle));
   },

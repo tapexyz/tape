@@ -3,7 +3,7 @@ import { Header } from "@/components/shared/header";
 import { meQuery } from "@/queries/account";
 import { Outlet, createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/_layout")({
+export const Route = createFileRoute("/_layout-hoc")({
   loader: ({ context }) => context.rqClient.ensureQueryData(meQuery),
   component: () => {
     return (

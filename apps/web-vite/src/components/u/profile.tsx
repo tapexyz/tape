@@ -1,6 +1,6 @@
 import { getAccountMetadata } from "@/helpers/metadata";
 import { accountQuery } from "@/queries/account";
-import { Route } from "@/routes/_layout/u/$handle";
+import { Route } from "@/routes/_layout-hoc/u/$handle";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { WORKER_AVATAR_URL } from "@tape.xyz/constants";
 import type { Account } from "@tape.xyz/indexer";

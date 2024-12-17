@@ -1,7 +1,7 @@
 import { getTimeAgo } from "@/helpers/date-time";
 import { getPostMetadata } from "@/helpers/metadata";
 import { usePostSuspenseQuery } from "@/queries/post";
-import { Route } from "@/routes/_layout/watch/$postId";
+import { Route } from "@/routes/_layout-hoc/watch/$postId";
 import type { Post } from "@tape.xyz/indexer";
 import { VideoPlayer } from "@tape.xyz/winder";
 import { Content } from "./content";

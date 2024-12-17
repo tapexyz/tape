@@ -1,6 +1,6 @@
 import { getAccountMetadata, getPostMetadata } from "@/helpers/metadata";
 import { commentsQuery } from "@/queries/comment";
-import { Route } from "@/routes/_layout/watch/$postId";
+import { Route } from "@/routes/_layout-hoc/watch/$postId";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import type { Post } from "@tape.xyz/indexer";
 import {
@@ -27,7 +27,7 @@ const Comment = ({ comment }: { comment: Post }) => {
           <AvatarImage src={picture} />
         </Avatar>
         <div className="space-y-1 text-sm">
-          <div className="truncate font-semibold">{handle}</div>
+          <div className="truncate font-medium">{handle}</div>
           <p>{metadata?.content}</p>
           <div className="flex space-x-1.5 pt-2">
             <Button variant="secondary" size="xs">

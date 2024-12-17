@@ -7,7 +7,7 @@ type ExploreSearchParams = {
   media: (typeof media)[number];
 };
 
-export const Route = createFileRoute("/_layout/_home/explore")({
+export const Route = createFileRoute("/_layout-hoc/_home-hoc/explore")({
   validateSearch: (search: Record<string, unknown>): ExploreSearchParams => {
     return {
       media: media.includes(search.media as ExploreSearchParams["media"])

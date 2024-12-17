@@ -9,7 +9,7 @@ export const About = () => {
           <span className="-mt-1.5 align-sub font-serif text-[42px] leading-5">
             ∗
           </span>
-          <span className="font-sans">About Tape</span>
+          <span>About Tape</span>
         </div>
 
         <span className="font-serif text-2xl lg:text-[58px] lg:leading-[58px]">
