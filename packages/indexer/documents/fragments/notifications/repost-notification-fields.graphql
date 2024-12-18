@@ -1,4 +1,5 @@
 fragment RepostNotificationFields on RepostNotification {
+  __typename
   id
   post {
     ...PostFields

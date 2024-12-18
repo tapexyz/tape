@@ -1,4 +1,5 @@
 fragment ReactionNotificationFields on ReactionNotification {
+  __typename
   id
   post {
     ...PostFields

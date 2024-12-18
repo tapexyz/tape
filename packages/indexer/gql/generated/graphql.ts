@@ -5915,27 +5915,27 @@ export type MetadataAttributeFieldsFragment = { __typename?: 'MetadataAttribute'
 
 export type NetworkAddressFieldsFragment = { __typename?: 'NetworkAddress', address: any, chainId: number } & { ' $fragmentName'?: 'NetworkAddressFieldsFragment' };
 
-export type CommentNotificationFieldsFragment = { __typename?: 'CommentNotification', id: any, comment: (
+export type CommentNotificationFieldsFragment = { __typename: 'CommentNotification', id: any, comment: (
     { __typename?: 'Post' }
     & { ' $fragmentRefs'?: { 'PostFieldsFragment': PostFieldsFragment } }
   ) } & { ' $fragmentName'?: 'CommentNotificationFieldsFragment' };
 
-export type FollowNotificationFieldsFragment = { __typename?: 'FollowNotification', id: any, followers: Array<{ __typename?: 'NotificationAccountFollow', account: (
+export type FollowNotificationFieldsFragment = { __typename: 'FollowNotification', id: any, followers: Array<{ __typename?: 'NotificationAccountFollow', account: (
       { __typename?: 'Account' }
       & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
     ) }> } & { ' $fragmentName'?: 'FollowNotificationFieldsFragment' };
 
-export type MentionNotificationFieldsFragment = { __typename?: 'MentionNotification', id: any, post: (
+export type MentionNotificationFieldsFragment = { __typename: 'MentionNotification', id: any, post: (
     { __typename?: 'Post' }
     & { ' $fragmentRefs'?: { 'PostFieldsFragment': PostFieldsFragment } }
   ) } & { ' $fragmentName'?: 'MentionNotificationFieldsFragment' };
 
-export type QuoteNotificationFieldsFragment = { __typename?: 'QuoteNotification', id: any, quote: (
+export type QuoteNotificationFieldsFragment = { __typename: 'QuoteNotification', id: any, quote: (
     { __typename?: 'Post' }
     & { ' $fragmentRefs'?: { 'PostFieldsFragment': PostFieldsFragment } }
   ) } & { ' $fragmentName'?: 'QuoteNotificationFieldsFragment' };
 
-export type ReactionNotificationFieldsFragment = { __typename?: 'ReactionNotification', id: any, post: (
+export type ReactionNotificationFieldsFragment = { __typename: 'ReactionNotification', id: any, post: (
     { __typename?: 'Post' }
     & { ' $fragmentRefs'?: { 'PostFieldsFragment': PostFieldsFragment } }
   ), reactions: Array<{ __typename?: 'NotificationAccountPostReaction', account: (
@@ -5943,7 +5943,7 @@ export type ReactionNotificationFieldsFragment = { __typename?: 'ReactionNotific
       & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
     ) }> } & { ' $fragmentName'?: 'ReactionNotificationFieldsFragment' };
 
-export type RepostNotificationFieldsFragment = { __typename?: 'RepostNotification', id: any, post: (
+export type RepostNotificationFieldsFragment = { __typename: 'RepostNotification', id: any, post: (
     { __typename?: 'Post' }
     & { ' $fragmentRefs'?: { 'PostFieldsFragment': PostFieldsFragment } }
   ), reposts: Array<{ __typename?: 'NotificationAccountRepost', repostedAt: any, account: (
@@ -7415,6 +7415,7 @@ fragment UsernameFields on Username {
 }`, {"fragmentName":"PostFields"}) as unknown as TypedDocumentString<PostFieldsFragment, unknown>;
 export const CommentNotificationFieldsFragmentDoc = new TypedDocumentString(`
     fragment CommentNotificationFields on CommentNotification {
+  __typename
   id
   comment {
     ...PostFields
@@ -7666,6 +7667,7 @@ fragment UsernameFields on Username {
 }`, {"fragmentName":"CommentNotificationFields"}) as unknown as TypedDocumentString<CommentNotificationFieldsFragment, unknown>;
 export const FollowNotificationFieldsFragmentDoc = new TypedDocumentString(`
     fragment FollowNotificationFields on FollowNotification {
+  __typename
   id
   followers {
     account {
@@ -7727,6 +7729,7 @@ fragment UsernameFields on Username {
 }`, {"fragmentName":"FollowNotificationFields"}) as unknown as TypedDocumentString<FollowNotificationFieldsFragment, unknown>;
 export const MentionNotificationFieldsFragmentDoc = new TypedDocumentString(`
     fragment MentionNotificationFields on MentionNotification {
+  __typename
   id
   post {
     ...PostFields
@@ -7978,6 +7981,7 @@ fragment UsernameFields on Username {
 }`, {"fragmentName":"MentionNotificationFields"}) as unknown as TypedDocumentString<MentionNotificationFieldsFragment, unknown>;
 export const QuoteNotificationFieldsFragmentDoc = new TypedDocumentString(`
     fragment QuoteNotificationFields on QuoteNotification {
+  __typename
   id
   quote {
     ...PostFields
@@ -8229,6 +8233,7 @@ fragment UsernameFields on Username {
 }`, {"fragmentName":"QuoteNotificationFields"}) as unknown as TypedDocumentString<QuoteNotificationFieldsFragment, unknown>;
 export const ReactionNotificationFieldsFragmentDoc = new TypedDocumentString(`
     fragment ReactionNotificationFields on ReactionNotification {
+  __typename
   id
   post {
     ...PostFields
@@ -8485,6 +8490,7 @@ fragment UsernameFields on Username {
 }`, {"fragmentName":"ReactionNotificationFields"}) as unknown as TypedDocumentString<ReactionNotificationFieldsFragment, unknown>;
 export const RepostNotificationFieldsFragmentDoc = new TypedDocumentString(`
     fragment RepostNotificationFields on RepostNotification {
+  __typename
   id
   post {
     ...PostFields
@@ -9844,12 +9850,14 @@ fragment NetworkAddressFields on NetworkAddress {
   chainId
 }
 fragment CommentNotificationFields on CommentNotification {
+  __typename
   id
   comment {
     ...PostFields
   }
 }
 fragment FollowNotificationFields on FollowNotification {
+  __typename
   id
   followers {
     account {
@@ -9858,18 +9866,21 @@ fragment FollowNotificationFields on FollowNotification {
   }
 }
 fragment MentionNotificationFields on MentionNotification {
+  __typename
   id
   post {
     ...PostFields
   }
 }
 fragment QuoteNotificationFields on QuoteNotification {
+  __typename
   id
   quote {
     ...PostFields
   }
 }
 fragment ReactionNotificationFields on ReactionNotification {
+  __typename
   id
   post {
     ...PostFields
@@ -9881,6 +9892,7 @@ fragment ReactionNotificationFields on ReactionNotification {
   }
 }
 fragment RepostNotificationFields on RepostNotification {
+  __typename
   id
   post {
     ...PostFields

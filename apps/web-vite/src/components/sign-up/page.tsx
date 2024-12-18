@@ -1,13 +1,24 @@
-import { Link } from "@tanstack/react-router";
+import { useCookieStore } from "@/store/cookie";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { Authenticate } from "../shared/auth/authenticate";
 import { ConnectWallet } from "../shared/auth/connect-wallet";
 
-export const SignInPage = () => {
+export const SignUpPage = () => {
+  const navigate = useNavigate();
+  const isAuthenticated = useCookieStore((state) => state.isAuthenticated);
+
+  if (isAuthenticated) {
+    navigate({ to: "/" });
+    return null;
+  }
+
   return (
     <>
       <div className="mb-6">
-        <h2 className="mb-1 font-serif text-2xl">Welcome back</h2>
-        <p className="text-muted text-sm">Please sign in to continue.</p>
+        <h2 className="mb-1 font-serif text-2xl">Create your account</h2>
+        <p className="text-muted text-sm">
+          Please fill in the details to get started.
+        </p>
       </div>
       {/* <AuthProviders />
       <div className="my-4 flex items-center space-x-4">
@@ -22,12 +33,12 @@ export const SignInPage = () => {
       </div>
 
       <div className="mb-4 text-muted text-xs">
-        Don’t have an account?{" "}
+        Already have an account?{" "}
         <Link
-          to="/sign-up"
+          to="/sign-in"
           className="underline underline-offset-3 transition-colors hover:text-primary"
         >
-          Sign up
+          Sign in
         </Link>
       </div>
     </>

@@ -72,3 +72,4 @@ export const signIn = (tokens: Tokens) =>
 export const signOut = () => useCookieStore.getState().signOut();
 export const hydrateAuthTokens = () =>
   useCookieStore.getState().hydrateAuthTokens();
+export const isAuthenticated = () => useCookieStore.getState().isAuthenticated;

@@ -26,12 +26,12 @@ const documents = {
     "fragment GroupFields on Group {\n  address\n  timestamp\n  metadata {\n    description\n    icon\n    name\n    id\n  }\n}": types.GroupFieldsFragmentDoc,
     "fragment MetadataAttributeFields on MetadataAttribute {\n  type\n  key\n  value\n}": types.MetadataAttributeFieldsFragmentDoc,
     "fragment NetworkAddressFields on NetworkAddress {\n  address\n  chainId\n}": types.NetworkAddressFieldsFragmentDoc,
-    "fragment CommentNotificationFields on CommentNotification {\n  id\n  comment {\n    ...PostFields\n  }\n}": types.CommentNotificationFieldsFragmentDoc,
-    "fragment FollowNotificationFields on FollowNotification {\n  id\n  followers {\n    account {\n      ...AccountFields\n    }\n  }\n}": types.FollowNotificationFieldsFragmentDoc,
-    "fragment MentionNotificationFields on MentionNotification {\n  id\n  post {\n    ...PostFields\n  }\n}": types.MentionNotificationFieldsFragmentDoc,
-    "fragment QuoteNotificationFields on QuoteNotification {\n  id\n  quote {\n    ...PostFields\n  }\n}": types.QuoteNotificationFieldsFragmentDoc,
-    "fragment ReactionNotificationFields on ReactionNotification {\n  id\n  post {\n    ...PostFields\n  }\n  reactions {\n    account {\n      ...AccountFields\n    }\n  }\n}": types.ReactionNotificationFieldsFragmentDoc,
-    "fragment RepostNotificationFields on RepostNotification {\n  id\n  post {\n    ...PostFields\n  }\n  reposts {\n    account {\n      ...AccountFields\n    }\n    repostedAt\n  }\n}": types.RepostNotificationFieldsFragmentDoc,
+    "fragment CommentNotificationFields on CommentNotification {\n  __typename\n  id\n  comment {\n    ...PostFields\n  }\n}": types.CommentNotificationFieldsFragmentDoc,
+    "fragment FollowNotificationFields on FollowNotification {\n  __typename\n  id\n  followers {\n    account {\n      ...AccountFields\n    }\n  }\n}": types.FollowNotificationFieldsFragmentDoc,
+    "fragment MentionNotificationFields on MentionNotification {\n  __typename\n  id\n  post {\n    ...PostFields\n  }\n}": types.MentionNotificationFieldsFragmentDoc,
+    "fragment QuoteNotificationFields on QuoteNotification {\n  __typename\n  id\n  quote {\n    ...PostFields\n  }\n}": types.QuoteNotificationFieldsFragmentDoc,
+    "fragment ReactionNotificationFields on ReactionNotification {\n  __typename\n  id\n  post {\n    ...PostFields\n  }\n  reactions {\n    account {\n      ...AccountFields\n    }\n  }\n}": types.ReactionNotificationFieldsFragmentDoc,
+    "fragment RepostNotificationFields on RepostNotification {\n  __typename\n  id\n  post {\n    ...PostFields\n  }\n  reposts {\n    account {\n      ...AccountFields\n    }\n    repostedAt\n  }\n}": types.RepostNotificationFieldsFragmentDoc,
     "fragment SimpleCollectActionSettingsFields on SimpleCollectActionSettings {\n  collectLimit\n  collectNft\n  endsAt\n  followerOnly\n  recipient\n  referralFee\n  amount {\n    ...AmountFields\n  }\n  contract {\n    ...NetworkAddressFields\n  }\n  recipients {\n    recipient\n    split\n  }\n}": types.SimpleCollectActionSettingsFieldsFragmentDoc,
     "fragment UnknownActionSettingsFields on UnknownActionSettings {\n  __typename\n}": types.UnknownActionSettingsFieldsFragmentDoc,
     "fragment LoggedInPostOperationsFields on LoggedInPostOperations {\n  id\n  hasBookmarked\n  hasReacted\n  hasReported\n  isNotInterested\n  hasCommented {\n    ...BooleanValueFields\n  }\n  hasQuoted {\n    ...BooleanValueFields\n  }\n  hasReposted {\n    ...BooleanValueFields\n  }\n}": types.LoggedInPostOperationsFieldsFragmentDoc,
@@ -119,27 +119,27 @@ export function graphql(source: "fragment NetworkAddressFields on NetworkAddress
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "fragment CommentNotificationFields on CommentNotification {\n  id\n  comment {\n    ...PostFields\n  }\n}"): typeof import('./graphql').CommentNotificationFieldsFragmentDoc;
+export function graphql(source: "fragment CommentNotificationFields on CommentNotification {\n  __typename\n  id\n  comment {\n    ...PostFields\n  }\n}"): typeof import('./graphql').CommentNotificationFieldsFragmentDoc;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "fragment FollowNotificationFields on FollowNotification {\n  id\n  followers {\n    account {\n      ...AccountFields\n    }\n  }\n}"): typeof import('./graphql').FollowNotificationFieldsFragmentDoc;
+export function graphql(source: "fragment FollowNotificationFields on FollowNotification {\n  __typename\n  id\n  followers {\n    account {\n      ...AccountFields\n    }\n  }\n}"): typeof import('./graphql').FollowNotificationFieldsFragmentDoc;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "fragment MentionNotificationFields on MentionNotification {\n  id\n  post {\n    ...PostFields\n  }\n}"): typeof import('./graphql').MentionNotificationFieldsFragmentDoc;
+export function graphql(source: "fragment MentionNotificationFields on MentionNotification {\n  __typename\n  id\n  post {\n    ...PostFields\n  }\n}"): typeof import('./graphql').MentionNotificationFieldsFragmentDoc;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "fragment QuoteNotificationFields on QuoteNotification {\n  id\n  quote {\n    ...PostFields\n  }\n}"): typeof import('./graphql').QuoteNotificationFieldsFragmentDoc;
+export function graphql(source: "fragment QuoteNotificationFields on QuoteNotification {\n  __typename\n  id\n  quote {\n    ...PostFields\n  }\n}"): typeof import('./graphql').QuoteNotificationFieldsFragmentDoc;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "fragment ReactionNotificationFields on ReactionNotification {\n  id\n  post {\n    ...PostFields\n  }\n  reactions {\n    account {\n      ...AccountFields\n    }\n  }\n}"): typeof import('./graphql').ReactionNotificationFieldsFragmentDoc;
+export function graphql(source: "fragment ReactionNotificationFields on ReactionNotification {\n  __typename\n  id\n  post {\n    ...PostFields\n  }\n  reactions {\n    account {\n      ...AccountFields\n    }\n  }\n}"): typeof import('./graphql').ReactionNotificationFieldsFragmentDoc;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "fragment RepostNotificationFields on RepostNotification {\n  id\n  post {\n    ...PostFields\n  }\n  reposts {\n    account {\n      ...AccountFields\n    }\n    repostedAt\n  }\n}"): typeof import('./graphql').RepostNotificationFieldsFragmentDoc;
+export function graphql(source: "fragment RepostNotificationFields on RepostNotification {\n  __typename\n  id\n  post {\n    ...PostFields\n  }\n  reposts {\n    account {\n      ...AccountFields\n    }\n    repostedAt\n  }\n}"): typeof import('./graphql').RepostNotificationFieldsFragmentDoc;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

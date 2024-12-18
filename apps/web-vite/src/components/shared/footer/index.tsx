@@ -14,7 +14,7 @@ export const Footer = () => {
 
       <Links />
 
-      <div className="flex w-1/3 justify-end gap-6">
+      <div className="hidden w-1/3 justify-end gap-6 lg:flex">
         <NetworkState />
         <Status />
       </div>

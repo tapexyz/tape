@@ -1,4 +1,5 @@
 fragment CommentNotificationFields on CommentNotification {
+  __typename
   id
   comment {
     ...PostFields

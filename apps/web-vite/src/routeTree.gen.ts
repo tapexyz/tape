@@ -12,12 +12,14 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as LayoutHocImport } from './routes/_layout-hoc'
+import { Route as AuthHocImport } from './routes/_auth-hoc'
 import { Route as WinderIndexImport } from './routes/winder/index'
-import { Route as SignInIndexImport } from './routes/sign-in/index'
 import { Route as OpenIndexImport } from './routes/open/index'
 import { Route as EmbedPostIdImport } from './routes/embed/$postId'
 import { Route as LayoutHocSettingsHocImport } from './routes/_layout-hoc/_settings-hoc'
 import { Route as LayoutHocHomeHocImport } from './routes/_layout-hoc/_home-hoc'
+import { Route as AuthHocSignUpImport } from './routes/_auth-hoc/sign-up'
+import { Route as AuthHocSignInImport } from './routes/_auth-hoc/sign-in'
 import { Route as LayoutHocTermsIndexImport } from './routes/_layout-hoc/terms/index'
 import { Route as LayoutHocPrivacyIndexImport } from './routes/_layout-hoc/privacy/index'
 import { Route as LayoutHocModIndexImport } from './routes/_layout-hoc/mod/index'
@@ -37,15 +39,14 @@ const LayoutHocRoute = LayoutHocImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const WinderIndexRoute = WinderIndexImport.update({
-  id: '/winder/',
-  path: '/winder/',
+const AuthHocRoute = AuthHocImport.update({
+  id: '/_auth-hoc',
   getParentRoute: () => rootRoute,
 } as any)
 
-const SignInIndexRoute = SignInIndexImport.update({
-  id: '/sign-in/',
-  path: '/sign-in/',
+const WinderIndexRoute = WinderIndexImport.update({
+  id: '/winder/',
+  path: '/winder/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -69,6 +70,18 @@ const LayoutHocSettingsHocRoute = LayoutHocSettingsHocImport.update({
 const LayoutHocHomeHocRoute = LayoutHocHomeHocImport.update({
   id: '/_home-hoc',
   getParentRoute: () => LayoutHocRoute,
+} as any)
+
+const AuthHocSignUpRoute = AuthHocSignUpImport.update({
+  id: '/sign-up',
+  path: '/sign-up',
+  getParentRoute: () => AuthHocRoute,
+} as any)
+
+const AuthHocSignInRoute = AuthHocSignInImport.update({
+  id: '/sign-in',
+  path: '/sign-in',
+  getParentRoute: () => AuthHocRoute,
 } as any)
 
 const LayoutHocTermsIndexRoute = LayoutHocTermsIndexImport.update({
@@ -142,12 +155,33 @@ const LayoutHocSettingsHocSettingsMeRoute =
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/_auth-hoc': {
+      id: '/_auth-hoc'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthHocImport
+      parentRoute: typeof rootRoute
+    }
     '/_layout-hoc': {
       id: '/_layout-hoc'
       path: ''
       fullPath: ''
       preLoaderRoute: typeof LayoutHocImport
       parentRoute: typeof rootRoute
+    }
+    '/_auth-hoc/sign-in': {
+      id: '/_auth-hoc/sign-in'
+      path: '/sign-in'
+      fullPath: '/sign-in'
+      preLoaderRoute: typeof AuthHocSignInImport
+      parentRoute: typeof AuthHocImport
+    }
+    '/_auth-hoc/sign-up': {
+      id: '/_auth-hoc/sign-up'
+      path: '/sign-up'
+      fullPath: '/sign-up'
+      preLoaderRoute: typeof AuthHocSignUpImport
+      parentRoute: typeof AuthHocImport
     }
     '/_layout-hoc/_home-hoc': {
       id: '/_layout-hoc/_home-hoc'
@@ -175,13 +209,6 @@ declare module '@tanstack/react-router' {
       path: '/open'
       fullPath: '/open'
       preLoaderRoute: typeof OpenIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/sign-in/': {
-      id: '/sign-in/'
-      path: '/sign-in'
-      fullPath: '/sign-in'
-      preLoaderRoute: typeof SignInIndexImport
       parentRoute: typeof rootRoute
     }
     '/winder/': {
@@ -273,6 +300,19 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
+interface AuthHocRouteChildren {
+  AuthHocSignInRoute: typeof AuthHocSignInRoute
+  AuthHocSignUpRoute: typeof AuthHocSignUpRoute
+}
+
+const AuthHocRouteChildren: AuthHocRouteChildren = {
+  AuthHocSignInRoute: AuthHocSignInRoute,
+  AuthHocSignUpRoute: AuthHocSignUpRoute,
+}
+
+const AuthHocRouteWithChildren =
+  AuthHocRoute._addFileChildren(AuthHocRouteChildren)
+
 interface LayoutHocHomeHocRouteChildren {
   LayoutHocHomeHocExploreRoute: typeof LayoutHocHomeHocExploreRoute
   LayoutHocHomeHocFollowingRoute: typeof LayoutHocHomeHocFollowingRoute
@@ -329,9 +369,10 @@ const LayoutHocRouteWithChildren = LayoutHocRoute._addFileChildren(
 
 export interface FileRoutesByFullPath {
   '': typeof LayoutHocSettingsHocRouteWithChildren
+  '/sign-in': typeof AuthHocSignInRoute
+  '/sign-up': typeof AuthHocSignUpRoute
   '/embed/$postId': typeof EmbedPostIdRoute
   '/open': typeof OpenIndexRoute
-  '/sign-in': typeof SignInIndexRoute
   '/winder': typeof WinderIndexRoute
   '/explore': typeof LayoutHocHomeHocExploreRoute
   '/following': typeof LayoutHocHomeHocFollowingRoute
@@ -348,9 +389,10 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '': typeof LayoutHocSettingsHocRouteWithChildren
+  '/sign-in': typeof AuthHocSignInRoute
+  '/sign-up': typeof AuthHocSignUpRoute
   '/embed/$postId': typeof EmbedPostIdRoute
   '/open': typeof OpenIndexRoute
-  '/sign-in': typeof SignInIndexRoute
   '/winder': typeof WinderIndexRoute
   '/explore': typeof LayoutHocHomeHocExploreRoute
   '/following': typeof LayoutHocHomeHocFollowingRoute
@@ -367,12 +409,14 @@ export interface FileRoutesByTo {
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
+  '/_auth-hoc': typeof AuthHocRouteWithChildren
   '/_layout-hoc': typeof LayoutHocRouteWithChildren
+  '/_auth-hoc/sign-in': typeof AuthHocSignInRoute
+  '/_auth-hoc/sign-up': typeof AuthHocSignUpRoute
   '/_layout-hoc/_home-hoc': typeof LayoutHocHomeHocRouteWithChildren
   '/_layout-hoc/_settings-hoc': typeof LayoutHocSettingsHocRouteWithChildren
   '/embed/$postId': typeof EmbedPostIdRoute
   '/open/': typeof OpenIndexRoute
-  '/sign-in/': typeof SignInIndexRoute
   '/winder/': typeof WinderIndexRoute
   '/_layout-hoc/_home-hoc/explore': typeof LayoutHocHomeHocExploreRoute
   '/_layout-hoc/_home-hoc/following': typeof LayoutHocHomeHocFollowingRoute
@@ -391,9 +435,10 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | ''
+    | '/sign-in'
+    | '/sign-up'
     | '/embed/$postId'
     | '/open'
-    | '/sign-in'
     | '/winder'
     | '/explore'
     | '/following'
@@ -409,9 +454,10 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | ''
+    | '/sign-in'
+    | '/sign-up'
     | '/embed/$postId'
     | '/open'
-    | '/sign-in'
     | '/winder'
     | '/explore'
     | '/following'
@@ -426,12 +472,14 @@ export interface FileRouteTypes {
     | '/settings/me'
   id:
     | '__root__'
+    | '/_auth-hoc'
     | '/_layout-hoc'
+    | '/_auth-hoc/sign-in'
+    | '/_auth-hoc/sign-up'
     | '/_layout-hoc/_home-hoc'
     | '/_layout-hoc/_settings-hoc'
     | '/embed/$postId'
     | '/open/'
-    | '/sign-in/'
     | '/winder/'
     | '/_layout-hoc/_home-hoc/explore'
     | '/_layout-hoc/_home-hoc/following'
@@ -448,18 +496,18 @@ export interface FileRouteTypes {
 }
 
 export interface RootRouteChildren {
+  AuthHocRoute: typeof AuthHocRouteWithChildren
   LayoutHocRoute: typeof LayoutHocRouteWithChildren
   EmbedPostIdRoute: typeof EmbedPostIdRoute
   OpenIndexRoute: typeof OpenIndexRoute
-  SignInIndexRoute: typeof SignInIndexRoute
   WinderIndexRoute: typeof WinderIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
+  AuthHocRoute: AuthHocRouteWithChildren,
   LayoutHocRoute: LayoutHocRouteWithChildren,
   EmbedPostIdRoute: EmbedPostIdRoute,
   OpenIndexRoute: OpenIndexRoute,
-  SignInIndexRoute: SignInIndexRoute,
   WinderIndexRoute: WinderIndexRoute,
 }
 
@@ -473,11 +521,18 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
+        "/_auth-hoc",
         "/_layout-hoc",
         "/embed/$postId",
         "/open/",
-        "/sign-in/",
         "/winder/"
+      ]
+    },
+    "/_auth-hoc": {
+      "filePath": "_auth-hoc.tsx",
+      "children": [
+        "/_auth-hoc/sign-in",
+        "/_auth-hoc/sign-up"
       ]
     },
     "/_layout-hoc": {
@@ -493,6 +548,14 @@ export const routeTree = rootRoute
         "/_layout-hoc/privacy/",
         "/_layout-hoc/terms/"
       ]
+    },
+    "/_auth-hoc/sign-in": {
+      "filePath": "_auth-hoc/sign-in.tsx",
+      "parent": "/_auth-hoc"
+    },
+    "/_auth-hoc/sign-up": {
+      "filePath": "_auth-hoc/sign-up.tsx",
+      "parent": "/_auth-hoc"
     },
     "/_layout-hoc/_home-hoc": {
       "filePath": "_layout-hoc/_home-hoc.tsx",
@@ -515,9 +578,6 @@ export const routeTree = rootRoute
     },
     "/open/": {
       "filePath": "open/index.tsx"
-    },
-    "/sign-in/": {
-      "filePath": "sign-in/index.tsx"
     },
     "/winder/": {
       "filePath": "winder/index.tsx"

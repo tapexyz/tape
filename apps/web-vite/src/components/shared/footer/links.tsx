@@ -27,7 +27,7 @@ const links = [
 export const Links = memo(() => {
   const [hoverId, setHoverId] = useState("");
   return (
-    <ul className="flex list-none flex-wrap items-center font-medium">
+    <ul className="flex list-none items-center font-medium">
       {links.map((l) => (
         <a href={l.url} target="_blank" key={l.label} rel="noreferrer">
           <li

@@ -29,7 +29,7 @@
     "zustand": "^5.0.2"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "4.0.0-beta.4",
+    "@tailwindcss/vite": "4.0.0-beta.8",
     "@tanstack/react-query-devtools": "^5.62.7",
     "@tanstack/router-devtools": "^1.89.2",
     "@tanstack/router-plugin": "^1.87.13",

@@ -4,11 +4,13 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { rqClient } from "./providers/react-query";
 import { routeTree } from "./routeTree.gen";
+import { isAuthenticated } from "./store/cookie";
 
 const router = createRouter({
   routeTree,
   context: {
-    rqClient
+    rqClient,
+    authenticated: isAuthenticated()
   },
   defaultPreload: "intent",
   // cache will be managed by the react-query

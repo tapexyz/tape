@@ -7,9 +7,6 @@ export const notificationsQuery = infiniteQueryOptions({
   queryFn: ({ pageParam }) =>
     execute(NotificationsDocument, {
       request: {
-        filter: {
-          includeLowScore: true
-        },
         cursor: pageParam
       }
     }),

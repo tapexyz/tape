@@ -1,4 +1,5 @@
 fragment FollowNotificationFields on FollowNotification {
+  __typename
   id
   followers {
     account {

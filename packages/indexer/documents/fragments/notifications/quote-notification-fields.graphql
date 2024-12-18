@@ -1,4 +1,5 @@
 fragment QuoteNotificationFields on QuoteNotification {
+  __typename
   id
   quote {
     ...PostFields

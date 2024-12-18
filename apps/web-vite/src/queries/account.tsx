@@ -1,5 +1,5 @@
 import { execute } from "@/helpers/execute";
-import { useCookieStore } from "@/store/cookie";
+import { isAuthenticated } from "@/store/cookie";
 import {
   queryOptions,
   useInfiniteQuery,
@@ -68,6 +68,6 @@ export const useAccountQuery = (handle: string) =>
 export const meQuery = queryOptions({
   queryKey: ["me"],
   queryFn: () => execute(MeDocument),
-  enabled: useCookieStore.getState().isAuthenticated
+  enabled: isAuthenticated()
 });
 export const useMeSuspenseQuery = () => useSuspenseQuery(meQuery);

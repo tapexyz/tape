@@ -12,6 +12,7 @@ import { Button, EmptyState } from "@tape.xyz/winder";
 
 type RootRouteContext = {
   rqClient: QueryClient;
+  authenticated: boolean;
 };
 
 export const Route = createRootRouteWithContext<RootRouteContext>()({
