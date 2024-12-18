@@ -1,4 +1,4 @@
-import { IPFS_GATEWAY_URL, WORKER_AVATAR_URL } from "@tape.xyz/constants";
+import { STATIC_FILES, WORKER_AVATAR_URL } from "@tape.xyz/constants";
 import {
   AudioPlayer,
   Avatar,
@@ -90,7 +90,54 @@ export const base = [
     id: "brand",
     label: "Brand",
     component: () => {
-      return <VStack>WIP</VStack>;
+      return (
+        <VStack>
+          <span>
+            <img
+              src={`${STATIC_FILES}/images/brand/wordmark-xy.svg`}
+              className="h-80 w-full rounded bg-white object-cover object-center"
+              alt="wordmark-xy"
+              draggable={false}
+            />
+          </span>
+          <span>
+            <img
+              src={`${STATIC_FILES}/images/brand/wordmark-dark.svg`}
+              className="h-64 w-full rounded bg-white object-cover"
+              alt="wordmark-dark"
+              draggable={false}
+            />
+          </span>
+          <div className="grid grid-cols-3">
+            <img
+              src={`${STATIC_FILES}/images/brand/mark-dark.svg`}
+              className="aspect-square rounded-l bg-white p-10"
+              alt="mark-dark"
+              draggable={false}
+            />
+            <img
+              src={`${STATIC_FILES}/images/brand/mark.svg`}
+              className="aspect-square p-10"
+              alt="mark"
+              draggable={false}
+            />
+            <img
+              src={`${STATIC_FILES}/images/brand/mark-light.svg`}
+              className="aspect-square rounded-r bg-black p-10"
+              alt="mark-light"
+              draggable={false}
+            />
+          </div>
+          <span>
+            <img
+              src={`${STATIC_FILES}/images/brand/wordmark-light.svg`}
+              className="h-64 w-full rounded bg-black object-cover"
+              alt="wordmark-light"
+              draggable={false}
+            />
+          </span>
+        </VStack>
+      );
     }
   },
   {
@@ -194,7 +241,7 @@ export const base = [
           >
             <div className="space-y-2">
               <div className="-mt-2 text-5xl">■</div>
-              <div className="text-2xl">Editorial New</div>
+              <div className="font-serif text-2xl">Editorial New</div>
             </div>
             <h1 className="select-none text-end font-serif text-9xl text-muted transition-colors duration-300 group-hover:text-primary">
               tape
@@ -210,7 +257,7 @@ export const base = [
               <div className="text-4xl">▲</div>
               <div className="text-2xl">Geist Sans</div>
             </div>
-            <h1 className="select-none text-end font-sans text-9xl text-muted transition-colors duration-300 group-hover:text-primary">
+            <h1 className="select-none text-end text-9xl text-muted transition-colors duration-300 group-hover:text-primary">
               tape
             </h1>
           </a>
@@ -412,7 +459,7 @@ export const components = [
             <img
               className="size-full"
               loading="eager"
-              src={`${IPFS_GATEWAY_URL}/bafybeihoqqifnyzrx66h4i7om4f6prc7xgs3qydlce4ujrmjjazomyvoxq`}
+              src={`${STATIC_FILES}/images/torb.png`}
               alt="poster"
               draggable={false}
             />
@@ -561,7 +608,7 @@ export const components = [
               src: "https://files.tape.xyz/samples/16-9.mp4",
               type: "video/mp4"
             }}
-            poster={`${IPFS_GATEWAY_URL}/bafybeiaikdpxnqig7ta5z5ahqav7p2z3lrijp5ym3ctg4on5reiktdh2lu`}
+            poster={`${STATIC_FILES}/images/poster-16-9.png`}
             load="visible"
             posterLoad="idle"
             autoPlay={false}
@@ -576,7 +623,7 @@ export const components = [
               src: "https://files.tape.xyz/samples/9-16.mp4",
               type: "video/mp4"
             }}
-            poster={`${IPFS_GATEWAY_URL}/bafybeib3rptof3clasb4llm247zupf5pspequwu5wntzedn5nnh75ljgea`}
+            poster={`${STATIC_FILES}/images/poster-9-16.png`}
             load="visible"
             posterLoad="idle"
             autoPlay={false}
@@ -596,7 +643,7 @@ export const components = [
                 src: "https://files.tape.xyz/samples/audio-1.mp3",
                 type: "audio/mp3"
               }}
-              poster={`${IPFS_GATEWAY_URL}/bafkreiam4w73hooyzel2674k6vr52civh4miazhfuxefqpy6n4qwqvwtp4`}
+              poster={`${STATIC_FILES}/images/poster-1-1.png`}
               load="visible"
               posterLoad="idle"
               autoPlay={false}
@@ -609,7 +656,7 @@ export const components = [
               src: "https://files.tape.xyz/samples/audio-2.wav",
               type: "audio/mp3"
             }}
-            poster={`${IPFS_GATEWAY_URL}/QmVg5mLJJsx9JZvyR6j4ej1b8WGBXZmi9bQNbwQDQ7pLEc`}
+            poster={`${STATIC_FILES}/images/poster-1-1.jpeg`}
             load="visible"
             posterLoad="idle"
             layout="horizontal"
