@@ -11,7 +11,7 @@ export const Hero = memo(() => {
 
   return (
     <div className="flex h-[440px] flex-col justify-between rounded-card bg-theme p-5">
-      <h1 className="font-serif text-2xl lg:text-6xl">
+      <h1 className="font-serif text-2xl md:text-4xl lg:text-6xl">
         Welcome to &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         (&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tape&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;).
         <p>
