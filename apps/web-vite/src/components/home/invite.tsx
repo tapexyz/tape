@@ -6,10 +6,6 @@ import { memo } from "react";
 export const Invite = memo(() => {
   const isAuthenticated = useCookieStore((state) => state.isAuthenticated);
 
-  if (isAuthenticated) {
-    return null;
-  }
-
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -34,6 +30,10 @@ export const Invite = memo(() => {
     mouseX.set(xPos);
     mouseY.set(yPos);
   };
+
+  if (isAuthenticated) {
+    return null;
+  }
 
   return (
     <div
