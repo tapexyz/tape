@@ -352,7 +352,7 @@ export type AccountsBulkRequest = {
   usernames?: InputMaybe<Array<UsernameInput>>;
 };
 
-export type AccountsFilterRequest = {
+export type AccountsFilter = {
   /** The optional filter to narrow accounts by search query. */
   searchBy?: InputMaybe<UsernameSearchInput>;
 };
@@ -366,7 +366,7 @@ export enum AccountsOrderBy {
 export type AccountsRequest = {
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<AccountsFilterRequest>;
+  filter?: InputMaybe<AccountsFilter>;
   /** The order by. */
   orderBy?: AccountsOrderBy;
   /** The page size. */
@@ -460,14 +460,27 @@ export type AddReactionResult = AddReactionFailure | AddReactionResponse;
 
 export type Admin = {
   __typename?: 'Admin';
+  account: Account;
   addedAt: Scalars['DateTime']['output'];
-  address: Scalars['EvmAddress']['output'];
 };
+
+export type AdminsForFilterRequest = {
+  /** The optional filter to narrow admins query */
+  searchBy?: InputMaybe<UsernameSearchInput>;
+};
+
+export enum AdminsForOrderBy {
+  LatestFirst = 'LATEST_FIRST',
+  OldestFirst = 'OLDEST_FIRST'
+}
 
 export type AdminsForRequest = {
   /** The graph/app/sponsor/feed/username/group address */
   address: Scalars['EvmAddress']['input'];
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<AdminsForFilterRequest>;
+  /** The order by. */
+  orderBy?: AdminsForOrderBy;
   pageSize?: PageSize;
 };
 
@@ -630,11 +643,27 @@ export type AppSigner = {
   timestamp: Scalars['DateTime']['output'];
 };
 
+export type AppSignersFilterRequest = {
+  /**
+   * The optional filter to narrow signers.
+   * Uses fuzzy search on signer address
+   */
+  searchQuery?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum AppSignersOrderBy {
+  LatestFirst = 'LATEST_FIRST',
+  OldestFirst = 'OLDEST_FIRST'
+}
+
 export type AppSignersRequest = {
   /** The app address */
   app: Scalars['EvmAddress']['input'];
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<AppSignersFilterRequest>;
+  /** The order by. */
+  orderBy?: AppSignersOrderBy;
   /** The page size. */
   pageSize?: PageSize;
 };
@@ -646,11 +675,25 @@ export type AppUser = {
   lastActiveOn: Scalars['DateTime']['output'];
 };
 
+export type AppUsersFilterRequest = {
+  /** The optional filter to narrow app users query */
+  searchBy?: InputMaybe<UsernameSearchInput>;
+};
+
+export enum AppUsersOrderBy {
+  AccountScore = 'ACCOUNT_SCORE',
+  Alphabetical = 'ALPHABETICAL',
+  BestMatch = 'BEST_MATCH'
+}
+
 export type AppUsersRequest = {
-  /** The App to filter by. */
+  /** The App to get users for. */
   app: Scalars['EvmAddress']['input'];
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<AppUsersFilterRequest>;
+  /** The order by. */
+  orderBy?: AppUsersOrderBy;
   /** The page size. */
   pageSize?: PageSize;
 };
@@ -660,7 +703,7 @@ export type ApprovalGroupRule = {
   rule: Scalars['EvmAddress']['output'];
 };
 
-export type AppsFilterRequest = {
+export type AppsFilter = {
   /** The optional filter to get apps managed by address */
   managedBy?: InputMaybe<ManagedBy>;
   /**
@@ -679,7 +722,7 @@ export enum AppsOrderBy {
 export type AppsRequest = {
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<AppsFilterRequest>;
+  filter?: InputMaybe<AppsFilter>;
   /** The order by. */
   orderBy?: AppsOrderBy;
   /** The page size. */
@@ -971,7 +1014,7 @@ export type CreateAppRequest = {
    * If the app has verification enabled meaning
    * you can only do stuff with the app if its signed by one of the signers
    */
-  verification: Scalars['Boolean']['input'];
+  verification?: Scalars['Boolean']['input'];
 };
 
 export type CreateAppResponse = {
@@ -1830,7 +1873,7 @@ export type FeedRulesInput = {
   unknownFeedRule?: InputMaybe<UnknownFeedRuleInput>;
 };
 
-export type FeedsFilterRequest = {
+export type FeedsFilter = {
   /** The optional filter to get feeds managed by address */
   managedBy?: InputMaybe<ManagedBy>;
   /**
@@ -1849,7 +1892,7 @@ export enum FeedsOrderBy {
 export type FeedsRequest = {
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<FeedsFilterRequest>;
+  filter?: InputMaybe<FeedsFilter>;
   /** The order by. */
   orderBy?: FeedsOrderBy;
   /** The page size. */
@@ -2023,6 +2066,11 @@ export type ForbiddenError = {
   reason: Scalars['String']['output'];
 };
 
+export type GenerateNewAppServerApiKeyRequest = {
+  /** The app to generate the new server side api key for */
+  app: Scalars['EvmAddress']['input'];
+};
+
 export type Graph = {
   __typename?: 'Graph';
   address: Scalars['EvmAddress']['output'];
@@ -2071,7 +2119,7 @@ export type GraphRulesInput = {
   unknownGraphRule?: InputMaybe<UnknownGraphRuleInput>;
 };
 
-export type GraphsFilterRequest = {
+export type GraphsFilter = {
   /** The optional filter to get graphs managed by address */
   managedBy?: InputMaybe<ManagedBy>;
   /**
@@ -2090,7 +2138,7 @@ export enum GraphsOrderBy {
 export type GraphsRequest = {
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<GraphsFilterRequest>;
+  filter?: InputMaybe<GraphsFilter>;
   /** The order by. */
   orderBy?: GraphsOrderBy;
   pageSize?: PageSize;
@@ -2099,12 +2147,8 @@ export type GraphsRequest = {
 export type Group = {
   __typename?: 'Group';
   address: Scalars['EvmAddress']['output'];
-  /**
-   * Check if the authenticated account is a member of the group.
-   * Will return null if the account is not logged in.
-   */
-  isMember?: Maybe<Scalars['Boolean']['output']>;
   metadata?: Maybe<GroupMetadata>;
+  operations?: Maybe<LoggedInGroupOperations>;
   owner: Scalars['EvmAddress']['output'];
   rules: GroupRulesConfig;
   timestamp: Scalars['DateTime']['output'];
@@ -2121,15 +2165,29 @@ export type GroupGatedFeedRule = {
   rule: Scalars['EvmAddress']['output'];
 };
 
+export type GroupMember = {
+  __typename?: 'GroupMember';
+  account: Account;
+  joinedAt: Scalars['DateTime']['output'];
+  lastActiveAt: Scalars['DateTime']['output'];
+};
+
+export type GroupMembersFilter = {
+  /** The optional filter to narrow members by search query. */
+  searchBy?: InputMaybe<UsernameSearchInput>;
+};
+
 export enum GroupMembersOrderBy {
   AccountScore = 'ACCOUNT_SCORE',
   FirstJoined = 'FIRST_JOINED',
+  LastActive = 'LAST_ACTIVE',
   LastJoined = 'LAST_JOINED'
 }
 
 export type GroupMembersRequest = {
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<GroupMembersFilter>;
   /** The group */
   group: Scalars['EvmAddress']['input'];
   /** The order by. */
@@ -2191,7 +2249,7 @@ export type GroupStatsResponse = {
   totalMembers: Scalars['Int']['output'];
 };
 
-export type GroupsFilterRequest = {
+export type GroupsFilter = {
   /** The optional filter to get groups managed by address */
   managedBy?: InputMaybe<ManagedBy>;
   /** The optional filter to get groups where account is a member */
@@ -2212,7 +2270,7 @@ export enum GroupsOrderBy {
 export type GroupsRequest = {
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<GroupsFilterRequest>;
+  filter?: InputMaybe<GroupsFilter>;
   /** The order by. */
   orderBy?: GroupsOrderBy;
   /** The page size. */
@@ -2407,7 +2465,7 @@ export type LoggedInAccountOperations = {
    * - It first checks for a Graph address specified within the query scope.
    * - If no Graph address is found, it defaults to using the Global Graph.
    */
-  canFollow: TriStateValue;
+  canFollow: OperationValidationOutcome;
   canUnblock: Scalars['Boolean']['output'];
   /**
    * Check if the authenticated account can unfollow the target account.
@@ -2416,7 +2474,7 @@ export type LoggedInAccountOperations = {
    * - It first checks for a Graph address specified within the query scope.
    * - If no Graph address is found, it defaults to using the Global Graph.
    */
-  canUnfollow: Scalars['Boolean']['output'];
+  canUnfollow: OperationValidationOutcome;
   hasBlockedMe: Scalars['Boolean']['output'];
   hasReported: Scalars['Boolean']['output'];
   id: Scalars['ID']['output'];
@@ -2462,14 +2520,25 @@ export type LoggedInAccountOperationsIsFollowingMeArgs = {
 
 export type LoggedInFeedPostOperations = {
   __typename?: 'LoggedInFeedPostOperations';
-  canPost: RulesOutcome;
+  canPost: OperationValidationOutcome;
+};
+
+export type LoggedInGroupOperations = {
+  __typename?: 'LoggedInGroupOperations';
+  canAddMember: OperationValidationOutcome;
+  canJoin: OperationValidationOutcome;
+  canLeave: OperationValidationOutcome;
+  canRemoveMember: OperationValidationOutcome;
+  isMember: Scalars['Boolean']['output'];
 };
 
 export type LoggedInPostOperations = {
   __typename?: 'LoggedInPostOperations';
-  canComment: TriStateValue;
-  canQuote: TriStateValue;
-  canRepost: TriStateValue;
+  canComment: OperationValidationOutcome;
+  canDelete: OperationValidationOutcome;
+  canEdit: OperationValidationOutcome;
+  canQuote: OperationValidationOutcome;
+  canRepost: OperationValidationOutcome;
   hasBookmarked: Scalars['Boolean']['output'];
   hasCommented: BooleanValue;
   hasQuoted: BooleanValue;
@@ -2483,6 +2552,18 @@ export type LoggedInPostOperations = {
 
 export type LoggedInPostOperationsHasReactedArgs = {
   request?: InputMaybe<HasReactedRequest>;
+};
+
+export type LoggedInUsernameNamespaceOperations = {
+  __typename?: 'LoggedInUsernameNamespaceOperations';
+  canMint: OperationValidationOutcome;
+};
+
+export type LoggedInUsernameOperations = {
+  __typename?: 'LoggedInUsernameOperations';
+  canAssign: OperationValidationOutcome;
+  canRemove: OperationValidationOutcome;
+  canUnassign: OperationValidationOutcome;
 };
 
 export enum MainContentFocus {
@@ -3103,12 +3184,6 @@ export type Mutation = {
    */
   addReaction: AddReactionResult;
   /**
-   * Refresh the server side api key for an app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  appRefreshServerApiKey: Scalars['ServerAPIKey']['output'];
-  /**
    * Assign a username to an account.
    *
    * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
@@ -3171,7 +3246,7 @@ export type Mutation = {
   /**
    * Create a new group
    *
-   * You MUST be authenticated as a builder to use this mutation.
+   * You MUST be authenticated to use this mutation.
    */
   createGroup: CreateGroupResult;
   /**
@@ -3210,6 +3285,12 @@ export type Mutation = {
    * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
    */
   follow: FollowResult;
+  /**
+   * Generate a new app server side api key
+   *
+   * You MUST be authenticated as a builder to use this mutation.
+   */
+  generateNewAppServerApiKey: Scalars['ServerAPIKey']['output'];
   /**
    * Hides an account from the manager list of managed accounts.
    *
@@ -3471,11 +3552,6 @@ export type MutationAddReactionArgs = {
 };
 
 
-export type MutationAppRefreshServerApiKeyArgs = {
-  request: RefreshAppServerApiKeyRequest;
-};
-
-
 export type MutationAssignUsernameToAccountArgs = {
   request: AssignUsernameToAccountRequest;
 };
@@ -3548,6 +3624,11 @@ export type MutationEditPostArgs = {
 
 export type MutationFollowArgs = {
   request: CreateFollowRequest;
+};
+
+
+export type MutationGenerateNewAppServerApiKeyArgs = {
+  request: GenerateNewAppServerApiKeyRequest;
 };
 
 
@@ -3745,7 +3826,14 @@ export type MuteRequest = {
   account: Scalars['EvmAddress']['input'];
 };
 
-export type NamespacesFilterRequest = {
+export type NamespaceRequest = {
+  /** The namespace */
+  namespace?: InputMaybe<Scalars['EvmAddress']['input']>;
+  /** The transaction hash you created the namespace with. */
+  txHash?: InputMaybe<Scalars['TxHash']['input']>;
+};
+
+export type NamespacesFilter = {
   /** The optional filter to get namespaces managed by address */
   managedBy?: InputMaybe<ManagedBy>;
   /**
@@ -3764,7 +3852,7 @@ export enum NamespacesOrderBy {
 export type NamespacesRequest = {
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<NamespacesFilterRequest>;
+  filter?: InputMaybe<NamespacesFilter>;
   /** The order by. */
   orderBy?: NamespacesOrderBy;
   /** The page size. */
@@ -3776,8 +3864,6 @@ export type NamespacesResult = {
   items: Array<UsernameNamespace>;
   pageInfo: PaginatedResultInfo;
 };
-
-export type NestedPost = Post | PostReference;
 
 export type NetworkAddress = {
   __typename?: 'NetworkAddress';
@@ -3882,6 +3968,20 @@ export type OnboardingUserChallengeRequest = {
   wallet: Scalars['EvmAddress']['input'];
 };
 
+export type OperationValidationFailed = {
+  __typename?: 'OperationValidationFailed';
+  reason: Scalars['String']['output'];
+  unsatisfiedRules?: Maybe<Array<UnsatisfiedRule>>;
+};
+
+export type OperationValidationOutcome = OperationValidationFailed | OperationValidationPassed;
+
+export type OperationValidationPassed = {
+  __typename?: 'OperationValidationPassed';
+  extraChecksRequired: Array<UnknownRule>;
+  restrictedSignerRequired: Scalars['Boolean']['output'];
+};
+
 export enum PageSize {
   Fifty = 'FIFTY',
   Ten = 'TEN'
@@ -3980,6 +4080,12 @@ export type PaginatedFollowingResult = {
 export type PaginatedGraphsResult = {
   __typename?: 'PaginatedGraphsResult';
   items: Array<Graph>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedGroupMembersResult = {
+  __typename?: 'PaginatedGroupMembersResult';
+  items: Array<GroupMember>;
   pageInfo: PaginatedResultInfo;
 };
 
@@ -4093,7 +4199,7 @@ export type Post = {
   actions: Array<PostAction>;
   app?: Maybe<App>;
   author: Account;
-  commentOn?: Maybe<NestedPost>;
+  commentOn?: Maybe<Post>;
   feed: Feed;
   id: Scalars['PostId']['output'];
   isDeleted: Scalars['Boolean']['output'];
@@ -4101,8 +4207,8 @@ export type Post = {
   mentions: Array<PostMention>;
   metadata: PostMetadata;
   operations?: Maybe<LoggedInPostOperations>;
-  quoteOf?: Maybe<NestedPost>;
-  root?: Maybe<NestedPost>;
+  quoteOf?: Maybe<Post>;
+  root?: Maybe<Post>;
   rules: PostRulesConfig;
   stats: PostStats;
   timestamp: Scalars['DateTime']['output'];
@@ -4238,11 +4344,6 @@ export type PostReactionsRequest = {
   post: Scalars['PostId']['input'];
 };
 
-export type PostReference = {
-  __typename?: 'PostReference';
-  id: Scalars['PostId']['output'];
-};
-
 export enum PostReferenceType {
   CommentOn = 'COMMENT_ON',
   QuoteOf = 'QUOTE_OF',
@@ -4356,7 +4457,7 @@ export enum PostVisibilityFilter {
   Visible = 'VISIBLE'
 }
 
-export type PostsFilterRequest = {
+export type PostsFilter = {
   apps?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
   authors?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
   metadata?: InputMaybe<PostMetadataFilter>;
@@ -4367,7 +4468,7 @@ export type PostsFilterRequest = {
 
 export type PostsRequest = {
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<PostsFilterRequest>;
+  filter?: InputMaybe<PostsFilter>;
   forFeeds?: Array<Scalars['EvmAddress']['input']>;
   pageSize?: PageSize;
 };
@@ -4454,7 +4555,7 @@ export type Query = {
   graphs: PaginatedGraphsResult;
   group?: Maybe<Group>;
   /** Get the members of the group */
-  groupMembers: PaginatedAccountsResult;
+  groupMembers: PaginatedGroupMembersResult;
   /** Get the number of members in a Group */
   groupStats: GroupStatsResponse;
   /** Get the groups. */
@@ -4471,6 +4572,7 @@ export type Query = {
   mlAccountRecommendations: PaginatedAccountsResult;
   mlPostsExplore?: Maybe<PaginatedPostsResult>;
   mlPostsForYou: PaginatedPostsForYouResult;
+  namespace?: Maybe<UsernameNamespace>;
   /** Get the namespaces. */
   namespaces: NamespacesResult;
   /**
@@ -4500,7 +4602,6 @@ export type Query = {
   /** Get the status of a transaction by its hash. */
   transactionStatus: TransactionStatusResult;
   username?: Maybe<Username>;
-  usernameNamespace?: Maybe<UsernameNamespace>;
   /** Get the usernames for the account/owner. */
   usernames: PaginatedUsernamesResult;
   whoActedOnPost: PaginatedAccountsResult;
@@ -4689,6 +4790,11 @@ export type QueryMlPostsForYouArgs = {
 };
 
 
+export type QueryNamespaceArgs = {
+  request: NamespaceRequest;
+};
+
+
 export type QueryNamespacesArgs = {
   request: NamespacesRequest;
 };
@@ -4764,11 +4870,6 @@ export type QueryUsernameArgs = {
 };
 
 
-export type QueryUsernameNamespaceArgs = {
-  request: UsernameNamespaceRequest;
-};
-
-
 export type QueryUsernamesArgs = {
   request: UsernamesRequest;
 };
@@ -4815,11 +4916,6 @@ export type RecommendAccount = {
 export type ReferencingPostInput = {
   /** The post to reference. */
   post: Scalars['PostId']['input'];
-};
-
-export type RefreshAppServerApiKeyRequest = {
-  /** The app to refresh the server side api key for */
-  app: Scalars['EvmAddress']['input'];
 };
 
 export type RefreshRequest = {
@@ -4938,19 +5034,6 @@ export type RolloverRefreshRequest = {
 
 export type RuleInput = {
   rules: Array<Scalars['EvmAddress']['input']>;
-};
-
-export type RulesFailed = {
-  __typename?: 'RulesFailed';
-  unsatisfiedRules: Array<UnsatisfiedRule>;
-};
-
-export type RulesOutcome = RulesFailed | RulesSucceeded;
-
-export type RulesSucceeded = {
-  __typename?: 'RulesSucceeded';
-  extraChecksRequired: Array<UnknownRule>;
-  restrictedSignerRequired: Scalars['Boolean']['output'];
 };
 
 export enum SelfFundedFallbackReason {
@@ -5270,6 +5353,8 @@ export enum TimelineEventItemType {
 }
 
 export type TimelineFilter = {
+  /** The apps to filter by. */
+  apps?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
   /** The post event types to filter by. */
   eventType?: InputMaybe<Array<TimelineEventItemType>>;
   /** The optional metadata filter. */
@@ -5277,6 +5362,8 @@ export type TimelineFilter = {
 };
 
 export type TimelineHighlightsFilter = {
+  /** The apps to filter by. */
+  apps?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
   metadata?: InputMaybe<PostMetadataFilter>;
 };
 
@@ -5421,12 +5508,6 @@ export type TransferPrimitiveOwnershipRequest = {
 };
 
 export type TransferPrimitiveOwnershipResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export enum TriStateValue {
-  No = 'NO',
-  Unknown = 'UNKNOWN',
-  Yes = 'YES'
-}
 
 export type UnassignUsernameFromAccountRequest = {
   namespace?: Scalars['EvmAddress']['input'];
@@ -5616,6 +5697,7 @@ export type Username = {
   /** The local name of the username (e.g., bob). */
   localName: Scalars['String']['output'];
   namespace: UsernameNamespace;
+  operations?: Maybe<LoggedInUsernameOperations>;
   /** The address that owns the username entry. */
   ownedBy: Scalars['EvmAddress']['output'];
   /** The timestamp when the username was created. */
@@ -5639,8 +5721,10 @@ export type UsernameNamespace = {
   metadata?: Maybe<UsernameNamespaceMetadata>;
   /** The namespace for example `lens` */
   namespace: Scalars['String']['output'];
+  operations?: Maybe<LoggedInUsernameNamespaceOperations>;
   owner: Scalars['EvmAddress']['output'];
   rules: UsernameNamespaceRulesConfig;
+  stats: UsernameNamespaceStats;
 };
 
 
@@ -5659,19 +5743,17 @@ export type UsernameNamespaceMetadata = {
   id: Scalars['String']['output'];
 };
 
-export type UsernameNamespaceRequest = {
-  /** The namespace */
-  namespace?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /** The transaction hash you created the namespace with. */
-  txHash?: InputMaybe<Scalars['TxHash']['input']>;
-};
-
 export type UsernameNamespaceRule = CharsetUsernameNamespaceRule | LengthUsernameNamespaceRule | SimplePaymentUsernameNamespaceRule | TokenGatedUsernameNamespaceRule | UnknownUsernameNamespaceRule;
 
 export type UsernameNamespaceRulesConfig = {
   __typename?: 'UsernameNamespaceRulesConfig';
   anyOf: Array<UsernameNamespaceRule>;
   required: Array<UsernameNamespaceRule>;
+};
+
+export type UsernameNamespaceStats = {
+  __typename?: 'UsernameNamespaceStats';
+  totalUsernames: Scalars['Int']['output'];
 };
 
 /** You must provide either an id or a username, not both. */
@@ -5692,11 +5774,31 @@ export type UsernameSearchInput = {
   namespaces?: Array<Scalars['EvmAddress']['input']>;
 };
 
+export type UsernamesFilter = {
+  /** The optional filter to get usernames linked to an address */
+  linkedTo?: InputMaybe<Scalars['EvmAddress']['input']>;
+  /**
+   * The optional filter to narrow usernames
+   * Uses fuzzy search by local name
+   */
+  localNameQuery?: InputMaybe<Scalars['String']['input']>;
+  /** The optional filter to get usernames for a namespace */
+  namespace?: InputMaybe<Scalars['EvmAddress']['input']>;
+  /** The optional filter to get usernames owned by address */
+  owner?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export enum UsernamesOrderBy {
+  FirstMinted = 'FIRST_MINTED',
+  LastMinted = 'LAST_MINTED'
+}
+
 export type UsernamesRequest = {
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The account or address to get owned usernames for. */
-  owner: Scalars['EvmAddress']['input'];
+  filter?: InputMaybe<UsernamesFilter>;
+  /** The order by. */
+  orderBy?: UsernamesOrderBy;
   /** The page size. */
   pageSize?: PageSize;
 };
@@ -5794,13 +5896,24 @@ export type AccountMetadataFieldsFragment = { __typename?: 'AccountMetadata', bi
     & { ' $fragmentRefs'?: { 'MetadataAttributeFieldsFragment': MetadataAttributeFieldsFragment } }
   )> } & { ' $fragmentName'?: 'AccountMetadataFieldsFragment' };
 
-export type LoggedInAccountOperationsFieldsFragment = { __typename?: 'LoggedInAccountOperations', id: string, isFollowedByMe: boolean, isFollowingMe: boolean, canFollow: TriStateValue, canUnfollow: boolean, isMutedByMe: boolean, isBlockedByMe: boolean, hasBlockedMe: boolean, canBlock: boolean, canUnblock: boolean, hasReported: boolean } & { ' $fragmentName'?: 'LoggedInAccountOperationsFieldsFragment' };
+export type LoggedInAccountOperationsFieldsFragment = { __typename?: 'LoggedInAccountOperations', id: string, isFollowedByMe: boolean, isFollowingMe: boolean, isMutedByMe: boolean, isBlockedByMe: boolean, hasBlockedMe: boolean, canBlock: boolean, canUnblock: boolean, hasReported: boolean } & { ' $fragmentName'?: 'LoggedInAccountOperationsFieldsFragment' };
+
+export type AmountFieldsFragment = { __typename?: 'Amount', value: any, asset: (
+    { __typename?: 'Erc20' }
+    & { ' $fragmentRefs'?: { 'AssetFieldsFragment': AssetFieldsFragment } }
+  ) } & { ' $fragmentName'?: 'AmountFieldsFragment' };
 
 export type AppFieldsFragment = { __typename?: 'App', address: any, defaultFeedAddress?: any | null, graphAddress?: any | null, namespaceAddress?: any | null, sponsorshipAddress?: any | null, treasuryAddress?: any | null, createdAt: any, metadata?: { __typename?: 'AppMetadata', description?: string | null, developer: string, logo?: any | null, name: string, platforms: Array<AppMetadataLensPlatformsItem>, privacyPolicy?: any | null, termsOfService?: any | null, url: any } | null } & { ' $fragmentName'?: 'AppFieldsFragment' };
+
+export type AssetFieldsFragment = { __typename?: 'Erc20', decimals: number, name: string, symbol: string, contract: { __typename?: 'NetworkAddress', address: any, chainId: number } } & { ' $fragmentName'?: 'AssetFieldsFragment' };
+
+export type BooleanValueFieldsFragment = { __typename?: 'BooleanValue', onChain: boolean, optimistic: boolean } & { ' $fragmentName'?: 'BooleanValueFieldsFragment' };
 
 export type GroupFieldsFragment = { __typename?: 'Group', address: any, timestamp: any, metadata?: { __typename?: 'GroupMetadata', description?: string | null, icon?: any | null, name: string, id: string } | null } & { ' $fragmentName'?: 'GroupFieldsFragment' };
 
 export type MetadataAttributeFieldsFragment = { __typename?: 'MetadataAttribute', type: MetadataAttributeType, key: string, value: string } & { ' $fragmentName'?: 'MetadataAttributeFieldsFragment' };
+
+export type NetworkAddressFieldsFragment = { __typename?: 'NetworkAddress', address: any, chainId: number } & { ' $fragmentName'?: 'NetworkAddressFieldsFragment' };
 
 export type CommentNotificationFieldsFragment = { __typename?: 'CommentNotification', id: any, comment: (
     { __typename?: 'Post' }
@@ -5837,6 +5950,27 @@ export type RepostNotificationFieldsFragment = { __typename?: 'RepostNotificatio
       { __typename?: 'Account' }
       & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
     ) }> } & { ' $fragmentName'?: 'RepostNotificationFieldsFragment' };
+
+export type SimpleCollectActionSettingsFieldsFragment = { __typename?: 'SimpleCollectActionSettings', collectLimit?: string | null, collectNft?: any | null, endsAt?: any | null, followerOnly: boolean, recipient: any, referralFee: number, amount: (
+    { __typename?: 'Amount' }
+    & { ' $fragmentRefs'?: { 'AmountFieldsFragment': AmountFieldsFragment } }
+  ), contract: (
+    { __typename?: 'NetworkAddress' }
+    & { ' $fragmentRefs'?: { 'NetworkAddressFieldsFragment': NetworkAddressFieldsFragment } }
+  ), recipients: Array<{ __typename?: 'RecipientDataOutput', recipient: any, split: number }> } & { ' $fragmentName'?: 'SimpleCollectActionSettingsFieldsFragment' };
+
+export type UnknownActionSettingsFieldsFragment = { __typename: 'UnknownActionSettings' } & { ' $fragmentName'?: 'UnknownActionSettingsFieldsFragment' };
+
+export type LoggedInPostOperationsFieldsFragment = { __typename?: 'LoggedInPostOperations', id: string, hasBookmarked: boolean, hasReacted: boolean, hasReported: boolean, isNotInterested: boolean, hasCommented: (
+    { __typename?: 'BooleanValue' }
+    & { ' $fragmentRefs'?: { 'BooleanValueFieldsFragment': BooleanValueFieldsFragment } }
+  ), hasQuoted: (
+    { __typename?: 'BooleanValue' }
+    & { ' $fragmentRefs'?: { 'BooleanValueFieldsFragment': BooleanValueFieldsFragment } }
+  ), hasReposted: (
+    { __typename?: 'BooleanValue' }
+    & { ' $fragmentRefs'?: { 'BooleanValueFieldsFragment': BooleanValueFieldsFragment } }
+  ) } & { ' $fragmentName'?: 'LoggedInPostOperationsFieldsFragment' };
 
 export type MediaAudioFieldsFragment = { __typename?: 'MediaAudio', artist?: any | null, item: any, cover?: any | null, license?: MetadataLicenseType | null } & { ' $fragmentName'?: 'MediaAudioFieldsFragment' };
 
@@ -5884,7 +6018,19 @@ export type VideoMetadataFieldsFragment = { __typename: 'VideoMetadata', title?:
     & { ' $fragmentRefs'?: { 'MediaVideoFieldsFragment': MediaVideoFieldsFragment } }
   ) } & { ' $fragmentName'?: 'VideoMetadataFieldsFragment' };
 
-export type PostFieldsFragment = { __typename?: 'Post', id: any, isEdited: boolean, isDeleted: boolean, timestamp: any, author: (
+type PostActionFields_SimpleCollectActionSettings_Fragment = (
+  { __typename?: 'SimpleCollectActionSettings' }
+  & { ' $fragmentRefs'?: { 'SimpleCollectActionSettingsFieldsFragment': SimpleCollectActionSettingsFieldsFragment } }
+) & { ' $fragmentName'?: 'PostActionFields_SimpleCollectActionSettings_Fragment' };
+
+type PostActionFields_UnknownActionSettings_Fragment = (
+  { __typename?: 'UnknownActionSettings' }
+  & { ' $fragmentRefs'?: { 'UnknownActionSettingsFieldsFragment': UnknownActionSettingsFieldsFragment } }
+) & { ' $fragmentName'?: 'PostActionFields_UnknownActionSettings_Fragment' };
+
+export type PostActionFieldsFragment = PostActionFields_SimpleCollectActionSettings_Fragment | PostActionFields_UnknownActionSettings_Fragment;
+
+export type PostBaseFieldsFragment = { __typename?: 'Post', id: any, isEdited: boolean, isDeleted: boolean, timestamp: any, author: (
     { __typename?: 'Account' }
     & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
   ), feed: { __typename?: 'Feed', address: any }, app?: (
@@ -5935,154 +6081,33 @@ export type PostFieldsFragment = { __typename?: 'Post', id: any, isEdited: boole
   ) | (
     { __typename?: 'VideoMetadata' }
     & { ' $fragmentRefs'?: { 'PostMetadataFields_VideoMetadata_Fragment': PostMetadataFields_VideoMetadata_Fragment } }
-  ), root?: { __typename?: 'Post', id: any, timestamp: any, author: (
-      { __typename?: 'Account' }
-      & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
-    ), metadata: (
-      { __typename?: 'ArticleMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_ArticleMetadata_Fragment': PostMetadataFields_ArticleMetadata_Fragment } }
-    ) | (
-      { __typename?: 'AudioMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_AudioMetadata_Fragment': PostMetadataFields_AudioMetadata_Fragment } }
-    ) | (
-      { __typename?: 'CheckingInMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_CheckingInMetadata_Fragment': PostMetadataFields_CheckingInMetadata_Fragment } }
-    ) | (
-      { __typename?: 'EmbedMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_EmbedMetadata_Fragment': PostMetadataFields_EmbedMetadata_Fragment } }
-    ) | (
-      { __typename?: 'EventMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_EventMetadata_Fragment': PostMetadataFields_EventMetadata_Fragment } }
-    ) | (
-      { __typename?: 'ImageMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_ImageMetadata_Fragment': PostMetadataFields_ImageMetadata_Fragment } }
-    ) | (
-      { __typename?: 'LinkMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_LinkMetadata_Fragment': PostMetadataFields_LinkMetadata_Fragment } }
-    ) | (
-      { __typename?: 'LivestreamMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_LivestreamMetadata_Fragment': PostMetadataFields_LivestreamMetadata_Fragment } }
-    ) | (
-      { __typename?: 'MintMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_MintMetadata_Fragment': PostMetadataFields_MintMetadata_Fragment } }
-    ) | (
-      { __typename?: 'SpaceMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_SpaceMetadata_Fragment': PostMetadataFields_SpaceMetadata_Fragment } }
-    ) | (
-      { __typename?: 'StoryMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_StoryMetadata_Fragment': PostMetadataFields_StoryMetadata_Fragment } }
-    ) | (
-      { __typename?: 'TextOnlyMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_TextOnlyMetadata_Fragment': PostMetadataFields_TextOnlyMetadata_Fragment } }
-    ) | (
-      { __typename?: 'ThreeDMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_ThreeDMetadata_Fragment': PostMetadataFields_ThreeDMetadata_Fragment } }
-    ) | (
-      { __typename?: 'TransactionMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_TransactionMetadata_Fragment': PostMetadataFields_TransactionMetadata_Fragment } }
-    ) | (
-      { __typename?: 'VideoMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_VideoMetadata_Fragment': PostMetadataFields_VideoMetadata_Fragment } }
-    ) } | { __typename?: 'PostReference', id: any } | null, quoteOf?: { __typename?: 'Post', id: any, timestamp: any, author: (
-      { __typename?: 'Account' }
-      & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
-    ), metadata: (
-      { __typename?: 'ArticleMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_ArticleMetadata_Fragment': PostMetadataFields_ArticleMetadata_Fragment } }
-    ) | (
-      { __typename?: 'AudioMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_AudioMetadata_Fragment': PostMetadataFields_AudioMetadata_Fragment } }
-    ) | (
-      { __typename?: 'CheckingInMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_CheckingInMetadata_Fragment': PostMetadataFields_CheckingInMetadata_Fragment } }
-    ) | (
-      { __typename?: 'EmbedMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_EmbedMetadata_Fragment': PostMetadataFields_EmbedMetadata_Fragment } }
-    ) | (
-      { __typename?: 'EventMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_EventMetadata_Fragment': PostMetadataFields_EventMetadata_Fragment } }
-    ) | (
-      { __typename?: 'ImageMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_ImageMetadata_Fragment': PostMetadataFields_ImageMetadata_Fragment } }
-    ) | (
-      { __typename?: 'LinkMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_LinkMetadata_Fragment': PostMetadataFields_LinkMetadata_Fragment } }
-    ) | (
-      { __typename?: 'LivestreamMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_LivestreamMetadata_Fragment': PostMetadataFields_LivestreamMetadata_Fragment } }
-    ) | (
-      { __typename?: 'MintMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_MintMetadata_Fragment': PostMetadataFields_MintMetadata_Fragment } }
-    ) | (
-      { __typename?: 'SpaceMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_SpaceMetadata_Fragment': PostMetadataFields_SpaceMetadata_Fragment } }
-    ) | (
-      { __typename?: 'StoryMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_StoryMetadata_Fragment': PostMetadataFields_StoryMetadata_Fragment } }
-    ) | (
-      { __typename?: 'TextOnlyMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_TextOnlyMetadata_Fragment': PostMetadataFields_TextOnlyMetadata_Fragment } }
-    ) | (
-      { __typename?: 'ThreeDMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_ThreeDMetadata_Fragment': PostMetadataFields_ThreeDMetadata_Fragment } }
-    ) | (
-      { __typename?: 'TransactionMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_TransactionMetadata_Fragment': PostMetadataFields_TransactionMetadata_Fragment } }
-    ) | (
-      { __typename?: 'VideoMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_VideoMetadata_Fragment': PostMetadataFields_VideoMetadata_Fragment } }
-    ) } | { __typename?: 'PostReference', id: any } | null, commentOn?: { __typename?: 'Post', id: any, timestamp: any, author: (
-      { __typename?: 'Account' }
-      & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
-    ), metadata: (
-      { __typename?: 'ArticleMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_ArticleMetadata_Fragment': PostMetadataFields_ArticleMetadata_Fragment } }
-    ) | (
-      { __typename?: 'AudioMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_AudioMetadata_Fragment': PostMetadataFields_AudioMetadata_Fragment } }
-    ) | (
-      { __typename?: 'CheckingInMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_CheckingInMetadata_Fragment': PostMetadataFields_CheckingInMetadata_Fragment } }
-    ) | (
-      { __typename?: 'EmbedMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_EmbedMetadata_Fragment': PostMetadataFields_EmbedMetadata_Fragment } }
-    ) | (
-      { __typename?: 'EventMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_EventMetadata_Fragment': PostMetadataFields_EventMetadata_Fragment } }
-    ) | (
-      { __typename?: 'ImageMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_ImageMetadata_Fragment': PostMetadataFields_ImageMetadata_Fragment } }
-    ) | (
-      { __typename?: 'LinkMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_LinkMetadata_Fragment': PostMetadataFields_LinkMetadata_Fragment } }
-    ) | (
-      { __typename?: 'LivestreamMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_LivestreamMetadata_Fragment': PostMetadataFields_LivestreamMetadata_Fragment } }
-    ) | (
-      { __typename?: 'MintMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_MintMetadata_Fragment': PostMetadataFields_MintMetadata_Fragment } }
-    ) | (
-      { __typename?: 'SpaceMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_SpaceMetadata_Fragment': PostMetadataFields_SpaceMetadata_Fragment } }
-    ) | (
-      { __typename?: 'StoryMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_StoryMetadata_Fragment': PostMetadataFields_StoryMetadata_Fragment } }
-    ) | (
-      { __typename?: 'TextOnlyMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_TextOnlyMetadata_Fragment': PostMetadataFields_TextOnlyMetadata_Fragment } }
-    ) | (
-      { __typename?: 'ThreeDMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_ThreeDMetadata_Fragment': PostMetadataFields_ThreeDMetadata_Fragment } }
-    ) | (
-      { __typename?: 'TransactionMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_TransactionMetadata_Fragment': PostMetadataFields_TransactionMetadata_Fragment } }
-    ) | (
-      { __typename?: 'VideoMetadata' }
-      & { ' $fragmentRefs'?: { 'PostMetadataFields_VideoMetadata_Fragment': PostMetadataFields_VideoMetadata_Fragment } }
-    ) } | { __typename?: 'PostReference', id: any } | null, stats: (
+  ), actions: Array<(
+    { __typename?: 'SimpleCollectActionSettings' }
+    & { ' $fragmentRefs'?: { 'PostActionFields_SimpleCollectActionSettings_Fragment': PostActionFields_SimpleCollectActionSettings_Fragment } }
+  ) | (
+    { __typename?: 'UnknownActionSettings' }
+    & { ' $fragmentRefs'?: { 'PostActionFields_UnknownActionSettings_Fragment': PostActionFields_UnknownActionSettings_Fragment } }
+  )>, stats: (
     { __typename?: 'PostStats' }
     & { ' $fragmentRefs'?: { 'PostStatsFieldsFragment': PostStatsFieldsFragment } }
-  ), operations?: { __typename?: 'LoggedInPostOperations', canComment: TriStateValue, canRepost: TriStateValue, canQuote: TriStateValue, hasReacted: boolean, hasReposted: { __typename?: 'BooleanValue', optimistic: boolean } } | null } & { ' $fragmentName'?: 'PostFieldsFragment' };
+  ), operations?: (
+    { __typename?: 'LoggedInPostOperations' }
+    & { ' $fragmentRefs'?: { 'LoggedInPostOperationsFieldsFragment': LoggedInPostOperationsFieldsFragment } }
+  ) | null } & { ' $fragmentName'?: 'PostBaseFieldsFragment' };
+
+export type PostFieldsFragment = (
+  { __typename?: 'Post', root?: (
+    { __typename?: 'Post' }
+    & { ' $fragmentRefs'?: { 'PostBaseFieldsFragment': PostBaseFieldsFragment } }
+  ) | null, commentOn?: (
+    { __typename?: 'Post' }
+    & { ' $fragmentRefs'?: { 'PostBaseFieldsFragment': PostBaseFieldsFragment } }
+  ) | null, quoteOf?: (
+    { __typename?: 'Post' }
+    & { ' $fragmentRefs'?: { 'PostBaseFieldsFragment': PostBaseFieldsFragment } }
+  ) | null }
+  & { ' $fragmentRefs'?: { 'PostBaseFieldsFragment': PostBaseFieldsFragment } }
+) & { ' $fragmentName'?: 'PostFieldsFragment' };
 
 type PostMetadataFields_ArticleMetadata_Fragment = { __typename: 'ArticleMetadata' } & { ' $fragmentName'?: 'PostMetadataFields_ArticleMetadata_Fragment' };
 
@@ -6124,10 +6149,7 @@ export type PostStatsFieldsFragment = { __typename?: 'PostStats', bookmarks: num
 export type RepostFieldsFragment = { __typename?: 'Repost', id: any, isDeleted: boolean, timestamp: any, author: (
     { __typename?: 'Account' }
     & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
-  ), app?: (
-    { __typename?: 'App' }
-    & { ' $fragmentRefs'?: { 'AppFieldsFragment': AppFieldsFragment } }
-  ) | null, repostOf: (
+  ), repostOf: (
     { __typename?: 'Post' }
     & { ' $fragmentRefs'?: { 'PostFieldsFragment': PostFieldsFragment } }
   ) } & { ' $fragmentName'?: 'RepostFieldsFragment' };
@@ -6464,8 +6486,6 @@ export const LoggedInAccountOperationsFieldsFragmentDoc = new TypedDocumentStrin
   id
   isFollowedByMe
   isFollowingMe
-  canFollow
-  canUnfollow
   isMutedByMe
   isBlockedByMe
   hasBlockedMe
@@ -6499,8 +6519,6 @@ export const AccountFieldsFragmentDoc = new TypedDocumentString(`
   id
   isFollowedByMe
   isFollowingMe
-  canFollow
-  canUnfollow
   isMutedByMe
   isBlockedByMe
   hasBlockedMe
@@ -6747,6 +6765,139 @@ fragment VideoMetadataFields on VideoMetadata {
     ...MediaVideoFields
   }
 }`, {"fragmentName":"PostMetadataFields"}) as unknown as TypedDocumentString<PostMetadataFieldsFragment, unknown>;
+export const AssetFieldsFragmentDoc = new TypedDocumentString(`
+    fragment AssetFields on Asset {
+  ... on Erc20 {
+    contract {
+      address
+      chainId
+    }
+    decimals
+    name
+    symbol
+  }
+}
+    `, {"fragmentName":"AssetFields"}) as unknown as TypedDocumentString<AssetFieldsFragment, unknown>;
+export const AmountFieldsFragmentDoc = new TypedDocumentString(`
+    fragment AmountFields on Amount {
+  asset {
+    ...AssetFields
+  }
+  value
+}
+    fragment AssetFields on Asset {
+  ... on Erc20 {
+    contract {
+      address
+      chainId
+    }
+    decimals
+    name
+    symbol
+  }
+}`, {"fragmentName":"AmountFields"}) as unknown as TypedDocumentString<AmountFieldsFragment, unknown>;
+export const NetworkAddressFieldsFragmentDoc = new TypedDocumentString(`
+    fragment NetworkAddressFields on NetworkAddress {
+  address
+  chainId
+}
+    `, {"fragmentName":"NetworkAddressFields"}) as unknown as TypedDocumentString<NetworkAddressFieldsFragment, unknown>;
+export const SimpleCollectActionSettingsFieldsFragmentDoc = new TypedDocumentString(`
+    fragment SimpleCollectActionSettingsFields on SimpleCollectActionSettings {
+  collectLimit
+  collectNft
+  endsAt
+  followerOnly
+  recipient
+  referralFee
+  amount {
+    ...AmountFields
+  }
+  contract {
+    ...NetworkAddressFields
+  }
+  recipients {
+    recipient
+    split
+  }
+}
+    fragment AmountFields on Amount {
+  asset {
+    ...AssetFields
+  }
+  value
+}
+fragment AssetFields on Asset {
+  ... on Erc20 {
+    contract {
+      address
+      chainId
+    }
+    decimals
+    name
+    symbol
+  }
+}
+fragment NetworkAddressFields on NetworkAddress {
+  address
+  chainId
+}`, {"fragmentName":"SimpleCollectActionSettingsFields"}) as unknown as TypedDocumentString<SimpleCollectActionSettingsFieldsFragment, unknown>;
+export const UnknownActionSettingsFieldsFragmentDoc = new TypedDocumentString(`
+    fragment UnknownActionSettingsFields on UnknownActionSettings {
+  __typename
+}
+    `, {"fragmentName":"UnknownActionSettingsFields"}) as unknown as TypedDocumentString<UnknownActionSettingsFieldsFragment, unknown>;
+export const PostActionFieldsFragmentDoc = new TypedDocumentString(`
+    fragment PostActionFields on PostAction {
+  ... on SimpleCollectActionSettings {
+    ...SimpleCollectActionSettingsFields
+  }
+  ... on UnknownActionSettings {
+    ...UnknownActionSettingsFields
+  }
+}
+    fragment AmountFields on Amount {
+  asset {
+    ...AssetFields
+  }
+  value
+}
+fragment AssetFields on Asset {
+  ... on Erc20 {
+    contract {
+      address
+      chainId
+    }
+    decimals
+    name
+    symbol
+  }
+}
+fragment NetworkAddressFields on NetworkAddress {
+  address
+  chainId
+}
+fragment SimpleCollectActionSettingsFields on SimpleCollectActionSettings {
+  collectLimit
+  collectNft
+  endsAt
+  followerOnly
+  recipient
+  referralFee
+  amount {
+    ...AmountFields
+  }
+  contract {
+    ...NetworkAddressFields
+  }
+  recipients {
+    recipient
+    split
+  }
+}
+fragment UnknownActionSettingsFields on UnknownActionSettings {
+  __typename
+}`, {"fragmentName":"PostActionFields"}) as unknown as TypedDocumentString<PostActionFieldsFragment, unknown>;
 export const PostStatsFieldsFragmentDoc = new TypedDocumentString(`
     fragment PostStatsFields on PostStats {
   bookmarks
@@ -6757,80 +6908,59 @@ export const PostStatsFieldsFragmentDoc = new TypedDocumentString(`
   reposts
 }
     `, {"fragmentName":"PostStatsFields"}) as unknown as TypedDocumentString<PostStatsFieldsFragment, unknown>;
-export const PostFieldsFragmentDoc = new TypedDocumentString(`
-    fragment PostFields on Post {
+export const BooleanValueFieldsFragmentDoc = new TypedDocumentString(`
+    fragment BooleanValueFields on BooleanValue {
+  onChain
+  optimistic
+}
+    `, {"fragmentName":"BooleanValueFields"}) as unknown as TypedDocumentString<BooleanValueFieldsFragment, unknown>;
+export const LoggedInPostOperationsFieldsFragmentDoc = new TypedDocumentString(`
+    fragment LoggedInPostOperationsFields on LoggedInPostOperations {
   id
+  hasBookmarked
+  hasReacted
+  hasReported
+  isNotInterested
+  hasCommented {
+    ...BooleanValueFields
+  }
+  hasQuoted {
+    ...BooleanValueFields
+  }
+  hasReposted {
+    ...BooleanValueFields
+  }
+}
+    fragment BooleanValueFields on BooleanValue {
+  onChain
+  optimistic
+}`, {"fragmentName":"LoggedInPostOperationsFields"}) as unknown as TypedDocumentString<LoggedInPostOperationsFieldsFragment, unknown>;
+export const PostBaseFieldsFragmentDoc = new TypedDocumentString(`
+    fragment PostBaseFields on Post {
+  id
+  isEdited
+  isDeleted
+  timestamp
   author {
     ...AccountFields
   }
   feed {
     address
   }
-  isEdited
-  isDeleted
-  timestamp
   app {
     ...AppFields
   }
   metadata {
     ...PostMetadataFields
   }
-  root {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
-  }
-  quoteOf {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
-  }
-  commentOn {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
+  actions {
+    ...PostActionFields
   }
   stats {
     ...PostStatsFields
   }
   operations {
-    canComment
-    canRepost
-    canQuote
-    hasReacted
-    hasReposted {
-      optimistic
-    }
+    ...LoggedInPostOperationsFields
   }
 }
     fragment AccountFields on Account {
@@ -6857,14 +6987,18 @@ fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
   id
   isFollowedByMe
   isFollowingMe
-  canFollow
-  canUnfollow
   isMutedByMe
   isBlockedByMe
   hasBlockedMe
   canBlock
   canUnblock
   hasReported
+}
+fragment AmountFields on Amount {
+  asset {
+    ...AssetFields
+  }
+  value
 }
 fragment AppFields on App {
   address
@@ -6885,10 +7019,66 @@ fragment AppFields on App {
     url
   }
 }
+fragment AssetFields on Asset {
+  ... on Erc20 {
+    contract {
+      address
+      chainId
+    }
+    decimals
+    name
+    symbol
+  }
+}
+fragment BooleanValueFields on BooleanValue {
+  onChain
+  optimistic
+}
 fragment MetadataAttributeFields on MetadataAttribute {
   type
   key
   value
+}
+fragment NetworkAddressFields on NetworkAddress {
+  address
+  chainId
+}
+fragment SimpleCollectActionSettingsFields on SimpleCollectActionSettings {
+  collectLimit
+  collectNft
+  endsAt
+  followerOnly
+  recipient
+  referralFee
+  amount {
+    ...AmountFields
+  }
+  contract {
+    ...NetworkAddressFields
+  }
+  recipients {
+    recipient
+    split
+  }
+}
+fragment UnknownActionSettingsFields on UnknownActionSettings {
+  __typename
+}
+fragment LoggedInPostOperationsFields on LoggedInPostOperations {
+  id
+  hasBookmarked
+  hasReacted
+  hasReported
+  isNotInterested
+  hasCommented {
+    ...BooleanValueFields
+  }
+  hasQuoted {
+    ...BooleanValueFields
+  }
+  hasReposted {
+    ...BooleanValueFields
+  }
 }
 fragment MediaAudioFields on MediaAudio {
   artist
@@ -6938,6 +7128,259 @@ fragment VideoMetadataFields on VideoMetadata {
   }
   video {
     ...MediaVideoFields
+  }
+}
+fragment PostActionFields on PostAction {
+  ... on SimpleCollectActionSettings {
+    ...SimpleCollectActionSettingsFields
+  }
+  ... on UnknownActionSettings {
+    ...UnknownActionSettingsFields
+  }
+}
+fragment PostMetadataFields on PostMetadata {
+  __typename
+  ... on VideoMetadata {
+    ...VideoMetadataFields
+  }
+}
+fragment PostStatsFields on PostStats {
+  bookmarks
+  collects
+  comments
+  quotes
+  reactions
+  reposts
+}
+fragment UsernameFields on Username {
+  id
+  value
+  namespace {
+    address
+    namespace
+    metadata {
+      description
+      id
+    }
+  }
+  localName
+  linkedTo
+  ownedBy
+  timestamp
+}`, {"fragmentName":"PostBaseFields"}) as unknown as TypedDocumentString<PostBaseFieldsFragment, unknown>;
+export const PostFieldsFragmentDoc = new TypedDocumentString(`
+    fragment PostFields on Post {
+  ...PostBaseFields
+  root {
+    ...PostBaseFields
+  }
+  commentOn {
+    ...PostBaseFields
+  }
+  quoteOf {
+    ...PostBaseFields
+  }
+}
+    fragment AccountFields on Account {
+  address
+  score
+  metadata {
+    bio
+    coverPicture
+    id
+    name
+    picture
+    attributes {
+      ...MetadataAttributeFields
+    }
+  }
+  username {
+    ...UsernameFields
+  }
+  operations {
+    ...LoggedInAccountOperationsFields
+  }
+}
+fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
+  id
+  isFollowedByMe
+  isFollowingMe
+  isMutedByMe
+  isBlockedByMe
+  hasBlockedMe
+  canBlock
+  canUnblock
+  hasReported
+}
+fragment AmountFields on Amount {
+  asset {
+    ...AssetFields
+  }
+  value
+}
+fragment AppFields on App {
+  address
+  defaultFeedAddress
+  graphAddress
+  namespaceAddress
+  sponsorshipAddress
+  treasuryAddress
+  createdAt
+  metadata {
+    description
+    developer
+    logo
+    name
+    platforms
+    privacyPolicy
+    termsOfService
+    url
+  }
+}
+fragment AssetFields on Asset {
+  ... on Erc20 {
+    contract {
+      address
+      chainId
+    }
+    decimals
+    name
+    symbol
+  }
+}
+fragment BooleanValueFields on BooleanValue {
+  onChain
+  optimistic
+}
+fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}
+fragment NetworkAddressFields on NetworkAddress {
+  address
+  chainId
+}
+fragment SimpleCollectActionSettingsFields on SimpleCollectActionSettings {
+  collectLimit
+  collectNft
+  endsAt
+  followerOnly
+  recipient
+  referralFee
+  amount {
+    ...AmountFields
+  }
+  contract {
+    ...NetworkAddressFields
+  }
+  recipients {
+    recipient
+    split
+  }
+}
+fragment UnknownActionSettingsFields on UnknownActionSettings {
+  __typename
+}
+fragment LoggedInPostOperationsFields on LoggedInPostOperations {
+  id
+  hasBookmarked
+  hasReacted
+  hasReported
+  isNotInterested
+  hasCommented {
+    ...BooleanValueFields
+  }
+  hasQuoted {
+    ...BooleanValueFields
+  }
+  hasReposted {
+    ...BooleanValueFields
+  }
+}
+fragment MediaAudioFields on MediaAudio {
+  artist
+  item
+  cover
+  license
+}
+fragment MediaFields on AnyMedia {
+  ... on MediaVideo {
+    ...MediaVideoFields
+  }
+  ... on MediaImage {
+    ...MediaImageFields
+  }
+  ... on MediaAudio {
+    ...MediaAudioFields
+  }
+}
+fragment MediaImageFields on MediaImage {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  item
+  license
+}
+fragment MediaVideoFields on MediaVideo {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  cover
+  duration
+  item
+  license
+}
+fragment VideoMetadataFields on VideoMetadata {
+  __typename
+  title
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...MediaFields
+  }
+  video {
+    ...MediaVideoFields
+  }
+}
+fragment PostActionFields on PostAction {
+  ... on SimpleCollectActionSettings {
+    ...SimpleCollectActionSettingsFields
+  }
+  ... on UnknownActionSettings {
+    ...UnknownActionSettingsFields
+  }
+}
+fragment PostBaseFields on Post {
+  id
+  isEdited
+  isDeleted
+  timestamp
+  author {
+    ...AccountFields
+  }
+  feed {
+    address
+  }
+  app {
+    ...AppFields
+  }
+  metadata {
+    ...PostMetadataFields
+  }
+  actions {
+    ...PostActionFields
+  }
+  stats {
+    ...PostStatsFields
+  }
+  operations {
+    ...LoggedInPostOperationsFields
   }
 }
 fragment PostMetadataFields on PostMetadata {
@@ -7001,14 +7444,18 @@ fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
   id
   isFollowedByMe
   isFollowingMe
-  canFollow
-  canUnfollow
   isMutedByMe
   isBlockedByMe
   hasBlockedMe
   canBlock
   canUnblock
   hasReported
+}
+fragment AmountFields on Amount {
+  asset {
+    ...AssetFields
+  }
+  value
 }
 fragment AppFields on App {
   address
@@ -7029,10 +7476,66 @@ fragment AppFields on App {
     url
   }
 }
+fragment AssetFields on Asset {
+  ... on Erc20 {
+    contract {
+      address
+      chainId
+    }
+    decimals
+    name
+    symbol
+  }
+}
+fragment BooleanValueFields on BooleanValue {
+  onChain
+  optimistic
+}
 fragment MetadataAttributeFields on MetadataAttribute {
   type
   key
   value
+}
+fragment NetworkAddressFields on NetworkAddress {
+  address
+  chainId
+}
+fragment SimpleCollectActionSettingsFields on SimpleCollectActionSettings {
+  collectLimit
+  collectNft
+  endsAt
+  followerOnly
+  recipient
+  referralFee
+  amount {
+    ...AmountFields
+  }
+  contract {
+    ...NetworkAddressFields
+  }
+  recipients {
+    recipient
+    split
+  }
+}
+fragment UnknownActionSettingsFields on UnknownActionSettings {
+  __typename
+}
+fragment LoggedInPostOperationsFields on LoggedInPostOperations {
+  id
+  hasBookmarked
+  hasReacted
+  hasReported
+  isNotInterested
+  hasCommented {
+    ...BooleanValueFields
+  }
+  hasQuoted {
+    ...BooleanValueFields
+  }
+  hasReposted {
+    ...BooleanValueFields
+  }
 }
 fragment MediaAudioFields on MediaAudio {
   artist
@@ -7084,79 +7587,51 @@ fragment VideoMetadataFields on VideoMetadata {
     ...MediaVideoFields
   }
 }
-fragment PostFields on Post {
+fragment PostActionFields on PostAction {
+  ... on SimpleCollectActionSettings {
+    ...SimpleCollectActionSettingsFields
+  }
+  ... on UnknownActionSettings {
+    ...UnknownActionSettingsFields
+  }
+}
+fragment PostBaseFields on Post {
   id
+  isEdited
+  isDeleted
+  timestamp
   author {
     ...AccountFields
   }
   feed {
     address
   }
-  isEdited
-  isDeleted
-  timestamp
   app {
     ...AppFields
   }
   metadata {
     ...PostMetadataFields
   }
-  root {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
-  }
-  quoteOf {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
-  }
-  commentOn {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
+  actions {
+    ...PostActionFields
   }
   stats {
     ...PostStatsFields
   }
   operations {
-    canComment
-    canRepost
-    canQuote
-    hasReacted
-    hasReposted {
-      optimistic
-    }
+    ...LoggedInPostOperationsFields
+  }
+}
+fragment PostFields on Post {
+  ...PostBaseFields
+  root {
+    ...PostBaseFields
+  }
+  commentOn {
+    ...PostBaseFields
+  }
+  quoteOf {
+    ...PostBaseFields
   }
 }
 fragment PostMetadataFields on PostMetadata {
@@ -7222,8 +7697,6 @@ fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
   id
   isFollowedByMe
   isFollowingMe
-  canFollow
-  canUnfollow
   isMutedByMe
   isBlockedByMe
   hasBlockedMe
@@ -7283,14 +7756,18 @@ fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
   id
   isFollowedByMe
   isFollowingMe
-  canFollow
-  canUnfollow
   isMutedByMe
   isBlockedByMe
   hasBlockedMe
   canBlock
   canUnblock
   hasReported
+}
+fragment AmountFields on Amount {
+  asset {
+    ...AssetFields
+  }
+  value
 }
 fragment AppFields on App {
   address
@@ -7311,10 +7788,66 @@ fragment AppFields on App {
     url
   }
 }
+fragment AssetFields on Asset {
+  ... on Erc20 {
+    contract {
+      address
+      chainId
+    }
+    decimals
+    name
+    symbol
+  }
+}
+fragment BooleanValueFields on BooleanValue {
+  onChain
+  optimistic
+}
 fragment MetadataAttributeFields on MetadataAttribute {
   type
   key
   value
+}
+fragment NetworkAddressFields on NetworkAddress {
+  address
+  chainId
+}
+fragment SimpleCollectActionSettingsFields on SimpleCollectActionSettings {
+  collectLimit
+  collectNft
+  endsAt
+  followerOnly
+  recipient
+  referralFee
+  amount {
+    ...AmountFields
+  }
+  contract {
+    ...NetworkAddressFields
+  }
+  recipients {
+    recipient
+    split
+  }
+}
+fragment UnknownActionSettingsFields on UnknownActionSettings {
+  __typename
+}
+fragment LoggedInPostOperationsFields on LoggedInPostOperations {
+  id
+  hasBookmarked
+  hasReacted
+  hasReported
+  isNotInterested
+  hasCommented {
+    ...BooleanValueFields
+  }
+  hasQuoted {
+    ...BooleanValueFields
+  }
+  hasReposted {
+    ...BooleanValueFields
+  }
 }
 fragment MediaAudioFields on MediaAudio {
   artist
@@ -7366,79 +7899,51 @@ fragment VideoMetadataFields on VideoMetadata {
     ...MediaVideoFields
   }
 }
-fragment PostFields on Post {
+fragment PostActionFields on PostAction {
+  ... on SimpleCollectActionSettings {
+    ...SimpleCollectActionSettingsFields
+  }
+  ... on UnknownActionSettings {
+    ...UnknownActionSettingsFields
+  }
+}
+fragment PostBaseFields on Post {
   id
+  isEdited
+  isDeleted
+  timestamp
   author {
     ...AccountFields
   }
   feed {
     address
   }
-  isEdited
-  isDeleted
-  timestamp
   app {
     ...AppFields
   }
   metadata {
     ...PostMetadataFields
   }
-  root {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
-  }
-  quoteOf {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
-  }
-  commentOn {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
+  actions {
+    ...PostActionFields
   }
   stats {
     ...PostStatsFields
   }
   operations {
-    canComment
-    canRepost
-    canQuote
-    hasReacted
-    hasReposted {
-      optimistic
-    }
+    ...LoggedInPostOperationsFields
+  }
+}
+fragment PostFields on Post {
+  ...PostBaseFields
+  root {
+    ...PostBaseFields
+  }
+  commentOn {
+    ...PostBaseFields
+  }
+  quoteOf {
+    ...PostBaseFields
   }
 }
 fragment PostMetadataFields on PostMetadata {
@@ -7502,14 +8007,18 @@ fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
   id
   isFollowedByMe
   isFollowingMe
-  canFollow
-  canUnfollow
   isMutedByMe
   isBlockedByMe
   hasBlockedMe
   canBlock
   canUnblock
   hasReported
+}
+fragment AmountFields on Amount {
+  asset {
+    ...AssetFields
+  }
+  value
 }
 fragment AppFields on App {
   address
@@ -7530,10 +8039,66 @@ fragment AppFields on App {
     url
   }
 }
+fragment AssetFields on Asset {
+  ... on Erc20 {
+    contract {
+      address
+      chainId
+    }
+    decimals
+    name
+    symbol
+  }
+}
+fragment BooleanValueFields on BooleanValue {
+  onChain
+  optimistic
+}
 fragment MetadataAttributeFields on MetadataAttribute {
   type
   key
   value
+}
+fragment NetworkAddressFields on NetworkAddress {
+  address
+  chainId
+}
+fragment SimpleCollectActionSettingsFields on SimpleCollectActionSettings {
+  collectLimit
+  collectNft
+  endsAt
+  followerOnly
+  recipient
+  referralFee
+  amount {
+    ...AmountFields
+  }
+  contract {
+    ...NetworkAddressFields
+  }
+  recipients {
+    recipient
+    split
+  }
+}
+fragment UnknownActionSettingsFields on UnknownActionSettings {
+  __typename
+}
+fragment LoggedInPostOperationsFields on LoggedInPostOperations {
+  id
+  hasBookmarked
+  hasReacted
+  hasReported
+  isNotInterested
+  hasCommented {
+    ...BooleanValueFields
+  }
+  hasQuoted {
+    ...BooleanValueFields
+  }
+  hasReposted {
+    ...BooleanValueFields
+  }
 }
 fragment MediaAudioFields on MediaAudio {
   artist
@@ -7585,79 +8150,51 @@ fragment VideoMetadataFields on VideoMetadata {
     ...MediaVideoFields
   }
 }
-fragment PostFields on Post {
+fragment PostActionFields on PostAction {
+  ... on SimpleCollectActionSettings {
+    ...SimpleCollectActionSettingsFields
+  }
+  ... on UnknownActionSettings {
+    ...UnknownActionSettingsFields
+  }
+}
+fragment PostBaseFields on Post {
   id
+  isEdited
+  isDeleted
+  timestamp
   author {
     ...AccountFields
   }
   feed {
     address
   }
-  isEdited
-  isDeleted
-  timestamp
   app {
     ...AppFields
   }
   metadata {
     ...PostMetadataFields
   }
-  root {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
-  }
-  quoteOf {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
-  }
-  commentOn {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
+  actions {
+    ...PostActionFields
   }
   stats {
     ...PostStatsFields
   }
   operations {
-    canComment
-    canRepost
-    canQuote
-    hasReacted
-    hasReposted {
-      optimistic
-    }
+    ...LoggedInPostOperationsFields
+  }
+}
+fragment PostFields on Post {
+  ...PostBaseFields
+  root {
+    ...PostBaseFields
+  }
+  commentOn {
+    ...PostBaseFields
+  }
+  quoteOf {
+    ...PostBaseFields
   }
 }
 fragment PostMetadataFields on PostMetadata {
@@ -7726,14 +8263,18 @@ fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
   id
   isFollowedByMe
   isFollowingMe
-  canFollow
-  canUnfollow
   isMutedByMe
   isBlockedByMe
   hasBlockedMe
   canBlock
   canUnblock
   hasReported
+}
+fragment AmountFields on Amount {
+  asset {
+    ...AssetFields
+  }
+  value
 }
 fragment AppFields on App {
   address
@@ -7754,10 +8295,66 @@ fragment AppFields on App {
     url
   }
 }
+fragment AssetFields on Asset {
+  ... on Erc20 {
+    contract {
+      address
+      chainId
+    }
+    decimals
+    name
+    symbol
+  }
+}
+fragment BooleanValueFields on BooleanValue {
+  onChain
+  optimistic
+}
 fragment MetadataAttributeFields on MetadataAttribute {
   type
   key
   value
+}
+fragment NetworkAddressFields on NetworkAddress {
+  address
+  chainId
+}
+fragment SimpleCollectActionSettingsFields on SimpleCollectActionSettings {
+  collectLimit
+  collectNft
+  endsAt
+  followerOnly
+  recipient
+  referralFee
+  amount {
+    ...AmountFields
+  }
+  contract {
+    ...NetworkAddressFields
+  }
+  recipients {
+    recipient
+    split
+  }
+}
+fragment UnknownActionSettingsFields on UnknownActionSettings {
+  __typename
+}
+fragment LoggedInPostOperationsFields on LoggedInPostOperations {
+  id
+  hasBookmarked
+  hasReacted
+  hasReported
+  isNotInterested
+  hasCommented {
+    ...BooleanValueFields
+  }
+  hasQuoted {
+    ...BooleanValueFields
+  }
+  hasReposted {
+    ...BooleanValueFields
+  }
 }
 fragment MediaAudioFields on MediaAudio {
   artist
@@ -7809,79 +8406,51 @@ fragment VideoMetadataFields on VideoMetadata {
     ...MediaVideoFields
   }
 }
-fragment PostFields on Post {
+fragment PostActionFields on PostAction {
+  ... on SimpleCollectActionSettings {
+    ...SimpleCollectActionSettingsFields
+  }
+  ... on UnknownActionSettings {
+    ...UnknownActionSettingsFields
+  }
+}
+fragment PostBaseFields on Post {
   id
+  isEdited
+  isDeleted
+  timestamp
   author {
     ...AccountFields
   }
   feed {
     address
   }
-  isEdited
-  isDeleted
-  timestamp
   app {
     ...AppFields
   }
   metadata {
     ...PostMetadataFields
   }
-  root {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
-  }
-  quoteOf {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
-  }
-  commentOn {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
+  actions {
+    ...PostActionFields
   }
   stats {
     ...PostStatsFields
   }
   operations {
-    canComment
-    canRepost
-    canQuote
-    hasReacted
-    hasReposted {
-      optimistic
-    }
+    ...LoggedInPostOperationsFields
+  }
+}
+fragment PostFields on Post {
+  ...PostBaseFields
+  root {
+    ...PostBaseFields
+  }
+  commentOn {
+    ...PostBaseFields
+  }
+  quoteOf {
+    ...PostBaseFields
   }
 }
 fragment PostMetadataFields on PostMetadata {
@@ -7951,14 +8520,18 @@ fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
   id
   isFollowedByMe
   isFollowingMe
-  canFollow
-  canUnfollow
   isMutedByMe
   isBlockedByMe
   hasBlockedMe
   canBlock
   canUnblock
   hasReported
+}
+fragment AmountFields on Amount {
+  asset {
+    ...AssetFields
+  }
+  value
 }
 fragment AppFields on App {
   address
@@ -7979,10 +8552,66 @@ fragment AppFields on App {
     url
   }
 }
+fragment AssetFields on Asset {
+  ... on Erc20 {
+    contract {
+      address
+      chainId
+    }
+    decimals
+    name
+    symbol
+  }
+}
+fragment BooleanValueFields on BooleanValue {
+  onChain
+  optimistic
+}
 fragment MetadataAttributeFields on MetadataAttribute {
   type
   key
   value
+}
+fragment NetworkAddressFields on NetworkAddress {
+  address
+  chainId
+}
+fragment SimpleCollectActionSettingsFields on SimpleCollectActionSettings {
+  collectLimit
+  collectNft
+  endsAt
+  followerOnly
+  recipient
+  referralFee
+  amount {
+    ...AmountFields
+  }
+  contract {
+    ...NetworkAddressFields
+  }
+  recipients {
+    recipient
+    split
+  }
+}
+fragment UnknownActionSettingsFields on UnknownActionSettings {
+  __typename
+}
+fragment LoggedInPostOperationsFields on LoggedInPostOperations {
+  id
+  hasBookmarked
+  hasReacted
+  hasReported
+  isNotInterested
+  hasCommented {
+    ...BooleanValueFields
+  }
+  hasQuoted {
+    ...BooleanValueFields
+  }
+  hasReposted {
+    ...BooleanValueFields
+  }
 }
 fragment MediaAudioFields on MediaAudio {
   artist
@@ -8034,79 +8663,51 @@ fragment VideoMetadataFields on VideoMetadata {
     ...MediaVideoFields
   }
 }
-fragment PostFields on Post {
+fragment PostActionFields on PostAction {
+  ... on SimpleCollectActionSettings {
+    ...SimpleCollectActionSettingsFields
+  }
+  ... on UnknownActionSettings {
+    ...UnknownActionSettingsFields
+  }
+}
+fragment PostBaseFields on Post {
   id
+  isEdited
+  isDeleted
+  timestamp
   author {
     ...AccountFields
   }
   feed {
     address
   }
-  isEdited
-  isDeleted
-  timestamp
   app {
     ...AppFields
   }
   metadata {
     ...PostMetadataFields
   }
-  root {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
-  }
-  quoteOf {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
-  }
-  commentOn {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
+  actions {
+    ...PostActionFields
   }
   stats {
     ...PostStatsFields
   }
   operations {
-    canComment
-    canRepost
-    canQuote
-    hasReacted
-    hasReposted {
-      optimistic
-    }
+    ...LoggedInPostOperationsFields
+  }
+}
+fragment PostFields on Post {
+  ...PostBaseFields
+  root {
+    ...PostBaseFields
+  }
+  commentOn {
+    ...PostBaseFields
+  }
+  quoteOf {
+    ...PostBaseFields
   }
 }
 fragment PostMetadataFields on PostMetadata {
@@ -8147,9 +8748,6 @@ export const RepostFieldsFragmentDoc = new TypedDocumentString(`
   }
   isDeleted
   timestamp
-  app {
-    ...AppFields
-  }
   repostOf {
     ...PostFields
   }
@@ -8178,14 +8776,18 @@ fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
   id
   isFollowedByMe
   isFollowingMe
-  canFollow
-  canUnfollow
   isMutedByMe
   isBlockedByMe
   hasBlockedMe
   canBlock
   canUnblock
   hasReported
+}
+fragment AmountFields on Amount {
+  asset {
+    ...AssetFields
+  }
+  value
 }
 fragment AppFields on App {
   address
@@ -8206,10 +8808,66 @@ fragment AppFields on App {
     url
   }
 }
+fragment AssetFields on Asset {
+  ... on Erc20 {
+    contract {
+      address
+      chainId
+    }
+    decimals
+    name
+    symbol
+  }
+}
+fragment BooleanValueFields on BooleanValue {
+  onChain
+  optimistic
+}
 fragment MetadataAttributeFields on MetadataAttribute {
   type
   key
   value
+}
+fragment NetworkAddressFields on NetworkAddress {
+  address
+  chainId
+}
+fragment SimpleCollectActionSettingsFields on SimpleCollectActionSettings {
+  collectLimit
+  collectNft
+  endsAt
+  followerOnly
+  recipient
+  referralFee
+  amount {
+    ...AmountFields
+  }
+  contract {
+    ...NetworkAddressFields
+  }
+  recipients {
+    recipient
+    split
+  }
+}
+fragment UnknownActionSettingsFields on UnknownActionSettings {
+  __typename
+}
+fragment LoggedInPostOperationsFields on LoggedInPostOperations {
+  id
+  hasBookmarked
+  hasReacted
+  hasReported
+  isNotInterested
+  hasCommented {
+    ...BooleanValueFields
+  }
+  hasQuoted {
+    ...BooleanValueFields
+  }
+  hasReposted {
+    ...BooleanValueFields
+  }
 }
 fragment MediaAudioFields on MediaAudio {
   artist
@@ -8261,79 +8919,51 @@ fragment VideoMetadataFields on VideoMetadata {
     ...MediaVideoFields
   }
 }
-fragment PostFields on Post {
+fragment PostActionFields on PostAction {
+  ... on SimpleCollectActionSettings {
+    ...SimpleCollectActionSettingsFields
+  }
+  ... on UnknownActionSettings {
+    ...UnknownActionSettingsFields
+  }
+}
+fragment PostBaseFields on Post {
   id
+  isEdited
+  isDeleted
+  timestamp
   author {
     ...AccountFields
   }
   feed {
     address
   }
-  isEdited
-  isDeleted
-  timestamp
   app {
     ...AppFields
   }
   metadata {
     ...PostMetadataFields
   }
-  root {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
-  }
-  quoteOf {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
-  }
-  commentOn {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
+  actions {
+    ...PostActionFields
   }
   stats {
     ...PostStatsFields
   }
   operations {
-    canComment
-    canRepost
-    canQuote
-    hasReacted
-    hasReposted {
-      optimistic
-    }
+    ...LoggedInPostOperationsFields
+  }
+}
+fragment PostFields on Post {
+  ...PostBaseFields
+  root {
+    ...PostBaseFields
+  }
+  commentOn {
+    ...PostBaseFields
+  }
+  quoteOf {
+    ...PostBaseFields
   }
 }
 fragment PostMetadataFields on PostMetadata {
@@ -8506,8 +9136,6 @@ fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
   id
   isFollowedByMe
   isFollowingMe
-  canFollow
-  canUnfollow
   isMutedByMe
   isBlockedByMe
   hasBlockedMe
@@ -8593,8 +9221,6 @@ fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
   id
   isFollowedByMe
   isFollowingMe
-  canFollow
-  canUnfollow
   isMutedByMe
   isBlockedByMe
   hasBlockedMe
@@ -8661,8 +9287,6 @@ fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
   id
   isFollowedByMe
   isFollowingMe
-  canFollow
-  canUnfollow
   isMutedByMe
   isBlockedByMe
   hasBlockedMe
@@ -8726,8 +9350,6 @@ fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
   id
   isFollowedByMe
   isFollowingMe
-  canFollow
-  canUnfollow
   isMutedByMe
   isBlockedByMe
   hasBlockedMe
@@ -8814,8 +9436,6 @@ fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
   id
   isFollowedByMe
   isFollowingMe
-  canFollow
-  canUnfollow
   isMutedByMe
   isBlockedByMe
   hasBlockedMe
@@ -8882,8 +9502,6 @@ fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
   id
   isFollowedByMe
   isFollowingMe
-  canFollow
-  canUnfollow
   isMutedByMe
   isBlockedByMe
   hasBlockedMe
@@ -8950,8 +9568,6 @@ fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
   id
   isFollowedByMe
   isFollowingMe
-  canFollow
-  canUnfollow
   isMutedByMe
   isBlockedByMe
   hasBlockedMe
@@ -9011,8 +9627,6 @@ fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
   id
   isFollowedByMe
   isFollowingMe
-  canFollow
-  canUnfollow
   isMutedByMe
   isBlockedByMe
   hasBlockedMe
@@ -9093,8 +9707,6 @@ fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
   id
   isFollowedByMe
   isFollowingMe
-  canFollow
-  canUnfollow
   isMutedByMe
   isBlockedByMe
   hasBlockedMe
@@ -9175,14 +9787,18 @@ fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
   id
   isFollowedByMe
   isFollowingMe
-  canFollow
-  canUnfollow
   isMutedByMe
   isBlockedByMe
   hasBlockedMe
   canBlock
   canUnblock
   hasReported
+}
+fragment AmountFields on Amount {
+  asset {
+    ...AssetFields
+  }
+  value
 }
 fragment AppFields on App {
   address
@@ -9203,10 +9819,29 @@ fragment AppFields on App {
     url
   }
 }
+fragment AssetFields on Asset {
+  ... on Erc20 {
+    contract {
+      address
+      chainId
+    }
+    decimals
+    name
+    symbol
+  }
+}
+fragment BooleanValueFields on BooleanValue {
+  onChain
+  optimistic
+}
 fragment MetadataAttributeFields on MetadataAttribute {
   type
   key
   value
+}
+fragment NetworkAddressFields on NetworkAddress {
+  address
+  chainId
 }
 fragment CommentNotificationFields on CommentNotification {
   id
@@ -9255,6 +9890,43 @@ fragment RepostNotificationFields on RepostNotification {
       ...AccountFields
     }
     repostedAt
+  }
+}
+fragment SimpleCollectActionSettingsFields on SimpleCollectActionSettings {
+  collectLimit
+  collectNft
+  endsAt
+  followerOnly
+  recipient
+  referralFee
+  amount {
+    ...AmountFields
+  }
+  contract {
+    ...NetworkAddressFields
+  }
+  recipients {
+    recipient
+    split
+  }
+}
+fragment UnknownActionSettingsFields on UnknownActionSettings {
+  __typename
+}
+fragment LoggedInPostOperationsFields on LoggedInPostOperations {
+  id
+  hasBookmarked
+  hasReacted
+  hasReported
+  isNotInterested
+  hasCommented {
+    ...BooleanValueFields
+  }
+  hasQuoted {
+    ...BooleanValueFields
+  }
+  hasReposted {
+    ...BooleanValueFields
   }
 }
 fragment MediaAudioFields on MediaAudio {
@@ -9307,79 +9979,51 @@ fragment VideoMetadataFields on VideoMetadata {
     ...MediaVideoFields
   }
 }
-fragment PostFields on Post {
+fragment PostActionFields on PostAction {
+  ... on SimpleCollectActionSettings {
+    ...SimpleCollectActionSettingsFields
+  }
+  ... on UnknownActionSettings {
+    ...UnknownActionSettingsFields
+  }
+}
+fragment PostBaseFields on Post {
   id
+  isEdited
+  isDeleted
+  timestamp
   author {
     ...AccountFields
   }
   feed {
     address
   }
-  isEdited
-  isDeleted
-  timestamp
   app {
     ...AppFields
   }
   metadata {
     ...PostMetadataFields
   }
-  root {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
-  }
-  quoteOf {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
-  }
-  commentOn {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
+  actions {
+    ...PostActionFields
   }
   stats {
     ...PostStatsFields
   }
   operations {
-    canComment
-    canRepost
-    canQuote
-    hasReacted
-    hasReposted {
-      optimistic
-    }
+    ...LoggedInPostOperationsFields
+  }
+}
+fragment PostFields on Post {
+  ...PostBaseFields
+  root {
+    ...PostBaseFields
+  }
+  commentOn {
+    ...PostBaseFields
+  }
+  quoteOf {
+    ...PostBaseFields
   }
 }
 fragment PostMetadataFields on PostMetadata {
@@ -9490,14 +10134,18 @@ fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
   id
   isFollowedByMe
   isFollowingMe
-  canFollow
-  canUnfollow
   isMutedByMe
   isBlockedByMe
   hasBlockedMe
   canBlock
   canUnblock
   hasReported
+}
+fragment AmountFields on Amount {
+  asset {
+    ...AssetFields
+  }
+  value
 }
 fragment AppFields on App {
   address
@@ -9518,10 +10166,66 @@ fragment AppFields on App {
     url
   }
 }
+fragment AssetFields on Asset {
+  ... on Erc20 {
+    contract {
+      address
+      chainId
+    }
+    decimals
+    name
+    symbol
+  }
+}
+fragment BooleanValueFields on BooleanValue {
+  onChain
+  optimistic
+}
 fragment MetadataAttributeFields on MetadataAttribute {
   type
   key
   value
+}
+fragment NetworkAddressFields on NetworkAddress {
+  address
+  chainId
+}
+fragment SimpleCollectActionSettingsFields on SimpleCollectActionSettings {
+  collectLimit
+  collectNft
+  endsAt
+  followerOnly
+  recipient
+  referralFee
+  amount {
+    ...AmountFields
+  }
+  contract {
+    ...NetworkAddressFields
+  }
+  recipients {
+    recipient
+    split
+  }
+}
+fragment UnknownActionSettingsFields on UnknownActionSettings {
+  __typename
+}
+fragment LoggedInPostOperationsFields on LoggedInPostOperations {
+  id
+  hasBookmarked
+  hasReacted
+  hasReported
+  isNotInterested
+  hasCommented {
+    ...BooleanValueFields
+  }
+  hasQuoted {
+    ...BooleanValueFields
+  }
+  hasReposted {
+    ...BooleanValueFields
+  }
 }
 fragment MediaAudioFields on MediaAudio {
   artist
@@ -9573,79 +10277,51 @@ fragment VideoMetadataFields on VideoMetadata {
     ...MediaVideoFields
   }
 }
-fragment PostFields on Post {
+fragment PostActionFields on PostAction {
+  ... on SimpleCollectActionSettings {
+    ...SimpleCollectActionSettingsFields
+  }
+  ... on UnknownActionSettings {
+    ...UnknownActionSettingsFields
+  }
+}
+fragment PostBaseFields on Post {
   id
+  isEdited
+  isDeleted
+  timestamp
   author {
     ...AccountFields
   }
   feed {
     address
   }
-  isEdited
-  isDeleted
-  timestamp
   app {
     ...AppFields
   }
   metadata {
     ...PostMetadataFields
   }
-  root {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
-  }
-  quoteOf {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
-  }
-  commentOn {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
+  actions {
+    ...PostActionFields
   }
   stats {
     ...PostStatsFields
   }
   operations {
-    canComment
-    canRepost
-    canQuote
-    hasReacted
-    hasReposted {
-      optimistic
-    }
+    ...LoggedInPostOperationsFields
+  }
+}
+fragment PostFields on Post {
+  ...PostBaseFields
+  root {
+    ...PostBaseFields
+  }
+  commentOn {
+    ...PostBaseFields
+  }
+  quoteOf {
+    ...PostBaseFields
   }
 }
 fragment PostMetadataFields on PostMetadata {
@@ -9708,14 +10384,18 @@ fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
   id
   isFollowedByMe
   isFollowingMe
-  canFollow
-  canUnfollow
   isMutedByMe
   isBlockedByMe
   hasBlockedMe
   canBlock
   canUnblock
   hasReported
+}
+fragment AmountFields on Amount {
+  asset {
+    ...AssetFields
+  }
+  value
 }
 fragment AppFields on App {
   address
@@ -9736,10 +10416,66 @@ fragment AppFields on App {
     url
   }
 }
+fragment AssetFields on Asset {
+  ... on Erc20 {
+    contract {
+      address
+      chainId
+    }
+    decimals
+    name
+    symbol
+  }
+}
+fragment BooleanValueFields on BooleanValue {
+  onChain
+  optimistic
+}
 fragment MetadataAttributeFields on MetadataAttribute {
   type
   key
   value
+}
+fragment NetworkAddressFields on NetworkAddress {
+  address
+  chainId
+}
+fragment SimpleCollectActionSettingsFields on SimpleCollectActionSettings {
+  collectLimit
+  collectNft
+  endsAt
+  followerOnly
+  recipient
+  referralFee
+  amount {
+    ...AmountFields
+  }
+  contract {
+    ...NetworkAddressFields
+  }
+  recipients {
+    recipient
+    split
+  }
+}
+fragment UnknownActionSettingsFields on UnknownActionSettings {
+  __typename
+}
+fragment LoggedInPostOperationsFields on LoggedInPostOperations {
+  id
+  hasBookmarked
+  hasReacted
+  hasReported
+  isNotInterested
+  hasCommented {
+    ...BooleanValueFields
+  }
+  hasQuoted {
+    ...BooleanValueFields
+  }
+  hasReposted {
+    ...BooleanValueFields
+  }
 }
 fragment MediaAudioFields on MediaAudio {
   artist
@@ -9791,79 +10527,51 @@ fragment VideoMetadataFields on VideoMetadata {
     ...MediaVideoFields
   }
 }
-fragment PostFields on Post {
+fragment PostActionFields on PostAction {
+  ... on SimpleCollectActionSettings {
+    ...SimpleCollectActionSettingsFields
+  }
+  ... on UnknownActionSettings {
+    ...UnknownActionSettingsFields
+  }
+}
+fragment PostBaseFields on Post {
   id
+  isEdited
+  isDeleted
+  timestamp
   author {
     ...AccountFields
   }
   feed {
     address
   }
-  isEdited
-  isDeleted
-  timestamp
   app {
     ...AppFields
   }
   metadata {
     ...PostMetadataFields
   }
-  root {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
-  }
-  quoteOf {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
-  }
-  commentOn {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
+  actions {
+    ...PostActionFields
   }
   stats {
     ...PostStatsFields
   }
   operations {
-    canComment
-    canRepost
-    canQuote
-    hasReacted
-    hasReposted {
-      optimistic
-    }
+    ...LoggedInPostOperationsFields
+  }
+}
+fragment PostFields on Post {
+  ...PostBaseFields
+  root {
+    ...PostBaseFields
+  }
+  commentOn {
+    ...PostBaseFields
+  }
+  quoteOf {
+    ...PostBaseFields
   }
 }
 fragment PostMetadataFields on PostMetadata {
@@ -9936,14 +10644,18 @@ fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
   id
   isFollowedByMe
   isFollowingMe
-  canFollow
-  canUnfollow
   isMutedByMe
   isBlockedByMe
   hasBlockedMe
   canBlock
   canUnblock
   hasReported
+}
+fragment AmountFields on Amount {
+  asset {
+    ...AssetFields
+  }
+  value
 }
 fragment AppFields on App {
   address
@@ -9964,10 +10676,66 @@ fragment AppFields on App {
     url
   }
 }
+fragment AssetFields on Asset {
+  ... on Erc20 {
+    contract {
+      address
+      chainId
+    }
+    decimals
+    name
+    symbol
+  }
+}
+fragment BooleanValueFields on BooleanValue {
+  onChain
+  optimistic
+}
 fragment MetadataAttributeFields on MetadataAttribute {
   type
   key
   value
+}
+fragment NetworkAddressFields on NetworkAddress {
+  address
+  chainId
+}
+fragment SimpleCollectActionSettingsFields on SimpleCollectActionSettings {
+  collectLimit
+  collectNft
+  endsAt
+  followerOnly
+  recipient
+  referralFee
+  amount {
+    ...AmountFields
+  }
+  contract {
+    ...NetworkAddressFields
+  }
+  recipients {
+    recipient
+    split
+  }
+}
+fragment UnknownActionSettingsFields on UnknownActionSettings {
+  __typename
+}
+fragment LoggedInPostOperationsFields on LoggedInPostOperations {
+  id
+  hasBookmarked
+  hasReacted
+  hasReported
+  isNotInterested
+  hasCommented {
+    ...BooleanValueFields
+  }
+  hasQuoted {
+    ...BooleanValueFields
+  }
+  hasReposted {
+    ...BooleanValueFields
+  }
 }
 fragment MediaAudioFields on MediaAudio {
   artist
@@ -10019,79 +10787,51 @@ fragment VideoMetadataFields on VideoMetadata {
     ...MediaVideoFields
   }
 }
-fragment PostFields on Post {
+fragment PostActionFields on PostAction {
+  ... on SimpleCollectActionSettings {
+    ...SimpleCollectActionSettingsFields
+  }
+  ... on UnknownActionSettings {
+    ...UnknownActionSettingsFields
+  }
+}
+fragment PostBaseFields on Post {
   id
+  isEdited
+  isDeleted
+  timestamp
   author {
     ...AccountFields
   }
   feed {
     address
   }
-  isEdited
-  isDeleted
-  timestamp
   app {
     ...AppFields
   }
   metadata {
     ...PostMetadataFields
   }
-  root {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
-  }
-  quoteOf {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
-  }
-  commentOn {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
+  actions {
+    ...PostActionFields
   }
   stats {
     ...PostStatsFields
   }
   operations {
-    canComment
-    canRepost
-    canQuote
-    hasReacted
-    hasReposted {
-      optimistic
-    }
+    ...LoggedInPostOperationsFields
+  }
+}
+fragment PostFields on Post {
+  ...PostBaseFields
+  root {
+    ...PostBaseFields
+  }
+  commentOn {
+    ...PostBaseFields
+  }
+  quoteOf {
+    ...PostBaseFields
   }
 }
 fragment PostMetadataFields on PostMetadata {
@@ -10115,9 +10855,6 @@ fragment RepostFields on Repost {
   }
   isDeleted
   timestamp
-  app {
-    ...AppFields
-  }
   repostOf {
     ...PostFields
   }
@@ -10180,14 +10917,18 @@ fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
   id
   isFollowedByMe
   isFollowingMe
-  canFollow
-  canUnfollow
   isMutedByMe
   isBlockedByMe
   hasBlockedMe
   canBlock
   canUnblock
   hasReported
+}
+fragment AmountFields on Amount {
+  asset {
+    ...AssetFields
+  }
+  value
 }
 fragment AppFields on App {
   address
@@ -10208,10 +10949,66 @@ fragment AppFields on App {
     url
   }
 }
+fragment AssetFields on Asset {
+  ... on Erc20 {
+    contract {
+      address
+      chainId
+    }
+    decimals
+    name
+    symbol
+  }
+}
+fragment BooleanValueFields on BooleanValue {
+  onChain
+  optimistic
+}
 fragment MetadataAttributeFields on MetadataAttribute {
   type
   key
   value
+}
+fragment NetworkAddressFields on NetworkAddress {
+  address
+  chainId
+}
+fragment SimpleCollectActionSettingsFields on SimpleCollectActionSettings {
+  collectLimit
+  collectNft
+  endsAt
+  followerOnly
+  recipient
+  referralFee
+  amount {
+    ...AmountFields
+  }
+  contract {
+    ...NetworkAddressFields
+  }
+  recipients {
+    recipient
+    split
+  }
+}
+fragment UnknownActionSettingsFields on UnknownActionSettings {
+  __typename
+}
+fragment LoggedInPostOperationsFields on LoggedInPostOperations {
+  id
+  hasBookmarked
+  hasReacted
+  hasReported
+  isNotInterested
+  hasCommented {
+    ...BooleanValueFields
+  }
+  hasQuoted {
+    ...BooleanValueFields
+  }
+  hasReposted {
+    ...BooleanValueFields
+  }
 }
 fragment MediaAudioFields on MediaAudio {
   artist
@@ -10263,79 +11060,51 @@ fragment VideoMetadataFields on VideoMetadata {
     ...MediaVideoFields
   }
 }
-fragment PostFields on Post {
+fragment PostActionFields on PostAction {
+  ... on SimpleCollectActionSettings {
+    ...SimpleCollectActionSettingsFields
+  }
+  ... on UnknownActionSettings {
+    ...UnknownActionSettingsFields
+  }
+}
+fragment PostBaseFields on Post {
   id
+  isEdited
+  isDeleted
+  timestamp
   author {
     ...AccountFields
   }
   feed {
     address
   }
-  isEdited
-  isDeleted
-  timestamp
   app {
     ...AppFields
   }
   metadata {
     ...PostMetadataFields
   }
-  root {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
-  }
-  quoteOf {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
-  }
-  commentOn {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
+  actions {
+    ...PostActionFields
   }
   stats {
     ...PostStatsFields
   }
   operations {
-    canComment
-    canRepost
-    canQuote
-    hasReacted
-    hasReposted {
-      optimistic
-    }
+    ...LoggedInPostOperationsFields
+  }
+}
+fragment PostFields on Post {
+  ...PostBaseFields
+  root {
+    ...PostBaseFields
+  }
+  commentOn {
+    ...PostBaseFields
+  }
+  quoteOf {
+    ...PostBaseFields
   }
 }
 fragment PostMetadataFields on PostMetadata {
@@ -10359,9 +11128,6 @@ fragment RepostFields on Repost {
   }
   isDeleted
   timestamp
-  app {
-    ...AppFields
-  }
   repostOf {
     ...PostFields
   }

@@ -1,75 +1,12 @@
 fragment PostFields on Post {
-  id
-  author {
-    ...AccountFields
-  }
-  feed {
-    address
-  }
-  isEdited
-  isDeleted
-  timestamp
-  app {
-    ...AppFields
-  }
-  metadata {
-    ...PostMetadataFields
-  }
+  ...PostBaseFields
   root {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
-  }
-  quoteOf {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
+    ...PostBaseFields
   }
   commentOn {
-    ... on Post {
-      id
-      author {
-        ...AccountFields
-      }
-      timestamp
-      metadata {
-        ...PostMetadataFields
-      }
-    }
-    ... on PostReference {
-      id
-    }
+    ...PostBaseFields
   }
-  stats {
-    ...PostStatsFields
-  }
-  operations {
-    canComment
-    canRepost
-    canQuote
-    hasReacted
-    hasReposted {
-      optimistic
-    }
+  quoteOf {
+    ...PostBaseFields
   }
 }
