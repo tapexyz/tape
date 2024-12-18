@@ -1,7 +1,15 @@
+import { useCookieStore } from "@/store/cookie";
 import { Link } from "@tanstack/react-router";
 import { Button, CassetteTape } from "@tape.xyz/winder";
+import { memo } from "react";
 
-export const About = () => {
+export const About = memo(() => {
+  const isAuthenticated = useCookieStore((state) => state.isAuthenticated);
+
+  if (isAuthenticated) {
+    return null;
+  }
+
   return (
     <div className="flex flex-col justify-between gap-10 rounded-card bg-theme p-5 lg:h-[666px]">
       <div>
@@ -34,4 +42,4 @@ export const About = () => {
       </div>
     </div>
   );
-};
+});

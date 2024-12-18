@@ -1,0 +1,27 @@
+fragment PostBaseFields on Post {
+  id
+  isEdited
+  isDeleted
+  timestamp
+  author {
+    ...AccountFields
+  }
+  feed {
+    address
+  }
+  app {
+    ...AppFields
+  }
+  metadata {
+    ...PostMetadataFields
+  }
+  actions {
+    ...PostActionFields
+  }
+  stats {
+    ...PostStatsFields
+  }
+  operations {
+    ...LoggedInPostOperationsFields
+  }
+}
