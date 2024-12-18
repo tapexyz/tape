@@ -1,7 +1,14 @@
+import { useCookieStore } from "@/store/cookie";
 import { Link } from "@tanstack/react-router";
 import { memo } from "react";
 
 export const Hero = memo(() => {
+  const isAuthenticated = useCookieStore((state) => state.isAuthenticated);
+
+  if (isAuthenticated) {
+    return null;
+  }
+
   return (
     <div className="flex h-[440px] flex-col justify-between rounded-card bg-theme p-5">
       <h1 className="font-serif text-2xl lg:text-6xl">

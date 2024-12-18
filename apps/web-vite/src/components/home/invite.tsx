@@ -1,8 +1,15 @@
+import { useCookieStore } from "@/store/cookie";
 import { Button } from "@tape.xyz/winder";
 import { m, useMotionValue, useSpring, useTransform } from "motion/react";
 import { memo } from "react";
 
 export const Invite = memo(() => {
+  const isAuthenticated = useCookieStore((state) => state.isAuthenticated);
+
+  if (isAuthenticated) {
+    return null;
+  }
+
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
