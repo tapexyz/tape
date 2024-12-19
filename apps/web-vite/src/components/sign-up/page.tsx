@@ -36,7 +36,7 @@ export const SignUpPage = () => {
         Already have an account?{" "}
         <Link
           to="/sign-in"
-          className="underline underline-offset-3 transition-colors hover:text-primary"
+          className="font-medium underline underline-offset-3 transition-colors hover:text-primary"
         >
           Sign in
         </Link>

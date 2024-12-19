@@ -25,7 +25,7 @@ export const SignInPage = () => {
         Don’t have an account?{" "}
         <Link
           to="/sign-up"
-          className="underline underline-offset-3 transition-colors hover:text-primary"
+          className="font-medium underline underline-offset-3 transition-colors hover:text-primary"
         >
           Sign up
         </Link>
