@@ -563,6 +563,9 @@ importers:
       '@lens-network/sdk':
         specifier: canary
         version: 0.0.0-canary-20241203140504(ethers@6.13.4(bufferutil@4.0.8)(utf-8-validate@5.0.10))(viem@2.21.55(bufferutil@4.0.8)(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.24.1))
+      '@lens-protocol/metadata':
+        specifier: next
+        version: 2.0.0-next.2(zod@3.24.1)
       '@million/lint':
         specifier: ^1.0.14
         version: 1.0.14(bufferutil@4.0.8)(rollup@4.28.1)(utf-8-validate@5.0.10)
@@ -3230,6 +3233,15 @@ packages:
 
   '@lens-protocol/metadata@1.2.0':
     resolution: {integrity: sha512-fUB8+GvYiVt1uMqYJi/iN/aw/lzE+oEfpTjraTI87MqWPgYubbx0vFySjJs7uAdI7oftczvlwhthmMUl5DDuGA==}
+    engines: {node: '>=18 <21'}
+    peerDependencies:
+      zod: ^3.22.3
+    peerDependenciesMeta:
+      zod:
+        optional: true
+
+  '@lens-protocol/metadata@2.0.0-next.2':
+    resolution: {integrity: sha512-vEL0QZ8rWcHZVo7zmx7Hdp/ANiw4Hml5tt53uE3KTMsZjY8u5TGm8o1DujWwlEzuawWqpduhbb7khQ2mJtmN0g==}
     engines: {node: '>=18 <21'}
     peerDependencies:
       zod: ^3.22.3
@@ -15146,6 +15158,13 @@ snapshots:
       viem: 2.21.55(bufferutil@4.0.8)(typescript@5.7.2)(utf-8-validate@5.0.10)(zod@3.24.1)
 
   '@lens-protocol/metadata@1.2.0(zod@3.24.1)':
+    dependencies:
+      json-stable-stringify: 1.1.1
+      uuid: 9.0.1
+    optionalDependencies:
+      zod: 3.24.1
+
+  '@lens-protocol/metadata@2.0.0-next.2(zod@3.24.1)':
     dependencies:
       json-stable-stringify: 1.1.1
       uuid: 9.0.1

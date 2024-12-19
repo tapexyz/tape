@@ -53,7 +53,9 @@ export const getAccountMetadata = (account: Account) => {
   return {
     name: account.metadata?.name,
     bio: account.metadata?.bio,
-    picture: account.metadata?.picture,
+    picture:
+      account.metadata?.picture ||
+      `https://cdn.stamp.fyi/avatar/${account.address}?s=300`,
     coverPicture: account.metadata?.coverPicture,
     handle: account?.username?.localName,
     handleWithPrefix: `@${account?.username?.localName}`,

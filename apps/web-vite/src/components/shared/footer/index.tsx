@@ -6,7 +6,7 @@ import { Status } from "./status";
 
 export const Footer = () => {
   return (
-    <footer className="flex flex-wrap justify-between gap-5 px-5 py-[26px]">
+    <footer className="flex flex-wrap justify-between gap-5 px-5 py-[26px] md:flex-nowrap">
       <div className="flex w-1/3 gap-6">
         <Logo />
         <Socials />

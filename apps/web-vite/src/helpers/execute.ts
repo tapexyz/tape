@@ -8,10 +8,15 @@ import type { TypedDocumentString } from "@tape.xyz/indexer";
 import { shouldRefreshTokens } from "./parse-jwt";
 import { refreshTokens } from "./refresh-tokens";
 
-export const execute = async <TResult, TVariables>(
-  query: TypedDocumentString<TResult, TVariables>,
-  ...[variables]: TVariables extends Record<string, never> ? [] : [TVariables]
-) => {
+export const execute = async <TResult, TVariables>({
+  query,
+  variables,
+  context
+}: {
+  query: TypedDocumentString<TResult, TVariables>;
+  variables: TVariables;
+  context?: RequestInit;
+}) => {
   let { accessToken, refreshToken } = hydrateAuthTokens();
 
   if (shouldRefreshTokens(accessToken)) {
@@ -23,13 +28,14 @@ export const execute = async <TResult, TVariables>(
     const response = await fetch(TESTNET_API_URL, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        "User-Agent": TAPE_USER_AGENT,
-        Accept: "application/graphql-response+json",
+        "content-type": "application/json",
+        "user-agent": TAPE_USER_AGENT,
+        accept: "application/graphql-response+json",
         origin: TAPE_WEBSITE_URL,
         ...(accessToken && {
           "x-access-token": `Bearer ${accessToken}`
-        })
+        }),
+        ...context?.headers
       },
       body: JSON.stringify({
         query,

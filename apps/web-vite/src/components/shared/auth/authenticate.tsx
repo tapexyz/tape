@@ -6,6 +6,7 @@ import { useAuthenticateMutation } from "@/queries/auth";
 import { signIn } from "@/store/cookie";
 import { useNavigate } from "@tanstack/react-router";
 import type { Account, AccountAvailable } from "@tape.xyz/indexer";
+import { AUTH_CHALLENGE_TYPE } from "@tape.xyz/indexer/custom-types";
 import {
   Button,
   Select,
@@ -19,7 +20,9 @@ import { memo, useMemo, useState } from "react";
 import { useAccount } from "wagmi";
 
 export const Authenticate = memo(() => {
-  const { address } = useAccount();
+  const navigate = useNavigate();
+  const { address, isConnected } = useAccount();
+
   const { data, isLoading: isAccountsLoading } = useAccountsAvailableQuery();
   const {
     data: lastLoggedInAccountData,
@@ -38,13 +41,17 @@ export const Authenticate = memo(() => {
     );
   }, [accounts, lastUsedAccount]);
 
-  const firstAccountAddress = accounts[0]?.account.address as string;
-  const [chosenAccount, setChosenAccount] = useState(firstAccountAddress);
-  const { isConnected } = useAccount();
-  const navigate = useNavigate();
+  const [chosenAccount, setChosenAccount] = useState<AccountAvailable | null>(
+    accounts[0] || null
+  );
 
-  const { mutateAsync: authenticate, isPending } =
-    useAuthenticateMutation(chosenAccount);
+  const { mutateAsync: authenticate, isPending } = useAuthenticateMutation({
+    type:
+      chosenAccount?.__typename === "AccountOwned"
+        ? AUTH_CHALLENGE_TYPE.ACCOUNT_OWNER
+        : AUTH_CHALLENGE_TYPE.ACCOUNT_MANAGER,
+    account: chosenAccount?.account.address as string
+  });
 
   if (!isConnected) {
     return null;
@@ -75,8 +82,13 @@ export const Authenticate = memo(() => {
       {sortedAccounts.length ? (
         <div className="flex w-full flex-col gap-2">
           <Select
-            value={chosenAccount}
-            onValueChange={(value) => setChosenAccount(value)}
+            value={chosenAccount?.account.address}
+            onValueChange={(value) => {
+              const account = sortedAccounts.find(
+                (account) => account.account.address === value
+              );
+              setChosenAccount(account || null);
+            }}
           >
             <SelectTrigger>
               <SelectValue placeholder="Select an account" />

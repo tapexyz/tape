@@ -11,13 +11,16 @@ export const commentsQuery = (id: string) =>
   infiniteQueryOptions({
     queryKey: ["post-comments", id],
     queryFn: ({ pageParam }) =>
-      execute(PostReferencesDocument, {
-        request: {
-          referencedPost: id,
-          referenceTypes: [PostReferenceType.CommentOn],
-          visibilityFilter: PostVisibilityFilter.All,
-          pageSize: PageSize.Fifty,
-          cursor: pageParam
+      execute({
+        query: PostReferencesDocument,
+        variables: {
+          request: {
+            referencedPost: id,
+            referenceTypes: [PostReferenceType.CommentOn],
+            visibilityFilter: PostVisibilityFilter.All,
+            pageSize: PageSize.Fifty,
+            cursor: pageParam
+          }
         }
       }),
     initialPageParam: null,

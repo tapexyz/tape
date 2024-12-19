@@ -5,9 +5,12 @@ import { NotificationsDocument } from "@tape.xyz/indexer";
 export const notificationsQuery = infiniteQueryOptions({
   queryKey: ["notifications"],
   queryFn: ({ pageParam }) =>
-    execute(NotificationsDocument, {
-      request: {
-        cursor: pageParam
+    execute({
+      query: NotificationsDocument,
+      variables: {
+        request: {
+          cursor: pageParam
+        }
       }
     }),
   initialPageParam: null,

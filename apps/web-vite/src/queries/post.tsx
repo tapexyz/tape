@@ -19,9 +19,12 @@ export const postQuery = (id: string) =>
   queryOptions({
     queryKey: ["post", id],
     queryFn: () =>
-      execute(PostDocument, {
-        request: {
-          post: id
+      execute({
+        query: PostDocument,
+        variables: {
+          request: {
+            post: id
+          }
         }
       })
   });
@@ -32,16 +35,19 @@ export const usePostSuspenseQuery = (id: string) =>
 export const postsQuery = infiniteQueryOptions({
   queryKey: ["posts"],
   queryFn: ({ pageParam }) =>
-    execute(PostsDocument, {
-      request: {
-        filter: {
-          postTypes: [PostType.Root],
-          metadata: {
-            mainContentFocus: [MainContentFocus.Video]
-          }
-        },
-        pageSize: PageSize.Fifty,
-        cursor: pageParam
+    execute({
+      query: PostsDocument,
+      variables: {
+        request: {
+          filter: {
+            postTypes: [PostType.Root],
+            metadata: {
+              mainContentFocus: [MainContentFocus.Video]
+            }
+          },
+          pageSize: PageSize.Fifty,
+          cursor: pageParam
+        }
       }
     }),
   initialPageParam: null,
@@ -52,16 +58,19 @@ export const usePostsQuery = () => useInfiniteQuery(postsQuery);
 export const bytesQuery = infiniteQueryOptions({
   queryKey: ["bytes"],
   queryFn: ({ pageParam }) =>
-    execute(PostsDocument, {
-      request: {
-        filter: {
-          postTypes: [PostType.Root],
-          metadata: {
-            mainContentFocus: [MainContentFocus.ShortVideo]
-          }
-        },
-        pageSize: PageSize.Fifty,
-        cursor: pageParam
+    execute({
+      query: PostsDocument,
+      variables: {
+        request: {
+          filter: {
+            postTypes: [PostType.Root],
+            metadata: {
+              mainContentFocus: [MainContentFocus.ShortVideo]
+            }
+          },
+          pageSize: PageSize.Fifty,
+          cursor: pageParam
+        }
       }
     }),
   initialPageParam: null,

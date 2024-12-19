@@ -1,7 +1,7 @@
 import { useCookieStore } from "@/store/cookie";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Authenticate } from "../shared/auth/authenticate";
 import { ConnectWallet } from "../shared/auth/connect-wallet";
+import { CreateAccount } from "../shared/auth/create-account";
 
 export const SignUpPage = () => {
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ export const SignUpPage = () => {
       <ConnectWallet />
 
       <div className="my-6">
-        <Authenticate />
+        <CreateAccount />
       </div>
 
       <div className="mb-4 text-muted text-xs">
