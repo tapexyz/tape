@@ -42,12 +42,12 @@ interface ButtonProps
 
 const Button = memo(
   forwardRef<HTMLButtonElement, ButtonProps>(
-    ({ className, variant, size, loading, ...props }, ref) => {
+    ({ className, variant, size, loading, disabled, ...props }, ref) => {
       return (
         <button
           ref={ref}
           className={tw(buttonVariants({ variant, size, className }))}
-          disabled={loading}
+          disabled={loading || disabled}
           {...props}
         >
           <AnimatePresence mode="popLayout" initial={false}>

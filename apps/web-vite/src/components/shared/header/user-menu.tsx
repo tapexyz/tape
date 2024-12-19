@@ -83,7 +83,7 @@ export const UserMenu = memo(() => {
                 }}
               >
                 {showAccounts ? (
-                  <ScrollArea className="-mx-2 max-h-64 min-h-24">
+                  <ScrollArea className="-mx-2 h-64 max-h-64">
                     <Accounts />
                   </ScrollArea>
                 ) : (

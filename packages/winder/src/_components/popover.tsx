@@ -21,7 +21,7 @@ const PopoverContent = forwardRef<
         "data-[align=start]:data-[state=closed]:slide-out-to-left-2 data-[align=start]:data-[state=open]:slide-in-from-left-2",
         "data-[align=center]:data-[state=closed]:slide-out-to-top-2 data-[align=center]:data-[state=open]:slide-in-from-top-2",
         "data-[align=end]:data-[state=closed]:slide-out-to-right-2 data-[align=end]:data-[state=open]:slide-in-from-right-2",
-        "z-50 max-w-screen-sm rounded-custom border border-strong bg-theme p-4 shadow-custom outline-none",
+        "z-50 max-w-screen-sm rounded-custom border border-strong bg-theme shadow-custom outline-none",
         className
       )}
       {...props}

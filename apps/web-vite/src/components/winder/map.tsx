@@ -677,7 +677,7 @@ export const components = [
             <BellSimple />
           </Button>
         </PopoverTrigger>
-        <PopoverContent align="start">
+        <PopoverContent align="start" className="p-4">
           <h1 className="mb-2 font-medium text-xl">Notifications</h1>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem nobis
           quidem similique! Consequatur ut quasi fugit ex earum cumque

@@ -42,7 +42,7 @@ export const Authenticate = memo(() => {
   }, [accounts, lastUsedAccount]);
 
   const [chosenAccount, setChosenAccount] = useState<AccountAvailable | null>(
-    accounts[0] || null
+    accounts?.[0] || null
   );
 
   const { mutateAsync: authenticate, isPending } = useAuthenticateMutation({
@@ -104,7 +104,12 @@ export const Authenticate = memo(() => {
               })}
             </SelectContent>
           </Select>
-          <Button className="h-11 w-full" onClick={siwe} loading={isPending}>
+          <Button
+            className="h-11 w-full"
+            onClick={siwe}
+            loading={isPending}
+            disabled={!chosenAccount}
+          >
             Sign in
           </Button>
         </div>
