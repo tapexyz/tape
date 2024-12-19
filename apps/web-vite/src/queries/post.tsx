@@ -32,28 +32,28 @@ export const usePostQuery = (id: string) => useQuery(postQuery(id));
 export const usePostSuspenseQuery = (id: string) =>
   useSuspenseQuery(postQuery(id));
 
-export const postsQuery = infiniteQueryOptions({
-  queryKey: ["posts"],
-  queryFn: ({ pageParam }) =>
-    execute({
-      query: PostsDocument,
-      variables: {
-        request: {
-          filter: {
-            postTypes: [PostType.Root],
-            metadata: {
-              mainContentFocus: [MainContentFocus.Video]
-            }
-          },
-          pageSize: PageSize.Fifty,
-          cursor: pageParam
+export const usePostsQuery = () =>
+  useInfiniteQuery({
+    queryKey: ["posts"],
+    queryFn: ({ pageParam }) =>
+      execute({
+        query: PostsDocument,
+        variables: {
+          request: {
+            filter: {
+              postTypes: [PostType.Root],
+              metadata: {
+                mainContentFocus: [MainContentFocus.Video]
+              }
+            },
+            pageSize: PageSize.Fifty,
+            cursor: pageParam
+          }
         }
-      }
-    }),
-  initialPageParam: null,
-  getNextPageParam: (lastPage) => lastPage.posts.pageInfo.next
-});
-export const usePostsQuery = () => useInfiniteQuery(postsQuery);
+      }),
+    initialPageParam: null,
+    getNextPageParam: (lastPage) => lastPage.posts.pageInfo.next
+  });
 
 export const bytesQuery = infiniteQueryOptions({
   queryKey: ["bytes"],

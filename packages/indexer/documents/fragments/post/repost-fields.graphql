@@ -1,4 +1,5 @@
 fragment RepostFields on Repost {
+  __typename
   id
   author {
     ...AccountFields

@@ -6030,7 +6030,7 @@ type PostActionFields_UnknownActionSettings_Fragment = (
 
 export type PostActionFieldsFragment = PostActionFields_SimpleCollectActionSettings_Fragment | PostActionFields_UnknownActionSettings_Fragment;
 
-export type PostBaseFieldsFragment = { __typename?: 'Post', id: any, isEdited: boolean, isDeleted: boolean, timestamp: any, author: (
+export type PostBaseFieldsFragment = { __typename: 'Post', id: any, isEdited: boolean, isDeleted: boolean, timestamp: any, author: (
     { __typename?: 'Account' }
     & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
   ), feed: { __typename?: 'Feed', address: any }, app?: (
@@ -6146,7 +6146,7 @@ export type PostMetadataFieldsFragment = PostMetadataFields_ArticleMetadata_Frag
 
 export type PostStatsFieldsFragment = { __typename?: 'PostStats', bookmarks: number, collects: number, comments: number, quotes: number, reactions: number, reposts: number } & { ' $fragmentName'?: 'PostStatsFieldsFragment' };
 
-export type RepostFieldsFragment = { __typename?: 'Repost', id: any, isDeleted: boolean, timestamp: any, author: (
+export type RepostFieldsFragment = { __typename: 'Repost', id: any, isDeleted: boolean, timestamp: any, author: (
     { __typename?: 'Account' }
     & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
   ), repostOf: (
@@ -6937,6 +6937,7 @@ export const LoggedInPostOperationsFieldsFragmentDoc = new TypedDocumentString(`
 }`, {"fragmentName":"LoggedInPostOperationsFields"}) as unknown as TypedDocumentString<LoggedInPostOperationsFieldsFragment, unknown>;
 export const PostBaseFieldsFragmentDoc = new TypedDocumentString(`
     fragment PostBaseFields on Post {
+  __typename
   id
   isEdited
   isDeleted
@@ -7357,6 +7358,7 @@ fragment PostActionFields on PostAction {
   }
 }
 fragment PostBaseFields on Post {
+  __typename
   id
   isEdited
   isDeleted
@@ -7597,6 +7599,7 @@ fragment PostActionFields on PostAction {
   }
 }
 fragment PostBaseFields on Post {
+  __typename
   id
   isEdited
   isDeleted
@@ -7911,6 +7914,7 @@ fragment PostActionFields on PostAction {
   }
 }
 fragment PostBaseFields on Post {
+  __typename
   id
   isEdited
   isDeleted
@@ -8163,6 +8167,7 @@ fragment PostActionFields on PostAction {
   }
 }
 fragment PostBaseFields on Post {
+  __typename
   id
   isEdited
   isDeleted
@@ -8420,6 +8425,7 @@ fragment PostActionFields on PostAction {
   }
 }
 fragment PostBaseFields on Post {
+  __typename
   id
   isEdited
   isDeleted
@@ -8678,6 +8684,7 @@ fragment PostActionFields on PostAction {
   }
 }
 fragment PostBaseFields on Post {
+  __typename
   id
   isEdited
   isDeleted
@@ -8748,6 +8755,7 @@ fragment UsernameFields on Username {
 }`, {"fragmentName":"RepostNotificationFields"}) as unknown as TypedDocumentString<RepostNotificationFieldsFragment, unknown>;
 export const RepostFieldsFragmentDoc = new TypedDocumentString(`
     fragment RepostFields on Repost {
+  __typename
   id
   author {
     ...AccountFields
@@ -8934,6 +8942,7 @@ fragment PostActionFields on PostAction {
   }
 }
 fragment PostBaseFields on Post {
+  __typename
   id
   isEdited
   isDeleted
@@ -10000,6 +10009,7 @@ fragment PostActionFields on PostAction {
   }
 }
 fragment PostBaseFields on Post {
+  __typename
   id
   isEdited
   isDeleted
@@ -10298,6 +10308,7 @@ fragment PostActionFields on PostAction {
   }
 }
 fragment PostBaseFields on Post {
+  __typename
   id
   isEdited
   isDeleted
@@ -10548,6 +10559,7 @@ fragment PostActionFields on PostAction {
   }
 }
 fragment PostBaseFields on Post {
+  __typename
   id
   isEdited
   isDeleted
@@ -10808,6 +10820,7 @@ fragment PostActionFields on PostAction {
   }
 }
 fragment PostBaseFields on Post {
+  __typename
   id
   isEdited
   isDeleted
@@ -10861,6 +10874,7 @@ fragment PostStatsFields on PostStats {
   reposts
 }
 fragment RepostFields on Repost {
+  __typename
   id
   author {
     ...AccountFields
@@ -11081,6 +11095,7 @@ fragment PostActionFields on PostAction {
   }
 }
 fragment PostBaseFields on Post {
+  __typename
   id
   isEdited
   isDeleted
@@ -11134,6 +11149,7 @@ fragment PostStatsFields on PostStats {
   reposts
 }
 fragment RepostFields on Repost {
+  __typename
   id
   author {
     ...AccountFields

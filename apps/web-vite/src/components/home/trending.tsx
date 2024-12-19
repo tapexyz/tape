@@ -1,10 +1,18 @@
+import { usePostsQuery } from "@/queries/post";
+import type { Post } from "@tape.xyz/indexer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@tape.xyz/winder";
+import { memo } from "react";
+import { VideoCard } from "../shared/video-card";
+import { Virtualized } from "../shared/virtualized";
 
-export const Trending = () => {
+export const Trending = memo(() => {
+  const { data, fetchNextPage, hasNextPage } = usePostsQuery();
+  const trending = data?.pages.flatMap((page) => page.posts.items) as Post[];
+
   return (
     <div className="mt-24">
       <Tabs defaultValue="all-time">
-        <div className="space-x-10 text-xl">
+        <div className="mb-5 space-x-10 text-xl">
           <span>Trending videos</span>
           <TabsList>
             <TabsTrigger value="all-time">All time</TabsTrigger>
@@ -13,7 +21,16 @@ export const Trending = () => {
           </TabsList>
         </div>
         <TabsContent value="all-time">
-          <div>Content all time.</div>
+          <Virtualized
+            grid
+            restoreScroll
+            data={trending}
+            endReached={fetchNextPage}
+            hasNextPage={hasNextPage}
+            itemContent={(_index, post) => (
+              <VideoCard key={post.id} post={post} />
+            )}
+          />
         </TabsContent>
         <TabsContent value="month">
           <div>Content this month.</div>
@@ -24,4 +41,4 @@ export const Trending = () => {
       </Tabs>
     </div>
   );
-};
+});

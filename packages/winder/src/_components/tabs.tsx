@@ -33,11 +33,7 @@ const TabsContent = forwardRef<
   React.ElementRef<typeof TabsPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
 >(({ className, ...props }, ref) => (
-  <TabsPrimitive.Content
-    ref={ref}
-    className={tw("mt-2", className)}
-    {...props}
-  />
+  <TabsPrimitive.Content ref={ref} className={tw(className)} {...props} />
 ));
 
 export { Tabs, TabsList, TabsTrigger, TabsContent };
