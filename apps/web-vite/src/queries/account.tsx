@@ -76,9 +76,10 @@ export const accountQuery = (handle: string) => {
       })
   });
 };
-
 export const useAccountQuery = (handle: string) =>
   useQuery(accountQuery(handle));
+export const useAccountSuspenseQuery = (handle: string) =>
+  useSuspenseQuery(accountQuery(handle));
 
 export const meQuery = queryOptions({
   queryKey: ["me"],

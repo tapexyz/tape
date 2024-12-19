@@ -1,7 +1,6 @@
 import { getAccountMetadata } from "@/helpers/metadata";
-import { accountQuery } from "@/queries/account";
+import { useAccountSuspenseQuery } from "@/queries/account";
 import { Route } from "@/routes/_layout-hoc/u/$handle";
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { WORKER_AVATAR_URL } from "@tape.xyz/constants";
 import type { Account } from "@tape.xyz/indexer";
 import {
@@ -22,13 +21,13 @@ import { Actions } from "./actions";
 
 export const Profile = () => {
   const { handle: handleParam } = Route.useParams();
-  const { data } = useSuspenseQuery(accountQuery(handleParam));
+  const { data } = useAccountSuspenseQuery(handleParam);
 
-  const account = data.account as Account;
-
-  if (!account.metadata) {
+  if (!data?.account) {
     return null;
   }
+
+  const account = data.account as Account;
 
   const { name, bio, handleWithPrefix, picture, coverPicture } =
     getAccountMetadata(account);

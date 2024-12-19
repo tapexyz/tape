@@ -1,4 +1,5 @@
 import { getAccountMetadata, getPostMetadata } from "@/helpers/metadata";
+import { Link } from "@tanstack/react-router";
 import type { Post } from "@tape.xyz/indexer";
 import { Avatar, AvatarImage } from "@tape.xyz/winder";
 import { memo } from "react";
@@ -17,11 +18,24 @@ export const VideoCard = memo(({ post }: { post: Post }) => {
           draggable={false}
         />
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex gap-2">
         <Avatar>
           <AvatarImage src={account.picture} />
         </Avatar>
-        <h1 className="line-clamp-2">{metadata?.title ?? metadata?.content}</h1>
+        <div className="flex flex-col">
+          <h1 className="line-clamp-2">
+            {metadata?.title ?? metadata?.content}
+          </h1>
+          <div className="flex items-center gap-1 text-muted text-sm">
+            <Link
+              to="/u/$handle"
+              params={{ handle: account.handle as string }}
+              search={{ media: "videos" }}
+            >
+              {account.handle}
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );
