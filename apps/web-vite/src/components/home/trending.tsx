@@ -1,13 +1,23 @@
 import { usePostsQuery } from "@/queries/post";
 import type { Post } from "@tape.xyz/indexer";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@tape.xyz/winder";
+import {
+  Spinner,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger
+} from "@tape.xyz/winder";
 import { memo } from "react";
 import { VideoCard } from "../shared/video-card";
 import { Virtualized } from "../shared/virtualized";
 
 export const Trending = memo(() => {
-  const { data, fetchNextPage, hasNextPage } = usePostsQuery();
+  const { data, fetchNextPage, hasNextPage, isLoading } = usePostsQuery();
   const trending = data?.pages.flatMap((page) => page.posts.items) as Post[];
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="mt-24">
