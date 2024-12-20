@@ -42,9 +42,9 @@
     "@types/react": "^18.3.13",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
-    "esbuild": "^0.24.0",
+    "esbuild": "^0.24.1",
     "rollup-plugin-visualizer": "^5.12.0",
     "typescript": "^5.7.2",
-    "vite": "^6.0.4"
+    "vite": "^6.0.3"
   }
 }
