@@ -1,18 +1,18 @@
 import { useState } from "react";
 
 export const useDragAndDrop = () => {
-  const [dragOver, setDragOver] = useState(false);
+  const [dragging, setDragging] = useState(false);
 
   const onDragOver = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    setDragOver(true);
+    setDragging(true);
   };
 
-  const onDragLeave = () => setDragOver(false);
+  const onDragLeave = () => setDragging(false);
 
   return {
-    dragOver,
-    setDragOver,
+    dragging,
+    setDragging,
     onDragOver,
     onDragLeave
   };

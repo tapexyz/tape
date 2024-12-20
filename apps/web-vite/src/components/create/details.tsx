@@ -1,17 +1,6 @@
-import { getCategoryIcon } from "@/helpers/category";
-import { TAPE_MEDIA_CATEGORIES } from "@tape.xyz/constants";
-import {
-  Button,
-  Hash,
-  Input,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  Textarea
-} from "@tape.xyz/winder";
+import { Button, Input, Textarea } from "@tape.xyz/winder";
 import { Advanced } from "./advanced";
+import { Category } from "./category";
 
 export const Details = () => {
   return (
@@ -23,41 +12,12 @@ export const Details = () => {
         label="Description"
         placeholder="Describe more about your content. Can also be @user, #hashtags, https://links.xyz or chapters (00:20 - Intro)"
       />
-      <Select>
-        <SelectTrigger>
-          <SelectValue
-            placeholder={
-              <span className="flex items-center space-x-1.5">
-                <span className="rounded-custom bg-secondary p-1.5">
-                  <Hash />
-                </span>
-                <span>Add a category</span>
-              </span>
-            }
-          />
-        </SelectTrigger>
-        <SelectContent>
-          {TAPE_MEDIA_CATEGORIES.map((category) => {
-            const Icon = getCategoryIcon(category.tag);
-            return (
-              <SelectItem key={category.tag} value={category.tag}>
-                <span className="flex items-center space-x-1.5">
-                  <span className="rounded-custom bg-secondary p-1.5">
-                    <Icon />
-                  </span>
-                  <span>{category.name}</span>
-                </span>
-              </SelectItem>
-            );
-          })}
-        </SelectContent>
-      </Select>
+
+      <Category />
       <Advanced />
-      <div>
-        <Button size="xl" className="w-full">
-          Create
-        </Button>
-      </div>
+      <Button size="xl" className="w-full">
+        Post
+      </Button>
     </div>
   );
 };

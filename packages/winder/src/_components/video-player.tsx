@@ -163,7 +163,7 @@ const BottomControls = memo(({ pip }: { pip?: boolean }) => {
           <ArrowClockwise className="size-4" weight="bold" />
         </SeekButton>
         <div className="inline-flex h-9 items-center space-x-2 rounded-custom bg-white/10 py-2 pr-4 pl-3 transition-opacity hover:bg-white/15">
-          <MuteButton className="group relative cursor-pointer ">
+          <MuteButton className="group relative cursor-pointer">
             <SpeakerNone
               className="hidden size-4 group-data-[state='muted']:block"
               weight="bold"

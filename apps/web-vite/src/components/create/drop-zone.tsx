@@ -1,7 +1,9 @@
+import { useCreatePostStore } from "@/store/post";
 import { ALLOWED_UPLOAD_MIME_TYPES } from "@tape.xyz/constants";
-import { Button, Morph, toast } from "@tape.xyz/winder";
+import { Button, Morph, toast, tw } from "@tape.xyz/winder";
 import { useEffect, useState } from "react";
 import { useDragAndDrop } from "./drag-and-drop";
+import { Preview } from "./preview";
 
 const texts = ["MOV, MP4, WAV or MP3", "Max size 10 GB"] as const;
 
@@ -25,24 +27,19 @@ const AnimatedHint = () => {
 };
 
 const DropZone = () => {
-  const { setDragOver, onDragOver, onDragLeave, dragOver } = useDragAndDrop();
-
-  const handleUpload = async (file: File) => {
-    if (file) {
-      console.info("🚀 ~ handleUploadedMedia ~ file:", file);
-    }
-  };
+  const { dragging, setDragging, onDragOver, onDragLeave } = useDragAndDrop();
+  const { file, setFile } = useCreatePostStore();
 
   const validateFile = (file: File) => {
     if (!ALLOWED_UPLOAD_MIME_TYPES.includes(file?.type)) {
       return toast.error(`Media format (${file?.type}) not supported`);
     }
-    handleUpload(file);
+    setFile(file);
   };
 
   const onDrop = (e: React.DragEvent<HTMLLabelElement>) => {
     e.preventDefault();
-    setDragOver(false);
+    setDragging(false);
     const file = e?.dataTransfer?.files[0];
     if (file) {
       validateFile(file);
@@ -59,40 +56,49 @@ const DropZone = () => {
   return (
     <label
       htmlFor="dropMedia"
-      className="relative grid aspect-square h-full w-full place-content-center place-items-center rounded-custom border-2 border-custom border-dashed p-10 text-center focus:outline-none md:w-1/2 md:p-20"
+      className={tw(
+        "relative grid h-full w-full place-content-center place-items-center rounded-card border-2 border-custom border-dashed text-center focus:outline-none md:w-1/2",
+        file ? "aspect-video" : "aspect-square"
+      )}
       onDrop={onDrop}
       onDragOver={onDragOver}
       onDragLeave={onDragLeave}
     >
-      {dragOver && (
+      {file ? (
+        <Preview />
+      ) : (
         <>
-          <div className="absolute inset-6 rounded-custom border-2 border-custom border-dashed" />
-          <div className="absolute inset-12 rounded-custom border-2 border-custom border-dashed" />
+          {dragging && (
+            <>
+              <div className="absolute inset-6 rounded-custom border-2 border-custom border-dashed" />
+              <div className="absolute inset-12 rounded-custom border-2 border-custom border-dashed" />
+            </>
+          )}
+          <input
+            type="file"
+            id="dropMedia"
+            className="hidden"
+            onChange={onChooseFile}
+            accept={ALLOWED_UPLOAD_MIME_TYPES.join(",")}
+          />
+          <div className="flex flex-col items-center">
+            <h1 className="font-serif text-2xl">Ready to share?</h1>
+            <AnimatedHint />
+            <Button className="mt-4" variant="secondary">
+              <label htmlFor="chooseFile" className="cursor-pointer">
+                Choose file
+                <input
+                  id="chooseFile"
+                  type="file"
+                  className="hidden"
+                  onChange={onChooseFile}
+                  accept={ALLOWED_UPLOAD_MIME_TYPES.join(",")}
+                />
+              </label>
+            </Button>
+          </div>
         </>
       )}
-      <input
-        type="file"
-        id="dropMedia"
-        className="hidden"
-        onChange={onChooseFile}
-        accept={ALLOWED_UPLOAD_MIME_TYPES.join(",")}
-      />
-      <div className="flex flex-col items-center">
-        <h1 className="font-serif text-2xl">Ready to share?</h1>
-        <AnimatedHint />
-        <Button className="mt-4" variant="secondary">
-          <label htmlFor="chooseFile" className="cursor-pointer">
-            Choose file
-            <input
-              id="chooseFile"
-              type="file"
-              className="hidden"
-              onChange={onChooseFile}
-              accept={ALLOWED_UPLOAD_MIME_TYPES.join(",")}
-            />
-          </label>
-        </Button>
-      </div>
     </label>
   );
 };
