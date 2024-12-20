@@ -822,13 +822,13 @@ export const components = [
               <TabsTrigger value="month">This month</TabsTrigger>
               <TabsTrigger value="week">This week</TabsTrigger>
             </TabsList>
-            <TabsContent value="all-time">
+            <TabsContent value="all-time" className="mt-4">
               <div>Content all time.</div>
             </TabsContent>
-            <TabsContent value="month">
+            <TabsContent value="month" className="mt-4">
               <div>Content this month.</div>
             </TabsContent>
-            <TabsContent value="week">
+            <TabsContent value="week" className="mt-4">
               <div>Content this week.</div>
             </TabsContent>
           </Tabs>
@@ -837,10 +837,10 @@ export const components = [
               <TabsTrigger value="videos">Videos</TabsTrigger>
               <TabsTrigger value="bytes">Bytes</TabsTrigger>
             </TabsList>
-            <TabsContent value="videos">
+            <TabsContent value="videos" className="mt-4">
               <div>All your videos are here.</div>
             </TabsContent>
-            <TabsContent value="bytes">
+            <TabsContent value="bytes" className="mt-4">
               <div>All your bytes are here.</div>
             </TabsContent>
           </Tabs>
