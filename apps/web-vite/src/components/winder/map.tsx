@@ -95,7 +95,7 @@ export const base = [
           <span>
             <img
               src={`${STATIC_FILES}/images/brand/wordmark-xy.svg`}
-              className="h-80 w-full rounded bg-white object-cover object-center"
+              className="h-80 w-full rounded-card bg-white object-cover object-center"
               alt="wordmark-xy"
               draggable={false}
             />
@@ -103,7 +103,7 @@ export const base = [
           <span>
             <img
               src={`${STATIC_FILES}/images/brand/wordmark-dark.svg`}
-              className="h-64 w-full rounded bg-white object-cover"
+              className="h-64 w-full rounded-card bg-white object-cover"
               alt="wordmark-dark"
               draggable={false}
             />
@@ -111,7 +111,7 @@ export const base = [
           <div className="grid grid-cols-3">
             <img
               src={`${STATIC_FILES}/images/brand/mark-dark.svg`}
-              className="aspect-square rounded-l bg-white p-10"
+              className="aspect-square rounded-l-card bg-white p-10"
               alt="mark-dark"
               draggable={false}
             />
@@ -123,7 +123,7 @@ export const base = [
             />
             <img
               src={`${STATIC_FILES}/images/brand/mark-light.svg`}
-              className="aspect-square rounded-r bg-black p-10"
+              className="aspect-square rounded-r-card bg-black p-10"
               alt="mark-light"
               draggable={false}
             />
@@ -131,7 +131,7 @@ export const base = [
           <span>
             <img
               src={`${STATIC_FILES}/images/brand/wordmark-light.svg`}
-              className="h-64 w-full rounded bg-black object-cover"
+              className="h-64 w-full rounded-card bg-black object-cover"
               alt="wordmark-light"
               draggable={false}
             />
