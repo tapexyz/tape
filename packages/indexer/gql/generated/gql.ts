@@ -46,11 +46,22 @@ const documents = {
     "fragment PostMetadataFields on PostMetadata {\n  __typename\n  ... on VideoMetadata {\n    ...VideoMetadataFields\n  }\n}": types.PostMetadataFieldsFragmentDoc,
     "fragment PostStatsFields on PostStats {\n  bookmarks\n  collects\n  comments\n  quotes\n  reactions\n  reposts\n}": types.PostStatsFieldsFragmentDoc,
     "fragment RepostFields on Repost {\n  __typename\n  id\n  author {\n    ...AccountFields\n  }\n  isDeleted\n  timestamp\n  repostOf {\n    ...PostFields\n  }\n}": types.RepostFieldsFragmentDoc,
+    "fragment SelfFundedTransactionRequestFields on SelfFundedTransactionRequest {\n  reason\n  raw {\n    chainId\n    data\n    from\n    gasLimit\n    maxFeePerGas\n    maxPriorityFeePerGas\n    nonce\n    to\n    type\n    value\n  }\n}": types.SelfFundedTransactionRequestFieldsFragmentDoc,
+    "fragment SponsoredTransactionRequestFields on SponsoredTransactionRequest {\n  reason\n  raw {\n    chainId\n    data\n    from\n    gasLimit\n    maxFeePerGas\n    maxPriorityFeePerGas\n    nonce\n    to\n    type\n    value\n    customData {\n      customSignature\n      factoryDeps\n      gasPerPubdata\n      paymasterParams {\n        paymaster\n        paymasterInput\n      }\n    }\n  }\n}": types.SponsoredTransactionRequestFieldsFragmentDoc,
     "fragment UsernameFields on Username {\n  id\n  value\n  namespace {\n    address\n    namespace\n    metadata {\n      description\n      id\n    }\n  }\n  localName\n  linkedTo\n  ownedBy\n  timestamp\n}": types.UsernameFieldsFragmentDoc,
     "mutation CreateAccountWithUsername($request: CreateAccountWithUsernameRequest!) {\n  createAccountWithUsername(request: $request) {\n    ... on CreateAccountResponse {\n      hash\n    }\n    ... on InvalidUsername {\n      invalidUsernameReason: reason\n    }\n    ... on SelfFundedTransactionRequest {\n      selfFundedTransactionRequestReason: reason\n    }\n    ... on SponsoredTransactionRequest {\n      sponsoredTransactionRequestReason: reason\n    }\n    ... on TransactionWillFail {\n      transactionWillFailReason: reason\n    }\n  }\n}": types.CreateAccountWithUsernameDocument,
     "mutation Authenticate($request: SignedAuthChallenge!) {\n  authenticate(request: $request) {\n    ... on AuthenticationTokens {\n      __typename\n      accessToken\n      refreshToken\n      idToken\n    }\n    ... on ExpiredChallengeError {\n      __typename\n      reason\n    }\n    ... on ForbiddenError {\n      __typename\n      reason\n    }\n    ... on WrongSignerError {\n      __typename\n      reason\n    }\n  }\n}": types.AuthenticateDocument,
     "mutation Challenge($request: ChallengeRequest!) {\n  challenge(request: $request) {\n    id\n    text\n  }\n}": types.ChallengeDocument,
     "mutation Refresh($request: RefreshRequest!) {\n  refresh(request: $request) {\n    ... on AuthenticationTokens {\n      __typename\n      accessToken\n      refreshToken\n      idToken\n    }\n    ... on ForbiddenError {\n      __typename\n      reason\n    }\n  }\n}": types.RefreshDocument,
+    "mutation AddReaction($request: AddReactionRequest!) {\n  addReaction(request: $request) {\n    ... on AddReactionResponse {\n      success\n    }\n    ... on AddReactionFailure {\n      reason\n    }\n  }\n}": types.AddReactionDocument,
+    "mutation BookmarkPost($request: BookmarkPostRequest!) {\n  bookmarkPost(request: $request)\n}": types.BookmarkPostDocument,
+    "mutation CreatePost($request: CreatePostRequest!) {\n  post(request: $request) {\n    ... on PostResponse {\n      hash\n    }\n    ... on SelfFundedTransactionRequest {\n      ...SelfFundedTransactionRequestFields\n    }\n    ... on SponsoredTransactionRequest {\n      ...SponsoredTransactionRequestFields\n    }\n    ... on TransactionWillFail {\n      reason\n    }\n  }\n}": types.CreatePostDocument,
+    "mutation DeletePost($request: DeletePostRequest!) {\n  deletePost(request: $request) {\n    ... on DeletePostResponse {\n      hash\n    }\n    ... on SelfFundedTransactionRequest {\n      ...SelfFundedTransactionRequestFields\n    }\n    ... on SponsoredTransactionRequest {\n      ...SponsoredTransactionRequestFields\n    }\n    ... on TransactionWillFail {\n      reason\n    }\n  }\n}": types.DeletePostDocument,
+    "mutation EditPost($request: EditPostRequest!) {\n  editPost(request: $request) {\n    ... on PostResponse {\n      hash\n    }\n    ... on SelfFundedTransactionRequest {\n      ...SelfFundedTransactionRequestFields\n    }\n    ... on SponsoredTransactionRequest {\n      ...SponsoredTransactionRequestFields\n    }\n    ... on TransactionWillFail {\n      reason\n    }\n  }\n}": types.EditPostDocument,
+    "mutation ReportPost($request: ReportPostRequest!) {\n  reportPost(request: $request)\n}": types.ReportPostDocument,
+    "mutation Repost($request: CreateRepostRequest!) {\n  repost(request: $request) {\n    ... on PostResponse {\n      hash\n    }\n    ... on SelfFundedTransactionRequest {\n      ...SelfFundedTransactionRequestFields\n    }\n    ... on SponsoredTransactionRequest {\n      ...SponsoredTransactionRequestFields\n    }\n    ... on TransactionWillFail {\n      reason\n    }\n  }\n}": types.RepostDocument,
+    "mutation UndoBookmarkPost($request: BookmarkPostRequest!) {\n  undoBookmarkPost(request: $request)\n}": types.UndoBookmarkPostDocument,
+    "mutation UndoReaction($request: UndoReactionRequest!) {\n  undoReaction(request: $request) {\n    ... on UndoReactionResponse {\n      success\n    }\n    ... on UndoReactionFailure {\n      reason\n    }\n  }\n}": types.UndoReactionDocument,
     "query AccountManagers($request: AccountManagersRequest!) {\n  accountManagers(request: $request) {\n    items {\n      manager\n      isLensManager\n      permissions {\n        ...AccountManagerPermissions\n      }\n      addedAt\n    }\n    pageInfo {\n      next\n    }\n  }\n}": types.AccountManagersDocument,
     "query AccountStats($request: AccountStatsRequest!) {\n  accountStats(request: $request) {\n    feedStats {\n      posts\n      comments\n      reposts\n      quotes\n      reacted\n      reactions\n      collects\n    }\n    graphFollowStats {\n      followers\n      following\n    }\n  }\n}": types.AccountStatsDocument,
     "query Account($request: AccountRequest!) {\n  account(request: $request) {\n    ...AccountFields\n  }\n}": types.AccountDocument,
@@ -199,6 +210,14 @@ export function graphql(source: "fragment RepostFields on Repost {\n  __typename
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "fragment SelfFundedTransactionRequestFields on SelfFundedTransactionRequest {\n  reason\n  raw {\n    chainId\n    data\n    from\n    gasLimit\n    maxFeePerGas\n    maxPriorityFeePerGas\n    nonce\n    to\n    type\n    value\n  }\n}"): typeof import('./graphql').SelfFundedTransactionRequestFieldsFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment SponsoredTransactionRequestFields on SponsoredTransactionRequest {\n  reason\n  raw {\n    chainId\n    data\n    from\n    gasLimit\n    maxFeePerGas\n    maxPriorityFeePerGas\n    nonce\n    to\n    type\n    value\n    customData {\n      customSignature\n      factoryDeps\n      gasPerPubdata\n      paymasterParams {\n        paymaster\n        paymasterInput\n      }\n    }\n  }\n}"): typeof import('./graphql').SponsoredTransactionRequestFieldsFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "fragment UsernameFields on Username {\n  id\n  value\n  namespace {\n    address\n    namespace\n    metadata {\n      description\n      id\n    }\n  }\n  localName\n  linkedTo\n  ownedBy\n  timestamp\n}"): typeof import('./graphql').UsernameFieldsFragmentDoc;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -216,6 +235,42 @@ export function graphql(source: "mutation Challenge($request: ChallengeRequest!)
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "mutation Refresh($request: RefreshRequest!) {\n  refresh(request: $request) {\n    ... on AuthenticationTokens {\n      __typename\n      accessToken\n      refreshToken\n      idToken\n    }\n    ... on ForbiddenError {\n      __typename\n      reason\n    }\n  }\n}"): typeof import('./graphql').RefreshDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "mutation AddReaction($request: AddReactionRequest!) {\n  addReaction(request: $request) {\n    ... on AddReactionResponse {\n      success\n    }\n    ... on AddReactionFailure {\n      reason\n    }\n  }\n}"): typeof import('./graphql').AddReactionDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "mutation BookmarkPost($request: BookmarkPostRequest!) {\n  bookmarkPost(request: $request)\n}"): typeof import('./graphql').BookmarkPostDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "mutation CreatePost($request: CreatePostRequest!) {\n  post(request: $request) {\n    ... on PostResponse {\n      hash\n    }\n    ... on SelfFundedTransactionRequest {\n      ...SelfFundedTransactionRequestFields\n    }\n    ... on SponsoredTransactionRequest {\n      ...SponsoredTransactionRequestFields\n    }\n    ... on TransactionWillFail {\n      reason\n    }\n  }\n}"): typeof import('./graphql').CreatePostDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "mutation DeletePost($request: DeletePostRequest!) {\n  deletePost(request: $request) {\n    ... on DeletePostResponse {\n      hash\n    }\n    ... on SelfFundedTransactionRequest {\n      ...SelfFundedTransactionRequestFields\n    }\n    ... on SponsoredTransactionRequest {\n      ...SponsoredTransactionRequestFields\n    }\n    ... on TransactionWillFail {\n      reason\n    }\n  }\n}"): typeof import('./graphql').DeletePostDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "mutation EditPost($request: EditPostRequest!) {\n  editPost(request: $request) {\n    ... on PostResponse {\n      hash\n    }\n    ... on SelfFundedTransactionRequest {\n      ...SelfFundedTransactionRequestFields\n    }\n    ... on SponsoredTransactionRequest {\n      ...SponsoredTransactionRequestFields\n    }\n    ... on TransactionWillFail {\n      reason\n    }\n  }\n}"): typeof import('./graphql').EditPostDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "mutation ReportPost($request: ReportPostRequest!) {\n  reportPost(request: $request)\n}"): typeof import('./graphql').ReportPostDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "mutation Repost($request: CreateRepostRequest!) {\n  repost(request: $request) {\n    ... on PostResponse {\n      hash\n    }\n    ... on SelfFundedTransactionRequest {\n      ...SelfFundedTransactionRequestFields\n    }\n    ... on SponsoredTransactionRequest {\n      ...SponsoredTransactionRequestFields\n    }\n    ... on TransactionWillFail {\n      reason\n    }\n  }\n}"): typeof import('./graphql').RepostDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "mutation UndoBookmarkPost($request: BookmarkPostRequest!) {\n  undoBookmarkPost(request: $request)\n}"): typeof import('./graphql').UndoBookmarkPostDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "mutation UndoReaction($request: UndoReactionRequest!) {\n  undoReaction(request: $request) {\n    ... on UndoReactionResponse {\n      success\n    }\n    ... on UndoReactionFailure {\n      reason\n    }\n  }\n}"): typeof import('./graphql').UndoReactionDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

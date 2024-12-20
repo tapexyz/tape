@@ -1,0 +1,16 @@
+mutation CreatePost($request: CreatePostRequest!) {
+  post(request: $request) {
+    ... on PostResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequestFields
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequestFields
+    }
+    ... on TransactionWillFail {
+      reason
+    }
+  }
+}

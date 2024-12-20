@@ -26,6 +26,8 @@ export type Scalars = {
   EvmAddress: { input: any; output: any; }
   GeneratedNotificationId: { input: any; output: any; }
   IdToken: { input: any; output: any; }
+  /** A scalar that can represent any JSON value. */
+  JSON: { input: any; output: any; }
   LegacyProfileId: { input: any; output: any; }
   LegacyPublicationId: { input: any; output: any; }
   LegacyRefreshToken: { input: any; output: any; }
@@ -110,6 +112,16 @@ export type AccountBlocked = {
   blockedAt: Scalars['DateTime']['output'];
 };
 
+export type AccountBlockedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export type AccountCreatedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
 export type AccountFeedsStats = {
   __typename?: 'AccountFeedsStats';
   /** The total number of collects. */
@@ -133,6 +145,13 @@ export type AccountFeedsStatsRequest = {
   account: Scalars['EvmAddress']['input'];
   /** The feeds to get stats for. */
   forFeeds?: Array<Scalars['EvmAddress']['input']>;
+};
+
+export type AccountFollowedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  followedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  follower?: InputMaybe<Scalars['EvmAddress']['input']>;
+  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
 };
 
 export type AccountGraphsFollowStats = {
@@ -170,6 +189,11 @@ export type AccountManager = {
   manager: Scalars['EvmAddress']['output'];
   /** The permissions the account manager has. */
   permissions: AccountManagerPermissions;
+};
+
+export type AccountManagerAddedNotificationAttributes = {
+  managedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  manager?: InputMaybe<Scalars['EvmAddress']['input']>;
 };
 
 export type AccountManagerChallengeRequest = {
@@ -211,6 +235,16 @@ export type AccountManagerPermissionsInput = {
   canTransferTokens: Scalars['Boolean']['input'];
 };
 
+export type AccountManagerRemovedNotificationAttributes = {
+  managedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  manager?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export type AccountManagerUpdatedNotificationAttributes = {
+  managedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  manager?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
 export type AccountManagersRequest = {
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
@@ -229,6 +263,14 @@ export type AccountMention = {
    * Use to replace mentions in the post content.
    */
   replace: MentionReplace;
+};
+
+export type AccountMentionedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  author?: InputMaybe<Scalars['EvmAddress']['input']>;
+  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
+  mentionedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  mentionedUsername?: InputMaybe<Scalars['UsernameValue']['input']>;
 };
 
 export type AccountMetadata = {
@@ -278,6 +320,10 @@ export type AccountOwnerChallengeRequest = {
   owner: Scalars['EvmAddress']['input'];
 };
 
+export type AccountOwnershipTransferredNotificationAttributes = {
+  account?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
 export type AccountPostReaction = {
   __typename?: 'AccountPostReaction';
   account: Account;
@@ -289,6 +335,12 @@ export enum AccountReportReason {
   Other = 'OTHER',
   RepetitiveSpam = 'REPETITIVE_SPAM'
 }
+
+export type AccountReportedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  reportedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  reporter?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
 
 export type AccountRequest = {
   /** The account address. */
@@ -318,9 +370,36 @@ export type AccountStatsRequest = {
   forGraphs?: Array<Scalars['EvmAddress']['input']>;
 };
 
+export type AccountUnblockedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export type AccountUnfollowedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
+  unfollowedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  unfollower?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export type AccountUsernameAssignedNotificationAttributes = {
+  account?: InputMaybe<Scalars['EvmAddress']['input']>;
+  namespace?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export type AccountUsernameCreatedNotificationAttributes = {
+  account?: InputMaybe<Scalars['EvmAddress']['input']>;
+  namespace?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
 export type AccountUsernameRequest = {
   /** The namespace to get account assigned username */
   namespace?: Scalars['EvmAddress']['input'];
+};
+
+export type AccountUsernameUnassignedNotificationAttributes = {
+  namespace?: InputMaybe<Scalars['EvmAddress']['input']>;
+  previousAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
 };
 
 export type AccountsAvailableRequest = {
@@ -1102,6 +1181,22 @@ export type CreateRepostRequest = {
   post: Scalars['PostId']['input'];
 };
 
+export type CreateSnsSubscriptionRequest = {
+  /** The app to optionally assign this subscription to. */
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  /**
+   * The topics to subscribe to. You can subscribe to multiple topics at once. This cannot be
+   * changed once the subscription is created.
+   */
+  topics: Array<SnsTopicInput>;
+  /**
+   * The webhook URL to send notifications to. It must be an HTTP or HTTPS URL that is
+   * accessible by the Lens API and is owned by you as it will be used to confirm the
+   * subscription.
+   */
+  webhook: Scalars['String']['input'];
+};
+
 export type CreateUnfollowRequest = {
   /** The account to unfollow. */
   account: Scalars['EvmAddress']['input'];
@@ -1178,6 +1273,10 @@ export type DeletePostResponse = {
 };
 
 export type DeletePostResult = DeletePostResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type DeleteSnsSubscriptionRequest = {
+  id: Scalars['UUID']['input'];
+};
 
 export type EditPostRequest = {
   contentUri: Scalars['URI']['input'];
@@ -1283,6 +1382,17 @@ export type EmbedMetadata = {
 export type EnableSignlessResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type EncryptionStrategy = LitProtocolEncryptionStrategy;
+
+export type EntityId = {
+  account?: InputMaybe<Scalars['EvmAddress']['input']>;
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
+  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
+  group?: InputMaybe<Scalars['EvmAddress']['input']>;
+  post?: InputMaybe<Scalars['PostId']['input']>;
+  sponsorship?: InputMaybe<Scalars['EvmAddress']['input']>;
+  usernameNamespace?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
 
 export enum EntityType {
   Account = 'ACCOUNT',
@@ -2069,6 +2179,14 @@ export type ForbiddenError = {
 export type GenerateNewAppServerApiKeyRequest = {
   /** The app to generate the new server side api key for */
   app: Scalars['EvmAddress']['input'];
+};
+
+export type GetSnsSubscriptionsRequest = {
+  /**
+   * The app to get subscriptions for. If not provided, all subscriptions owned by the logged in
+   * account will be returned.
+   */
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
 };
 
 export type Graph = {
@@ -2896,6 +3014,10 @@ export enum MediaImageType {
   XMsBmp = 'X_MS_BMP'
 }
 
+export type MediaSnapshotNotificationAttributes = {
+  source?: InputMaybe<EntityId>;
+};
+
 /**
  * MediaVideo
  *
@@ -3081,6 +3203,10 @@ export enum MetadataLicenseType {
   TbnlNcNdPlLegal = 'TBNL_NC_ND_PL_LEGAL'
 }
 
+export type MetadataSnapshotNotificationAttributes = {
+  source?: InputMaybe<EntityId>;
+};
+
 export type MintMetadata = {
   __typename?: 'MintMetadata';
   /** The other attachments you want to include with it. */
@@ -3249,6 +3375,7 @@ export type Mutation = {
    * You MUST be authenticated to use this mutation.
    */
   createGroup: CreateGroupResult;
+  createSnsSubscriptions: Array<SnsSubscription>;
   /**
    * Create a username.
    *
@@ -3267,6 +3394,7 @@ export type Mutation = {
    * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
    */
   deletePost: DeletePostResult;
+  deleteSnsSubscription: Scalars['Void']['output'];
   /**
    * Edit a post.
    *
@@ -3602,6 +3730,11 @@ export type MutationCreateGroupArgs = {
 };
 
 
+export type MutationCreateSnsSubscriptionsArgs = {
+  request: CreateSnsSubscriptionRequest;
+};
+
+
 export type MutationCreateUsernameArgs = {
   request: CreateUsernameRequest;
 };
@@ -3614,6 +3747,11 @@ export type MutationCreateUsernameNamespaceArgs = {
 
 export type MutationDeletePostArgs = {
   request: DeletePostRequest;
+};
+
+
+export type MutationDeleteSnsSubscriptionArgs = {
+  request: DeleteSnsSubscriptionRequest;
 };
 
 
@@ -4210,6 +4348,7 @@ export type Post = {
   quoteOf?: Maybe<Post>;
   root?: Maybe<Post>;
   rules: PostRulesConfig;
+  slug: Scalars['PostId']['output'];
   stats: PostStats;
   timestamp: Scalars['DateTime']['output'];
 };
@@ -4260,15 +4399,40 @@ export type PostBookmarksRequest = {
   pageSize?: PageSize;
 };
 
+export type PostCreatedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  author?: InputMaybe<Scalars['EvmAddress']['input']>;
+  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
+  parentPostId?: InputMaybe<Scalars['PostId']['input']>;
+  postTypes?: InputMaybe<Array<PostType>>;
+};
+
+export type PostDeletedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  author?: InputMaybe<Scalars['EvmAddress']['input']>;
+  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
+  parentPostId?: InputMaybe<Scalars['PostId']['input']>;
+  postTypes?: InputMaybe<Array<PostType>>;
+};
+
 export type PostEdit = {
   __typename?: 'PostEdit';
   metadata: PostMetadata;
   timestamp: Scalars['DateTime']['output'];
 };
 
+export type PostEditedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  author?: InputMaybe<Scalars['EvmAddress']['input']>;
+  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
+  parentPostId?: InputMaybe<Scalars['PostId']['input']>;
+  postTypes?: InputMaybe<Array<PostType>>;
+};
+
 export type PostEditsRequest = {
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
   pageSize?: PageSize;
+  /** The post ID. */
   post: Scalars['PostId']['input'];
 };
 
@@ -4306,10 +4470,24 @@ export type PostReaction = {
   reaction: PostReactionType;
 };
 
+export type PostReactionAddedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  postId?: InputMaybe<Scalars['PostId']['input']>;
+  reactingAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  reactionType?: InputMaybe<PostReactionType>;
+};
+
 export enum PostReactionOrderBy {
   AccountScore = 'ACCOUNT_SCORE',
   Default = 'DEFAULT'
 }
+
+export type PostReactionRemovedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  postId?: InputMaybe<Scalars['PostId']['input']>;
+  reactingAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  reactionType?: InputMaybe<PostReactionType>;
+};
 
 export type PostReactionStatus = {
   __typename?: 'PostReactionStatus';
@@ -4383,6 +4561,13 @@ export enum PostReportReason {
   Unrelated = 'UNRELATED',
   Violence = 'VIOLENCE'
 }
+
+export type PostReportedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  author?: InputMaybe<Scalars['EvmAddress']['input']>;
+  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
+  reporter?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
 
 /** You must provide either a txHash or a postId, not both. */
 export type PostRequest = {
@@ -4550,6 +4735,7 @@ export type Query = {
   followers: PaginatedFollowersResult;
   followersYouKnow: PaginatedFollowersResult;
   following: PaginatedFollowingResult;
+  getSnsSubscriptions: Array<SnsSubscription>;
   graph?: Maybe<Graph>;
   /** Get the graphs. */
   graphs: PaginatedGraphsResult;
@@ -4737,6 +4923,11 @@ export type QueryFollowersYouKnowArgs = {
 
 export type QueryFollowingArgs = {
   request: FollowingRequest;
+};
+
+
+export type QueryGetSnsSubscriptionsArgs = {
+  request: GetSnsSubscriptionsRequest;
 };
 
 
@@ -4993,6 +5184,7 @@ export type Repost = {
   id: Scalars['PostId']['output'];
   isDeleted: Scalars['Boolean']['output'];
   repostOf: Post;
+  slug: Scalars['PostId']['output'];
   timestamp: Scalars['DateTime']['output'];
 };
 
@@ -5182,6 +5374,83 @@ export type SimplePaymentUsernameNamespaceRule = {
   amount: Amount;
   recipient: Scalars['EvmAddress']['output'];
   rule: Scalars['EvmAddress']['output'];
+};
+
+export enum SnsNotificationType {
+  AccountBlocked = 'ACCOUNT_BLOCKED',
+  AccountContentConsumed = 'ACCOUNT_CONTENT_CONSUMED',
+  AccountCreated = 'ACCOUNT_CREATED',
+  AccountFollowed = 'ACCOUNT_FOLLOWED',
+  AccountFollowRulesUpdated = 'ACCOUNT_FOLLOW_RULES_UPDATED',
+  AccountManagerAdded = 'ACCOUNT_MANAGER_ADDED',
+  AccountManagerRemoved = 'ACCOUNT_MANAGER_REMOVED',
+  AccountManagerUpdated = 'ACCOUNT_MANAGER_UPDATED',
+  AccountMentioned = 'ACCOUNT_MENTIONED',
+  AccountMetadataUpdated = 'ACCOUNT_METADATA_UPDATED',
+  AccountOwnershipTransferred = 'ACCOUNT_OWNERSHIP_TRANSFERRED',
+  AccountReported = 'ACCOUNT_REPORTED',
+  AccountUnblocked = 'ACCOUNT_UNBLOCKED',
+  AccountUnfollowed = 'ACCOUNT_UNFOLLOWED',
+  AccountUsernameAssigned = 'ACCOUNT_USERNAME_ASSIGNED',
+  AccountUsernameCreated = 'ACCOUNT_USERNAME_CREATED',
+  AccountUsernameUnassigned = 'ACCOUNT_USERNAME_UNASSIGNED',
+  CommentCreated = 'COMMENT_CREATED',
+  MediaSnapshotError = 'MEDIA_SNAPSHOT_ERROR',
+  MediaSnapshotSuccess = 'MEDIA_SNAPSHOT_SUCCESS',
+  MetadataSnapshotError = 'METADATA_SNAPSHOT_ERROR',
+  MetadataSnapshotSuccess = 'METADATA_SNAPSHOT_SUCCESS',
+  MlProfileSignal = 'ML_PROFILE_SIGNAL',
+  PostActionCompleted = 'POST_ACTION_COMPLETED',
+  PostCollected = 'POST_COLLECTED',
+  PostCreated = 'POST_CREATED',
+  PostDeleted = 'POST_DELETED',
+  PostEdited = 'POST_EDITED',
+  PostReactionAdded = 'POST_REACTION_ADDED',
+  PostReactionRemoved = 'POST_REACTION_REMOVED',
+  PostReported = 'POST_REPORTED',
+  QuoteCreated = 'QUOTE_CREATED',
+  RepostCreated = 'REPOST_CREATED'
+}
+
+export type SnsSubscription = {
+  __typename?: 'SnsSubscription';
+  account: Scalars['EvmAddress']['output'];
+  app?: Maybe<Scalars['EvmAddress']['output']>;
+  attributes: Scalars['JSON']['output'];
+  id: Scalars['UUID']['output'];
+  topic: SnsNotificationType;
+  topicArn: Scalars['String']['output'];
+  webhook: Scalars['URL']['output'];
+};
+
+export type SnsTopicInput = {
+  accountBlocked?: InputMaybe<AccountBlockedNotificationAttributes>;
+  accountCreated?: InputMaybe<AccountCreatedNotificationAttributes>;
+  accountFollowed?: InputMaybe<AccountFollowedNotificationAttributes>;
+  accountManagerAdded?: InputMaybe<AccountManagerAddedNotificationAttributes>;
+  accountManagerRemoved?: InputMaybe<AccountManagerRemovedNotificationAttributes>;
+  accountManagerUpdated?: InputMaybe<AccountManagerUpdatedNotificationAttributes>;
+  accountMentioned?: InputMaybe<AccountMentionedNotificationAttributes>;
+  accountOwnershipTransferred?: InputMaybe<AccountOwnershipTransferredNotificationAttributes>;
+  accountReported?: InputMaybe<AccountReportedNotificationAttributes>;
+  accountUnblocked?: InputMaybe<AccountUnblockedNotificationAttributes>;
+  accountUnfollowed?: InputMaybe<AccountUnfollowedNotificationAttributes>;
+  accountUsernameAssigned?: InputMaybe<AccountUsernameAssignedNotificationAttributes>;
+  accountUsernameCreated?: InputMaybe<AccountUsernameCreatedNotificationAttributes>;
+  accountUsernameUnassigned?: InputMaybe<AccountUsernameUnassignedNotificationAttributes>;
+  commentCreated?: InputMaybe<PostCreatedNotificationAttributes>;
+  mediaSnapshotError?: InputMaybe<MediaSnapshotNotificationAttributes>;
+  mediaSnapshotSuccess?: InputMaybe<MediaSnapshotNotificationAttributes>;
+  metadataSnapshotError?: InputMaybe<MetadataSnapshotNotificationAttributes>;
+  metadataSnapshotSuccess?: InputMaybe<MetadataSnapshotNotificationAttributes>;
+  postCreated?: InputMaybe<PostCreatedNotificationAttributes>;
+  postDeleted?: InputMaybe<PostDeletedNotificationAttributes>;
+  postEdited?: InputMaybe<PostEditedNotificationAttributes>;
+  postReactionAdded?: InputMaybe<PostReactionAddedNotificationAttributes>;
+  postReactionRemoved?: InputMaybe<PostReactionRemovedNotificationAttributes>;
+  postReported?: InputMaybe<PostReportedNotificationAttributes>;
+  quoteCreated?: InputMaybe<PostCreatedNotificationAttributes>;
+  repostCreated?: InputMaybe<PostCreatedNotificationAttributes>;
 };
 
 export type SpaceMetadata = {
@@ -6154,6 +6423,10 @@ export type RepostFieldsFragment = { __typename: 'Repost', id: any, isDeleted: b
     & { ' $fragmentRefs'?: { 'PostFieldsFragment': PostFieldsFragment } }
   ) } & { ' $fragmentName'?: 'RepostFieldsFragment' };
 
+export type SelfFundedTransactionRequestFieldsFragment = { __typename?: 'SelfFundedTransactionRequest', reason: string, raw: { __typename?: 'Eip1559TransactionRequest', chainId: number, data: any, from: any, gasLimit: number, maxFeePerGas: any, maxPriorityFeePerGas: any, nonce: number, to: any, type: number, value: any } } & { ' $fragmentName'?: 'SelfFundedTransactionRequestFieldsFragment' };
+
+export type SponsoredTransactionRequestFieldsFragment = { __typename?: 'SponsoredTransactionRequest', reason: string, raw: { __typename?: 'Eip712TransactionRequest', chainId: number, data: any, from: any, gasLimit: number, maxFeePerGas: any, maxPriorityFeePerGas: any, nonce: number, to: any, type: number, value: any, customData: { __typename?: 'Eip712Meta', customSignature?: any | null, factoryDeps: Array<any>, gasPerPubdata: any, paymasterParams?: { __typename?: 'PaymasterParams', paymaster: any, paymasterInput: any } | null } } } & { ' $fragmentName'?: 'SponsoredTransactionRequestFieldsFragment' };
+
 export type UsernameFieldsFragment = { __typename?: 'Username', id: string, value: any, localName: string, linkedTo?: any | null, ownedBy: any, timestamp: any, namespace: { __typename?: 'UsernameNamespace', address: any, namespace: string, metadata?: { __typename?: 'UsernameNamespaceMetadata', description?: string | null, id: string } | null } } & { ' $fragmentName'?: 'UsernameFieldsFragment' };
 
 export type CreateAccountWithUsernameMutationVariables = Exact<{
@@ -6183,6 +6456,93 @@ export type RefreshMutationVariables = Exact<{
 
 
 export type RefreshMutation = { __typename?: 'Mutation', refresh: { __typename: 'AuthenticationTokens', accessToken: any, refreshToken: any, idToken: any } | { __typename: 'ForbiddenError', reason: string } };
+
+export type AddReactionMutationVariables = Exact<{
+  request: AddReactionRequest;
+}>;
+
+
+export type AddReactionMutation = { __typename?: 'Mutation', addReaction: { __typename?: 'AddReactionFailure', reason: string } | { __typename?: 'AddReactionResponse', success: boolean } };
+
+export type BookmarkPostMutationVariables = Exact<{
+  request: BookmarkPostRequest;
+}>;
+
+
+export type BookmarkPostMutation = { __typename?: 'Mutation', bookmarkPost: any };
+
+export type CreatePostMutationVariables = Exact<{
+  request: CreatePostRequest;
+}>;
+
+
+export type CreatePostMutation = { __typename?: 'Mutation', post: { __typename?: 'PostResponse', hash: any } | (
+    { __typename?: 'SelfFundedTransactionRequest' }
+    & { ' $fragmentRefs'?: { 'SelfFundedTransactionRequestFieldsFragment': SelfFundedTransactionRequestFieldsFragment } }
+  ) | (
+    { __typename?: 'SponsoredTransactionRequest' }
+    & { ' $fragmentRefs'?: { 'SponsoredTransactionRequestFieldsFragment': SponsoredTransactionRequestFieldsFragment } }
+  ) | { __typename?: 'TransactionWillFail', reason: string } };
+
+export type DeletePostMutationVariables = Exact<{
+  request: DeletePostRequest;
+}>;
+
+
+export type DeletePostMutation = { __typename?: 'Mutation', deletePost: { __typename?: 'DeletePostResponse', hash: any } | (
+    { __typename?: 'SelfFundedTransactionRequest' }
+    & { ' $fragmentRefs'?: { 'SelfFundedTransactionRequestFieldsFragment': SelfFundedTransactionRequestFieldsFragment } }
+  ) | (
+    { __typename?: 'SponsoredTransactionRequest' }
+    & { ' $fragmentRefs'?: { 'SponsoredTransactionRequestFieldsFragment': SponsoredTransactionRequestFieldsFragment } }
+  ) | { __typename?: 'TransactionWillFail', reason: string } };
+
+export type EditPostMutationVariables = Exact<{
+  request: EditPostRequest;
+}>;
+
+
+export type EditPostMutation = { __typename?: 'Mutation', editPost: { __typename?: 'PostResponse', hash: any } | (
+    { __typename?: 'SelfFundedTransactionRequest' }
+    & { ' $fragmentRefs'?: { 'SelfFundedTransactionRequestFieldsFragment': SelfFundedTransactionRequestFieldsFragment } }
+  ) | (
+    { __typename?: 'SponsoredTransactionRequest' }
+    & { ' $fragmentRefs'?: { 'SponsoredTransactionRequestFieldsFragment': SponsoredTransactionRequestFieldsFragment } }
+  ) | { __typename?: 'TransactionWillFail', reason: string } };
+
+export type ReportPostMutationVariables = Exact<{
+  request: ReportPostRequest;
+}>;
+
+
+export type ReportPostMutation = { __typename?: 'Mutation', reportPost: any };
+
+export type RepostMutationVariables = Exact<{
+  request: CreateRepostRequest;
+}>;
+
+
+export type RepostMutation = { __typename?: 'Mutation', repost: { __typename?: 'PostResponse', hash: any } | (
+    { __typename?: 'SelfFundedTransactionRequest' }
+    & { ' $fragmentRefs'?: { 'SelfFundedTransactionRequestFieldsFragment': SelfFundedTransactionRequestFieldsFragment } }
+  ) | (
+    { __typename?: 'SponsoredTransactionRequest' }
+    & { ' $fragmentRefs'?: { 'SponsoredTransactionRequestFieldsFragment': SponsoredTransactionRequestFieldsFragment } }
+  ) | { __typename?: 'TransactionWillFail', reason: string } };
+
+export type UndoBookmarkPostMutationVariables = Exact<{
+  request: BookmarkPostRequest;
+}>;
+
+
+export type UndoBookmarkPostMutation = { __typename?: 'Mutation', undoBookmarkPost: any };
+
+export type UndoReactionMutationVariables = Exact<{
+  request: UndoReactionRequest;
+}>;
+
+
+export type UndoReactionMutation = { __typename?: 'Mutation', undoReaction: { __typename?: 'UndoReactionFailure', reason: string } | { __typename?: 'UndoReactionResponse', success: boolean } };
 
 export type AccountManagersQueryVariables = Exact<{
   request: AccountManagersRequest;
@@ -9011,6 +9371,49 @@ fragment UsernameFields on Username {
   ownedBy
   timestamp
 }`, {"fragmentName":"RepostFields"}) as unknown as TypedDocumentString<RepostFieldsFragment, unknown>;
+export const SelfFundedTransactionRequestFieldsFragmentDoc = new TypedDocumentString(`
+    fragment SelfFundedTransactionRequestFields on SelfFundedTransactionRequest {
+  reason
+  raw {
+    chainId
+    data
+    from
+    gasLimit
+    maxFeePerGas
+    maxPriorityFeePerGas
+    nonce
+    to
+    type
+    value
+  }
+}
+    `, {"fragmentName":"SelfFundedTransactionRequestFields"}) as unknown as TypedDocumentString<SelfFundedTransactionRequestFieldsFragment, unknown>;
+export const SponsoredTransactionRequestFieldsFragmentDoc = new TypedDocumentString(`
+    fragment SponsoredTransactionRequestFields on SponsoredTransactionRequest {
+  reason
+  raw {
+    chainId
+    data
+    from
+    gasLimit
+    maxFeePerGas
+    maxPriorityFeePerGas
+    nonce
+    to
+    type
+    value
+    customData {
+      customSignature
+      factoryDeps
+      gasPerPubdata
+      paymasterParams {
+        paymaster
+        paymasterInput
+      }
+    }
+  }
+}
+    `, {"fragmentName":"SponsoredTransactionRequestFields"}) as unknown as TypedDocumentString<SponsoredTransactionRequestFieldsFragment, unknown>;
 export const CreateAccountWithUsernameDocument = new TypedDocumentString(`
     mutation CreateAccountWithUsername($request: CreateAccountWithUsernameRequest!) {
   createAccountWithUsername(request: $request) {
@@ -9080,6 +9483,269 @@ export const RefreshDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<RefreshMutation, RefreshMutationVariables>;
+export const AddReactionDocument = new TypedDocumentString(`
+    mutation AddReaction($request: AddReactionRequest!) {
+  addReaction(request: $request) {
+    ... on AddReactionResponse {
+      success
+    }
+    ... on AddReactionFailure {
+      reason
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<AddReactionMutation, AddReactionMutationVariables>;
+export const BookmarkPostDocument = new TypedDocumentString(`
+    mutation BookmarkPost($request: BookmarkPostRequest!) {
+  bookmarkPost(request: $request)
+}
+    `) as unknown as TypedDocumentString<BookmarkPostMutation, BookmarkPostMutationVariables>;
+export const CreatePostDocument = new TypedDocumentString(`
+    mutation CreatePost($request: CreatePostRequest!) {
+  post(request: $request) {
+    ... on PostResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequestFields
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequestFields
+    }
+    ... on TransactionWillFail {
+      reason
+    }
+  }
+}
+    fragment SelfFundedTransactionRequestFields on SelfFundedTransactionRequest {
+  reason
+  raw {
+    chainId
+    data
+    from
+    gasLimit
+    maxFeePerGas
+    maxPriorityFeePerGas
+    nonce
+    to
+    type
+    value
+  }
+}
+fragment SponsoredTransactionRequestFields on SponsoredTransactionRequest {
+  reason
+  raw {
+    chainId
+    data
+    from
+    gasLimit
+    maxFeePerGas
+    maxPriorityFeePerGas
+    nonce
+    to
+    type
+    value
+    customData {
+      customSignature
+      factoryDeps
+      gasPerPubdata
+      paymasterParams {
+        paymaster
+        paymasterInput
+      }
+    }
+  }
+}`) as unknown as TypedDocumentString<CreatePostMutation, CreatePostMutationVariables>;
+export const DeletePostDocument = new TypedDocumentString(`
+    mutation DeletePost($request: DeletePostRequest!) {
+  deletePost(request: $request) {
+    ... on DeletePostResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequestFields
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequestFields
+    }
+    ... on TransactionWillFail {
+      reason
+    }
+  }
+}
+    fragment SelfFundedTransactionRequestFields on SelfFundedTransactionRequest {
+  reason
+  raw {
+    chainId
+    data
+    from
+    gasLimit
+    maxFeePerGas
+    maxPriorityFeePerGas
+    nonce
+    to
+    type
+    value
+  }
+}
+fragment SponsoredTransactionRequestFields on SponsoredTransactionRequest {
+  reason
+  raw {
+    chainId
+    data
+    from
+    gasLimit
+    maxFeePerGas
+    maxPriorityFeePerGas
+    nonce
+    to
+    type
+    value
+    customData {
+      customSignature
+      factoryDeps
+      gasPerPubdata
+      paymasterParams {
+        paymaster
+        paymasterInput
+      }
+    }
+  }
+}`) as unknown as TypedDocumentString<DeletePostMutation, DeletePostMutationVariables>;
+export const EditPostDocument = new TypedDocumentString(`
+    mutation EditPost($request: EditPostRequest!) {
+  editPost(request: $request) {
+    ... on PostResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequestFields
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequestFields
+    }
+    ... on TransactionWillFail {
+      reason
+    }
+  }
+}
+    fragment SelfFundedTransactionRequestFields on SelfFundedTransactionRequest {
+  reason
+  raw {
+    chainId
+    data
+    from
+    gasLimit
+    maxFeePerGas
+    maxPriorityFeePerGas
+    nonce
+    to
+    type
+    value
+  }
+}
+fragment SponsoredTransactionRequestFields on SponsoredTransactionRequest {
+  reason
+  raw {
+    chainId
+    data
+    from
+    gasLimit
+    maxFeePerGas
+    maxPriorityFeePerGas
+    nonce
+    to
+    type
+    value
+    customData {
+      customSignature
+      factoryDeps
+      gasPerPubdata
+      paymasterParams {
+        paymaster
+        paymasterInput
+      }
+    }
+  }
+}`) as unknown as TypedDocumentString<EditPostMutation, EditPostMutationVariables>;
+export const ReportPostDocument = new TypedDocumentString(`
+    mutation ReportPost($request: ReportPostRequest!) {
+  reportPost(request: $request)
+}
+    `) as unknown as TypedDocumentString<ReportPostMutation, ReportPostMutationVariables>;
+export const RepostDocument = new TypedDocumentString(`
+    mutation Repost($request: CreateRepostRequest!) {
+  repost(request: $request) {
+    ... on PostResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequestFields
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequestFields
+    }
+    ... on TransactionWillFail {
+      reason
+    }
+  }
+}
+    fragment SelfFundedTransactionRequestFields on SelfFundedTransactionRequest {
+  reason
+  raw {
+    chainId
+    data
+    from
+    gasLimit
+    maxFeePerGas
+    maxPriorityFeePerGas
+    nonce
+    to
+    type
+    value
+  }
+}
+fragment SponsoredTransactionRequestFields on SponsoredTransactionRequest {
+  reason
+  raw {
+    chainId
+    data
+    from
+    gasLimit
+    maxFeePerGas
+    maxPriorityFeePerGas
+    nonce
+    to
+    type
+    value
+    customData {
+      customSignature
+      factoryDeps
+      gasPerPubdata
+      paymasterParams {
+        paymaster
+        paymasterInput
+      }
+    }
+  }
+}`) as unknown as TypedDocumentString<RepostMutation, RepostMutationVariables>;
+export const UndoBookmarkPostDocument = new TypedDocumentString(`
+    mutation UndoBookmarkPost($request: BookmarkPostRequest!) {
+  undoBookmarkPost(request: $request)
+}
+    `) as unknown as TypedDocumentString<UndoBookmarkPostMutation, UndoBookmarkPostMutationVariables>;
+export const UndoReactionDocument = new TypedDocumentString(`
+    mutation UndoReaction($request: UndoReactionRequest!) {
+  undoReaction(request: $request) {
+    ... on UndoReactionResponse {
+      success
+    }
+    ... on UndoReactionFailure {
+      reason
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<UndoReactionMutation, UndoReactionMutationVariables>;
 export const AccountManagersDocument = new TypedDocumentString(`
     query AccountManagers($request: AccountManagersRequest!) {
   accountManagers(request: $request) {
