@@ -23,7 +23,7 @@
   "packageManager": "pnpm@9.1.1",
   "pnpm": {
     "overrides": {
-      "@wagmi/connectors": "5.4.0"
+      "esbuild": "0.24.0"
     }
   }
 }

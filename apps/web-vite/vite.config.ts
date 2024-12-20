@@ -1,4 +1,4 @@
-import path from "node:path";
+import { resolve } from "node:path";
 import MillionLint from "@million/lint";
 import tailwindcss from "@tailwindcss/vite";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
@@ -34,7 +34,7 @@ export default defineConfig(({ mode }) => {
     ],
     resolve: {
       alias: {
-        "@": path.resolve(__dirname, "./src")
+        "@": resolve(__dirname, "./src")
       }
     },
     define: {
