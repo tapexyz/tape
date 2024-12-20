@@ -1,6 +1,7 @@
 import { getCategoryIcon } from "@/helpers/category";
 import { TAPE_MEDIA_CATEGORIES } from "@tape.xyz/constants";
 import {
+  Button,
   Hash,
   Input,
   Select,
@@ -18,8 +19,9 @@ export const Details = () => {
       <Input label="Title" placeholder="Title that describes your content" />
       <Textarea
         rows={4}
+        maxLength={5000}
         label="Description"
-        placeholder="Describe more about your content. Can also be @user, #hashtags, https://links or chapters (00:20 - Intro)"
+        placeholder="Describe more about your content. Can also be @user, #hashtags, https://links.xyz or chapters (00:20 - Intro)"
       />
       <Select>
         <SelectTrigger>
@@ -51,6 +53,11 @@ export const Details = () => {
         </SelectContent>
       </Select>
       <Advanced />
+      <div>
+        <Button size="xl" className="w-full">
+          Create
+        </Button>
+      </div>
     </div>
   );
 };

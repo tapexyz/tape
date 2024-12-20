@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { IntroSection } from "./intro";
 import { base, components } from "./map";
 
@@ -15,6 +16,14 @@ const ContentItem = ({ item }: { item: (typeof base)[0] }) => (
 
 export const Content = () => {
   const contentItems = [...base, ...components];
+
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const element = document.querySelector(hash);
+      element?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []);
 
   return (
     <div className="space-y-20 border-custom p-6 md:border-r">

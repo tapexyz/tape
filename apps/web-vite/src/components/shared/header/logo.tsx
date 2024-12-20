@@ -7,12 +7,12 @@ export const Logo = memo(() => {
       to="/"
       onContextMenu={(e) => {
         e.preventDefault();
-        window.open("/winder", "_blank");
+        window.open("/winder#brand", "_blank");
       }}
     >
-      <div className="flex h-9 items-center rounded-custom bg-primary px-3.5 pt-2.5 pb-2">
+      <div className="flex h-9 items-center rounded-custom border border-custom px-3.5 pt-2.5 pb-2">
         <svg
-          className="h-4 text-theme"
+          className="h-5 text-primary"
           viewBox="0 0 1453 320"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
