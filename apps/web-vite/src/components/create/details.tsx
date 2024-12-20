@@ -14,7 +14,7 @@ import { Advanced } from "./advanced";
 
 export const Details = () => {
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 md:w-1/2">
       <Input label="Title" placeholder="Title that describes your content" />
       <Textarea
         rows={4}

@@ -61,7 +61,7 @@ export const Virtualized = <T extends { id: string }>({
   return grid ? (
     <VirtuosoGrid
       {...commonProps}
-      listClassName="grid grid-cols-4 gap-x-2 gap-y-5"
+      listClassName="grid gap-x-2 gap-y-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
     />
   ) : (
     <Virtuoso

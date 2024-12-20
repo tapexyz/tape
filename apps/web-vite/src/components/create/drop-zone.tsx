@@ -59,7 +59,7 @@ const DropZone = () => {
   return (
     <label
       htmlFor="dropMedia"
-      className="relative grid aspect-video h-full w-full place-content-center place-items-center rounded-custom border-2 border-custom border-dashed p-10 text-center focus:outline-none md:p-20"
+      className="relative grid aspect-square h-full w-full place-content-center place-items-center rounded-custom border-2 border-custom border-dashed p-10 text-center focus:outline-none md:w-1/2 md:p-20"
       onDrop={onDrop}
       onDragOver={onDragOver}
       onDragLeave={onDragLeave}
