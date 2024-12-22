@@ -66,7 +66,7 @@ const RevertFollow = ({ profile }: Props) => {
   };
 
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError }
+    mutation: { onError: (error) => onError(error as CustomErrorWithData) }
   });
 
   const [broadcast, { data: broadcastData }] = useBroadcastOnchainMutation({

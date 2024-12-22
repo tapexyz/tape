@@ -58,7 +58,9 @@ const UnknownOpenAction = ({
   };
 
   const handleWrongNetwork = useHandleWrongNetwork();
-  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
+  const { signTypedDataAsync } = useSignTypedData({
+    mutation: { onError: (error) => onError(error as CustomErrorWithData) }
+  });
 
   const activeProfile = useProfileStore((state) => state.activeProfile);
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();

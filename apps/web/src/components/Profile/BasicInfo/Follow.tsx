@@ -63,7 +63,7 @@ const Follow: FC<Props> = ({ profile, onSubscribe }) => {
   };
 
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError }
+    mutation: { onError: (error) => onError(error as CustomErrorWithData) }
   });
 
   const { writeContractAsync } = useWriteContract({

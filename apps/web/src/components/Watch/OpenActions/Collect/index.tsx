@@ -294,7 +294,9 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     setAlreadyCollected(true);
     toast.success("Collected as NFT");
   };
-  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } });
+  const { signTypedDataAsync } = useSignTypedData({
+    mutation: { onError: (error) => onError(error as CustomErrorWithData) }
+  });
 
   const { writeContractAsync } = useWriteContract({
     mutation: {

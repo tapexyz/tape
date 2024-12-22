@@ -77,7 +77,7 @@ const MirrorPublication: FC<Props> = ({
   };
 
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError }
+    mutation: { onError: (error) => onError(error as CustomErrorWithData) }
   });
 
   const { writeContractAsync } = useWriteContract({

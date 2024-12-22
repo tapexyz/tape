@@ -109,7 +109,7 @@ const FeeFollow = ({ profile }: Props) => {
     ?.followModule as FeeFollowModuleSettings;
 
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError }
+    mutation: { onError: (error) => onError(error as CustomErrorWithData) }
   });
 
   const [broadcast, { data: broadcastData }] = useBroadcastOnchainMutation({

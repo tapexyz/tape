@@ -44,7 +44,7 @@ const Delete = () => {
 
   useEffect(() => {
     if (isError) {
-      onError(error);
+      onError(error as CustomErrorWithData);
     }
     if (isSuccess) {
       signOut();

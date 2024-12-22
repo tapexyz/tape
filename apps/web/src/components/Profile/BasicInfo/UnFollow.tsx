@@ -66,7 +66,7 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe }) => {
   };
 
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError }
+    mutation: { onError: (error) => onError(error as CustomErrorWithData) }
   });
 
   const [broadcast] = useBroadcastOnchainMutation({

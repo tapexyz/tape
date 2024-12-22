@@ -105,7 +105,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
     mutation: { onError }
   });
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError }
+    mutation: { onError: (error) => onError(error as CustomErrorWithData) }
   });
 
   const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {

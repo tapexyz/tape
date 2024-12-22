@@ -115,7 +115,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
   };
 
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError }
+    mutation: { onError: (error) => onError(error as CustomErrorWithData) }
   });
 
   const { writeContractAsync } = useWriteContract({

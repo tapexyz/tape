@@ -43,7 +43,7 @@ const ToggleLensManager = () => {
   };
 
   const { signTypedDataAsync } = useSignTypedData({
-    mutation: { onError }
+    mutation: { onError: (error) => onError(error as CustomErrorWithData) }
   });
 
   const { writeContractAsync, data: txHash } = useWriteContract({
