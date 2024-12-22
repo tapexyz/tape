@@ -85,7 +85,10 @@ const DropZone = () => {
             <h1 className="font-serif text-2xl">Ready to share?</h1>
             <AnimatedHint />
             <Button className="mt-4" variant="secondary">
-              <label htmlFor="chooseFile" className="cursor-pointer">
+              <label
+                htmlFor="chooseFile"
+                className="inline-flex h-9 cursor-pointer items-center"
+              >
                 Choose file
                 <input
                   id="chooseFile"
