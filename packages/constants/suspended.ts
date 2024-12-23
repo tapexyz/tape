@@ -12,6 +12,7 @@ export const SUSPENDED_PROFILES = IS_MAINNET
       "0x9b5d",
       "0x9cb4",
       "0x8441",
-      "0x0dc2"
+      "0x0dc2",
+      "0x02a0b4"
     ]
   : [];
