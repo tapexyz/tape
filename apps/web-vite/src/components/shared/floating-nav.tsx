@@ -147,43 +147,29 @@ const Panel = memo(() => {
   );
 });
 
+const links = [
+  { label: "Home", url: "/" },
+  { label: "Explore", url: "/explore" },
+  { label: "Following", url: "/following" }
+];
 const Bar = memo(() => {
   const matchRoute = useMatchRoute();
 
   return (
     <div className="mt-1.5 flex items-center space-x-1.5 rounded-[14px] border border-custom bg-black/95 p-1.5 font-medium shadow-sm backdrop-blur-2xl *:flex-1 *:rounded-custom *:px-[13px] *:py-[6px] *:text-center *:text-sm">
-      <Link
-        to="/"
-        className={tw(
-          matchRoute({ to: "/" })
-            ? "bg-white text-black/80"
-            : "bg-white/15 text-white/80 hover:bg-white/20"
-        )}
-      >
-        Home
-      </Link>
-      <Link
-        to="/explore"
-        className={tw(
-          matchRoute({ to: "/explore" })
-            ? "bg-white text-black/80"
-            : "bg-white/15 text-white/80 hover:bg-white/20"
-        )}
-        search={{ media: "all" }}
-        preload="viewport"
-      >
-        Explore
-      </Link>
-      <Link
-        to="/following"
-        className={tw(
-          matchRoute({ to: "/following" })
-            ? "bg-white text-black/80"
-            : "bg-white/15 text-white/80 hover:bg-white/20"
-        )}
-      >
-        Following
-      </Link>
+      {links.map((l) => (
+        <Link
+          key={l.label}
+          to={l.url}
+          className={tw(
+            matchRoute({ to: l.url })
+              ? "bg-white text-black/80"
+              : "bg-white/15 text-white/80 hover:bg-white/20"
+          )}
+        >
+          {l.label}
+        </Link>
+      ))}
     </div>
   );
 });
