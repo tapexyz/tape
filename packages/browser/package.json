@@ -26,7 +26,7 @@
     "@tape.xyz/generic": "workspace:*",
     "@tape.xyz/lens": "workspace:*",
     "@tape.xyz/tsconfig": "workspace:*",
-    "@types/node": "^22.10.2",
+    "@types/node": "^22.10.3",
     "@types/react": "^18.3.13",
     "@types/uuid": "^10.0.0",
     "esbuild": "0.24.2",
