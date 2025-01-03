@@ -12,7 +12,7 @@ import did from "./routes/did";
 import gateway from "./routes/gateway";
 import metadata from "./routes/metadata";
 import oembed from "./routes/oembed";
-import rates from "./routes/rates";
+// import rates from "./routes/rates";
 import stats from "./routes/stats";
 import sts from "./routes/sts";
 import tail from "./routes/tail";
@@ -30,7 +30,7 @@ app
   .route("/did", did)
   .route("/sts", sts)
   .route("/tail", tail)
-  .route("/rates", rates)
+  // .route("/rates", rates)
   .route("/tower", tower)
   .route("/stats", stats)
   .route("/oembed", oembed)
