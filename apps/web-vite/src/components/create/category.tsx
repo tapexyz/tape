@@ -1,4 +1,5 @@
 import { getCategoryIcon } from "@/helpers/category";
+import { useCreatePostStore } from "@/store/post";
 import { TAPE_MEDIA_CATEGORIES } from "@tape.xyz/constants";
 import {
   Hash,
@@ -10,8 +11,9 @@ import {
 } from "@tape.xyz/winder";
 
 export const Category = () => {
+  const { category, setCategory } = useCreatePostStore();
   return (
-    <Select>
+    <Select value={category} onValueChange={(value) => setCategory(value)}>
       <SelectTrigger>
         <SelectValue
           placeholder={

@@ -1,5 +1,8 @@
 import { useCreatePostStore } from "@/store/post";
-import { ALLOWED_UPLOAD_MIME_TYPES } from "@tape.xyz/constants";
+import {
+  ALLOWED_UPLOAD_MIME_TYPES,
+  TAPE_MEDIA_CATEGORIES
+} from "@tape.xyz/constants";
 import { Button, Morph, toast, tw } from "@tape.xyz/winder";
 import { useEffect, useState } from "react";
 import { useDragAndDrop } from "./drag-and-drop";
@@ -28,13 +31,14 @@ const AnimatedHint = () => {
 
 const DropZone = () => {
   const { dragging, setDragging, onDragOver, onDragLeave } = useDragAndDrop();
-  const { file, setFile } = useCreatePostStore();
+  const { file, setFile, setCategory } = useCreatePostStore();
 
   const validateFile = (file: File) => {
     if (!ALLOWED_UPLOAD_MIME_TYPES.includes(file?.type)) {
       return toast.error(`Media format (${file?.type}) not supported`);
     }
     setFile(file);
+    setCategory(TAPE_MEDIA_CATEGORIES[0].tag);
   };
 
   const onDrop = (e: React.DragEvent<HTMLLabelElement>) => {
@@ -64,7 +68,7 @@ const DropZone = () => {
         <Preview />
       ) : (
         <label
-          className="grid place-items-center"
+          className="grid size-full place-items-center"
           htmlFor="dropMedia"
           onDrop={onDrop}
           onDragOver={onDragOver}
