@@ -7,7 +7,7 @@ export const Route = createFileRoute("/_layout-hoc")({
   loader: ({ context }) => context.rqClient.ensureQueryData(meQuery),
   component: () => {
     return (
-      <main className="container mx-auto flex min-h-screen max-w-screen-2xl flex-col">
+      <main className="container mx-auto flex min-h-screen max-w-screen-2xl flex-col px-3">
         <Header />
         <Outlet />
         <Footer />
