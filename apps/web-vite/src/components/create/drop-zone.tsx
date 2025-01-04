@@ -31,14 +31,14 @@ const AnimatedHint = () => {
 
 const DropZone = () => {
   const { dragging, setDragging, onDragOver, onDragLeave } = useDragAndDrop();
-  const { file, setFile, setCategory } = useCreatePostStore();
+  const { file, setFile, setTag } = useCreatePostStore();
 
   const validateFile = (file: File) => {
     if (!ALLOWED_UPLOAD_MIME_TYPES.includes(file?.type)) {
       return toast.error(`Media format (${file?.type}) not supported`);
     }
     setFile(file);
-    setCategory(TAPE_MEDIA_CATEGORIES[0].tag);
+    setTag(TAPE_MEDIA_CATEGORIES[0].tag);
   };
 
   const onDrop = (e: React.DragEvent<HTMLLabelElement>) => {

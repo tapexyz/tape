@@ -1,6 +1,6 @@
 import { getAccountMetadata } from "@/helpers/metadata";
-import { uploadJson } from "@/helpers/upload";
 import { useMeSuspenseQuery } from "@/queries/account";
+import { useCreatePostMutation } from "@/queries/post";
 import { useCreatePostStore } from "@/store/post";
 import { MediaAudioMimeType, audio, video } from "@lens-protocol/metadata";
 import {
@@ -27,6 +27,8 @@ export const Details = () => {
   const { data } = useMeSuspenseQuery();
   const account = data.me.loggedInAs.account as Account;
   const { handleWithPrefix } = getAccountMetadata(account);
+
+  const { mutateAsync: createPost, isPending } = useCreatePostMutation();
 
   const handleCreatePost = async () => {
     const trimmedTitle = title.trim();
@@ -67,8 +69,7 @@ export const Details = () => {
               license: MetadataLicenseType.CCO
             }
           });
-    const { uri } = await uploadJson(metadata);
-    console.log(uri);
+    await createPost(metadata);
   };
 
   return (
@@ -90,7 +91,12 @@ export const Details = () => {
 
       <Category />
       <Advanced />
-      <Button size="xl" className="w-full" onClick={handleCreatePost}>
+      <Button
+        size="xl"
+        className="w-full"
+        onClick={handleCreatePost}
+        loading={isPending}
+      >
         Post
       </Button>
     </div>

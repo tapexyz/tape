@@ -1,13 +1,17 @@
 import { execute } from "@/helpers/execute";
+import { uploadJson } from "@/helpers/upload";
+import type { AudioMetadata, VideoMetadata } from "@lens-protocol/metadata";
 import {
   infiniteQueryOptions,
   queryOptions,
   useInfiniteQuery,
+  useMutation,
   useQuery,
   useSuspenseInfiniteQuery,
   useSuspenseQuery
 } from "@tanstack/react-query";
 import {
+  CreatePostDocument,
   MainContentFocus,
   PageSize,
   PostDocument,
@@ -78,3 +82,19 @@ export const bytesQuery = infiniteQueryOptions({
 });
 export const useBytesQuery = () => useInfiniteQuery(bytesQuery);
 export const useBytesSuspenseQuery = () => useSuspenseInfiniteQuery(bytesQuery);
+
+export const useCreatePostMutation = () =>
+  useMutation({
+    mutationFn: async (metadata: VideoMetadata | AudioMetadata) => {
+      const { uri } = await uploadJson(metadata);
+
+      return execute({
+        query: CreatePostDocument,
+        variables: {
+          request: {
+            contentUri: uri
+          }
+        }
+      });
+    }
+  });
