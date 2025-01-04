@@ -6,6 +6,7 @@ import { useCreatePostStore } from "@/store/post";
 import { ALLOWED_IMAGE_MIME_TYPES } from "@tape.xyz/constants";
 import { ImageSquare } from "@tape.xyz/winder";
 import { useRef } from "react";
+import { SuggestedThumbnails } from "./suggested-thumbnails";
 
 export const Preview = () => {
   const {
@@ -27,10 +28,10 @@ export const Preview = () => {
       : mediaRef.current?.pause();
   };
 
-  const onChooseFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e?.target?.files?.[0];
-    if (file) {
-      const { uri } = await uploadMedia(file);
+  const onChoosePoster = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const poster = e?.target?.files?.[0];
+    if (poster) {
+      const { uri } = await uploadMedia(poster);
       setCoverUri(uri);
     }
   };
@@ -43,17 +44,22 @@ export const Preview = () => {
   return (
     <div className="group relative w-full">
       {mediaType === "video" ? (
-        <video
-          controls={false}
-          className="cursor-pointer rounded-card"
-          onClick={() => onClickMedia()}
-          onKeyDown={() => onClickMedia()}
-          ref={mediaRef as React.RefObject<HTMLVideoElement>}
-          onLoadedMetadata={() => setDuration(mediaRef.current?.duration ?? 0)}
-        >
-          <source {...mediaSource} />
-          <track kind="captions" className="hidden" />
-        </video>
+        <div className="flex size-full flex-col gap-1 p-1">
+          <video
+            controls={false}
+            className="cursor-pointer rounded-card bg-secondary"
+            onClick={() => onClickMedia()}
+            onKeyDown={() => onClickMedia()}
+            ref={mediaRef as React.RefObject<HTMLVideoElement>}
+            onLoadedMetadata={() =>
+              setDuration(mediaRef.current?.duration ?? 0)
+            }
+          >
+            <source {...mediaSource} />
+            <track kind="captions" className="hidden" />
+          </video>
+          <SuggestedThumbnails />
+        </div>
       ) : (
         <div className="flex size-full flex-col gap-1 p-1">
           <span className="aspect-square overflow-hidden rounded-card">
@@ -64,8 +70,8 @@ export const Preview = () => {
               {coverUri ? (
                 <img
                   src={sanitizeStorageUrl(coverUri)}
+                  className="bg-secondary object-cover"
                   alt="cover"
-                  className="object-cover"
                 />
               ) : (
                 <div className="flex flex-col items-center gap-2">
@@ -77,7 +83,7 @@ export const Preview = () => {
                 type="file"
                 id="poster"
                 className="hidden"
-                onChange={onChooseFile}
+                onChange={onChoosePoster}
                 accept={ALLOWED_IMAGE_MIME_TYPES.join(",")}
               />
             </label>

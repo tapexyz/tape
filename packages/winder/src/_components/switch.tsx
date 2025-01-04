@@ -8,7 +8,7 @@ interface SwitchProps
 }
 
 const Switch = forwardRef<
-  React.ElementRef<typeof SwitchPrimitives.Root>,
+  React.ComponentRef<typeof SwitchPrimitives.Root>,
   SwitchProps
 >(({ className, label, ...props }, ref) => {
   const id = useId();
