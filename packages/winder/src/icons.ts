@@ -39,6 +39,7 @@ import {
   Hash,
   Heart,
   Heartbeat,
+  ImageSquare,
   Info,
   Island,
   Leaf,
@@ -93,6 +94,7 @@ import {
 const USED_ICONS = [
   { Icon: Sun, name: "Sun" },
   { Icon: Money, name: "Money" },
+  { Icon: ImageSquare, name: "ImageSquare" },
   { Icon: Moon, name: "Moon" },
   { Icon: SlidersHorizontal, name: "SlidersHorizontal" },
   { Icon: VinylRecord, name: "VinylRecord" },
@@ -217,6 +219,7 @@ export {
   SpeakerHigh,
   GameController,
   SpeakerLow,
+  ImageSquare,
   WifiHigh,
   WifiX,
   YoutubeLogo,

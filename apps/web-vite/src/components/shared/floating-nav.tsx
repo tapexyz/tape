@@ -37,7 +37,7 @@ const Categories = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
 
   return (
-    <ScrollArea className="relative h-52" ref={ref}>
+    <ScrollArea className="relative h-52" ref={ref} hideScrollbar>
       <m.div
         className="absolute top-0 h-2 w-full bg-gradient-to-b from-black/60"
         style={{ opacity }}

@@ -1,5 +1,5 @@
 import { execute } from "@/helpers/execute";
-import { uploadJson } from "@/helpers/upload-json";
+import { uploadJson } from "@/helpers/upload";
 import { isAuthenticated } from "@/store/cookie";
 import { account } from "@lens-protocol/metadata";
 import {

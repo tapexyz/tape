@@ -3,12 +3,14 @@ import { forwardRef } from "react";
 import { tw } from "../tw";
 
 const ScrollArea = forwardRef<
-  React.ElementRef<typeof ScrollAreaPrimitive.Root>,
+  React.ComponentRef<typeof ScrollAreaPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Root> & {
     hideScrollbar?: boolean;
   }
 >(({ className, children, hideScrollbar, ...props }, ref) => (
   <ScrollAreaPrimitive.Root
+    type="scroll"
+    scrollHideDelay={1000}
     className={tw("relative overflow-hidden", className)}
     {...props}
   >
@@ -24,7 +26,7 @@ const ScrollArea = forwardRef<
 ));
 
 const ScrollBar = forwardRef<
-  React.ElementRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>,
+  React.ComponentRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>,
   React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>
 >(({ className, orientation = "vertical", ...props }, ref) => (
   <ScrollAreaPrimitive.ScrollAreaScrollbar
@@ -42,7 +44,7 @@ const ScrollBar = forwardRef<
   >
     <ScrollAreaPrimitive.ScrollAreaThumb
       className={tw(
-        "relative rounded-full bg-secondary",
+        "relative rounded-full bg-[var(--scrollbar-thumb)]",
         orientation === "vertical" && "flex-1"
       )}
     />

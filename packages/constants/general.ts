@@ -85,6 +85,9 @@ export const TESTNET_ALLOWED_TOKENS = [
 
 // lens
 export const LENS_TESTNET_RPCS = ["https://rpc.testnet.lens.dev"];
+export const LENS_STORAGE_NODE_URL = IS_MAINNET
+  ? "https://storage-api.testnet.lens.dev"
+  : "https://storage-api.testnet.lens.dev";
 
 // polygon
 export const POLYGON_RPC_URLS = IS_MAINNET
@@ -196,6 +199,12 @@ export const ADMIN_IDS = IS_MAINNET ? ["0x2d"] : [];
 export const TAPE_ADMIN_ADDRESS = "0xB89560D7b33ea8d787EaaEfbcE1268f8991Db9E1";
 
 // lens
+export const ALLOWED_IMAGE_MIME_TYPES = [
+  "image/png",
+  "image/jpeg",
+  "image/jpg",
+  "image/webp"
+];
 export const ALLOWED_VIDEO_MIME_TYPES = [
   "video/mp4",
   "video/mpeg",

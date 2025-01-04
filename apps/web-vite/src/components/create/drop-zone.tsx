@@ -54,20 +54,22 @@ const DropZone = () => {
   };
 
   return (
-    <label
-      htmlFor="dropMedia"
+    <div
       className={tw(
-        "relative grid h-full w-full place-content-center place-items-center rounded-card border-2 border-custom border-dashed text-center focus:outline-none md:w-1/2",
-        file ? "aspect-video" : "aspect-square"
+        "relative grid size-full place-items-center rounded-card border-2 border-custom border-dashed text-center focus:outline-none md:w-1/2",
+        file ? "aspect-auto" : "aspect-square"
       )}
-      onDrop={onDrop}
-      onDragOver={onDragOver}
-      onDragLeave={onDragLeave}
     >
       {file ? (
         <Preview />
       ) : (
-        <>
+        <label
+          className="grid place-items-center"
+          htmlFor="dropMedia"
+          onDrop={onDrop}
+          onDragOver={onDragOver}
+          onDragLeave={onDragLeave}
+        >
           {dragging && (
             <>
               <div className="absolute inset-6 rounded-custom border-2 border-custom border-dashed" />
@@ -100,9 +102,9 @@ const DropZone = () => {
               </label>
             </Button>
           </div>
-        </>
+        </label>
       )}
-    </label>
+    </div>
   );
 };
 
