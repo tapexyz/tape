@@ -1,4 +1,9 @@
-import type { AccountMetadata, AppMetadata } from "@lens-protocol/metadata";
+import type {
+  AccountMetadata,
+  AppMetadata,
+  AudioMetadata,
+  VideoMetadata
+} from "@lens-protocol/metadata";
 import { LENS_STORAGE_NODE_URL } from "@tape.xyz/constants";
 
 type Result = {
@@ -8,7 +13,7 @@ type Result = {
 };
 
 export const uploadJson = async (
-  metadata: AppMetadata | AccountMetadata
+  metadata: AppMetadata | AccountMetadata | VideoMetadata | AudioMetadata
 ): Promise<Result> => {
   const response = await fetch(LENS_STORAGE_NODE_URL, {
     method: "POST",

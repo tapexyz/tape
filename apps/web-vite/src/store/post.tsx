@@ -4,13 +4,13 @@ type CreatePostState = {
   mediaType: "video" | "audio";
   title: string;
   description: string;
-  category: string;
-  coverUri: string | null;
+  tag: string;
+  coverUri: string;
   file: File | null;
   duration: number;
   setTitle: (title: string) => void;
   setDescription: (description: string) => void;
-  setCategory: (category: string) => void;
+  setTag: (tag: string) => void;
   setMediaType: (mediaType: "video" | "audio") => void;
   setFile: (file: File | null) => void;
   setDuration: (duration: number) => void;
@@ -21,13 +21,13 @@ export const useCreatePostStore = create<CreatePostState>((set) => ({
   mediaType: "video",
   title: "",
   description: "",
-  category: "",
+  tag: "",
   duration: 0,
   file: null,
-  coverUri: null,
+  coverUri: "",
   setTitle: (title) => set({ title }),
   setDescription: (description) => set({ description }),
-  setCategory: (category) => set({ category }),
+  setTag: (tag) => set({ tag }),
   setMediaType: (mediaType) => set({ mediaType }),
   setDuration: (duration) => set({ duration }),
   setFile: (file) =>

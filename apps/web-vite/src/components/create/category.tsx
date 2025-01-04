@@ -11,9 +11,10 @@ import {
 } from "@tape.xyz/winder";
 
 export const Category = () => {
-  const { category, setCategory } = useCreatePostStore();
+  const { tag, setTag } = useCreatePostStore();
+
   return (
-    <Select value={category} onValueChange={(value) => setCategory(value)}>
+    <Select value={tag} onValueChange={(value) => setTag(value)}>
       <SelectTrigger>
         <SelectValue
           placeholder={
