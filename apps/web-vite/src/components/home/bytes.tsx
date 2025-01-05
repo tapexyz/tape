@@ -17,7 +17,7 @@ export const Bytes = () => {
     return (
       <Link
         key={byte.id}
-        href="/"
+        to="/"
         className="relative aspect-[9/16] h-[350px] flex-none shrink-0 overflow-hidden rounded-card"
       >
         <img

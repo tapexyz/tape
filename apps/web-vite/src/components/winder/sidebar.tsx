@@ -1,4 +1,3 @@
-import { Link } from "@tanstack/react-router";
 import { base, components } from "./map";
 
 type LiProps = {
@@ -10,14 +9,14 @@ const Li = ({ item }: LiProps) => {
 
   return (
     <li>
-      <Link
+      <a
         className="-mx-3 group relative flex rounded-custom px-3 py-2 text-primary/70 capitalize"
-        hash={id}
+        href={`#${id}`}
       >
         <span className="bg-[length:0%_2px] bg-gradient-to-r bg-left-bottom from-primary bg-no-repeat transition-all duration-200 ease-out group-hover:bg-[length:100%_2px] group-focus-visible:bg-[length:100%_2px]">
           {label}
         </span>
-      </Link>
+      </a>
     </li>
   );
 };

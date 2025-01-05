@@ -120,9 +120,9 @@ export const PrivacyPage = () => {
             require us to do so, we do not monitor or take action with respect
             to “Do Not Track” signals. For more information on “Do Not Track,”
             visit{" "}
-            <Link href="https://allaboutdnt.com" target="_blank">
+            <a href="https://allaboutdnt.com" target="_blank" rel="noreferrer">
               https://allaboutdnt.com.
-            </Link>
+            </a>
           </li>
         </div>
         <h2>7. Data Security</h2>
@@ -153,7 +153,7 @@ export const PrivacyPage = () => {
         <p>
           If you have any questions or comments about this Privacy Policy, our
           data practices, or our compliance with applicable law, please contact
-          us at <Link href="mailto:privacy@tape.xyz">privacy@tape.xyz</Link>.
+          us at <a href="mailto:privacy@tape.xyz">privacy@tape.xyz</a>.
         </p>
       </div>
     </div>
