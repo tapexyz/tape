@@ -33,8 +33,7 @@ import {
   useCreateLegacyCollectTypedDataMutation,
   useLegacyCollectMutation,
   useProfilesQuery,
-  usePublicationQuery,
-  useRevenueFromPublicationQuery
+  usePublicationQuery
 } from "@tape.xyz/lens";
 import type {
   CustomErrorWithData,
@@ -132,15 +131,6 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
       enabled: Boolean(details?.amount.value) && !isFreeCollect,
       refetchInterval: 2000
     }
-  });
-
-  const { data: revenueData } = useRevenueFromPublicationQuery({
-    variables: {
-      request: {
-        for: publication?.id
-      }
-    },
-    skip: !publication?.id
   });
 
   const {
@@ -550,23 +540,18 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
               </span>
             </div>
           ) : null}
-          {revenueData?.revenueFromPublication?.revenue[0] ? (
+          {publication?.stats.countOpenActions && (
             <div className="mb-3 flex flex-col">
               <span className="font-bold">Revenue</span>
               <span className="space-x-1">
                 <span className="text-2xl">
-                  {revenueData?.revenueFromPublication?.revenue[0].total
-                    .value ?? 0}
+                  {Number(details?.amount.value) *
+                    Number(publication?.stats.countOpenActions)}
                 </span>
-                <span>
-                  {
-                    revenueData?.revenueFromPublication?.revenue[0].total.asset
-                      .symbol
-                  }
-                </span>
+                <span>{details?.amount.assetSymbol}</span>
               </span>
             </div>
-          ) : null}
+          )}
           {details?.recipients?.length ? (
             <div className="mb-3 flex flex-col">
               <span className="mb-0.5 font-bold">Fee Recipients</span>
