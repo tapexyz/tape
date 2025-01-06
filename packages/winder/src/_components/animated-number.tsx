@@ -1,11 +1,11 @@
-import { type SpringOptions, m, useSpring, useTransform } from "motion/react";
+import { type Spring, m, useSpring, useTransform } from "motion/react";
 import { useEffect } from "react";
 import { tw } from "../tw";
 
 type AnimatedNumber = {
   value: number;
   className?: string;
-  springOptions?: SpringOptions;
+  springOptions?: Spring;
 };
 
 export const AnimatedNumber = (props: AnimatedNumber) => {
