@@ -15,7 +15,7 @@
     "@openzeppelin/hardhat-upgrades": "^3.8.0",
     "@tape.xyz/tsconfig": "workspace:*",
     "dotenv": "^16.4.7",
-    "ethers": "^6.13.3",
+    "ethers": "^6.13.5",
     "hardhat": "^2.22.17",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
