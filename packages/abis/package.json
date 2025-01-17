@@ -12,6 +12,6 @@
   },
   "devDependencies": {
     "@tape.xyz/tsconfig": "workspace:*",
-    "@types/node": "^22.10.3"
+    "@types/node": "^22.10.7"
   }
 }
