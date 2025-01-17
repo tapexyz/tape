@@ -10,14 +10,14 @@
     "postinstall": "pnpm prisma:generate"
   },
   "dependencies": {
-    "@clickhouse/client": "^1.10.0",
+    "@clickhouse/client": "^1.10.1",
     "@prisma/client": "^6.1.0",
     "pg-promise": "^11.10.2",
     "redis": "^4.7.0"
   },
   "devDependencies": {
     "@tape.xyz/tsconfig": "workspace:*",
-    "@types/node": "^22.10.3",
+    "@types/node": "^22.10.7",
     "prisma": "^6.1.0",
     "typescript": "^5.7.3"
   }
