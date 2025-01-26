@@ -15,21 +15,19 @@ export type Scalars = {
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
   AccessToken: { input: any; output: any; }
-  AdvancedContractConditionValue: { input: any; output: any; }
   BigDecimal: { input: any; output: any; }
   BigInt: { input: any; output: any; }
   BlockchainData: { input: any; output: any; }
   ChainId: { input: any; output: any; }
   Cursor: { input: any; output: any; }
   DateTime: { input: any; output: any; }
-  Encryptable: { input: any; output: any; }
   EvmAddress: { input: any; output: any; }
   GeneratedNotificationId: { input: any; output: any; }
+  GeoUri: { input: any; output: any; }
   IdToken: { input: any; output: any; }
   /** A scalar that can represent any JSON value. */
   JSON: { input: any; output: any; }
   LegacyProfileId: { input: any; output: any; }
-  LegacyPublicationId: { input: any; output: any; }
   LegacyRefreshToken: { input: any; output: any; }
   Locale: { input: any; output: any; }
   MetadataId: { input: any; output: any; }
@@ -55,19 +53,6 @@ export type Scalars = {
   UsernameValue: { input: any; output: any; }
   Void: { input: any; output: any; }
 };
-
-/** The comparison operator to use. In case of boolean functions you can only use EQUAL or NOT_EQUAL */
-export enum AccessConditionComparison {
-  Equal = 'EQUAL',
-  GreaterThan = 'GREATER_THAN',
-  GreaterThanOrEqual = 'GREATER_THAN_OR_EQUAL',
-  LessThan = 'LESS_THAN',
-  LessThanOrEqual = 'LESS_THAN_OR_EQUAL',
-  NotEqual = 'NOT_EQUAL'
-}
-
-/** AccessConditionType */
-export type AccessConditionType = AdvancedContractCondition | CollectCondition | EoaOwnershipCondition | Erc20OwnershipCondition | FollowCondition | NftOwnershipCondition | ProfileOwnershipCondition;
 
 export type Account = {
   __typename?: 'Account';
@@ -140,11 +125,16 @@ export type AccountFeedsStats = {
   reposts: Scalars['Int']['output'];
 };
 
+export type AccountFeedsStatsFilter = {
+  /** The feeds to filter by. */
+  feeds?: InputMaybe<Array<FeedOneOf>>;
+};
+
 export type AccountFeedsStatsRequest = {
   /** The account to get stats for. */
   account: Scalars['EvmAddress']['input'];
-  /** The feeds to get stats for. */
-  forFeeds?: Array<Scalars['EvmAddress']['input']>;
+  /** An optional filter to apply to the result. */
+  filter?: InputMaybe<AccountFeedsStatsFilter>;
 };
 
 export type AccountFollowedNotificationAttributes = {
@@ -162,11 +152,16 @@ export type AccountGraphsFollowStats = {
   following: Scalars['Int']['output'];
 };
 
+export type AccountGraphsStatsFilter = {
+  /** The graphs to filter by. */
+  graphs?: InputMaybe<Array<GraphOneOf>>;
+};
+
 export type AccountGraphsStatsRequest = {
   /** The account to get stats for. */
   account: Scalars['EvmAddress']['input'];
-  /** The graphs to get stats for. */
-  forGraphs?: Array<Scalars['EvmAddress']['input']>;
+  /** An optional filter to apply to the result. */
+  filter?: InputMaybe<AccountGraphsStatsFilter>;
 };
 
 export type AccountManaged = {
@@ -563,29 +558,6 @@ export type AdminsForRequest = {
   pageSize?: PageSize;
 };
 
-export type AdvancedContractCondition = {
-  __typename?: 'AdvancedContractCondition';
-  /** The contract ABI. Has to be in human readable single string format containing the signature of the function you want to call. See https://docs.ethers.org/v5/api/utils/abi/formats/#abi-formats--human-readable-abi for more info */
-  abi: Scalars['String']['output'];
-  /**
-   * The comparison operator to use. In case of boolean functions you can only use EQUAL or
-   * NOT_EQUAL
-   */
-  comparison: AccessConditionComparison;
-  contract: NetworkAddress;
-  /** The name of the function you want to call */
-  functionName: Scalars['String']['output'];
-  /**
-   * The parameters to pass to the function. Must be exactly matching the function arguments.
-   * You *must* pass in the `:userAddress` parameter to represent the decrypter address. Any
-   * array or tuple arguments, must be stringified JSON arrays.
-   */
-  params: Array<Scalars['String']['output']>;
-  type: Scalars['String']['output'];
-  /** The comparison value. Accepts 'true', 'false' or a number */
-  value: Scalars['AdvancedContractConditionValue']['output'];
-};
-
 export type Amount = {
   __typename?: 'Amount';
   asset: Asset;
@@ -609,31 +581,7 @@ export type AmountInput = {
   value: Scalars['BigDecimal']['input'];
 };
 
-/** AccessConditionCriteriaItem */
-export type AnyAccessCondition = AdvancedContractCondition | BooleanAndCondition | BooleanOrCondition | CollectCondition | EoaOwnershipCondition | Erc20OwnershipCondition | FollowCondition | NftOwnershipCondition | ProfileOwnershipCondition;
-
-/**
- * AnyMedia
- *
- * <details><summary>JSON schema</summary>
- *
- * ```json
- * {
- * "anyOf": [
- * {
- * "$ref": "#/$defs/MediaAudio"
- * },
- * {
- * "$ref": "#/$defs/MediaImage"
- * },
- * {
- * "$ref": "#/$defs/MediaVideo"
- * }
- * ]
- * }
- * ```
- * </details>
- */
+/** AnyMedia */
 export type AnyMedia = MediaAudio | MediaImage | MediaVideo;
 
 export type AnyPost = Post | Repost;
@@ -687,7 +635,7 @@ export type AppMetadata = {
   /** The name of the app. */
   name: Scalars['String']['output'];
   /** The platforms supported by the app. */
-  platforms: Array<AppMetadataLensPlatformsItem>;
+  platforms: Array<AppPlatform>;
   /** The privacy policy for the app. */
   privacyPolicy?: Maybe<Scalars['URI']['output']>;
   /** The tagline of the app. */
@@ -698,7 +646,7 @@ export type AppMetadata = {
   url: Scalars['URI']['output'];
 };
 
-export enum AppMetadataLensPlatformsItem {
+export enum AppPlatform {
   Android = 'ANDROID',
   Ios = 'IOS',
   Web = 'WEB'
@@ -801,6 +749,7 @@ export enum AppsOrderBy {
 export type AppsRequest = {
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** The optional apps filter */
   filter?: InputMaybe<AppsFilter>;
   /** The order by. */
   orderBy?: AppsOrderBy;
@@ -824,10 +773,9 @@ export type ArticleMetadata = {
    * their usage as arbitrary attributes will be discouraged.
    */
   attributes: Array<MetadataAttribute>;
-  content: Scalars['Encryptable']['output'];
+  content: Scalars['String']['output'];
   /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
-  encryptedWith?: Maybe<EncryptionStrategy>;
   id: Scalars['MetadataId']['output'];
   locale: Scalars['Locale']['output'];
   /** The main focus of the post. */
@@ -862,10 +810,9 @@ export type AudioMetadata = {
    */
   attributes: Array<MetadataAttribute>;
   audio: MediaAudio;
-  content: Scalars['Encryptable']['output'];
+  content: Scalars['String']['output'];
   /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
-  encryptedWith?: Maybe<EncryptionStrategy>;
   id: Scalars['MetadataId']['output'];
   locale: Scalars['Locale']['output'];
   /** The main focus of the post. */
@@ -941,18 +888,6 @@ export type BookmarkPostRequest = {
   post: Scalars['PostId']['input'];
 };
 
-export type BooleanAndCondition = {
-  __typename?: 'BooleanAndCondition';
-  criteria: Array<AccessConditionType>;
-  type: Scalars['String']['output'];
-};
-
-export type BooleanOrCondition = {
-  __typename?: 'BooleanOrCondition';
-  criteria: Array<AccessConditionType>;
-  type: Scalars['String']['output'];
-};
-
 export type BooleanValue = {
   __typename?: 'BooleanValue';
   onChain: Scalars['Boolean']['output'];
@@ -1012,32 +947,23 @@ export type CheckingInMetadata = {
    * their usage as arbitrary attributes will be discouraged.
    */
   attributes: Array<MetadataAttribute>;
-  content: Scalars['Encryptable']['output'];
+  content: Scalars['String']['output'];
   /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
-  encryptedWith?: Maybe<EncryptionStrategy>;
   id: Scalars['MetadataId']['output'];
   locale: Scalars['Locale']['output'];
   /** Where you're checking in from (free form text). */
-  location: Scalars['Encryptable']['output'];
+  location: Scalars['String']['output'];
   /** The main focus of the post. */
   mainContentFocus: MainContentFocus;
   /** The optional geographic position of the location. */
-  position?: Maybe<Scalars['Encryptable']['output']>;
+  position?: Maybe<Scalars['GeoUri']['output']>;
   /** An arbitrary list of tags. */
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
 };
 
 export type CollectActionInput = {
   simpleCollectAction?: InputMaybe<SimpleCollectActionInput>;
-};
-
-/** CollectCondition */
-export type CollectCondition = {
-  __typename?: 'CollectCondition';
-  publicationId: Scalars['LegacyPublicationId']['output'];
-  thisPublication: Scalars['Boolean']['output'];
-  type: Scalars['String']['output'];
 };
 
 export type CommentNotification = {
@@ -1069,7 +995,7 @@ export type CreateAccountWithUsernameRequest = {
 export type CreateAccountWithUsernameResult = CreateAccountResponse | InvalidUsername | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type CreateAppRequest = {
-  /** Any admins who need to manage this app also */
+  /** List of admins who can manage this app */
   admins?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
   /** The default feed defaults to use the global feed */
   defaultFeed?: Scalars['EvmAddress']['input'];
@@ -1090,8 +1016,9 @@ export type CreateAppRequest = {
   /** The app treasury leave empty if none */
   treasury?: InputMaybe<Scalars['EvmAddress']['input']>;
   /**
-   * If the app has verification enabled meaning
-   * you can only do stuff with the app if its signed by one of the signers
+   * Whether the App Verification workflow is enabled.
+   * This gives control to approve or reject transactions involving
+   * social interactions (e.g., post, follow, comment, etc.) using the app.
    */
   verification?: Scalars['Boolean']['input'];
 };
@@ -1104,7 +1031,7 @@ export type CreateAppResponse = {
 export type CreateAppResult = CreateAppResponse | SelfFundedTransactionRequest | TransactionWillFail;
 
 export type CreateFeedRequest = {
-  /** Any admins who need to manage this feed */
+  /** List of admins who can manage this feed */
   admins?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
   /** The feed metadata uri */
   metadataUri?: InputMaybe<Scalars['URI']['input']>;
@@ -1129,7 +1056,7 @@ export type CreateFollowRequest = {
 };
 
 export type CreateGraphRequest = {
-  /** Any admins who need to manage this graph */
+  /** List of admins who can manage this graph */
   admins?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
   /** The graph metadata uri */
   metadataUri?: InputMaybe<Scalars['URI']['input']>;
@@ -1143,7 +1070,7 @@ export type CreateGraphResponse = {
 export type CreateGraphResult = CreateGraphResponse | SelfFundedTransactionRequest | TransactionWillFail;
 
 export type CreateGroupRequest = {
-  /** Any admins who need to manage this group */
+  /** List of admins who can manage this group */
   admins?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
   /** The group metadata uri */
   metadataUri?: InputMaybe<Scalars['URI']['input']>;
@@ -1197,6 +1124,32 @@ export type CreateSnsSubscriptionRequest = {
   webhook: Scalars['String']['input'];
 };
 
+export type CreateSponsorshipRequest = {
+  /** List of admins who can manage this sponsorship. */
+  admins?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  /**
+   * Indicates whether the Lens API is authorized as the sponsorship signer
+   * to sponsor end-user social operations (e.g., posts, comments, follows)
+   * performed through the Lens API for apps associated with this sponsorship.
+   */
+  allowLensAccess: Scalars['Boolean']['input'];
+  /** The list of addresses excluded from the sponsorship rate limits. */
+  exclusionList?: Array<SponsorshipRateLimitsExempt>;
+  /** The sponsorship metadata URI */
+  metadataUri?: InputMaybe<Scalars['URI']['input']>;
+  /** The sponsorship usage allowances with the corresponding limits. */
+  rateLimit?: InputMaybe<SponsorshipRateLimits>;
+  /** List of sponsorship signers. */
+  signers?: InputMaybe<Array<SponsorshipSignerInput>>;
+};
+
+export type CreateSponsorshipResponse = {
+  __typename?: 'CreateSponsorshipResponse';
+  hash: Scalars['TxHash']['output'];
+};
+
+export type CreateSponsorshipResult = CreateSponsorshipResponse | SelfFundedTransactionRequest | TransactionWillFail;
+
 export type CreateUnfollowRequest = {
   /** The account to unfollow. */
   account: Scalars['EvmAddress']['input'];
@@ -1210,7 +1163,7 @@ export type CreateUnfollowRequest = {
 };
 
 export type CreateUsernameNamespaceRequest = {
-  /** Any admins who need to manage this feed */
+  /** List of admins who can manage this feed */
   admins?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
   /** The feed metadata uri */
   metadataUri?: InputMaybe<Scalars['URI']['input']>;
@@ -1248,16 +1201,6 @@ export type DebugPostMetadataResult = {
   __typename?: 'DebugPostMetadataResult';
   reason?: Maybe<Scalars['String']['output']>;
   valid: Scalars['Boolean']['output'];
-};
-
-export type DebugTransactionStatusRequest = {
-  txHash: Scalars['TxHash']['input'];
-};
-
-export type DebugTransactionStatusResult = {
-  __typename?: 'DebugTransactionStatusResult';
-  blockExplorer?: Maybe<Scalars['URI']['output']>;
-  reason: Scalars['String']['output'];
 };
 
 export type DeletePostRequest = {
@@ -1365,12 +1308,11 @@ export type EmbedMetadata = {
    * their usage as arbitrary attributes will be discouraged.
    */
   attributes: Array<MetadataAttribute>;
-  content: Scalars['Encryptable']['output'];
+  content: Scalars['String']['output'];
   /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
   /** The embed URL. */
-  embed: Scalars['Encryptable']['output'];
-  encryptedWith?: Maybe<EncryptionStrategy>;
+  embed: Scalars['URI']['output'];
   id: Scalars['MetadataId']['output'];
   locale: Scalars['Locale']['output'];
   /** The main focus of the post. */
@@ -1380,8 +1322,6 @@ export type EmbedMetadata = {
 };
 
 export type EnableSignlessResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type EncryptionStrategy = LitProtocolEncryptionStrategy;
 
 export type EntityId = {
   account?: InputMaybe<Scalars['EvmAddress']['input']>;
@@ -1405,27 +1345,12 @@ export enum EntityType {
   UsernameNamespace = 'USERNAME_NAMESPACE'
 }
 
-/** EoaOwnershipCondition */
-export type EoaOwnershipCondition = {
-  __typename?: 'EoaOwnershipCondition';
-  address: Scalars['EvmAddress']['output'];
-  type: Scalars['String']['output'];
-};
-
 export type Erc20 = {
   __typename?: 'Erc20';
   contract: NetworkAddress;
   decimals: Scalars['Int']['output'];
   name: Scalars['String']['output'];
   symbol: Scalars['String']['output'];
-};
-
-/** Erc20OwnershipCondition */
-export type Erc20OwnershipCondition = {
-  __typename?: 'Erc20OwnershipCondition';
-  amount: Amount;
-  condition: AccessConditionComparison;
-  type: Scalars['String']['output'];
 };
 
 export type EventMetadata = {
@@ -1440,25 +1365,24 @@ export type EventMetadata = {
    * their usage as arbitrary attributes will be discouraged.
    */
   attributes: Array<MetadataAttribute>;
-  content: Scalars['Encryptable']['output'];
+  content: Scalars['String']['output'];
   /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
-  encryptedWith?: Maybe<EncryptionStrategy>;
   /** The event end time (ISO 8601 `YYYY-MM-DDTHH:mm:ss.sssZ`). */
-  endsAt: Scalars['Encryptable']['output'];
+  endsAt: Scalars['DateTime']['output'];
   id: Scalars['MetadataId']['output'];
   /** The links you want to include with it. */
-  links: Array<Scalars['Encryptable']['output']>;
+  links: Array<Scalars['URI']['output']>;
   locale: Scalars['Locale']['output'];
   /** The location of the event. */
   location: EventMetadataLensLocation;
   /** The main focus of the post. */
   mainContentFocus: MainContentFocus;
   /** The geographic position of the event. */
-  position?: Maybe<Scalars['Encryptable']['output']>;
+  position?: Maybe<Scalars['GeoUri']['output']>;
   schedulingAdjustments?: Maybe<EventMetadataLensSchedulingAdjustments>;
   /** The event start time (ISO 8601 `YYYY-MM-DDTHH:mm:ss.sssZ`). */
-  startsAt: Scalars['Encryptable']['output'];
+  startsAt: Scalars['DateTime']['output'];
   /** An arbitrary list of tags. */
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
   /** The title of the event. */
@@ -1467,7 +1391,7 @@ export type EventMetadata = {
 
 export type EventMetadataLensLocation = {
   __typename?: 'EventMetadataLensLocation';
-  physical?: Maybe<Scalars['Encryptable']['output']>;
+  physical?: Maybe<Scalars['String']['output']>;
   virtual?: Maybe<Scalars['URI']['output']>;
 };
 
@@ -1928,6 +1852,7 @@ export type FailedTransactionStatus = {
   __typename?: 'FailedTransactionStatus';
   blockTimestamp: Scalars['DateTime']['output'];
   reason: Scalars['String']['output'];
+  summary: Array<SubOperationStatus>;
 };
 
 export type FeeFollowRuleInput = {
@@ -1962,6 +1887,12 @@ export type FeedMetadata = {
   name: Scalars['String']['output'];
   /** The human-friendly title for the Feed. */
   title: Scalars['String']['output'];
+};
+
+export type FeedOneOf = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
+  globalFeed?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type FeedRequest = {
@@ -2017,13 +1948,7 @@ export type FeedsRequest = {
 export type FinishedTransactionStatus = {
   __typename?: 'FinishedTransactionStatus';
   blockTimestamp: Scalars['DateTime']['output'];
-};
-
-/** FollowCondition */
-export type FollowCondition = {
-  __typename?: 'FollowCondition';
-  follow: Scalars['LegacyProfileId']['output'];
-  type: Scalars['String']['output'];
+  summary: Array<SubOperationStatus>;
 };
 
 export type FollowNotification = {
@@ -2079,6 +2004,8 @@ export type Follower = {
   followedOn: Scalars['DateTime']['output'];
   /** The account which is following */
   follower: Account;
+  /** The graph the follower is following on */
+  graph: Scalars['EvmAddress']['output'];
 };
 
 export type FollowerOnlyPostRule = {
@@ -2088,6 +2015,14 @@ export type FollowerOnlyPostRule = {
   repliesRestricted: Scalars['Boolean']['output'];
   repostsRestricted: Scalars['Boolean']['output'];
   rule: Scalars['EvmAddress']['output'];
+};
+
+export type FollowersFilter = {
+  /**
+   * The graphs to filter by.
+   * The result will come back if they follow on ANY of the supplied graphs
+   */
+  graphs?: InputMaybe<Array<GraphOneOf>>;
 };
 
 export enum FollowersOrderBy {
@@ -2101,15 +2036,20 @@ export type FollowersRequest = {
   account: Scalars['EvmAddress']['input'];
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /**
-   * The graphs to get followers for
-   * The result will come back if they follow on ANY of the supplied graphs
-   */
-  forGraphs?: Array<Scalars['EvmAddress']['input']>;
+  /** An optional filter to apply to the result. */
+  filter?: InputMaybe<FollowersFilter>;
   /** The order by. */
   orderBy?: FollowersOrderBy;
   /** The page size. */
   pageSize?: PageSize;
+};
+
+export type FollowersYouKnowFilter = {
+  /**
+   * The graphs to get followers you know for
+   * The result will come back if they follow on ANY of the supplied graphs
+   */
+  graphs?: InputMaybe<Array<GraphOneOf>>;
 };
 
 export enum FollowersYouKnowOrderBy {
@@ -2120,11 +2060,8 @@ export enum FollowersYouKnowOrderBy {
 export type FollowersYouKnowRequest = {
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /**
-   * The graphs to get followers you know for
-   * The result will come back if they follow on ANY of the supplied graphs
-   */
-  forGraphs?: Array<Scalars['EvmAddress']['input']>;
+  /** An optional filter to apply to the result. */
+  filter?: InputMaybe<FollowersYouKnowFilter>;
   /** The account you are looking from. */
   observer: Scalars['EvmAddress']['input'];
   /** The order by. */
@@ -2141,6 +2078,16 @@ export type Following = {
   followedOn: Scalars['DateTime']['output'];
   /** The account which is following */
   following: Account;
+  /** The graph the account is following on */
+  graph: Scalars['EvmAddress']['output'];
+};
+
+export type FollowingFilter = {
+  /**
+   * The graphs to filter by.
+   * The result will come back if they are following on ANY of the supplied graphs
+   */
+  graphs?: InputMaybe<Array<GraphOneOf>>;
 };
 
 export enum FollowingOrderBy {
@@ -2154,11 +2101,8 @@ export type FollowingRequest = {
   account: Scalars['EvmAddress']['input'];
   /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /**
-   * The graphs to get following for.
-   * The result will come back if they are following on ANY of the supplied graphs
-   */
-  forGraphs?: Array<Scalars['EvmAddress']['input']>;
+  /** An optional filter to apply to the result. */
+  filter?: InputMaybe<FollowingFilter>;
   /** The order by. */
   orderBy?: FollowingOrderBy;
   /** The page size. */
@@ -2216,6 +2160,12 @@ export type GraphMetadata = {
   name: Scalars['String']['output'];
   /** The human-friendly title for the graph. */
   title: Scalars['String']['output'];
+};
+
+export type GraphOneOf = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  globalGraph?: InputMaybe<Scalars['Boolean']['input']>;
+  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
 };
 
 export type GraphRequest = {
@@ -2418,10 +2368,9 @@ export type ImageMetadata = {
    * their usage as arbitrary attributes will be discouraged.
    */
   attributes: Array<MetadataAttribute>;
-  content: Scalars['Encryptable']['output'];
+  content: Scalars['String']['output'];
   /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
-  encryptedWith?: Maybe<EncryptionStrategy>;
   id: Scalars['MetadataId']['output'];
   image: MediaImage;
   locale: Scalars['Locale']['output'];
@@ -2432,6 +2381,12 @@ export type ImageMetadata = {
   /** The optional image title. */
   title?: Maybe<Scalars['String']['output']>;
 };
+
+export enum IndexingStatus {
+  Failed = 'FAILED',
+  Finished = 'FINISHED',
+  Pending = 'PENDING'
+}
 
 export type InvalidUsername = {
   __typename?: 'InvalidUsername';
@@ -2509,25 +2464,17 @@ export type LinkMetadata = {
    * their usage as arbitrary attributes will be discouraged.
    */
   attributes: Array<MetadataAttribute>;
-  content: Scalars['Encryptable']['output'];
+  content: Scalars['String']['output'];
   /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
-  encryptedWith?: Maybe<EncryptionStrategy>;
   id: Scalars['MetadataId']['output'];
   locale: Scalars['Locale']['output'];
   /** The main focus of the post. */
   mainContentFocus: MainContentFocus;
   /** The sharing link url. */
-  sharingLink: Scalars['Encryptable']['output'];
+  sharingLink: Scalars['URI']['output'];
   /** An arbitrary list of tags. */
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
-};
-
-export type LitProtocolEncryptionStrategy = {
-  __typename?: 'LitProtocolEncryptionStrategy';
-  accessCondition: TopLevelAccessCondition;
-  encryptedPaths: Array<Scalars['String']['output']>;
-  encryptionKey: Scalars['String']['output'];
 };
 
 export type LivestreamMetadata = {
@@ -2544,19 +2491,18 @@ export type LivestreamMetadata = {
    * The data cannot be changed so you can put in an API endpoint to know if it is still live or
    * not for clients to be able to check.
    */
-  checkLiveApi?: Maybe<Scalars['Encryptable']['output']>;
-  content: Scalars['Encryptable']['output'];
+  checkLiveApi?: Maybe<Scalars['URI']['output']>;
+  content: Scalars['String']['output'];
   /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
-  encryptedWith?: Maybe<EncryptionStrategy>;
   /** The optional stream end time (ISO 8601 `YYYY-MM-DDTHH:mm:ss.sssZ`) */
-  endsAt?: Maybe<Scalars['Encryptable']['output']>;
+  endsAt?: Maybe<Scalars['DateTime']['output']>;
   id: Scalars['MetadataId']['output'];
   /**
    * Some livestream platforms have the live url as a separate url. If not your case make sure
    * `liveUrl` and `playbackUrl` are the same.
    */
-  liveUrl: Scalars['Encryptable']['output'];
+  liveUrl: Scalars['URI']['output'];
   locale: Scalars['Locale']['output'];
   /** The main focus of the post. */
   mainContentFocus: MainContentFocus;
@@ -2564,9 +2510,9 @@ export type LivestreamMetadata = {
    * Some livestream platforms have the playback url as a separate url. If not your case make
    * sure `liveUrl` and `playbackUrl` are the same.
    */
-  playbackUrl: Scalars['Encryptable']['output'];
+  playbackUrl: Scalars['URI']['output'];
   /** The stream start time (ISO 8601 `YYYY-MM-DDTHH:mm:ss.sssZ`). */
-  startsAt: Scalars['Encryptable']['output'];
+  startsAt: Scalars['DateTime']['output'];
   /** An arbitrary list of tags. */
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
   /** The livestream title. */
@@ -2579,18 +2525,14 @@ export type LoggedInAccountOperations = {
   /**
    * Check if the authenticated account can follow the target account.
    *
-   * If a graph is not specified:
-   * - It first checks for a Graph address specified within the query scope.
-   * - If no Graph address is found, it defaults to using the Global Graph.
+   * If a graph is not specified it defaults to using the Global Graph
    */
   canFollow: OperationValidationOutcome;
   canUnblock: Scalars['Boolean']['output'];
   /**
    * Check if the authenticated account can unfollow the target account.
    *
-   * If a graph is not specified:
-   * - It first checks for a Graph address specified within the query scope.
-   * - If no Graph address is found, it defaults to using the Global Graph.
+   * If a graph is not specified it defaults to using the Global Graph
    */
   canUnfollow: OperationValidationOutcome;
   hasBlockedMe: Scalars['Boolean']['output'];
@@ -2600,17 +2542,13 @@ export type LoggedInAccountOperations = {
   /**
    * Check if the target account is followed by the authenticated account.
    *
-   * If a graph is not specified:
-   * - It first checks for a Graph address specified within the query scope.
-   * - If no Graph address is found, it defaults to using the Global Graph.
+   * If a graph is not specified it defaults to using the Global Graph
    */
   isFollowedByMe: Scalars['Boolean']['output'];
   /**
    * Check if the authenticated account is following the target account.
    *
-   * If a graph is not specified:
-   * - It first checks for a Graph address specified within the query scope.
-   * - If no Graph address is found, it defaults to using the Global Graph.
+   * If a graph is not specified it defaults to using the Global Graph
    */
   isFollowingMe: Scalars['Boolean']['output'];
   isMutedByMe: Scalars['Boolean']['output'];
@@ -2710,9 +2648,9 @@ export enum ManagedAccountsVisibility {
 }
 
 export type ManagedBy = {
-  /** The address for a user to see what apps they manage. */
+  /** The address that is either the owner or an admin of the primitive. */
   address: Scalars['EvmAddress']['input'];
-  /** Whether to include the apps which is owned by the address. */
+  /** Whether to include the owned primitives or just the ones the address is an admin of. */
   includeOwners?: Scalars['Boolean']['input'];
 };
 
@@ -2730,142 +2668,35 @@ export type MeResult = {
   loggedInAs: AccountAvailable;
 };
 
-/**
- * MediaAudio
- *
- * <details><summary>JSON schema</summary>
- *
- * ```json
- * {
- * "type": "object",
- * "required": [
- * "item",
- * "type"
- * ],
- * "properties": {
- * "artist": {
- * "description": "The name of the artist.",
- * "$ref": "#/$defs/EncryptableString"
- * },
- * "attributes": {
- * "description": "A bag of attributes that can be used to store any kind of metadata that is not currently supported by the standard.",
- * "type": "array",
- * "items": {
- * "$ref": "#/$defs/MetadataAttribute"
- * },
- * "minItems": 1
- * },
- * "cover": {
- * "$ref": "#/$defs/EncryptableUri"
- * },
- * "credits": {
- * "description": "The credits for the audio.",
- * "$ref": "#/$defs/EncryptableString"
- * },
- * "duration": {
- * "description": "How long the the audio is in seconds.",
- * "type": "integer",
- * "exclusiveMinimum": 0.0
- * },
- * "genre": {
- * "description": "The genre of the audio",
- * "$ref": "#/$defs/EncryptableString"
- * },
- * "item": {
- * "$ref": "#/$defs/EncryptableUri"
- * },
- * "kind": {
- * "description": "The type of audio.",
- * "type": "string",
- * "enum": [
- * "MUSIC",
- * "PODCAST",
- * "AUDIOBOOK",
- * "VOICE_NOTE",
- * "SOUND",
- * "OTHER"
- * ]
- * },
- * "license": {
- * "description": "The license for the audio.",
- * "$ref": "#/$defs/MetadataLicenseType"
- * },
- * "lyrics": {
- * "$ref": "#/$defs/EncryptableUri"
- * },
- * "recordLabel": {
- * "description": "The record label for the audio.",
- * "$ref": "#/$defs/EncryptableString"
- * },
- * "type": {
- * "description": "The mime type of the audio file.",
- * "type": "string",
- * "enum": [
- * "audio/wav",
- * "audio/vnd.wave",
- * "audio/mpeg",
- * "audio/ogg",
- * "audio/mp4",
- * "audio/aac",
- * "audio/webm",
- * "audio/flac"
- * ]
- * }
- * },
- * "additionalProperties": false
- * }
- * ```
- * </details>
- */
+/** MediaAudio */
 export type MediaAudio = {
   __typename?: 'MediaAudio';
   /** The name of the artist. */
-  artist?: Maybe<Scalars['Encryptable']['output']>;
+  artist?: Maybe<Scalars['String']['output']>;
   /**
    * A bag of attributes that can be used to store any kind of metadata that is not currently
    * supported by the standard.
    */
   attributes: Array<MetadataAttribute>;
-  cover?: Maybe<Scalars['Encryptable']['output']>;
+  cover?: Maybe<Scalars['URI']['output']>;
   /** The credits for the audio. */
-  credits?: Maybe<Scalars['Encryptable']['output']>;
+  credits?: Maybe<Scalars['String']['output']>;
   /** How long the the audio is in seconds. */
   duration?: Maybe<Scalars['Int']['output']>;
   /** The genre of the audio */
-  genre?: Maybe<Scalars['Encryptable']['output']>;
-  item: Scalars['Encryptable']['output'];
+  genre?: Maybe<Scalars['String']['output']>;
+  item: Scalars['URI']['output'];
   /** The type of audio. */
   kind?: Maybe<MediaAudioKind>;
   /** The license for the audio. */
   license?: Maybe<MetadataLicenseType>;
-  lyrics?: Maybe<Scalars['Encryptable']['output']>;
+  lyrics?: Maybe<Scalars['URI']['output']>;
   /** The record label for the audio. */
-  recordLabel?: Maybe<Scalars['Encryptable']['output']>;
+  recordLabel?: Maybe<Scalars['String']['output']>;
   /** The mime type of the audio file. */
   type: MediaAudioType;
 };
 
-/**
- * The type of audio.
- *
- * <details><summary>JSON schema</summary>
- *
- * ```json
- * {
- * "description": "The type of audio.",
- * "type": "string",
- * "enum": [
- * "MUSIC",
- * "PODCAST",
- * "AUDIOBOOK",
- * "VOICE_NOTE",
- * "SOUND",
- * "OTHER"
- * ]
- * }
- * ```
- * </details>
- */
 export enum MediaAudioKind {
   Audiobook = 'AUDIOBOOK',
   Music = 'MUSIC',
@@ -2875,29 +2706,7 @@ export enum MediaAudioKind {
   VoiceNote = 'VOICE_NOTE'
 }
 
-/**
- * The mime type of the audio file.
- *
- * <details><summary>JSON schema</summary>
- *
- * ```json
- * {
- * "description": "The mime type of the audio file.",
- * "type": "string",
- * "enum": [
- * "audio/wav",
- * "audio/vnd.wave",
- * "audio/mpeg",
- * "audio/ogg",
- * "audio/mp4",
- * "audio/aac",
- * "audio/webm",
- * "audio/flac"
- * ]
- * }
- * ```
- * </details>
- */
+/** The mime type of the audio file. */
 export enum MediaAudioType {
   AudioAac = 'AUDIO_AAC',
   AudioFlac = 'AUDIO_FLAC',
@@ -2965,13 +2774,13 @@ export enum MediaAudioType {
 export type MediaImage = {
   __typename?: 'MediaImage';
   /** The alt tag for accessibility */
-  altTag?: Maybe<Scalars['Encryptable']['output']>;
+  altTag?: Maybe<Scalars['String']['output']>;
   /**
    * A bag of attributes that can be used to store any kind of metadata that is not currently
    * supported by the standard.
    */
   attributes: Array<MetadataAttribute>;
-  item: Scalars['Encryptable']['output'];
+  item: Scalars['URI']['output'];
   /** The license for the image */
   license?: Maybe<MetadataLicenseType>;
   /** The mime type of the image */
@@ -3083,16 +2892,16 @@ export type MediaSnapshotNotificationAttributes = {
 export type MediaVideo = {
   __typename?: 'MediaVideo';
   /** The alt tag for accessibility */
-  altTag?: Maybe<Scalars['Encryptable']['output']>;
+  altTag?: Maybe<Scalars['String']['output']>;
   /**
    * A bag of attributes that can be used to store any kind of metadata that is not currently
    * supported by the standard.
    */
   attributes: Array<MetadataAttribute>;
-  cover?: Maybe<Scalars['Encryptable']['output']>;
+  cover?: Maybe<Scalars['URI']['output']>;
   /** How long the the video is in seconds */
   duration?: Maybe<Scalars['Int']['output']>;
-  item: Scalars['Encryptable']['output'];
+  item: Scalars['URI']['output'];
   /** The license for the video */
   license?: Maybe<MetadataLicenseType>;
   /** The mime type of the video */
@@ -3217,16 +3026,15 @@ export type MintMetadata = {
    * their usage as arbitrary attributes will be discouraged.
    */
   attributes: Array<MetadataAttribute>;
-  content: Scalars['Encryptable']['output'];
+  content: Scalars['String']['output'];
   /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
-  encryptedWith?: Maybe<EncryptionStrategy>;
   id: Scalars['MetadataId']['output'];
   locale: Scalars['Locale']['output'];
   /** The main focus of the post. */
   mainContentFocus: MainContentFocus;
   /** The mint item it can be a URL of the known provider like opensea https://opensea.io/assets/ethereum/0xfaa2471e93bd1cee3b0ab381c242ada8e1d1a759/299 or https://zora.co/collect/0x9d90669665607f08005cae4a7098143f554c59ef/39626. The Lens API has an allow list of providers and if the domain does not match it will mark it as failed metadata */
-  mintLink: Scalars['Encryptable']['output'];
+  mintLink: Scalars['URI']['output'];
   /** An arbitrary list of tags. */
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
 };
@@ -3377,6 +3185,12 @@ export type Mutation = {
   createGroup: CreateGroupResult;
   createSnsSubscriptions: Array<SnsSubscription>;
   /**
+   * Create a new sponsorship.
+   *
+   * You MUST be authenticated as a builder to use this mutation.
+   */
+  createSponsorship: CreateSponsorshipResult;
+  /**
    * Create a username.
    *
    * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
@@ -3480,6 +3294,12 @@ export type Mutation = {
    */
   removeAdmins: RemoveAdminsResult;
   /**
+   * Remove an app authorization endpoint.
+   *
+   * You MUST be authenticated as a builder to use this mutation.
+   */
+  removeAppAuthorizationEndpoint: Scalars['Void']['output'];
+  /**
    * Remove feeds to an app
    *
    * You MUST be authenticated as a builder to use this mutation.
@@ -3577,6 +3397,36 @@ export type Mutation = {
    * You MUST be authenticated as a builder to use this mutation.
    */
   setDefaultAppFeed: SetDefaultAppFeedResult;
+  /**
+   * Set metadata for a feed
+   *
+   * You MUST be authenticated to use this mutation.
+   */
+  setFeedMetadata: SetFeedMetadataResult;
+  /**
+   * Set metadata for a graph
+   *
+   * You MUST be authenticated to use this mutation.
+   */
+  setGraphMetadata: SetGraphMetadataResult;
+  /**
+   * Set metadata for a group
+   *
+   * You MUST be authenticated to use this mutation.
+   */
+  setGroupMetadata: SetGroupMetadataResult;
+  /**
+   * Set metadata for a namespace
+   *
+   * You MUST be authenticated to use this mutation.
+   */
+  setNamespaceMetadata: SetNamespaceMetadataResult;
+  /**
+   * Set metadata for a sponsorship
+   *
+   * You MUST be authenticated as a builder to use this mutation.
+   */
+  setSponsorshipMetadata: SetSponsorshipMetadataResult;
   /** You MUST be authenticated as Account Owner or Account Manager to use this mutation. */
   switchAccount: SwitchAccountResult;
   /**
@@ -3642,6 +3492,24 @@ export type Mutation = {
    * You MUST be authenticated as Account Owner to use this mutation.
    */
   updateAccountManager: UpdateAccountManagerResult;
+  /**
+   * Update a sponsorship exclusion list from the rate limits.
+   *
+   * You MUST be authenticated as a builder to use this mutation.
+   */
+  updateSponsorshipExclusionList: UpdateSponsorshipExclusionListResult;
+  /**
+   * Update a sponsorship rate limits.
+   *
+   * You MUST be authenticated as a builder to use this mutation.
+   */
+  updateSponsorshipLimits: UpdateSponsorshipLimitsResult;
+  /**
+   * Update a sponsorship signers list.
+   *
+   * You MUST be authenticated as a builder to use this mutation.
+   */
+  updateSponsorshipSigners: UpdateSponsorshipSignersResult;
 };
 
 
@@ -3735,6 +3603,11 @@ export type MutationCreateSnsSubscriptionsArgs = {
 };
 
 
+export type MutationCreateSponsorshipArgs = {
+  request: CreateSponsorshipRequest;
+};
+
+
 export type MutationCreateUsernameArgs = {
   request: CreateUsernameRequest;
 };
@@ -3825,6 +3698,11 @@ export type MutationRemoveAdminsArgs = {
 };
 
 
+export type MutationRemoveAppAuthorizationEndpointArgs = {
+  request: RemoveAppAuthorizationEndpointRequest;
+};
+
+
 export type MutationRemoveAppFeedsArgs = {
   request: RemoveAppFeedsRequest;
 };
@@ -3900,6 +3778,31 @@ export type MutationSetDefaultAppFeedArgs = {
 };
 
 
+export type MutationSetFeedMetadataArgs = {
+  request: SetFeedMetadataRequest;
+};
+
+
+export type MutationSetGraphMetadataArgs = {
+  request: SetGraphMetadataRequest;
+};
+
+
+export type MutationSetGroupMetadataArgs = {
+  request: SetGroupMetadataRequest;
+};
+
+
+export type MutationSetNamespaceMetadataArgs = {
+  request: SetNamespaceMetadataRequest;
+};
+
+
+export type MutationSetSponsorshipMetadataArgs = {
+  request: SetSponsorshipMetadataRequest;
+};
+
+
 export type MutationSwitchAccountArgs = {
   request: SwitchAccountRequest;
 };
@@ -3959,6 +3862,21 @@ export type MutationUpdateAccountManagerArgs = {
   request: UpdateAccountManagerRequest;
 };
 
+
+export type MutationUpdateSponsorshipExclusionListArgs = {
+  request: UpdateSponsorshipExclusionListRequest;
+};
+
+
+export type MutationUpdateSponsorshipLimitsArgs = {
+  request: UpdateSponsorshipLimitsRequest;
+};
+
+
+export type MutationUpdateSponsorshipSignersArgs = {
+  request: UpdateSponsorshipSignersRequest;
+};
+
 export type MuteRequest = {
   /** The account to mute. */
   account: Scalars['EvmAddress']['input'];
@@ -4009,23 +3927,6 @@ export type NetworkAddress = {
   chainId: Scalars['Int']['output'];
 };
 
-export enum NftContractType {
-  Erc_721 = 'ERC_721',
-  Erc_1155 = 'ERC_1155'
-}
-
-export type NftOwnershipCondition = {
-  __typename?: 'NftOwnershipCondition';
-  contract: NetworkAddress;
-  contractType: NftContractType;
-  /**
-   * A list of token IDs you want to check ownership of. The list is optional for ERC721, you
-   * MUST provide a list of token IDs for ERC1155.
-   */
-  tokenIds: Array<Scalars['String']['output']>;
-  type: Scalars['String']['output'];
-};
-
 /** The existence of the transaction is not yet indexed. Keep trying. */
 export type NotIndexedYetStatus = {
   __typename?: 'NotIndexedYetStatus';
@@ -4058,6 +3959,10 @@ export type NotificationAccountRepost = {
 export type NotificationFilter = {
   /** The apps to filter by. */
   apps?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  /** The feeds to filter by. */
+  feeds?: InputMaybe<Array<FeedOneOf>>;
+  /** The graphs to filter by. */
+  graphs?: InputMaybe<Array<GraphOneOf>>;
   /** Include notification from accounts with low score */
   includeLowScore?: Scalars['Boolean']['input'];
   /** The notification types to filter by. */
@@ -4075,10 +3980,6 @@ export type NotificationRequest = {
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
   /** An optional filter to narrow down the notifications result. */
   filter?: InputMaybe<NotificationFilter>;
-  /** The feeds to get notifications for. */
-  forFeeds?: Array<Scalars['EvmAddress']['input']>;
-  /** The graphs to get notifications for. */
-  forGraphs?: Array<Scalars['EvmAddress']['input']>;
   /** An optional order to sort the notifications result. */
   orderBy?: NotificationOrderBy;
 };
@@ -4254,7 +4155,7 @@ export type PaginatedPostReactionsResult = {
 
 export type PaginatedPostTagsResult = {
   __typename?: 'PaginatedPostTagsResult';
-  items: Array<Scalars['Tag']['output']>;
+  items: Array<PostTag>;
   pageInfo: PaginatedResultInfo;
 };
 
@@ -4310,26 +4211,27 @@ export type PaymasterParams = {
 export type PendingTransactionStatus = {
   __typename?: 'PendingTransactionStatus';
   blockTimestamp: Scalars['DateTime']['output'];
+  summary: Array<SubOperationStatus>;
 };
 
 /** PhysicalAddress */
 export type PhysicalAddress = {
   __typename?: 'PhysicalAddress';
   /** The country name component. */
-  country: Scalars['Encryptable']['output'];
+  country: Scalars['String']['output'];
   /** The full mailing address formatted for display. */
-  formatted?: Maybe<Scalars['Encryptable']['output']>;
+  formatted?: Maybe<Scalars['String']['output']>;
   /** The city or locality. */
-  locality: Scalars['Encryptable']['output'];
+  locality: Scalars['String']['output'];
   /** The zip or postal code. */
-  postalCode?: Maybe<Scalars['Encryptable']['output']>;
+  postalCode?: Maybe<Scalars['String']['output']>;
   /** The state or region. */
-  region?: Maybe<Scalars['Encryptable']['output']>;
+  region?: Maybe<Scalars['String']['output']>;
   /**
    * The street address including house number, street name, P.O. Box, apartment or unit number
    * and extended multi-line address information.
    */
-  streetAddress?: Maybe<Scalars['Encryptable']['output']>;
+  streetAddress?: Maybe<Scalars['String']['output']>;
 };
 
 export type Post = {
@@ -4388,14 +4290,14 @@ export type PostActionsRequest = {
 };
 
 export type PostBookmarksFilter = {
+  /** The feeds to filter by. */
+  feeds?: InputMaybe<Array<FeedOneOf>>;
   metadata?: InputMaybe<PostMetadataFilter>;
 };
 
 export type PostBookmarksRequest = {
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
   filter?: InputMaybe<PostBookmarksFilter>;
-  /** The feeds to get bookmarks for. */
-  forFeeds?: Array<Scalars['EvmAddress']['input']>;
   pageSize?: PageSize;
 };
 
@@ -4613,6 +4515,17 @@ export type PostStatsReactionsArgs = {
   request?: StatsReactionRequest;
 };
 
+export type PostTag = {
+  __typename?: 'PostTag';
+  total: Scalars['Int']['output'];
+  value: Scalars['String']['output'];
+};
+
+export type PostTagsFilter = {
+  /** The feeds to filter by. */
+  feeds?: InputMaybe<Array<FeedOneOf>>;
+};
+
 export enum PostTagsOrderBy {
   Alphabetical = 'ALPHABETICAL',
   MostPopular = 'MOST_POPULAR'
@@ -4620,8 +4533,8 @@ export enum PostTagsOrderBy {
 
 export type PostTagsRequest = {
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The feeds to get tags for. */
-  forFeeds: Array<Scalars['EvmAddress']['input']>;
+  /** An optional filter to apply to the tags. */
+  filter?: InputMaybe<PostTagsFilter>;
   orderBy?: PostTagsOrderBy;
   pageSize?: PageSize;
 };
@@ -4645,6 +4558,8 @@ export enum PostVisibilityFilter {
 export type PostsFilter = {
   apps?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
   authors?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  /** The feeds to filter by. */
+  feeds?: InputMaybe<Array<FeedOneOf>>;
   metadata?: InputMaybe<PostMetadataFilter>;
   postTypes?: InputMaybe<Array<PostType>>;
   /** The optional query text to search for in the post content or metadata tags. */
@@ -4654,15 +4569,7 @@ export type PostsFilter = {
 export type PostsRequest = {
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
   filter?: InputMaybe<PostsFilter>;
-  forFeeds?: Array<Scalars['EvmAddress']['input']>;
   pageSize?: PageSize;
-};
-
-/** ProfileOwnershipCondition */
-export type ProfileOwnershipCondition = {
-  __typename?: 'ProfileOwnershipCondition';
-  profileId: Scalars['LegacyProfileId']['output'];
-  type: Scalars['String']['output'];
 };
 
 export type Query = {
@@ -4727,7 +4634,6 @@ export type Query = {
    */
   currentSession: AuthenticatedSession;
   debugMetadata: DebugPostMetadataResult;
-  debugTransactionStatusFailed?: Maybe<DebugTransactionStatusResult>;
   feed?: Maybe<Feed>;
   /** Get the feeds. */
   feeds: PaginatedFeedsResult;
@@ -4777,6 +4683,14 @@ export type Query = {
   postReferences: PaginatedAnyPostsResult;
   postTags: PaginatedPostTagsResult;
   posts: PaginatedAnyPostsResult;
+  /** Get a Sponsorship */
+  sponsorship?: Maybe<Sponsorship>;
+  /** Get paginated Sponsorship limits Exclusion list. */
+  sponsorshipLimitsExclusions: SponsorshipLimitsExclusionsResult;
+  /** Get paginated Sponsorship Signers. */
+  sponsorshipSigners: SponsorshipSignersResult;
+  /** Get paginated Sponsorships. */
+  sponsorships: SponsorshipsResult;
   /**
    * Get account timeline.
    *
@@ -4888,11 +4802,6 @@ export type QueryAuthenticatedSessionsArgs = {
 
 export type QueryDebugMetadataArgs = {
   request: DebugPostMetadataRequest;
-};
-
-
-export type QueryDebugTransactionStatusFailedArgs = {
-  request: DebugTransactionStatusRequest;
 };
 
 
@@ -5041,6 +4950,26 @@ export type QueryPostsArgs = {
 };
 
 
+export type QuerySponsorshipArgs = {
+  request: SponsorshipRequest;
+};
+
+
+export type QuerySponsorshipLimitsExclusionsArgs = {
+  request: SponsorshipLimitExclusionsRequest;
+};
+
+
+export type QuerySponsorshipSignersArgs = {
+  request: SponsorshipSignersRequest;
+};
+
+
+export type QuerySponsorshipsArgs = {
+  request: SponsorshipsRequest;
+};
+
+
 export type QueryTimelineArgs = {
   request: TimelineRequest;
 };
@@ -5130,6 +5059,11 @@ export type RemoveAdminsRequest = {
 };
 
 export type RemoveAdminsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type RemoveAppAuthorizationEndpointRequest = {
+  /** The app. */
+  app: Scalars['EvmAddress']['input'];
+};
 
 export type RemoveAppFeedsRequest = {
   /** The app to update */
@@ -5320,6 +5254,51 @@ export type SetDefaultAppFeedRequest = {
 
 export type SetDefaultAppFeedResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
+export type SetFeedMetadataRequest = {
+  /** The feed to update */
+  feed: Scalars['EvmAddress']['input'];
+  /** The feed metadata to set */
+  metadataUri: Scalars['String']['input'];
+};
+
+export type SetFeedMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type SetGraphMetadataRequest = {
+  /** The graph to update */
+  graph: Scalars['EvmAddress']['input'];
+  /** The graph metadata to set */
+  metadataUri: Scalars['String']['input'];
+};
+
+export type SetGraphMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type SetGroupMetadataRequest = {
+  /** The group to update */
+  group: Scalars['EvmAddress']['input'];
+  /** The group metadata to set */
+  metadataUri: Scalars['String']['input'];
+};
+
+export type SetGroupMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type SetNamespaceMetadataRequest = {
+  /** The namespace metadata to set */
+  metadataUri: Scalars['String']['input'];
+  /** The namespace to update */
+  namespace: Scalars['EvmAddress']['input'];
+};
+
+export type SetNamespaceMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type SetSponsorshipMetadataRequest = {
+  /** The sponsorship metadata to set */
+  metadataUri: Scalars['URI']['input'];
+  /** The sponsorship to update */
+  sponsorship: Scalars['EvmAddress']['input'];
+};
+
+export type SetSponsorshipMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
 export type SignedAuthChallenge = {
   id: Scalars['UUID']['input'];
   signature: Scalars['Signature']['input'];
@@ -5416,7 +5395,7 @@ export type SnsSubscription = {
   __typename?: 'SnsSubscription';
   account: Scalars['EvmAddress']['output'];
   app?: Maybe<Scalars['EvmAddress']['output']>;
-  attributes: Scalars['JSON']['output'];
+  filter: Scalars['JSON']['output'];
   id: Scalars['UUID']['output'];
   topic: SnsNotificationType;
   topicArn: Scalars['String']['output'];
@@ -5463,30 +5442,28 @@ export type SpaceMetadata = {
    * their usage as arbitrary attributes will be discouraged.
    */
   attributes: Array<MetadataAttribute>;
-  content: Scalars['Encryptable']['output'];
+  content: Scalars['String']['output'];
   /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
-  encryptedWith?: Maybe<EncryptionStrategy>;
   id: Scalars['MetadataId']['output'];
   /** The space join link. */
-  link: Scalars['Encryptable']['output'];
+  link: Scalars['URI']['output'];
   locale: Scalars['Locale']['output'];
   /** The main focus of the post. */
   mainContentFocus: MainContentFocus;
   /** The space start time (ISO 8601 `YYYY-MM-DDTHH:mm:ss.sssZ`). */
-  startsAt: Scalars['Encryptable']['output'];
+  startsAt: Scalars['DateTime']['output'];
   /** An arbitrary list of tags. */
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
   /** The space title. */
   title: Scalars['String']['output'];
 };
 
-export enum SponsorLimitType {
-  Day = 'DAY',
-  Hour = 'HOUR',
-  Month = 'MONTH',
-  Week = 'WEEK'
-}
+export type SponsorLimit = {
+  __typename?: 'SponsorLimit';
+  allowance: Scalars['Int']['output'];
+  window: SponsorshipRateLimitWindow;
+};
 
 export enum SponsoredFallbackReason {
   SignlessDisabled = 'SIGNLESS_DISABLED',
@@ -5505,6 +5482,29 @@ export type SponsoredTransactionRequest = {
   sponsoredReason?: Maybe<SponsoredFallbackReason>;
 };
 
+export type Sponsorship = {
+  __typename?: 'Sponsorship';
+  address: Scalars['EvmAddress']['output'];
+  /**
+   * Indicates whether the Lens API is authorized as the sponsorship signer
+   * to sponsor end-user social operations (e.g., posts, comments, follows)
+   * performed through the Lens API for apps associated with this sponsorship.
+   */
+  allowsLensAccess: Scalars['Boolean']['output'];
+  /**
+   * The native token balance of the sponsorship contract.
+   *
+   * This value is cached for up to 2 minutes for each sponsorship contract.
+   */
+  balance?: Maybe<Scalars['BigDecimal']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  globalRateLimit?: Maybe<SponsorLimit>;
+  isPaused: Scalars['Boolean']['output'];
+  metadata?: Maybe<SponsorshipMetadata>;
+  owner: Scalars['EvmAddress']['output'];
+  userRateLimit?: Maybe<SponsorLimit>;
+};
+
 export type SponsorshipAllowance = {
   __typename?: 'SponsorshipAllowance';
   /** The total sponsorship allowance. */
@@ -5514,7 +5514,162 @@ export type SponsorshipAllowance = {
   /** The number of sponsorship allowance used. */
   allowanceUsed: Scalars['Int']['output'];
   /** The sponsorship window type. */
-  window: SponsorLimitType;
+  window: SponsorshipRateLimitWindow;
+};
+
+export type SponsorshipLimitExclusionsFilter = {
+  /** The sponsorship address. */
+  sponsorship: Scalars['EvmAddress']['input'];
+};
+
+export enum SponsorshipLimitExclusionsOrderBy {
+  Alphabetical = 'ALPHABETICAL',
+  LatestFirst = 'LATEST_FIRST',
+  OldestFirst = 'OLDEST_FIRST'
+}
+
+export type SponsorshipLimitExclusionsRequest = {
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** The filter options. */
+  filter: SponsorshipLimitExclusionsFilter;
+  /** The order by criteria. */
+  orderBy?: SponsorshipLimitExclusionsOrderBy;
+  /** The page size. */
+  pageSize?: PageSize;
+};
+
+export type SponsorshipLimitsExclusionsResult = {
+  __typename?: 'SponsorshipLimitsExclusionsResult';
+  items: Array<SponsorshipLimitsExempt>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type SponsorshipLimitsExempt = {
+  __typename?: 'SponsorshipLimitsExempt';
+  address: Scalars['EvmAddress']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  label: Scalars['String']['output'];
+  sponsorship: Scalars['EvmAddress']['output'];
+};
+
+export type SponsorshipMetadata = {
+  __typename?: 'SponsorshipMetadata';
+  /** An optional description of the Username collection. */
+  description?: Maybe<Scalars['String']['output']>;
+  /**
+   * A unique identifier that in storages like IPFS ensures the uniqueness of the metadata URI.
+   * Use a UUID if unsure.
+   */
+  id: Scalars['String']['output'];
+  /** The name of the Sponsorship. */
+  name: Scalars['String']['output'];
+};
+
+export type SponsorshipRateLimit = {
+  /** The limit value. */
+  limit: Scalars['Int']['input'];
+  /** The limit time window. */
+  window: SponsorshipRateLimitWindow;
+};
+
+export enum SponsorshipRateLimitWindow {
+  Day = 'DAY',
+  Hour = 'HOUR',
+  Month = 'MONTH',
+  Week = 'WEEK'
+}
+
+export type SponsorshipRateLimits = {
+  /** The global rate limit. */
+  global?: InputMaybe<SponsorshipRateLimit>;
+  /** The user rate limit. */
+  user?: InputMaybe<SponsorshipRateLimit>;
+};
+
+export type SponsorshipRateLimitsExempt = {
+  /** The exempt address. */
+  address: Scalars['EvmAddress']['input'];
+  /** The human-readable label for the exempt address. */
+  label: Scalars['String']['input'];
+};
+
+export type SponsorshipRequest = {
+  /** The Sponsorship address. */
+  address?: InputMaybe<Scalars['EvmAddress']['input']>;
+  /** The transaction hash you created the Sponsorship with. */
+  txHash?: InputMaybe<Scalars['TxHash']['input']>;
+};
+
+export type SponsorshipSigner = {
+  __typename?: 'SponsorshipSigner';
+  address: Scalars['EvmAddress']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  label: Scalars['String']['output'];
+  sponsorship: Scalars['EvmAddress']['output'];
+};
+
+export type SponsorshipSignerInput = {
+  /** The signer address */
+  address: Scalars['EvmAddress']['input'];
+  /** The human-readable label for the signer */
+  label: Scalars['String']['input'];
+};
+
+export type SponsorshipSignersFilter = {
+  /** The sponsorship address. */
+  sponsorship: Scalars['EvmAddress']['input'];
+};
+
+export enum SponsorshipSignersOrderBy {
+  Alphabetical = 'ALPHABETICAL',
+  LatestFirst = 'LATEST_FIRST',
+  OldestFirst = 'OLDEST_FIRST'
+}
+
+export type SponsorshipSignersRequest = {
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** The filter options. */
+  filter: SponsorshipSignersFilter;
+  /** The order by criteria. */
+  orderBy?: SponsorshipSignersOrderBy;
+  /** The page size. */
+  pageSize?: PageSize;
+};
+
+export type SponsorshipSignersResult = {
+  __typename?: 'SponsorshipSignersResult';
+  items: Array<SponsorshipSigner>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type SponsorshipsFilter = {
+  /** The filter to get Sponsorships managed by address */
+  managedBy: ManagedBy;
+};
+
+export enum SponsorshipsOrderBy {
+  Alphabetical = 'ALPHABETICAL',
+  LatestFirst = 'LATEST_FIRST',
+  OldestFirst = 'OLDEST_FIRST'
+}
+
+export type SponsorshipsRequest = {
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** The filter options. */
+  filter: SponsorshipsFilter;
+  /** The order by criteria. */
+  orderBy?: SponsorshipsOrderBy;
+  /** The page size. */
+  pageSize?: PageSize;
+};
+
+export type SponsorshipsResult = {
+  __typename?: 'SponsorshipsResult';
+  items: Array<Sponsorship>;
+  pageInfo: PaginatedResultInfo;
 };
 
 export type StatsReactionRequest = {
@@ -5531,16 +5686,21 @@ export type StoryMetadata = {
    * their usage as arbitrary attributes will be discouraged.
    */
   attributes: Array<MetadataAttribute>;
-  content: Scalars['Encryptable']['output'];
+  content: Scalars['String']['output'];
   /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
-  encryptedWith?: Maybe<EncryptionStrategy>;
   id: Scalars['MetadataId']['output'];
   locale: Scalars['Locale']['output'];
   /** The main focus of the post. */
   mainContentFocus: MainContentFocus;
   /** An arbitrary list of tags. */
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
+};
+
+export type SubOperationStatus = {
+  __typename?: 'SubOperationStatus';
+  operation: TransactionOperation;
+  status: IndexingStatus;
 };
 
 export type SwitchAccountRequest = {
@@ -5557,10 +5717,9 @@ export type TextOnlyMetadata = {
    * their usage as arbitrary attributes will be discouraged.
    */
   attributes: Array<MetadataAttribute>;
-  content: Scalars['Encryptable']['output'];
+  content: Scalars['String']['output'];
   /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
-  encryptedWith?: Maybe<EncryptionStrategy>;
   id: Scalars['MetadataId']['output'];
   locale: Scalars['Locale']['output'];
   /** The main focus of the post. */
@@ -5602,10 +5761,9 @@ export type ThreeDMetadata = {
    * their usage as arbitrary attributes will be discouraged.
    */
   attributes: Array<MetadataAttribute>;
-  content: Scalars['Encryptable']['output'];
+  content: Scalars['String']['output'];
   /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
-  encryptedWith?: Maybe<EncryptionStrategy>;
   id: Scalars['MetadataId']['output'];
   locale: Scalars['Locale']['output'];
   /** The main focus of the post. */
@@ -5626,6 +5784,8 @@ export type TimelineFilter = {
   apps?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
   /** The post event types to filter by. */
   eventType?: InputMaybe<Array<TimelineEventItemType>>;
+  /** The feeds to filter by. */
+  feeds?: InputMaybe<Array<FeedOneOf>>;
   /** The optional metadata filter. */
   metadata?: InputMaybe<PostMetadataFilter>;
 };
@@ -5633,6 +5793,8 @@ export type TimelineFilter = {
 export type TimelineHighlightsFilter = {
   /** The apps to filter by. */
   apps?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  /** The feeds to filter by. */
+  feeds?: InputMaybe<Array<FeedOneOf>>;
   metadata?: InputMaybe<PostMetadataFilter>;
 };
 
@@ -5642,8 +5804,6 @@ export type TimelineHighlightsRequest = {
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
   /** An optional filter to apply to the timeline. */
   filter?: InputMaybe<TimelineHighlightsFilter>;
-  /** The feeds to get timeline for. */
-  forFeeds?: Array<Scalars['EvmAddress']['input']>;
   pageSize?: PageSize;
 };
 
@@ -5662,8 +5822,6 @@ export type TimelineRequest = {
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
   /** An optional filter to apply to the timeline. */
   filter?: InputMaybe<TimelineFilter>;
-  /** The feeds to get timeline for. */
-  forFeeds?: Array<Scalars['EvmAddress']['input']>;
 };
 
 export type TokenGatedFeedRule = {
@@ -5717,13 +5875,6 @@ export enum TokenStandard {
   Erc_1155 = 'ERC_1155'
 }
 
-/** AccessCondition */
-export type TopLevelAccessCondition = {
-  __typename?: 'TopLevelAccessCondition';
-  criteria: Array<AnyAccessCondition>;
-  type: Scalars['String']['output'];
-};
-
 export type TransactionMetadata = {
   __typename?: 'TransactionMetadata';
   /** The other attachments you want to include with it. */
@@ -5736,10 +5887,9 @@ export type TransactionMetadata = {
   attributes: Array<MetadataAttribute>;
   /** The Chain Id. */
   chainId: Scalars['ChainId']['output'];
-  content: Scalars['Encryptable']['output'];
+  content: Scalars['String']['output'];
   /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
-  encryptedWith?: Maybe<EncryptionStrategy>;
   id: Scalars['MetadataId']['output'];
   locale: Scalars['Locale']['output'];
   /** The main focus of the post. */
@@ -5747,10 +5897,101 @@ export type TransactionMetadata = {
   /** An arbitrary list of tags. */
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
   /** The transaction hash. */
-  txHash: Scalars['Encryptable']['output'];
+  txHash: Scalars['String']['output'];
   /** The type of transaction. */
   type: TransactionType;
 };
+
+export enum TransactionOperation {
+  AccessControlFactoryOwnerAdminDeployment = 'ACCESS_CONTROL_FACTORY_OWNER_ADMIN_DEPLOYMENT',
+  AccessControlRoleGranted = 'ACCESS_CONTROL_ROLE_GRANTED',
+  AccessControlRoleRevoked = 'ACCESS_CONTROL_ROLE_REVOKED',
+  AccountFactoryDeployment = 'ACCOUNT_FACTORY_DEPLOYMENT',
+  AccountManagerAdded = 'ACCOUNT_MANAGER_ADDED',
+  AccountManagerRemoved = 'ACCOUNT_MANAGER_REMOVED',
+  AccountManagerUpdated = 'ACCOUNT_MANAGER_UPDATED',
+  AccountMetadataUriSet = 'ACCOUNT_METADATA_URI_SET',
+  AccountOwnerTransferred = 'ACCOUNT_OWNER_TRANSFERRED',
+  AppAccessControlAdded = 'APP_ACCESS_CONTROL_ADDED',
+  AppAccessControlUpdated = 'APP_ACCESS_CONTROL_UPDATED',
+  AppDefaultFeedSet = 'APP_DEFAULT_FEED_SET',
+  AppExtraDataAdded = 'APP_EXTRA_DATA_ADDED',
+  AppExtraDataRemoved = 'APP_EXTRA_DATA_REMOVED',
+  AppExtraDataUpdated = 'APP_EXTRA_DATA_UPDATED',
+  AppFactoryDeployment = 'APP_FACTORY_DEPLOYMENT',
+  AppFeedAdded = 'APP_FEED_ADDED',
+  AppFeedRemoved = 'APP_FEED_REMOVED',
+  AppGraphAdded = 'APP_GRAPH_ADDED',
+  AppGraphRemoved = 'APP_GRAPH_REMOVED',
+  AppGroupAdded = 'APP_GROUP_ADDED',
+  AppGroupRemoved = 'APP_GROUP_REMOVED',
+  AppMetadataUriSet = 'APP_METADATA_URI_SET',
+  AppPaymasterAdded = 'APP_PAYMASTER_ADDED',
+  AppPaymasterRemoved = 'APP_PAYMASTER_REMOVED',
+  AppSignerAdded = 'APP_SIGNER_ADDED',
+  AppSignerRemoved = 'APP_SIGNER_REMOVED',
+  AppSourceStampVerificationSet = 'APP_SOURCE_STAMP_VERIFICATION_SET',
+  AppTreasurySet = 'APP_TREASURY_SET',
+  AppUsernameAdded = 'APP_USERNAME_ADDED',
+  AppUsernameRemoved = 'APP_USERNAME_REMOVED',
+  FeedAccessControlAdded = 'FEED_ACCESS_CONTROL_ADDED',
+  FeedAccessControlUpdated = 'FEED_ACCESS_CONTROL_UPDATED',
+  FeedExtraDataAdded = 'FEED_EXTRA_DATA_ADDED',
+  FeedExtraDataRemoved = 'FEED_EXTRA_DATA_REMOVED',
+  FeedExtraDataUpdated = 'FEED_EXTRA_DATA_UPDATED',
+  FeedFactoryDeployment = 'FEED_FACTORY_DEPLOYMENT',
+  FeedMetadataUriSet = 'FEED_METADATA_URI_SET',
+  FeedPostCreated = 'FEED_POST_CREATED',
+  FeedPostDeleted = 'FEED_POST_DELETED',
+  FeedPostEdited = 'FEED_POST_EDITED',
+  GraphAccessControlAdded = 'GRAPH_ACCESS_CONTROL_ADDED',
+  GraphAccessControlUpdated = 'GRAPH_ACCESS_CONTROL_UPDATED',
+  GraphExtraDataAdded = 'GRAPH_EXTRA_DATA_ADDED',
+  GraphExtraDataRemoved = 'GRAPH_EXTRA_DATA_REMOVED',
+  GraphExtraDataUpdated = 'GRAPH_EXTRA_DATA_UPDATED',
+  GraphFactoryDeployment = 'GRAPH_FACTORY_DEPLOYMENT',
+  GraphFollowed = 'GRAPH_FOLLOWED',
+  GraphMetadataUriSet = 'GRAPH_METADATA_URI_SET',
+  GraphUnfollowed = 'GRAPH_UNFOLLOWED',
+  GroupAccessControlAdded = 'GROUP_ACCESS_CONTROL_ADDED',
+  GroupAccessControlUpdated = 'GROUP_ACCESS_CONTROL_UPDATED',
+  GroupExtraDataAdded = 'GROUP_EXTRA_DATA_ADDED',
+  GroupExtraDataRemoved = 'GROUP_EXTRA_DATA_REMOVED',
+  GroupExtraDataUpdated = 'GROUP_EXTRA_DATA_UPDATED',
+  GroupFactoryDeployment = 'GROUP_FACTORY_DEPLOYMENT',
+  GroupMemberJoined = 'GROUP_MEMBER_JOINED',
+  GroupMemberLeft = 'GROUP_MEMBER_LEFT',
+  GroupMemberRemoved = 'GROUP_MEMBER_REMOVED',
+  GroupMetadataUriSet = 'GROUP_METADATA_URI_SET',
+  SponsorshipAccessControlAdded = 'SPONSORSHIP_ACCESS_CONTROL_ADDED',
+  SponsorshipAccessControlUpdated = 'SPONSORSHIP_ACCESS_CONTROL_UPDATED',
+  SponsorshipAddedToExclusionList = 'SPONSORSHIP_ADDED_TO_EXCLUSION_LIST',
+  SponsorshipFactoryDeployment = 'SPONSORSHIP_FACTORY_DEPLOYMENT',
+  SponsorshipFundsSpent = 'SPONSORSHIP_FUNDS_SPENT',
+  SponsorshipGrantedFunds = 'SPONSORSHIP_GRANTED_FUNDS',
+  SponsorshipGrantRevoked = 'SPONSORSHIP_GRANT_REVOKED',
+  SponsorshipMetadataUriSet = 'SPONSORSHIP_METADATA_URI_SET',
+  SponsorshipPaused = 'SPONSORSHIP_PAUSED',
+  SponsorshipRateLimitsChanged = 'SPONSORSHIP_RATE_LIMITS_CHANGED',
+  SponsorshipRemovedFromExclusionList = 'SPONSORSHIP_REMOVED_FROM_EXCLUSION_LIST',
+  SponsorshipSignerAdded = 'SPONSORSHIP_SIGNER_ADDED',
+  SponsorshipSignerRemoved = 'SPONSORSHIP_SIGNER_REMOVED',
+  SponsorshipUnpaused = 'SPONSORSHIP_UNPAUSED',
+  SponsorAddedToApprovedSigners = 'SPONSOR_ADDED_TO_APPROVED_SIGNERS',
+  SponsorFreePaymasterCreated = 'SPONSOR_FREE_PAYMASTER_CREATED',
+  SponsorMetadataUriChanged = 'SPONSOR_METADATA_URI_CHANGED',
+  UsernameAccessControlAdded = 'USERNAME_ACCESS_CONTROL_ADDED',
+  UsernameAccessControlUpdated = 'USERNAME_ACCESS_CONTROL_UPDATED',
+  UsernameAssigned = 'USERNAME_ASSIGNED',
+  UsernameCreated = 'USERNAME_CREATED',
+  UsernameExtraDataAdded = 'USERNAME_EXTRA_DATA_ADDED',
+  UsernameExtraDataRemoved = 'USERNAME_EXTRA_DATA_REMOVED',
+  UsernameExtraDataUpdated = 'USERNAME_EXTRA_DATA_UPDATED',
+  UsernameFactoryDeployment = 'USERNAME_FACTORY_DEPLOYMENT',
+  UsernameMetadataUriSet = 'USERNAME_METADATA_URI_SET',
+  UsernameRemoved = 'USERNAME_REMOVED',
+  UsernameUnassigned = 'USERNAME_UNASSIGNED'
+}
 
 export type TransactionStatusRequest = {
   txHash: Scalars['TxHash']['input'];
@@ -5951,6 +6192,37 @@ export type UpdateAccountManagerRequest = {
 
 export type UpdateAccountManagerResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
+export type UpdateSponsorshipExclusionListRequest = {
+  /** The sponsorship to update */
+  sponsorship: Scalars['EvmAddress']['input'];
+  /** The new entries to add. */
+  toAdd?: Array<SponsorshipRateLimitsExempt>;
+  /** The entries to remove. */
+  toRemove?: Array<Scalars['EvmAddress']['input']>;
+};
+
+export type UpdateSponsorshipExclusionListResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type UpdateSponsorshipLimitsRequest = {
+  /** The new rate limits */
+  rateLimits?: InputMaybe<SponsorshipRateLimits>;
+  /** The sponsorship to update */
+  sponsorship: Scalars['EvmAddress']['input'];
+};
+
+export type UpdateSponsorshipLimitsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type UpdateSponsorshipSignersRequest = {
+  /** The sponsorship to update */
+  sponsorship: Scalars['EvmAddress']['input'];
+  /** The new entries to add. */
+  toAdd?: Array<SponsorshipSignerInput>;
+  /** The entries to remove. */
+  toRemove?: Array<Scalars['EvmAddress']['input']>;
+};
+
+export type UpdateSponsorshipSignersResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
 export type UserBlockingRule = {
   __typename?: 'UserBlockingRule';
   blockedUsers: Array<Scalars['EvmAddress']['output']>;
@@ -6082,10 +6354,9 @@ export type VideoMetadata = {
    * their usage as arbitrary attributes will be discouraged.
    */
   attributes: Array<MetadataAttribute>;
-  content: Scalars['Encryptable']['output'];
+  content: Scalars['String']['output'];
   /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
-  encryptedWith?: Maybe<EncryptionStrategy>;
   id: Scalars['MetadataId']['output'];
   locale: Scalars['Locale']['output'];
   /** The main focus of the post. */
@@ -6172,7 +6443,7 @@ export type AmountFieldsFragment = { __typename?: 'Amount', value: any, asset: (
     & { ' $fragmentRefs'?: { 'AssetFieldsFragment': AssetFieldsFragment } }
   ) } & { ' $fragmentName'?: 'AmountFieldsFragment' };
 
-export type AppFieldsFragment = { __typename?: 'App', address: any, defaultFeedAddress?: any | null, graphAddress?: any | null, namespaceAddress?: any | null, sponsorshipAddress?: any | null, treasuryAddress?: any | null, createdAt: any, metadata?: { __typename?: 'AppMetadata', description?: string | null, developer: string, logo?: any | null, name: string, platforms: Array<AppMetadataLensPlatformsItem>, privacyPolicy?: any | null, termsOfService?: any | null, url: any } | null } & { ' $fragmentName'?: 'AppFieldsFragment' };
+export type AppFieldsFragment = { __typename?: 'App', address: any, defaultFeedAddress?: any | null, graphAddress?: any | null, namespaceAddress?: any | null, sponsorshipAddress?: any | null, treasuryAddress?: any | null, createdAt: any, metadata?: { __typename?: 'AppMetadata', description?: string | null, developer: string, logo?: any | null, name: string, platforms: Array<AppPlatform>, privacyPolicy?: any | null, termsOfService?: any | null, url: any } | null } & { ' $fragmentName'?: 'AppFieldsFragment' };
 
 export type AssetFieldsFragment = { __typename?: 'Erc20', decimals: number, name: string, symbol: string, contract: { __typename?: 'NetworkAddress', address: any, chainId: number } } & { ' $fragmentName'?: 'AssetFieldsFragment' };
 
@@ -6241,7 +6512,7 @@ export type LoggedInPostOperationsFieldsFragment = { __typename?: 'LoggedInPostO
     & { ' $fragmentRefs'?: { 'BooleanValueFieldsFragment': BooleanValueFieldsFragment } }
   ) } & { ' $fragmentName'?: 'LoggedInPostOperationsFieldsFragment' };
 
-export type MediaAudioFieldsFragment = { __typename?: 'MediaAudio', artist?: any | null, item: any, cover?: any | null, license?: MetadataLicenseType | null } & { ' $fragmentName'?: 'MediaAudioFieldsFragment' };
+export type MediaAudioFieldsFragment = { __typename?: 'MediaAudio', artist?: string | null, item: any, cover?: any | null, license?: MetadataLicenseType | null } & { ' $fragmentName'?: 'MediaAudioFieldsFragment' };
 
 type MediaFields_MediaAudio_Fragment = (
   { __typename?: 'MediaAudio' }
@@ -6260,17 +6531,17 @@ type MediaFields_MediaVideo_Fragment = (
 
 export type MediaFieldsFragment = MediaFields_MediaAudio_Fragment | MediaFields_MediaImage_Fragment | MediaFields_MediaVideo_Fragment;
 
-export type MediaImageFieldsFragment = { __typename?: 'MediaImage', altTag?: any | null, item: any, license?: MetadataLicenseType | null, attributes: Array<(
+export type MediaImageFieldsFragment = { __typename?: 'MediaImage', altTag?: string | null, item: any, license?: MetadataLicenseType | null, attributes: Array<(
     { __typename?: 'MetadataAttribute' }
     & { ' $fragmentRefs'?: { 'MetadataAttributeFieldsFragment': MetadataAttributeFieldsFragment } }
   )> } & { ' $fragmentName'?: 'MediaImageFieldsFragment' };
 
-export type MediaVideoFieldsFragment = { __typename?: 'MediaVideo', altTag?: any | null, cover?: any | null, duration?: number | null, item: any, license?: MetadataLicenseType | null, attributes: Array<(
+export type MediaVideoFieldsFragment = { __typename?: 'MediaVideo', altTag?: string | null, cover?: any | null, duration?: number | null, item: any, license?: MetadataLicenseType | null, attributes: Array<(
     { __typename?: 'MetadataAttribute' }
     & { ' $fragmentRefs'?: { 'MetadataAttributeFieldsFragment': MetadataAttributeFieldsFragment } }
   )> } & { ' $fragmentName'?: 'MediaVideoFieldsFragment' };
 
-export type VideoMetadataFieldsFragment = { __typename: 'VideoMetadata', title?: string | null, content: any, tags?: Array<any> | null, attributes: Array<(
+export type VideoMetadataFieldsFragment = { __typename: 'VideoMetadata', title?: string | null, content: string, tags?: Array<any> | null, attributes: Array<(
     { __typename?: 'MetadataAttribute' }
     & { ' $fragmentRefs'?: { 'MetadataAttributeFieldsFragment': MetadataAttributeFieldsFragment } }
   )>, attachments: Array<(
@@ -6669,7 +6940,7 @@ export type MeQuery = { __typename?: 'Query', me: { __typename?: 'MeResult', isS
       ) } | { __typename?: 'AccountOwned', addedAt: any, account: (
         { __typename?: 'Account' }
         & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
-      ) }, limit: { __typename?: 'SponsorshipAllowance', window: SponsorLimitType, allowanceLeft: number, allowanceUsed: number, allowance: number } } };
+      ) }, limit: { __typename?: 'SponsorshipAllowance', window: SponsorshipRateLimitWindow, allowanceLeft: number, allowanceUsed: number, allowance: number } } };
 
 export type NotificationsQueryVariables = Exact<{
   request: NotificationRequest;
