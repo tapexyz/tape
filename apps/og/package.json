@@ -11,7 +11,7 @@
     "typecheck": "tsc --pretty --noEmit"
   },
   "dependencies": {
-    "next": "^15.1.5",
+    "next": "^15.1.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
@@ -20,7 +20,7 @@
     "@tape.xyz/generic": "workspace:*",
     "@tape.xyz/lens": "workspace:*",
     "@tape.xyz/tsconfig": "workspace:*",
-    "@types/node": "^22.10.7",
+    "@types/node": "^22.10.10",
     "@types/react": "^18.3.13",
     "@types/react-dom": "^18.3.0",
     "typescript": "^5.7.3"
