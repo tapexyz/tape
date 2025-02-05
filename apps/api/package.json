@@ -32,7 +32,7 @@
     "@tape.xyz/server": "workspace:*",
     "@tape.xyz/tsconfig": "workspace:*",
     "@types/node": "^22.13.1",
-    "@types/ua-parser-js": "^0.7.38",
+    "@types/ua-parser-js": "^0.7.39",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3"
   }
