@@ -28,6 +28,12 @@ RUN npm install -g pnpm
 RUN addgroup --system --gid 1001 nodeCron
 RUN adduser --system --uid 1001 app
 
+RUN mkdir -p /app/_tmp && \
+    mkdir -p /home/app/.local/share/pnpm && \
+    mkdir -p /home/app/.npm && \
+    chown -R app:nodeCron /app /home/app/.local /home/app/.npm && \
+    chmod 777 /app/_tmp
+
 USER app
 
 # Copy built application and production dependencies from builder stage
