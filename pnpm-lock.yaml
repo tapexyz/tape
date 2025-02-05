@@ -76,7 +76,7 @@ importers:
         specifier: ^22.13.1
         version: 22.13.1
       '@types/ua-parser-js':
-        specifier: ^0.7.39
+        specifier: ^0.7.38
         version: 0.7.39
       tsx:
         specifier: ^4.19.2

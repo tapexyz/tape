@@ -25,6 +25,18 @@ RUN pnpm prune --prod
 FROM base AS runner
 WORKDIR /app
 
+# Create non-root user first
+RUN addgroup --system --gid 1001 hono && \
+    adduser --system --uid 1001 app
+
+# Install pnpm globally in a way that's accessible to non-root user
+ENV PNPM_HOME="/pnpm"
+ENV PATH="${PNPM_HOME}:${PATH}"
+RUN mkdir -p ${PNPM_HOME} && \
+    chown -R app:hono ${PNPM_HOME} && \
+    npm install -g pnpm && \
+    chown -R app:hono /app
+
 # Install pnpm globally
 RUN npm install -g pnpm
 
