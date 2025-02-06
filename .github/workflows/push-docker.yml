@@ -1,83 +1,83 @@
-name: Deploy Docker Images
+# name: Deploy Docker Images
 
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
+# on:
+#   push:
+#     branches: [main]
+#   workflow_dispatch:
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+# concurrency:
+#   group: ${{ github.workflow }}-${{ github.ref }}
+#   cancel-in-progress: true
 
-jobs:
-  check-changes:
-    runs-on: ubuntu-latest
-    outputs:
-      api-changed: ${{ steps.filter.outputs.api }}
-      cron-changed: ${{ steps.filter.outputs.cron }}
-    steps:
-      - name: Checkout 🚪
-        uses: actions/checkout@v4
-      - name: Check for changes 🔍
-        id: filter
-        uses: dorny/paths-filter@v2
-        with:
-          filters: |
-            api:
-              - 'apps/api/**'
-              - 'packages/**'
-            cron:
-              - 'apps/cron/**'
-              - 'packages/**'
-  api:
-    needs: check-changes
-    if: needs.check-changes.outputs.api-changed == 'true'
-    name:  build api changes
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout 🚪
-        uses: actions/checkout@v4
+# jobs:
+#   check-changes:
+#     runs-on: ubuntu-latest
+#     outputs:
+#       api-changed: ${{ steps.filter.outputs.api }}
+#       cron-changed: ${{ steps.filter.outputs.cron }}
+#     steps:
+#       - name: Checkout 🚪
+#         uses: actions/checkout@v4
+#       - name: Check for changes 🔍
+#         id: filter
+#         uses: dorny/paths-filter@v2
+#         with:
+#           filters: |
+#             api:
+#               - 'apps/api/**'
+#               - 'packages/**'
+#             cron:
+#               - 'apps/cron/**'
+#               - 'packages/**'
+#   api:
+#     needs: check-changes
+#     if: needs.check-changes.outputs.api-changed == 'true'
+#     name:  build api changes
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout 🚪
+#         uses: actions/checkout@v4
 
-      - name: Build and push docker image 🔨
-        uses: ./.github/actions/docker
-        with:
-          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
-          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
-          image_name: tape-api
-          tag_name: 'latest'
-          docker_file: ./apps/api/Dockerfile
+#       - name: Build and push docker image 🔨
+#         uses: ./.github/actions/docker
+#         with:
+#           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+#           dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+#           image_name: tape-api
+#           tag_name: 'latest'
+#           docker_file: ./apps/api/Dockerfile
 
-      - name: Trigger API Deployment 🚢
-        uses: indiesdev/curl@v1
-        id: deploy
-        with:
-          url: 'https://redeploy.tapes.workers.dev'
-          params: '{ "secret": "${{ secrets.SECRET_KEY }}", "service": "${{ secrets.API_RAILWAY_SERVICE_ID }}" }'
-          method: 'GET'
-          timeout: 30000
-  cron:
-    needs: check-changes
-    if: needs.check-changes.outputs.cron-changed == 'true'
-    name:  build cron changes
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout 🚪
-        uses: actions/checkout@v4
+#       - name: Trigger API Deployment 🚢
+#         uses: indiesdev/curl@v1
+#         id: deploy
+#         with:
+#           url: 'https://redeploy.tapes.workers.dev'
+#           params: '{ "secret": "${{ secrets.SECRET_KEY }}", "service": "${{ secrets.API_RAILWAY_SERVICE_ID }}" }'
+#           method: 'GET'
+#           timeout: 30000
+#   cron:
+#     needs: check-changes
+#     if: needs.check-changes.outputs.cron-changed == 'true'
+#     name:  build cron changes
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout 🚪
+#         uses: actions/checkout@v4
 
-      - name: Build and push docker image 🔨
-        uses: ./.github/actions/docker
-        with:
-          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
-          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
-          image_name: tape-cron
-          tag_name: 'latest'
-          docker_file: ./apps/cron/Dockerfile
+#       - name: Build and push docker image 🔨
+#         uses: ./.github/actions/docker
+#         with:
+#           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+#           dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+#           image_name: tape-cron
+#           tag_name: 'latest'
+#           docker_file: ./apps/cron/Dockerfile
 
-      - name: Trigger Cron Deployment 🚢
-        uses: indiesdev/curl@v1
-        id: deploy
-        with:
-          url: 'https://redeploy.tapes.workers.dev'
-          params: '{ "secret": "${{ secrets.SECRET_KEY }}", "service": "${{ secrets.CRON_RAILWAY_SERVICE_ID }}" }'
-          method: 'GET'
-          timeout: 30000
+#       - name: Trigger Cron Deployment 🚢
+#         uses: indiesdev/curl@v1
+#         id: deploy
+#         with:
+#           url: 'https://redeploy.tapes.workers.dev'
+#           params: '{ "secret": "${{ secrets.SECRET_KEY }}", "service": "${{ secrets.CRON_RAILWAY_SERVICE_ID }}" }'
+#           method: 'GET'
+#           timeout: 30000
