@@ -1,84 +1,96 @@
 <div align="center">
-    <img src="https://static.tape.xyz/brand/og.png" alt="banner">
+    <img src="https://static.tape.xyz/brand/og.png" alt="Tape Banner">
 </div>
-<br>
-<div align="center">
-    <a href="https://www.gitpoap.io/gh/tapexyz/tape">
-        <img src="https://public-api.gitpoap.io/v1/repo/tapexyz/tape/badge" alt="Gitpoap">
-    </a>
-    <a href="https://tape.xyz/discord">
-       <img src="https://img.shields.io/discord/980882088783913010.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2" alt="Discord">
-    </a>
-    <a href="https://x.com/tapexyz">
-        <img src="https://img.shields.io/twitter/follow/tapexyz?style=social" alt="Twitter">
-    </a>
-    <a href="https://status.tape.xyz">
-        <img src="https://betteruptime.com/status-badges/v1/monitor/dfaw.svg" alt="Better Uptime">
-    </a>
-</div>
+
 <br>
 
-## 📼 Tape
+<p align="center">
+    
+  [![GitPoap](https://public-api.gitpoap.io/v1/repo/tapexyz/tape/badge)](https://www.gitpoap.io/gh/tapexyz/tape)
+  [![Website](https://img.shields.io/badge/Website-0077b5?logo=internet-explorer&logoColor=white)](https://tape.xyz)
+  [![Uptime Status](https://img.shields.io/badge/Status-BetterUptime-blue?logo=heartbeat&logoColor=white)](https://status.tape.xyz)
+  [![GitHub Stars](https://img.shields.io/github/stars/tapexyz/tape?style=social)](https://github.com/tapexyz/tape)
+    
+</p>
 
-an open video-sharing platform.
 
-## 💪 Community
+---
 
-For a place to have open discussions on features, voice your ideas, or get help with general questions please visit our community at [Discord](https://tape.xyz/discord).
+## 📼 Tape - The Open Video-Sharing Platform
 
-## 🔍 What's inside?
+Tape is an **open-source** video-sharing platform designed for creators and users who value **decentralization** and **freedom of content**.
 
-> [!NOTE]
-> This monorepo uses [Pnpm](https://pnpm.io/) as a package manager. It includes the following apps and packages.
+---
 
-#### 🌐 Apps
+## 💪 Community & Support
 
+Join the Tape community, ask questions, and contribute to discussions!
+
+<div align="left">
+    
+[![Discord](https://img.shields.io/badge/Join-Discord-5865F2?logo=discord&logoColor=white&style=for-the-badge)](https://tape.xyz/discord)
+[![Twitter](https://img.shields.io/badge/Follow-000000?logo=x&logoColor=white&style=for-the-badge)](https://x.com/tapexyz)
+
+
+</div>
+
+---
+
+## 🔍 What's Inside?
+
+> **Note:** This monorepo uses [Pnpm](https://pnpm.io/) as its package manager.
+
+### 🌐 **Apps**
 | Name        | Description                     |
-| ----------- | ------------------------------- |
-| `web`       | Frontend application            |
-| `embed`     | Embed Video Player              |
-| `cron`      | Cron jobs for background tasks  |
-| `api`       | Backend application             |
-| `og`        | Open graph meta tags generator  |
-| `contracts` | Permissionless signup contracts |
+|------------|---------------------------------|
+| `web`      | The main frontend application   |
+| `embed`    | Embeddable video player         |
+| `cron`     | Background cron jobs for tasks  |
+| `api`      | Backend API for Tape services   |
+| `og`       | Open Graph meta tags generator  |
+| `contracts`| Smart contracts for signup logic |
 
-#### 📦 Packages
-
+### 📦 **Packages**
 | Name        | Description                          |
-| ----------- | ------------------------------------ |
-| `abis`      | Contract Interfaces                  |
-| `config`    | Shared lint config                   |
-| `constants` | Constants for the entire application |
-| `generic`   | Collection of generic helpers        |
-| `server`    | Collection of server helpers         |
-| `browser`   | Collection of client helpers         |
-| `lens`      | Everything related to lens indexer   |
-| `ui`        | Web UI components                    |
+|------------|--------------------------------------|
+| `abis`     | Smart contract ABIs                  |
+| `config`   | Shared linting and configuration     |
+| `constants`| Global application constants         |
+| `generic`  | Utility and helper functions         |
+| `server`   | Backend server utilities             |
+| `browser`  | Client-side helper functions         |
+| `lens`     | Lens protocol-related integration    |
+| `ui`       | Reusable UI components               |
+
+---
 
 ## 🆕 Getting Started
 
-Install all dependencies from repository root,
-
+### 1️⃣ **Install dependencies**
 ```bash
 pnpm install
 ```
 
-Start the application,
-
+### 2️⃣ **Run the application**
 ```bash
 pnpm dev
 ```
 
-and visit http://localhost:4783
+### 3️⃣ **Open in your browser**
+Visit **[http://localhost:4783](http://localhost:4783)**
 
-## 🤝 Contributors
+---
 
-We love contributors! Feel free to contribute to this project but please read the [Contributing Guidelines](.github/CONTRIBUTING.md) before opening an issue or PR so you understand the branching strategy and local development environment.
+## 🤝 Contributing
+
+We ❤️ contributions! If you'd like to contribute, please read our [Contributing Guidelines](.github/CONTRIBUTING.md) before submitting an issue or a pull request.
 
 <a href="https://github.com/tapexyz/tape/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=tapexyz/tape" />
+  <img src="https://contrib.rocks/image?repo=tapexyz/tape" alt="Contributors">
 </a>
+
+---
 
 ## 📜 License
 
-Tape codebase is open-sourced software licensed under the [AGPLv3](LICENSE).
+Tape is **open-source** and licensed under the [AGPLv3](LICENSE).
