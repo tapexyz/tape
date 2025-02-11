@@ -29,7 +29,7 @@
     "@types/node": "^22.13.1",
     "@types/react": "^18.3.13",
     "@types/uuid": "^10.0.0",
-    "esbuild": "0.24.2",
+    "esbuild": "0.25.0",
     "typescript": "^5.7.3"
   }
 }
