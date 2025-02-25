@@ -32,7 +32,7 @@ export const ConnectWallet = memo(() => {
   }, [connectors]);
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="mb-6 flex flex-col">
       <div className="flex flex-col gap-2">
         {filteredConnectors.map((c) => (
           <Button

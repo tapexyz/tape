@@ -1,18 +1,14 @@
-fragment SimpleCollectActionSettingsFields on SimpleCollectActionSettings {
+fragment SimpleCollectActionFields on SimpleCollectAction {
+  address
+  referralShare
   collectLimit
-  collectNft
+  isImmutable
   endsAt
-  followerOnly
-  recipient
-  referralFee
-  amount {
-    ...AmountFields
-  }
-  contract {
-    ...NetworkAddressFields
-  }
   recipients {
-    recipient
-    split
+    address
+    percent
+  }
+  amount {
+    ...Erc20AmountFields
   }
 }

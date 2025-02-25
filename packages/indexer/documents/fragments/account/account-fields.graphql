@@ -1,17 +1,19 @@
 fragment AccountFields on Account {
+  owner
   address
-  score
-  metadata {
-    bio
-    coverPicture
-    id
-    name
-    picture
-    attributes {
-      ...MetadataAttributeFields
+  createdAt
+  rules {
+    anyOf {
+      ...AccountFollowRuleFields
+    }
+    required {
+      ...AccountFollowRuleFields
     }
   }
-  username {
+  metadata {
+    ...AccountMetadataFields
+  }
+  username(request: { autoResolve: true }) {
     ...UsernameFields
   }
   operations {

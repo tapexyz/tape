@@ -1,5 +1,6 @@
 fragment VideoMetadataFields on VideoMetadata {
   __typename
+  id
   title
   content
   tags

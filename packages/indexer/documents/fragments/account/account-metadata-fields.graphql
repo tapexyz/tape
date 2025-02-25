@@ -1,9 +1,9 @@
 fragment AccountMetadataFields on AccountMetadata {
-  bio
-  coverPicture
   id
   name
+  bio
   picture
+  coverPicture
   attributes {
     ...MetadataAttributeFields
   }

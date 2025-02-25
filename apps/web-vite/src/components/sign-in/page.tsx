@@ -17,9 +17,7 @@ export const SignInPage = () => {
       </div> */}
       <ConnectWallet />
 
-      <div className="my-6">
-        <Authenticate />
-      </div>
+      <Authenticate />
 
       <div className="mb-4 text-muted text-xs">
         Don’t have an account?{" "}

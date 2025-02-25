@@ -5,17 +5,14 @@ mutation CreateAccountWithUsername(
     ... on CreateAccountResponse {
       hash
     }
-    ... on InvalidUsername {
-      invalidUsernameReason: reason
-    }
     ... on SelfFundedTransactionRequest {
-      selfFundedTransactionRequestReason: reason
+      reason
     }
     ... on SponsoredTransactionRequest {
-      sponsoredTransactionRequestReason: reason
+      reason
     }
     ... on TransactionWillFail {
-      transactionWillFailReason: reason
+      reason
     }
   }
 }

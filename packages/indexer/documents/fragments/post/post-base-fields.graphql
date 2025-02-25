@@ -1,15 +1,14 @@
 fragment PostBaseFields on Post {
   __typename
   id
+  slug
   isEdited
   isDeleted
   timestamp
   author {
     ...AccountFields
   }
-  feed {
-    address
-  }
+  feed
   app {
     ...AppFields
   }

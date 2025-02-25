@@ -60,7 +60,7 @@ export const Authenticate = memo(() => {
   const loading = isAccountsLoading || isLastLoggedInAccountLoading;
   if (loading) {
     return (
-      <div className="flex flex-col gap-2">
+      <div className="my-6 flex flex-col gap-2">
         <ButtonShimmer />
         <ButtonShimmer />
       </div>
@@ -78,7 +78,7 @@ export const Authenticate = memo(() => {
   };
 
   return (
-    <div className="flex items-center">
+    <div className="mb-6 flex items-center">
       {sortedAccounts.length ? (
         <div className="flex w-full flex-col gap-2">
           <Select
