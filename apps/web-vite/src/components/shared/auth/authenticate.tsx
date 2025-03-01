@@ -1,6 +1,5 @@
 import { ButtonShimmer } from "@/components/shared/shimmers/button";
 import { getAccountMetadata } from "@/helpers/metadata";
-import { useLastLoggedInAccountQuery } from "@/queries/account";
 import { useAccountsAvailableQuery } from "@/queries/account";
 import { useAuthenticateMutation } from "@/queries/auth";
 import { signIn } from "@/store/cookie";
@@ -21,19 +20,11 @@ import { useAccount } from "wagmi";
 
 export const Authenticate = memo(() => {
   const navigate = useNavigate();
-  const { address, isConnected } = useAccount();
-
+  const { isConnected } = useAccount();
   const { data, isLoading: isAccountsLoading } = useAccountsAvailableQuery();
-  const {
-    data: lastLoggedInAccountData,
-    isLoading: isLastLoggedInAccountLoading
-  } = useLastLoggedInAccountQuery(address as string);
 
-  const lastUsedAccount =
-    lastLoggedInAccountData?.lastLoggedInAccount as Account;
-  const accounts = data?.pages.flatMap(
-    (page) => page.accountsAvailable.items
-  ) as AccountAvailable[];
+  const lastUsedAccount = data?.lastLoggedInAccount as Account;
+  const accounts = data?.accountsAvailable.items as AccountAvailable[];
   const sortedAccounts = useMemo(() => {
     if (!accounts?.length) return [];
     return accounts.sort((a) =>
@@ -57,7 +48,7 @@ export const Authenticate = memo(() => {
     return null;
   }
 
-  const loading = isAccountsLoading || isLastLoggedInAccountLoading;
+  const loading = isAccountsLoading;
   if (loading) {
     return (
       <div className="my-6 flex flex-col gap-2">

@@ -19,14 +19,14 @@ export const VideoCard = memo(({ post }: { post: Post }) => {
         />
       </div>
       <div className="flex gap-2">
-        <Avatar>
+        <Avatar size="md">
           <AvatarImage src={account.picture} />
         </Avatar>
         <div className="flex flex-col">
           <h1 className="line-clamp-2">
             {metadata?.title ?? metadata?.content}
           </h1>
-          <div className="flex items-center gap-1 text-muted text-sm">
+          <div className="flex items-center text-muted text-sm">
             <Link
               to="/u/$handle"
               params={{ handle: account.handle as string }}

@@ -8679,17 +8679,18 @@ export type AccountQuery = { __typename?: 'Query', account?: (
   ) | null };
 
 export type AccountsAvailableQueryVariables = Exact<{
-  request: AccountsAvailableRequest;
+  accountsAvailableRequest: AccountsAvailableRequest;
+  lastLoggedInAccountRequest: LastLoggedInAccountRequest;
 }>;
 
 
-export type AccountsAvailableQuery = { __typename?: 'Query', accountsAvailable: { __typename?: 'PaginatedAccountsAvailableResult', items: Array<{ __typename: 'AccountManaged', addedAt: any, account: (
+export type AccountsAvailableQuery = { __typename?: 'Query', lastLoggedInAccount?: (
+    { __typename?: 'Account' }
+    & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
+  ) | null, accountsAvailable: { __typename?: 'PaginatedAccountsAvailableResult', items: Array<{ __typename: 'AccountManaged', account: (
         { __typename?: 'Account' }
         & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
-      ), permissions: (
-        { __typename?: 'AccountManagerPermissions' }
-        & { ' $fragmentRefs'?: { 'AccountManagerPermissionsFragment': AccountManagerPermissionsFragment } }
-      ) } | { __typename: 'AccountOwned', addedAt: any, account: (
+      ) } | { __typename: 'AccountOwned', account: (
         { __typename?: 'Account' }
         & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
       ) }>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
@@ -12179,25 +12180,23 @@ fragment MetadataAttributeFields on MetadataAttribute {
   value
 }`) as unknown as TypedDocumentString<AccountQuery, AccountQueryVariables>;
 export const AccountsAvailableDocument = new TypedDocumentString(`
-    query AccountsAvailable($request: AccountsAvailableRequest!) {
-  accountsAvailable(request: $request) {
+    query AccountsAvailable($accountsAvailableRequest: AccountsAvailableRequest!, $lastLoggedInAccountRequest: LastLoggedInAccountRequest!) {
+  lastLoggedInAccount(request: $lastLoggedInAccountRequest) {
+    ...AccountFields
+  }
+  accountsAvailable(request: $accountsAvailableRequest) {
     items {
       ... on AccountManaged {
         __typename
         account {
           ...AccountFields
         }
-        permissions {
-          ...AccountManagerPermissions
-        }
-        addedAt
       }
       ... on AccountOwned {
         __typename
         account {
           ...AccountFields
         }
-        addedAt
       }
     }
     pageInfo {
@@ -12205,13 +12204,7 @@ export const AccountsAvailableDocument = new TypedDocumentString(`
     }
   }
 }
-    fragment AccountManagerPermissions on AccountManagerPermissions {
-  canExecuteTransactions
-  canSetMetadataUri
-  canTransferNative
-  canTransferTokens
-}
-fragment AccountFields on Account {
+    fragment AccountFields on Account {
   owner
   address
   createdAt

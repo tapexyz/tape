@@ -4,7 +4,6 @@ import { isAuthenticated } from "@/store/cookie";
 import { account } from "@lens-protocol/metadata";
 import {
   queryOptions,
-  useInfiniteQuery,
   useMutation,
   useQuery,
   useSuspenseQuery
@@ -13,7 +12,6 @@ import {
   AccountDocument,
   AccountsAvailableDocument,
   CreateAccountWithUsernameDocument,
-  LastLoggedInAccountDocument,
   MeDocument,
   PageSize
 } from "@tape.xyz/indexer";
@@ -24,34 +22,18 @@ import { useAuthenticateMutation } from "./auth";
 
 export const useAccountsAvailableQuery = () => {
   const { address } = useAccount();
-  return useInfiniteQuery({
-    queryKey: ["accounts-available"],
-    queryFn: ({ pageParam }) =>
+  return useQuery({
+    queryKey: ["accounts-available", address],
+    queryFn: () =>
       execute({
         query: AccountsAvailableDocument,
         variables: {
-          request: {
+          accountsAvailableRequest: {
             managedBy: address,
             includeOwned: true,
-            pageSize: PageSize.Fifty,
-            cursor: pageParam
-          }
-        }
-      }),
-    initialPageParam: null,
-    getNextPageParam: (lastPage) => lastPage.accountsAvailable.pageInfo.next,
-    enabled: Boolean(address)
-  });
-};
-
-export const useLastLoggedInAccountQuery = (address: string) => {
-  return useQuery({
-    queryKey: ["last-logged-in-account"],
-    queryFn: () =>
-      execute({
-        query: LastLoggedInAccountDocument,
-        variables: {
-          request: {
+            pageSize: PageSize.Fifty
+          },
+          lastLoggedInAccountRequest: {
             address
           }
         }

@@ -1,22 +1,23 @@
-query AccountsAvailable($request: AccountsAvailableRequest!) {
-  accountsAvailable(request: $request) {
+query AccountsAvailable(
+  $accountsAvailableRequest: AccountsAvailableRequest!
+  $lastLoggedInAccountRequest: LastLoggedInAccountRequest!
+) {
+  lastLoggedInAccount(request: $lastLoggedInAccountRequest) {
+    ...AccountFields
+  }
+  accountsAvailable(request: $accountsAvailableRequest) {
     items {
       ... on AccountManaged {
         __typename
         account {
           ...AccountFields
         }
-        permissions {
-          ...AccountManagerPermissions
-        }
-        addedAt
       }
       ... on AccountOwned {
         __typename
         account {
           ...AccountFields
         }
-        addedAt
       }
     }
     pageInfo {
