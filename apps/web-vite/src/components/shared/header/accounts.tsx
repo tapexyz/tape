@@ -5,9 +5,7 @@ import { Avatar, AvatarImage, Badge, Spinner } from "@tape.xyz/winder";
 
 export const Accounts = () => {
   const { data, isLoading } = useAccountsAvailableQuery();
-  const accounts = data?.pages.flatMap(
-    (page) => page.accountsAvailable.items
-  ) as AccountAvailable[];
+  const accounts = data?.accountsAvailable.items as AccountAvailable[];
 
   if (isLoading)
     return (

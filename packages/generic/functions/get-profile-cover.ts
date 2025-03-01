@@ -8,5 +8,5 @@ export const getProfileCoverPicture = (
     ? metadata.coverPicture.optimized.uri
     : withFallback
       ? "ipfs://bafkreihn5v4hpuxgcysnpb4pgcerkmhwddxq65qswmit6j4nj44btyzdou" //`${STATIC_ASSETS}/images/fallback-cover.svg`
-      : null;
+      : "";
 };
