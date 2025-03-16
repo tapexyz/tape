@@ -11,7 +11,7 @@
     "typecheck": "tsc --pretty --noEmit"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "3.744.0",
+    "@aws-sdk/client-sts": "3.758.0",
     "@hono/node-server": "^1.13.8",
     "@hono/zod-validator": "^0.4.2",
     "@irys/upload": "^0.0.14",
@@ -21,7 +21,7 @@
     "base64url": "^3.0.1",
     "hono": "^4.7.0",
     "linkedom": "^0.18.9",
-    "ua-parser-js": "2.0.1",
+    "ua-parser-js": "2.0.3",
     "viem": "^2.22.23",
     "zod": "^3.24.1"
   },
