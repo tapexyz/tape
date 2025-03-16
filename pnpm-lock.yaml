@@ -18,8 +18,8 @@ importers:
   apps/api:
     dependencies:
       '@aws-sdk/client-sts':
-        specifier: 3.744.0
-        version: 3.744.0
+        specifier: 3.758.0
+        version: 3.758.0
       '@hono/node-server':
         specifier: ^1.13.8
         version: 1.13.8(hono@4.7.4)
@@ -48,8 +48,8 @@ importers:
         specifier: ^0.18.9
         version: 0.18.9
       ua-parser-js:
-        specifier: 2.0.1
-        version: 2.0.1
+        specifier: 2.0.3
+        version: 2.0.3
       viem:
         specifier: ^2.22.23
         version: 2.23.11(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2)
@@ -674,8 +674,8 @@ importers:
         specifier: 3.744.0
         version: 3.744.0
       '@aws-sdk/lib-storage':
-        specifier: 3.744.0
-        version: 3.744.0(@aws-sdk/client-s3@3.744.0)
+        specifier: 3.758.0
+        version: 3.758.0(@aws-sdk/client-s3@3.744.0)
       '@livepeer/react':
         specifier: 3.1.9
         version: 3.1.9(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(immer@10.0.2)(react-dom@18.3.1(react@18.3.1))(react-native@0.76.3(@babel/core@7.26.10)(@babel/preset-env@7.26.9(@babel/core@7.26.10))(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)
@@ -815,8 +815,8 @@ importers:
   packages/lens:
     dependencies:
       '@apollo/client':
-        specifier: 3.12.11
-        version: 3.12.11(@types/react@18.3.18)(graphql-ws@6.0.4(graphql@16.10.0)(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)))(graphql@16.10.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 3.13.4
+        version: 3.13.4(@types/react@18.3.18)(graphql-ws@6.0.4(graphql@16.10.0)(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)))(graphql@16.10.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@graphql-codegen/client-preset':
         specifier: ^4.6.2
         version: 4.7.0(graphql@16.10.0)
@@ -1056,8 +1056,8 @@ packages:
     resolution: {integrity: sha512-2aDL3WUv8hMJb2L3r/PIQWsTLyq7RQr3v9xD16fiz6O8ys1xEyLhhTOv8gxtZvJiTzjTF5pHoArvRdesGL1DMQ==}
     hasBin: true
 
-  '@apollo/client@3.12.11':
-    resolution: {integrity: sha512-1RppV9U3E6Uusl/33yGkZa+rXpkGU5iCstcYltwWjdTjoA/YBD2Yyu0aHy8J4uKfIExUgnMW1HJWn4A0E0rRsw==}
+  '@apollo/client@3.13.4':
+    resolution: {integrity: sha512-Ot3RaN2M/rhIKDqXBdOVlN0dQbHydUrYJ9lTxkvd6x7W1pAjwduUccfoz2gsO4U9by7oWtRj/ySF0MFNUp+9Aw==}
     peerDependencies:
       graphql: ^15.0.0 || ^16.0.0
       graphql-ws: ^5.5.5 || ^6.0.3
@@ -1131,8 +1131,8 @@ packages:
     resolution: {integrity: sha512-BoGO6IIWrLyLxQG6txJw6RT2urmbtlwfggapNCrNPyYjlXpzTSJhBYjndg7TpDATFd0SXL0zm8y/tXsUXNkdYQ==}
     engines: {node: '>=18.0.0'}
 
-  '@aws-sdk/client-sts@3.744.0':
-    resolution: {integrity: sha512-JvSsbqaeBa0EHO7ajWHtM66wP5IK1uNyLJBUYvaHxxe3Zsg4LFzdogXHcnxLcxlLXun6w3bi6tWd0kD2NYm3Yg==}
+  '@aws-sdk/client-sts@3.758.0':
+    resolution: {integrity: sha512-ue9hbzjWNQmmyoSeWDRPwnYddsD3BVao5mSFA1kXFNVqWPEenjpkZ1xAlBVzHMMNoEz7LvGI+onXIHntNyiOLQ==}
     engines: {node: '>=18.0.0'}
 
   '@aws-sdk/core@3.744.0':
@@ -1199,11 +1199,11 @@ packages:
     resolution: {integrity: sha512-XGguXhBqiCXMXRxcfCAVPlMbm3VyJTou79r/3mxWddHWF0XbhaQiBIbUz6vobVTD25YQRbWSmSch7VA8kI5Lrw==}
     engines: {node: '>=18.0.0'}
 
-  '@aws-sdk/lib-storage@3.744.0':
-    resolution: {integrity: sha512-+WCIqTc2rT92kwL42di/zoHhQBGmUWAz8tr1wMQdTf+XlTDJZ4KhsfPwNsh5Gdge7il2yWuNRtB7uiZCFTM3kQ==}
+  '@aws-sdk/lib-storage@3.758.0':
+    resolution: {integrity: sha512-g07y7rA505zaTJNPTmvW4zYJA3gThFDE1be7kBUKhTKAdwv8jVSbOiAy2AhClXs2evSUoQiFFtD1xWxLRXPPRQ==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
-      '@aws-sdk/client-s3': ^3.744.0
+      '@aws-sdk/client-s3': ^3.758.0
 
   '@aws-sdk/middleware-bucket-endpoint@3.734.0':
     resolution: {integrity: sha512-etC7G18aF7KdZguW27GE/wpbrNmYLVT755EsFc8kXpZj8D6AFKxc7OuveinJmiy0bYXAMspJUWsF6CrGpOw6CQ==}
@@ -5676,6 +5676,9 @@ packages:
 
   '@types/node-cron@3.0.11':
     resolution: {integrity: sha512-0ikrnug3/IyneSHqCBeslAhlK2aBfYek1fGo4bP4QnZPmiqSGRK+Oy7ZMisLWkesffJvQ1cqAcBnJC+8+nxIAg==}
+
+  '@types/node-fetch@2.6.12':
+    resolution: {integrity: sha512-8nneRWKCg3rMtF69nLQJnOYUcbafYeFSjqkw3jCRLsqkWFlHaoQrr5mXmofFGOx3DKn7UfmBMyov8ySvLRVldA==}
 
   '@types/node-forge@1.3.11':
     resolution: {integrity: sha512-FQx220y22OKNTqaByeBGqHWYz4cl94tpcxeFdvBo3wjG6XPBuZ0BNgNZRV5J5TFmmcsJ4IzsLkmGRiQbnYsBEQ==}
@@ -11082,8 +11085,8 @@ packages:
     resolution: {integrity: sha512-z6PJ8Lml+v3ichVojCiB8toQJBuwR42ySM4ezjXIqXK3M0HczmKQ3LF4rhU55PfD99KEEXQG6yb7iOMyvYuHew==}
     hasBin: true
 
-  ua-parser-js@2.0.1:
-    resolution: {integrity: sha512-PgWLeyhIgff0Jomd3U2cYCdfp5iHbaCMlylG9NoV19tAlvXWUzM3bG2DIasLTI1PrbLtVutGr1CaezttVV2PeA==}
+  ua-parser-js@2.0.3:
+    resolution: {integrity: sha512-LZyXZdNttONW8LjzEH3Z8+6TE7RfrEiJqDKyh0R11p/kxvrV2o9DrT2FGZO+KVNs3k+drcIQ6C3En6wLnzJGpw==}
     hasBin: true
 
   uc.micro@1.0.6:
@@ -11767,7 +11770,7 @@ snapshots:
 
   '@antfu/ni@0.21.12': {}
 
-  '@apollo/client@3.12.11(@types/react@18.3.18)(graphql-ws@6.0.4(graphql@16.10.0)(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)))(graphql@16.10.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@apollo/client@3.13.4(@types/react@18.3.18)(graphql-ws@6.0.4(graphql@16.10.0)(ws@8.18.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)))(graphql@16.10.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@graphql-typed-document-node/core': 3.2.0(graphql@16.10.0)
       '@wry/caches': 1.0.1
@@ -12085,21 +12088,21 @@ snapshots:
     transitivePeerDependencies:
       - aws-crt
 
-  '@aws-sdk/client-sts@3.744.0':
+  '@aws-sdk/client-sts@3.758.0':
     dependencies:
       '@aws-crypto/sha256-browser': 5.2.0
       '@aws-crypto/sha256-js': 5.2.0
-      '@aws-sdk/core': 3.744.0
-      '@aws-sdk/credential-provider-node': 3.744.0
+      '@aws-sdk/core': 3.758.0
+      '@aws-sdk/credential-provider-node': 3.758.0
       '@aws-sdk/middleware-host-header': 3.734.0
       '@aws-sdk/middleware-logger': 3.734.0
       '@aws-sdk/middleware-recursion-detection': 3.734.0
-      '@aws-sdk/middleware-user-agent': 3.744.0
+      '@aws-sdk/middleware-user-agent': 3.758.0
       '@aws-sdk/region-config-resolver': 3.734.0
       '@aws-sdk/types': 3.734.0
       '@aws-sdk/util-endpoints': 3.743.0
       '@aws-sdk/util-user-agent-browser': 3.734.0
-      '@aws-sdk/util-user-agent-node': 3.744.0
+      '@aws-sdk/util-user-agent-node': 3.758.0
       '@smithy/config-resolver': 4.0.1
       '@smithy/core': 3.1.5
       '@smithy/fetch-http-handler': 5.0.1
@@ -12335,7 +12338,7 @@ snapshots:
     transitivePeerDependencies:
       - aws-crt
 
-  '@aws-sdk/lib-storage@3.744.0(@aws-sdk/client-s3@3.744.0)':
+  '@aws-sdk/lib-storage@3.758.0(@aws-sdk/client-s3@3.744.0)':
     dependencies:
       '@aws-sdk/client-s3': 3.744.0
       '@smithy/abort-controller': 4.0.1
@@ -19081,6 +19084,11 @@ snapshots:
   '@types/ms@2.1.0': {}
 
   '@types/node-cron@3.0.11': {}
+
+  '@types/node-fetch@2.6.12':
+    dependencies:
+      '@types/node': 22.13.10
+      form-data: 4.0.2
 
   '@types/node-forge@1.3.11':
     dependencies:
@@ -25963,11 +25971,15 @@ snapshots:
 
   ua-parser-js@1.0.40: {}
 
-  ua-parser-js@2.0.1:
+  ua-parser-js@2.0.3:
     dependencies:
+      '@types/node-fetch': 2.6.12
       detect-europe-js: 0.1.2
       is-standalone-pwa: 0.1.1
+      node-fetch: 2.7.0
       ua-is-frozen: 0.1.2
+    transitivePeerDependencies:
+      - encoding
 
   uc.micro@1.0.6: {}
 

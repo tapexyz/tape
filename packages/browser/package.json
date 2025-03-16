@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.744.0",
-    "@aws-sdk/lib-storage": "3.744.0",
+    "@aws-sdk/lib-storage": "3.758.0",
     "@livepeer/react": "3.1.9",
     "@rajesh896/broprint.js": "^2.1.1",
     "axios": "^1.7.9",

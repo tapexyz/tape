@@ -8,7 +8,7 @@
     "typecheck": "tsc --pretty --noEmit"
   },
   "dependencies": {
-    "@apollo/client": "3.12.11",
+    "@apollo/client": "3.13.4",
     "@graphql-codegen/client-preset": "^4.6.2",
     "@lens-protocol/metadata": "^1.2.0"
   },
