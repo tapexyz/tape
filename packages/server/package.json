@@ -10,9 +10,9 @@
     "postinstall": "pnpm prisma:generate"
   },
   "dependencies": {
-    "@clickhouse/client": "^1.10.1",
+    "@clickhouse/client": "^1.11.0",
     "@prisma/client": "^6.3.1",
-    "pg-promise": "^11.10.2",
+    "pg-promise": "^11.13.0",
     "redis": "^4.7.0"
   },
   "devDependencies": {

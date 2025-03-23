@@ -9,14 +9,14 @@
     "postinstall": "pnpm build:sw"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "3.744.0",
-    "@aws-sdk/lib-storage": "3.758.0",
+    "@aws-sdk/client-s3": "3.772.0",
+    "@aws-sdk/lib-storage": "3.772.0",
     "@livepeer/react": "3.1.9",
     "@rajesh896/broprint.js": "^2.1.1",
-    "axios": "^1.7.9",
+    "axios": "^1.8.4",
     "clsx": "^2.1.1",
     "fast-average-color": "^9.4.0",
-    "next": "^15.1.6",
+    "next": "^15.2.3",
     "react": "^18.3.1",
     "tailwind-merge": "^2.6.0",
     "uuid": "^11.0.5"
