@@ -31,7 +31,7 @@
     "js-cookie": "^3.0.5",
     "keen-slider": "^6.8.6",
     "make-plural": "^7.4.0",
-    "next": "^15.2.3",
+    "next": "^15.2.4",
     "next-themes": "^0.3.0",
     "qrcode.react": "^4.1.0",
     "react": "^18.3.1",
