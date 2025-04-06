@@ -26,9 +26,11 @@ export type Scalars = {
   FixedBytes32: { input: any; output: any; }
   GeneratedNotificationId: { input: any; output: any; }
   GeoUri: { input: any; output: any; }
+  GrantId: { input: any; output: any; }
   IdToken: { input: any; output: any; }
   /** A scalar that can represent any JSON value. */
   JSON: { input: any; output: any; }
+  JsonString: { input: any; output: any; }
   LegacyProfileId: { input: any; output: any; }
   LegacyPublicationId: { input: any; output: any; }
   LegacyRefreshToken: { input: any; output: any; }
@@ -57,6 +59,17 @@ export type Scalars = {
   UUID: { input: any; output: any; }
   UsernameValue: { input: any; output: any; }
   Void: { input: any; output: any; }
+};
+
+export type AccessControlRequest = {
+  /** The access control address */
+  address: Scalars['EvmAddress']['input'];
+};
+
+export type AccessControlResult = {
+  __typename?: 'AccessControlResult';
+  address: Scalars['EvmAddress']['output'];
+  createdAt: Scalars['DateTime']['output'];
 };
 
 export type Account = {
@@ -90,7 +103,11 @@ export type AccountUsernameArgs = {
   request?: AccountUsernameOneOf;
 };
 
-export type AccountAction = TippingAccountAction | UnknownAction;
+/**
+ * The configured actions for an account. All accounts have the TippingAccountAction enabled by
+ * default which is not listed here.
+ */
+export type AccountAction = TippingAccountAction | UnknownAccountAction;
 
 export type AccountActionConfigInput = {
   unknown?: InputMaybe<UnknownActionConfigInput>;
@@ -101,12 +118,40 @@ export type AccountActionExecuteInput = {
   unknown?: InputMaybe<UnknownActionExecuteInput>;
 };
 
+export type AccountActionExecuted = TippingAccountActionExecuted | UnknownAccountActionExecuted;
+
+export type AccountActionExecutedNotification = {
+  __typename?: 'AccountActionExecutedNotification';
+  actions: Array<AccountActionExecuted>;
+  id: Scalars['GeneratedNotificationId']['output'];
+};
+
+export type AccountActionExecutedNotificationAttributes = {
+  account?: InputMaybe<Scalars['EvmAddress']['input']>;
+  action?: InputMaybe<Scalars['EvmAddress']['input']>;
+  actionType?: InputMaybe<AccountActionType>;
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  executingAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
 export type AccountActionFilter = {
   address?: InputMaybe<Scalars['EvmAddress']['input']>;
   tipping?: InputMaybe<Scalars['AlwaysTrue']['input']>;
 };
 
+export enum AccountActionType {
+  Tipping = 'TIPPING',
+  Unknown = 'UNKNOWN'
+}
+
 export type AccountAvailable = AccountManaged | AccountOwned;
+
+export type AccountBalancesRequest = {
+  /** Whether to include the native token balance. */
+  includeNative?: Scalars['Boolean']['input'];
+  /** The ERC-20 token addresses to get balances for. */
+  tokens?: Array<Scalars['EvmAddress']['input']>;
+};
 
 export type AccountBlocked = {
   __typename?: 'AccountBlocked';
@@ -117,6 +162,11 @@ export type AccountBlocked = {
 export type AccountBlockedNotificationAttributes = {
   app?: InputMaybe<Scalars['EvmAddress']['input']>;
   graph?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export type AccountBlockedResponse = {
+  __typename?: 'AccountBlockedResponse';
+  hash: Scalars['TxHash']['output'];
 };
 
 export type AccountCreatedNotificationAttributes = {
@@ -148,6 +198,8 @@ export type AccountFeedsStats = {
   reactions: Scalars['Int']['output'];
   /** The total number of reposts. */
   reposts: Scalars['Int']['output'];
+  /** The total number of tips received. */
+  tips: Scalars['Int']['output'];
 };
 
 export type AccountFeedsStatsFilter = {
@@ -366,15 +418,9 @@ export type AccountMentionedNotificationAttributes = {
 
 export type AccountMetadata = {
   __typename?: 'AccountMetadata';
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard. Over time, common attributes will be added to the standard and
-   * their usage as arbitrary attributes will be discouraged.
-   */
   attributes: Array<MetadataAttribute>;
   /** The Account bio as markdown. */
   bio?: Maybe<Scalars['String']['output']>;
-  /** The Account cover picture. */
   coverPicture?: Maybe<Scalars['URI']['output']>;
   /**
    * A unique identifier that in storages like IPFS ensures the uniqueness of the metadata URI.
@@ -383,8 +429,17 @@ export type AccountMetadata = {
   id: Scalars['String']['output'];
   /** The Account display name. */
   name?: Maybe<Scalars['String']['output']>;
-  /** The Account picture. */
   picture?: Maybe<Scalars['URI']['output']>;
+};
+
+
+export type AccountMetadataCoverPictureArgs = {
+  request?: MediaImageRequest;
+};
+
+
+export type AccountMetadataPictureArgs = {
+  request?: MediaImageRequest;
 };
 
 export type AccountOwned = {
@@ -418,6 +473,17 @@ export type AccountPostReaction = {
   __typename?: 'AccountPostReaction';
   account: Account;
   reactions: Array<PostReaction>;
+};
+
+export type AccountRecommendationsRequest = {
+  /** The account to get recommendations for. */
+  account: Scalars['EvmAddress']['input'];
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** The page size. */
+  pageSize?: PageSize;
+  /** Shuffle the recommendations. */
+  shuffle?: Scalars['Boolean']['input'];
 };
 
 export enum AccountReportReason {
@@ -470,6 +536,11 @@ export type AccountStatsRequest = {
 export type AccountUnblockedNotificationAttributes = {
   app?: InputMaybe<Scalars['EvmAddress']['input']>;
   graph?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export type AccountUnblockedResponse = {
+  __typename?: 'AccountUnblockedResponse';
+  hash: Scalars['TxHash']['output'];
 };
 
 export type AccountUnfollowedNotificationAttributes = {
@@ -586,8 +657,6 @@ export type ActionMetadata = {
   setDisabledParams: Array<KeyValuePair>;
   /** The link to the Action source code. Typically a GitHub repository. */
   source: Scalars['URI']['output'];
-  /** The human-friendly title for the Action. */
-  title: Scalars['String']['output'];
 };
 
 export type AddAccountManagerRequest = {
@@ -641,22 +710,6 @@ export type AddAppSignersRequest = {
 };
 
 export type AddAppSignersResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type AddGroupMembersRequest = {
-  /** The accounts you want to add to the group. */
-  accounts: Array<Scalars['EvmAddress']['input']>;
-  /** The group you want to add member to. */
-  group: Scalars['EvmAddress']['input'];
-  /** The processing params for the add member rules. */
-  rulesProcessingParams?: InputMaybe<Array<GroupRulesProcessingParams>>;
-};
-
-export type AddGroupMembersResponse = {
-  __typename?: 'AddGroupMembersResponse';
-  hash: Scalars['TxHash']['output'];
-};
-
-export type AddGroupMembersResult = AddGroupMembersResponse | GroupOperationValidationFailed | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type AddReactionFailure = {
   __typename?: 'AddReactionFailure';
@@ -722,6 +775,8 @@ export type AmountInput = {
   value: Scalars['BigDecimal']['input'];
 };
 
+export type AnyAccountBalance = Erc20Amount | Erc20BalanceError | NativeAmount | NativeBalanceError;
+
 export type AnyKeyValue = AddressKeyValue | ArrayKeyValue | BigDecimalKeyValue | BooleanKeyValue | DictionaryKeyValue | IntKeyValue | IntNullableKeyValue | RawKeyValue | StringKeyValue;
 
 export type AnyKeyValueInput = {
@@ -739,6 +794,7 @@ export type App = {
   createdAt: Scalars['DateTime']['output'];
   defaultFeedAddress?: Maybe<Scalars['EvmAddress']['output']>;
   graphAddress?: Maybe<Scalars['EvmAddress']['output']>;
+  hasAuthorizationEndpoint: Scalars['Boolean']['output'];
   metadata?: Maybe<AppMetadata>;
   namespaceAddress?: Maybe<Scalars['EvmAddress']['output']>;
   owner: Scalars['EvmAddress']['output'];
@@ -777,7 +833,7 @@ export type AppMetadata = {
   description?: Maybe<Scalars['String']['output']>;
   /** The Developer of the app. */
   developer: Scalars['String']['output'];
-  /** The Logo icon for the app. */
+  /** The logo of the app. */
   logo?: Maybe<Scalars['URI']['output']>;
   /** The name of the app. */
   name: Scalars['String']['output'];
@@ -791,6 +847,11 @@ export type AppMetadata = {
   termsOfService?: Maybe<Scalars['URI']['output']>;
   /** The url of the app. */
   url: Scalars['URI']['output'];
+};
+
+
+export type AppMetadataLogoArgs = {
+  request?: MediaImageRequest;
 };
 
 export enum AppPlatform {
@@ -893,6 +954,8 @@ export type AppsFilter = {
   linkedToFeed?: InputMaybe<Scalars['EvmAddress']['input']>;
   /** The optional filter to get apps linked to graph */
   linkedToGraph?: InputMaybe<Scalars['EvmAddress']['input']>;
+  /** The optional filter to get apps linked to sponsorship */
+  linkedToSponsorship?: InputMaybe<Scalars['EvmAddress']['input']>;
   /** The optional filter to get apps managed by address */
   managedBy?: InputMaybe<ManagedBy>;
   /**
@@ -943,6 +1006,7 @@ export type ArticleMetadata = {
    * their usage as arbitrary attributes will be discouraged.
    */
   attributes: Array<MetadataAttribute>;
+  /** The content of the article. */
   content: Scalars['String']['output'];
   /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
@@ -1035,10 +1099,6 @@ export type AuthenticationTokens = {
   refreshToken: Scalars['RefreshToken']['output'];
 };
 
-export type BanAccountGroupRuleConfig = {
-  enable?: InputMaybe<Scalars['AlwaysTrue']['input']>;
-};
-
 export type BanGroupAccountsRequest = {
   /** The accounts you want to ban on the group. */
   accounts: Array<Scalars['EvmAddress']['input']>;
@@ -1059,28 +1119,12 @@ export type BigDecimalKeyValue = {
   key: Scalars['String']['output'];
 };
 
-export type BlockError = {
-  __typename?: 'BlockError';
-  error: BlockErrorType;
-};
-
-export enum BlockErrorType {
-  AlreadyBlocked = 'ALREADY_BLOCKED',
-  Unauthorized = 'UNAUTHORIZED',
-  Unknown = 'UNKNOWN'
-}
-
 export type BlockRequest = {
   /** The account to block. */
   account: Scalars['EvmAddress']['input'];
 };
 
-export type BlockResponse = {
-  __typename?: 'BlockResponse';
-  hash: Scalars['TxHash']['output'];
-};
-
-export type BlockResult = BlockError | BlockResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest;
+export type BlockResult = AccountBlockedResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type BookmarkPostRequest = {
   post: Scalars['PostId']['input'];
@@ -1169,6 +1213,11 @@ export type CheckingInMetadata = {
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
 };
 
+export type CollectedBy = {
+  /** The address of the account that collected the posts. */
+  account: Scalars['EvmAddress']['input'];
+};
+
 export type CommentNotification = {
   __typename?: 'CommentNotification';
   comment: Post;
@@ -1215,14 +1264,19 @@ export type CreateAccountResponse = {
 export type CreateAccountWithUsernameRequest = {
   /** Any account managers you wish to add to the account */
   accountManager?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
-  /** The processing params for the namespace assign rules. */
-  assignNamespaceRuleProcessingParams?: InputMaybe<Array<NamespaceRulesProcessingParams>>;
-  /** The processing params for the namespace create rules. */
-  createNamespaceRuleProcessingParams?: InputMaybe<Array<NamespaceRulesProcessingParams>>;
+  /** The processing params for the username assign rules. */
+  assignUsernameRuleProcessingParams?: InputMaybe<Array<NamespaceRulesProcessingParams>>;
+  /** The processing params for the username create rules. */
+  createUsernameRuleProcessingParams?: InputMaybe<Array<NamespaceRulesProcessingParams>>;
+  /** Enable signless on creation adding the lens API key to the account manager */
+  enableSignless?: Scalars['Boolean']['input'];
   /** The account metadata uri */
   metadataUri: Scalars['URI']['input'];
-  /** The processing params for the namespace account unassign rules. */
-  unassignAccountNamespaceRuleProcessingParams?: InputMaybe<Array<NamespaceRulesProcessingParams>>;
+  /**
+   * If you do not supply this it will use the onboarding or builder address, you can use this
+   * if your server is onboarding users
+   */
+  owner?: InputMaybe<Scalars['EvmAddress']['input']>;
   /** The username you wish to mint with the account */
   username: UsernameInput;
 };
@@ -1369,6 +1423,8 @@ export type CreateGroupRequest = {
   feed?: InputMaybe<GroupFeedParams>;
   /** The group metadata uri */
   metadataUri?: InputMaybe<Scalars['URI']['input']>;
+  /** Will default to the person creating it if no owner is supplied */
+  owner?: InputMaybe<Scalars['EvmAddress']['input']>;
   /** Rules for the group */
   rules?: InputMaybe<GroupRulesConfigInput>;
 };
@@ -1378,7 +1434,7 @@ export type CreateGroupResponse = {
   hash: Scalars['TxHash']['output'];
 };
 
-export type CreateGroupResult = CreateGroupResponse | SelfFundedTransactionRequest | TransactionWillFail;
+export type CreateGroupResult = CreateGroupResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type CreateNamespaceResponse = {
   __typename?: 'CreateNamespaceResponse';
@@ -1476,7 +1532,7 @@ export type CreateUsernameNamespaceRequest = {
    */
   namespace: Scalars['String']['input'];
   rules?: InputMaybe<NamespaceRulesConfigInput>;
-  /** The symbol for the namespace as usernames minted under the namespace are NFTs */
+  /** The namespace NFT collection ERC721 symbol */
   symbol: Scalars['String']['input'];
 };
 
@@ -1531,6 +1587,13 @@ export type DeleteSnsSubscriptionRequest = {
   id: Scalars['UUID']['input'];
 };
 
+export type DepositRequest = {
+  erc20?: InputMaybe<AmountInput>;
+  native?: InputMaybe<Scalars['BigDecimal']['input']>;
+};
+
+export type DepositResult = InsufficientFunds | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
 export type DictionaryKeyValue = {
   __typename?: 'DictionaryKeyValue';
   dictionary: Array<PrimitiveData>;
@@ -1538,7 +1601,6 @@ export type DictionaryKeyValue = {
 };
 
 export type DisableAccountActionRequest = {
-  tipping?: InputMaybe<Scalars['AlwaysTrue']['input']>;
   unknown?: InputMaybe<UnknownActionConfigInput>;
 };
 
@@ -1714,7 +1776,6 @@ export type EmbedMetadata = {
 };
 
 export type EnableAccountActionRequest = {
-  tipping?: InputMaybe<Scalars['AlwaysTrue']['input']>;
   unknown?: InputMaybe<UnknownActionConfigInput>;
 };
 
@@ -1774,20 +1835,39 @@ export enum EntityType {
 
 export type Erc20 = {
   __typename?: 'Erc20';
+  /** The contract address of the token. */
   contract: NetworkAddress;
+  /** The number of decimals the token uses. */
   decimals: Scalars['Int']['output'];
+  /** The name of the token. */
   name: Scalars['String']['output'];
+  /** The symbol of the token. */
   symbol: Scalars['String']['output'];
 };
 
 export type Erc20Amount = {
   __typename?: 'Erc20Amount';
+  /** The ERC-20 token info. */
   asset: Erc20;
   /**
    * Token value in its main unit (e.g., 1.5 DAI), not in the smallest fraction (e.g.,
    * wei).
    */
   value: Scalars['BigDecimal']['output'];
+};
+
+export type Erc20BalanceError = {
+  __typename?: 'Erc20BalanceError';
+  /** The reason for the failure. */
+  reason: Scalars['String']['output'];
+  /** The token for which the balance retrieval failed. */
+  token: Scalars['EvmAddress']['output'];
+};
+
+export type EventLocation = {
+  __typename?: 'EventLocation';
+  physical?: Maybe<Scalars['String']['output']>;
+  virtual?: Maybe<Scalars['URI']['output']>;
 };
 
 export type EventMetadata = {
@@ -1812,12 +1892,12 @@ export type EventMetadata = {
   links: Array<Scalars['URI']['output']>;
   locale: Scalars['Locale']['output'];
   /** The location of the event. */
-  location: EventMetadataLensLocation;
+  location: EventLocation;
   /** The main focus of the post. */
   mainContentFocus: MainContentFocus;
   /** The geographic position of the event. */
   position?: Maybe<Scalars['GeoUri']['output']>;
-  schedulingAdjustments?: Maybe<EventMetadataLensSchedulingAdjustments>;
+  schedulingAdjustments?: Maybe<EventSchedulingAdjustments>;
   /** The event start time (ISO 8601 `YYYY-MM-DDTHH:mm:ss.sssZ`). */
   startsAt: Scalars['DateTime']['output'];
   /** An arbitrary list of tags. */
@@ -1826,24 +1906,5410 @@ export type EventMetadata = {
   title?: Maybe<Scalars['String']['output']>;
 };
 
-export type EventMetadataLensLocation = {
-  __typename?: 'EventMetadataLensLocation';
-  physical?: Maybe<Scalars['String']['output']>;
-  virtual?: Maybe<Scalars['URI']['output']>;
-};
-
-export type EventMetadataLensSchedulingAdjustments = {
-  __typename?: 'EventMetadataLensSchedulingAdjustments';
+export type EventSchedulingAdjustments = {
+  __typename?: 'EventSchedulingAdjustments';
   /**
    * Indicates a reference timezone for the event start and end times. If physical event, you
    * could use the timezone of the event location. If virtual event, the timezone of the event
    * organizer.
    */
-  timezoneId: EventMetadataLensSchedulingAdjustmentsTimezoneId;
+  timezoneId: TimezoneId;
   timezoneOffset: Scalars['Float']['output'];
 };
 
-export enum EventMetadataLensSchedulingAdjustmentsTimezoneId {
+export type ExecuteAccountActionRequest = {
+  /** The target account to execute the action on. */
+  account: Scalars['EvmAddress']['input'];
+  /** The action params. */
+  action: AccountActionExecuteInput;
+};
+
+export type ExecuteAccountActionResponse = {
+  __typename?: 'ExecuteAccountActionResponse';
+  hash: Scalars['TxHash']['output'];
+};
+
+export type ExecuteAccountActionResult = ExecuteAccountActionResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type ExecutePostActionRequest = {
+  /** The action params. */
+  action: PostActionExecuteInput;
+  /** The target post to execute the action on. */
+  post: Scalars['PostId']['input'];
+};
+
+export type ExecutePostActionResponse = {
+  __typename?: 'ExecutePostActionResponse';
+  hash: Scalars['TxHash']['output'];
+};
+
+export type ExecutePostActionResult = ExecutePostActionResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type ExecutedUnknownActionRequest = {
+  address: Scalars['EvmAddress']['input'];
+};
+
+/** The challenge has expired or was not found. */
+export type ExpiredChallengeError = {
+  __typename?: 'ExpiredChallengeError';
+  reason: Scalars['String']['output'];
+};
+
+/**
+ * The transaction has failed to be mined or indexed.
+ *
+ * The reason for the failure is provided.
+ */
+export type FailedTransactionStatus = {
+  __typename?: 'FailedTransactionStatus';
+  blockTimestamp: Scalars['DateTime']['output'];
+  reason: Scalars['String']['output'];
+  summary: Array<SubOperationStatus>;
+};
+
+export type Feed = {
+  __typename?: 'Feed';
+  address: Scalars['EvmAddress']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  metadata?: Maybe<FeedMetadata>;
+  operations?: Maybe<LoggedInFeedPostOperations>;
+  owner: Scalars['EvmAddress']['output'];
+  rules: FeedRules;
+};
+
+export type FeedChoiceOneOf = {
+  custom?: InputMaybe<Scalars['EvmAddress']['input']>;
+  globalFeed?: InputMaybe<Scalars['AlwaysTrue']['input']>;
+  none?: InputMaybe<Scalars['AlwaysTrue']['input']>;
+};
+
+export type FeedMetadata = {
+  __typename?: 'FeedMetadata';
+  /** Optional markdown formatted description of the Feed. */
+  description?: Maybe<Scalars['String']['output']>;
+  /**
+   * A unique identifier that in storages like IPFS ensures the uniqueness of the metadata URI.
+   * Use a UUID if unsure.
+   */
+  id: Scalars['String']['output'];
+  /** The name of the Feed. */
+  name: Scalars['String']['output'];
+};
+
+export type FeedOneOf = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
+  globalFeed?: InputMaybe<Scalars['AlwaysTrue']['input']>;
+};
+
+export type FeedOperationValidationFailed = {
+  __typename?: 'FeedOperationValidationFailed';
+  reason: Scalars['String']['output'];
+  unsatisfiedRules?: Maybe<FeedUnsatisfiedRules>;
+};
+
+export type FeedOperationValidationOutcome = FeedOperationValidationFailed | FeedOperationValidationPassed | FeedOperationValidationUnknown;
+
+export type FeedOperationValidationPassed = {
+  __typename?: 'FeedOperationValidationPassed';
+  passed: Scalars['AlwaysTrue']['output'];
+};
+
+export type FeedOperationValidationUnknown = {
+  __typename?: 'FeedOperationValidationUnknown';
+  extraChecksRequired: Array<FeedRule>;
+};
+
+export type FeedRequest = {
+  /** The feed */
+  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
+  /** The transaction hash you created the feed with. */
+  txHash?: InputMaybe<Scalars['TxHash']['input']>;
+};
+
+export type FeedRule = {
+  __typename?: 'FeedRule';
+  address: Scalars['EvmAddress']['output'];
+  config: Array<AnyKeyValue>;
+  executesOn: Array<FeedRuleExecuteOn>;
+  id: Scalars['RuleId']['output'];
+  type: FeedRuleType;
+};
+
+export type FeedRuleConfig = {
+  groupGatedRule?: InputMaybe<GroupGatedFeedRuleConfig>;
+  simplePaymentRule?: InputMaybe<SimplePaymentFeedRuleConfig>;
+  tokenGatedRule?: InputMaybe<TokenGatedFeedRuleConfig>;
+  unknownRule?: InputMaybe<UnknownFeedRuleConfig>;
+};
+
+export enum FeedRuleExecuteOn {
+  ChangingPostRule = 'CHANGING_POST_RULE',
+  CreatingPost = 'CREATING_POST',
+  DeletingPost = 'DELETING_POST',
+  EditingPost = 'EDITING_POST'
+}
+
+export enum FeedRuleType {
+  AccountBlocking = 'ACCOUNT_BLOCKING',
+  GroupGated = 'GROUP_GATED',
+  RestrictedSigners = 'RESTRICTED_SIGNERS',
+  SimplePayment = 'SIMPLE_PAYMENT',
+  TokenGated = 'TOKEN_GATED',
+  Unknown = 'UNKNOWN'
+}
+
+export enum FeedRuleUnsatisfiedReason {
+  AccountBlocked = 'ACCOUNT_BLOCKED',
+  GroupGatedNotAMember = 'GROUP_GATED_NOT_A_MEMBER',
+  SimplePaymentNotEnoughBalance = 'SIMPLE_PAYMENT_NOT_ENOUGH_BALANCE',
+  TokenGatedNotATokenHolder = 'TOKEN_GATED_NOT_A_TOKEN_HOLDER'
+}
+
+export type FeedRules = {
+  __typename?: 'FeedRules';
+  anyOf: Array<FeedRule>;
+  required: Array<FeedRule>;
+};
+
+export type FeedRulesConfigInput = {
+  anyOf?: Array<FeedRuleConfig>;
+  required?: Array<FeedRuleConfig>;
+};
+
+export type FeedRulesProcessingParams = {
+  unknownRule?: InputMaybe<UnknownRuleProcessingParams>;
+};
+
+export type FeedUnsatisfiedRule = {
+  __typename?: 'FeedUnsatisfiedRule';
+  config: Array<AnyKeyValue>;
+  message: Scalars['String']['output'];
+  reason: FeedRuleUnsatisfiedReason;
+  rule: Scalars['EvmAddress']['output'];
+};
+
+export type FeedUnsatisfiedRules = {
+  __typename?: 'FeedUnsatisfiedRules';
+  anyOf: Array<FeedUnsatisfiedRule>;
+  required: Array<FeedUnsatisfiedRule>;
+};
+
+export type FeedsFilter = {
+  /** The optional filter to get feeds managed by address */
+  managedBy?: InputMaybe<ManagedBy>;
+  /**
+   * The optional filter to narrow feeds by search query.
+   * Uses fuzzy search on feed name
+   */
+  searchQuery?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum FeedsOrderBy {
+  Alphabetical = 'ALPHABETICAL',
+  LatestFirst = 'LATEST_FIRST',
+  OldestFirst = 'OLDEST_FIRST'
+}
+
+export type FeedsRequest = {
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<FeedsFilter>;
+  /** The order by. */
+  orderBy?: FeedsOrderBy;
+  /** The page size. */
+  pageSize?: PageSize;
+};
+
+/**
+ * The transaction has been mined and indexed correctly.
+ *
+ * If the transaction involves any metadata, the metadata has been snapshotted and indexed.
+ */
+export type FinishedTransactionStatus = {
+  __typename?: 'FinishedTransactionStatus';
+  blockTimestamp: Scalars['DateTime']['output'];
+  summary: Array<SubOperationStatus>;
+};
+
+export type FixedSizeTransform = {
+  height: Scalars['Int']['input'];
+  width: Scalars['Int']['input'];
+};
+
+export type FollowNotification = {
+  __typename?: 'FollowNotification';
+  followers: Array<NotificationAccountFollow>;
+  id: Scalars['GeneratedNotificationId']['output'];
+};
+
+export type FollowPair = {
+  /** The account being followed. */
+  account: Scalars['EvmAddress']['input'];
+  /** The follower. */
+  follower: Scalars['EvmAddress']['input'];
+  /** The graph you are checking defaults to global graph. */
+  graph?: Scalars['EvmAddress']['input'];
+};
+
+export type FollowResponse = {
+  __typename?: 'FollowResponse';
+  hash: Scalars['TxHash']['output'];
+};
+
+export type FollowResult = AccountFollowOperationValidationFailed | FollowResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type FollowStatusRequest = {
+  pairs: Array<FollowPair>;
+};
+
+export type FollowStatusResult = {
+  __typename?: 'FollowStatusResult';
+  account: Scalars['EvmAddress']['output'];
+  follower: Scalars['EvmAddress']['output'];
+  graph: Scalars['EvmAddress']['output'];
+  isFollowing: BooleanValue;
+};
+
+export type Follower = {
+  __typename?: 'Follower';
+  /** The timestamp when the follower was followed */
+  followedOn: Scalars['DateTime']['output'];
+  /** The account which is following */
+  follower: Account;
+  /** The graph the follower is following on */
+  graph: Scalars['EvmAddress']['output'];
+};
+
+export type FollowerOn = {
+  __typename?: 'FollowerOn';
+  globalGraph: Scalars['Boolean']['output'];
+  graph: Scalars['EvmAddress']['output'];
+};
+
+export type FollowerOnInput = {
+  globalGraph?: InputMaybe<Scalars['AlwaysTrue']['input']>;
+  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export type FollowersFilter = {
+  /**
+   * The graphs to filter by.
+   * The result will come back if they follow on ANY of the supplied graphs
+   */
+  graphs?: InputMaybe<Array<GraphOneOf>>;
+};
+
+export type FollowersOnlyPostRuleConfig = {
+  graph?: Scalars['EvmAddress']['input'];
+  quotesRestricted?: Scalars['Boolean']['input'];
+  repliesRestricted?: Scalars['Boolean']['input'];
+  repostRestricted?: Scalars['Boolean']['input'];
+};
+
+export enum FollowersOrderBy {
+  AccountScore = 'ACCOUNT_SCORE',
+  Asc = 'ASC',
+  Desc = 'DESC'
+}
+
+export type FollowersRequest = {
+  /** The account to get followers for. */
+  account: Scalars['EvmAddress']['input'];
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** An optional filter to apply to the result. */
+  filter?: InputMaybe<FollowersFilter>;
+  /** The order by. */
+  orderBy?: FollowersOrderBy;
+  /** The page size. */
+  pageSize?: PageSize;
+};
+
+export type FollowersYouKnowFilter = {
+  /**
+   * The graphs to get followers you know for
+   * The result will come back if they follow on ANY of the supplied graphs
+   */
+  graphs?: InputMaybe<Array<GraphOneOf>>;
+};
+
+export enum FollowersYouKnowOrderBy {
+  Asc = 'ASC',
+  Desc = 'DESC'
+}
+
+export type FollowersYouKnowRequest = {
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** An optional filter to apply to the result. */
+  filter?: InputMaybe<FollowersYouKnowFilter>;
+  /** The account you are looking from. */
+  observer: Scalars['EvmAddress']['input'];
+  /** The order by. */
+  orderBy?: FollowersYouKnowOrderBy;
+  /** The page size. */
+  pageSize?: PageSize;
+  /** The account to check followers you know. */
+  target: Scalars['EvmAddress']['input'];
+};
+
+export type Following = {
+  __typename?: 'Following';
+  /** The timestamp when the following happened */
+  followedOn: Scalars['DateTime']['output'];
+  /** The account which is following */
+  following: Account;
+  /** The graph the account is following on */
+  graph: Scalars['EvmAddress']['output'];
+};
+
+export type FollowingFilter = {
+  /**
+   * The graphs to filter by.
+   * The result will come back if they are following on ANY of the supplied graphs
+   */
+  graphs?: InputMaybe<Array<GraphOneOf>>;
+};
+
+export enum FollowingOrderBy {
+  AccountScore = 'ACCOUNT_SCORE',
+  Asc = 'ASC',
+  Desc = 'DESC'
+}
+
+export type FollowingRequest = {
+  /** The account to get following for. */
+  account: Scalars['EvmAddress']['input'];
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** An optional filter to apply to the result. */
+  filter?: InputMaybe<FollowingFilter>;
+  /** The order by. */
+  orderBy?: FollowingOrderBy;
+  /** The page size. */
+  pageSize?: PageSize;
+};
+
+export enum ForYouSource {
+  Curated = 'CURATED',
+  ExtendedNetwork = 'EXTENDED_NETWORK',
+  Following = 'FOLLOWING',
+  Popular = 'POPULAR'
+}
+
+export type ForbiddenError = {
+  __typename?: 'ForbiddenError';
+  reason: Scalars['String']['output'];
+};
+
+export type FrameEip712Request = {
+  /** The account address */
+  account: Scalars['EvmAddress']['input'];
+  /** The app the frame is being executed from */
+  app: Scalars['EvmAddress']['input'];
+  /** The button index */
+  buttonIndex: Scalars['Int']['input'];
+  /** The deadline the typed data expires */
+  deadline: Scalars['Int']['input'];
+  /** The input text */
+  inputText: Scalars['String']['input'];
+  /** The post id */
+  post: Scalars['PostId']['input'];
+  /** The frame spec version */
+  specVersion: Scalars['String']['input'];
+  /** The state */
+  state: Scalars['String']['input'];
+  /** The transaction id */
+  transactionId: Scalars['String']['input'];
+  /** The url */
+  url: Scalars['URI']['input'];
+};
+
+export type FrameLensManagerSignatureResult = {
+  __typename?: 'FrameLensManagerSignatureResult';
+  /** The signature */
+  signature: Scalars['Signature']['output'];
+  /** The signed typed data */
+  signedTypedData: CreateFrameEip712TypedData;
+};
+
+export type FrameVerifySignature = {
+  /** The identity token */
+  identityToken: Scalars['IdToken']['input'];
+  /** The signature */
+  signature: Scalars['Signature']['input'];
+  /** The signed typed data */
+  signedTypedData: CreateFrameEip712TypedDataInput;
+};
+
+export enum FrameVerifySignatureResult {
+  /** The deadline has expired */
+  DeadlineExpired = 'DEADLINE_EXPIRED',
+  /** The identity token is not a valid identity token */
+  IdentityCannotUseAccount = 'IDENTITY_CANNOT_USE_ACCOUNT',
+  /** The identity token is not a valid identity token used with an account authentication */
+  IdentityTokenNotValid = 'IDENTITY_TOKEN_NOT_VALID',
+  /** The identity token is not authorized to use the frame */
+  IdentityUnauthorized = 'IDENTITY_UNAUTHORIZED',
+  /** The post does not exist */
+  PostDoesntExist = 'POST_DOESNT_EXIST',
+  /** The signature is not valid */
+  SignatureNotValid = 'SIGNATURE_NOT_VALID',
+  /** The signer address cannot use the account */
+  SignerAddressCannotUseAccount = 'SIGNER_ADDRESS_CANNOT_USE_ACCOUNT',
+  /** The typed data account is not matching the identity token account */
+  TypedDataAccountNotMatchingIdentityToken = 'TYPED_DATA_ACCOUNT_NOT_MATCHING_IDENTITY_TOKEN',
+  /** The typed data domain is not in the correct format */
+  TypedDataDomainIncorrect = 'TYPED_DATA_DOMAIN_INCORRECT',
+  /** The typed data types is not in the correct format */
+  TypedDataTypesIncorrectFields = 'TYPED_DATA_TYPES_INCORRECT_FIELDS',
+  /** The frame was verified */
+  Verified = 'VERIFIED'
+}
+
+export type GenerateNewAppServerApiKeyRequest = {
+  /** The app to generate the new server side api key for */
+  app: Scalars['EvmAddress']['input'];
+};
+
+export type GetSnsSubscriptionsRequest = {
+  /**
+   * The app to get subscriptions for. If not provided, all subscriptions owned by the logged in
+   * account will be returned.
+   */
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export type Graph = {
+  __typename?: 'Graph';
+  address: Scalars['EvmAddress']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  metadata?: Maybe<GraphMetadata>;
+  owner: Scalars['EvmAddress']['output'];
+  rules: GraphRules;
+};
+
+export type GraphChoiceOneOf = {
+  custom?: InputMaybe<Scalars['EvmAddress']['input']>;
+  globalGraph?: InputMaybe<Scalars['AlwaysTrue']['input']>;
+  none?: InputMaybe<Scalars['AlwaysTrue']['input']>;
+};
+
+export type GraphMetadata = {
+  __typename?: 'GraphMetadata';
+  /** Optional markdown formatted description of the graph. */
+  description?: Maybe<Scalars['String']['output']>;
+  /**
+   * A unique identifier that in storages like IPFS ensures the uniqueness of the metadata URI.
+   * Use a UUID if unsure.
+   */
+  id: Scalars['String']['output'];
+  /** The name of the graph. */
+  name: Scalars['String']['output'];
+};
+
+export type GraphOneOf = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  globalGraph?: InputMaybe<Scalars['AlwaysTrue']['input']>;
+  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export type GraphRequest = {
+  /** The graph */
+  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
+  /** The transaction hash you created the graph with. */
+  txHash?: InputMaybe<Scalars['TxHash']['input']>;
+};
+
+export type GraphRule = {
+  __typename?: 'GraphRule';
+  address: Scalars['EvmAddress']['output'];
+  config: Array<AnyKeyValue>;
+  executesOn: Array<GraphRuleExecuteOn>;
+  id: Scalars['RuleId']['output'];
+  type: GraphRuleType;
+};
+
+export type GraphRuleConfig = {
+  groupGatedRule?: InputMaybe<GroupGatedGraphRuleConfig>;
+  tokenGatedRule?: InputMaybe<TokenGatedGraphRuleConfig>;
+  unknownRule?: InputMaybe<UnknownGraphRuleConfig>;
+};
+
+export enum GraphRuleExecuteOn {
+  ChangingFollowRules = 'CHANGING_FOLLOW_RULES',
+  Following = 'FOLLOWING',
+  Unfollowing = 'UNFOLLOWING'
+}
+
+export enum GraphRuleType {
+  AccountBlocking = 'ACCOUNT_BLOCKING',
+  GroupGated = 'GROUP_GATED',
+  TokenGated = 'TOKEN_GATED',
+  Unknown = 'UNKNOWN'
+}
+
+export type GraphRules = {
+  __typename?: 'GraphRules';
+  anyOf: Array<GraphRule>;
+  required: Array<GraphRule>;
+};
+
+export type GraphRulesConfigInput = {
+  anyOf?: Array<GraphRuleConfig>;
+  required?: Array<GraphRuleConfig>;
+};
+
+export type GraphRulesProcessingParams = {
+  unknownRule?: InputMaybe<UnknownRuleProcessingParams>;
+};
+
+export type GraphsFilter = {
+  /** The optional filter to get graphs managed by address */
+  managedBy?: InputMaybe<ManagedBy>;
+  /**
+   * The optional filter to narrow graphs by search query.
+   * Uses fuzzy search on graph name
+   */
+  searchQuery?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum GraphsOrderBy {
+  Alphabetical = 'ALPHABETICAL',
+  LatestFirst = 'LATEST_FIRST',
+  OldestFirst = 'OLDEST_FIRST'
+}
+
+export type GraphsRequest = {
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<GraphsFilter>;
+  /** The order by. */
+  orderBy?: GraphsOrderBy;
+  pageSize?: PageSize;
+};
+
+export type Group = {
+  __typename?: 'Group';
+  address: Scalars['EvmAddress']['output'];
+  /** Returns true if the group has banning rule enabled */
+  banningEnabled: Scalars['Boolean']['output'];
+  feed?: Maybe<Feed>;
+  /** Returns true if the group has membership approval rule enabled */
+  membershipApprovalEnabled: Scalars['Boolean']['output'];
+  metadata?: Maybe<GroupMetadata>;
+  operations?: Maybe<LoggedInGroupOperations>;
+  owner: Scalars['EvmAddress']['output'];
+  rules: GroupRules;
+  timestamp: Scalars['DateTime']['output'];
+};
+
+export type GroupBannedAccount = {
+  __typename?: 'GroupBannedAccount';
+  account: Account;
+  bannedAt: Scalars['DateTime']['output'];
+  bannedBy: Account;
+  lastActiveAt: Scalars['DateTime']['output'];
+  ruleId: Scalars['RuleId']['output'];
+};
+
+export type GroupBannedAccountsFilter = {
+  /** The optional filter to narrow banned accounts by search query. */
+  searchBy?: InputMaybe<UsernameSearchInput>;
+};
+
+export enum GroupBannedAccountsOrderBy {
+  AccountScore = 'ACCOUNT_SCORE',
+  FirstBanned = 'FIRST_BANNED',
+  LastActive = 'LAST_ACTIVE',
+  LastBanned = 'LAST_BANNED'
+}
+
+export type GroupBannedAccountsRequest = {
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<GroupBannedAccountsFilter>;
+  /** The group */
+  group: Scalars['EvmAddress']['input'];
+  /** The order by. */
+  orderBy?: GroupBannedAccountsOrderBy;
+  /** The page size. */
+  pageSize?: PageSize;
+};
+
+export type GroupFeedParams = {
+  /** The feed metadata uri */
+  metadataUri?: InputMaybe<Scalars['URI']['input']>;
+  /** Whether replies are restricted to group members. */
+  repliesRestricted?: Scalars['Boolean']['input'];
+  /**
+   * Rules for the feed
+   * Note: Group feed has GroupGated rule set by default
+   */
+  rules?: InputMaybe<FeedRulesConfigInput>;
+};
+
+export type GroupGatedFeedRuleConfig = {
+  /** The group one must be a member of to post. */
+  group: Scalars['EvmAddress']['input'];
+  /** Whether replies are restricted to group members. */
+  repliesRestricted?: Scalars['Boolean']['input'];
+};
+
+export type GroupGatedGraphRuleConfig = {
+  group: Scalars['EvmAddress']['input'];
+};
+
+export type GroupMember = {
+  __typename?: 'GroupMember';
+  account: Account;
+  joinedAt: Scalars['DateTime']['output'];
+  lastActiveAt: Scalars['DateTime']['output'];
+};
+
+export type GroupMembersFilter = {
+  /** The optional filter to narrow members by search query. */
+  searchBy?: InputMaybe<UsernameSearchInput>;
+};
+
+export enum GroupMembersOrderBy {
+  AccountScore = 'ACCOUNT_SCORE',
+  FirstJoined = 'FIRST_JOINED',
+  LastActive = 'LAST_ACTIVE',
+  LastJoined = 'LAST_JOINED'
+}
+
+export type GroupMembersRequest = {
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<GroupMembersFilter>;
+  /** The group */
+  group: Scalars['EvmAddress']['input'];
+  /** The order by. */
+  orderBy?: GroupMembersOrderBy;
+  /** The page size. */
+  pageSize?: PageSize;
+};
+
+export type GroupMembershipRequest = {
+  __typename?: 'GroupMembershipRequest';
+  account: Account;
+  lastActiveAt: Scalars['DateTime']['output'];
+  requestedAt: Scalars['DateTime']['output'];
+  ruleId: Scalars['RuleId']['output'];
+};
+
+export type GroupMembershipRequestApprovedNotification = {
+  __typename?: 'GroupMembershipRequestApprovedNotification';
+  approvedBy: Account;
+  group: Group;
+  id: Scalars['GeneratedNotificationId']['output'];
+};
+
+export type GroupMembershipRequestRejectedNotification = {
+  __typename?: 'GroupMembershipRequestRejectedNotification';
+  group: Group;
+  id: Scalars['GeneratedNotificationId']['output'];
+  rejectedBy: Account;
+};
+
+export type GroupMembershipRequestsFilter = {
+  /** The optional filter to narrow members by search query. */
+  searchBy?: InputMaybe<UsernameSearchInput>;
+};
+
+export enum GroupMembershipRequestsOrderBy {
+  AccountScore = 'ACCOUNT_SCORE',
+  FirstRequested = 'FIRST_REQUESTED',
+  LastActive = 'LAST_ACTIVE',
+  LastRequested = 'LAST_REQUESTED'
+}
+
+export type GroupMembershipRequestsRequest = {
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<GroupMembershipRequestsFilter>;
+  /** The group */
+  group: Scalars['EvmAddress']['input'];
+  /** The order by. */
+  orderBy?: GroupMembershipRequestsOrderBy;
+  /** The page size. */
+  pageSize?: PageSize;
+};
+
+export type GroupMention = {
+  __typename?: 'GroupMention';
+  /** The group that was mentioned */
+  group: Scalars['EvmAddress']['output'];
+  /**
+   * The replacement information.
+   * Use to replace mentions in the post content.
+   */
+  replace: MentionReplace;
+};
+
+export type GroupMetadata = {
+  __typename?: 'GroupMetadata';
+  coverPicture?: Maybe<Scalars['URI']['output']>;
+  /** Optional markdown formatted description of the Community. */
+  description?: Maybe<Scalars['String']['output']>;
+  icon?: Maybe<Scalars['URI']['output']>;
+  /**
+   * A unique identifier that in storages like IPFS ensures the uniqueness of the metadata URI.
+   * Use a UUID if unsure.
+   */
+  id: Scalars['String']['output'];
+  /** The name of the Community. */
+  name: Scalars['String']['output'];
+};
+
+
+export type GroupMetadataCoverPictureArgs = {
+  request?: MediaImageRequest;
+};
+
+
+export type GroupMetadataIconArgs = {
+  request?: MediaImageRequest;
+};
+
+export type GroupOperationValidationFailed = {
+  __typename?: 'GroupOperationValidationFailed';
+  reason: Scalars['String']['output'];
+  unsatisfiedRules?: Maybe<GroupUnsatisfiedRules>;
+};
+
+export type GroupOperationValidationOutcome = GroupOperationValidationFailed | GroupOperationValidationPassed | GroupOperationValidationUnknown;
+
+export type GroupOperationValidationPassed = {
+  __typename?: 'GroupOperationValidationPassed';
+  passed: Scalars['AlwaysTrue']['output'];
+};
+
+export type GroupOperationValidationUnknown = {
+  __typename?: 'GroupOperationValidationUnknown';
+  extraChecksRequired: Array<GroupRule>;
+};
+
+export type GroupRequest = {
+  /** The group */
+  group?: InputMaybe<Scalars['EvmAddress']['input']>;
+  /** The transaction hash you created the group with. */
+  txHash?: InputMaybe<Scalars['TxHash']['input']>;
+};
+
+export type GroupRule = {
+  __typename?: 'GroupRule';
+  address: Scalars['EvmAddress']['output'];
+  config: Array<AnyKeyValue>;
+  executesOn: Array<GroupRuleExecuteOn>;
+  id: Scalars['RuleId']['output'];
+  type: GroupRuleType;
+};
+
+export type GroupRuleConfig = {
+  membershipApprovalRule?: InputMaybe<MembershipApprovalGroupRuleConfig>;
+  simplePaymentRule?: InputMaybe<SimplePaymentGroupRuleConfig>;
+  tokenGatedRule?: InputMaybe<TokenGatedGroupRuleConfig>;
+  unknownRule?: InputMaybe<UnknownGroupRuleConfig>;
+};
+
+export enum GroupRuleExecuteOn {
+  Adding = 'ADDING',
+  Joining = 'JOINING',
+  Leaving = 'LEAVING',
+  Removing = 'REMOVING'
+}
+
+export enum GroupRuleType {
+  BanAccount = 'BAN_ACCOUNT',
+  MembershipApproval = 'MEMBERSHIP_APPROVAL',
+  SimplePayment = 'SIMPLE_PAYMENT',
+  TokenGated = 'TOKEN_GATED',
+  Unknown = 'UNKNOWN'
+}
+
+export enum GroupRuleUnsatisfiedReason {
+  AccountBanned = 'ACCOUNT_BANNED',
+  MembershipApprovalRequired = 'MEMBERSHIP_APPROVAL_REQUIRED',
+  SimplePaymentNotEnoughBalance = 'SIMPLE_PAYMENT_NOT_ENOUGH_BALANCE',
+  TokenGatedAccountJoiningNotATokenHolder = 'TOKEN_GATED_ACCOUNT_JOINING_NOT_A_TOKEN_HOLDER',
+  TokenGatedAccountRemovalStillTokenHolder = 'TOKEN_GATED_ACCOUNT_REMOVAL_STILL_TOKEN_HOLDER'
+}
+
+export type GroupRules = {
+  __typename?: 'GroupRules';
+  anyOf: Array<GroupRule>;
+  required: Array<GroupRule>;
+};
+
+export type GroupRulesConfigInput = {
+  anyOf?: Array<GroupRuleConfig>;
+  required?: Array<GroupRuleConfig>;
+};
+
+export type GroupRulesProcessingParams = {
+  unknownRule?: InputMaybe<UnknownRuleProcessingParams>;
+};
+
+export type GroupStatsRequest = {
+  /** The group address to check its total members. */
+  group: Scalars['EvmAddress']['input'];
+};
+
+export type GroupStatsResponse = {
+  __typename?: 'GroupStatsResponse';
+  totalMembers: Scalars['Int']['output'];
+};
+
+export type GroupUnsatisfiedRule = {
+  __typename?: 'GroupUnsatisfiedRule';
+  config: Array<AnyKeyValue>;
+  message: Scalars['String']['output'];
+  reason: GroupRuleUnsatisfiedReason;
+  rule: Scalars['EvmAddress']['output'];
+};
+
+export type GroupUnsatisfiedRules = {
+  __typename?: 'GroupUnsatisfiedRules';
+  anyOf: Array<GroupUnsatisfiedRule>;
+  required: Array<GroupUnsatisfiedRule>;
+};
+
+export type GroupsFilter = {
+  /** The optional filter to get groups managed by address */
+  managedBy?: InputMaybe<ManagedBy>;
+  /** The optional filter to get groups where account is a member */
+  member?: InputMaybe<Scalars['EvmAddress']['input']>;
+  /**
+   * The optional filter to narrow groups by search query.
+   * Uses fuzzy search on group name
+   */
+  searchQuery?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum GroupsOrderBy {
+  Alphabetical = 'ALPHABETICAL',
+  LatestFirst = 'LATEST_FIRST',
+  OldestFirst = 'OLDEST_FIRST'
+}
+
+export type GroupsRequest = {
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<GroupsFilter>;
+  /** The order by. */
+  orderBy?: GroupsOrderBy;
+  /** The page size. */
+  pageSize?: PageSize;
+};
+
+export type HasReactedRequest = {
+  type?: InputMaybe<PostReactionType>;
+};
+
+export type HeightBasedTransform = {
+  height: Scalars['Int']['input'];
+};
+
+export type HideManagedAccountRequest = {
+  /** The account to hide. */
+  account: Scalars['EvmAddress']['input'];
+};
+
+export type HideReplyRequest = {
+  post: Scalars['PostId']['input'];
+};
+
+export type ImageMetadata = {
+  __typename?: 'ImageMetadata';
+  /** The other attachments you want to include with it. */
+  attachments: Array<AnyMedia>;
+  /**
+   * A bag of attributes that can be used to store any kind of metadata that is not currently
+   * supported by the standard. Over time, common attributes will be added to the standard and
+   * their usage as arbitrary attributes will be discouraged.
+   */
+  attributes: Array<MetadataAttribute>;
+  content: Scalars['String']['output'];
+  /** Specify a content warning. */
+  contentWarning?: Maybe<ContentWarning>;
+  id: Scalars['MetadataId']['output'];
+  image: MediaImage;
+  locale: Scalars['Locale']['output'];
+  /** The main focus of the post. */
+  mainContentFocus: MainContentFocus;
+  /** An arbitrary list of tags. */
+  tags?: Maybe<Array<Scalars['Tag']['output']>>;
+  /** The optional image title. */
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+/** The image transformation to apply to the image. */
+export type ImageTransform = {
+  fixedSize?: InputMaybe<FixedSizeTransform>;
+  heightBased?: InputMaybe<HeightBasedTransform>;
+  widthBased?: InputMaybe<WidthBasedTransform>;
+};
+
+export enum IndexingStatus {
+  Failed = 'FAILED',
+  Finished = 'FINISHED',
+  Pending = 'PENDING'
+}
+
+export type InsufficientFunds = {
+  __typename?: 'InsufficientFunds';
+  reason: Scalars['String']['output'];
+};
+
+export type IntKeyValue = {
+  __typename?: 'IntKeyValue';
+  int: Scalars['Int']['output'];
+  key: Scalars['String']['output'];
+};
+
+export type IntNullableKeyValue = {
+  __typename?: 'IntNullableKeyValue';
+  key: Scalars['String']['output'];
+  optionalInt?: Maybe<Scalars['Int']['output']>;
+};
+
+export type IsFollowedByMeRequest = {
+  graph: Scalars['EvmAddress']['input'];
+};
+
+export type IsFollowingMeRequest = {
+  graph: Scalars['EvmAddress']['input'];
+};
+
+export type JoinGroupRequest = {
+  /** The group you want to join */
+  group: Scalars['EvmAddress']['input'];
+  /** The processing params for the join rules. */
+  rulesProcessingParams?: InputMaybe<Array<GroupRulesProcessingParams>>;
+};
+
+export type JoinGroupResponse = {
+  __typename?: 'JoinGroupResponse';
+  hash: Scalars['TxHash']['output'];
+};
+
+export type JoinGroupResult = GroupOperationValidationFailed | JoinGroupResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type KeyValuePair = {
+  __typename?: 'KeyValuePair';
+  /** A unique 32 bytes long hexadecimal string key. */
+  key: Scalars['FixedBytes32']['output'];
+  /** The human-readable name of the parameter. */
+  name: Scalars['String']['output'];
+  /** The human-readable ABI description of the parameter. */
+  type: Scalars['String']['output'];
+};
+
+export type LastLoggedInAccountRequest = {
+  /** The address to get the last logged in account for. */
+  address: Scalars['EvmAddress']['input'];
+  /** The app to get the last logged in account for. */
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export type LeaveGroupRequest = {
+  /** The group you want to leave */
+  group: Scalars['EvmAddress']['input'];
+  /** The processing params for the leave rules. */
+  rulesProcessingParams?: InputMaybe<Array<GroupRulesProcessingParams>>;
+};
+
+export type LeaveGroupResponse = {
+  __typename?: 'LeaveGroupResponse';
+  hash: Scalars['TxHash']['output'];
+};
+
+export type LeaveGroupResult = GroupOperationValidationFailed | LeaveGroupResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type LengthAmountPair = {
+  amount: Scalars['BigDecimal']['input'];
+  length: Scalars['Int']['input'];
+};
+
+export type LinkMetadata = {
+  __typename?: 'LinkMetadata';
+  /** The other attachments you want to include with it. */
+  attachments: Array<AnyMedia>;
+  /**
+   * A bag of attributes that can be used to store any kind of metadata that is not currently
+   * supported by the standard. Over time, common attributes will be added to the standard and
+   * their usage as arbitrary attributes will be discouraged.
+   */
+  attributes: Array<MetadataAttribute>;
+  content: Scalars['String']['output'];
+  /** Specify a content warning. */
+  contentWarning?: Maybe<ContentWarning>;
+  id: Scalars['MetadataId']['output'];
+  locale: Scalars['Locale']['output'];
+  /** The main focus of the post. */
+  mainContentFocus: MainContentFocus;
+  /** The sharing link url. */
+  sharingLink: Scalars['URI']['output'];
+  /** An arbitrary list of tags. */
+  tags?: Maybe<Array<Scalars['Tag']['output']>>;
+};
+
+export type LivestreamMetadata = {
+  __typename?: 'LivestreamMetadata';
+  /** The other attachments you want to include with it. */
+  attachments: Array<AnyMedia>;
+  /**
+   * A bag of attributes that can be used to store any kind of metadata that is not currently
+   * supported by the standard. Over time, common attributes will be added to the standard and
+   * their usage as arbitrary attributes will be discouraged.
+   */
+  attributes: Array<MetadataAttribute>;
+  /**
+   * The data cannot be changed so you can put in an API endpoint to know if it is still live or
+   * not for clients to be able to check.
+   */
+  checkLiveApi?: Maybe<Scalars['URI']['output']>;
+  content: Scalars['String']['output'];
+  /** Specify a content warning. */
+  contentWarning?: Maybe<ContentWarning>;
+  /** The optional stream end time (ISO 8601 `YYYY-MM-DDTHH:mm:ss.sssZ`) */
+  endsAt?: Maybe<Scalars['DateTime']['output']>;
+  id: Scalars['MetadataId']['output'];
+  /**
+   * Some livestream platforms have the live url as a separate url. If not your case make sure
+   * `liveUrl` and `playbackUrl` are the same.
+   */
+  liveUrl: Scalars['URI']['output'];
+  locale: Scalars['Locale']['output'];
+  /** The main focus of the post. */
+  mainContentFocus: MainContentFocus;
+  /**
+   * Some livestream platforms have the playback url as a separate url. If not your case make
+   * sure `liveUrl` and `playbackUrl` are the same.
+   */
+  playbackUrl: Scalars['URI']['output'];
+  /** The stream start time (ISO 8601 `YYYY-MM-DDTHH:mm:ss.sssZ`). */
+  startsAt: Scalars['DateTime']['output'];
+  /** An arbitrary list of tags. */
+  tags?: Maybe<Array<Scalars['Tag']['output']>>;
+  /** The livestream title. */
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+export type LoggedInAccountOperations = {
+  __typename?: 'LoggedInAccountOperations';
+  canBlock: Scalars['Boolean']['output'];
+  /**
+   * Check if the authenticated account can follow the target account.
+   *
+   * If a graph is not specified it defaults to using the Global Graph
+   */
+  canFollow: AccountFollowOperationValidationOutcome;
+  canUnblock: Scalars['Boolean']['output'];
+  /**
+   * Check if the authenticated account can unfollow the target account.
+   *
+   * If a graph is not specified it defaults to using the Global Graph
+   */
+  canUnfollow: AccountFollowOperationValidationOutcome;
+  hasBlockedMe: Scalars['Boolean']['output'];
+  hasReported: Scalars['Boolean']['output'];
+  id: Scalars['ID']['output'];
+  isBlockedByMe: Scalars['Boolean']['output'];
+  /**
+   * Check if the target account is followed by the authenticated account.
+   *
+   * If a graph is not specified it defaults to using the Global Graph
+   */
+  isFollowedByMe: Scalars['Boolean']['output'];
+  /**
+   * Check if the authenticated account is following the target account.
+   *
+   * If a graph is not specified it defaults to using the Global Graph
+   */
+  isFollowingMe: Scalars['Boolean']['output'];
+  isMutedByMe: Scalars['Boolean']['output'];
+};
+
+
+export type LoggedInAccountOperationsCanFollowArgs = {
+  request?: InputMaybe<CanFollowRequest>;
+};
+
+
+export type LoggedInAccountOperationsCanUnfollowArgs = {
+  request?: InputMaybe<CanUnfollowRequest>;
+};
+
+
+export type LoggedInAccountOperationsIsFollowedByMeArgs = {
+  request?: InputMaybe<IsFollowedByMeRequest>;
+};
+
+
+export type LoggedInAccountOperationsIsFollowingMeArgs = {
+  request?: InputMaybe<IsFollowingMeRequest>;
+};
+
+export type LoggedInFeedPostOperations = {
+  __typename?: 'LoggedInFeedPostOperations';
+  canPost: FeedOperationValidationOutcome;
+  id: Scalars['ID']['output'];
+};
+
+export type LoggedInGroupOperations = {
+  __typename?: 'LoggedInGroupOperations';
+  canAddMember: GroupOperationValidationOutcome;
+  canJoin: GroupOperationValidationOutcome;
+  canLeave: GroupOperationValidationOutcome;
+  canRemoveMember: GroupOperationValidationOutcome;
+  hasRequestedMembership: Scalars['Boolean']['output'];
+  id: Scalars['ID']['output'];
+  isBanned: Scalars['Boolean']['output'];
+  isMember: Scalars['Boolean']['output'];
+};
+
+export type LoggedInPostOperations = {
+  __typename?: 'LoggedInPostOperations';
+  canComment: PostOperationValidationOutcome;
+  canDelete: PostOperationValidationOutcome;
+  canEdit: PostOperationValidationOutcome;
+  canQuote: PostOperationValidationOutcome;
+  canRepost: PostOperationValidationOutcome;
+  canSimpleCollect: SimpleCollectValidationOutcome;
+  canTip: Scalars['Boolean']['output'];
+  executedUnknownActionCount: Scalars['Int']['output'];
+  hasBookmarked: Scalars['Boolean']['output'];
+  hasCommented: BooleanValue;
+  hasExecutedUnknownAction: Scalars['Boolean']['output'];
+  hasQuoted: BooleanValue;
+  hasReacted: Scalars['Boolean']['output'];
+  hasReported: Scalars['Boolean']['output'];
+  hasReposted: BooleanValue;
+  hasSimpleCollected: Scalars['Boolean']['output'];
+  hasTipped: Scalars['Boolean']['output'];
+  id: Scalars['ID']['output'];
+  isNotInterested: Scalars['Boolean']['output'];
+  lastTip?: Maybe<PostTip>;
+  postTipCount: Scalars['Int']['output'];
+  simpleCollectCount: Scalars['Int']['output'];
+};
+
+
+export type LoggedInPostOperationsExecutedUnknownActionCountArgs = {
+  request: ExecutedUnknownActionRequest;
+};
+
+
+export type LoggedInPostOperationsHasExecutedUnknownActionArgs = {
+  request: ExecutedUnknownActionRequest;
+};
+
+
+export type LoggedInPostOperationsHasReactedArgs = {
+  request?: InputMaybe<HasReactedRequest>;
+};
+
+export type LoggedInUsernameNamespaceOperations = {
+  __typename?: 'LoggedInUsernameNamespaceOperations';
+  canCreate: NamespaceOperationValidationOutcome;
+  id: Scalars['ID']['output'];
+};
+
+export type LoggedInUsernameOperations = {
+  __typename?: 'LoggedInUsernameOperations';
+  canAssign: NamespaceOperationValidationOutcome;
+  canRemove: NamespaceOperationValidationOutcome;
+  canUnassign: NamespaceOperationValidationOutcome;
+  id: Scalars['ID']['output'];
+};
+
+export enum MainContentFocus {
+  Article = 'ARTICLE',
+  Audio = 'AUDIO',
+  CheckingIn = 'CHECKING_IN',
+  Embed = 'EMBED',
+  Event = 'EVENT',
+  Image = 'IMAGE',
+  Link = 'LINK',
+  Livestream = 'LIVESTREAM',
+  Mint = 'MINT',
+  ShortVideo = 'SHORT_VIDEO',
+  Space = 'SPACE',
+  Story = 'STORY',
+  TextOnly = 'TEXT_ONLY',
+  ThreeD = 'THREE_D',
+  Transaction = 'TRANSACTION',
+  Video = 'VIDEO'
+}
+
+export enum ManagedAccountsVisibility {
+  All = 'ALL',
+  HiddenOnly = 'HIDDEN_ONLY',
+  NoneHidden = 'NONE_HIDDEN'
+}
+
+export type ManagedBy = {
+  /** The address that is either the owner or an admin of the primitive. */
+  address: Scalars['EvmAddress']['input'];
+  /** Whether to include the owned primitives or just the ones the address is an admin of. */
+  includeOwners?: Scalars['Boolean']['input'];
+};
+
+/** MarketplaceMetadataAttribute */
+export type MarketplaceMetadataAttribute = {
+  __typename?: 'MarketplaceMetadataAttribute';
+  displayType?: Maybe<MarketplaceMetadataAttributeDisplayType>;
+  /** The name of the trait. */
+  traitType?: Maybe<Scalars['String']['output']>;
+  value?: Maybe<Scalars['MarketplaceMetadataAttributeValue']['output']>;
+};
+
+/** MarketplaceMetadataAttributeDisplayType */
+export enum MarketplaceMetadataAttributeDisplayType {
+  Date = 'DATE',
+  Number = 'NUMBER',
+  String = 'STRING'
+}
+
+export type MeResult = {
+  __typename?: 'MeResult';
+  /** The app the account is logged in to. */
+  appLoggedIn: Scalars['EvmAddress']['output'];
+  /** Whether the account is signless. */
+  isSignless: Scalars['Boolean']['output'];
+  /** Whether the account is sponsored. */
+  isSponsored: Scalars['Boolean']['output'];
+  /** The sponsorship allowance for the account. */
+  limit: SponsorshipAllowance;
+  /** The logged in account. */
+  loggedInAs: AccountAvailable;
+};
+
+export type MediaAudio = {
+  __typename?: 'MediaAudio';
+  /** The name of the artist. */
+  artist?: Maybe<Scalars['String']['output']>;
+  /**
+   * A bag of attributes that can be used to store any kind of metadata that is not currently
+   * supported by the standard.
+   */
+  attributes: Array<MetadataAttribute>;
+  cover?: Maybe<Scalars['URI']['output']>;
+  /** The credits for the audio. */
+  credits?: Maybe<Scalars['String']['output']>;
+  /** How long the the audio is in seconds. */
+  duration?: Maybe<Scalars['Int']['output']>;
+  /** The genre of the audio */
+  genre?: Maybe<Scalars['String']['output']>;
+  /**
+   * The URI of the audio. You can use the optional `request` argument to choose between
+   * the original URI or a snapshotted one on CDN. Returns the snapshotted URI by default.
+   */
+  item: Scalars['URI']['output'];
+  /** The type of audio. */
+  kind?: Maybe<MediaAudioKind>;
+  /** The license for the audio. */
+  license?: Maybe<MetadataLicenseType>;
+  /** A URI to the lyrics of the audio file. */
+  lyrics?: Maybe<Scalars['URI']['output']>;
+  /** The record label for the audio. */
+  recordLabel?: Maybe<Scalars['String']['output']>;
+  /** The mime type of the audio file. */
+  type: MediaAudioType;
+};
+
+
+export type MediaAudioCoverArgs = {
+  request?: MediaImageRequest;
+};
+
+
+export type MediaAudioItemArgs = {
+  request?: MediaAudioRequest;
+};
+
+export enum MediaAudioKind {
+  Audiobook = 'AUDIOBOOK',
+  Music = 'MUSIC',
+  Other = 'OTHER',
+  Podcast = 'PODCAST',
+  Sound = 'SOUND',
+  VoiceNote = 'VOICE_NOTE'
+}
+
+export type MediaAudioRequest = {
+  useOriginal: Scalars['Boolean']['input'];
+};
+
+/** The mime type of the audio file. */
+export enum MediaAudioType {
+  AudioAac = 'AUDIO_AAC',
+  AudioFlac = 'AUDIO_FLAC',
+  AudioMpeg = 'AUDIO_MPEG',
+  AudioMp_4 = 'AUDIO_MP_4',
+  AudioOgg = 'AUDIO_OGG',
+  AudioVndWave = 'AUDIO_VND_WAVE',
+  AudioWav = 'AUDIO_WAV',
+  AudioWebm = 'AUDIO_WEBM'
+}
+
+export type MediaImage = {
+  __typename?: 'MediaImage';
+  /** The alt tag for accessibility */
+  altTag?: Maybe<Scalars['String']['output']>;
+  /**
+   * A bag of attributes that can be used to store any kind of metadata that is not currently
+   * supported by the standard.
+   */
+  attributes: Array<MetadataAttribute>;
+  /** The height of the image. */
+  height?: Maybe<Scalars['Int']['output']>;
+  /**
+   * The URI of the image. You can use the optional `request` argument to choose between
+   * the original, snapshotted on CDN, or transformed to a different resolution. Returns the
+   * snapshotted URI by default.
+   */
+  item: Scalars['URI']['output'];
+  /** The license for the image */
+  license?: Maybe<MetadataLicenseType>;
+  /** The mime type of the image */
+  type: MediaImageType;
+  /** The width of the image. */
+  width?: Maybe<Scalars['Int']['output']>;
+};
+
+
+export type MediaImageItemArgs = {
+  request?: MediaImageRequest;
+};
+
+export type MediaImageRequest = {
+  preferTransform?: InputMaybe<ImageTransform>;
+  useOriginal?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/**
+ * The mime type of the image
+ *
+ * <details><summary>JSON schema</summary>
+ *
+ * ```json
+ * {
+ * "description": "The mime type of the image",
+ * "type": "string",
+ * "enum": [
+ * "image/bmp",
+ * "image/gif",
+ * "image/heic",
+ * "image/jpeg",
+ * "image/png",
+ * "image/svg+xml",
+ * "image/tiff",
+ * "image/webp",
+ * "image/x-ms-bmp"
+ * ]
+ * }
+ * ```
+ * </details>
+ */
+export enum MediaImageType {
+  Bmp = 'BMP',
+  Gif = 'GIF',
+  Heic = 'HEIC',
+  Jpeg = 'JPEG',
+  Png = 'PNG',
+  SvgXml = 'SVG_XML',
+  Tiff = 'TIFF',
+  Webp = 'WEBP',
+  XMsBmp = 'X_MS_BMP'
+}
+
+export type MediaSnapshotNotificationAttributes = {
+  source?: InputMaybe<PrimitiveId>;
+};
+
+export type MediaVideo = {
+  __typename?: 'MediaVideo';
+  /** The alt tag for accessibility */
+  altTag?: Maybe<Scalars['String']['output']>;
+  /**
+   * A bag of attributes that can be used to store any kind of metadata that is not currently
+   * supported by the standard.
+   */
+  attributes: Array<MetadataAttribute>;
+  cover?: Maybe<Scalars['URI']['output']>;
+  /** How long the the video is in seconds */
+  duration?: Maybe<Scalars['Int']['output']>;
+  item: Scalars['URI']['output'];
+  /** The license for the video */
+  license?: Maybe<MetadataLicenseType>;
+  /** The mime type of the video */
+  type: MediaVideoType;
+};
+
+
+export type MediaVideoCoverArgs = {
+  request?: MediaImageRequest;
+};
+
+
+export type MediaVideoItemArgs = {
+  request?: MediaVideoRequest;
+};
+
+export type MediaVideoRequest = {
+  /** Set to `true` to get the original URI of the video. */
+  useOriginal: Scalars['Boolean']['input'];
+};
+
+/**
+ * The mime type of the video
+ *
+ * <details><summary>JSON schema</summary>
+ *
+ * ```json
+ * {
+ * "description": "The mime type of the video",
+ * "type": "string",
+ * "enum": [
+ * "model/gltf+json",
+ * "model/gltf-binary",
+ * "video/x-m4v",
+ * "video/mov",
+ * "video/mp4",
+ * "video/mpeg",
+ * "video/ogg",
+ * "video/ogv",
+ * "video/quicktime",
+ * "video/webm"
+ * ]
+ * }
+ * ```
+ * </details>
+ */
+export enum MediaVideoType {
+  ModelGltfBinary = 'MODEL_GLTF_BINARY',
+  ModelGltfJson = 'MODEL_GLTF_JSON',
+  VideoMov = 'VIDEO_MOV',
+  VideoMpeg = 'VIDEO_MPEG',
+  VideoMp_4 = 'VIDEO_MP_4',
+  VideoOgg = 'VIDEO_OGG',
+  VideoOgv = 'VIDEO_OGV',
+  VideoQuicktime = 'VIDEO_QUICKTIME',
+  VideoWebm = 'VIDEO_WEBM',
+  VideoXm_4V = 'VIDEO_XM_4V'
+}
+
+export type MembershipApprovalGroupRuleConfig = {
+  enable?: InputMaybe<Scalars['AlwaysTrue']['input']>;
+};
+
+export type MentionNotification = {
+  __typename?: 'MentionNotification';
+  id: Scalars['GeneratedNotificationId']['output'];
+  post: Post;
+};
+
+export type MentionReplace = {
+  __typename?: 'MentionReplace';
+  from: Scalars['String']['output'];
+  to: Scalars['String']['output'];
+};
+
+export type MetadataAttribute = {
+  __typename?: 'MetadataAttribute';
+  key: Scalars['String']['output'];
+  type: MetadataAttributeType;
+  value: Scalars['String']['output'];
+};
+
+export enum MetadataAttributeType {
+  Boolean = 'BOOLEAN',
+  Date = 'DATE',
+  Json = 'JSON',
+  Number = 'NUMBER',
+  String = 'STRING'
+}
+
+export enum MetadataLicenseType {
+  Cco = 'CCO',
+  CcBy = 'CC_BY',
+  CcByNc = 'CC_BY_NC',
+  CcByNd = 'CC_BY_ND',
+  TbnlCdNplLedger = 'TBNL_CD_NPL_LEDGER',
+  TbnlCdNplLegal = 'TBNL_CD_NPL_LEGAL',
+  TbnlCdPlLedger = 'TBNL_CD_PL_LEDGER',
+  TbnlCdPlLegal = 'TBNL_CD_PL_LEGAL',
+  TbnlCDtsaNplLedger = 'TBNL_C_DTSA_NPL_LEDGER',
+  TbnlCDtsaNplLegal = 'TBNL_C_DTSA_NPL_LEGAL',
+  TbnlCDtsaPlLedger = 'TBNL_C_DTSA_PL_LEDGER',
+  TbnlCDtsaPlLegal = 'TBNL_C_DTSA_PL_LEGAL',
+  TbnlCDtNplLedger = 'TBNL_C_DT_NPL_LEDGER',
+  TbnlCDtNplLegal = 'TBNL_C_DT_NPL_LEGAL',
+  TbnlCDtPlLedger = 'TBNL_C_DT_PL_LEDGER',
+  TbnlCDtPlLegal = 'TBNL_C_DT_PL_LEGAL',
+  TbnlCNdNplLedger = 'TBNL_C_ND_NPL_LEDGER',
+  TbnlCNdNplLegal = 'TBNL_C_ND_NPL_LEGAL',
+  TbnlCNdPlLedger = 'TBNL_C_ND_PL_LEDGER',
+  TbnlCNdPlLegal = 'TBNL_C_ND_PL_LEGAL',
+  TbnlNcDtsaNplLedger = 'TBNL_NC_DTSA_NPL_LEDGER',
+  TbnlNcDtsaNplLegal = 'TBNL_NC_DTSA_NPL_LEGAL',
+  TbnlNcDtsaPlLedger = 'TBNL_NC_DTSA_PL_LEDGER',
+  TbnlNcDtsaPlLegal = 'TBNL_NC_DTSA_PL_LEGAL',
+  TbnlNcDtNplLedger = 'TBNL_NC_DT_NPL_LEDGER',
+  TbnlNcDtNplLegal = 'TBNL_NC_DT_NPL_LEGAL',
+  TbnlNcDtPlLedger = 'TBNL_NC_DT_PL_LEDGER',
+  TbnlNcDtPlLegal = 'TBNL_NC_DT_PL_LEGAL',
+  TbnlNcDNplLedger = 'TBNL_NC_D_NPL_LEDGER',
+  TbnlNcDNplLegal = 'TBNL_NC_D_NPL_LEGAL',
+  TbnlNcDPlLedger = 'TBNL_NC_D_PL_LEDGER',
+  TbnlNcDPlLegal = 'TBNL_NC_D_PL_LEGAL',
+  TbnlNcNdNplLedger = 'TBNL_NC_ND_NPL_LEDGER',
+  TbnlNcNdNplLegal = 'TBNL_NC_ND_NPL_LEGAL',
+  TbnlNcNdPlLedger = 'TBNL_NC_ND_PL_LEDGER',
+  TbnlNcNdPlLegal = 'TBNL_NC_ND_PL_LEGAL'
+}
+
+export type MetadataSnapshotNotificationAttributes = {
+  source?: InputMaybe<PrimitiveId>;
+};
+
+export type MintMetadata = {
+  __typename?: 'MintMetadata';
+  /** The other attachments you want to include with it. */
+  attachments: Array<AnyMedia>;
+  /**
+   * A bag of attributes that can be used to store any kind of metadata that is not currently
+   * supported by the standard. Over time, common attributes will be added to the standard and
+   * their usage as arbitrary attributes will be discouraged.
+   */
+  attributes: Array<MetadataAttribute>;
+  content: Scalars['String']['output'];
+  /** Specify a content warning. */
+  contentWarning?: Maybe<ContentWarning>;
+  id: Scalars['MetadataId']['output'];
+  locale: Scalars['Locale']['output'];
+  /** The main focus of the post. */
+  mainContentFocus: MainContentFocus;
+  /** The mint item it can be a URL of the known provider like opensea https://opensea.io/assets/ethereum/0xfaa2471e93bd1cee3b0ab381c242ada8e1d1a759/299 or https://zora.co/collect/0x9d90669665607f08005cae4a7098143f554c59ef/39626. The Lens API has an allow list of providers and if the domain does not match it will mark it as failed metadata */
+  mintLink: Scalars['URI']['output'];
+  /** An arbitrary list of tags. */
+  tags?: Maybe<Array<Scalars['Tag']['output']>>;
+};
+
+export type MlinternalForYouRequest = {
+  account?: InputMaybe<Scalars['EvmAddress']['input']>;
+  secret: Scalars['String']['input'];
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  /**
+   * Add an account manager to the authenticated account.
+   *
+   * You MUST be authenticated as Account Owner to use this mutation.
+   */
+  addAccountManager: AddAccountManagerResult;
+  /**
+   * Add admins to a graph/app/sponsor/feed/username/group.
+   *
+   * You MUST be authenticated as Builder, Account Manager, or Account Owner.
+   * In case of Account Manager or Account Owner, the Lens Account needs to be the owner or an
+   * admin of the primitive.
+   */
+  addAdmins: AddAdminsResult;
+  /**
+   * Add an app authorization endpoint.
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  addAppAuthorizationEndpoint: Scalars['Void']['output'];
+  /**
+   * Add feeds to an app
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  addAppFeeds: AddAppFeedsResult;
+  /**
+   * Add groups to an app
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  addAppGroups: AddAppGroupsResult;
+  /**
+   * Add signers to an app
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  addAppSigners: AddAppSignersResult;
+  /**
+   * Add a post not interested.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  addPostNotInterested: Scalars['Void']['output'];
+  /**
+   * React to a post.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  addReaction: AddReactionResult;
+  /**
+   * Approve group members
+   *
+   * You MUST be authenticated as:
+   * - Builder and be the owner/admin of the group
+   * - Account Manager or Account Owner for a Lens Account that is the owner/admin of the group
+   */
+  approveGroupMembershipRequests: ApproveGroupMembershipResult;
+  /**
+   * Assign a username to an account.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  assignUsernameToAccount: AssignUsernameToAccountResult;
+  /** Authenticate the user with the signed authentication challenge. */
+  authenticate: AuthenticationResult;
+  /**
+   * Ban accounts to join a group.
+   * If the banned account(s) already joined the group, they will be removed from the group.
+   *
+   * You MUST be authenticated as:
+   * - Builder and be the owner/admin of the group
+   * - Account Manager or Account Owner for a Lens Account that is the owner/admin of the group
+   */
+  banGroupAccounts: BanGroupAccountsResult;
+  /**
+   * Block an account with the authenticated account.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  block: BlockResult;
+  /**
+   * Bookmark a post.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  bookmarkPost: Scalars['Void']['output'];
+  /**
+   * Cancel group membership request
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  cancelGroupMembershipRequest: CancelGroupMembershipRequestResult;
+  /**
+   * Generates a new authentication challenge for the specified address and app.
+   *
+   * Users must sign the challenge to authenticate.
+   *
+   * The issued challenge can be for authentication credentials for different roles:
+   * - AccountOwner: The `address` is a Lens Account, and the `signed_by` is the Account Owner.
+   * - AccountManager: The `address` is a Lens Account, and the `signed_by` is an Account Manager
+   * for it.
+   * - OnboardingUser: The `address` is an EOA that needs to create their Lens Account.
+   * - Builder: The `address` is the EOA of a Builder that needs to use configuration and
+   * management features.
+   *
+   * The HTTP Origin header MUST be present and match the app's domain.
+   */
+  challenge: AuthenticationChallenge;
+  /**
+   * Configure the given account action for the authenticated account.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  configureAccountAction: ConfigureAccountActionResult;
+  /**
+   * Configure the given post action for the given post.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager of the Account
+   * that authored this Post to use this mutation.
+   */
+  configurePostAction: ConfigurePostActionResult;
+  /**
+   * Create an account with a given username.
+   *
+   * You MUST be authenticated to use this mutation.
+   */
+  createAccountWithUsername: CreateAccountWithUsernameResult;
+  /**
+   * Create a new app
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  createApp: CreateAppResult;
+  /**
+   * Create a new feed
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  createFeed: CreateFeedResult;
+  /**
+   * Create a new graph
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  createGraph: CreateGraphResult;
+  /**
+   * Create a new group
+   *
+   * You MUST be authenticated as Builder, Account Manager, or Account Owner.
+   * In case of Account Manager or Account Owner, the Lens Account becomes the owner of the
+   * group.
+   */
+  createGroup: CreateGroupResult;
+  createSnsSubscriptions: Array<SnsSubscription>;
+  /**
+   * Create a new sponsorship.
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  createSponsorship: CreateSponsorshipResult;
+  /**
+   * Create a username.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  createUsername: CreateUsernameResult;
+  /**
+   * Create a new username namespace aka deploying a new username contract
+   *
+   * You MUST be authenticated to use this mutation.
+   */
+  createUsernameNamespace: CreateUsernameNamespaceResult;
+  /**
+   * Delete a post.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  deletePost: DeletePostResult;
+  deleteSnsSubscription: Scalars['Void']['output'];
+  /**
+   * Creates a deposit transaction request for the authenticated account.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation
+   */
+  deposit: DepositResult;
+  /**
+   * Set the given account action for the authenticated account.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  disableAccountAction: DisableAccountActionResult;
+  /**
+   * Disable the given post action for the given post.
+   *
+   * You MUST be authenticated as the Owner or Manager of the account that made this post to use
+   * this mutation.
+   */
+  disablePostAction: DisablePostActionResult;
+  /**
+   * Edit a post.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  editPost: PostResult;
+  /**
+   * Set the given account action for the authenticated account.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  enableAccountAction: EnableAccountActionResult;
+  /**
+   * Enable the given post action for the authenticated post.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager of the Account
+   * that authored this Post to use this mutation.
+   */
+  enablePostAction: EnablePostActionResult;
+  /**
+   * Enables Signless experience for the authenticated account.
+   *
+   * You MUST be authenticated as Account Owner to use this mutation.
+   */
+  enableSignless: EnableSignlessResult;
+  /**
+   * Execute the given account action for the authenticated account.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  executeAccountAction: ExecuteAccountActionResult;
+  /**
+   * Execute the given post action.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  executePostAction: ExecutePostActionResult;
+  /**
+   * Follow an Account on the global Graph or a specific Graph.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  follow: FollowResult;
+  /**
+   * Generate a new app server side api key
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  generateNewAppServerApiKey: Scalars['ServerAPIKey']['output'];
+  /**
+   * Hides an account from the manager list of managed accounts.
+   *
+   * You MUST be authenticated as Account Manager to use this mutation.
+   */
+  hideManagedAccount: Scalars['Void']['output'];
+  hideReply: Scalars['Void']['output'];
+  /**
+   * Join a group
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  joinGroup: JoinGroupResult;
+  /**
+   * Leave a group
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  leaveGroup: LeaveGroupResult;
+  /**
+   * Issue new authentication tokens from a valid Lens API v2 refresh token.
+   *
+   * Use this to seamlessly transition your users from Lens API v2 to Lens API v3 without
+   * requiring them to re-authenticate.
+   *
+   * The HTTP Origin header MUST be present and match the app's domain.
+   */
+  legacyRolloverRefresh: RefreshResult;
+  mlDismissRecommendedAccounts: Scalars['Void']['output'];
+  mlForYouInternal: Scalars['Void']['output'];
+  /**
+   * Mute an account for the authenticated account.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  mute: Scalars['Void']['output'];
+  /**
+   * Pause a sponsorship.
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  pauseSponsorship: PausingResult;
+  /**
+   * Create a new post.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  post: PostResult;
+  /**
+   * Recommend an account from the authenticated account.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  recommendAccount: Scalars['Void']['output'];
+  /** Refreshes the authentication tokens. */
+  refresh: RefreshResult;
+  /** Refreshes the metadata for the provided entity. */
+  refreshMetadata: RefreshMetadataResult;
+  /**
+   * Reject group membership requests
+   *
+   * You MUST be authenticated as:
+   * - Builder and be the owner/admin of the group
+   * - Account Manager or Account Owner for a Lens Account that is the owner/admin of the group
+   */
+  rejectGroupMembershipRequests: RejectGroupMembershipResult;
+  /**
+   * Remove an account manager to the authenticated account.
+   *
+   * You MUST be authenticated as Account Owner to use this mutation.
+   */
+  removeAccountManager: RemoveAccountManagerResult;
+  /**
+   * Remove admins from a graph/app/sponsor/feed/username/group.
+   *
+   * You MUST be authenticated as Builder, Account Manager, or Account Owner.
+   * In case of Account Manager or Account Owner, the Lens Account needs to be the owner or an
+   * admin of the primitive.
+   */
+  removeAdmins: RemoveAdminsResult;
+  /**
+   * Remove an app authorization endpoint.
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  removeAppAuthorizationEndpoint: Scalars['Void']['output'];
+  /**
+   * Remove feeds to an app
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  removeAppFeeds: RemoveAppFeedsResult;
+  /**
+   * Remove groups to an app
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  removeAppGroups: RemoveAppGroupsResult;
+  /**
+   * Remove signers to an app
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  removeAppSigners: RemoveAppSignersResult;
+  /**
+   * Remove group members
+   *
+   * You MUST be authenticated as:
+   * - Builder and be the owner/admin of the group
+   * - Account Manager or Account Owner for a Lens Account that is the owner/admin of the group
+   */
+  removeGroupMembers: RemoveGroupMembersResult;
+  /**
+   * Remove Signless experience for the authenticated account.
+   *
+   * You MUST be authenticated as Account Owner to use this mutation.
+   */
+  removeSignless: RemoveSignlessResult;
+  /**
+   * Report an account.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  reportAccount: Scalars['Void']['output'];
+  /**
+   * Report a post.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  reportPost: Scalars['Void']['output'];
+  /**
+   * Repost a post.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  repost: PostResult;
+  /**
+   * Request to join a group
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  requestGroupMembership: RequestGroupMembershipResult;
+  /**
+   * Revoke an authentication.
+   *
+   * You MUST be authenticated to use this mutation.
+   */
+  revokeAuthentication: Scalars['Void']['output'];
+  /**
+   * Set the metadata for the authenticated account.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  setAccountMetadata: SetAccountMetadataResult;
+  /**
+   * Set graph for an app
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  setAppGraph: SetAppGraphResult;
+  /**
+   * Set metadata for an app
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  setAppMetadata: SetAppMetadataResult;
+  /**
+   * Set sponsorship for an app
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  setAppSponsorship: SetAppSponsorshipResult;
+  /**
+   * Set treasury for an app
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  setAppTreasury: SetAppTreasuryResult;
+  /**
+   * Set username namespace for an app
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  setAppUsernameNamespace: SetAppUsernameNamespaceResult;
+  /**
+   * Set if the app verification is enabled
+   * App needs to have authorization endpoint enabled
+   * App needs to return `verification_endpoint` from the authorization endpoint
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  setAppVerification: SetAppVerificationResult;
+  /**
+   * Set default feed for an app
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  setDefaultAppFeed: SetDefaultAppFeedResult;
+  /**
+   * Set metadata for a feed
+   *
+   * You MUST be authenticated as:
+   * - Builder and be the owner/admin of the feed
+   * - Account Manager or Account Owner for a Lens Account that is the owner/admin of the feed
+   */
+  setFeedMetadata: SetFeedMetadataResult;
+  /**
+   * Set metadata for a graph
+   *
+   * You MUST be authenticated to use this mutation.
+   */
+  setGraphMetadata: SetGraphMetadataResult;
+  /**
+   * Set metadata for a group
+   *
+   * You MUST be authenticated as:
+   * - Builder and be the owner/admin of the group
+   * - Account Manager or Account Owner for a Lens Account that is the owner/admin of the group
+   */
+  setGroupMetadata: SetGroupMetadataResult;
+  /**
+   * Set metadata for a namespace
+   *
+   * You MUST be authenticated to use this mutation.
+   */
+  setNamespaceMetadata: SetNamespaceMetadataResult;
+  /**
+   * Set metadata for a sponsorship
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  setSponsorshipMetadata: SetSponsorshipMetadataResult;
+  /**
+   * sign a frame action with the lens account manager
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  signFrameAction: FrameLensManagerSignatureResult;
+  /** You MUST be authenticated as Account Owner or Account Manager to use this mutation. */
+  switchAccount: SwitchAccountResult;
+  /**
+   * Transfer primitive ownership for the graph/app/sponsor/feed/username/group.
+   *
+   * You MUST be authenticated as Builder, Account Manager, or Account Owner.
+   * In case of Account Manager or Account Owner, the Lens Account needs to be the owner of the
+   * primitive.
+   */
+  transferPrimitiveOwnership: TransferPrimitiveOwnershipResult;
+  /**
+   * Unassign a username from the logged-in user's Account.
+   *
+   * Defaults to the Lens namespace if no request is provided.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  unassignUsernameFromAccount: UnassignUsernameToAccountResult;
+  /**
+   * Unban accounts
+   *
+   * You MUST be authenticated as:
+   * - Builder and be the owner/admin of the group
+   * - Account Manager or Account Owner for a Lens Account that is the owner/admin of the group
+   */
+  unbanGroupAccounts: UnbanGroupAccountsResult;
+  /**
+   * Unblock an account with the authenticated account.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  unblock: UnblockResult;
+  /**
+   * Undo bookmark.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  undoBookmarkPost: Scalars['Void']['output'];
+  /**
+   * Undo a post not interested.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  undoPostNotInterested: Scalars['Void']['output'];
+  /**
+   * Undo reaction to a post.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  undoReaction: UndoReactionResult;
+  /**
+   * Undo recommended account from the authenticated account.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  undoRecommendedAccount: Scalars['Void']['output'];
+  /**
+   * Unfollow an Account on the global Graph or a specific Graph.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  unfollow: UnfollowResult;
+  /**
+   * Undo the hiding of an account from the manager list of managed accounts.
+   *
+   * You MUST be authenticated as Account Manager to use this mutation.
+   */
+  unhideManagedAccount: Scalars['Void']['output'];
+  unhideReply: Scalars['Void']['output'];
+  /**
+   * Unmute an account for the authenticated account.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  unmute: Scalars['Void']['output'];
+  /**
+   * Unpause a sponsorship.
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  unpauseSponsorship: PausingResult;
+  /**
+   * Creates an unwrap transaction request to convert wrapped tokens held in the authenticated
+   * Lens Account to their unwrapped version. For example:
+   * - Mainnet: WGHO -> GHO
+   * - Testnet: WGRASS -> GRASS
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation
+   */
+  unwrapTokens: UnwrapTokensResult;
+  /**
+   * Update account follow rules
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  updateAccountFollowRules: UpdateAccountFollowRulesResult;
+  /**
+   * Update the Account Manager Permissions for a given Account Manager.
+   *
+   * You MUST be authenticated as Account Owner to use this mutation.
+   */
+  updateAccountManager: UpdateAccountManagerResult;
+  /**
+   * Update feed rules
+   *
+   * You MUST be authenticated as:
+   * - Builder and be the owner/admin of the feed
+   * - Account Manager or Account Owner for a Lens Account that is the owner/admin of the feed
+   */
+  updateFeedRules: UpdateFeedRulesResult;
+  /**
+   * Update graph rules
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  updateGraphRules: UpdateGraphRulesResult;
+  /**
+   * Update group rules
+   *
+   * You MUST be authenticated as:
+   * - Builder and be the owner/admin of the group
+   * - Account Manager or Account Owner for a Lens Account that is the owner/admin of the group
+   */
+  updateGroupRules: UpdateGroupRulesResult;
+  /**
+   * Update namespace rules
+   *
+   * You MUST be authenticated to use this mutation.
+   */
+  updateNamespaceRules: UpdateNamespaceRulesResult;
+  /**
+   * Update post rules
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
+   */
+  updatePostRules: UpdatePostRulesResult;
+  /**
+   * Update reserved usernames
+   *
+   * You MUST be authenticated to use this mutation.
+   */
+  updateReservedUsernames: UpdateReservedUsernamesResult;
+  /**
+   * Update a sponsorship exclusion list from the rate limits.
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  updateSponsorshipExclusionList: UpdateSponsorshipExclusionListResult;
+  /**
+   * Update a sponsorship rate limits.
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  updateSponsorshipLimits: UpdateSponsorshipLimitsResult;
+  /**
+   * Update a sponsorship signers list.
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  updateSponsorshipSigners: UpdateSponsorshipSignersResult;
+  /**
+   * Creates a withdrawal transaction request for the authenticated account.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation
+   */
+  withdraw: WithdrawResult;
+  /**
+   * Creates a wrap transaction request to convert tokens held in the authenticated Lens Account
+   * to their ERC20 equivalent. For example:
+   * - Mainnet: GHO -> WGHO
+   * - Testnet: GRASS -> WGRASS
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this mutation
+   */
+  wrapTokens: WrapTokensResult;
+};
+
+
+export type MutationAddAccountManagerArgs = {
+  request: AddAccountManagerRequest;
+};
+
+
+export type MutationAddAdminsArgs = {
+  request: AddAdminsRequest;
+};
+
+
+export type MutationAddAppAuthorizationEndpointArgs = {
+  request: AddAppAuthorizationEndpointRequest;
+};
+
+
+export type MutationAddAppFeedsArgs = {
+  request: AddAppFeedsRequest;
+};
+
+
+export type MutationAddAppGroupsArgs = {
+  request: AddAppGroupsRequest;
+};
+
+
+export type MutationAddAppSignersArgs = {
+  request: AddAppSignersRequest;
+};
+
+
+export type MutationAddPostNotInterestedArgs = {
+  request: PostNotInterestedRequest;
+};
+
+
+export type MutationAddReactionArgs = {
+  request: AddReactionRequest;
+};
+
+
+export type MutationApproveGroupMembershipRequestsArgs = {
+  request: ApproveGroupMembershipRequest;
+};
+
+
+export type MutationAssignUsernameToAccountArgs = {
+  request: AssignUsernameToAccountRequest;
+};
+
+
+export type MutationAuthenticateArgs = {
+  request: SignedAuthChallenge;
+};
+
+
+export type MutationBanGroupAccountsArgs = {
+  request: BanGroupAccountsRequest;
+};
+
+
+export type MutationBlockArgs = {
+  request: BlockRequest;
+};
+
+
+export type MutationBookmarkPostArgs = {
+  request: BookmarkPostRequest;
+};
+
+
+export type MutationCancelGroupMembershipRequestArgs = {
+  request: CancelGroupMembershipRequestRequest;
+};
+
+
+export type MutationChallengeArgs = {
+  request: ChallengeRequest;
+};
+
+
+export type MutationConfigureAccountActionArgs = {
+  request: ConfigureAccountActionRequest;
+};
+
+
+export type MutationConfigurePostActionArgs = {
+  request: ConfigurePostActionRequest;
+};
+
+
+export type MutationCreateAccountWithUsernameArgs = {
+  request: CreateAccountWithUsernameRequest;
+};
+
+
+export type MutationCreateAppArgs = {
+  request: CreateAppRequest;
+};
+
+
+export type MutationCreateFeedArgs = {
+  request: CreateFeedRequest;
+};
+
+
+export type MutationCreateGraphArgs = {
+  request: CreateGraphRequest;
+};
+
+
+export type MutationCreateGroupArgs = {
+  request: CreateGroupRequest;
+};
+
+
+export type MutationCreateSnsSubscriptionsArgs = {
+  request: CreateSnsSubscriptionRequest;
+};
+
+
+export type MutationCreateSponsorshipArgs = {
+  request: CreateSponsorshipRequest;
+};
+
+
+export type MutationCreateUsernameArgs = {
+  request: CreateUsernameRequest;
+};
+
+
+export type MutationCreateUsernameNamespaceArgs = {
+  request: CreateUsernameNamespaceRequest;
+};
+
+
+export type MutationDeletePostArgs = {
+  request: DeletePostRequest;
+};
+
+
+export type MutationDeleteSnsSubscriptionArgs = {
+  request: DeleteSnsSubscriptionRequest;
+};
+
+
+export type MutationDepositArgs = {
+  request: DepositRequest;
+};
+
+
+export type MutationDisableAccountActionArgs = {
+  request: DisableAccountActionRequest;
+};
+
+
+export type MutationDisablePostActionArgs = {
+  request: DisablePostActionRequest;
+};
+
+
+export type MutationEditPostArgs = {
+  request: EditPostRequest;
+};
+
+
+export type MutationEnableAccountActionArgs = {
+  request: EnableAccountActionRequest;
+};
+
+
+export type MutationEnablePostActionArgs = {
+  request: EnablePostActionRequest;
+};
+
+
+export type MutationExecuteAccountActionArgs = {
+  request: ExecuteAccountActionRequest;
+};
+
+
+export type MutationExecutePostActionArgs = {
+  request: ExecutePostActionRequest;
+};
+
+
+export type MutationFollowArgs = {
+  request: CreateFollowRequest;
+};
+
+
+export type MutationGenerateNewAppServerApiKeyArgs = {
+  request: GenerateNewAppServerApiKeyRequest;
+};
+
+
+export type MutationHideManagedAccountArgs = {
+  request: HideManagedAccountRequest;
+};
+
+
+export type MutationHideReplyArgs = {
+  request: HideReplyRequest;
+};
+
+
+export type MutationJoinGroupArgs = {
+  request: JoinGroupRequest;
+};
+
+
+export type MutationLeaveGroupArgs = {
+  request: LeaveGroupRequest;
+};
+
+
+export type MutationLegacyRolloverRefreshArgs = {
+  request: RolloverRefreshRequest;
+};
+
+
+export type MutationMlDismissRecommendedAccountsArgs = {
+  request: DismissRecommendedAccountsRequest;
+};
+
+
+export type MutationMlForYouInternalArgs = {
+  request: MlinternalForYouRequest;
+};
+
+
+export type MutationMuteArgs = {
+  request: MuteRequest;
+};
+
+
+export type MutationPauseSponsorshipArgs = {
+  request: PausingRequest;
+};
+
+
+export type MutationPostArgs = {
+  request: CreatePostRequest;
+};
+
+
+export type MutationRecommendAccountArgs = {
+  request: RecommendAccount;
+};
+
+
+export type MutationRefreshArgs = {
+  request: RefreshRequest;
+};
+
+
+export type MutationRefreshMetadataArgs = {
+  request: RefreshMetadataRequest;
+};
+
+
+export type MutationRejectGroupMembershipRequestsArgs = {
+  request: RejectGroupMembershipRequest;
+};
+
+
+export type MutationRemoveAccountManagerArgs = {
+  request: RemoveAccountManagerRequest;
+};
+
+
+export type MutationRemoveAdminsArgs = {
+  request: RemoveAdminsRequest;
+};
+
+
+export type MutationRemoveAppAuthorizationEndpointArgs = {
+  request: RemoveAppAuthorizationEndpointRequest;
+};
+
+
+export type MutationRemoveAppFeedsArgs = {
+  request: RemoveAppFeedsRequest;
+};
+
+
+export type MutationRemoveAppGroupsArgs = {
+  request: RemoveAppGroupsRequest;
+};
+
+
+export type MutationRemoveAppSignersArgs = {
+  request: RemoveAppSignersRequest;
+};
+
+
+export type MutationRemoveGroupMembersArgs = {
+  request: RemoveGroupMembersRequest;
+};
+
+
+export type MutationReportAccountArgs = {
+  request: ReportAccountRequest;
+};
+
+
+export type MutationReportPostArgs = {
+  request: ReportPostRequest;
+};
+
+
+export type MutationRepostArgs = {
+  request: CreateRepostRequest;
+};
+
+
+export type MutationRequestGroupMembershipArgs = {
+  request: RequestGroupMembershipRequest;
+};
+
+
+export type MutationRevokeAuthenticationArgs = {
+  request: RevokeAuthenticationRequest;
+};
+
+
+export type MutationSetAccountMetadataArgs = {
+  request: SetAccountMetadataRequest;
+};
+
+
+export type MutationSetAppGraphArgs = {
+  request: SetAppGraphRequest;
+};
+
+
+export type MutationSetAppMetadataArgs = {
+  request: SetAppMetadataRequest;
+};
+
+
+export type MutationSetAppSponsorshipArgs = {
+  request: SetAppSponsorshipRequest;
+};
+
+
+export type MutationSetAppTreasuryArgs = {
+  request: SetAppTreasuryRequest;
+};
+
+
+export type MutationSetAppUsernameNamespaceArgs = {
+  request: SetAppUsernameNamespaceRequest;
+};
+
+
+export type MutationSetAppVerificationArgs = {
+  request: SetAppVerificationRequest;
+};
+
+
+export type MutationSetDefaultAppFeedArgs = {
+  request: SetDefaultAppFeedRequest;
+};
+
+
+export type MutationSetFeedMetadataArgs = {
+  request: SetFeedMetadataRequest;
+};
+
+
+export type MutationSetGraphMetadataArgs = {
+  request: SetGraphMetadataRequest;
+};
+
+
+export type MutationSetGroupMetadataArgs = {
+  request: SetGroupMetadataRequest;
+};
+
+
+export type MutationSetNamespaceMetadataArgs = {
+  request: SetNamespaceMetadataRequest;
+};
+
+
+export type MutationSetSponsorshipMetadataArgs = {
+  request: SetSponsorshipMetadataRequest;
+};
+
+
+export type MutationSignFrameActionArgs = {
+  request: FrameEip712Request;
+};
+
+
+export type MutationSwitchAccountArgs = {
+  request: SwitchAccountRequest;
+};
+
+
+export type MutationTransferPrimitiveOwnershipArgs = {
+  request: TransferPrimitiveOwnershipRequest;
+};
+
+
+export type MutationUnassignUsernameFromAccountArgs = {
+  request: UnassignUsernameFromAccountRequest;
+};
+
+
+export type MutationUnbanGroupAccountsArgs = {
+  request: UnbanGroupAccountsRequest;
+};
+
+
+export type MutationUnblockArgs = {
+  request: UnblockRequest;
+};
+
+
+export type MutationUndoBookmarkPostArgs = {
+  request: BookmarkPostRequest;
+};
+
+
+export type MutationUndoPostNotInterestedArgs = {
+  request: PostNotInterestedRequest;
+};
+
+
+export type MutationUndoReactionArgs = {
+  request: UndoReactionRequest;
+};
+
+
+export type MutationUndoRecommendedAccountArgs = {
+  request: UndoRecommendedAccount;
+};
+
+
+export type MutationUnfollowArgs = {
+  request: CreateUnfollowRequest;
+};
+
+
+export type MutationUnhideManagedAccountArgs = {
+  request: UnhideManagedAccountRequest;
+};
+
+
+export type MutationUnhideReplyArgs = {
+  request: UnhideReplyRequest;
+};
+
+
+export type MutationUnmuteArgs = {
+  request: MuteRequest;
+};
+
+
+export type MutationUnpauseSponsorshipArgs = {
+  request: PausingRequest;
+};
+
+
+export type MutationUnwrapTokensArgs = {
+  request: UnwrapTokensRequest;
+};
+
+
+export type MutationUpdateAccountFollowRulesArgs = {
+  request: UpdateAccountFollowRulesRequest;
+};
+
+
+export type MutationUpdateAccountManagerArgs = {
+  request: UpdateAccountManagerRequest;
+};
+
+
+export type MutationUpdateFeedRulesArgs = {
+  request: UpdateFeedRulesRequest;
+};
+
+
+export type MutationUpdateGraphRulesArgs = {
+  request: UpdateGraphRulesRequest;
+};
+
+
+export type MutationUpdateGroupRulesArgs = {
+  request: UpdateGroupRulesRequest;
+};
+
+
+export type MutationUpdateNamespaceRulesArgs = {
+  request: UpdateNamespaceRulesRequest;
+};
+
+
+export type MutationUpdatePostRulesArgs = {
+  request: UpdatePostRulesRequest;
+};
+
+
+export type MutationUpdateReservedUsernamesArgs = {
+  request: UpdateReservedUsernamesRequest;
+};
+
+
+export type MutationUpdateSponsorshipExclusionListArgs = {
+  request: UpdateSponsorshipExclusionListRequest;
+};
+
+
+export type MutationUpdateSponsorshipLimitsArgs = {
+  request: UpdateSponsorshipLimitsRequest;
+};
+
+
+export type MutationUpdateSponsorshipSignersArgs = {
+  request: UpdateSponsorshipSignersRequest;
+};
+
+
+export type MutationWithdrawArgs = {
+  request: WithdrawRequest;
+};
+
+
+export type MutationWrapTokensArgs = {
+  request: WrapTokensRequest;
+};
+
+export type MuteRequest = {
+  /** The account to mute. */
+  account: Scalars['EvmAddress']['input'];
+};
+
+export type NamespaceOperationValidationFailed = {
+  __typename?: 'NamespaceOperationValidationFailed';
+  reason: Scalars['String']['output'];
+  unsatisfiedRules?: Maybe<NamespaceUnsatisfiedRules>;
+};
+
+export type NamespaceOperationValidationOutcome = NamespaceOperationValidationFailed | NamespaceOperationValidationPassed | NamespaceOperationValidationUnknown;
+
+export type NamespaceOperationValidationPassed = {
+  __typename?: 'NamespaceOperationValidationPassed';
+  passed: Scalars['AlwaysTrue']['output'];
+};
+
+export type NamespaceOperationValidationUnknown = {
+  __typename?: 'NamespaceOperationValidationUnknown';
+  extraChecksRequired: Array<NamespaceRule>;
+};
+
+export type NamespaceRequest = {
+  /** The namespace */
+  namespace?: InputMaybe<Scalars['EvmAddress']['input']>;
+  /** The transaction hash you created the namespace with. */
+  txHash?: InputMaybe<Scalars['TxHash']['input']>;
+};
+
+export type NamespaceReservedUsernamesRequest = {
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** The namespace to get reserved usernames for */
+  namespace: Scalars['EvmAddress']['input'];
+  /** The page size. */
+  pageSize?: PageSize;
+};
+
+export type NamespaceRule = {
+  __typename?: 'NamespaceRule';
+  address: Scalars['EvmAddress']['output'];
+  config: Array<AnyKeyValue>;
+  executesOn: Array<NamespaceRuleExecuteOn>;
+  id: Scalars['RuleId']['output'];
+  type: NamespaceRuleType;
+};
+
+export type NamespaceRuleConfig = {
+  tokenGatedRule?: InputMaybe<TokenGatedNamespaceRuleConfig>;
+  unknownRule?: InputMaybe<UnknownNamespaceRuleConfig>;
+  usernameLengthRule?: InputMaybe<UsernameLengthNamespaceRuleConfig>;
+  usernamePricePerLengthRule?: InputMaybe<UsernamePricePerLengthNamespaceRuleConfig>;
+};
+
+export enum NamespaceRuleExecuteOn {
+  Assigning = 'ASSIGNING',
+  Creating = 'CREATING',
+  Removing = 'REMOVING',
+  Unassigning = 'UNASSIGNING'
+}
+
+export enum NamespaceRuleType {
+  PricePerLength = 'PRICE_PER_LENGTH',
+  TokenGated = 'TOKEN_GATED',
+  Unknown = 'UNKNOWN',
+  UsernameLength = 'USERNAME_LENGTH',
+  UsernameReserved = 'USERNAME_RESERVED',
+  UsernameSimpleCharset = 'USERNAME_SIMPLE_CHARSET'
+}
+
+export enum NamespaceRuleUnsatisfiedReason {
+  TokenGatedNotATokenHolder = 'TOKEN_GATED_NOT_A_TOKEN_HOLDER',
+  UsernameLengthNotWithinRange = 'USERNAME_LENGTH_NOT_WITHIN_RANGE',
+  UsernameNotASimpleCharset = 'USERNAME_NOT_A_SIMPLE_CHARSET',
+  UsernamePricePerLengthNotEnoughBalance = 'USERNAME_PRICE_PER_LENGTH_NOT_ENOUGH_BALANCE',
+  UsernameReserved = 'USERNAME_RESERVED'
+}
+
+export type NamespaceRules = {
+  __typename?: 'NamespaceRules';
+  anyOf: Array<NamespaceRule>;
+  required: Array<NamespaceRule>;
+};
+
+export type NamespaceRulesConfigInput = {
+  anyOf?: Array<NamespaceRuleConfig>;
+  required?: Array<NamespaceRuleConfig>;
+};
+
+export type NamespaceRulesProcessingParams = {
+  unknownRule?: InputMaybe<UnknownRuleProcessingParams>;
+};
+
+export type NamespaceUnsatisfiedRule = {
+  __typename?: 'NamespaceUnsatisfiedRule';
+  config: Array<AnyKeyValue>;
+  message: Scalars['String']['output'];
+  reason: NamespaceRuleUnsatisfiedReason;
+  rule: Scalars['EvmAddress']['output'];
+};
+
+export type NamespaceUnsatisfiedRules = {
+  __typename?: 'NamespaceUnsatisfiedRules';
+  anyOf: Array<NamespaceUnsatisfiedRule>;
+  required: Array<NamespaceUnsatisfiedRule>;
+};
+
+export type NamespacesFilter = {
+  /** The optional filter to get namespaces managed by address */
+  managedBy?: InputMaybe<ManagedBy>;
+  /**
+   * The optional filter to narrow namespaces by search query.
+   * Uses fuzzy search on namespace name
+   */
+  searchQuery?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum NamespacesOrderBy {
+  Alphabetical = 'ALPHABETICAL',
+  LatestFirst = 'LATEST_FIRST',
+  OldestFirst = 'OLDEST_FIRST'
+}
+
+export type NamespacesRequest = {
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<NamespacesFilter>;
+  /** The order by. */
+  orderBy?: NamespacesOrderBy;
+  /** The page size. */
+  pageSize?: PageSize;
+};
+
+export type NamespacesResult = {
+  __typename?: 'NamespacesResult';
+  items: Array<UsernameNamespace>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type NativeAmount = {
+  __typename?: 'NativeAmount';
+  /** The native token info. */
+  asset: NativeToken;
+  /** Token value in its main unit (e.g., 1.5 GHO). */
+  value: Scalars['BigDecimal']['output'];
+};
+
+/** A failure to retrieve the balance of the native token. */
+export type NativeBalanceError = {
+  __typename?: 'NativeBalanceError';
+  /** The reason for the failure. */
+  reason: Scalars['String']['output'];
+};
+
+export type NativeToken = {
+  __typename?: 'NativeToken';
+  /** The number of decimals the token uses. */
+  decimals: Scalars['Int']['output'];
+  /** The name of the token. */
+  name: Scalars['String']['output'];
+  /** The symbol of the token. */
+  symbol: Scalars['String']['output'];
+};
+
+export type NetworkAddress = {
+  __typename?: 'NetworkAddress';
+  address: Scalars['EvmAddress']['output'];
+  chainId: Scalars['Int']['output'];
+};
+
+export type NftMetadata = {
+  __typename?: 'NftMetadata';
+  /**
+   * A URL to a multi-media attachment for the item. The file extensions GLTF, GLB, WEBM, MP4,
+   * M4V, OGV, and OGG are supported, along with the audio-only extensions MP3, WAV, and OGA.
+   * Animation_url also supports HTML pages, allowing you to build rich experiences and
+   * interactive NFTs using JavaScript canvas, WebGL, and more. Scripts and relative paths
+   * within the HTML page are now supported. However, access to browser extensions is not
+   * supported.
+   */
+  animationUrl?: Maybe<Scalars['URI']['output']>;
+  /**
+   * These are the attributes for the item, which will show up on the OpenSea and others NFT
+   * trading websites on the item.
+   */
+  attributes: Array<MarketplaceMetadataAttribute>;
+  /** A human-readable description of the item. It could be plain text or markdown. */
+  description?: Maybe<Scalars['String']['output']>;
+  /**
+   * This is the URL that will appear below the asset's image on OpenSea and others etc. and
+   * will allow users to leave OpenSea and view the item on the site.
+   */
+  externalUrl?: Maybe<Scalars['URI']['output']>;
+  /** NFT will store any image here. */
+  image?: Maybe<Scalars['URI']['output']>;
+  /** Name of the NFT item. */
+  name?: Maybe<Scalars['String']['output']>;
+};
+
+/** The existence of the transaction is not yet indexed. Keep trying. */
+export type NotIndexedYetStatus = {
+  __typename?: 'NotIndexedYetStatus';
+  reason: Scalars['String']['output'];
+  /** True if the transaction has been mined. */
+  txHasMined: Scalars['Boolean']['output'];
+};
+
+export type Notification = AccountActionExecutedNotification | CommentNotification | FollowNotification | GroupMembershipRequestApprovedNotification | GroupMembershipRequestRejectedNotification | MentionNotification | PostActionExecutedNotification | QuoteNotification | ReactionNotification | RepostNotification;
+
+export type NotificationAccountFollow = {
+  __typename?: 'NotificationAccountFollow';
+  account: Account;
+  followedAt: Scalars['DateTime']['output'];
+};
+
+export type NotificationAccountPostReaction = {
+  __typename?: 'NotificationAccountPostReaction';
+  account: Account;
+  reactions: Array<PostReaction>;
+};
+
+export type NotificationAccountRepost = {
+  __typename?: 'NotificationAccountRepost';
+  account: Account;
+  repostId: Scalars['PostId']['output'];
+  repostedAt: Scalars['DateTime']['output'];
+};
+
+export type NotificationFilter = {
+  /** The apps to filter by. */
+  apps?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  /** The feeds to filter by. */
+  feeds?: InputMaybe<Array<FeedOneOf>>;
+  /** The graphs to filter by. */
+  graphs?: InputMaybe<Array<GraphOneOf>>;
+  /** Include notification from accounts with low score */
+  includeLowScore?: Scalars['Boolean']['input'];
+  /** The notification types to filter by. */
+  notificationTypes?: InputMaybe<Array<NotificationType>>;
+  /** Aggregate notifications by time */
+  timeBasedAggregation?: Scalars['Boolean']['input'];
+};
+
+export enum NotificationOrderBy {
+  AccountScore = 'ACCOUNT_SCORE',
+  Default = 'DEFAULT'
+}
+
+export type NotificationRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** An optional filter to narrow down the notifications result. */
+  filter?: InputMaybe<NotificationFilter>;
+  /** An optional order to sort the notifications result. */
+  orderBy?: NotificationOrderBy;
+};
+
+export enum NotificationType {
+  Commented = 'COMMENTED',
+  ExecutedAccountAction = 'EXECUTED_ACCOUNT_ACTION',
+  ExecutedPostAction = 'EXECUTED_POST_ACTION',
+  Followed = 'FOLLOWED',
+  GroupMembershipRequestApproved = 'GROUP_MEMBERSHIP_REQUEST_APPROVED',
+  GroupMembershipRequestRejected = 'GROUP_MEMBERSHIP_REQUEST_REJECTED',
+  Mentioned = 'MENTIONED',
+  Quoted = 'QUOTED',
+  Reacted = 'REACTED',
+  Reposted = 'REPOSTED'
+}
+
+export type OnboardingUserChallengeRequest = {
+  /**
+   * The App you intend to authenticate with.
+   *
+   * It MUST be a valid App address.
+   * Note: On the testnet, it will default to the playground app.
+   * This is to make it easier if you forget to set it. This may change in the future.
+   */
+  app?: Scalars['EvmAddress']['input'];
+  /** The address of the EOA that needs to create their Lens Account. */
+  wallet: Scalars['EvmAddress']['input'];
+};
+
+export enum PageSize {
+  Fifty = 'FIFTY',
+  Ten = 'TEN'
+}
+
+export type PaginatedAccountExecutedActionsResult = {
+  __typename?: 'PaginatedAccountExecutedActionsResult';
+  items: Array<AccountExecutedActions>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedAccountManagersResult = {
+  __typename?: 'PaginatedAccountManagersResult';
+  /** The account managers. */
+  items: Array<AccountManager>;
+  /** The pagination information for the given request. */
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedAccountsAvailableResult = {
+  __typename?: 'PaginatedAccountsAvailableResult';
+  /** The accounts available to use for the given address */
+  items: Array<AccountAvailable>;
+  /** The pagination information for the given request. */
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedAccountsBlockedResult = {
+  __typename?: 'PaginatedAccountsBlockedResult';
+  items: Array<AccountBlocked>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedAccountsResult = {
+  __typename?: 'PaginatedAccountsResult';
+  items: Array<Account>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedActiveAuthenticationsResult = {
+  __typename?: 'PaginatedActiveAuthenticationsResult';
+  items: Array<AuthenticatedSession>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedAdminsResult = {
+  __typename?: 'PaginatedAdminsResult';
+  items: Array<Admin>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedAnyPostsResult = {
+  __typename?: 'PaginatedAnyPostsResult';
+  items: Array<AnyPost>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedAppFeedsResult = {
+  __typename?: 'PaginatedAppFeedsResult';
+  /** The feeds */
+  items: Array<AppFeed>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedAppSignersResult = {
+  __typename?: 'PaginatedAppSignersResult';
+  /** The signers */
+  items: Array<AppSigner>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedAppUsersResult = {
+  __typename?: 'PaginatedAppUsersResult';
+  items: Array<AppUser>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedFeedsResult = {
+  __typename?: 'PaginatedFeedsResult';
+  items: Array<Feed>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedFollowersResult = {
+  __typename?: 'PaginatedFollowersResult';
+  items: Array<Follower>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedFollowingResult = {
+  __typename?: 'PaginatedFollowingResult';
+  items: Array<Following>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedGraphsResult = {
+  __typename?: 'PaginatedGraphsResult';
+  items: Array<Graph>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedGroupBannedAccountsResult = {
+  __typename?: 'PaginatedGroupBannedAccountsResult';
+  items: Array<GroupBannedAccount>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedGroupMembersResult = {
+  __typename?: 'PaginatedGroupMembersResult';
+  items: Array<GroupMember>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedGroupMembershipRequestsResult = {
+  __typename?: 'PaginatedGroupMembershipRequestsResult';
+  items: Array<GroupMembershipRequest>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedGroupsResult = {
+  __typename?: 'PaginatedGroupsResult';
+  /** The groups */
+  items: Array<Group>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedNamespaceReservedUsernamesResult = {
+  __typename?: 'PaginatedNamespaceReservedUsernamesResult';
+  items: Array<UsernameReserved>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedNotificationResult = {
+  __typename?: 'PaginatedNotificationResult';
+  items: Array<Notification>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedPostActionContracts = {
+  __typename?: 'PaginatedPostActionContracts';
+  items: Array<PostActionContract>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedPostEditsResult = {
+  __typename?: 'PaginatedPostEditsResult';
+  items: Array<PostEdit>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedPostExecutedActionsResult = {
+  __typename?: 'PaginatedPostExecutedActionsResult';
+  items: Array<PostExecutedActions>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedPostReactionsResult = {
+  __typename?: 'PaginatedPostReactionsResult';
+  items: Array<AccountPostReaction>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedPostTagsResult = {
+  __typename?: 'PaginatedPostTagsResult';
+  items: Array<PostTag>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedPostsForYouResult = {
+  __typename?: 'PaginatedPostsForYouResult';
+  items: Array<PostForYou>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedPostsResult = {
+  __typename?: 'PaginatedPostsResult';
+  items: Array<Post>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedResultInfo = {
+  __typename?: 'PaginatedResultInfo';
+  /** The cursor to the next page of results, if any. */
+  next?: Maybe<Scalars['Cursor']['output']>;
+  /** The cursor to the previous page of results, if any. */
+  prev?: Maybe<Scalars['Cursor']['output']>;
+};
+
+export type PaginatedTimelineResult = {
+  __typename?: 'PaginatedTimelineResult';
+  items: Array<TimelineItem>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PaginatedUsernamesResult = {
+  __typename?: 'PaginatedUsernamesResult';
+  items: Array<Username>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type PausingRequest = {
+  /** The sponsorship to update */
+  sponsorship: Scalars['EvmAddress']['input'];
+};
+
+export type PausingResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type PayToCollectConfig = {
+  __typename?: 'PayToCollectConfig';
+  amount: Erc20Amount;
+  recipients: Array<RecipientPercent>;
+  referralShare?: Maybe<Scalars['Float']['output']>;
+};
+
+export type PayToCollectInput = {
+  amount: AmountInput;
+  recipients: Array<RecipientPercentInput>;
+  referralShare?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type PaymasterParams = {
+  __typename?: 'PaymasterParams';
+  /** The address of the paymaster. */
+  paymaster: Scalars['EvmAddress']['output'];
+  /** The bytestream input for the paymaster. */
+  paymasterInput: Scalars['BlockchainData']['output'];
+};
+
+/**
+ * The existence of the transaction is known, but its status is not yet known.
+ *
+ * The transaction could be:
+ * - waiting to be included in a block
+ * - waiting for a block to be mined
+ * - waiting to be indexed by the Lens Indexer
+ * - waiting for any associated metadata to be snapshotted and indexed
+ */
+export type PendingTransactionStatus = {
+  __typename?: 'PendingTransactionStatus';
+  blockTimestamp: Scalars['DateTime']['output'];
+  summary: Array<SubOperationStatus>;
+};
+
+/** PhysicalAddress */
+export type PhysicalAddress = {
+  __typename?: 'PhysicalAddress';
+  /** The country name component. */
+  country: Scalars['String']['output'];
+  /** The full mailing address formatted for display. */
+  formatted?: Maybe<Scalars['String']['output']>;
+  /** The city or locality. */
+  locality: Scalars['String']['output'];
+  /** The zip or postal code. */
+  postalCode?: Maybe<Scalars['String']['output']>;
+  /** The state or region. */
+  region?: Maybe<Scalars['String']['output']>;
+  /**
+   * The street address including house number, street name, P.O. Box, apartment or unit number
+   * and extended multi-line address information.
+   */
+  streetAddress?: Maybe<Scalars['String']['output']>;
+};
+
+export type Post = {
+  __typename?: 'Post';
+  actions: Array<PostAction>;
+  app?: Maybe<App>;
+  author: Account;
+  collectibleMetadata: NftMetadata;
+  commentOn?: Maybe<Post>;
+  contentUri: Scalars['URI']['output'];
+  feed: PostFeedInfo;
+  id: Scalars['PostId']['output'];
+  isDeleted: Scalars['Boolean']['output'];
+  isEdited: Scalars['Boolean']['output'];
+  mentions: Array<PostMention>;
+  metadata: PostMetadata;
+  operations?: Maybe<LoggedInPostOperations>;
+  quoteOf?: Maybe<Post>;
+  root?: Maybe<Post>;
+  rules: PostRules;
+  slug: Scalars['PostId']['output'];
+  stats: PostStats;
+  timestamp: Scalars['DateTime']['output'];
+};
+
+
+export type PostActionsArgs = {
+  request?: PostActionsParams;
+};
+
+
+export type PostContentUriArgs = {
+  request?: PostContentUriRequest;
+};
+
+export type PostAccountPair = {
+  account: Scalars['EvmAddress']['input'];
+  post: Scalars['PostId']['input'];
+};
+
+/**
+ * The configured actions for a post. All posts have the TippingPostAction enabled by default which
+ * is not listed here.
+ */
+export type PostAction = SimpleCollectAction | UnknownPostAction;
+
+export type PostActionConfigInput = {
+  simpleCollect?: InputMaybe<SimpleCollectActionConfigInput>;
+  unknown?: InputMaybe<UnknownActionConfigInput>;
+};
+
+export type PostActionContract = SimpleCollectActionContract | TippingPostActionContract | UnknownPostActionContract;
+
+export type PostActionContractsRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  includeUnknown?: Scalars['Boolean']['input'];
+  onlyCollectActions?: Scalars['Boolean']['input'];
+  pageSize?: PageSize;
+};
+
+export type PostActionExecuteInput = {
+  simpleCollect?: InputMaybe<SimpleCollectExecuteInput>;
+  tipping?: InputMaybe<AmountInput>;
+  unknown?: InputMaybe<UnknownActionExecuteInput>;
+};
+
+export type PostActionExecuted = SimpleCollectPostActionExecuted | TippingPostActionExecuted | UnknownPostActionExecuted;
+
+export type PostActionExecutedNotification = {
+  __typename?: 'PostActionExecutedNotification';
+  actions: Array<PostActionExecuted>;
+  id: Scalars['GeneratedNotificationId']['output'];
+  post: Post;
+};
+
+export type PostActionExecutedNotificationAttributes = {
+  action?: InputMaybe<Scalars['EvmAddress']['input']>;
+  actionType?: InputMaybe<PostActionType>;
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  executingAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  postId?: InputMaybe<Scalars['PostId']['input']>;
+  receivingAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export type PostActionFilter = {
+  address?: InputMaybe<Scalars['EvmAddress']['input']>;
+  simpleCollect?: InputMaybe<Scalars['AlwaysTrue']['input']>;
+  tipping?: InputMaybe<Scalars['AlwaysTrue']['input']>;
+};
+
+export enum PostActionType {
+  SimpleCollect = 'SIMPLE_COLLECT',
+  Tipping = 'TIPPING',
+  Unknown = 'UNKNOWN'
+}
+
+export type PostActionsParams = {
+  includeDisabled: Scalars['Boolean']['input'];
+};
+
+export type PostBookmarksFilter = {
+  /** The feeds to filter by. */
+  feeds?: InputMaybe<Array<FeedOneOf>>;
+  metadata?: InputMaybe<PostMetadataFilter>;
+};
+
+export type PostBookmarksRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<PostBookmarksFilter>;
+  pageSize?: PageSize;
+};
+
+export type PostCollectedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  collector?: InputMaybe<Scalars['EvmAddress']['input']>;
+  postAuthor?: InputMaybe<Scalars['EvmAddress']['input']>;
+  postId?: InputMaybe<Scalars['PostId']['input']>;
+};
+
+export type PostContentUriRequest = {
+  useSnapshot: Scalars['Boolean']['input'];
+};
+
+export type PostCreatedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  author?: InputMaybe<Scalars['EvmAddress']['input']>;
+  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
+  parentPostId?: InputMaybe<Scalars['PostId']['input']>;
+  postTypes?: InputMaybe<Array<PostType>>;
+};
+
+export type PostDeletedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  author?: InputMaybe<Scalars['EvmAddress']['input']>;
+  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
+  parentPostId?: InputMaybe<Scalars['PostId']['input']>;
+  postTypes?: InputMaybe<Array<PostType>>;
+};
+
+export type PostEdit = {
+  __typename?: 'PostEdit';
+  metadata: PostMetadata;
+  timestamp: Scalars['DateTime']['output'];
+};
+
+export type PostEditedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  author?: InputMaybe<Scalars['EvmAddress']['input']>;
+  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
+  parentPostId?: InputMaybe<Scalars['PostId']['input']>;
+  postTypes?: InputMaybe<Array<PostType>>;
+};
+
+export type PostEditsRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  pageSize?: PageSize;
+  /** The post ID. */
+  post: Scalars['PostId']['input'];
+};
+
+export type PostExecutedActions = {
+  __typename?: 'PostExecutedActions';
+  account: Account;
+  firstAt: Scalars['DateTime']['output'];
+  lastAt: Scalars['DateTime']['output'];
+  total: Scalars['Int']['output'];
+};
+
+export type PostFeedInfo = {
+  __typename?: 'PostFeedInfo';
+  address: Scalars['EvmAddress']['output'];
+  group?: Maybe<PostGroupInfo>;
+  metadata?: Maybe<FeedMetadata>;
+};
+
+export type PostForYou = {
+  __typename?: 'PostForYou';
+  post: Post;
+  source: ForYouSource;
+};
+
+export type PostGroupInfo = {
+  __typename?: 'PostGroupInfo';
+  address: Scalars['EvmAddress']['output'];
+  metadata?: Maybe<GroupMetadata>;
+};
+
+export type PostMention = AccountMention | GroupMention;
+
+export type PostMetadata = ArticleMetadata | AudioMetadata | CheckingInMetadata | EmbedMetadata | EventMetadata | ImageMetadata | LinkMetadata | LivestreamMetadata | MintMetadata | SpaceMetadata | StoryMetadata | TextOnlyMetadata | ThreeDMetadata | TransactionMetadata | UnknownPostMetadata | VideoMetadata;
+
+export type PostMetadataContentWarningFilter = {
+  oneOf: Array<ContentWarning>;
+};
+
+export type PostMetadataFilter = {
+  /** The content warning to filter by. */
+  contentWarning?: InputMaybe<PostMetadataContentWarningFilter>;
+  /** The main focus of the post. */
+  mainContentFocus?: InputMaybe<Array<MainContentFocus>>;
+  /** The tags to filter by. */
+  tags?: InputMaybe<PostMetadataTagsFilter>;
+};
+
+export type PostMetadataTagsFilter = {
+  all?: InputMaybe<Array<Scalars['String']['input']>>;
+  oneOf?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+export type PostNotInterestedRequest = {
+  post: Scalars['PostId']['input'];
+};
+
+export type PostOperationValidationFailed = {
+  __typename?: 'PostOperationValidationFailed';
+  reason: Scalars['String']['output'];
+  unsatisfiedRules?: Maybe<PostUnsatisfiedRules>;
+};
+
+export type PostOperationValidationOutcome = PostOperationValidationFailed | PostOperationValidationPassed | PostOperationValidationUnknown;
+
+export type PostOperationValidationPassed = {
+  __typename?: 'PostOperationValidationPassed';
+  passed: Scalars['AlwaysTrue']['output'];
+};
+
+export type PostOperationValidationRule = FeedRule | PostRule;
+
+export type PostOperationValidationUnknown = {
+  __typename?: 'PostOperationValidationUnknown';
+  extraChecksRequired: Array<PostOperationValidationRule>;
+};
+
+export type PostReaction = {
+  __typename?: 'PostReaction';
+  /**
+   * This is the app which it was reacted on - note lens v2 legacy reactions may not have an app
+   * linked to it
+   */
+  app?: Maybe<Scalars['EvmAddress']['output']>;
+  reactedAt: Scalars['DateTime']['output'];
+  reaction: PostReactionType;
+};
+
+export type PostReactionAddedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  postId?: InputMaybe<Scalars['PostId']['input']>;
+  reactingAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  reactionType?: InputMaybe<PostReactionType>;
+};
+
+export enum PostReactionOrderBy {
+  AccountScore = 'ACCOUNT_SCORE',
+  Default = 'DEFAULT'
+}
+
+export type PostReactionRemovedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  postId?: InputMaybe<Scalars['PostId']['input']>;
+  reactingAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+  reactionType?: InputMaybe<PostReactionType>;
+};
+
+export type PostReactionStatus = {
+  __typename?: 'PostReactionStatus';
+  account: Scalars['EvmAddress']['output'];
+  app?: Maybe<Scalars['EvmAddress']['output']>;
+  postId: Scalars['PostId']['output'];
+  result: Scalars['Boolean']['output'];
+};
+
+export type PostReactionStatusRequest = {
+  filter?: InputMaybe<PostReactionsFilter>;
+  pairs: Array<PostAccountPair>;
+};
+
+export enum PostReactionType {
+  Downvote = 'DOWNVOTE',
+  Upvote = 'UPVOTE'
+}
+
+export type PostReactionsFilter = {
+  /** The types of reactions to filter by. */
+  anyOf?: InputMaybe<Array<PostReactionType>>;
+};
+
+export type PostReactionsRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** An optional filter to narrow down the result. */
+  filter?: InputMaybe<PostReactionsFilter>;
+  /** The order in which to return the results. */
+  orderBy?: InputMaybe<PostReactionOrderBy>;
+  pageSize?: PageSize;
+  /** The ID of the post to get reactions for. */
+  post: Scalars['PostId']['input'];
+};
+
+export enum PostReferenceType {
+  CommentOn = 'COMMENT_ON',
+  QuoteOf = 'QUOTE_OF',
+  RepostOf = 'REPOST_OF'
+}
+
+export type PostReferencesRequest = {
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** The page size. */
+  pageSize?: PageSize;
+  /** The types of references to get. */
+  referenceTypes: Array<PostReferenceType>;
+  /** The post to get references for. */
+  referencedPost: Scalars['PostId']['input'];
+  /** The relevancy filter to apply. */
+  relevancyFilter?: ReferenceRelevancyFilter;
+  /** The visibility filter to apply by default it will honour the visibility of the post. */
+  visibilityFilter?: PostVisibilityFilter;
+};
+
+export enum PostReportReason {
+  AnimalAbuse = 'ANIMAL_ABUSE',
+  DirectThreat = 'DIRECT_THREAT',
+  FakeEngagement = 'FAKE_ENGAGEMENT',
+  Harassment = 'HARASSMENT',
+  HateSpeech = 'HATE_SPEECH',
+  Impersonation = 'IMPERSONATION',
+  ManipulationAlgo = 'MANIPULATION_ALGO',
+  Misleading = 'MISLEADING',
+  MisuseHashtags = 'MISUSE_HASHTAGS',
+  Nudity = 'NUDITY',
+  Offensive = 'OFFENSIVE',
+  Repetitive = 'REPETITIVE',
+  Scam = 'SCAM',
+  SelfHarm = 'SELF_HARM',
+  SomethingElse = 'SOMETHING_ELSE',
+  UnauthorizedSale = 'UNAUTHORIZED_SALE',
+  Unrelated = 'UNRELATED',
+  Violence = 'VIOLENCE'
+}
+
+export type PostReportedNotificationAttributes = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  author?: InputMaybe<Scalars['EvmAddress']['input']>;
+  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
+  reporter?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+/** You must provide either a txHash or a postId or a legacyId, you can not apply more than one. */
+export type PostRequest = {
+  /** The legacy publication ID. */
+  legacyId?: InputMaybe<Scalars['LegacyPublicationId']['input']>;
+  /** The post ID. */
+  post?: InputMaybe<Scalars['PostId']['input']>;
+  /** The transaction hash you sent the post with. */
+  txHash?: InputMaybe<Scalars['TxHash']['input']>;
+};
+
+export type PostResponse = {
+  __typename?: 'PostResponse';
+  hash: Scalars['TxHash']['output'];
+};
+
+export type PostResult = PostOperationValidationFailed | PostResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type PostRule = {
+  __typename?: 'PostRule';
+  address: Scalars['EvmAddress']['output'];
+  config: Array<AnyKeyValue>;
+  executesOn: Array<PostRuleExecuteOn>;
+  id: Scalars['RuleId']['output'];
+  type: PostRuleType;
+};
+
+export type PostRuleConfig = {
+  followersOnlyRule?: InputMaybe<FollowersOnlyPostRuleConfig>;
+  unknownRule?: InputMaybe<UnknownPostRuleConfig>;
+};
+
+export enum PostRuleExecuteOn {
+  CreatingPost = 'CREATING_POST',
+  EditingPost = 'EDITING_POST'
+}
+
+export enum PostRuleType {
+  FollowersOnly = 'FOLLOWERS_ONLY',
+  Unknown = 'UNKNOWN'
+}
+
+export enum PostRuleUnsatisfiedReason {
+  FeedAccountBlocked = 'FEED_ACCOUNT_BLOCKED',
+  FeedGroupGatedNotAMember = 'FEED_GROUP_GATED_NOT_A_MEMBER',
+  FeedSimplePaymentNotEnoughBalance = 'FEED_SIMPLE_PAYMENT_NOT_ENOUGH_BALANCE',
+  FeedTokenGatedNotATokenHolder = 'FEED_TOKEN_GATED_NOT_A_TOKEN_HOLDER',
+  PostNotAFollower = 'POST_NOT_A_FOLLOWER'
+}
+
+export type PostRules = {
+  __typename?: 'PostRules';
+  anyOf: Array<PostRule>;
+  required: Array<PostRule>;
+};
+
+export type PostRulesConfigInput = {
+  anyOf?: Array<PostRuleConfig>;
+  required?: Array<PostRuleConfig>;
+};
+
+export type PostRulesProcessingParams = {
+  unknownRule?: InputMaybe<UnknownRuleProcessingParams>;
+};
+
+export type PostStats = {
+  __typename?: 'PostStats';
+  /** The total number of bookmarks. */
+  bookmarks: Scalars['Int']['output'];
+  /** The total number of collects. */
+  collects: Scalars['Int']['output'];
+  /** The total number of comments. */
+  comments: Scalars['Int']['output'];
+  /** The total number of quotes. */
+  quotes: Scalars['Int']['output'];
+  /** Get the number of reactions for the post. */
+  reactions: Scalars['Int']['output'];
+  /** The total number of reposts. */
+  reposts: Scalars['Int']['output'];
+  /** The total number of tips received. */
+  tips: Scalars['Int']['output'];
+};
+
+
+export type PostStatsReactionsArgs = {
+  request?: StatsReactionRequest;
+};
+
+export type PostTag = {
+  __typename?: 'PostTag';
+  total: Scalars['Int']['output'];
+  value: Scalars['String']['output'];
+};
+
+export type PostTagsFilter = {
+  /** The feeds to filter by. */
+  feeds?: InputMaybe<Array<FeedOneOf>>;
+};
+
+export enum PostTagsOrderBy {
+  Alphabetical = 'ALPHABETICAL',
+  MostPopular = 'MOST_POPULAR'
+}
+
+export type PostTagsRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** An optional filter to apply to the tags. */
+  filter?: InputMaybe<PostTagsFilter>;
+  orderBy?: PostTagsOrderBy;
+  pageSize?: PageSize;
+};
+
+export type PostTip = {
+  __typename?: 'PostTip';
+  amount: Erc20Amount;
+  date: Scalars['DateTime']['output'];
+};
+
+export enum PostType {
+  Comment = 'COMMENT',
+  Quote = 'QUOTE',
+  Repost = 'REPOST',
+  Root = 'ROOT'
+}
+
+export type PostUnsatisfiedRule = {
+  __typename?: 'PostUnsatisfiedRule';
+  config: Array<AnyKeyValue>;
+  message: Scalars['String']['output'];
+  reason: PostRuleUnsatisfiedReason;
+  rule: Scalars['EvmAddress']['output'];
+};
+
+export type PostUnsatisfiedRules = {
+  __typename?: 'PostUnsatisfiedRules';
+  anyOf: Array<PostUnsatisfiedRule>;
+  required: Array<PostUnsatisfiedRule>;
+};
+
+export enum PostVisibilityFilter {
+  /** All posts even if they have been hidden */
+  All = 'ALL',
+  /** Only the posts that are hidden */
+  Hidden = 'HIDDEN',
+  /** Only the posts that are visible */
+  Visible = 'VISIBLE'
+}
+
+export type PostsExploreFilter = {
+  /** Metadata filters to apply to posts */
+  metadata?: PostMetadataFilter;
+  /** Only return posts after this timestamp, defaults to 3 days ago. */
+  since?: Scalars['Int']['input'];
+};
+
+export type PostsExploreRequest = {
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** Filter for posts */
+  filter?: PostsExploreFilter;
+  /** The page size. */
+  pageSize?: PageSize;
+  /** Shuffle the results, defaults to false. */
+  shuffle?: Scalars['Boolean']['input'];
+};
+
+export type PostsFilter = {
+  /** The apps used to publish the posts. */
+  apps?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  /** The authors of the posts. */
+  authors?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  /** The account that collected the posts. */
+  collectedBy?: InputMaybe<CollectedBy>;
+  /** The feeds where the posts are published. */
+  feeds?: InputMaybe<Array<FeedOneOf>>;
+  /** The metadata filters to apply to the posts. */
+  metadata?: InputMaybe<PostMetadataFilter>;
+  /** The types of the posts. */
+  postTypes?: InputMaybe<Array<PostType>>;
+  /** The query text to search for in the post content or metadata tags. */
+  searchQuery?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PostsForYouRequest = {
+  /** The account to get for you for. If not provided, defaults to the authenticated account. */
+  account?: InputMaybe<Scalars['EvmAddress']['input']>;
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** The page size. */
+  pageSize?: PageSize;
+  /** Shuffle the for you posts. */
+  shuffle?: Scalars['Boolean']['input'];
+};
+
+export type PostsRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<PostsFilter>;
+  pageSize?: PageSize;
+};
+
+export type PrimitiveData = AddressKeyValue | BigDecimalKeyValue | BooleanKeyValue | IntKeyValue | IntNullableKeyValue | RawKeyValue | StringKeyValue;
+
+export type PrimitiveId = {
+  account?: InputMaybe<Scalars['EvmAddress']['input']>;
+  accountAction?: InputMaybe<Scalars['EvmAddress']['input']>;
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
+  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
+  group?: InputMaybe<Scalars['EvmAddress']['input']>;
+  post?: InputMaybe<Scalars['PostId']['input']>;
+  postAction?: InputMaybe<Scalars['EvmAddress']['input']>;
+  sponsorship?: InputMaybe<Scalars['EvmAddress']['input']>;
+  usernameNamespace?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export type Query = {
+  __typename?: 'Query';
+  _service: _Service;
+  /** Get access control information */
+  accessControl?: Maybe<AccessControlResult>;
+  /** Get an account by address, username, or legacy profile ID. */
+  account?: Maybe<Account>;
+  /**
+   * Get native and/or ERC20 token balances in bulk for the authenticated Account.
+   *
+   * You MUST be authenticated as Account Owner or Account Manager to use this query.
+   */
+  accountBalances: Array<AnyAccountBalance>;
+  /** Get the account stats for the feeds. */
+  accountFeedsStats: AccountFeedsStats;
+  /** Get the account stats for the graphs. */
+  accountGraphsStats: AccountGraphsFollowStats;
+  /**
+   * Account manager for the authenticated account.
+   *
+   * You MUST be authenticated to use this query.
+   */
+  accountManagers: PaginatedAccountManagersResult;
+  /** Get the stats for an account. */
+  accountStats: AccountStats;
+  /** Get accounts. */
+  accounts: PaginatedAccountsResult;
+  /** Get the accounts which are available to use for the given address */
+  accountsAvailable: PaginatedAccountsAvailableResult;
+  /**
+   * Accounts blocked for the authenticated account.
+   *
+   * You MUST be authenticated to use this query.
+   */
+  accountsBlocked: PaginatedAccountsBlockedResult;
+  /** Get accounts by address, username, or legacy profile ID. */
+  accountsBulk: Array<Account>;
+  /** Get admins for a graph/app/sponsor/feed/username/group address */
+  adminsFor: PaginatedAdminsResult;
+  /** Get an app */
+  app?: Maybe<App>;
+  /** Get the feeds for an app */
+  appFeeds: PaginatedAppFeedsResult;
+  /** Get the groups for an app */
+  appGroups: PaginatedGroupsResult;
+  /**
+   * Get the server side API key for the app you must be the owner of the app to see it.
+   *
+   * You MUST be authenticated as a Builder to use this mutation.
+   */
+  appServerApiKey?: Maybe<Scalars['String']['output']>;
+  /** Get the signers for an app */
+  appSigners: PaginatedAppSignersResult;
+  /** Get accounts for an app. */
+  appUsers: PaginatedAppUsersResult;
+  /** Get the apps. */
+  apps: AppsResult;
+  /**
+   * List all active authenticated sessions for the current account.
+   *
+   * You MUST be authenticated to use this query.
+   */
+  authenticatedSessions: PaginatedActiveAuthenticationsResult;
+  /**
+   * Checks if the given username can be created by the account
+   *
+   * You MUST be authenticated to use this mutation.
+   */
+  canCreateUsername: CanCreateUsernameResult;
+  /** Create a frame typed data */
+  createFrameTypedData: CreateFrameEip712TypedData;
+  /**
+   * Get the current authenticated session for the current account.
+   *
+   * You MUST be authenticated to use this query.
+   */
+  currentSession: AuthenticatedSession;
+  debugMetadata: DebugPostMetadataResult;
+  feed?: Maybe<Feed>;
+  /** Get the feeds. */
+  feeds: PaginatedFeedsResult;
+  followStatus: Array<FollowStatusResult>;
+  followers: PaginatedFollowersResult;
+  followersYouKnow: PaginatedFollowersResult;
+  following: PaginatedFollowingResult;
+  getSnsSubscriptions: Array<SnsSubscription>;
+  graph?: Maybe<Graph>;
+  /** Get the graphs. */
+  graphs: PaginatedGraphsResult;
+  group?: Maybe<Group>;
+  /** Get the banned accounts of a group */
+  groupBannedAccounts: PaginatedGroupBannedAccountsResult;
+  /** Get the members of the group */
+  groupMembers: PaginatedGroupMembersResult;
+  /** Get the group membership requests */
+  groupMembershipRequests: PaginatedGroupMembershipRequestsResult;
+  /** Get the number of members in a Group */
+  groupStats: GroupStatsResponse;
+  /** Get the groups. */
+  groups: PaginatedGroupsResult;
+  health: Scalars['Boolean']['output'];
+  /** Get the last logged in account for the given address and app if specified. */
+  lastLoggedInAccount?: Maybe<Account>;
+  maintenance: Scalars['Boolean']['output'];
+  /**
+   * Account information for the authenticated account.
+   *
+   * You MUST be authenticated to use this query.
+   */
+  me: MeResult;
+  mlAccountRecommendations: PaginatedAccountsResult;
+  mlPostsExplore: PaginatedPostsResult;
+  mlPostsForYou: PaginatedPostsForYouResult;
+  namespace?: Maybe<UsernameNamespace>;
+  /** Get the banned accounts of a group */
+  namespaceReservedUsernames: PaginatedNamespaceReservedUsernamesResult;
+  /** Get the namespaces. */
+  namespaces: NamespacesResult;
+  /**
+   * Get account notifications.
+   *
+   * You MUST be authenticated to use this query.
+   */
+  notifications: PaginatedNotificationResult;
+  post?: Maybe<AnyPost>;
+  /** Lists all available Post Action contracts. */
+  postActionContracts: PaginatedPostActionContracts;
+  postBookmarks: PaginatedAnyPostsResult;
+  postEdits: PaginatedPostEditsResult;
+  postReactionStatus: Array<PostReactionStatus>;
+  /** Get the reactions added to a post. */
+  postReactions: PaginatedPostReactionsResult;
+  postReferences: PaginatedAnyPostsResult;
+  postTags: PaginatedPostTagsResult;
+  posts: PaginatedAnyPostsResult;
+  /** Get the status of a refresh metadata job. */
+  refreshMetadataStatus: RefreshMetadataStatusResult;
+  /** Get a Sponsorship */
+  sponsorship?: Maybe<Sponsorship>;
+  /** Get paginated Sponsorship Grants. */
+  sponsorshipGrants: SponsorshipGrantsResult;
+  /** Get paginated Sponsorship limits Exclusion list. */
+  sponsorshipLimitsExclusions: SponsorshipLimitsExclusionsResult;
+  /** Get paginated Sponsorship Signers. */
+  sponsorshipSigners: SponsorshipSignersResult;
+  /** Get paginated Sponsorships. */
+  sponsorships: SponsorshipsResult;
+  /**
+   * Get account timeline.
+   *
+   * You MUST be authenticated to use this query.
+   */
+  timeline: PaginatedTimelineResult;
+  /** Get most engaged posts for the given account timeline. */
+  timelineHighlights: PaginatedPostsResult;
+  /** Get the status of a transaction by its hash. */
+  transactionStatus: TransactionStatusResult;
+  username?: Maybe<Username>;
+  /** Get the usernames for the account/owner. */
+  usernames: PaginatedUsernamesResult;
+  verifyFrameSignature: FrameVerifySignatureResult;
+  /** Get who acted on a post. */
+  whoExecutedActionOnAccount: PaginatedAccountExecutedActionsResult;
+  /** Get who acted on a post. */
+  whoExecutedActionOnPost: PaginatedPostExecutedActionsResult;
+  /** Get accounts who referenced a post */
+  whoReferencedPost: PaginatedAccountsResult;
+};
+
+
+export type QueryAccessControlArgs = {
+  request: AccessControlRequest;
+};
+
+
+export type QueryAccountArgs = {
+  request: AccountRequest;
+};
+
+
+export type QueryAccountBalancesArgs = {
+  request: AccountBalancesRequest;
+};
+
+
+export type QueryAccountFeedsStatsArgs = {
+  request: AccountFeedsStatsRequest;
+};
+
+
+export type QueryAccountGraphsStatsArgs = {
+  request: AccountGraphsStatsRequest;
+};
+
+
+export type QueryAccountManagersArgs = {
+  request: AccountManagersRequest;
+};
+
+
+export type QueryAccountStatsArgs = {
+  request: AccountStatsRequest;
+};
+
+
+export type QueryAccountsArgs = {
+  request: AccountsRequest;
+};
+
+
+export type QueryAccountsAvailableArgs = {
+  request: AccountsAvailableRequest;
+};
+
+
+export type QueryAccountsBlockedArgs = {
+  request: AccountsBlockedRequest;
+};
+
+
+export type QueryAccountsBulkArgs = {
+  request: AccountsBulkRequest;
+};
+
+
+export type QueryAdminsForArgs = {
+  request: AdminsForRequest;
+};
+
+
+export type QueryAppArgs = {
+  request: AppRequest;
+};
+
+
+export type QueryAppFeedsArgs = {
+  request: AppFeedsRequest;
+};
+
+
+export type QueryAppGroupsArgs = {
+  request: AppGroupsRequest;
+};
+
+
+export type QueryAppServerApiKeyArgs = {
+  request: AppServerApiKeyRequest;
+};
+
+
+export type QueryAppSignersArgs = {
+  request: AppSignersRequest;
+};
+
+
+export type QueryAppUsersArgs = {
+  request: AppUsersRequest;
+};
+
+
+export type QueryAppsArgs = {
+  request: AppsRequest;
+};
+
+
+export type QueryAuthenticatedSessionsArgs = {
+  request: AuthenticatedSessionsRequest;
+};
+
+
+export type QueryCanCreateUsernameArgs = {
+  request: UsernameInput;
+};
+
+
+export type QueryCreateFrameTypedDataArgs = {
+  request: FrameEip712Request;
+};
+
+
+export type QueryDebugMetadataArgs = {
+  debugMetadataRequest: DebugPostMetadataRequest;
+};
+
+
+export type QueryFeedArgs = {
+  request: FeedRequest;
+};
+
+
+export type QueryFeedsArgs = {
+  request: FeedsRequest;
+};
+
+
+export type QueryFollowStatusArgs = {
+  request: FollowStatusRequest;
+};
+
+
+export type QueryFollowersArgs = {
+  request: FollowersRequest;
+};
+
+
+export type QueryFollowersYouKnowArgs = {
+  request: FollowersYouKnowRequest;
+};
+
+
+export type QueryFollowingArgs = {
+  request: FollowingRequest;
+};
+
+
+export type QueryGetSnsSubscriptionsArgs = {
+  request: GetSnsSubscriptionsRequest;
+};
+
+
+export type QueryGraphArgs = {
+  request: GraphRequest;
+};
+
+
+export type QueryGraphsArgs = {
+  request: GraphsRequest;
+};
+
+
+export type QueryGroupArgs = {
+  request: GroupRequest;
+};
+
+
+export type QueryGroupBannedAccountsArgs = {
+  request: GroupBannedAccountsRequest;
+};
+
+
+export type QueryGroupMembersArgs = {
+  request: GroupMembersRequest;
+};
+
+
+export type QueryGroupMembershipRequestsArgs = {
+  request: GroupMembershipRequestsRequest;
+};
+
+
+export type QueryGroupStatsArgs = {
+  request: GroupStatsRequest;
+};
+
+
+export type QueryGroupsArgs = {
+  request: GroupsRequest;
+};
+
+
+export type QueryLastLoggedInAccountArgs = {
+  request: LastLoggedInAccountRequest;
+};
+
+
+export type QueryMlAccountRecommendationsArgs = {
+  request: AccountRecommendationsRequest;
+};
+
+
+export type QueryMlPostsExploreArgs = {
+  request: PostsExploreRequest;
+};
+
+
+export type QueryMlPostsForYouArgs = {
+  request: PostsForYouRequest;
+};
+
+
+export type QueryNamespaceArgs = {
+  request: NamespaceRequest;
+};
+
+
+export type QueryNamespaceReservedUsernamesArgs = {
+  request: NamespaceReservedUsernamesRequest;
+};
+
+
+export type QueryNamespacesArgs = {
+  request: NamespacesRequest;
+};
+
+
+export type QueryNotificationsArgs = {
+  request: NotificationRequest;
+};
+
+
+export type QueryPostArgs = {
+  request: PostRequest;
+};
+
+
+export type QueryPostActionContractsArgs = {
+  request: PostActionContractsRequest;
+};
+
+
+export type QueryPostBookmarksArgs = {
+  request: PostBookmarksRequest;
+};
+
+
+export type QueryPostEditsArgs = {
+  request: PostEditsRequest;
+};
+
+
+export type QueryPostReactionStatusArgs = {
+  request: PostReactionStatusRequest;
+};
+
+
+export type QueryPostReactionsArgs = {
+  request: PostReactionsRequest;
+};
+
+
+export type QueryPostReferencesArgs = {
+  request: PostReferencesRequest;
+};
+
+
+export type QueryPostTagsArgs = {
+  request: PostTagsRequest;
+};
+
+
+export type QueryPostsArgs = {
+  request: PostsRequest;
+};
+
+
+export type QueryRefreshMetadataStatusArgs = {
+  request: RefreshMetadataStatusRequest;
+};
+
+
+export type QuerySponsorshipArgs = {
+  request: SponsorshipRequest;
+};
+
+
+export type QuerySponsorshipGrantsArgs = {
+  request: SponsorshipGrantsRequest;
+};
+
+
+export type QuerySponsorshipLimitsExclusionsArgs = {
+  request: SponsorshipLimitExclusionsRequest;
+};
+
+
+export type QuerySponsorshipSignersArgs = {
+  request: SponsorshipSignersRequest;
+};
+
+
+export type QuerySponsorshipsArgs = {
+  request: SponsorshipsRequest;
+};
+
+
+export type QueryTimelineArgs = {
+  request: TimelineRequest;
+};
+
+
+export type QueryTimelineHighlightsArgs = {
+  request: TimelineHighlightsRequest;
+};
+
+
+export type QueryTransactionStatusArgs = {
+  request: TransactionStatusRequest;
+};
+
+
+export type QueryUsernameArgs = {
+  request: UsernameRequest;
+};
+
+
+export type QueryUsernamesArgs = {
+  request: UsernamesRequest;
+};
+
+
+export type QueryVerifyFrameSignatureArgs = {
+  request: FrameVerifySignature;
+};
+
+
+export type QueryWhoExecutedActionOnAccountArgs = {
+  request: WhoExecutedActionOnAccountRequest;
+};
+
+
+export type QueryWhoExecutedActionOnPostArgs = {
+  request: WhoExecutedActionOnPostRequest;
+};
+
+
+export type QueryWhoReferencedPostArgs = {
+  request: WhoReferencedPostRequest;
+};
+
+export type QuoteNotification = {
+  __typename?: 'QuoteNotification';
+  id: Scalars['GeneratedNotificationId']['output'];
+  quote: Post;
+};
+
+export type RawKeyValue = {
+  __typename?: 'RawKeyValue';
+  data: Scalars['BlockchainData']['output'];
+  key: Scalars['BlockchainData']['output'];
+};
+
+export type RawKeyValueInput = {
+  data: Scalars['BlockchainData']['input'];
+  key: Scalars['BlockchainData']['input'];
+};
+
+export type ReactionNotification = {
+  __typename?: 'ReactionNotification';
+  id: Scalars['GeneratedNotificationId']['output'];
+  post: Post;
+  reactions: Array<NotificationAccountPostReaction>;
+};
+
+export type RecipientPercent = {
+  __typename?: 'RecipientPercent';
+  /** Address of the recipient. */
+  address: Scalars['EvmAddress']['output'];
+  /** Percentage of the fee that will be sent to the recipient. */
+  percent: Scalars['Float']['output'];
+};
+
+export type RecipientPercentInput = {
+  /** Address of the recipient. */
+  address: Scalars['EvmAddress']['input'];
+  /** Percentage of the fee that will be sent to the recipient. */
+  percent: Scalars['Float']['input'];
+};
+
+export type RecommendAccount = {
+  /** The account to recommend. */
+  account: Scalars['EvmAddress']['input'];
+};
+
+export enum ReferenceRelevancyFilter {
+  /** All comments. */
+  All = 'ALL',
+  /** Only the comments that are not relevant */
+  NotRelevant = 'NOT_RELEVANT',
+  /** Only the comments that are relevant */
+  Relevant = 'RELEVANT'
+}
+
+export type ReferencingPostInput = {
+  /** The post to reference. */
+  post: Scalars['PostId']['input'];
+  /** The processing params for the post rules. */
+  postRulesProcessingParams?: InputMaybe<Array<PostRulesProcessingParams>>;
+};
+
+export type ReferralCut = {
+  /** Address of the recipient. */
+  address: Scalars['EvmAddress']['input'];
+  /** Percentage of the referral share that will be sent to the address specified. */
+  percent: Scalars['Float']['input'];
+};
+
+export type RefreshMetadataRequest = {
+  /** Used only when trying to refresh app-specific account metadata */
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
+  /** The entity to refresh metadata for. */
+  entity: EntityId;
+};
+
+export type RefreshMetadataResult = {
+  __typename?: 'RefreshMetadataResult';
+  /** The id of the refresh metadata job. You can use this id to check the status of the job. */
+  id: Scalars['UUID']['output'];
+};
+
+export type RefreshMetadataStatusRequest = {
+  /** The refresh metadata status ID from the refreshMetadata mutation. */
+  id: Scalars['UUID']['input'];
+};
+
+export type RefreshMetadataStatusResult = {
+  __typename?: 'RefreshMetadataStatusResult';
+  /** The id of the refresh metadata job. You can use this id to check the status of the job. */
+  id: Scalars['UUID']['output'];
+  /** An optional reason in case the status is failed. */
+  reason?: Maybe<Scalars['String']['output']>;
+  /** The status of the refresh metadata job. */
+  status: IndexingStatus;
+  /** The timestamp when the refresh metadata job was updated. */
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+export type RefreshRequest = {
+  refreshToken: Scalars['RefreshToken']['input'];
+};
+
+export type RefreshResult = AuthenticationTokens | ForbiddenError;
+
+export type RejectGroupMembershipRequest = {
+  /** The accounts you want to reject membership request for. */
+  accounts: Array<Scalars['EvmAddress']['input']>;
+  /** The group you want to reject membership request for. */
+  group: Scalars['EvmAddress']['input'];
+};
+
+export type RejectGroupMembershipRequestsResponse = {
+  __typename?: 'RejectGroupMembershipRequestsResponse';
+  hash: Scalars['TxHash']['output'];
+};
+
+export type RejectGroupMembershipResult = RejectGroupMembershipRequestsResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type RemoveAccountManagerRequest = {
+  /** The address to remove as a manager. */
+  manager: Scalars['EvmAddress']['input'];
+};
+
+export type RemoveAccountManagerResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type RemoveAdminsRequest = {
+  /** The graph/app/sponsor/feed/username/group address which manages these admins */
+  address: Scalars['EvmAddress']['input'];
+  /** The addresses to remove as admins */
+  admins: Array<Scalars['EvmAddress']['input']>;
+};
+
+export type RemoveAdminsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type RemoveAppAuthorizationEndpointRequest = {
+  /** The app. */
+  app: Scalars['EvmAddress']['input'];
+};
+
+export type RemoveAppFeedsRequest = {
+  /** The app to update */
+  app: Scalars['EvmAddress']['input'];
+  /** The app feeds (max 10 per request) */
+  feeds: Array<Scalars['EvmAddress']['input']>;
+};
+
+export type RemoveAppFeedsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type RemoveAppGroupsRequest = {
+  /** The app to update */
+  app: Scalars['EvmAddress']['input'];
+  /** The app groups (max 10 per request) */
+  groups: Array<Scalars['EvmAddress']['input']>;
+};
+
+export type RemoveAppGroupsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type RemoveAppSignersRequest = {
+  /** The app to update */
+  app: Scalars['EvmAddress']['input'];
+  /** The app signers (max 10 per request) */
+  signers: Array<Scalars['EvmAddress']['input']>;
+};
+
+export type RemoveAppSignersResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type RemoveGroupMembersRequest = {
+  /** The accounts you want to remove from the group. */
+  accounts: Array<Scalars['EvmAddress']['input']>;
+  /** Ban the account from the joining the group. */
+  ban?: Scalars['Boolean']['input'];
+  /** The group you want to join */
+  group: Scalars['EvmAddress']['input'];
+  /** The processing params for the join rules. */
+  rulesProcessingParams?: InputMaybe<Array<GroupRulesProcessingParams>>;
+};
+
+export type RemoveGroupMembersResponse = {
+  __typename?: 'RemoveGroupMembersResponse';
+  hash: Scalars['TxHash']['output'];
+};
+
+export type RemoveGroupMembersResult = GroupOperationValidationFailed | RemoveGroupMembersResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type RemoveSignlessResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type ReportAccountRequest = {
+  /** The account to report. */
+  account: Scalars['EvmAddress']['input'];
+  /** An optional comment to add to the report. */
+  additionalComment?: InputMaybe<Scalars['String']['input']>;
+  /** The reason for the report. */
+  reason: AccountReportReason;
+  /** An optional list of posts to reference in the report. */
+  referencePosts?: InputMaybe<Array<Scalars['PostId']['input']>>;
+};
+
+export type ReportPostRequest = {
+  additionalComment?: InputMaybe<Scalars['String']['input']>;
+  post: Scalars['PostId']['input'];
+  reason: PostReportReason;
+};
+
+export type Repost = {
+  __typename?: 'Repost';
+  app?: Maybe<App>;
+  author: Account;
+  id: Scalars['PostId']['output'];
+  isDeleted: Scalars['Boolean']['output'];
+  repostOf: Post;
+  slug: Scalars['PostId']['output'];
+  timestamp: Scalars['DateTime']['output'];
+};
+
+export type RepostNotification = {
+  __typename?: 'RepostNotification';
+  id: Scalars['GeneratedNotificationId']['output'];
+  post: Post;
+  reposts: Array<NotificationAccountRepost>;
+};
+
+export type RequestGroupMembershipRequest = {
+  /** The group you want to add member to. */
+  group: Scalars['EvmAddress']['input'];
+};
+
+export type RequestGroupMembershipResponse = {
+  __typename?: 'RequestGroupMembershipResponse';
+  hash: Scalars['TxHash']['output'];
+};
+
+export type RequestGroupMembershipResult = RequestGroupMembershipResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type RevokeAuthenticationRequest = {
+  authenticationId: Scalars['UUID']['input'];
+};
+
+export type RolloverRefreshRequest = {
+  /** The app that new tokens will be issued for. */
+  app: Scalars['EvmAddress']['input'];
+  /** A valid Lens API v2 refresh token for a Profile session. */
+  refreshToken: Scalars['LegacyRefreshToken']['input'];
+};
+
+export enum SelfFundedFallbackReason {
+  CannotSponsor = 'CANNOT_SPONSOR',
+  NotSponsored = 'NOT_SPONSORED'
+}
+
+export type SelfFundedTransactionRequest = {
+  __typename?: 'SelfFundedTransactionRequest';
+  /**
+   * The raw transaction request object.
+   *
+   * Use this object if your library does not have a parser for the encoded transaction data.
+   */
+  raw: Eip1559TransactionRequest;
+  reason: Scalars['String']['output'];
+  selfFundedReason?: Maybe<SelfFundedFallbackReason>;
+};
+
+export type SetAccountMetadataRequest = {
+  /** The metadata URI to set. */
+  metadataUri: Scalars['URI']['input'];
+};
+
+export type SetAccountMetadataResponse = {
+  __typename?: 'SetAccountMetadataResponse';
+  hash: Scalars['TxHash']['output'];
+};
+
+export type SetAccountMetadataResult = SelfFundedTransactionRequest | SetAccountMetadataResponse | SponsoredTransactionRequest | TransactionWillFail;
+
+export type SetAppGraphRequest = {
+  /** The app to update */
+  app: Scalars['EvmAddress']['input'];
+  /** The app graph to set */
+  graph: GraphChoiceOneOf;
+};
+
+export type SetAppGraphResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type SetAppMetadataRequest = {
+  /** The app to update */
+  app: Scalars['EvmAddress']['input'];
+  /** The app metadata to set */
+  metadataUri: Scalars['String']['input'];
+};
+
+export type SetAppMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type SetAppSponsorshipRequest = {
+  /** The app to update */
+  app: Scalars['EvmAddress']['input'];
+  /** The app sponsorship to set */
+  sponsorship: Scalars['EvmAddress']['input'];
+};
+
+export type SetAppSponsorshipResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type SetAppTreasuryRequest = {
+  /** The app to update */
+  app: Scalars['EvmAddress']['input'];
+  /** The app treasury to set */
+  treasury: Scalars['EvmAddress']['input'];
+};
+
+export type SetAppTreasuryResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type SetAppUsernameNamespaceRequest = {
+  /** The app to update */
+  app: Scalars['EvmAddress']['input'];
+  /** The app username namespace to set */
+  usernameNamespace: UsernameNamespaceChoiceOneOf;
+};
+
+export type SetAppUsernameNamespaceResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type SetAppVerificationRequest = {
+  /** The app to update */
+  app: Scalars['EvmAddress']['input'];
+  /** The new verification state */
+  enabled: Scalars['Boolean']['input'];
+};
+
+export type SetAppVerificationResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type SetDefaultAppFeedRequest = {
+  /** The app to update */
+  app: Scalars['EvmAddress']['input'];
+  /** The app default feed to set */
+  feed: FeedChoiceOneOf;
+};
+
+export type SetDefaultAppFeedResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type SetFeedMetadataRequest = {
+  /** The feed to update */
+  feed: Scalars['EvmAddress']['input'];
+  /** The feed metadata to set */
+  metadataUri: Scalars['String']['input'];
+};
+
+export type SetFeedMetadataResponse = {
+  __typename?: 'SetFeedMetadataResponse';
+  hash: Scalars['TxHash']['output'];
+};
+
+export type SetFeedMetadataResult = SelfFundedTransactionRequest | SetFeedMetadataResponse | SponsoredTransactionRequest | TransactionWillFail;
+
+export type SetGraphMetadataRequest = {
+  /** The graph to update */
+  graph: Scalars['EvmAddress']['input'];
+  /** The graph metadata to set */
+  metadataUri: Scalars['String']['input'];
+};
+
+export type SetGraphMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type SetGroupMetadataRequest = {
+  /** The group to update */
+  group: Scalars['EvmAddress']['input'];
+  /** The group metadata to set */
+  metadataUri: Scalars['String']['input'];
+};
+
+export type SetGroupMetadataResponse = {
+  __typename?: 'SetGroupMetadataResponse';
+  hash: Scalars['TxHash']['output'];
+};
+
+export type SetGroupMetadataResult = SelfFundedTransactionRequest | SetGroupMetadataResponse | SponsoredTransactionRequest | TransactionWillFail;
+
+export type SetNamespaceMetadataRequest = {
+  /** The namespace metadata to set */
+  metadataUri: Scalars['String']['input'];
+  /** The namespace to update */
+  namespace: Scalars['EvmAddress']['input'];
+};
+
+export type SetNamespaceMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type SetSponsorshipMetadataRequest = {
+  /** The sponsorship metadata to set */
+  metadataUri: Scalars['URI']['input'];
+  /** The sponsorship to update */
+  sponsorship: Scalars['EvmAddress']['input'];
+};
+
+export type SetSponsorshipMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type SignedAuthChallenge = {
+  id: Scalars['UUID']['input'];
+  signature: Scalars['Signature']['input'];
+};
+
+export type SimpleCollectAction = {
+  __typename?: 'SimpleCollectAction';
+  address: Scalars['EvmAddress']['output'];
+  collectLimit?: Maybe<Scalars['Int']['output']>;
+  collectNftAddress: Scalars['EvmAddress']['output'];
+  endsAt?: Maybe<Scalars['DateTime']['output']>;
+  followerOnGraph?: Maybe<FollowerOn>;
+  isImmutable: Scalars['Boolean']['output'];
+  payToCollect?: Maybe<PayToCollectConfig>;
+};
+
+export type SimpleCollectActionConfigInput = {
+  collectLimit?: InputMaybe<Scalars['Int']['input']>;
+  endsAt?: InputMaybe<Scalars['DateTime']['input']>;
+  followerOnGraph?: InputMaybe<FollowerOnInput>;
+  isImmutable?: Scalars['Boolean']['input'];
+  payToCollect?: InputMaybe<PayToCollectInput>;
+};
+
+export type SimpleCollectActionContract = {
+  __typename?: 'SimpleCollectActionContract';
+  address: Scalars['EvmAddress']['output'];
+};
+
+export type SimpleCollectExecuteInput = {
+  referrals?: InputMaybe<Array<ReferralCut>>;
+  selected: Scalars['AlwaysTrue']['input'];
+};
+
+export type SimpleCollectPostActionExecuted = {
+  __typename?: 'SimpleCollectPostActionExecuted';
+  action: SimpleCollectAction;
+  executedAt: Scalars['DateTime']['output'];
+  executedBy: Account;
+};
+
+export type SimpleCollectValidationFailed = {
+  __typename?: 'SimpleCollectValidationFailed';
+  reason: Scalars['String']['output'];
+  reasonType: SimpleCollectValidationFailedReason;
+};
+
+export enum SimpleCollectValidationFailedReason {
+  EndDateReached = 'END_DATE_REACHED',
+  LimitReached = 'LIMIT_REACHED',
+  NotAFollower = 'NOT_A_FOLLOWER',
+  NotEnabled = 'NOT_ENABLED',
+  NotEnoughBalance = 'NOT_ENOUGH_BALANCE',
+  PostDeleted = 'POST_DELETED'
+}
+
+export type SimpleCollectValidationOutcome = SimpleCollectValidationFailed | SimpleCollectValidationPassed;
+
+export type SimpleCollectValidationPassed = {
+  __typename?: 'SimpleCollectValidationPassed';
+  passed: Scalars['AlwaysTrue']['output'];
+};
+
+export type SimplePaymentFeedRuleConfig = {
+  cost: AmountInput;
+  recipient: Scalars['EvmAddress']['input'];
+};
+
+export type SimplePaymentFollowRuleConfig = {
+  cost: AmountInput;
+  recipient: Scalars['EvmAddress']['input'];
+};
+
+export type SimplePaymentGroupRuleConfig = {
+  cost: AmountInput;
+  recipient: Scalars['EvmAddress']['input'];
+};
+
+export enum SnsNotificationType {
+  AccountActionExecuted = 'ACCOUNT_ACTION_EXECUTED',
+  AccountBlocked = 'ACCOUNT_BLOCKED',
+  AccountContentConsumed = 'ACCOUNT_CONTENT_CONSUMED',
+  AccountCreated = 'ACCOUNT_CREATED',
+  AccountFollowed = 'ACCOUNT_FOLLOWED',
+  AccountFollowRulesUpdated = 'ACCOUNT_FOLLOW_RULES_UPDATED',
+  AccountManagerAdded = 'ACCOUNT_MANAGER_ADDED',
+  AccountManagerRemoved = 'ACCOUNT_MANAGER_REMOVED',
+  AccountManagerUpdated = 'ACCOUNT_MANAGER_UPDATED',
+  AccountMentioned = 'ACCOUNT_MENTIONED',
+  AccountMetadataUpdated = 'ACCOUNT_METADATA_UPDATED',
+  AccountOwnershipTransferred = 'ACCOUNT_OWNERSHIP_TRANSFERRED',
+  AccountReported = 'ACCOUNT_REPORTED',
+  AccountUnblocked = 'ACCOUNT_UNBLOCKED',
+  AccountUnfollowed = 'ACCOUNT_UNFOLLOWED',
+  AccountUsernameAssigned = 'ACCOUNT_USERNAME_ASSIGNED',
+  AccountUsernameCreated = 'ACCOUNT_USERNAME_CREATED',
+  AccountUsernameUnassigned = 'ACCOUNT_USERNAME_UNASSIGNED',
+  MediaSnapshotError = 'MEDIA_SNAPSHOT_ERROR',
+  MediaSnapshotSuccess = 'MEDIA_SNAPSHOT_SUCCESS',
+  MetadataSnapshotError = 'METADATA_SNAPSHOT_ERROR',
+  MetadataSnapshotSuccess = 'METADATA_SNAPSHOT_SUCCESS',
+  MlAccountSignal = 'ML_ACCOUNT_SIGNAL',
+  MlRecommendedAccountDismissed = 'ML_RECOMMENDED_ACCOUNT_DISMISSED',
+  PostActionExecuted = 'POST_ACTION_EXECUTED',
+  PostCollected = 'POST_COLLECTED',
+  PostCreated = 'POST_CREATED',
+  PostDeleted = 'POST_DELETED',
+  PostEdited = 'POST_EDITED',
+  PostReactionAdded = 'POST_REACTION_ADDED',
+  PostReactionRemoved = 'POST_REACTION_REMOVED',
+  PostReported = 'POST_REPORTED',
+  RefreshMetadataError = 'REFRESH_METADATA_ERROR',
+  RefreshMetadataSuccess = 'REFRESH_METADATA_SUCCESS'
+}
+
+export type SnsSubscription = {
+  __typename?: 'SnsSubscription';
+  account: Scalars['EvmAddress']['output'];
+  app?: Maybe<Scalars['EvmAddress']['output']>;
+  filter: Scalars['JSON']['output'];
+  id: Scalars['UUID']['output'];
+  topic: SnsNotificationType;
+  topicArn: Scalars['String']['output'];
+  webhook: Scalars['URL']['output'];
+};
+
+export type SnsTopicInput = {
+  accountActionExecuted?: InputMaybe<AccountActionExecutedNotificationAttributes>;
+  accountBlocked?: InputMaybe<AccountBlockedNotificationAttributes>;
+  accountCreated?: InputMaybe<AccountCreatedNotificationAttributes>;
+  accountFollowed?: InputMaybe<AccountFollowedNotificationAttributes>;
+  accountManagerAdded?: InputMaybe<AccountManagerAddedNotificationAttributes>;
+  accountManagerRemoved?: InputMaybe<AccountManagerRemovedNotificationAttributes>;
+  accountManagerUpdated?: InputMaybe<AccountManagerUpdatedNotificationAttributes>;
+  accountMentioned?: InputMaybe<AccountMentionedNotificationAttributes>;
+  accountOwnershipTransferred?: InputMaybe<AccountOwnershipTransferredNotificationAttributes>;
+  accountReported?: InputMaybe<AccountReportedNotificationAttributes>;
+  accountUnblocked?: InputMaybe<AccountUnblockedNotificationAttributes>;
+  accountUnfollowed?: InputMaybe<AccountUnfollowedNotificationAttributes>;
+  accountUsernameAssigned?: InputMaybe<AccountUsernameAssignedNotificationAttributes>;
+  accountUsernameCreated?: InputMaybe<AccountUsernameCreatedNotificationAttributes>;
+  accountUsernameUnassigned?: InputMaybe<AccountUsernameUnassignedNotificationAttributes>;
+  mediaSnapshotError?: InputMaybe<MediaSnapshotNotificationAttributes>;
+  mediaSnapshotSuccess?: InputMaybe<MediaSnapshotNotificationAttributes>;
+  metadataSnapshotError?: InputMaybe<MetadataSnapshotNotificationAttributes>;
+  metadataSnapshotSuccess?: InputMaybe<MetadataSnapshotNotificationAttributes>;
+  postActionExecuted?: InputMaybe<PostActionExecutedNotificationAttributes>;
+  postCollected?: InputMaybe<PostCollectedNotificationAttributes>;
+  postCreated?: InputMaybe<PostCreatedNotificationAttributes>;
+  postDeleted?: InputMaybe<PostDeletedNotificationAttributes>;
+  postEdited?: InputMaybe<PostEditedNotificationAttributes>;
+  postReactionAdded?: InputMaybe<PostReactionAddedNotificationAttributes>;
+  postReactionRemoved?: InputMaybe<PostReactionRemovedNotificationAttributes>;
+  postReported?: InputMaybe<PostReportedNotificationAttributes>;
+  refreshMetadataError?: InputMaybe<MetadataSnapshotNotificationAttributes>;
+  refreshMetadataSuccess?: InputMaybe<MetadataSnapshotNotificationAttributes>;
+};
+
+export type SpaceMetadata = {
+  __typename?: 'SpaceMetadata';
+  /** The other attachments you want to include with it. */
+  attachments: Array<AnyMedia>;
+  /**
+   * A bag of attributes that can be used to store any kind of metadata that is not currently
+   * supported by the standard. Over time, common attributes will be added to the standard and
+   * their usage as arbitrary attributes will be discouraged.
+   */
+  attributes: Array<MetadataAttribute>;
+  content: Scalars['String']['output'];
+  /** Specify a content warning. */
+  contentWarning?: Maybe<ContentWarning>;
+  id: Scalars['MetadataId']['output'];
+  /** The space join link. */
+  link: Scalars['URI']['output'];
+  locale: Scalars['Locale']['output'];
+  /** The main focus of the post. */
+  mainContentFocus: MainContentFocus;
+  /** The space start time (ISO 8601 `YYYY-MM-DDTHH:mm:ss.sssZ`). */
+  startsAt: Scalars['DateTime']['output'];
+  /** An arbitrary list of tags. */
+  tags?: Maybe<Array<Scalars['Tag']['output']>>;
+  /** The space title. */
+  title: Scalars['String']['output'];
+};
+
+export enum SponsoredFallbackReason {
+  CannotDelegate = 'CANNOT_DELEGATE',
+  RequiresSignature = 'REQUIRES_SIGNATURE',
+  SignlessDisabled = 'SIGNLESS_DISABLED',
+  SignlessFailed = 'SIGNLESS_FAILED'
+}
+
+export type SponsoredTransactionRequest = {
+  __typename?: 'SponsoredTransactionRequest';
+  /**
+   * The raw transaction request object.
+   *
+   * Use this object if your library does not have a parser for the encoded transaction data.
+   */
+  raw: Eip712TransactionRequest;
+  reason: Scalars['String']['output'];
+  sponsoredReason?: Maybe<SponsoredFallbackReason>;
+};
+
+export type Sponsorship = {
+  __typename?: 'Sponsorship';
+  address: Scalars['EvmAddress']['output'];
+  /**
+   * Indicates whether the Lens API is authorized as the sponsorship signer
+   * to sponsor end-user social operations (e.g., posts, comments, follows)
+   * performed through the Lens API for apps associated with this sponsorship.
+   */
+  allowsLensAccess: Scalars['Boolean']['output'];
+  /**
+   * The native token balance of the sponsorship contract.
+   *
+   * This value is cached for up to 2 minutes for each sponsorship contract.
+   */
+  balance: Scalars['BigDecimal']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  isPaused: Scalars['Boolean']['output'];
+  limits?: Maybe<SponsorshipLimits>;
+  metadata?: Maybe<SponsorshipMetadata>;
+  owner: Scalars['EvmAddress']['output'];
+};
+
+export type SponsorshipAllowance = {
+  __typename?: 'SponsorshipAllowance';
+  /** The total sponsorship allowance. */
+  allowance: Scalars['Int']['output'];
+  /** The number of remaining sponsorship allowance. */
+  allowanceLeft: Scalars['Int']['output'];
+  /** The number of sponsorship allowance used. */
+  allowanceUsed: Scalars['Int']['output'];
+  /** The sponsorship window type. */
+  window: SponsorshipRateLimitWindow;
+};
+
+export type SponsorshipGrant = {
+  __typename?: 'SponsorshipGrant';
+  amount: NativeAmount;
+  grantedAt: Scalars['DateTime']['output'];
+  id: Scalars['GrantId']['output'];
+};
+
+export type SponsorshipGrantsFilter = {
+  linkedToApp?: InputMaybe<Scalars['EvmAddress']['input']>;
+  sponsorship?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export type SponsorshipGrantsRequest = {
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** The filter options. */
+  filter: SponsorshipGrantsFilter;
+  /** The page size. */
+  pageSize?: PageSize;
+};
+
+export type SponsorshipGrantsResult = {
+  __typename?: 'SponsorshipGrantsResult';
+  items: Array<SponsorshipGrant>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type SponsorshipLimitExclusionsFilter = {
+  /** The sponsorship address. */
+  sponsorship: Scalars['EvmAddress']['input'];
+};
+
+export enum SponsorshipLimitExclusionsOrderBy {
+  Alphabetical = 'ALPHABETICAL',
+  LatestFirst = 'LATEST_FIRST',
+  OldestFirst = 'OLDEST_FIRST'
+}
+
+export type SponsorshipLimitExclusionsRequest = {
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** The filter options. */
+  filter: SponsorshipLimitExclusionsFilter;
+  /** The order by criteria. */
+  orderBy?: SponsorshipLimitExclusionsOrderBy;
+  /** The page size. */
+  pageSize?: PageSize;
+};
+
+export type SponsorshipLimits = {
+  __typename?: 'SponsorshipLimits';
+  global?: Maybe<SponsorshipRateLimit>;
+  user?: Maybe<SponsorshipRateLimit>;
+};
+
+export type SponsorshipLimitsExclusionsResult = {
+  __typename?: 'SponsorshipLimitsExclusionsResult';
+  items: Array<SponsorshipLimitsExempt>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type SponsorshipLimitsExempt = {
+  __typename?: 'SponsorshipLimitsExempt';
+  address: Scalars['EvmAddress']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  label: Scalars['String']['output'];
+  sponsorship: Scalars['EvmAddress']['output'];
+};
+
+export type SponsorshipMetadata = {
+  __typename?: 'SponsorshipMetadata';
+  /** An optional description of the Username collection. */
+  description?: Maybe<Scalars['String']['output']>;
+  /**
+   * A unique identifier that in storages like IPFS ensures the uniqueness of the metadata URI.
+   * Use a UUID if unsure.
+   */
+  id: Scalars['String']['output'];
+  /** The name of the Sponsorship. */
+  name: Scalars['String']['output'];
+};
+
+export type SponsorshipRateLimit = {
+  __typename?: 'SponsorshipRateLimit';
+  limit: Scalars['Int']['output'];
+  window: SponsorshipRateLimitWindow;
+};
+
+export type SponsorshipRateLimitInput = {
+  /** The limit value. */
+  limit: Scalars['Int']['input'];
+  /** The limit time window. */
+  window: SponsorshipRateLimitWindow;
+};
+
+export enum SponsorshipRateLimitWindow {
+  Day = 'DAY',
+  Hour = 'HOUR',
+  Month = 'MONTH',
+  Week = 'WEEK'
+}
+
+export type SponsorshipRateLimitsExempt = {
+  /** The exempt address. */
+  address: Scalars['EvmAddress']['input'];
+  /** The human-readable label for the exempt address. */
+  label: Scalars['String']['input'];
+};
+
+export type SponsorshipRateLimitsInput = {
+  /** The global rate limit. */
+  global?: InputMaybe<SponsorshipRateLimitInput>;
+  /** The user rate limit. */
+  user?: InputMaybe<SponsorshipRateLimitInput>;
+};
+
+export type SponsorshipRequest = {
+  /** The Sponsorship address. */
+  address?: InputMaybe<Scalars['EvmAddress']['input']>;
+  /** The transaction hash you created the Sponsorship with. */
+  txHash?: InputMaybe<Scalars['TxHash']['input']>;
+};
+
+export type SponsorshipSigner = {
+  __typename?: 'SponsorshipSigner';
+  address: Scalars['EvmAddress']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  label: Scalars['String']['output'];
+  sponsorship: Scalars['EvmAddress']['output'];
+};
+
+export type SponsorshipSignerInput = {
+  /** The signer address */
+  address: Scalars['EvmAddress']['input'];
+  /** The human-readable label for the signer */
+  label: Scalars['String']['input'];
+};
+
+export type SponsorshipSignersFilter = {
+  /** The sponsorship address. */
+  sponsorship: Scalars['EvmAddress']['input'];
+};
+
+export enum SponsorshipSignersOrderBy {
+  Alphabetical = 'ALPHABETICAL',
+  LatestFirst = 'LATEST_FIRST',
+  OldestFirst = 'OLDEST_FIRST'
+}
+
+export type SponsorshipSignersRequest = {
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** The filter options. */
+  filter: SponsorshipSignersFilter;
+  /** The order by criteria. */
+  orderBy?: SponsorshipSignersOrderBy;
+  /** The page size. */
+  pageSize?: PageSize;
+};
+
+export type SponsorshipSignersResult = {
+  __typename?: 'SponsorshipSignersResult';
+  items: Array<SponsorshipSigner>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type SponsorshipsFilter = {
+  /** The filter to get Sponsorships managed by address */
+  managedBy: ManagedBy;
+};
+
+export enum SponsorshipsOrderBy {
+  Alphabetical = 'ALPHABETICAL',
+  LatestFirst = 'LATEST_FIRST',
+  OldestFirst = 'OLDEST_FIRST'
+}
+
+export type SponsorshipsRequest = {
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** The filter options. */
+  filter: SponsorshipsFilter;
+  /** The order by criteria. */
+  orderBy?: SponsorshipsOrderBy;
+  /** The page size. */
+  pageSize?: PageSize;
+};
+
+export type SponsorshipsResult = {
+  __typename?: 'SponsorshipsResult';
+  items: Array<Sponsorship>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type StatsReactionRequest = {
+  type: PostReactionType;
+};
+
+export type StoryMetadata = {
+  __typename?: 'StoryMetadata';
+  /** The story asset. */
+  asset: AnyMedia;
+  /**
+   * A bag of attributes that can be used to store any kind of metadata that is not currently
+   * supported by the standard. Over time, common attributes will be added to the standard and
+   * their usage as arbitrary attributes will be discouraged.
+   */
+  attributes: Array<MetadataAttribute>;
+  content: Scalars['String']['output'];
+  /** Specify a content warning. */
+  contentWarning?: Maybe<ContentWarning>;
+  id: Scalars['MetadataId']['output'];
+  locale: Scalars['Locale']['output'];
+  /** The main focus of the post. */
+  mainContentFocus: MainContentFocus;
+  /** An arbitrary list of tags. */
+  tags?: Maybe<Array<Scalars['Tag']['output']>>;
+};
+
+export type StringKeyValue = {
+  __typename?: 'StringKeyValue';
+  key: Scalars['String']['output'];
+  string: Scalars['String']['output'];
+};
+
+export type SubOperationStatus = {
+  __typename?: 'SubOperationStatus';
+  operation: TransactionOperation;
+  status: IndexingStatus;
+};
+
+export type SwitchAccountRequest = {
+  account: Scalars['EvmAddress']['input'];
+};
+
+export type SwitchAccountResult = AuthenticationTokens | ForbiddenError;
+
+export type TextOnlyMetadata = {
+  __typename?: 'TextOnlyMetadata';
+  /**
+   * A bag of attributes that can be used to store any kind of metadata that is not currently
+   * supported by the standard. Over time, common attributes will be added to the standard and
+   * their usage as arbitrary attributes will be discouraged.
+   */
+  attributes: Array<MetadataAttribute>;
+  content: Scalars['String']['output'];
+  /** Specify a content warning. */
+  contentWarning?: Maybe<ContentWarning>;
+  id: Scalars['MetadataId']['output'];
+  locale: Scalars['Locale']['output'];
+  /** The main focus of the post. */
+  mainContentFocus: MainContentFocus;
+  /** An arbitrary list of tags. */
+  tags?: Maybe<Array<Scalars['Tag']['output']>>;
+};
+
+export type ThreeDAsset = {
+  __typename?: 'ThreeDAsset';
+  /** The 3D format of the asset. */
+  format: ThreeDAssetFormat;
+  /** The license regulating the use of the 3D asset. */
+  license?: Maybe<MetadataLicenseType>;
+  /** The URL of the recommended web based 3D player to use to view the 3D asset. */
+  playerUrl: Scalars['URI']['output'];
+  /** The URI of the 3D asset zip file. */
+  uri: Scalars['URI']['output'];
+  /** Path in extracted zip. Relative. 3D start point, MUST be 3D file type. */
+  zipPath?: Maybe<Scalars['String']['output']>;
+};
+
+export enum ThreeDAssetFormat {
+  Fbx = 'FBX',
+  GLtfGlb = 'G_LTF_GLB',
+  Obj = 'OBJ',
+  Vrm = 'VRM'
+}
+
+export type ThreeDMetadata = {
+  __typename?: 'ThreeDMetadata';
+  /** The 3D items for the post */
+  assets: Array<ThreeDAsset>;
+  /** The other attachments you want to include with it. */
+  attachments: Array<AnyMedia>;
+  /**
+   * A bag of attributes that can be used to store any kind of metadata that is not currently
+   * supported by the standard. Over time, common attributes will be added to the standard and
+   * their usage as arbitrary attributes will be discouraged.
+   */
+  attributes: Array<MetadataAttribute>;
+  content: Scalars['String']['output'];
+  /** Specify a content warning. */
+  contentWarning?: Maybe<ContentWarning>;
+  id: Scalars['MetadataId']['output'];
+  locale: Scalars['Locale']['output'];
+  /** The main focus of the post. */
+  mainContentFocus: MainContentFocus;
+  /** An arbitrary list of tags. */
+  tags?: Maybe<Array<Scalars['Tag']['output']>>;
+};
+
+export enum TimelineEventItemType {
+  Comment = 'COMMENT',
+  Post = 'POST',
+  Quote = 'QUOTE',
+  Repost = 'REPOST'
+}
+
+export type TimelineFilter = {
+  /** The apps to filter by. */
+  apps?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  /** The post event types to filter by. */
+  eventType?: InputMaybe<Array<TimelineEventItemType>>;
+  /** The feeds to filter by. */
+  feeds?: InputMaybe<Array<FeedOneOf>>;
+  /** The optional metadata filter. */
+  metadata?: InputMaybe<PostMetadataFilter>;
+};
+
+export type TimelineHighlightsFilter = {
+  /** The apps to filter by. */
+  apps?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  /** The feeds to filter by. */
+  feeds?: InputMaybe<Array<FeedOneOf>>;
+  metadata?: InputMaybe<PostMetadataFilter>;
+};
+
+export type TimelineHighlightsRequest = {
+  /** The account to get timeline highlights for. */
+  account: Scalars['EvmAddress']['input'];
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** An optional filter to apply to the timeline. */
+  filter?: InputMaybe<TimelineHighlightsFilter>;
+  pageSize?: PageSize;
+};
+
+export type TimelineItem = {
+  __typename?: 'TimelineItem';
+  comments: Array<Post>;
+  id: Scalars['UUID']['output'];
+  primary: Post;
+  reposts: Array<Repost>;
+};
+
+export type TimelineRequest = {
+  /** The account to get timeline for. */
+  account: Scalars['EvmAddress']['input'];
+  /** The cursor. */
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** An optional filter to apply to the timeline. */
+  filter?: InputMaybe<TimelineFilter>;
+};
+
+export enum TimezoneId {
   AfricaAbidjan = 'AFRICA_ABIDJAN',
   AfricaAccra = 'AFRICA_ACCRA',
   AfricaAddisAbaba = 'AFRICA_ADDIS_ABABA',
@@ -2274,5151 +7740,28 @@ export enum EventMetadataLensSchedulingAdjustmentsTimezoneId {
   PacificWallis = 'PACIFIC_WALLIS'
 }
 
-export type ExecuteAccountActionRequest = {
-  /** The target account to execute the action on. */
-  account: Scalars['EvmAddress']['input'];
-  /** The action params. */
-  action: AccountActionExecuteInput;
-};
-
-export type ExecuteAccountActionResponse = {
-  __typename?: 'ExecuteAccountActionResponse';
-  hash: Scalars['TxHash']['output'];
-};
-
-export type ExecuteAccountActionResult = ExecuteAccountActionResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type ExecutePostActionRequest = {
-  /** The action params. */
-  action: PostActionExecuteInput;
-  /** The target post to execute the action on. */
-  post: Scalars['PostId']['input'];
-};
-
-export type ExecutePostActionResponse = {
-  __typename?: 'ExecutePostActionResponse';
-  hash: Scalars['TxHash']['output'];
-};
-
-export type ExecutePostActionResult = ExecutePostActionResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type ExecutedUnknownActionRequest = {
-  address: Scalars['EvmAddress']['input'];
-};
-
-/** The challenge has expired or was not found. */
-export type ExpiredChallengeError = {
-  __typename?: 'ExpiredChallengeError';
-  reason: Scalars['String']['output'];
-};
-
-/**
- * The transaction has failed to be mined or indexed.
- *
- * The reason for the failure is provided.
- */
-export type FailedTransactionStatus = {
-  __typename?: 'FailedTransactionStatus';
-  blockTimestamp: Scalars['DateTime']['output'];
-  reason: Scalars['String']['output'];
-  summary: Array<SubOperationStatus>;
-};
-
-export type Feed = {
-  __typename?: 'Feed';
-  address: Scalars['EvmAddress']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  metadata?: Maybe<FeedMetadata>;
-  operations?: Maybe<LoggedInFeedPostOperations>;
-  owner: Scalars['EvmAddress']['output'];
-  rules: FeedRules;
-};
-
-export type FeedChoiceOneOf = {
-  custom?: InputMaybe<Scalars['EvmAddress']['input']>;
-  globalFeed?: InputMaybe<Scalars['AlwaysTrue']['input']>;
-  none?: InputMaybe<Scalars['AlwaysTrue']['input']>;
-};
-
-export type FeedMetadata = {
-  __typename?: 'FeedMetadata';
-  /** Optional markdown formatted description of the Feed. */
-  description?: Maybe<Scalars['String']['output']>;
-  /**
-   * A unique identifier that in storages like IPFS ensures the uniqueness of the metadata URI.
-   * Use a UUID if unsure.
-   */
-  id: Scalars['String']['output'];
-  /** The name of the Feed. */
-  name: Scalars['String']['output'];
-  /** The human-friendly title for the Feed. */
-  title: Scalars['String']['output'];
-};
-
-export type FeedOneOf = {
-  app?: InputMaybe<Scalars['EvmAddress']['input']>;
-  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
-  globalFeed?: InputMaybe<Scalars['AlwaysTrue']['input']>;
-};
-
-export type FeedOperationValidationFailed = {
-  __typename?: 'FeedOperationValidationFailed';
-  reason: Scalars['String']['output'];
-  unsatisfiedRules?: Maybe<FeedUnsatisfiedRules>;
-};
-
-export type FeedOperationValidationOutcome = FeedOperationValidationFailed | FeedOperationValidationPassed | FeedOperationValidationUnknown;
-
-export type FeedOperationValidationPassed = {
-  __typename?: 'FeedOperationValidationPassed';
-  passed: Scalars['AlwaysTrue']['output'];
-};
-
-export type FeedOperationValidationUnknown = {
-  __typename?: 'FeedOperationValidationUnknown';
-  extraChecksRequired: Array<FeedRule>;
-};
-
-export type FeedRequest = {
-  /** The feed */
-  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /** The transaction hash you created the feed with. */
-  txHash?: InputMaybe<Scalars['TxHash']['input']>;
-};
-
-export type FeedRule = {
-  __typename?: 'FeedRule';
-  address: Scalars['EvmAddress']['output'];
-  config: Array<AnyKeyValue>;
-  executesOn: Array<FeedRuleExecuteOn>;
-  id: Scalars['RuleId']['output'];
-  type: FeedRuleType;
-};
-
-export type FeedRuleConfig = {
-  groupGatedRule?: InputMaybe<GroupGatedFeedRuleConfig>;
-  simplePaymentRule?: InputMaybe<SimplePaymentFeedRuleConfig>;
-  tokenGatedRule?: InputMaybe<TokenGatedFeedRuleConfig>;
-  unknownRule?: InputMaybe<UnknownFeedRuleConfig>;
-};
-
-export enum FeedRuleExecuteOn {
-  ChangingPostRule = 'CHANGING_POST_RULE',
-  CreatingPost = 'CREATING_POST',
-  DeletingPost = 'DELETING_POST',
-  EditingPost = 'EDITING_POST'
-}
-
-export enum FeedRuleType {
-  AccountBlocking = 'ACCOUNT_BLOCKING',
-  GroupGated = 'GROUP_GATED',
-  RestrictedSigners = 'RESTRICTED_SIGNERS',
-  SimplePayment = 'SIMPLE_PAYMENT',
-  TokenGated = 'TOKEN_GATED',
-  Unknown = 'UNKNOWN'
-}
-
-export enum FeedRuleUnsatisfiedReason {
-  AccountBlocked = 'ACCOUNT_BLOCKED',
-  GroupGatedNotAMember = 'GROUP_GATED_NOT_A_MEMBER',
-  SimplePaymentNotEnoughBalance = 'SIMPLE_PAYMENT_NOT_ENOUGH_BALANCE',
-  TokenGatedNotATokenHolder = 'TOKEN_GATED_NOT_A_TOKEN_HOLDER'
-}
-
-export type FeedRules = {
-  __typename?: 'FeedRules';
-  anyOf: Array<FeedRule>;
-  required: Array<FeedRule>;
-};
-
-export type FeedRulesConfigInput = {
-  anyOf?: Array<FeedRuleConfig>;
-  required?: Array<FeedRuleConfig>;
-};
-
-export type FeedRulesProcessingParams = {
-  unknownRule?: InputMaybe<UnknownRuleProcessingParams>;
-};
-
-export type FeedUnsatisfiedRule = {
-  __typename?: 'FeedUnsatisfiedRule';
-  config: Array<AnyKeyValue>;
-  message: Scalars['String']['output'];
-  reason: FeedRuleUnsatisfiedReason;
-  rule: Scalars['EvmAddress']['output'];
-};
-
-export type FeedUnsatisfiedRules = {
-  __typename?: 'FeedUnsatisfiedRules';
-  anyOf: Array<FeedUnsatisfiedRule>;
-  required: Array<FeedUnsatisfiedRule>;
-};
-
-export type FeedsFilter = {
-  /** The optional filter to get feeds managed by address */
-  managedBy?: InputMaybe<ManagedBy>;
-  /**
-   * The optional filter to narrow feeds by search query.
-   * Uses fuzzy search on feed name
-   */
-  searchQuery?: InputMaybe<Scalars['String']['input']>;
-};
-
-export enum FeedsOrderBy {
-  Alphabetical = 'ALPHABETICAL',
-  LatestFirst = 'LATEST_FIRST',
-  OldestFirst = 'OLDEST_FIRST'
-}
-
-export type FeedsRequest = {
-  /** The cursor. */
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<FeedsFilter>;
-  /** The order by. */
-  orderBy?: FeedsOrderBy;
-  /** The page size. */
-  pageSize?: PageSize;
-};
-
-/**
- * The transaction has been mined and indexed correctly.
- *
- * If the transaction involves any metadata, the metadata has been snapshotted and indexed.
- */
-export type FinishedTransactionStatus = {
-  __typename?: 'FinishedTransactionStatus';
-  blockTimestamp: Scalars['DateTime']['output'];
-  summary: Array<SubOperationStatus>;
-};
-
-export type FollowNotification = {
-  __typename?: 'FollowNotification';
-  followers: Array<NotificationAccountFollow>;
-  id: Scalars['GeneratedNotificationId']['output'];
-};
-
-export type FollowPair = {
-  /** The account being followed. */
-  account: Scalars['EvmAddress']['input'];
-  /** The follower. */
-  follower: Scalars['EvmAddress']['input'];
-  /** The graph you are checking defaults to global graph. */
-  graph?: Scalars['EvmAddress']['input'];
-};
-
-export type FollowResponse = {
-  __typename?: 'FollowResponse';
-  hash: Scalars['TxHash']['output'];
-};
-
-export type FollowResult = AccountFollowOperationValidationFailed | FollowResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type FollowStatusRequest = {
-  pairs: Array<FollowPair>;
-};
-
-export type FollowStatusResult = {
-  __typename?: 'FollowStatusResult';
-  account: Scalars['EvmAddress']['output'];
-  follower: Scalars['EvmAddress']['output'];
-  graph: Scalars['EvmAddress']['output'];
-  isFollowing: BooleanValue;
-};
-
-export type Follower = {
-  __typename?: 'Follower';
-  /** The timestamp when the follower was followed */
-  followedOn: Scalars['DateTime']['output'];
-  /** The account which is following */
-  follower: Account;
-  /** The graph the follower is following on */
-  graph: Scalars['EvmAddress']['output'];
-};
-
-export type FollowerOn = {
-  __typename?: 'FollowerOn';
-  globalGraph: Scalars['Boolean']['output'];
-  graph: Scalars['EvmAddress']['output'];
-};
-
-export type FollowerOnInput = {
-  globalGraph?: InputMaybe<Scalars['AlwaysTrue']['input']>;
-  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
-};
-
-export type FollowersFilter = {
-  /**
-   * The graphs to filter by.
-   * The result will come back if they follow on ANY of the supplied graphs
-   */
-  graphs?: InputMaybe<Array<GraphOneOf>>;
-};
-
-export type FollowersOnlyPostRuleConfig = {
-  graph?: Scalars['EvmAddress']['input'];
-  quotesRestricted?: Scalars['Boolean']['input'];
-  repliesRestricted?: Scalars['Boolean']['input'];
-  repostRestricted?: Scalars['Boolean']['input'];
-};
-
-export enum FollowersOrderBy {
-  AccountScore = 'ACCOUNT_SCORE',
-  Asc = 'ASC',
-  Desc = 'DESC'
-}
-
-export type FollowersRequest = {
-  /** The account to get followers for. */
-  account: Scalars['EvmAddress']['input'];
-  /** The cursor. */
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** An optional filter to apply to the result. */
-  filter?: InputMaybe<FollowersFilter>;
-  /** The order by. */
-  orderBy?: FollowersOrderBy;
-  /** The page size. */
-  pageSize?: PageSize;
-};
-
-export type FollowersYouKnowFilter = {
-  /**
-   * The graphs to get followers you know for
-   * The result will come back if they follow on ANY of the supplied graphs
-   */
-  graphs?: InputMaybe<Array<GraphOneOf>>;
-};
-
-export enum FollowersYouKnowOrderBy {
-  Asc = 'ASC',
-  Desc = 'DESC'
-}
-
-export type FollowersYouKnowRequest = {
-  /** The cursor. */
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** An optional filter to apply to the result. */
-  filter?: InputMaybe<FollowersYouKnowFilter>;
-  /** The account you are looking from. */
-  observer: Scalars['EvmAddress']['input'];
-  /** The order by. */
-  orderBy?: FollowersYouKnowOrderBy;
-  /** The page size. */
-  pageSize?: PageSize;
-  /** The account to check followers you know. */
-  target: Scalars['EvmAddress']['input'];
-};
-
-export type Following = {
-  __typename?: 'Following';
-  /** The timestamp when the following happened */
-  followedOn: Scalars['DateTime']['output'];
-  /** The account which is following */
-  following: Account;
-  /** The graph the account is following on */
-  graph: Scalars['EvmAddress']['output'];
-};
-
-export type FollowingFilter = {
-  /**
-   * The graphs to filter by.
-   * The result will come back if they are following on ANY of the supplied graphs
-   */
-  graphs?: InputMaybe<Array<GraphOneOf>>;
-};
-
-export enum FollowingOrderBy {
-  AccountScore = 'ACCOUNT_SCORE',
-  Asc = 'ASC',
-  Desc = 'DESC'
-}
-
-export type FollowingRequest = {
-  /** The account to get following for. */
-  account: Scalars['EvmAddress']['input'];
-  /** The cursor. */
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** An optional filter to apply to the result. */
-  filter?: InputMaybe<FollowingFilter>;
-  /** The order by. */
-  orderBy?: FollowingOrderBy;
-  /** The page size. */
-  pageSize?: PageSize;
-};
-
-export enum ForYouSource {
-  Curated = 'CURATED',
-  Following = 'FOLLOWING',
-  Popular = 'POPULAR'
-}
-
-export type ForbiddenError = {
-  __typename?: 'ForbiddenError';
-  reason: Scalars['String']['output'];
-};
-
-export type FrameEip712Request = {
-  /** The account address */
-  account: Scalars['EvmAddress']['input'];
-  /** The app the frame is being executed from */
-  app: Scalars['EvmAddress']['input'];
-  /** The button index */
-  buttonIndex: Scalars['Int']['input'];
-  /** The deadline the typed data expires */
-  deadline: Scalars['Int']['input'];
-  /** The input text */
-  inputText: Scalars['String']['input'];
-  /** The post id */
-  post: Scalars['PostId']['input'];
-  /** The frame spec version */
-  specVersion: Scalars['String']['input'];
-  /** The state */
-  state: Scalars['String']['input'];
-  /** The transaction id */
-  transactionId: Scalars['String']['input'];
-  /** The url */
-  url: Scalars['URI']['input'];
-};
-
-export type FrameLensManagerSignatureResult = {
-  __typename?: 'FrameLensManagerSignatureResult';
-  /** The signature */
-  signature: Scalars['Signature']['output'];
-  /** The signed typed data */
-  signedTypedData: CreateFrameEip712TypedData;
-};
-
-export type FrameVerifySignature = {
-  /** The identity token */
-  identityToken: Scalars['IdToken']['input'];
-  /** The signature */
-  signature: Scalars['Signature']['input'];
-  /** The signed typed data */
-  signedTypedData: CreateFrameEip712TypedDataInput;
-};
-
-export enum FrameVerifySignatureResult {
-  /** The deadline has expired */
-  DeadlineExpired = 'DEADLINE_EXPIRED',
-  /** The identity token is not a valid identity token */
-  IdentityCannotUseAccount = 'IDENTITY_CANNOT_USE_ACCOUNT',
-  /** The identity token is not a valid identity token used with an account authentication */
-  IdentityTokenNotValid = 'IDENTITY_TOKEN_NOT_VALID',
-  /** The identity token is not authorized to use the frame */
-  IdentityUnauthorized = 'IDENTITY_UNAUTHORIZED',
-  /** The post does not exist */
-  PostDoesntExist = 'POST_DOESNT_EXIST',
-  /** The signature is not valid */
-  SignatureNotValid = 'SIGNATURE_NOT_VALID',
-  /** The signer address cannot use the account */
-  SignerAddressCannotUseAccount = 'SIGNER_ADDRESS_CANNOT_USE_ACCOUNT',
-  /** The typed data account is not matching the identity token account */
-  TypedDataAccountNotMatchingIdentityToken = 'TYPED_DATA_ACCOUNT_NOT_MATCHING_IDENTITY_TOKEN',
-  /** The typed data domain is not in the correct format */
-  TypedDataDomainIncorrect = 'TYPED_DATA_DOMAIN_INCORRECT',
-  /** The typed data types is not in the correct format */
-  TypedDataTypesIncorrectFields = 'TYPED_DATA_TYPES_INCORRECT_FIELDS',
-  /** The frame was verified */
-  Verified = 'VERIFIED'
-}
-
-export type GenerateNewAppServerApiKeyRequest = {
-  /** The app to generate the new server side api key for */
-  app: Scalars['EvmAddress']['input'];
-};
-
-export type GetSnsSubscriptionsRequest = {
-  /**
-   * The app to get subscriptions for. If not provided, all subscriptions owned by the logged in
-   * account will be returned.
-   */
-  app?: InputMaybe<Scalars['EvmAddress']['input']>;
-};
-
-export type Graph = {
-  __typename?: 'Graph';
-  address: Scalars['EvmAddress']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  metadata?: Maybe<GraphMetadata>;
-  owner: Scalars['EvmAddress']['output'];
-  rules: GraphRules;
-};
-
-export type GraphChoiceOneOf = {
-  custom?: InputMaybe<Scalars['EvmAddress']['input']>;
-  globalGraph?: InputMaybe<Scalars['AlwaysTrue']['input']>;
-  none?: InputMaybe<Scalars['AlwaysTrue']['input']>;
-};
-
-export type GraphMetadata = {
-  __typename?: 'GraphMetadata';
-  /** Optional markdown formatted description of the graph. */
-  description?: Maybe<Scalars['String']['output']>;
-  /**
-   * A unique identifier that in storages like IPFS ensures the uniqueness of the metadata URI.
-   * Use a UUID if unsure.
-   */
-  id: Scalars['String']['output'];
-  /** The name of the graph. */
-  name: Scalars['String']['output'];
-  /** The human-friendly title for the graph. */
-  title: Scalars['String']['output'];
-};
-
-export type GraphOneOf = {
-  app?: InputMaybe<Scalars['EvmAddress']['input']>;
-  globalGraph?: InputMaybe<Scalars['AlwaysTrue']['input']>;
-  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
-};
-
-export type GraphRequest = {
-  /** The graph */
-  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /** The transaction hash you created the graph with. */
-  txHash?: InputMaybe<Scalars['TxHash']['input']>;
-};
-
-export type GraphRule = {
-  __typename?: 'GraphRule';
-  address: Scalars['EvmAddress']['output'];
-  config: Array<AnyKeyValue>;
-  executesOn: Array<GraphRuleExecuteOn>;
-  id: Scalars['RuleId']['output'];
-  type: GraphRuleType;
-};
-
-export type GraphRuleConfig = {
-  groupGatedRule?: InputMaybe<GroupGatedGraphRuleConfig>;
-  tokenGatedRule?: InputMaybe<TokenGatedGraphRuleConfig>;
-  unknownRule?: InputMaybe<UnknownGraphRuleConfig>;
-};
-
-export enum GraphRuleExecuteOn {
-  ChangingFollowRules = 'CHANGING_FOLLOW_RULES',
-  Following = 'FOLLOWING',
-  Unfollowing = 'UNFOLLOWING'
-}
-
-export enum GraphRuleType {
-  AccountBlocking = 'ACCOUNT_BLOCKING',
-  GroupGated = 'GROUP_GATED',
-  TokenGated = 'TOKEN_GATED',
-  Unknown = 'UNKNOWN'
-}
-
-export type GraphRules = {
-  __typename?: 'GraphRules';
-  anyOf: Array<GraphRule>;
-  required: Array<GraphRule>;
-};
-
-export type GraphRulesConfigInput = {
-  anyOf?: Array<GraphRuleConfig>;
-  required?: Array<GraphRuleConfig>;
-};
-
-export type GraphRulesProcessingParams = {
-  unknownRule?: InputMaybe<UnknownRuleProcessingParams>;
-};
-
-export type GraphsFilter = {
-  /** The optional filter to get graphs managed by address */
-  managedBy?: InputMaybe<ManagedBy>;
-  /**
-   * The optional filter to narrow graphs by search query.
-   * Uses fuzzy search on graph name
-   */
-  searchQuery?: InputMaybe<Scalars['String']['input']>;
-};
-
-export enum GraphsOrderBy {
-  Alphabetical = 'ALPHABETICAL',
-  LatestFirst = 'LATEST_FIRST',
-  OldestFirst = 'OLDEST_FIRST'
-}
-
-export type GraphsRequest = {
-  /** The cursor. */
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<GraphsFilter>;
-  /** The order by. */
-  orderBy?: GraphsOrderBy;
-  pageSize?: PageSize;
-};
-
-export type Group = {
-  __typename?: 'Group';
-  address: Scalars['EvmAddress']['output'];
-  /** Returns true if the group has banning rule enabled */
-  banningEnabled: Scalars['Boolean']['output'];
-  feed?: Maybe<Scalars['EvmAddress']['output']>;
-  /** Returns true if the group has membership approval rule enabled */
-  membershipApprovalEnabled: Scalars['Boolean']['output'];
-  metadata?: Maybe<GroupMetadata>;
-  operations?: Maybe<LoggedInGroupOperations>;
-  owner: Scalars['EvmAddress']['output'];
-  rules: GroupRules;
-  timestamp: Scalars['DateTime']['output'];
-};
-
-export type GroupBannedAccount = {
-  __typename?: 'GroupBannedAccount';
-  account: Account;
-  bannedAt: Scalars['DateTime']['output'];
-  bannedBy: Account;
-  lastActiveAt: Scalars['DateTime']['output'];
-  ruleId: Scalars['RuleId']['output'];
-};
-
-export type GroupBannedAccountsFilter = {
-  /** The optional filter to narrow banned accounts by search query. */
-  searchBy?: InputMaybe<UsernameSearchInput>;
-};
-
-export enum GroupBannedAccountsOrderBy {
-  AccountScore = 'ACCOUNT_SCORE',
-  FirstBanned = 'FIRST_BANNED',
-  LastActive = 'LAST_ACTIVE',
-  LastBanned = 'LAST_BANNED'
-}
-
-export type GroupBannedAccountsRequest = {
-  /** The cursor. */
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<GroupBannedAccountsFilter>;
-  /** The group */
-  group: Scalars['EvmAddress']['input'];
-  /** The order by. */
-  orderBy?: GroupBannedAccountsOrderBy;
-  /** The page size. */
-  pageSize?: PageSize;
-};
-
-export type GroupFeedParams = {
-  /** The feed metadata uri */
-  metadataUri?: InputMaybe<Scalars['URI']['input']>;
-  /**
-   * Rules for the feed
-   * Note: Group feed has GroupGated rule set by default
-   */
-  rules?: InputMaybe<FeedRulesConfigInput>;
-};
-
-export type GroupGatedFeedRuleConfig = {
-  group: Scalars['EvmAddress']['input'];
-};
-
-export type GroupGatedGraphRuleConfig = {
-  group: Scalars['EvmAddress']['input'];
-};
-
-export type GroupMember = {
-  __typename?: 'GroupMember';
-  account: Account;
-  joinedAt: Scalars['DateTime']['output'];
-  lastActiveAt: Scalars['DateTime']['output'];
-};
-
-export type GroupMembersFilter = {
-  /** The optional filter to narrow members by search query. */
-  searchBy?: InputMaybe<UsernameSearchInput>;
-};
-
-export enum GroupMembersOrderBy {
-  AccountScore = 'ACCOUNT_SCORE',
-  FirstJoined = 'FIRST_JOINED',
-  LastActive = 'LAST_ACTIVE',
-  LastJoined = 'LAST_JOINED'
-}
-
-export type GroupMembersRequest = {
-  /** The cursor. */
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<GroupMembersFilter>;
-  /** The group */
-  group: Scalars['EvmAddress']['input'];
-  /** The order by. */
-  orderBy?: GroupMembersOrderBy;
-  /** The page size. */
-  pageSize?: PageSize;
-};
-
-export type GroupMembershipRequest = {
-  __typename?: 'GroupMembershipRequest';
-  account: Account;
-  lastActiveAt: Scalars['DateTime']['output'];
-  requestedAt: Scalars['DateTime']['output'];
-  ruleId: Scalars['RuleId']['output'];
-};
-
-export type GroupMembershipRequestsFilter = {
-  /** The optional filter to narrow members by search query. */
-  searchBy?: InputMaybe<UsernameSearchInput>;
-};
-
-export enum GroupMembershipRequestsOrderBy {
-  AccountScore = 'ACCOUNT_SCORE',
-  FirstRequested = 'FIRST_REQUESTED',
-  LastActive = 'LAST_ACTIVE',
-  LastRequested = 'LAST_REQUESTED'
-}
-
-export type GroupMembershipRequestsRequest = {
-  /** The cursor. */
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<GroupMembershipRequestsFilter>;
-  /** The group */
-  group: Scalars['EvmAddress']['input'];
-  /** The order by. */
-  orderBy?: GroupMembershipRequestsOrderBy;
-  /** The page size. */
-  pageSize?: PageSize;
-};
-
-export type GroupMention = {
-  __typename?: 'GroupMention';
-  /** The group that was mentioned */
-  group: Scalars['EvmAddress']['output'];
-  /**
-   * The replacement information.
-   * Use to replace mentions in the post content.
-   */
-  replace: MentionReplace;
-};
-
-export type GroupMetadata = {
-  __typename?: 'GroupMetadata';
-  /** The Group cover picture. */
-  coverPicture?: Maybe<Scalars['URI']['output']>;
-  /** Optional markdown formatted description of the Community. */
-  description?: Maybe<Scalars['String']['output']>;
-  /** Optional uri of the Community's icon. */
-  icon?: Maybe<Scalars['URI']['output']>;
-  /**
-   * A unique identifier that in storages like IPFS ensures the uniqueness of the metadata URI.
-   * Use a UUID if unsure.
-   */
-  id: Scalars['String']['output'];
-  /** The name of the Community. */
-  name: Scalars['String']['output'];
-};
-
-export type GroupOperationValidationFailed = {
-  __typename?: 'GroupOperationValidationFailed';
-  reason: Scalars['String']['output'];
-  unsatisfiedRules?: Maybe<GroupUnsatisfiedRules>;
-};
-
-export type GroupOperationValidationOutcome = GroupOperationValidationFailed | GroupOperationValidationPassed | GroupOperationValidationUnknown;
-
-export type GroupOperationValidationPassed = {
-  __typename?: 'GroupOperationValidationPassed';
-  passed: Scalars['AlwaysTrue']['output'];
-};
-
-export type GroupOperationValidationUnknown = {
-  __typename?: 'GroupOperationValidationUnknown';
-  extraChecksRequired: Array<GroupRule>;
-};
-
-export type GroupRequest = {
-  /** The group */
-  group?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /** The transaction hash you created the group with. */
-  txHash?: InputMaybe<Scalars['TxHash']['input']>;
-};
-
-export type GroupRule = {
-  __typename?: 'GroupRule';
-  address: Scalars['EvmAddress']['output'];
-  config: Array<AnyKeyValue>;
-  executesOn: Array<GroupRuleExecuteOn>;
-  id: Scalars['RuleId']['output'];
-  type: GroupRuleType;
-};
-
-export type GroupRuleConfig = {
-  banAccountRule?: InputMaybe<BanAccountGroupRuleConfig>;
-  membershipApprovalRule?: InputMaybe<MembershipApprovalGroupRuleConfig>;
-  simplePaymentRule?: InputMaybe<SimplePaymentGroupRuleConfig>;
-  tokenGatedRule?: InputMaybe<TokenGatedGroupRuleConfig>;
-  unknownRule?: InputMaybe<UnknownGroupRuleConfig>;
-};
-
-export enum GroupRuleExecuteOn {
-  Adding = 'ADDING',
-  Joining = 'JOINING',
-  Leaving = 'LEAVING',
-  Removing = 'REMOVING'
-}
-
-export enum GroupRuleType {
-  BanAccount = 'BAN_ACCOUNT',
-  MembershipApproval = 'MEMBERSHIP_APPROVAL',
-  SimplePayment = 'SIMPLE_PAYMENT',
-  TokenGated = 'TOKEN_GATED',
-  Unknown = 'UNKNOWN'
-}
-
-export enum GroupRuleUnsatisfiedReason {
-  AccountBanned = 'ACCOUNT_BANNED',
-  MembershipApprovalRequired = 'MEMBERSHIP_APPROVAL_REQUIRED',
-  SimplePaymentNotEnoughBalance = 'SIMPLE_PAYMENT_NOT_ENOUGH_BALANCE',
-  TokenGatedAccountJoiningNotATokenHolder = 'TOKEN_GATED_ACCOUNT_JOINING_NOT_A_TOKEN_HOLDER',
-  TokenGatedAccountRemovalStillTokenHolder = 'TOKEN_GATED_ACCOUNT_REMOVAL_STILL_TOKEN_HOLDER'
-}
-
-export type GroupRules = {
-  __typename?: 'GroupRules';
-  anyOf: Array<GroupRule>;
-  required: Array<GroupRule>;
-};
-
-export type GroupRulesConfigInput = {
-  anyOf?: Array<GroupRuleConfig>;
-  required?: Array<GroupRuleConfig>;
-};
-
-export type GroupRulesProcessingParams = {
-  unknownRule?: InputMaybe<UnknownRuleProcessingParams>;
-};
-
-export type GroupStatsRequest = {
-  /** The group address to check its total members. */
-  group: Scalars['EvmAddress']['input'];
-};
-
-export type GroupStatsResponse = {
-  __typename?: 'GroupStatsResponse';
-  totalMembers: Scalars['Int']['output'];
-};
-
-export type GroupUnsatisfiedRule = {
-  __typename?: 'GroupUnsatisfiedRule';
-  config: Array<AnyKeyValue>;
-  message: Scalars['String']['output'];
-  reason: GroupRuleUnsatisfiedReason;
-  rule: Scalars['EvmAddress']['output'];
-};
-
-export type GroupUnsatisfiedRules = {
-  __typename?: 'GroupUnsatisfiedRules';
-  anyOf: Array<GroupUnsatisfiedRule>;
-  required: Array<GroupUnsatisfiedRule>;
-};
-
-export type GroupsFilter = {
-  /** The optional filter to get groups managed by address */
-  managedBy?: InputMaybe<ManagedBy>;
-  /** The optional filter to get groups where account is a member */
-  member?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /**
-   * The optional filter to narrow groups by search query.
-   * Uses fuzzy search on group name
-   */
-  searchQuery?: InputMaybe<Scalars['String']['input']>;
-};
-
-export enum GroupsOrderBy {
-  Alphabetical = 'ALPHABETICAL',
-  LatestFirst = 'LATEST_FIRST',
-  OldestFirst = 'OLDEST_FIRST'
-}
-
-export type GroupsRequest = {
-  /** The cursor. */
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<GroupsFilter>;
-  /** The order by. */
-  orderBy?: GroupsOrderBy;
-  /** The page size. */
-  pageSize?: PageSize;
-};
-
-export type HasReactedRequest = {
-  type?: InputMaybe<PostReactionType>;
-};
-
-export type HideManagedAccountRequest = {
-  /** The account to hide. */
-  account: Scalars['EvmAddress']['input'];
-};
-
-export type HideReplyRequest = {
-  post: Scalars['PostId']['input'];
-};
-
-export type ImageMetadata = {
-  __typename?: 'ImageMetadata';
-  /** The other attachments you want to include with it. */
-  attachments: Array<AnyMedia>;
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard. Over time, common attributes will be added to the standard and
-   * their usage as arbitrary attributes will be discouraged.
-   */
-  attributes: Array<MetadataAttribute>;
-  content: Scalars['String']['output'];
-  /** Specify a content warning. */
-  contentWarning?: Maybe<ContentWarning>;
-  id: Scalars['MetadataId']['output'];
-  image: MediaImage;
-  locale: Scalars['Locale']['output'];
-  /** The main focus of the post. */
-  mainContentFocus: MainContentFocus;
-  /** An arbitrary list of tags. */
-  tags?: Maybe<Array<Scalars['Tag']['output']>>;
-  /** The optional image title. */
-  title?: Maybe<Scalars['String']['output']>;
-};
-
-export enum IndexingStatus {
-  Failed = 'FAILED',
-  Finished = 'FINISHED',
-  Pending = 'PENDING'
-}
-
-export type IntKeyValue = {
-  __typename?: 'IntKeyValue';
-  int: Scalars['Int']['output'];
-  key: Scalars['String']['output'];
-};
-
-export type IntNullableKeyValue = {
-  __typename?: 'IntNullableKeyValue';
-  key: Scalars['String']['output'];
-  optionalInt?: Maybe<Scalars['Int']['output']>;
-};
-
-export type IsFollowedByMeRequest = {
-  graph: Scalars['EvmAddress']['input'];
-};
-
-export type IsFollowingMeRequest = {
-  graph: Scalars['EvmAddress']['input'];
-};
-
-export type JoinGroupRequest = {
-  /** The group you want to join */
-  group: Scalars['EvmAddress']['input'];
-  /** The processing params for the join rules. */
-  rulesProcessingParams?: InputMaybe<Array<GroupRulesProcessingParams>>;
-};
-
-export type JoinGroupResponse = {
-  __typename?: 'JoinGroupResponse';
-  hash: Scalars['TxHash']['output'];
-};
-
-export type JoinGroupResult = GroupOperationValidationFailed | JoinGroupResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type KeyValuePair = {
-  __typename?: 'KeyValuePair';
-  /** A unique 32 bytes long hexadecimal string key. */
-  key: Scalars['FixedBytes32']['output'];
-  /** The human-readable name of the parameter. */
-  name: Scalars['String']['output'];
-  /** The human-readable ABI description of the parameter. */
-  type: Scalars['String']['output'];
-};
-
-export type LastLoggedInAccountRequest = {
-  /** The address to get the last logged in account for. */
-  address: Scalars['EvmAddress']['input'];
-  /** The app to get the last logged in account for. */
-  app?: InputMaybe<Scalars['EvmAddress']['input']>;
-};
-
-export type LeaveGroupRequest = {
-  /** The group you want to leave */
-  group: Scalars['EvmAddress']['input'];
-  /** The processing params for the leave rules. */
-  rulesProcessingParams?: InputMaybe<Array<GroupRulesProcessingParams>>;
-};
-
-export type LeaveGroupResponse = {
-  __typename?: 'LeaveGroupResponse';
-  hash: Scalars['TxHash']['output'];
-};
-
-export type LeaveGroupResult = GroupOperationValidationFailed | LeaveGroupResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type LengthAmountPair = {
-  amount: Scalars['BigDecimal']['input'];
-  length: Scalars['Int']['input'];
-};
-
-export type LinkMetadata = {
-  __typename?: 'LinkMetadata';
-  /** The other attachments you want to include with it. */
-  attachments: Array<AnyMedia>;
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard. Over time, common attributes will be added to the standard and
-   * their usage as arbitrary attributes will be discouraged.
-   */
-  attributes: Array<MetadataAttribute>;
-  content: Scalars['String']['output'];
-  /** Specify a content warning. */
-  contentWarning?: Maybe<ContentWarning>;
-  id: Scalars['MetadataId']['output'];
-  locale: Scalars['Locale']['output'];
-  /** The main focus of the post. */
-  mainContentFocus: MainContentFocus;
-  /** The sharing link url. */
-  sharingLink: Scalars['URI']['output'];
-  /** An arbitrary list of tags. */
-  tags?: Maybe<Array<Scalars['Tag']['output']>>;
-};
-
-export type LivestreamMetadata = {
-  __typename?: 'LivestreamMetadata';
-  /** The other attachments you want to include with it. */
-  attachments: Array<AnyMedia>;
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard. Over time, common attributes will be added to the standard and
-   * their usage as arbitrary attributes will be discouraged.
-   */
-  attributes: Array<MetadataAttribute>;
-  /**
-   * The data cannot be changed so you can put in an API endpoint to know if it is still live or
-   * not for clients to be able to check.
-   */
-  checkLiveApi?: Maybe<Scalars['URI']['output']>;
-  content: Scalars['String']['output'];
-  /** Specify a content warning. */
-  contentWarning?: Maybe<ContentWarning>;
-  /** The optional stream end time (ISO 8601 `YYYY-MM-DDTHH:mm:ss.sssZ`) */
-  endsAt?: Maybe<Scalars['DateTime']['output']>;
-  id: Scalars['MetadataId']['output'];
-  /**
-   * Some livestream platforms have the live url as a separate url. If not your case make sure
-   * `liveUrl` and `playbackUrl` are the same.
-   */
-  liveUrl: Scalars['URI']['output'];
-  locale: Scalars['Locale']['output'];
-  /** The main focus of the post. */
-  mainContentFocus: MainContentFocus;
-  /**
-   * Some livestream platforms have the playback url as a separate url. If not your case make
-   * sure `liveUrl` and `playbackUrl` are the same.
-   */
-  playbackUrl: Scalars['URI']['output'];
-  /** The stream start time (ISO 8601 `YYYY-MM-DDTHH:mm:ss.sssZ`). */
-  startsAt: Scalars['DateTime']['output'];
-  /** An arbitrary list of tags. */
-  tags?: Maybe<Array<Scalars['Tag']['output']>>;
-  /** The livestream title. */
-  title?: Maybe<Scalars['String']['output']>;
-};
-
-export type LoggedInAccountOperations = {
-  __typename?: 'LoggedInAccountOperations';
-  canBlock: Scalars['Boolean']['output'];
-  /**
-   * Check if the authenticated account can follow the target account.
-   *
-   * If a graph is not specified it defaults to using the Global Graph
-   */
-  canFollow: AccountFollowOperationValidationOutcome;
-  canUnblock: Scalars['Boolean']['output'];
-  /**
-   * Check if the authenticated account can unfollow the target account.
-   *
-   * If a graph is not specified it defaults to using the Global Graph
-   */
-  canUnfollow: AccountFollowOperationValidationOutcome;
-  hasBlockedMe: Scalars['Boolean']['output'];
-  hasReported: Scalars['Boolean']['output'];
-  id: Scalars['ID']['output'];
-  isBlockedByMe: Scalars['Boolean']['output'];
-  /**
-   * Check if the target account is followed by the authenticated account.
-   *
-   * If a graph is not specified it defaults to using the Global Graph
-   */
-  isFollowedByMe: Scalars['Boolean']['output'];
-  /**
-   * Check if the authenticated account is following the target account.
-   *
-   * If a graph is not specified it defaults to using the Global Graph
-   */
-  isFollowingMe: Scalars['Boolean']['output'];
-  isMutedByMe: Scalars['Boolean']['output'];
-};
-
-
-export type LoggedInAccountOperationsCanFollowArgs = {
-  request?: InputMaybe<CanFollowRequest>;
-};
-
-
-export type LoggedInAccountOperationsCanUnfollowArgs = {
-  request?: InputMaybe<CanUnfollowRequest>;
-};
-
-
-export type LoggedInAccountOperationsIsFollowedByMeArgs = {
-  request?: InputMaybe<IsFollowedByMeRequest>;
-};
-
-
-export type LoggedInAccountOperationsIsFollowingMeArgs = {
-  request?: InputMaybe<IsFollowingMeRequest>;
-};
-
-export type LoggedInFeedPostOperations = {
-  __typename?: 'LoggedInFeedPostOperations';
-  canPost: FeedOperationValidationOutcome;
-};
-
-export type LoggedInGroupOperations = {
-  __typename?: 'LoggedInGroupOperations';
-  canAddMember: GroupOperationValidationOutcome;
-  canJoin: GroupOperationValidationOutcome;
-  canLeave: GroupOperationValidationOutcome;
-  canRemoveMember: GroupOperationValidationOutcome;
-  hasRequestedMembership: Scalars['Boolean']['output'];
-  isBanned: Scalars['Boolean']['output'];
-  isMember: Scalars['Boolean']['output'];
-};
-
-export type LoggedInPostOperations = {
-  __typename?: 'LoggedInPostOperations';
-  canComment: PostOperationValidationOutcome;
-  canDelete: PostOperationValidationOutcome;
-  canEdit: PostOperationValidationOutcome;
-  canQuote: PostOperationValidationOutcome;
-  canRepost: PostOperationValidationOutcome;
-  canSimpleCollect: SimpleCollectValidationOutcome;
-  canTip: Scalars['Boolean']['output'];
-  executedUnknownActionCount: Scalars['Int']['output'];
-  hasBookmarked: Scalars['Boolean']['output'];
-  hasCommented: BooleanValue;
-  hasExecutedUnknownAction: Scalars['Boolean']['output'];
-  hasQuoted: BooleanValue;
-  hasReacted: Scalars['Boolean']['output'];
-  hasReported: Scalars['Boolean']['output'];
-  hasReposted: BooleanValue;
-  hasSimpleCollected: Scalars['Boolean']['output'];
-  hasTipped: Scalars['Boolean']['output'];
-  id: Scalars['ID']['output'];
-  isNotInterested: Scalars['Boolean']['output'];
-  lastTip?: Maybe<PostTip>;
-  postTipCount: Scalars['Int']['output'];
-  simpleCollectCount: Scalars['Int']['output'];
-};
-
-
-export type LoggedInPostOperationsExecutedUnknownActionCountArgs = {
-  request: ExecutedUnknownActionRequest;
-};
-
-
-export type LoggedInPostOperationsHasExecutedUnknownActionArgs = {
-  request: ExecutedUnknownActionRequest;
-};
-
-
-export type LoggedInPostOperationsHasReactedArgs = {
-  request?: InputMaybe<HasReactedRequest>;
-};
-
-export type LoggedInUsernameNamespaceOperations = {
-  __typename?: 'LoggedInUsernameNamespaceOperations';
-  canCreate: NamespaceOperationValidationOutcome;
-};
-
-export type LoggedInUsernameOperations = {
-  __typename?: 'LoggedInUsernameOperations';
-  canAssign: NamespaceOperationValidationOutcome;
-  canRemove: NamespaceOperationValidationOutcome;
-  canUnassign: NamespaceOperationValidationOutcome;
-};
-
-export enum MainContentFocus {
-  Article = 'ARTICLE',
-  Audio = 'AUDIO',
-  CheckingIn = 'CHECKING_IN',
-  Embed = 'EMBED',
-  Event = 'EVENT',
-  Image = 'IMAGE',
-  Link = 'LINK',
-  Livestream = 'LIVESTREAM',
-  Mint = 'MINT',
-  ShortVideo = 'SHORT_VIDEO',
-  Space = 'SPACE',
-  Story = 'STORY',
-  TextOnly = 'TEXT_ONLY',
-  ThreeD = 'THREE_D',
-  Transaction = 'TRANSACTION',
-  Video = 'VIDEO'
-}
-
-export enum ManagedAccountsVisibility {
-  All = 'ALL',
-  HiddenOnly = 'HIDDEN_ONLY',
-  NoneHidden = 'NONE_HIDDEN'
-}
-
-export type ManagedBy = {
-  /** The address that is either the owner or an admin of the primitive. */
-  address: Scalars['EvmAddress']['input'];
-  /** Whether to include the owned primitives or just the ones the address is an admin of. */
-  includeOwners?: Scalars['Boolean']['input'];
-};
-
-/**
- * MarketplaceMetadataAttribute
- *
- * <details><summary>JSON schema</summary>
- *
- * ```json
- * {
- * "type": "object",
- * "properties": {
- * "display_type": {
- * "type": "string",
- * "enum": [
- * "number",
- * "string",
- * "date"
- * ]
- * },
- * "trait_type": {
- * "description": "The name of the trait.",
- * "$ref": "#/$defs/NonEmptyString"
- * },
- * "value": {
- * "type": [
- * "string",
- * "number"
- * ]
- * }
- * },
- * "additionalProperties": true
- * }
- * ```
- * </details>
- */
-export type MarketplaceMetadataAttribute = {
-  __typename?: 'MarketplaceMetadataAttribute';
-  displayType?: Maybe<MarketplaceMetadataAttributeDisplayType>;
-  /** The name of the trait. */
-  traitType?: Maybe<Scalars['String']['output']>;
-  value?: Maybe<Scalars['MarketplaceMetadataAttributeValue']['output']>;
-};
-
-/** MarketplaceMetadataAttributeDisplayType */
-export enum MarketplaceMetadataAttributeDisplayType {
-  Date = 'DATE',
-  Number = 'NUMBER',
-  String = 'STRING'
-}
-
-export type MeResult = {
-  __typename?: 'MeResult';
-  /** The app the account is logged in to. */
-  appLoggedIn: Scalars['EvmAddress']['output'];
-  /** Whether the account is signless. */
-  isSignless: Scalars['Boolean']['output'];
-  /** Whether the account is sponsored. */
-  isSponsored: Scalars['Boolean']['output'];
-  /** The sponsorship allowance for the account. */
-  limit: SponsorshipAllowance;
-  /** The logged in account. */
-  loggedInAs: AccountAvailable;
-};
-
-/** MediaAudio */
-export type MediaAudio = {
-  __typename?: 'MediaAudio';
-  /** The name of the artist. */
-  artist?: Maybe<Scalars['String']['output']>;
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard.
-   */
-  attributes: Array<MetadataAttribute>;
-  cover?: Maybe<Scalars['URI']['output']>;
-  /** The credits for the audio. */
-  credits?: Maybe<Scalars['String']['output']>;
-  /** How long the the audio is in seconds. */
-  duration?: Maybe<Scalars['Int']['output']>;
-  /** The genre of the audio */
-  genre?: Maybe<Scalars['String']['output']>;
-  item: Scalars['URI']['output'];
-  /** The type of audio. */
-  kind?: Maybe<MediaAudioKind>;
-  /** The license for the audio. */
-  license?: Maybe<MetadataLicenseType>;
-  lyrics?: Maybe<Scalars['URI']['output']>;
-  /** The record label for the audio. */
-  recordLabel?: Maybe<Scalars['String']['output']>;
-  /** The mime type of the audio file. */
-  type: MediaAudioType;
-};
-
-export enum MediaAudioKind {
-  Audiobook = 'AUDIOBOOK',
-  Music = 'MUSIC',
-  Other = 'OTHER',
-  Podcast = 'PODCAST',
-  Sound = 'SOUND',
-  VoiceNote = 'VOICE_NOTE'
-}
-
-/** The mime type of the audio file. */
-export enum MediaAudioType {
-  AudioAac = 'AUDIO_AAC',
-  AudioFlac = 'AUDIO_FLAC',
-  AudioMpeg = 'AUDIO_MPEG',
-  AudioMp_4 = 'AUDIO_MP_4',
-  AudioOgg = 'AUDIO_OGG',
-  AudioVndWave = 'AUDIO_VND_WAVE',
-  AudioWav = 'AUDIO_WAV',
-  AudioWebm = 'AUDIO_WEBM'
-}
-
-/**
- * MediaImage
- *
- * <details><summary>JSON schema</summary>
- *
- * ```json
- * {
- * "type": "object",
- * "required": [
- * "item",
- * "type"
- * ],
- * "properties": {
- * "altTag": {
- * "description": "The alt tag for accessibility",
- * "$ref": "#/$defs/EncryptableString"
- * },
- * "attributes": {
- * "description": "A bag of attributes that can be used to store any kind of metadata that is not currently supported by the standard.",
- * "type": "array",
- * "items": {
- * "$ref": "#/$defs/MetadataAttribute"
- * },
- * "minItems": 1
- * },
- * "item": {
- * "$ref": "#/$defs/EncryptableUri"
- * },
- * "license": {
- * "description": "The license for the image",
- * "$ref": "#/$defs/MetadataLicenseType"
- * },
- * "type": {
- * "description": "The mime type of the image",
- * "type": "string",
- * "enum": [
- * "image/bmp",
- * "image/gif",
- * "image/heic",
- * "image/jpeg",
- * "image/png",
- * "image/svg+xml",
- * "image/tiff",
- * "image/webp",
- * "image/x-ms-bmp"
- * ]
- * }
- * },
- * "additionalProperties": false
- * }
- * ```
- * </details>
- */
-export type MediaImage = {
-  __typename?: 'MediaImage';
-  /** The alt tag for accessibility */
-  altTag?: Maybe<Scalars['String']['output']>;
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard.
-   */
-  attributes: Array<MetadataAttribute>;
-  item: Scalars['URI']['output'];
-  /** The license for the image */
-  license?: Maybe<MetadataLicenseType>;
-  /** The mime type of the image */
-  type: MediaImageType;
-};
-
-/**
- * The mime type of the image
- *
- * <details><summary>JSON schema</summary>
- *
- * ```json
- * {
- * "description": "The mime type of the image",
- * "type": "string",
- * "enum": [
- * "image/bmp",
- * "image/gif",
- * "image/heic",
- * "image/jpeg",
- * "image/png",
- * "image/svg+xml",
- * "image/tiff",
- * "image/webp",
- * "image/x-ms-bmp"
- * ]
- * }
- * ```
- * </details>
- */
-export enum MediaImageType {
-  Bmp = 'BMP',
-  Gif = 'GIF',
-  Heic = 'HEIC',
-  Jpeg = 'JPEG',
-  Png = 'PNG',
-  SvgXml = 'SVG_XML',
-  Tiff = 'TIFF',
-  Webp = 'WEBP',
-  XMsBmp = 'X_MS_BMP'
-}
-
-export type MediaSnapshotNotificationAttributes = {
-  source?: InputMaybe<EntityId>;
-};
-
-/**
- * MediaVideo
- *
- * <details><summary>JSON schema</summary>
- *
- * ```json
- * {
- * "type": "object",
- * "required": [
- * "item",
- * "type"
- * ],
- * "properties": {
- * "altTag": {
- * "description": "The alt tag for accessibility",
- * "$ref": "#/$defs/EncryptableString"
- * },
- * "attributes": {
- * "description": "A bag of attributes that can be used to store any kind of metadata that is not currently supported by the standard.",
- * "type": "array",
- * "items": {
- * "$ref": "#/$defs/MetadataAttribute"
- * },
- * "minItems": 1
- * },
- * "cover": {
- * "$ref": "#/$defs/EncryptableUri"
- * },
- * "duration": {
- * "description": "How long the the video is in seconds",
- * "type": "integer",
- * "exclusiveMinimum": 0.0
- * },
- * "item": {
- * "$ref": "#/$defs/EncryptableUri"
- * },
- * "license": {
- * "description": "The license for the video",
- * "$ref": "#/$defs/MetadataLicenseType"
- * },
- * "type": {
- * "description": "The mime type of the video",
- * "type": "string",
- * "enum": [
- * "model/gltf+json",
- * "model/gltf-binary",
- * "video/x-m4v",
- * "video/mov",
- * "video/mp4",
- * "video/mpeg",
- * "video/ogg",
- * "video/ogv",
- * "video/quicktime",
- * "video/webm"
- * ]
- * }
- * },
- * "additionalProperties": false
- * }
- * ```
- * </details>
- */
-export type MediaVideo = {
-  __typename?: 'MediaVideo';
-  /** The alt tag for accessibility */
-  altTag?: Maybe<Scalars['String']['output']>;
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard.
-   */
-  attributes: Array<MetadataAttribute>;
-  cover?: Maybe<Scalars['URI']['output']>;
-  /** How long the the video is in seconds */
-  duration?: Maybe<Scalars['Int']['output']>;
-  item: Scalars['URI']['output'];
-  /** The license for the video */
-  license?: Maybe<MetadataLicenseType>;
-  /** The mime type of the video */
-  type: MediaVideoType;
-};
-
-/**
- * The mime type of the video
- *
- * <details><summary>JSON schema</summary>
- *
- * ```json
- * {
- * "description": "The mime type of the video",
- * "type": "string",
- * "enum": [
- * "model/gltf+json",
- * "model/gltf-binary",
- * "video/x-m4v",
- * "video/mov",
- * "video/mp4",
- * "video/mpeg",
- * "video/ogg",
- * "video/ogv",
- * "video/quicktime",
- * "video/webm"
- * ]
- * }
- * ```
- * </details>
- */
-export enum MediaVideoType {
-  ModelGltfBinary = 'MODEL_GLTF_BINARY',
-  ModelGltfJson = 'MODEL_GLTF_JSON',
-  VideoMov = 'VIDEO_MOV',
-  VideoMpeg = 'VIDEO_MPEG',
-  VideoMp_4 = 'VIDEO_MP_4',
-  VideoOgg = 'VIDEO_OGG',
-  VideoOgv = 'VIDEO_OGV',
-  VideoQuicktime = 'VIDEO_QUICKTIME',
-  VideoWebm = 'VIDEO_WEBM',
-  VideoXm_4V = 'VIDEO_XM_4V'
-}
-
-export type MembershipApprovalGroupRuleConfig = {
-  enable?: InputMaybe<Scalars['AlwaysTrue']['input']>;
-};
-
-export type MentionNotification = {
-  __typename?: 'MentionNotification';
-  id: Scalars['GeneratedNotificationId']['output'];
-  post: Post;
-};
-
-export type MentionReplace = {
-  __typename?: 'MentionReplace';
-  from: Scalars['String']['output'];
-  to: Scalars['String']['output'];
-};
-
-export type MetadataAttribute = {
-  __typename?: 'MetadataAttribute';
-  key: Scalars['String']['output'];
-  type: MetadataAttributeType;
-  value: Scalars['String']['output'];
-};
-
-export enum MetadataAttributeType {
-  Boolean = 'BOOLEAN',
-  Date = 'DATE',
-  Json = 'JSON',
-  Number = 'NUMBER',
-  String = 'STRING'
-}
-
-export enum MetadataLicenseType {
-  Cco = 'CCO',
-  CcBy = 'CC_BY',
-  CcByNc = 'CC_BY_NC',
-  CcByNd = 'CC_BY_ND',
-  TbnlCdNplLedger = 'TBNL_CD_NPL_LEDGER',
-  TbnlCdNplLegal = 'TBNL_CD_NPL_LEGAL',
-  TbnlCdPlLedger = 'TBNL_CD_PL_LEDGER',
-  TbnlCdPlLegal = 'TBNL_CD_PL_LEGAL',
-  TbnlCDtsaNplLedger = 'TBNL_C_DTSA_NPL_LEDGER',
-  TbnlCDtsaNplLegal = 'TBNL_C_DTSA_NPL_LEGAL',
-  TbnlCDtsaPlLedger = 'TBNL_C_DTSA_PL_LEDGER',
-  TbnlCDtsaPlLegal = 'TBNL_C_DTSA_PL_LEGAL',
-  TbnlCDtNplLedger = 'TBNL_C_DT_NPL_LEDGER',
-  TbnlCDtNplLegal = 'TBNL_C_DT_NPL_LEGAL',
-  TbnlCDtPlLedger = 'TBNL_C_DT_PL_LEDGER',
-  TbnlCDtPlLegal = 'TBNL_C_DT_PL_LEGAL',
-  TbnlCNdNplLedger = 'TBNL_C_ND_NPL_LEDGER',
-  TbnlCNdNplLegal = 'TBNL_C_ND_NPL_LEGAL',
-  TbnlCNdPlLedger = 'TBNL_C_ND_PL_LEDGER',
-  TbnlCNdPlLegal = 'TBNL_C_ND_PL_LEGAL',
-  TbnlNcDtsaNplLedger = 'TBNL_NC_DTSA_NPL_LEDGER',
-  TbnlNcDtsaNplLegal = 'TBNL_NC_DTSA_NPL_LEGAL',
-  TbnlNcDtsaPlLedger = 'TBNL_NC_DTSA_PL_LEDGER',
-  TbnlNcDtsaPlLegal = 'TBNL_NC_DTSA_PL_LEGAL',
-  TbnlNcDtNplLedger = 'TBNL_NC_DT_NPL_LEDGER',
-  TbnlNcDtNplLegal = 'TBNL_NC_DT_NPL_LEGAL',
-  TbnlNcDtPlLedger = 'TBNL_NC_DT_PL_LEDGER',
-  TbnlNcDtPlLegal = 'TBNL_NC_DT_PL_LEGAL',
-  TbnlNcDNplLedger = 'TBNL_NC_D_NPL_LEDGER',
-  TbnlNcDNplLegal = 'TBNL_NC_D_NPL_LEGAL',
-  TbnlNcDPlLedger = 'TBNL_NC_D_PL_LEDGER',
-  TbnlNcDPlLegal = 'TBNL_NC_D_PL_LEGAL',
-  TbnlNcNdNplLedger = 'TBNL_NC_ND_NPL_LEDGER',
-  TbnlNcNdNplLegal = 'TBNL_NC_ND_NPL_LEGAL',
-  TbnlNcNdPlLedger = 'TBNL_NC_ND_PL_LEDGER',
-  TbnlNcNdPlLegal = 'TBNL_NC_ND_PL_LEGAL'
-}
-
-export type MetadataSnapshotNotificationAttributes = {
-  source?: InputMaybe<EntityId>;
-};
-
-export type MintMetadata = {
-  __typename?: 'MintMetadata';
-  /** The other attachments you want to include with it. */
-  attachments: Array<AnyMedia>;
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard. Over time, common attributes will be added to the standard and
-   * their usage as arbitrary attributes will be discouraged.
-   */
-  attributes: Array<MetadataAttribute>;
-  content: Scalars['String']['output'];
-  /** Specify a content warning. */
-  contentWarning?: Maybe<ContentWarning>;
-  id: Scalars['MetadataId']['output'];
-  locale: Scalars['Locale']['output'];
-  /** The main focus of the post. */
-  mainContentFocus: MainContentFocus;
-  /** The mint item it can be a URL of the known provider like opensea https://opensea.io/assets/ethereum/0xfaa2471e93bd1cee3b0ab381c242ada8e1d1a759/299 or https://zora.co/collect/0x9d90669665607f08005cae4a7098143f554c59ef/39626. The Lens API has an allow list of providers and if the domain does not match it will mark it as failed metadata */
-  mintLink: Scalars['URI']['output'];
-  /** An arbitrary list of tags. */
-  tags?: Maybe<Array<Scalars['Tag']['output']>>;
-};
-
-export type MlaccountRecommendationsRequest = {
-  /** The account to get recommendations for. */
-  account: Scalars['EvmAddress']['input'];
-  /** The cursor. */
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The page size. */
-  pageSize?: PageSize;
-  /** Shuffle the recommendations. */
-  shuffle?: Scalars['Boolean']['input'];
-};
-
-export type MlexplorePostsFilter = {
-  since?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type MlexplorePostsRequest = {
-  /** The cursor. */
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<MlexplorePostsFilter>;
-  /** The page size. */
-  pageSize?: PageSize;
-};
-
-export type MlpostsForYouRequest = {
-  /** The account to get for you for. */
-  account: Scalars['EvmAddress']['input'];
-  /** The cursor. */
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The page size. */
-  pageSize?: PageSize;
-  /** Shuffle the for you posts. */
-  shuffle?: Scalars['Boolean']['input'];
-};
-
-export type Mutation = {
-  __typename?: 'Mutation';
-  /**
-   * Add an account manager to the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner to use this mutation.
-   */
-  addAccountManager: AddAccountManagerResult;
-  /**
-   * Add admins to a graph/app/sponsor/feed/username/group.
-   *
-   * You MUST be authenticated as Builder to use this mutation.
-   */
-  addAdmins: AddAdminsResult;
-  /**
-   * Add an app authorization endpoint.
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  addAppAuthorizationEndpoint: Scalars['Void']['output'];
-  /**
-   * Add feeds to an app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  addAppFeeds: AddAppFeedsResult;
-  /**
-   * Add groups to an app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  addAppGroups: AddAppGroupsResult;
-  /**
-   * Add signers to an app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  addAppSigners: AddAppSignersResult;
-  /**
-   * Add group members
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  addGroupMembers: AddGroupMembersResult;
-  /**
-   * Add a post not interested.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  addPostNotInterested: Scalars['Void']['output'];
-  /**
-   * React to a post.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  addReaction: AddReactionResult;
-  /**
-   * Approve group members
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  approveGroupMembershipRequests: ApproveGroupMembershipResult;
-  /**
-   * Assign a username to an account.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  assignUsernameToAccount: AssignUsernameToAccountResult;
-  /** Authenticate the user with the signed authentication challenge. */
-  authenticate: AuthenticationResult;
-  /**
-   * Ban accounts to join a group
-   * Banned account MUST not be a member of the group.
-   * Use `removeGroupMember` mutation with `ban` flag to remove and ban existing members
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  banGroupAccounts: BanGroupAccountsResult;
-  /**
-   * Block an account with the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  block: BlockResult;
-  /**
-   * Bookmark a post.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  bookmarkPost: Scalars['Void']['output'];
-  /**
-   * Cancel group membership request
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  cancelGroupMembershipRequest: CancelGroupMembershipRequestResult;
-  /**
-   * Generates a new authentication challenge for the specified address and app.
-   *
-   * Users must sign the challenge to authenticate.
-   *
-   * The issued challenge can be for authentication credentials for different roles:
-   * - AccountOwner: The `address` is a Lens Account, and the `signed_by` is the Account Owner.
-   * - AccountManager: The `address` is a Lens Account, and the `signed_by` is an Account Manager
-   * for it.
-   * - OnboardingUser: The `address` is an EOA that needs to create their Lens Account.
-   * - Builder: The `address` is the EOA of a Builder that needs to use configuration and
-   * management features.
-   *
-   * The HTTP Origin header MUST be present and match the app's domain.
-   */
-  challenge: AuthenticationChallenge;
-  /**
-   * Configure the given account action for the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  configureAccountAction: ConfigureAccountActionResult;
-  /**
-   * Configure the given post action for the given post.
-   *
-   * You MUST be authenticated as the owner or manager of the account that authored this Post to
-   * use this mutation.
-   */
-  configurePostAction: ConfigurePostActionResult;
-  /**
-   * Create an account with a given username.
-   *
-   * You MUST be authenticated as Onboarding User to use this mutation.
-   */
-  createAccountWithUsername: CreateAccountWithUsernameResult;
-  /**
-   * Create a new app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  createApp: CreateAppResult;
-  /**
-   * Create a new feed
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  createFeed: CreateFeedResult;
-  /**
-   * Create a new graph
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  createGraph: CreateGraphResult;
-  /**
-   * Create a new group
-   *
-   * You MUST be authenticated to use this mutation.
-   */
-  createGroup: CreateGroupResult;
-  createSnsSubscriptions: Array<SnsSubscription>;
-  /**
-   * Create a new sponsorship.
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  createSponsorship: CreateSponsorshipResult;
-  /**
-   * Create a username.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  createUsername: CreateUsernameResult;
-  /**
-   * Create a new username namespace aka deploying a new username contract
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  createUsernameNamespace: CreateUsernameNamespaceResult;
-  /**
-   * Delete a post.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  deletePost: DeletePostResult;
-  deleteSnsSubscription: Scalars['Void']['output'];
-  /**
-   * Set the given account action for the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  disableAccountAction: DisableAccountActionResult;
-  /**
-   * Disable the given post action for the given post.
-   *
-   * You MUST be authenticated as the Owner or Manager of the account that made this post to use
-   * this mutation.
-   */
-  disablePostAction: DisablePostActionResult;
-  /**
-   * Edit a post.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  editPost: PostResult;
-  /**
-   * Set the given account action for the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  enableAccountAction: EnableAccountActionResult;
-  /**
-   * Enable the given post action for the authenticated post.
-   *
-   * You MUST be authenticated as the owner or manager of the account that authored this Post to
-   * use this mutation.
-   */
-  enablePostAction: EnablePostActionResult;
-  /**
-   * Enables Signless experience for the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner to use this mutation.
-   */
-  enableSignless: EnableSignlessResult;
-  /**
-   * Execute the given account action for the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  executeAccountAction: ExecuteAccountActionResult;
-  /**
-   * Execute the given post action.
-   *
-   * You MUST be authenticated to use this mutation.
-   */
-  executePostAction: ExecutePostActionResult;
-  /**
-   * Follow an Account on the global Graph or a specific Graph.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  follow: FollowResult;
-  /**
-   * Generate a new app server side api key
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  generateNewAppServerApiKey: Scalars['ServerAPIKey']['output'];
-  /**
-   * Hides an account from the manager list of managed accounts.
-   *
-   * You MUST be authenticated as Account Manager to use this mutation.
-   */
-  hideManagedAccount: Scalars['Void']['output'];
-  hideReply: Scalars['Void']['output'];
-  /**
-   * Join a group
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  joinGroup: JoinGroupResult;
-  /**
-   * Leave a group
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  leaveGroup: LeaveGroupResult;
-  /**
-   * Issue new authentication tokens from a valid Lens API v2 refresh token.
-   *
-   * Use this to seamlessly transition your users from Lens API v2 to Lens API v3 without
-   * requiring them to re-authenticate.
-   *
-   * The HTTP Origin header MUST be present and match the app's domain.
-   */
-  legacyRolloverRefresh: RefreshResult;
-  mlDismissRecommendedAccounts: Scalars['Void']['output'];
-  /**
-   * Mute an account for the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  mute: Scalars['Void']['output'];
-  /**
-   * Pause a sponsorship.
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  pauseSponsorship: PausingResult;
-  /**
-   * Create a new post.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  post: PostResult;
-  /**
-   * Recommend an account from the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  recommendAccount: Scalars['Void']['output'];
-  /** Refreshes the authentication tokens. */
-  refresh: RefreshResult;
-  /**
-   * Reject group membership requests
-   *
-   * You MUST be a group owner or admin to use this mutation
-   */
-  rejectGroupMembershipRequests: RejectGroupMembershipResult;
-  /**
-   * Remove an account manager to the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner to use this mutation.
-   */
-  removeAccountManager: RemoveAccountManagerResult;
-  /**
-   * Remove admins from a graph/app/sponsor/feed/username/group.
-   *
-   * You MUST be authenticated as Builder to use this mutation.
-   */
-  removeAdmins: RemoveAdminsResult;
-  /**
-   * Remove an app authorization endpoint.
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  removeAppAuthorizationEndpoint: Scalars['Void']['output'];
-  /**
-   * Remove feeds to an app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  removeAppFeeds: RemoveAppFeedsResult;
-  /**
-   * Remove groups to an app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  removeAppGroups: RemoveAppGroupsResult;
-  /**
-   * Remove signers to an app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  removeAppSigners: RemoveAppSignersResult;
-  /**
-   * Remove group members
-   *
-   * You MUST be a group owner or admin to use this mutation
-   */
-  removeGroupMembers: RemoveGroupMembersResult;
-  /**
-   * Remove Signless experience for the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner to use this mutation.
-   */
-  removeSignless: RemoveSignlessResult;
-  /**
-   * Report an account.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  reportAccount: Scalars['Void']['output'];
-  /**
-   * Report a post.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  reportPost: Scalars['Void']['output'];
-  /**
-   * Repost a post.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  repost: PostResult;
-  /**
-   * Request to join a group
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  requestGroupMembership: RequestGroupMembershipResult;
-  /**
-   * Revoke an authentication.
-   *
-   * You MUST be authenticated to use this mutation.
-   */
-  revokeAuthentication: Scalars['Void']['output'];
-  /**
-   * Set the metadata for the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  setAccountMetadata: SetAccountMetadataResult;
-  /**
-   * Set graph for an app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  setAppGraph: SetAppGraphResult;
-  /**
-   * Set metadata for an app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  setAppMetadata: SetAppMetadataResult;
-  /**
-   * Set sponsorship for an app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  setAppSponsorship: SetAppSponsorshipResult;
-  /**
-   * Set treasury for an app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  setAppTreasury: SetAppTreasuryResult;
-  /**
-   * Set username namespace for an app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  setAppUsernameNamespace: SetAppUsernameNamespaceResult;
-  /**
-   * Set if the app verification is enabled
-   * App needs to have authorization endpoint enabled
-   * App needs to return `verification_endpoint` from the authorization endpoint
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  setAppVerification: SetAppVerificationResult;
-  /**
-   * Set default feed for an app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  setDefaultAppFeed: SetDefaultAppFeedResult;
-  /**
-   * Set metadata for a feed
-   *
-   * You MUST be authenticated to use this mutation.
-   */
-  setFeedMetadata: SetFeedMetadataResult;
-  /**
-   * Set metadata for a graph
-   *
-   * You MUST be authenticated to use this mutation.
-   */
-  setGraphMetadata: SetGraphMetadataResult;
-  /**
-   * Set metadata for a group
-   *
-   * You MUST be authenticated to use this mutation.
-   */
-  setGroupMetadata: SetGroupMetadataResult;
-  /**
-   * Set metadata for a namespace
-   *
-   * You MUST be authenticated to use this mutation.
-   */
-  setNamespaceMetadata: SetNamespaceMetadataResult;
-  /**
-   * Set metadata for a sponsorship
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  setSponsorshipMetadata: SetSponsorshipMetadataResult;
-  /**
-   * sign a frame action with the lens account manager
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  signFrameAction: FrameLensManagerSignatureResult;
-  /** You MUST be authenticated as Account Owner or Account Manager to use this mutation. */
-  switchAccount: SwitchAccountResult;
-  /**
-   * Transfer primitive ownership for the graph/app/sponsor/feed/username/group.
-   *
-   * You MUST be authenticated as Builder to use this mutation.
-   */
-  transferPrimitiveOwnership: TransferPrimitiveOwnershipResult;
-  /**
-   * Unassign a username from the logged-in user's Account.
-   *
-   * Defaults to the Lens namespace if no request is provided.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  unassignUsernameFromAccount: UnassignUsernameToAccountResult;
-  /**
-   * Unban accounts
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  unbanGroupAccounts: UnbanGroupAccountsResult;
-  /**
-   * Unblock an account with the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  unblock: UnblockResult;
-  /**
-   * Undo bookmark.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  undoBookmarkPost: Scalars['Void']['output'];
-  /**
-   * Undo a post not interested.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  undoPostNotInterested: Scalars['Void']['output'];
-  /**
-   * Undo reaction to a post.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  undoReaction: UndoReactionResult;
-  /**
-   * Undo recommended account from the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  undoRecommendedAccount: Scalars['Void']['output'];
-  /**
-   * Unfollow an Account on the global Graph or a specific Graph.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  unfollow: UnfollowResult;
-  /**
-   * Undo the hiding of an account from the manager list of managed accounts.
-   *
-   * You MUST be authenticated as Account Manager to use this mutation.
-   */
-  unhideManagedAccount: Scalars['Void']['output'];
-  unhideReply: Scalars['Void']['output'];
-  /**
-   * Unmute an account for the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  unmute: Scalars['Void']['output'];
-  /**
-   * Unpause a sponsorship.
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  unpauseSponsorship: PausingResult;
-  /**
-   * Update account follow rules
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  updateAccountFollowRules: UpdateAccountFollowRulesResult;
-  /**
-   * Update the Account Manager Permissions for a given Account Manager.
-   *
-   * You MUST be authenticated as Account Owner to use this mutation.
-   */
-  updateAccountManager: UpdateAccountManagerResult;
-  /**
-   * Update feed rules
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  updateFeedRules: UpdateFeedRulesResult;
-  /**
-   * Update graph rules
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  updateGraphRules: UpdateGraphRulesResult;
-  /**
-   * Update group rules
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  updateGroupRules: UpdateGroupRulesResult;
-  /**
-   * Update namespace rules
-   *
-   * You MUST be a namespace owner or admin to use this mutation
-   */
-  updateNamespaceRules: UpdateNamespaceRulesResult;
-  /**
-   * Update post rules
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
-  updatePostRules: UpdatePostRulesResult;
-  /**
-   * Update reserved usernames
-   *
-   * You MUST be a namespace owner or admin to use this mutation
-   */
-  updateReservedUsernames: UpdateReservedUsernamesResult;
-  /**
-   * Update a sponsorship exclusion list from the rate limits.
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  updateSponsorshipExclusionList: UpdateSponsorshipExclusionListResult;
-  /**
-   * Update a sponsorship rate limits.
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  updateSponsorshipLimits: UpdateSponsorshipLimitsResult;
-  /**
-   * Update a sponsorship signers list.
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  updateSponsorshipSigners: UpdateSponsorshipSignersResult;
-};
-
-
-export type MutationAddAccountManagerArgs = {
-  request: AddAccountManagerRequest;
-};
-
-
-export type MutationAddAdminsArgs = {
-  request: AddAdminsRequest;
-};
-
-
-export type MutationAddAppAuthorizationEndpointArgs = {
-  request: AddAppAuthorizationEndpointRequest;
-};
-
-
-export type MutationAddAppFeedsArgs = {
-  request: AddAppFeedsRequest;
-};
-
-
-export type MutationAddAppGroupsArgs = {
-  request: AddAppGroupsRequest;
-};
-
-
-export type MutationAddAppSignersArgs = {
-  request: AddAppSignersRequest;
-};
-
-
-export type MutationAddGroupMembersArgs = {
-  request: AddGroupMembersRequest;
-};
-
-
-export type MutationAddPostNotInterestedArgs = {
-  request: PostNotInterestedRequest;
-};
-
-
-export type MutationAddReactionArgs = {
-  request: AddReactionRequest;
-};
-
-
-export type MutationApproveGroupMembershipRequestsArgs = {
-  request: ApproveGroupMembershipRequest;
-};
-
-
-export type MutationAssignUsernameToAccountArgs = {
-  request: AssignUsernameToAccountRequest;
-};
-
-
-export type MutationAuthenticateArgs = {
-  request: SignedAuthChallenge;
-};
-
-
-export type MutationBanGroupAccountsArgs = {
-  request: BanGroupAccountsRequest;
-};
-
-
-export type MutationBlockArgs = {
-  request: BlockRequest;
-};
-
-
-export type MutationBookmarkPostArgs = {
-  request: BookmarkPostRequest;
-};
-
-
-export type MutationCancelGroupMembershipRequestArgs = {
-  request: CancelGroupMembershipRequestRequest;
-};
-
-
-export type MutationChallengeArgs = {
-  request: ChallengeRequest;
-};
-
-
-export type MutationConfigureAccountActionArgs = {
-  request: ConfigureAccountActionRequest;
-};
-
-
-export type MutationConfigurePostActionArgs = {
-  request: ConfigurePostActionRequest;
-};
-
-
-export type MutationCreateAccountWithUsernameArgs = {
-  request: CreateAccountWithUsernameRequest;
-};
-
-
-export type MutationCreateAppArgs = {
-  request: CreateAppRequest;
-};
-
-
-export type MutationCreateFeedArgs = {
-  request: CreateFeedRequest;
-};
-
-
-export type MutationCreateGraphArgs = {
-  request: CreateGraphRequest;
-};
-
-
-export type MutationCreateGroupArgs = {
-  request: CreateGroupRequest;
-};
-
-
-export type MutationCreateSnsSubscriptionsArgs = {
-  request: CreateSnsSubscriptionRequest;
-};
-
-
-export type MutationCreateSponsorshipArgs = {
-  request: CreateSponsorshipRequest;
-};
-
-
-export type MutationCreateUsernameArgs = {
-  request: CreateUsernameRequest;
-};
-
-
-export type MutationCreateUsernameNamespaceArgs = {
-  request: CreateUsernameNamespaceRequest;
-};
-
-
-export type MutationDeletePostArgs = {
-  request: DeletePostRequest;
-};
-
-
-export type MutationDeleteSnsSubscriptionArgs = {
-  request: DeleteSnsSubscriptionRequest;
-};
-
-
-export type MutationDisableAccountActionArgs = {
-  request: DisableAccountActionRequest;
-};
-
-
-export type MutationDisablePostActionArgs = {
-  request: DisablePostActionRequest;
-};
-
-
-export type MutationEditPostArgs = {
-  request: EditPostRequest;
-};
-
-
-export type MutationEnableAccountActionArgs = {
-  request: EnableAccountActionRequest;
-};
-
-
-export type MutationEnablePostActionArgs = {
-  request: EnablePostActionRequest;
-};
-
-
-export type MutationExecuteAccountActionArgs = {
-  request: ExecuteAccountActionRequest;
-};
-
-
-export type MutationExecutePostActionArgs = {
-  request: ExecutePostActionRequest;
-};
-
-
-export type MutationFollowArgs = {
-  request: CreateFollowRequest;
-};
-
-
-export type MutationGenerateNewAppServerApiKeyArgs = {
-  request: GenerateNewAppServerApiKeyRequest;
-};
-
-
-export type MutationHideManagedAccountArgs = {
-  request: HideManagedAccountRequest;
-};
-
-
-export type MutationHideReplyArgs = {
-  request: HideReplyRequest;
-};
-
-
-export type MutationJoinGroupArgs = {
-  request: JoinGroupRequest;
-};
-
-
-export type MutationLeaveGroupArgs = {
-  request: LeaveGroupRequest;
-};
-
-
-export type MutationLegacyRolloverRefreshArgs = {
-  request: RolloverRefreshRequest;
-};
-
-
-export type MutationMlDismissRecommendedAccountsArgs = {
-  request: DismissRecommendedAccountsRequest;
-};
-
-
-export type MutationMuteArgs = {
-  request: MuteRequest;
-};
-
-
-export type MutationPauseSponsorshipArgs = {
-  request: PausingRequest;
-};
-
-
-export type MutationPostArgs = {
-  request: CreatePostRequest;
-};
-
-
-export type MutationRecommendAccountArgs = {
-  request: RecommendAccount;
-};
-
-
-export type MutationRefreshArgs = {
-  request: RefreshRequest;
-};
-
-
-export type MutationRejectGroupMembershipRequestsArgs = {
-  request: RejectGroupMembershipRequest;
-};
-
-
-export type MutationRemoveAccountManagerArgs = {
-  request: RemoveAccountManagerRequest;
-};
-
-
-export type MutationRemoveAdminsArgs = {
-  request: RemoveAdminsRequest;
-};
-
-
-export type MutationRemoveAppAuthorizationEndpointArgs = {
-  request: RemoveAppAuthorizationEndpointRequest;
-};
-
-
-export type MutationRemoveAppFeedsArgs = {
-  request: RemoveAppFeedsRequest;
-};
-
-
-export type MutationRemoveAppGroupsArgs = {
-  request: RemoveAppGroupsRequest;
-};
-
-
-export type MutationRemoveAppSignersArgs = {
-  request: RemoveAppSignersRequest;
-};
-
-
-export type MutationRemoveGroupMembersArgs = {
-  request: RemoveGroupMembersRequest;
-};
-
-
-export type MutationReportAccountArgs = {
-  request: ReportAccountRequest;
-};
-
-
-export type MutationReportPostArgs = {
-  request: ReportPostRequest;
-};
-
-
-export type MutationRepostArgs = {
-  request: CreateRepostRequest;
-};
-
-
-export type MutationRequestGroupMembershipArgs = {
-  request: RequestGroupMembershipRequest;
-};
-
-
-export type MutationRevokeAuthenticationArgs = {
-  request: RevokeAuthenticationRequest;
-};
-
-
-export type MutationSetAccountMetadataArgs = {
-  request: SetAccountMetadataRequest;
-};
-
-
-export type MutationSetAppGraphArgs = {
-  request: SetAppGraphRequest;
-};
-
-
-export type MutationSetAppMetadataArgs = {
-  request: SetAppMetadataRequest;
-};
-
-
-export type MutationSetAppSponsorshipArgs = {
-  request: SetAppSponsorshipRequest;
-};
-
-
-export type MutationSetAppTreasuryArgs = {
-  request: SetAppTreasuryRequest;
-};
-
-
-export type MutationSetAppUsernameNamespaceArgs = {
-  request: SetAppUsernameNamespaceRequest;
-};
-
-
-export type MutationSetAppVerificationArgs = {
-  request: SetAppVerificationRequest;
-};
-
-
-export type MutationSetDefaultAppFeedArgs = {
-  request: SetDefaultAppFeedRequest;
-};
-
-
-export type MutationSetFeedMetadataArgs = {
-  request: SetFeedMetadataRequest;
-};
-
-
-export type MutationSetGraphMetadataArgs = {
-  request: SetGraphMetadataRequest;
-};
-
-
-export type MutationSetGroupMetadataArgs = {
-  request: SetGroupMetadataRequest;
-};
-
-
-export type MutationSetNamespaceMetadataArgs = {
-  request: SetNamespaceMetadataRequest;
-};
-
-
-export type MutationSetSponsorshipMetadataArgs = {
-  request: SetSponsorshipMetadataRequest;
-};
-
-
-export type MutationSignFrameActionArgs = {
-  request: FrameEip712Request;
-};
-
-
-export type MutationSwitchAccountArgs = {
-  request: SwitchAccountRequest;
-};
-
-
-export type MutationTransferPrimitiveOwnershipArgs = {
-  request: TransferPrimitiveOwnershipRequest;
-};
-
-
-export type MutationUnassignUsernameFromAccountArgs = {
-  request: UnassignUsernameFromAccountRequest;
-};
-
-
-export type MutationUnbanGroupAccountsArgs = {
-  request: UnbanGroupAccountsRequest;
-};
-
-
-export type MutationUnblockArgs = {
-  request: UnblockRequest;
-};
-
-
-export type MutationUndoBookmarkPostArgs = {
-  request: BookmarkPostRequest;
-};
-
-
-export type MutationUndoPostNotInterestedArgs = {
-  request: PostNotInterestedRequest;
-};
-
-
-export type MutationUndoReactionArgs = {
-  request: UndoReactionRequest;
-};
-
-
-export type MutationUndoRecommendedAccountArgs = {
-  request: UndoRecommendedAccount;
-};
-
-
-export type MutationUnfollowArgs = {
-  request: CreateUnfollowRequest;
-};
-
-
-export type MutationUnhideManagedAccountArgs = {
-  request: UnhideManagedAccountRequest;
-};
-
-
-export type MutationUnhideReplyArgs = {
-  request: UnhideReplyRequest;
-};
-
-
-export type MutationUnmuteArgs = {
-  request: MuteRequest;
-};
-
-
-export type MutationUnpauseSponsorshipArgs = {
-  request: PausingRequest;
-};
-
-
-export type MutationUpdateAccountFollowRulesArgs = {
-  request: UpdateAccountFollowRulesRequest;
-};
-
-
-export type MutationUpdateAccountManagerArgs = {
-  request: UpdateAccountManagerRequest;
-};
-
-
-export type MutationUpdateFeedRulesArgs = {
-  request: UpdateFeedRulesRequest;
-};
-
-
-export type MutationUpdateGraphRulesArgs = {
-  request: UpdateGraphRulesRequest;
-};
-
-
-export type MutationUpdateGroupRulesArgs = {
-  request: UpdateGroupRulesRequest;
-};
-
-
-export type MutationUpdateNamespaceRulesArgs = {
-  request: UpdateNamespaceRulesRequest;
-};
-
-
-export type MutationUpdatePostRulesArgs = {
-  request: UpdatePostRulesRequest;
-};
-
-
-export type MutationUpdateReservedUsernamesArgs = {
-  request: UpdateReservedUsernamesRequest;
-};
-
-
-export type MutationUpdateSponsorshipExclusionListArgs = {
-  request: UpdateSponsorshipExclusionListRequest;
-};
-
-
-export type MutationUpdateSponsorshipLimitsArgs = {
-  request: UpdateSponsorshipLimitsRequest;
-};
-
-
-export type MutationUpdateSponsorshipSignersArgs = {
-  request: UpdateSponsorshipSignersRequest;
-};
-
-export type MuteRequest = {
-  /** The account to mute. */
-  account: Scalars['EvmAddress']['input'];
-};
-
-export type NamespaceOperationValidationFailed = {
-  __typename?: 'NamespaceOperationValidationFailed';
-  reason: Scalars['String']['output'];
-  unsatisfiedRules?: Maybe<NamespaceUnsatisfiedRules>;
-};
-
-export type NamespaceOperationValidationOutcome = NamespaceOperationValidationFailed | NamespaceOperationValidationPassed | NamespaceOperationValidationUnknown;
-
-export type NamespaceOperationValidationPassed = {
-  __typename?: 'NamespaceOperationValidationPassed';
-  passed: Scalars['AlwaysTrue']['output'];
-};
-
-export type NamespaceOperationValidationUnknown = {
-  __typename?: 'NamespaceOperationValidationUnknown';
-  extraChecksRequired: Array<NamespaceRule>;
-};
-
-export type NamespaceRequest = {
-  /** The namespace */
-  namespace?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /** The transaction hash you created the namespace with. */
-  txHash?: InputMaybe<Scalars['TxHash']['input']>;
-};
-
-export type NamespaceReservedUsernamesRequest = {
-  /** The cursor. */
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The namespace to get reserved usernames for */
-  namespace: Scalars['EvmAddress']['input'];
-  /** The page size. */
-  pageSize?: PageSize;
-};
-
-export type NamespaceRule = {
-  __typename?: 'NamespaceRule';
-  address: Scalars['EvmAddress']['output'];
-  config: Array<AnyKeyValue>;
-  executesOn: Array<NamespaceRuleExecuteOn>;
-  id: Scalars['RuleId']['output'];
-  type: NamespaceRuleType;
-};
-
-export type NamespaceRuleConfig = {
-  tokenGatedRule?: InputMaybe<TokenGatedNamespaceRuleConfig>;
-  unknownRule?: InputMaybe<UnknownNamespaceRuleConfig>;
-  usernameLengthRule?: InputMaybe<UsernameLengthNamespaceRuleConfig>;
-  usernamePricePerLengthRule?: InputMaybe<UsernamePricePerLengthNamespaceRuleConfig>;
-  usernameReservedRule?: InputMaybe<UsernameReservedNamespaceRuleConfig>;
-  usernameSimpleCharsetRule?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-export enum NamespaceRuleExecuteOn {
-  Assigning = 'ASSIGNING',
-  Creating = 'CREATING',
-  Removing = 'REMOVING',
-  Unassigning = 'UNASSIGNING'
-}
-
-export enum NamespaceRuleType {
-  PricePerLength = 'PRICE_PER_LENGTH',
-  TokenGated = 'TOKEN_GATED',
-  Unknown = 'UNKNOWN',
-  UsernameLength = 'USERNAME_LENGTH',
-  UsernameReserved = 'USERNAME_RESERVED',
-  UsernameSimpleCharset = 'USERNAME_SIMPLE_CHARSET'
-}
-
-export enum NamespaceRuleUnsatisfiedReason {
-  TokenGatedNotATokenHolder = 'TOKEN_GATED_NOT_A_TOKEN_HOLDER',
-  UsernameLengthNotWithinRange = 'USERNAME_LENGTH_NOT_WITHIN_RANGE',
-  UsernameNotASimpleCharset = 'USERNAME_NOT_A_SIMPLE_CHARSET',
-  UsernamePricePerLengthNotEnoughBalance = 'USERNAME_PRICE_PER_LENGTH_NOT_ENOUGH_BALANCE',
-  UsernameReserved = 'USERNAME_RESERVED'
-}
-
-export type NamespaceRules = {
-  __typename?: 'NamespaceRules';
-  anyOf: Array<NamespaceRule>;
-  required: Array<NamespaceRule>;
-};
-
-export type NamespaceRulesConfigInput = {
-  anyOf?: Array<NamespaceRuleConfig>;
-  required?: Array<NamespaceRuleConfig>;
-};
-
-export type NamespaceRulesProcessingParams = {
-  unknownRule?: InputMaybe<UnknownRuleProcessingParams>;
-};
-
-export type NamespaceUnsatisfiedRule = {
-  __typename?: 'NamespaceUnsatisfiedRule';
-  config: Array<AnyKeyValue>;
-  message: Scalars['String']['output'];
-  reason: NamespaceRuleUnsatisfiedReason;
-  rule: Scalars['EvmAddress']['output'];
-};
-
-export type NamespaceUnsatisfiedRules = {
-  __typename?: 'NamespaceUnsatisfiedRules';
-  anyOf: Array<NamespaceUnsatisfiedRule>;
-  required: Array<NamespaceUnsatisfiedRule>;
-};
-
-export type NamespacesFilter = {
-  /** The optional filter to get namespaces managed by address */
-  managedBy?: InputMaybe<ManagedBy>;
-  /**
-   * The optional filter to narrow namespaces by search query.
-   * Uses fuzzy search on namespace name
-   */
-  searchQuery?: InputMaybe<Scalars['String']['input']>;
-};
-
-export enum NamespacesOrderBy {
-  Alphabetical = 'ALPHABETICAL',
-  LatestFirst = 'LATEST_FIRST',
-  OldestFirst = 'OLDEST_FIRST'
-}
-
-export type NamespacesRequest = {
-  /** The cursor. */
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<NamespacesFilter>;
-  /** The order by. */
-  orderBy?: NamespacesOrderBy;
-  /** The page size. */
-  pageSize?: PageSize;
-};
-
-export type NamespacesResult = {
-  __typename?: 'NamespacesResult';
-  items: Array<UsernameNamespace>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type NetworkAddress = {
-  __typename?: 'NetworkAddress';
-  address: Scalars['EvmAddress']['output'];
-  chainId: Scalars['Int']['output'];
-};
-
-export type NftMetadata = {
-  __typename?: 'NftMetadata';
-  /**
-   * A URL to a multi-media attachment for the item. The file extensions GLTF, GLB, WEBM, MP4,
-   * M4V, OGV, and OGG are supported, along with the audio-only extensions MP3, WAV, and OGA.
-   * Animation_url also supports HTML pages, allowing you to build rich experiences and
-   * interactive NFTs using JavaScript canvas, WebGL, and more. Scripts and relative paths
-   * within the HTML page are now supported. However, access to browser extensions is not
-   * supported.
-   */
-  animationUrl?: Maybe<Scalars['URI']['output']>;
-  /**
-   * These are the attributes for the item, which will show up on the OpenSea and others NFT
-   * trading websites on the item.
-   */
-  attributes: Array<MarketplaceMetadataAttribute>;
-  /** A human-readable description of the item. It could be plain text or markdown. */
-  description?: Maybe<Scalars['String']['output']>;
-  /**
-   * This is the URL that will appear below the asset's image on OpenSea and others etc. and
-   * will allow users to leave OpenSea and view the item on the site.
-   */
-  externalUrl?: Maybe<Scalars['URI']['output']>;
-  /** NFT will store any image here. */
-  image?: Maybe<Scalars['URI']['output']>;
-  /** Name of the NFT item. */
-  name?: Maybe<Scalars['String']['output']>;
-};
-
-/** The existence of the transaction is not yet indexed. Keep trying. */
-export type NotIndexedYetStatus = {
-  __typename?: 'NotIndexedYetStatus';
-  reason: Scalars['String']['output'];
-  /** True if the transaction has been mined. */
-  txHasMined: Scalars['Boolean']['output'];
-};
-
-export type Notification = CommentNotification | FollowNotification | MentionNotification | QuoteNotification | ReactionNotification | RepostNotification;
-
-export type NotificationAccountFollow = {
-  __typename?: 'NotificationAccountFollow';
-  account: Account;
-  followedAt: Scalars['DateTime']['output'];
-};
-
-export type NotificationAccountPostReaction = {
-  __typename?: 'NotificationAccountPostReaction';
-  account: Account;
-  reactions: Array<PostReaction>;
-};
-
-export type NotificationAccountRepost = {
-  __typename?: 'NotificationAccountRepost';
-  account: Account;
-  repostId: Scalars['PostId']['output'];
-  repostedAt: Scalars['DateTime']['output'];
-};
-
-export type NotificationFilter = {
-  /** The apps to filter by. */
-  apps?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
-  /** The feeds to filter by. */
-  feeds?: InputMaybe<Array<FeedOneOf>>;
-  /** The graphs to filter by. */
-  graphs?: InputMaybe<Array<GraphOneOf>>;
-  /** Include notification from accounts with low score */
-  includeLowScore?: Scalars['Boolean']['input'];
-  /** The notification types to filter by. */
-  notificationTypes?: InputMaybe<Array<NotificationType>>;
-  /** Aggregate notifications by time */
-  timeBasedAggregation?: Scalars['Boolean']['input'];
-};
-
-export enum NotificationOrderBy {
-  AccountScore = 'ACCOUNT_SCORE',
-  Default = 'DEFAULT'
-}
-
-export type NotificationRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** An optional filter to narrow down the notifications result. */
-  filter?: InputMaybe<NotificationFilter>;
-  /** An optional order to sort the notifications result. */
-  orderBy?: NotificationOrderBy;
-};
-
-export enum NotificationType {
-  Commented = 'COMMENTED',
-  Followed = 'FOLLOWED',
-  Mentioned = 'MENTIONED',
-  Quoted = 'QUOTED',
-  Reacted = 'REACTED',
-  Reposted = 'REPOSTED'
-}
-
-export type OnboardingUserChallengeRequest = {
-  /**
-   * The App you intend to authenticate with.
-   *
-   * It MUST be a valid App address.
-   * Note: On the testnet, it will default to the playground app.
-   * This is to make it easier if you forget to set it. This may change in the future.
-   */
-  app?: Scalars['EvmAddress']['input'];
-  /** The address of the EOA that needs to create their Lens Account. */
-  wallet: Scalars['EvmAddress']['input'];
-};
-
-export enum PageSize {
-  Fifty = 'FIFTY',
-  Ten = 'TEN'
-}
-
-export type PaginatedAccountExecutedActionsResult = {
-  __typename?: 'PaginatedAccountExecutedActionsResult';
-  items: Array<AccountExecutedActions>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedAccountManagersResult = {
-  __typename?: 'PaginatedAccountManagersResult';
-  /** The account managers. */
-  items: Array<AccountManager>;
-  /** The pagination information for the given request. */
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedAccountsAvailableResult = {
-  __typename?: 'PaginatedAccountsAvailableResult';
-  /** The accounts available to use for the given address */
-  items: Array<AccountAvailable>;
-  /** The pagination information for the given request. */
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedAccountsBlockedResult = {
-  __typename?: 'PaginatedAccountsBlockedResult';
-  items: Array<AccountBlocked>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedAccountsResult = {
-  __typename?: 'PaginatedAccountsResult';
-  items: Array<Account>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedActiveAuthenticationsResult = {
-  __typename?: 'PaginatedActiveAuthenticationsResult';
-  items: Array<AuthenticatedSession>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedAdminsResult = {
-  __typename?: 'PaginatedAdminsResult';
-  items: Array<Admin>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedAnyPostsResult = {
-  __typename?: 'PaginatedAnyPostsResult';
-  items: Array<AnyPost>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedAppFeedsResult = {
-  __typename?: 'PaginatedAppFeedsResult';
-  /** The feeds */
-  items: Array<AppFeed>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedAppSignersResult = {
-  __typename?: 'PaginatedAppSignersResult';
-  /** The signers */
-  items: Array<AppSigner>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedAppUsersResult = {
-  __typename?: 'PaginatedAppUsersResult';
-  items: Array<AppUser>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedFeedsResult = {
-  __typename?: 'PaginatedFeedsResult';
-  items: Array<Feed>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedFollowersResult = {
-  __typename?: 'PaginatedFollowersResult';
-  items: Array<Follower>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedFollowingResult = {
-  __typename?: 'PaginatedFollowingResult';
-  items: Array<Following>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedGraphsResult = {
-  __typename?: 'PaginatedGraphsResult';
-  items: Array<Graph>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedGroupBannedAccountsResult = {
-  __typename?: 'PaginatedGroupBannedAccountsResult';
-  items: Array<GroupBannedAccount>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedGroupMembersResult = {
-  __typename?: 'PaginatedGroupMembersResult';
-  items: Array<GroupMember>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedGroupMembershipRequestsResult = {
-  __typename?: 'PaginatedGroupMembershipRequestsResult';
-  items: Array<GroupMembershipRequest>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedGroupsResult = {
-  __typename?: 'PaginatedGroupsResult';
-  /** The groups */
-  items: Array<Group>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedNamespaceReservedUsernamesResult = {
-  __typename?: 'PaginatedNamespaceReservedUsernamesResult';
-  items: Array<UsernameReserved>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedNotificationResult = {
-  __typename?: 'PaginatedNotificationResult';
-  items: Array<Notification>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedPostActionContracts = {
-  __typename?: 'PaginatedPostActionContracts';
-  items: Array<PostActionContract>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedPostEditsResult = {
-  __typename?: 'PaginatedPostEditsResult';
-  items: Array<PostEdit>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedPostExecutedActionsResult = {
-  __typename?: 'PaginatedPostExecutedActionsResult';
-  items: Array<PostExecutedActions>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedPostReactionsResult = {
-  __typename?: 'PaginatedPostReactionsResult';
-  items: Array<AccountPostReaction>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedPostTagsResult = {
-  __typename?: 'PaginatedPostTagsResult';
-  items: Array<PostTag>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedPostsForYouResult = {
-  __typename?: 'PaginatedPostsForYouResult';
-  items: Array<PostForYou>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedPostsResult = {
-  __typename?: 'PaginatedPostsResult';
-  items: Array<Post>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedResultInfo = {
-  __typename?: 'PaginatedResultInfo';
-  /** The cursor to the next page of results, if any. */
-  next?: Maybe<Scalars['Cursor']['output']>;
-  /** The cursor to the previous page of results, if any. */
-  prev?: Maybe<Scalars['Cursor']['output']>;
-};
-
-export type PaginatedTimelineResult = {
-  __typename?: 'PaginatedTimelineResult';
-  items: Array<TimelineItem>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PaginatedUsernamesResult = {
-  __typename?: 'PaginatedUsernamesResult';
-  items: Array<Username>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type PausingRequest = {
-  /** The sponsorship to update */
-  sponsorship: Scalars['EvmAddress']['input'];
-};
-
-export type PausingResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type PaymasterParams = {
-  __typename?: 'PaymasterParams';
-  /** The address of the paymaster. */
-  paymaster: Scalars['EvmAddress']['output'];
-  /** The bytestream input for the paymaster. */
-  paymasterInput: Scalars['BlockchainData']['output'];
-};
-
-/**
- * The existence of the transaction is known, but its status is not yet known.
- *
- * The transaction could be:
- * - waiting to be included in a block
- * - waiting for a block to be mined
- * - waiting to be indexed by the Lens Indexer
- * - waiting for any associated metadata to be snapshotted and indexed
- */
-export type PendingTransactionStatus = {
-  __typename?: 'PendingTransactionStatus';
-  blockTimestamp: Scalars['DateTime']['output'];
-  summary: Array<SubOperationStatus>;
-};
-
-/** PhysicalAddress */
-export type PhysicalAddress = {
-  __typename?: 'PhysicalAddress';
-  /** The country name component. */
-  country: Scalars['String']['output'];
-  /** The full mailing address formatted for display. */
-  formatted?: Maybe<Scalars['String']['output']>;
-  /** The city or locality. */
-  locality: Scalars['String']['output'];
-  /** The zip or postal code. */
-  postalCode?: Maybe<Scalars['String']['output']>;
-  /** The state or region. */
-  region?: Maybe<Scalars['String']['output']>;
-  /**
-   * The street address including house number, street name, P.O. Box, apartment or unit number
-   * and extended multi-line address information.
-   */
-  streetAddress?: Maybe<Scalars['String']['output']>;
-};
-
-export type Post = {
-  __typename?: 'Post';
-  actions: Array<PostAction>;
-  app?: Maybe<App>;
-  author: Account;
-  collectibleMetadata: NftMetadata;
-  commentOn?: Maybe<Post>;
-  contentUri: Scalars['URI']['output'];
-  /** The feed address that the post belongs to. */
-  feed: Scalars['EvmAddress']['output'];
-  id: Scalars['PostId']['output'];
-  isDeleted: Scalars['Boolean']['output'];
-  isEdited: Scalars['Boolean']['output'];
-  mentions: Array<PostMention>;
-  metadata: PostMetadata;
-  operations?: Maybe<LoggedInPostOperations>;
-  quoteOf?: Maybe<Post>;
-  root?: Maybe<Post>;
-  rules: PostRules;
-  slug: Scalars['PostId']['output'];
-  stats: PostStats;
-  timestamp: Scalars['DateTime']['output'];
-};
-
-
-export type PostActionsArgs = {
-  request?: PostActionsParams;
-};
-
-
-export type PostContentUriArgs = {
-  request?: PostContentUriRequest;
-};
-
-export type PostAccountPair = {
-  account: Scalars['EvmAddress']['input'];
-  post: Scalars['PostId']['input'];
-};
-
-export type PostAction = SimpleCollectAction | TippingPostAction | UnknownAction;
-
-export type PostActionConfigInput = {
-  simpleCollect?: InputMaybe<SimpleCollectActionConfigInput>;
-  unknown?: InputMaybe<UnknownActionConfigInput>;
-};
-
-export type PostActionContract = SimpleCollectActionContract | TippingPostActionContract | UnknownPostActionContract;
-
-export type PostActionContractsRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  includeUnknown?: Scalars['Boolean']['input'];
-  onlyCollectActions?: Scalars['Boolean']['input'];
-  pageSize?: PageSize;
-};
-
-export type PostActionExecuteInput = {
-  simpleCollect?: InputMaybe<SimpleCollectExecuteInput>;
-  tipping?: InputMaybe<AmountInput>;
-  unknown?: InputMaybe<UnknownActionExecuteInput>;
-};
-
-export type PostActionFilter = {
-  address?: InputMaybe<Scalars['EvmAddress']['input']>;
-  simpleCollect?: InputMaybe<Scalars['AlwaysTrue']['input']>;
-  tipping?: InputMaybe<Scalars['AlwaysTrue']['input']>;
-};
-
-export type PostActionsParams = {
-  includeDisabled: Scalars['Boolean']['input'];
-};
-
-export type PostBookmarksFilter = {
-  /** The feeds to filter by. */
-  feeds?: InputMaybe<Array<FeedOneOf>>;
-  metadata?: InputMaybe<PostMetadataFilter>;
-};
-
-export type PostBookmarksRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<PostBookmarksFilter>;
-  pageSize?: PageSize;
-};
-
-export type PostContentUriRequest = {
-  useSnapshot: Scalars['Boolean']['input'];
-};
-
-export type PostCreatedNotificationAttributes = {
-  app?: InputMaybe<Scalars['EvmAddress']['input']>;
-  author?: InputMaybe<Scalars['EvmAddress']['input']>;
-  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
-  parentPostId?: InputMaybe<Scalars['PostId']['input']>;
-  postTypes?: InputMaybe<Array<PostType>>;
-};
-
-export type PostDeletedNotificationAttributes = {
-  app?: InputMaybe<Scalars['EvmAddress']['input']>;
-  author?: InputMaybe<Scalars['EvmAddress']['input']>;
-  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
-  parentPostId?: InputMaybe<Scalars['PostId']['input']>;
-  postTypes?: InputMaybe<Array<PostType>>;
-};
-
-export type PostEdit = {
-  __typename?: 'PostEdit';
-  metadata: PostMetadata;
-  timestamp: Scalars['DateTime']['output'];
-};
-
-export type PostEditedNotificationAttributes = {
-  app?: InputMaybe<Scalars['EvmAddress']['input']>;
-  author?: InputMaybe<Scalars['EvmAddress']['input']>;
-  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
-  parentPostId?: InputMaybe<Scalars['PostId']['input']>;
-  postTypes?: InputMaybe<Array<PostType>>;
-};
-
-export type PostEditsRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  pageSize?: PageSize;
-  /** The post ID. */
-  post: Scalars['PostId']['input'];
-};
-
-export type PostExecutedActions = {
-  __typename?: 'PostExecutedActions';
-  account: Account;
-  firstAt: Scalars['DateTime']['output'];
-  lastAt: Scalars['DateTime']['output'];
-  total: Scalars['Int']['output'];
-};
-
-export type PostForYou = {
-  __typename?: 'PostForYou';
-  post: Post;
-  source: ForYouSource;
-};
-
-export type PostMention = AccountMention | GroupMention;
-
-export type PostMetadata = ArticleMetadata | AudioMetadata | CheckingInMetadata | EmbedMetadata | EventMetadata | ImageMetadata | LinkMetadata | LivestreamMetadata | MintMetadata | SpaceMetadata | StoryMetadata | TextOnlyMetadata | ThreeDMetadata | TransactionMetadata | VideoMetadata;
-
-export type PostMetadataContentWarningFilter = {
-  oneOf: Array<ContentWarning>;
-};
-
-export type PostMetadataFilter = {
-  /** The content warning to filter by. */
-  contentWarning?: InputMaybe<PostMetadataContentWarningFilter>;
-  /** The main focus of the post. */
-  mainContentFocus?: InputMaybe<Array<MainContentFocus>>;
-  /** The tags to filter by. */
-  tags?: InputMaybe<PostMetadataTagsFilter>;
-};
-
-export type PostMetadataTagsFilter = {
-  all?: InputMaybe<Array<Scalars['String']['input']>>;
-  oneOf?: InputMaybe<Array<Scalars['String']['input']>>;
-};
-
-export type PostNotInterestedRequest = {
-  post: Scalars['PostId']['input'];
-};
-
-export type PostOperationValidationFailed = {
-  __typename?: 'PostOperationValidationFailed';
-  reason: Scalars['String']['output'];
-  unsatisfiedRules?: Maybe<PostUnsatisfiedRules>;
-};
-
-export type PostOperationValidationOutcome = PostOperationValidationFailed | PostOperationValidationPassed | PostOperationValidationUnknown;
-
-export type PostOperationValidationPassed = {
-  __typename?: 'PostOperationValidationPassed';
-  passed: Scalars['AlwaysTrue']['output'];
-};
-
-export type PostOperationValidationRule = FeedRule | PostRule;
-
-export type PostOperationValidationUnknown = {
-  __typename?: 'PostOperationValidationUnknown';
-  extraChecksRequired: Array<PostOperationValidationRule>;
-};
-
-export type PostReaction = {
-  __typename?: 'PostReaction';
-  reactedAt: Scalars['DateTime']['output'];
-  reaction: PostReactionType;
-};
-
-export type PostReactionAddedNotificationAttributes = {
-  app?: InputMaybe<Scalars['EvmAddress']['input']>;
-  postId?: InputMaybe<Scalars['PostId']['input']>;
-  reactingAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
-  reactionType?: InputMaybe<PostReactionType>;
-};
-
-export enum PostReactionOrderBy {
-  AccountScore = 'ACCOUNT_SCORE',
-  Default = 'DEFAULT'
-}
-
-export type PostReactionRemovedNotificationAttributes = {
-  app?: InputMaybe<Scalars['EvmAddress']['input']>;
-  postId?: InputMaybe<Scalars['PostId']['input']>;
-  reactingAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
-  reactionType?: InputMaybe<PostReactionType>;
-};
-
-export type PostReactionStatus = {
-  __typename?: 'PostReactionStatus';
-  account: Scalars['EvmAddress']['output'];
-  postId: Scalars['PostId']['output'];
-  result: Scalars['Boolean']['output'];
-};
-
-export type PostReactionStatusRequest = {
-  filter?: InputMaybe<PostReactionsFilter>;
-  pairs: Array<PostAccountPair>;
-};
-
-export enum PostReactionType {
-  Downvote = 'DOWNVOTE',
-  Upvote = 'UPVOTE'
-}
-
-export type PostReactionsFilter = {
-  /** The types of reactions to filter by. */
-  anyOf?: InputMaybe<Array<PostReactionType>>;
-};
-
-export type PostReactionsRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** An optional filter to narrow down the result. */
-  filter?: InputMaybe<PostReactionsFilter>;
-  /** The order in which to return the results. */
-  orderBy?: InputMaybe<PostReactionOrderBy>;
-  pageSize?: PageSize;
-  /** The ID of the post to get reactions for. */
-  post: Scalars['PostId']['input'];
-};
-
-export enum PostReferenceType {
-  CommentOn = 'COMMENT_ON',
-  QuoteOf = 'QUOTE_OF',
-  RepostOf = 'REPOST_OF'
-}
-
-export type PostReferencesRequest = {
-  /** The cursor. */
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The page size. */
-  pageSize?: PageSize;
-  /** The types of references to get. */
-  referenceTypes: Array<PostReferenceType>;
-  /** The post to get references for. */
-  referencedPost: Scalars['PostId']['input'];
-  /** The visibility filter to apply by default it will honour the visibility of the post. */
-  visibilityFilter?: PostVisibilityFilter;
-};
-
-export enum PostReportReason {
-  AnimalAbuse = 'ANIMAL_ABUSE',
-  DirectThreat = 'DIRECT_THREAT',
-  FakeEngagement = 'FAKE_ENGAGEMENT',
-  Harassment = 'HARASSMENT',
-  HateSpeech = 'HATE_SPEECH',
-  Impersonation = 'IMPERSONATION',
-  ManipulationAlgo = 'MANIPULATION_ALGO',
-  Misleading = 'MISLEADING',
-  MisuseHashtags = 'MISUSE_HASHTAGS',
-  Nudity = 'NUDITY',
-  Offensive = 'OFFENSIVE',
-  Repetitive = 'REPETITIVE',
-  Scam = 'SCAM',
-  SelfHarm = 'SELF_HARM',
-  SomethingElse = 'SOMETHING_ELSE',
-  UnauthorizedSale = 'UNAUTHORIZED_SALE',
-  Unrelated = 'UNRELATED',
-  Violence = 'VIOLENCE'
-}
-
-export type PostReportedNotificationAttributes = {
-  app?: InputMaybe<Scalars['EvmAddress']['input']>;
-  author?: InputMaybe<Scalars['EvmAddress']['input']>;
-  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
-  reporter?: InputMaybe<Scalars['EvmAddress']['input']>;
-};
-
-/** You must provide either a txHash or a postId or a legacyId, you can not apply more than one. */
-export type PostRequest = {
-  /** The legacy publication ID. */
-  legacyId?: InputMaybe<Scalars['LegacyPublicationId']['input']>;
-  /** The post ID. */
-  post?: InputMaybe<Scalars['PostId']['input']>;
-  /** The transaction hash you sent the post with. */
-  txHash?: InputMaybe<Scalars['TxHash']['input']>;
-};
-
-export type PostResponse = {
-  __typename?: 'PostResponse';
-  hash: Scalars['TxHash']['output'];
-};
-
-export type PostResult = PostOperationValidationFailed | PostResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type PostRule = {
-  __typename?: 'PostRule';
-  address: Scalars['EvmAddress']['output'];
-  config: Array<AnyKeyValue>;
-  executesOn: Array<PostRuleExecuteOn>;
-  id: Scalars['RuleId']['output'];
-  type: PostRuleType;
-};
-
-export type PostRuleConfig = {
-  followersOnlyRule?: InputMaybe<FollowersOnlyPostRuleConfig>;
-  unknownRule?: InputMaybe<UnknownPostRuleConfig>;
-};
-
-export enum PostRuleExecuteOn {
-  CreatingPost = 'CREATING_POST',
-  EditingPost = 'EDITING_POST'
-}
-
-export enum PostRuleType {
-  FollowersOnly = 'FOLLOWERS_ONLY',
-  Unknown = 'UNKNOWN'
-}
-
-export enum PostRuleUnsatisfiedReason {
-  FeedAccountBlocked = 'FEED_ACCOUNT_BLOCKED',
-  FeedGroupGatedNotAMember = 'FEED_GROUP_GATED_NOT_A_MEMBER',
-  FeedSimplePaymentNotEnoughBalance = 'FEED_SIMPLE_PAYMENT_NOT_ENOUGH_BALANCE',
-  FeedTokenGatedNotATokenHolder = 'FEED_TOKEN_GATED_NOT_A_TOKEN_HOLDER',
-  PostNotAFollower = 'POST_NOT_A_FOLLOWER'
-}
-
-export type PostRules = {
-  __typename?: 'PostRules';
-  anyOf: Array<PostRule>;
-  required: Array<PostRule>;
-};
-
-export type PostRulesConfigInput = {
-  anyOf?: Array<PostRuleConfig>;
-  required?: Array<PostRuleConfig>;
-};
-
-export type PostRulesProcessingParams = {
-  unknownRule?: InputMaybe<UnknownRuleProcessingParams>;
-};
-
-export type PostStats = {
-  __typename?: 'PostStats';
-  /** The total number of bookmarks. */
-  bookmarks: Scalars['Int']['output'];
-  /** The total number of collects. */
-  collects: Scalars['Int']['output'];
-  /** The total number of comments. */
-  comments: Scalars['Int']['output'];
-  /** The total number of quotes. */
-  quotes: Scalars['Int']['output'];
-  /** Get the number of reactions for the post. */
-  reactions: Scalars['Int']['output'];
-  /** The total number of reposts. */
-  reposts: Scalars['Int']['output'];
-};
-
-
-export type PostStatsReactionsArgs = {
-  request?: StatsReactionRequest;
-};
-
-export type PostTag = {
-  __typename?: 'PostTag';
-  total: Scalars['Int']['output'];
-  value: Scalars['String']['output'];
-};
-
-export type PostTagsFilter = {
-  /** The feeds to filter by. */
-  feeds?: InputMaybe<Array<FeedOneOf>>;
-};
-
-export enum PostTagsOrderBy {
-  Alphabetical = 'ALPHABETICAL',
-  MostPopular = 'MOST_POPULAR'
-}
-
-export type PostTagsRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** An optional filter to apply to the tags. */
-  filter?: InputMaybe<PostTagsFilter>;
-  orderBy?: PostTagsOrderBy;
-  pageSize?: PageSize;
-};
-
-export type PostTip = {
-  __typename?: 'PostTip';
-  amount: Erc20Amount;
-  date: Scalars['DateTime']['output'];
-};
-
-export enum PostType {
-  Comment = 'COMMENT',
-  Quote = 'QUOTE',
-  Repost = 'REPOST',
-  Root = 'ROOT'
-}
-
-export type PostUnsatisfiedRule = {
-  __typename?: 'PostUnsatisfiedRule';
-  config: Array<AnyKeyValue>;
-  message: Scalars['String']['output'];
-  reason: PostRuleUnsatisfiedReason;
-  rule: Scalars['EvmAddress']['output'];
-};
-
-export type PostUnsatisfiedRules = {
-  __typename?: 'PostUnsatisfiedRules';
-  anyOf: Array<PostUnsatisfiedRule>;
-  required: Array<PostUnsatisfiedRule>;
-};
-
-export enum PostVisibilityFilter {
-  /** All posts even if they have been hidden */
-  All = 'ALL',
-  /** Only the posts that are hidden */
-  Hidden = 'HIDDEN',
-  /** Only the posts that are visible */
-  Visible = 'VISIBLE'
-}
-
-export type PostsFilter = {
-  apps?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
-  authors?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
-  /** The feeds to filter by. */
-  feeds?: InputMaybe<Array<FeedOneOf>>;
-  metadata?: InputMaybe<PostMetadataFilter>;
-  postTypes?: InputMaybe<Array<PostType>>;
-  /** The optional query text to search for in the post content or metadata tags. */
-  searchQuery?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type PostsRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<PostsFilter>;
-  pageSize?: PageSize;
-};
-
-export type PrimitiveData = AddressKeyValue | BigDecimalKeyValue | BooleanKeyValue | IntKeyValue | IntNullableKeyValue | RawKeyValue | StringKeyValue;
-
-export type Query = {
-  __typename?: 'Query';
-  _service: _Service;
-  /** Get an account by address, username, or legacy profile ID. */
-  account?: Maybe<Account>;
-  /** Get the account stats for the feeds. */
-  accountFeedsStats: AccountFeedsStats;
-  /** Get the account stats for the graphs. */
-  accountGraphsStats: AccountGraphsFollowStats;
-  /**
-   * Account manager for the authenticated account.
-   *
-   * You MUST be authenticated to use this query.
-   */
-  accountManagers: PaginatedAccountManagersResult;
-  /** Get the stats for an account. */
-  accountStats: AccountStats;
-  /** Get accounts. */
-  accounts: PaginatedAccountsResult;
-  /** Get the accounts which are available to use for the given address */
-  accountsAvailable: PaginatedAccountsAvailableResult;
-  /**
-   * Accounts blocked for the authenticated account.
-   *
-   * You MUST be authenticated to use this query.
-   */
-  accountsBlocked: PaginatedAccountsBlockedResult;
-  /** Get accounts by address, username, or legacy profile ID. */
-  accountsBulk: Array<Account>;
-  /** Get admins for a graph/app/sponsor/feed/username/group address */
-  adminsFor: PaginatedAdminsResult;
-  /** Get an app */
-  app?: Maybe<App>;
-  /** Get the feeds for an app */
-  appFeeds: PaginatedAppFeedsResult;
-  /** Get the groups for an app */
-  appGroups: PaginatedGroupsResult;
-  /**
-   * Get the server side API key for the app you must be the owner of the app to see it.
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
-  appServerApiKey?: Maybe<Scalars['String']['output']>;
-  /** Get the signers for an app */
-  appSigners: PaginatedAppSignersResult;
-  /** Get accounts for an app. */
-  appUsers: PaginatedAppUsersResult;
-  /** Get the apps. */
-  apps: AppsResult;
-  /**
-   * List all active authenticated sessions for the current account.
-   *
-   * You MUST be authenticated to use this query.
-   */
-  authenticatedSessions: PaginatedActiveAuthenticationsResult;
-  /**
-   * Checks if the given username can be created by the account
-   *
-   * You MUST be authenticated to use this mutation.
-   */
-  canCreateUsername: CanCreateUsernameResult;
-  /** Create a frame typed data */
-  createFrameTypedData: CreateFrameEip712TypedData;
-  /**
-   * Get the current authenticated session for the current account.
-   *
-   * You MUST be authenticated to use this query.
-   */
-  currentSession: AuthenticatedSession;
-  debugMetadata: DebugPostMetadataResult;
-  feed?: Maybe<Feed>;
-  /** Get the feeds. */
-  feeds: PaginatedFeedsResult;
-  followStatus: Array<FollowStatusResult>;
-  followers: PaginatedFollowersResult;
-  followersYouKnow: PaginatedFollowersResult;
-  following: PaginatedFollowingResult;
-  getSnsSubscriptions: Array<SnsSubscription>;
-  graph?: Maybe<Graph>;
-  /** Get the graphs. */
-  graphs: PaginatedGraphsResult;
-  group?: Maybe<Group>;
-  /** Get the banned accounts of a group */
-  groupBannedAccounts: PaginatedGroupBannedAccountsResult;
-  /** Get the members of the group */
-  groupMembers: PaginatedGroupMembersResult;
-  /** Get the group membership requests */
-  groupMembershipRequests: PaginatedGroupMembershipRequestsResult;
-  /** Get the number of members in a Group */
-  groupStats: GroupStatsResponse;
-  /** Get the groups. */
-  groups: PaginatedGroupsResult;
-  health: Scalars['Boolean']['output'];
-  /** Get the last logged in account for the given address and app if specified. */
-  lastLoggedInAccount?: Maybe<Account>;
-  maintenance: Scalars['Boolean']['output'];
-  /**
-   * Account information for the authenticated account.
-   *
-   * You MUST be authenticated to use this query.
-   */
-  me: MeResult;
-  mlAccountRecommendations: PaginatedAccountsResult;
-  mlPostsExplore?: Maybe<PaginatedPostsResult>;
-  mlPostsForYou: PaginatedPostsForYouResult;
-  namespace?: Maybe<UsernameNamespace>;
-  /** Get the banned accounts of a group */
-  namespaceReservedUsernames: PaginatedNamespaceReservedUsernamesResult;
-  /** Get the namespaces. */
-  namespaces: NamespacesResult;
-  /**
-   * Get account notifications.
-   *
-   * You MUST be authenticated to use this query.
-   */
-  notifications: PaginatedNotificationResult;
-  post?: Maybe<AnyPost>;
-  /** Lists all available Post Action contracts. */
-  postActionContracts: PaginatedPostActionContracts;
-  postBookmarks: PaginatedAnyPostsResult;
-  postEdits: PaginatedPostEditsResult;
-  postReactionStatus: Array<PostReactionStatus>;
-  /** Get the reactions added to a post. */
-  postReactions: PaginatedPostReactionsResult;
-  postReferences: PaginatedAnyPostsResult;
-  postTags: PaginatedPostTagsResult;
-  posts: PaginatedAnyPostsResult;
-  /** Get a Sponsorship */
-  sponsorship?: Maybe<Sponsorship>;
-  /** Get paginated Sponsorship limits Exclusion list. */
-  sponsorshipLimitsExclusions: SponsorshipLimitsExclusionsResult;
-  /** Get paginated Sponsorship Signers. */
-  sponsorshipSigners: SponsorshipSignersResult;
-  /** Get paginated Sponsorships. */
-  sponsorships: SponsorshipsResult;
-  /**
-   * Get account timeline.
-   *
-   * You MUST be authenticated to use this query.
-   */
-  timeline: PaginatedTimelineResult;
-  /** Get most engaged posts for the given account timeline. */
-  timelineHighlights: PaginatedPostsResult;
-  /** Get the status of a transaction by its hash. */
-  transactionStatus: TransactionStatusResult;
-  username?: Maybe<Username>;
-  /** Get the usernames for the account/owner. */
-  usernames: PaginatedUsernamesResult;
-  verifyFrameSignature: FrameVerifySignatureResult;
-  /** Get who acted on a post. */
-  whoExecutedActionOnAccount: PaginatedAccountExecutedActionsResult;
-  /** Get who acted on a post. */
-  whoExecutedActionOnPost: PaginatedPostExecutedActionsResult;
-  /** Get accounts who referenced a post */
-  whoReferencedPost: PaginatedAccountsResult;
-};
-
-
-export type QueryAccountArgs = {
-  request: AccountRequest;
-};
-
-
-export type QueryAccountFeedsStatsArgs = {
-  request: AccountFeedsStatsRequest;
-};
-
-
-export type QueryAccountGraphsStatsArgs = {
-  request: AccountGraphsStatsRequest;
-};
-
-
-export type QueryAccountManagersArgs = {
-  request: AccountManagersRequest;
-};
-
-
-export type QueryAccountStatsArgs = {
-  request: AccountStatsRequest;
-};
-
-
-export type QueryAccountsArgs = {
-  request: AccountsRequest;
-};
-
-
-export type QueryAccountsAvailableArgs = {
-  request: AccountsAvailableRequest;
-};
-
-
-export type QueryAccountsBlockedArgs = {
-  request: AccountsBlockedRequest;
-};
-
-
-export type QueryAccountsBulkArgs = {
-  request: AccountsBulkRequest;
-};
-
-
-export type QueryAdminsForArgs = {
-  request: AdminsForRequest;
-};
-
-
-export type QueryAppArgs = {
-  request: AppRequest;
-};
-
-
-export type QueryAppFeedsArgs = {
-  request: AppFeedsRequest;
-};
-
-
-export type QueryAppGroupsArgs = {
-  request: AppGroupsRequest;
-};
-
-
-export type QueryAppServerApiKeyArgs = {
-  request: AppServerApiKeyRequest;
-};
-
-
-export type QueryAppSignersArgs = {
-  request: AppSignersRequest;
-};
-
-
-export type QueryAppUsersArgs = {
-  request: AppUsersRequest;
-};
-
-
-export type QueryAppsArgs = {
-  request: AppsRequest;
-};
-
-
-export type QueryAuthenticatedSessionsArgs = {
-  request: AuthenticatedSessionsRequest;
-};
-
-
-export type QueryCanCreateUsernameArgs = {
-  request: UsernameInput;
-};
-
-
-export type QueryCreateFrameTypedDataArgs = {
-  request: FrameEip712Request;
-};
-
-
-export type QueryDebugMetadataArgs = {
-  debugMetadataRequest: DebugPostMetadataRequest;
-};
-
-
-export type QueryFeedArgs = {
-  request: FeedRequest;
-};
-
-
-export type QueryFeedsArgs = {
-  request: FeedsRequest;
-};
-
-
-export type QueryFollowStatusArgs = {
-  request: FollowStatusRequest;
-};
-
-
-export type QueryFollowersArgs = {
-  request: FollowersRequest;
-};
-
-
-export type QueryFollowersYouKnowArgs = {
-  request: FollowersYouKnowRequest;
-};
-
-
-export type QueryFollowingArgs = {
-  request: FollowingRequest;
-};
-
-
-export type QueryGetSnsSubscriptionsArgs = {
-  request: GetSnsSubscriptionsRequest;
-};
-
-
-export type QueryGraphArgs = {
-  request: GraphRequest;
-};
-
-
-export type QueryGraphsArgs = {
-  request: GraphsRequest;
-};
-
-
-export type QueryGroupArgs = {
-  request: GroupRequest;
-};
-
-
-export type QueryGroupBannedAccountsArgs = {
-  request: GroupBannedAccountsRequest;
-};
-
-
-export type QueryGroupMembersArgs = {
-  request: GroupMembersRequest;
-};
-
-
-export type QueryGroupMembershipRequestsArgs = {
-  request: GroupMembershipRequestsRequest;
-};
-
-
-export type QueryGroupStatsArgs = {
-  request: GroupStatsRequest;
-};
-
-
-export type QueryGroupsArgs = {
-  request: GroupsRequest;
-};
-
-
-export type QueryLastLoggedInAccountArgs = {
-  request: LastLoggedInAccountRequest;
-};
-
-
-export type QueryMlAccountRecommendationsArgs = {
-  request: MlaccountRecommendationsRequest;
-};
-
-
-export type QueryMlPostsExploreArgs = {
-  request: MlexplorePostsRequest;
-};
-
-
-export type QueryMlPostsForYouArgs = {
-  request: MlpostsForYouRequest;
-};
-
-
-export type QueryNamespaceArgs = {
-  request: NamespaceRequest;
-};
-
-
-export type QueryNamespaceReservedUsernamesArgs = {
-  request: NamespaceReservedUsernamesRequest;
-};
-
-
-export type QueryNamespacesArgs = {
-  request: NamespacesRequest;
-};
-
-
-export type QueryNotificationsArgs = {
-  request: NotificationRequest;
-};
-
-
-export type QueryPostArgs = {
-  request: PostRequest;
-};
-
-
-export type QueryPostActionContractsArgs = {
-  request: PostActionContractsRequest;
-};
-
-
-export type QueryPostBookmarksArgs = {
-  request: PostBookmarksRequest;
-};
-
-
-export type QueryPostEditsArgs = {
-  request: PostEditsRequest;
-};
-
-
-export type QueryPostReactionStatusArgs = {
-  request: PostReactionStatusRequest;
-};
-
-
-export type QueryPostReactionsArgs = {
-  request: PostReactionsRequest;
-};
-
-
-export type QueryPostReferencesArgs = {
-  request: PostReferencesRequest;
-};
-
-
-export type QueryPostTagsArgs = {
-  request: PostTagsRequest;
-};
-
-
-export type QueryPostsArgs = {
-  request: PostsRequest;
-};
-
-
-export type QuerySponsorshipArgs = {
-  request: SponsorshipRequest;
-};
-
-
-export type QuerySponsorshipLimitsExclusionsArgs = {
-  request: SponsorshipLimitExclusionsRequest;
-};
-
-
-export type QuerySponsorshipSignersArgs = {
-  request: SponsorshipSignersRequest;
-};
-
-
-export type QuerySponsorshipsArgs = {
-  request: SponsorshipsRequest;
-};
-
-
-export type QueryTimelineArgs = {
-  request: TimelineRequest;
-};
-
-
-export type QueryTimelineHighlightsArgs = {
-  request: TimelineHighlightsRequest;
-};
-
-
-export type QueryTransactionStatusArgs = {
-  request: TransactionStatusRequest;
-};
-
-
-export type QueryUsernameArgs = {
-  request: UsernameRequest;
-};
-
-
-export type QueryUsernamesArgs = {
-  request: UsernamesRequest;
-};
-
-
-export type QueryVerifyFrameSignatureArgs = {
-  request: FrameVerifySignature;
-};
-
-
-export type QueryWhoExecutedActionOnAccountArgs = {
-  request: WhoExecutedActionOnAccountRequest;
-};
-
-
-export type QueryWhoExecutedActionOnPostArgs = {
-  request: WhoExecutedActionOnPostRequest;
-};
-
-
-export type QueryWhoReferencedPostArgs = {
-  request: WhoReferencedPostRequest;
-};
-
-export type QuoteNotification = {
-  __typename?: 'QuoteNotification';
-  id: Scalars['GeneratedNotificationId']['output'];
-  quote: Post;
-};
-
-export type RawKeyValue = {
-  __typename?: 'RawKeyValue';
-  data: Scalars['BlockchainData']['output'];
-  key: Scalars['BlockchainData']['output'];
-};
-
-export type RawKeyValueInput = {
-  data: Scalars['BlockchainData']['input'];
-  key: Scalars['BlockchainData']['input'];
-};
-
-export type ReactionNotification = {
-  __typename?: 'ReactionNotification';
-  id: Scalars['GeneratedNotificationId']['output'];
-  post: Post;
-  reactions: Array<NotificationAccountPostReaction>;
-};
-
-export type RecipientPercent = {
-  __typename?: 'RecipientPercent';
-  address: Scalars['EvmAddress']['output'];
-  /**
-   * Percentage of the fee that will be sent to the recipient must be a whole number between 0
-   * and 100.
-   */
-  percent: Scalars['Int']['output'];
-};
-
-export type RecipientPercentInput = {
-  address: Scalars['EvmAddress']['input'];
-  /**
-   * Percentage of the fee that will be sent to the recipient must be a whole number between 0
-   * and 100.
-   */
-  percent: Scalars['Int']['input'];
-};
-
-export type RecommendAccount = {
-  /** The account to recommend. */
-  account: Scalars['EvmAddress']['input'];
-};
-
-export type ReferencingPostInput = {
-  /** The post to reference. */
-  post: Scalars['PostId']['input'];
-  /** The processing params for the post rules. */
-  postRulesProcessingParams?: InputMaybe<Array<PostRulesProcessingParams>>;
-};
-
-export type ReferralCut = {
-  address: Scalars['EvmAddress']['input'];
-  percent: Scalars['Int']['input'];
-};
-
-export type RefreshRequest = {
-  refreshToken: Scalars['RefreshToken']['input'];
-};
-
-export type RefreshResult = AuthenticationTokens | ForbiddenError;
-
-export type RejectGroupMembershipRequest = {
-  /** The accounts you want to reject membership request for. */
-  accounts: Array<Scalars['EvmAddress']['input']>;
-  /** The group you want to reject membership request for. */
-  group: Scalars['EvmAddress']['input'];
-};
-
-export type RejectGroupMembershipRequestsResponse = {
-  __typename?: 'RejectGroupMembershipRequestsResponse';
-  hash: Scalars['TxHash']['output'];
-};
-
-export type RejectGroupMembershipResult = RejectGroupMembershipRequestsResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type RemoveAccountManagerRequest = {
-  /** The address to remove as a manager. */
-  manager: Scalars['EvmAddress']['input'];
-};
-
-export type RemoveAccountManagerResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type RemoveAdminsRequest = {
-  /** The graph/app/sponsor/feed/username/group address which manages these admins */
-  address: Scalars['EvmAddress']['input'];
-  /** The addresses to remove as admins */
-  admins: Array<Scalars['EvmAddress']['input']>;
-};
-
-export type RemoveAdminsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type RemoveAppAuthorizationEndpointRequest = {
-  /** The app. */
-  app: Scalars['EvmAddress']['input'];
-};
-
-export type RemoveAppFeedsRequest = {
-  /** The app to update */
-  app: Scalars['EvmAddress']['input'];
-  /** The app feeds (max 10 per request) */
-  feeds: Array<Scalars['EvmAddress']['input']>;
-};
-
-export type RemoveAppFeedsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type RemoveAppGroupsRequest = {
-  /** The app to update */
-  app: Scalars['EvmAddress']['input'];
-  /** The app groups (max 10 per request) */
-  groups: Array<Scalars['EvmAddress']['input']>;
-};
-
-export type RemoveAppGroupsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type RemoveAppSignersRequest = {
-  /** The app to update */
-  app: Scalars['EvmAddress']['input'];
-  /** The app signers (max 10 per request) */
-  signers: Array<Scalars['EvmAddress']['input']>;
-};
-
-export type RemoveAppSignersResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type RemoveGroupMembersRequest = {
-  /** The accounts you want to remove from the group. */
-  accounts: Array<Scalars['EvmAddress']['input']>;
-  /** Ban the account from the joining the group. */
-  ban?: Scalars['Boolean']['input'];
-  /** The group you want to join */
-  group: Scalars['EvmAddress']['input'];
-  /** The processing params for the join rules. */
-  rulesProcessingParams?: InputMaybe<Array<GroupRulesProcessingParams>>;
-};
-
-export type RemoveGroupMembersResponse = {
-  __typename?: 'RemoveGroupMembersResponse';
-  hash: Scalars['TxHash']['output'];
-};
-
-export type RemoveGroupMembersResult = GroupOperationValidationFailed | RemoveGroupMembersResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type RemoveSignlessResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type ReportAccountRequest = {
-  /** The account to report. */
-  account: Scalars['EvmAddress']['input'];
-  /** An optional comment to add to the report. */
-  additionalComment?: InputMaybe<Scalars['String']['input']>;
-  /** The reason for the report. */
-  reason: AccountReportReason;
-  /** An optional list of posts to reference in the report. */
-  referencePosts?: InputMaybe<Array<Scalars['PostId']['input']>>;
-};
-
-export type ReportPostRequest = {
-  additionalComment?: InputMaybe<Scalars['String']['input']>;
-  post: Scalars['PostId']['input'];
-  reason: PostReportReason;
-};
-
-export type Repost = {
-  __typename?: 'Repost';
-  app?: Maybe<App>;
-  author: Account;
-  id: Scalars['PostId']['output'];
-  isDeleted: Scalars['Boolean']['output'];
-  repostOf: Post;
-  slug: Scalars['PostId']['output'];
-  timestamp: Scalars['DateTime']['output'];
-};
-
-export type RepostNotification = {
-  __typename?: 'RepostNotification';
-  id: Scalars['GeneratedNotificationId']['output'];
-  post: Post;
-  reposts: Array<NotificationAccountRepost>;
-};
-
-export type RequestGroupMembershipRequest = {
-  /** The group you want to add member to. */
-  group: Scalars['EvmAddress']['input'];
-};
-
-export type RequestGroupMembershipResponse = {
-  __typename?: 'RequestGroupMembershipResponse';
-  hash: Scalars['TxHash']['output'];
-};
-
-export type RequestGroupMembershipResult = RequestGroupMembershipResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type RevokeAuthenticationRequest = {
-  authenticationId: Scalars['UUID']['input'];
-};
-
-export type RolloverRefreshRequest = {
-  /** The app that new tokens will be issued for. */
-  app: Scalars['EvmAddress']['input'];
-  /** A valid Lens API v2 refresh token for a Profile session. */
-  refreshToken: Scalars['LegacyRefreshToken']['input'];
-};
-
-export enum SelfFundedFallbackReason {
-  CannotSponsor = 'CANNOT_SPONSOR',
-  NotSponsored = 'NOT_SPONSORED'
-}
-
-export type SelfFundedTransactionRequest = {
-  __typename?: 'SelfFundedTransactionRequest';
-  /**
-   * The raw transaction request object.
-   *
-   * Use this object if your library does not have a parser for the encoded transaction data.
-   */
-  raw: Eip1559TransactionRequest;
-  reason: Scalars['String']['output'];
-  selfFundedReason?: Maybe<SelfFundedFallbackReason>;
-};
-
-export type SetAccountMetadataRequest = {
-  /** The metadata URI to set. */
-  metadataUri: Scalars['URI']['input'];
-};
-
-export type SetAccountMetadataResponse = {
-  __typename?: 'SetAccountMetadataResponse';
-  hash: Scalars['TxHash']['output'];
-};
-
-export type SetAccountMetadataResult = SelfFundedTransactionRequest | SetAccountMetadataResponse | SponsoredTransactionRequest | TransactionWillFail;
-
-export type SetAppGraphRequest = {
-  /** The app to update */
-  app: Scalars['EvmAddress']['input'];
-  /** The app graph to set */
-  graph: GraphChoiceOneOf;
-};
-
-export type SetAppGraphResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type SetAppMetadataRequest = {
-  /** The app to update */
-  app: Scalars['EvmAddress']['input'];
-  /** The app metadata to set */
-  metadataUri: Scalars['String']['input'];
-};
-
-export type SetAppMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type SetAppSponsorshipRequest = {
-  /** The app to update */
-  app: Scalars['EvmAddress']['input'];
-  /** The app sponsorship to set */
-  sponsorship: Scalars['EvmAddress']['input'];
-};
-
-export type SetAppSponsorshipResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type SetAppTreasuryRequest = {
-  /** The app to update */
-  app: Scalars['EvmAddress']['input'];
-  /** The app treasury to set */
-  treasury: Scalars['EvmAddress']['input'];
-};
-
-export type SetAppTreasuryResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type SetAppUsernameNamespaceRequest = {
-  /** The app to update */
-  app: Scalars['EvmAddress']['input'];
-  /** The app username namespace to set */
-  usernameNamespace: UsernameNamespaceChoiceOneOf;
-};
-
-export type SetAppUsernameNamespaceResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type SetAppVerificationRequest = {
-  /** The app to update */
-  app: Scalars['EvmAddress']['input'];
-  /** The new verification state */
-  enabled: Scalars['Boolean']['input'];
-};
-
-export type SetAppVerificationResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type SetDefaultAppFeedRequest = {
-  /** The app to update */
-  app: Scalars['EvmAddress']['input'];
-  /** The app default feed to set */
-  feed: FeedChoiceOneOf;
-};
-
-export type SetDefaultAppFeedResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type SetFeedMetadataRequest = {
-  /** The feed to update */
-  feed: Scalars['EvmAddress']['input'];
-  /** The feed metadata to set */
-  metadataUri: Scalars['String']['input'];
-};
-
-export type SetFeedMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type SetGraphMetadataRequest = {
-  /** The graph to update */
-  graph: Scalars['EvmAddress']['input'];
-  /** The graph metadata to set */
-  metadataUri: Scalars['String']['input'];
-};
-
-export type SetGraphMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type SetGroupMetadataRequest = {
-  /** The group to update */
-  group: Scalars['EvmAddress']['input'];
-  /** The group metadata to set */
-  metadataUri: Scalars['String']['input'];
-};
-
-export type SetGroupMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type SetNamespaceMetadataRequest = {
-  /** The namespace metadata to set */
-  metadataUri: Scalars['String']['input'];
-  /** The namespace to update */
-  namespace: Scalars['EvmAddress']['input'];
-};
-
-export type SetNamespaceMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type SetSponsorshipMetadataRequest = {
-  /** The sponsorship metadata to set */
-  metadataUri: Scalars['URI']['input'];
-  /** The sponsorship to update */
-  sponsorship: Scalars['EvmAddress']['input'];
-};
-
-export type SetSponsorshipMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
-
-export type SignedAuthChallenge = {
-  id: Scalars['UUID']['input'];
-  signature: Scalars['Signature']['input'];
-};
-
-export type SimpleCollectAction = {
-  __typename?: 'SimpleCollectAction';
-  address: Scalars['EvmAddress']['output'];
-  amount?: Maybe<Erc20Amount>;
-  collectLimit?: Maybe<Scalars['Int']['output']>;
-  collectNftAddress: Scalars['EvmAddress']['output'];
-  endsAt?: Maybe<Scalars['DateTime']['output']>;
-  followerOnGraph?: Maybe<FollowerOn>;
-  isImmutable: Scalars['Boolean']['output'];
-  recipients?: Maybe<Array<RecipientPercent>>;
-  referralShare?: Maybe<Scalars['Int']['output']>;
-};
-
-export type SimpleCollectActionConfigInput = {
-  amount?: InputMaybe<AmountInput>;
-  collectLimit?: InputMaybe<Scalars['Int']['input']>;
-  endsAt?: InputMaybe<Scalars['DateTime']['input']>;
-  followerOnGraph?: InputMaybe<FollowerOnInput>;
-  isImmutable?: Scalars['Boolean']['input'];
-  recipients?: InputMaybe<Array<RecipientPercentInput>>;
-  referralShare?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type SimpleCollectActionContract = {
-  __typename?: 'SimpleCollectActionContract';
-  address: Scalars['EvmAddress']['output'];
-};
-
-export type SimpleCollectExecuteInput = {
-  referrals?: InputMaybe<Array<ReferralCut>>;
-  selected: Scalars['AlwaysTrue']['input'];
-};
-
-export type SimpleCollectValidationFailed = {
-  __typename?: 'SimpleCollectValidationFailed';
-  reason: Scalars['String']['output'];
-  reasonType: SimpleCollectValidationFailedReason;
-};
-
-export enum SimpleCollectValidationFailedReason {
-  EndDateReached = 'END_DATE_REACHED',
-  LimitReached = 'LIMIT_REACHED',
-  NotAFollower = 'NOT_A_FOLLOWER',
-  NotEnabled = 'NOT_ENABLED',
-  NotEnoughBalance = 'NOT_ENOUGH_BALANCE'
-}
-
-export type SimpleCollectValidationOutcome = SimpleCollectValidationFailed | SimpleCollectValidationPassed;
-
-export type SimpleCollectValidationPassed = {
-  __typename?: 'SimpleCollectValidationPassed';
-  passed: Scalars['AlwaysTrue']['output'];
-};
-
-export type SimplePaymentFeedRuleConfig = {
-  cost: AmountInput;
-  recipient: Scalars['EvmAddress']['input'];
-};
-
-export type SimplePaymentFollowRuleConfig = {
-  cost: AmountInput;
-  recipient: Scalars['EvmAddress']['input'];
-};
-
-export type SimplePaymentGroupRuleConfig = {
-  cost: AmountInput;
-  recipient: Scalars['EvmAddress']['input'];
-};
-
-export enum SnsNotificationType {
-  AccountBlocked = 'ACCOUNT_BLOCKED',
-  AccountContentConsumed = 'ACCOUNT_CONTENT_CONSUMED',
-  AccountCreated = 'ACCOUNT_CREATED',
-  AccountFollowed = 'ACCOUNT_FOLLOWED',
-  AccountFollowRulesUpdated = 'ACCOUNT_FOLLOW_RULES_UPDATED',
-  AccountManagerAdded = 'ACCOUNT_MANAGER_ADDED',
-  AccountManagerRemoved = 'ACCOUNT_MANAGER_REMOVED',
-  AccountManagerUpdated = 'ACCOUNT_MANAGER_UPDATED',
-  AccountMentioned = 'ACCOUNT_MENTIONED',
-  AccountMetadataUpdated = 'ACCOUNT_METADATA_UPDATED',
-  AccountOwnershipTransferred = 'ACCOUNT_OWNERSHIP_TRANSFERRED',
-  AccountReported = 'ACCOUNT_REPORTED',
-  AccountUnblocked = 'ACCOUNT_UNBLOCKED',
-  AccountUnfollowed = 'ACCOUNT_UNFOLLOWED',
-  AccountUsernameAssigned = 'ACCOUNT_USERNAME_ASSIGNED',
-  AccountUsernameCreated = 'ACCOUNT_USERNAME_CREATED',
-  AccountUsernameUnassigned = 'ACCOUNT_USERNAME_UNASSIGNED',
-  CommentCreated = 'COMMENT_CREATED',
-  MediaSnapshotError = 'MEDIA_SNAPSHOT_ERROR',
-  MediaSnapshotSuccess = 'MEDIA_SNAPSHOT_SUCCESS',
-  MetadataSnapshotError = 'METADATA_SNAPSHOT_ERROR',
-  MetadataSnapshotSuccess = 'METADATA_SNAPSHOT_SUCCESS',
-  MlProfileSignal = 'MlProfileSignal',
-  PostActionCompleted = 'POST_ACTION_COMPLETED',
-  PostCollected = 'POST_COLLECTED',
-  PostCreated = 'POST_CREATED',
-  PostDeleted = 'POST_DELETED',
-  PostEdited = 'POST_EDITED',
-  PostReactionAdded = 'POST_REACTION_ADDED',
-  PostReactionRemoved = 'POST_REACTION_REMOVED',
-  PostReported = 'POST_REPORTED',
-  QuoteCreated = 'QUOTE_CREATED',
-  RepostCreated = 'REPOST_CREATED'
-}
-
-export type SnsSubscription = {
-  __typename?: 'SnsSubscription';
-  account: Scalars['EvmAddress']['output'];
-  app?: Maybe<Scalars['EvmAddress']['output']>;
-  filter: Scalars['JSON']['output'];
-  id: Scalars['UUID']['output'];
-  topic: SnsNotificationType;
-  topicArn: Scalars['String']['output'];
-  webhook: Scalars['URL']['output'];
-};
-
-export type SnsTopicInput = {
-  accountBlocked?: InputMaybe<AccountBlockedNotificationAttributes>;
-  accountCreated?: InputMaybe<AccountCreatedNotificationAttributes>;
-  accountFollowed?: InputMaybe<AccountFollowedNotificationAttributes>;
-  accountManagerAdded?: InputMaybe<AccountManagerAddedNotificationAttributes>;
-  accountManagerRemoved?: InputMaybe<AccountManagerRemovedNotificationAttributes>;
-  accountManagerUpdated?: InputMaybe<AccountManagerUpdatedNotificationAttributes>;
-  accountMentioned?: InputMaybe<AccountMentionedNotificationAttributes>;
-  accountOwnershipTransferred?: InputMaybe<AccountOwnershipTransferredNotificationAttributes>;
-  accountReported?: InputMaybe<AccountReportedNotificationAttributes>;
-  accountUnblocked?: InputMaybe<AccountUnblockedNotificationAttributes>;
-  accountUnfollowed?: InputMaybe<AccountUnfollowedNotificationAttributes>;
-  accountUsernameAssigned?: InputMaybe<AccountUsernameAssignedNotificationAttributes>;
-  accountUsernameCreated?: InputMaybe<AccountUsernameCreatedNotificationAttributes>;
-  accountUsernameUnassigned?: InputMaybe<AccountUsernameUnassignedNotificationAttributes>;
-  commentCreated?: InputMaybe<PostCreatedNotificationAttributes>;
-  mediaSnapshotError?: InputMaybe<MediaSnapshotNotificationAttributes>;
-  mediaSnapshotSuccess?: InputMaybe<MediaSnapshotNotificationAttributes>;
-  metadataSnapshotError?: InputMaybe<MetadataSnapshotNotificationAttributes>;
-  metadataSnapshotSuccess?: InputMaybe<MetadataSnapshotNotificationAttributes>;
-  postCreated?: InputMaybe<PostCreatedNotificationAttributes>;
-  postDeleted?: InputMaybe<PostDeletedNotificationAttributes>;
-  postEdited?: InputMaybe<PostEditedNotificationAttributes>;
-  postReactionAdded?: InputMaybe<PostReactionAddedNotificationAttributes>;
-  postReactionRemoved?: InputMaybe<PostReactionRemovedNotificationAttributes>;
-  postReported?: InputMaybe<PostReportedNotificationAttributes>;
-  quoteCreated?: InputMaybe<PostCreatedNotificationAttributes>;
-  repostCreated?: InputMaybe<PostCreatedNotificationAttributes>;
-};
-
-export type SpaceMetadata = {
-  __typename?: 'SpaceMetadata';
-  /** The other attachments you want to include with it. */
-  attachments: Array<AnyMedia>;
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard. Over time, common attributes will be added to the standard and
-   * their usage as arbitrary attributes will be discouraged.
-   */
-  attributes: Array<MetadataAttribute>;
-  content: Scalars['String']['output'];
-  /** Specify a content warning. */
-  contentWarning?: Maybe<ContentWarning>;
-  id: Scalars['MetadataId']['output'];
-  /** The space join link. */
-  link: Scalars['URI']['output'];
-  locale: Scalars['Locale']['output'];
-  /** The main focus of the post. */
-  mainContentFocus: MainContentFocus;
-  /** The space start time (ISO 8601 `YYYY-MM-DDTHH:mm:ss.sssZ`). */
-  startsAt: Scalars['DateTime']['output'];
-  /** An arbitrary list of tags. */
-  tags?: Maybe<Array<Scalars['Tag']['output']>>;
-  /** The space title. */
-  title: Scalars['String']['output'];
-};
-
-export enum SponsoredFallbackReason {
-  InvolvesFunds = 'INVOLVES_FUNDS',
-  SignlessDisabled = 'SIGNLESS_DISABLED',
-  SignlessFailed = 'SIGNLESS_FAILED'
-}
-
-export type SponsoredTransactionRequest = {
-  __typename?: 'SponsoredTransactionRequest';
-  /**
-   * The raw transaction request object.
-   *
-   * Use this object if your library does not have a parser for the encoded transaction data.
-   */
-  raw: Eip712TransactionRequest;
-  reason: Scalars['String']['output'];
-  sponsoredReason?: Maybe<SponsoredFallbackReason>;
-};
-
-export type Sponsorship = {
-  __typename?: 'Sponsorship';
-  address: Scalars['EvmAddress']['output'];
-  /**
-   * Indicates whether the Lens API is authorized as the sponsorship signer
-   * to sponsor end-user social operations (e.g., posts, comments, follows)
-   * performed through the Lens API for apps associated with this sponsorship.
-   */
-  allowsLensAccess: Scalars['Boolean']['output'];
-  /**
-   * The native token balance of the sponsorship contract.
-   *
-   * This value is cached for up to 2 minutes for each sponsorship contract.
-   */
-  balance?: Maybe<Scalars['BigDecimal']['output']>;
-  createdAt: Scalars['DateTime']['output'];
-  isPaused: Scalars['Boolean']['output'];
-  limits?: Maybe<SponsorshipLimits>;
-  metadata?: Maybe<SponsorshipMetadata>;
-  owner: Scalars['EvmAddress']['output'];
-};
-
-export type SponsorshipAllowance = {
-  __typename?: 'SponsorshipAllowance';
-  /** The total sponsorship allowance. */
-  allowance: Scalars['Int']['output'];
-  /** The number of remaining sponsorship allowance. */
-  allowanceLeft: Scalars['Int']['output'];
-  /** The number of sponsorship allowance used. */
-  allowanceUsed: Scalars['Int']['output'];
-  /** The sponsorship window type. */
-  window: SponsorshipRateLimitWindow;
-};
-
-export type SponsorshipLimitExclusionsFilter = {
-  /** The sponsorship address. */
-  sponsorship: Scalars['EvmAddress']['input'];
-};
-
-export enum SponsorshipLimitExclusionsOrderBy {
-  Alphabetical = 'ALPHABETICAL',
-  LatestFirst = 'LATEST_FIRST',
-  OldestFirst = 'OLDEST_FIRST'
-}
-
-export type SponsorshipLimitExclusionsRequest = {
-  /** The cursor. */
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The filter options. */
-  filter: SponsorshipLimitExclusionsFilter;
-  /** The order by criteria. */
-  orderBy?: SponsorshipLimitExclusionsOrderBy;
-  /** The page size. */
-  pageSize?: PageSize;
-};
-
-export type SponsorshipLimits = {
-  __typename?: 'SponsorshipLimits';
-  global?: Maybe<SponsorshipRateLimit>;
-  user?: Maybe<SponsorshipRateLimit>;
-};
-
-export type SponsorshipLimitsExclusionsResult = {
-  __typename?: 'SponsorshipLimitsExclusionsResult';
-  items: Array<SponsorshipLimitsExempt>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type SponsorshipLimitsExempt = {
-  __typename?: 'SponsorshipLimitsExempt';
-  address: Scalars['EvmAddress']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  label: Scalars['String']['output'];
-  sponsorship: Scalars['EvmAddress']['output'];
-};
-
-export type SponsorshipMetadata = {
-  __typename?: 'SponsorshipMetadata';
-  /** An optional description of the Username collection. */
-  description?: Maybe<Scalars['String']['output']>;
-  /**
-   * A unique identifier that in storages like IPFS ensures the uniqueness of the metadata URI.
-   * Use a UUID if unsure.
-   */
-  id: Scalars['String']['output'];
-  /** The name of the Sponsorship. */
-  name: Scalars['String']['output'];
-};
-
-export type SponsorshipRateLimit = {
-  __typename?: 'SponsorshipRateLimit';
-  limit: Scalars['Int']['output'];
-  window: SponsorshipRateLimitWindow;
-};
-
-export type SponsorshipRateLimitInput = {
-  /** The limit value. */
-  limit: Scalars['Int']['input'];
-  /** The limit time window. */
-  window: SponsorshipRateLimitWindow;
-};
-
-export enum SponsorshipRateLimitWindow {
-  Day = 'DAY',
-  Hour = 'HOUR',
-  Month = 'MONTH',
-  Week = 'WEEK'
-}
-
-export type SponsorshipRateLimitsExempt = {
-  /** The exempt address. */
-  address: Scalars['EvmAddress']['input'];
-  /** The human-readable label for the exempt address. */
-  label: Scalars['String']['input'];
-};
-
-export type SponsorshipRateLimitsInput = {
-  /** The global rate limit. */
-  global?: InputMaybe<SponsorshipRateLimitInput>;
-  /** The user rate limit. */
-  user?: InputMaybe<SponsorshipRateLimitInput>;
-};
-
-export type SponsorshipRequest = {
-  /** The Sponsorship address. */
-  address?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /** The transaction hash you created the Sponsorship with. */
-  txHash?: InputMaybe<Scalars['TxHash']['input']>;
-};
-
-export type SponsorshipSigner = {
-  __typename?: 'SponsorshipSigner';
-  address: Scalars['EvmAddress']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  label: Scalars['String']['output'];
-  sponsorship: Scalars['EvmAddress']['output'];
-};
-
-export type SponsorshipSignerInput = {
-  /** The signer address */
-  address: Scalars['EvmAddress']['input'];
-  /** The human-readable label for the signer */
-  label: Scalars['String']['input'];
-};
-
-export type SponsorshipSignersFilter = {
-  /** The sponsorship address. */
-  sponsorship: Scalars['EvmAddress']['input'];
-};
-
-export enum SponsorshipSignersOrderBy {
-  Alphabetical = 'ALPHABETICAL',
-  LatestFirst = 'LATEST_FIRST',
-  OldestFirst = 'OLDEST_FIRST'
-}
-
-export type SponsorshipSignersRequest = {
-  /** The cursor. */
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The filter options. */
-  filter: SponsorshipSignersFilter;
-  /** The order by criteria. */
-  orderBy?: SponsorshipSignersOrderBy;
-  /** The page size. */
-  pageSize?: PageSize;
-};
-
-export type SponsorshipSignersResult = {
-  __typename?: 'SponsorshipSignersResult';
-  items: Array<SponsorshipSigner>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type SponsorshipsFilter = {
-  /** The filter to get Sponsorships managed by address */
-  managedBy: ManagedBy;
-};
-
-export enum SponsorshipsOrderBy {
-  Alphabetical = 'ALPHABETICAL',
-  LatestFirst = 'LATEST_FIRST',
-  OldestFirst = 'OLDEST_FIRST'
-}
-
-export type SponsorshipsRequest = {
-  /** The cursor. */
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The filter options. */
-  filter: SponsorshipsFilter;
-  /** The order by criteria. */
-  orderBy?: SponsorshipsOrderBy;
-  /** The page size. */
-  pageSize?: PageSize;
-};
-
-export type SponsorshipsResult = {
-  __typename?: 'SponsorshipsResult';
-  items: Array<Sponsorship>;
-  pageInfo: PaginatedResultInfo;
-};
-
-export type StatsReactionRequest = {
-  type: PostReactionType;
-};
-
-export type StoryMetadata = {
-  __typename?: 'StoryMetadata';
-  /** The story asset. */
-  asset: AnyMedia;
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard. Over time, common attributes will be added to the standard and
-   * their usage as arbitrary attributes will be discouraged.
-   */
-  attributes: Array<MetadataAttribute>;
-  content: Scalars['String']['output'];
-  /** Specify a content warning. */
-  contentWarning?: Maybe<ContentWarning>;
-  id: Scalars['MetadataId']['output'];
-  locale: Scalars['Locale']['output'];
-  /** The main focus of the post. */
-  mainContentFocus: MainContentFocus;
-  /** An arbitrary list of tags. */
-  tags?: Maybe<Array<Scalars['Tag']['output']>>;
-};
-
-export type StringKeyValue = {
-  __typename?: 'StringKeyValue';
-  key: Scalars['String']['output'];
-  string: Scalars['String']['output'];
-};
-
-export type SubOperationStatus = {
-  __typename?: 'SubOperationStatus';
-  operation: TransactionOperation;
-  status: IndexingStatus;
-};
-
-export type SwitchAccountRequest = {
-  account: Scalars['EvmAddress']['input'];
-};
-
-export type SwitchAccountResult = AuthenticationTokens | ForbiddenError;
-
-export type TextOnlyMetadata = {
-  __typename?: 'TextOnlyMetadata';
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard. Over time, common attributes will be added to the standard and
-   * their usage as arbitrary attributes will be discouraged.
-   */
-  attributes: Array<MetadataAttribute>;
-  content: Scalars['String']['output'];
-  /** Specify a content warning. */
-  contentWarning?: Maybe<ContentWarning>;
-  id: Scalars['MetadataId']['output'];
-  locale: Scalars['Locale']['output'];
-  /** The main focus of the post. */
-  mainContentFocus: MainContentFocus;
-  /** An arbitrary list of tags. */
-  tags?: Maybe<Array<Scalars['Tag']['output']>>;
-};
-
-export type ThreeDAsset = {
-  __typename?: 'ThreeDAsset';
-  /** The 3D format of the asset. */
-  format: ThreeDAssetFormat;
-  /** The license regulating the use of the 3D asset. */
-  license?: Maybe<MetadataLicenseType>;
-  /** The URL of the recommended web based 3D player to use to view the 3D asset. */
-  playerUrl: Scalars['URI']['output'];
-  /** The URI of the 3D asset zip file. */
-  uri: Scalars['URI']['output'];
-  /** Path in extracted zip. Relative. 3D start point, MUST be 3D file type. */
-  zipPath?: Maybe<Scalars['String']['output']>;
-};
-
-export enum ThreeDAssetFormat {
-  Fbx = 'FBX',
-  GLtfGlb = 'G_LTF_GLB',
-  Obj = 'OBJ',
-  Vrm = 'VRM'
-}
-
-export type ThreeDMetadata = {
-  __typename?: 'ThreeDMetadata';
-  /** The 3D items for the post */
-  assets: Array<ThreeDAsset>;
-  /** The other attachments you want to include with it. */
-  attachments: Array<AnyMedia>;
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard. Over time, common attributes will be added to the standard and
-   * their usage as arbitrary attributes will be discouraged.
-   */
-  attributes: Array<MetadataAttribute>;
-  content: Scalars['String']['output'];
-  /** Specify a content warning. */
-  contentWarning?: Maybe<ContentWarning>;
-  id: Scalars['MetadataId']['output'];
-  locale: Scalars['Locale']['output'];
-  /** The main focus of the post. */
-  mainContentFocus: MainContentFocus;
-  /** An arbitrary list of tags. */
-  tags?: Maybe<Array<Scalars['Tag']['output']>>;
-};
-
-export enum TimelineEventItemType {
-  Comment = 'COMMENT',
-  Post = 'POST',
-  Quote = 'QUOTE',
-  Repost = 'REPOST'
-}
-
-export type TimelineFilter = {
-  /** The apps to filter by. */
-  apps?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
-  /** The post event types to filter by. */
-  eventType?: InputMaybe<Array<TimelineEventItemType>>;
-  /** The feeds to filter by. */
-  feeds?: InputMaybe<Array<FeedOneOf>>;
-  /** The optional metadata filter. */
-  metadata?: InputMaybe<PostMetadataFilter>;
-};
-
-export type TimelineHighlightsFilter = {
-  /** The apps to filter by. */
-  apps?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
-  /** The feeds to filter by. */
-  feeds?: InputMaybe<Array<FeedOneOf>>;
-  metadata?: InputMaybe<PostMetadataFilter>;
-};
-
-export type TimelineHighlightsRequest = {
-  /** The account to get timeline highlights for. */
-  account: Scalars['EvmAddress']['input'];
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** An optional filter to apply to the timeline. */
-  filter?: InputMaybe<TimelineHighlightsFilter>;
-  pageSize?: PageSize;
-};
-
-export type TimelineItem = {
-  __typename?: 'TimelineItem';
-  comments: Array<Post>;
-  id: Scalars['UUID']['output'];
-  primary: Post;
-  reposts: Array<Repost>;
-};
-
-export type TimelineRequest = {
-  /** The account to get timeline for. */
-  account: Scalars['EvmAddress']['input'];
-  /** The cursor. */
-  cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** An optional filter to apply to the timeline. */
-  filter?: InputMaybe<TimelineFilter>;
-};
-
 export type TippingAccountAction = {
   __typename?: 'TippingAccountAction';
   address: Scalars['EvmAddress']['output'];
 };
 
-export type TippingPostAction = {
-  __typename?: 'TippingPostAction';
-  address: Scalars['EvmAddress']['output'];
+export type TippingAccountActionExecuted = {
+  __typename?: 'TippingAccountActionExecuted';
+  amount: Erc20Amount;
+  executedAt: Scalars['DateTime']['output'];
+  executedBy: Account;
 };
 
 export type TippingPostActionContract = {
   __typename?: 'TippingPostActionContract';
   address: Scalars['EvmAddress']['output'];
+};
+
+export type TippingPostActionExecuted = {
+  __typename?: 'TippingPostActionExecuted';
+  amount: Erc20Amount;
+  executedAt: Scalars['DateTime']['output'];
+  executedBy: Account;
 };
 
 export type TokenAmountInput = {
@@ -7499,12 +7842,17 @@ export enum TransactionOperation {
   AccountActionEnabled = 'ACCOUNT_ACTION_ENABLED',
   AccountActionExecuted = 'ACCOUNT_ACTION_EXECUTED',
   AccountActionReconfigured = 'ACCOUNT_ACTION_RECONFIGURED',
+  AccountBlocked = 'ACCOUNT_BLOCKED',
+  AccountExtraDataAdded = 'ACCOUNT_EXTRA_DATA_ADDED',
+  AccountExtraDataRemoved = 'ACCOUNT_EXTRA_DATA_REMOVED',
+  AccountExtraDataUpdated = 'ACCOUNT_EXTRA_DATA_UPDATED',
   AccountFactoryDeployment = 'ACCOUNT_FACTORY_DEPLOYMENT',
   AccountManagerAdded = 'ACCOUNT_MANAGER_ADDED',
   AccountManagerRemoved = 'ACCOUNT_MANAGER_REMOVED',
   AccountManagerUpdated = 'ACCOUNT_MANAGER_UPDATED',
   AccountMetadataUriSet = 'ACCOUNT_METADATA_URI_SET',
   AccountOwnerTransferred = 'ACCOUNT_OWNER_TRANSFERRED',
+  AccountUnblocked = 'ACCOUNT_UNBLOCKED',
   ActionMetadataUriSet = 'ACTION_METADATA_URI_SET',
   AppAccessControlAdded = 'APP_ACCESS_CONTROL_ADDED',
   AppAccessControlUpdated = 'APP_ACCESS_CONTROL_UPDATED',
@@ -7587,7 +7935,11 @@ export enum TransactionOperation {
   GroupRuleReconfigured = 'GROUP_RULE_RECONFIGURED',
   GroupRuleSelectorDisabled = 'GROUP_RULE_SELECTOR_DISABLED',
   GroupRuleSelectorEnabled = 'GROUP_RULE_SELECTOR_ENABLED',
+  NamespaceExtraDataAdded = 'NAMESPACE_EXTRA_DATA_ADDED',
+  NamespaceExtraDataRemoved = 'NAMESPACE_EXTRA_DATA_REMOVED',
+  NamespaceExtraDataUpdated = 'NAMESPACE_EXTRA_DATA_UPDATED',
   NamespaceFactoryDeployment = 'NAMESPACE_FACTORY_DEPLOYMENT',
+  NamespaceMetadataUriSet = 'NAMESPACE_METADATA_URI_SET',
   PostActionConfigured = 'POST_ACTION_CONFIGURED',
   PostActionDisabled = 'POST_ACTION_DISABLED',
   PostActionEnabled = 'POST_ACTION_ENABLED',
@@ -7607,9 +7959,6 @@ export enum TransactionOperation {
   SponsorshipSignerAdded = 'SPONSORSHIP_SIGNER_ADDED',
   SponsorshipSignerRemoved = 'SPONSORSHIP_SIGNER_REMOVED',
   SponsorshipUnpaused = 'SPONSORSHIP_UNPAUSED',
-  SponsorAddedToApprovedSigners = 'SPONSOR_ADDED_TO_APPROVED_SIGNERS',
-  SponsorFreePaymasterCreated = 'SPONSOR_FREE_PAYMASTER_CREATED',
-  SponsorMetadataUriChanged = 'SPONSOR_METADATA_URI_CHANGED',
   UsernameAccessControlAdded = 'USERNAME_ACCESS_CONTROL_ADDED',
   UsernameAccessControlUpdated = 'USERNAME_ACCESS_CONTROL_UPDATED',
   UsernameAssigned = 'USERNAME_ASSIGNED',
@@ -7617,7 +7966,6 @@ export enum TransactionOperation {
   UsernameExtraDataAdded = 'USERNAME_EXTRA_DATA_ADDED',
   UsernameExtraDataRemoved = 'USERNAME_EXTRA_DATA_REMOVED',
   UsernameExtraDataUpdated = 'USERNAME_EXTRA_DATA_UPDATED',
-  UsernameMetadataUriSet = 'USERNAME_METADATA_URI_SET',
   UsernameReleased = 'USERNAME_RELEASED',
   UsernameRemoved = 'USERNAME_REMOVED',
   UsernameReserved = 'USERNAME_RESERVED',
@@ -7683,28 +8031,12 @@ export type UnbanGroupAccountsResponse = {
 
 export type UnbanGroupAccountsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail | UnbanGroupAccountsResponse;
 
-export type UnblockError = {
-  __typename?: 'UnblockError';
-  error: UnblockErrorType;
-};
-
-export enum UnblockErrorType {
-  NotBlocked = 'NOT_BLOCKED',
-  Unauthorized = 'UNAUTHORIZED',
-  Unknown = 'UNKNOWN'
-}
-
 export type UnblockRequest = {
   /** The account to unblock. */
   account: Scalars['EvmAddress']['input'];
 };
 
-export type UnblockResponse = {
-  __typename?: 'UnblockResponse';
-  hash: Scalars['TxHash']['output'];
-};
-
-export type UnblockResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | UnblockError | UnblockResponse;
+export type UnblockResult = AccountUnblockedResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type UndoReactionFailure = {
   __typename?: 'UndoReactionFailure';
@@ -7746,6 +8078,21 @@ export type UnhideReplyRequest = {
   post: Scalars['PostId']['input'];
 };
 
+export type UnknownAccountAction = {
+  __typename?: 'UnknownAccountAction';
+  address: Scalars['EvmAddress']['output'];
+  config: Array<RawKeyValue>;
+  metadata?: Maybe<ActionMetadata>;
+};
+
+export type UnknownAccountActionExecuted = {
+  __typename?: 'UnknownAccountActionExecuted';
+  action: UnknownAccountAction;
+  executedAt: Scalars['DateTime']['output'];
+  executedBy: Account;
+  params: Array<RawKeyValue>;
+};
+
 export type UnknownAccountRuleConfig = {
   /** The rule contract address. */
   address: Scalars['EvmAddress']['input'];
@@ -7753,25 +8100,18 @@ export type UnknownAccountRuleConfig = {
   params?: InputMaybe<Array<AnyKeyValueInput>>;
 };
 
-export type UnknownAction = {
-  __typename?: 'UnknownAction';
-  address: Scalars['EvmAddress']['output'];
-  config: Array<RawKeyValue>;
-  metadata?: Maybe<ActionMetadata>;
-};
-
 export type UnknownActionConfigInput = {
   /** The unknown action's contract address */
   address: Scalars['EvmAddress']['input'];
   /** Optional action configuration params */
-  params: Array<AnyKeyValueInput>;
+  params?: Array<AnyKeyValueInput>;
 };
 
 export type UnknownActionExecuteInput = {
   /** The unknown action's contract address */
   address: Scalars['EvmAddress']['input'];
   /** Optional action execution params */
-  params: Array<RawKeyValueInput>;
+  params?: Array<RawKeyValueInput>;
 };
 
 export type UnknownFeedRuleConfig = {
@@ -7806,10 +8146,30 @@ export type UnknownNamespaceRuleConfig = {
   params?: InputMaybe<Array<AnyKeyValueInput>>;
 };
 
+export type UnknownPostAction = {
+  __typename?: 'UnknownPostAction';
+  address: Scalars['EvmAddress']['output'];
+  config: Array<RawKeyValue>;
+  metadata?: Maybe<ActionMetadata>;
+};
+
 export type UnknownPostActionContract = {
   __typename?: 'UnknownPostActionContract';
   address: Scalars['EvmAddress']['output'];
   metadata?: Maybe<ActionMetadata>;
+};
+
+export type UnknownPostActionExecuted = {
+  __typename?: 'UnknownPostActionExecuted';
+  action: UnknownPostAction;
+  executedAt: Scalars['DateTime']['output'];
+  executedBy: Account;
+  params: Array<RawKeyValue>;
+};
+
+export type UnknownPostMetadata = {
+  __typename?: 'UnknownPostMetadata';
+  raw: Scalars['JsonString']['output'];
 };
 
 export type UnknownPostRuleConfig = {
@@ -7826,6 +8186,12 @@ export type UnknownRuleProcessingParams = {
   /** The rule processing params */
   params?: InputMaybe<Array<AnyKeyValueInput>>;
 };
+
+export type UnwrapTokensRequest = {
+  amount: Scalars['BigDecimal']['input'];
+};
+
+export type UnwrapTokensResult = InsufficientFunds | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type UpdateAccountFollowRulesRequest = {
   /** The graph to update account follow rules for. */
@@ -7861,7 +8227,12 @@ export type UpdateFeedRulesRequest = {
   toRemove?: Array<Scalars['RuleId']['input']>;
 };
 
-export type UpdateFeedRulesResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+export type UpdateFeedRulesResponse = {
+  __typename?: 'UpdateFeedRulesResponse';
+  hash: Scalars['TxHash']['output'];
+};
+
+export type UpdateFeedRulesResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail | UpdateFeedRulesResponse;
 
 export type UpdateGraphRulesRequest = {
   /** The graph to update rules for */
@@ -7883,7 +8254,12 @@ export type UpdateGroupRulesRequest = {
   toRemove?: Array<Scalars['RuleId']['input']>;
 };
 
-export type UpdateGroupRulesResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+export type UpdateGroupRulesResponse = {
+  __typename?: 'UpdateGroupRulesResponse';
+  hash: Scalars['TxHash']['output'];
+};
+
+export type UpdateGroupRulesResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail | UpdateGroupRulesResponse;
 
 export type UpdateNamespaceRulesRequest = {
   /** The namespace to update rules for */
@@ -7998,6 +8374,7 @@ export type UsernameNamespace = {
   __typename?: 'UsernameNamespace';
   /** The address of the namespace. */
   address: Scalars['EvmAddress']['output'];
+  collectionMetadata?: Maybe<UsernameNamespaceMetadataStandard>;
   createdAt: Scalars['DateTime']['output'];
   metadata?: Maybe<UsernameNamespaceMetadata>;
   /** The namespace for example `lens` */
@@ -8025,6 +8402,39 @@ export type UsernameNamespaceMetadata = {
   id: Scalars['String']['output'];
 };
 
+export type UsernameNamespaceMetadataStandard = {
+  __typename?: 'UsernameNamespaceMetadataStandard';
+  /**
+   * A URI pointing to a resource with mime type image/* that represents the contract, displayed
+   * as a banner image for the contract.
+   */
+  bannerImage?: Maybe<Scalars['URI']['output']>;
+  /**
+   * An array of Ethereum addresses representing collaborators (authorized editors) of the
+   * contract.
+   */
+  collaborators: Array<Scalars['EvmAddress']['output']>;
+  /** The description of the contract. */
+  description?: Maybe<Scalars['String']['output']>;
+  /** The external link of the contract. */
+  externalLink?: Maybe<Scalars['URI']['output']>;
+  /**
+   * A URI pointing to a resource with mime type image/* that represents the featured image for
+   * the contract, typically used for a highlight section.
+   */
+  featuredImage?: Maybe<Scalars['URI']['output']>;
+  /**
+   * A URI pointing to a resource with mime type image/* that represents the contract, typically
+   * displayed as a profile picture for the contract.
+   */
+  image?: Maybe<Scalars['URI']['output']>;
+  /** The name of the contract. */
+  name: Scalars['String']['output'];
+  schema: Scalars['String']['output'];
+  /** The symbol of the contract. */
+  symbol?: Maybe<Scalars['String']['output']>;
+};
+
 export type UsernameNamespaceStats = {
   __typename?: 'UsernameNamespaceStats';
   totalUsernames: Scalars['Int']['output'];
@@ -8049,10 +8459,6 @@ export type UsernameReserved = {
   localName: Scalars['String']['output'];
   namespace: Scalars['EvmAddress']['output'];
   ruleId: Scalars['RuleId']['output'];
-};
-
-export type UsernameReservedNamespaceRuleConfig = {
-  reserved?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 export type UsernameSearchInput = {
@@ -8187,6 +8593,23 @@ export type WhoReferencedPostRequest = {
   /** The types of references to get. */
   referenceTypes: Array<PostReferenceType>;
 };
+
+export type WidthBasedTransform = {
+  width: Scalars['Int']['input'];
+};
+
+export type WithdrawRequest = {
+  erc20?: InputMaybe<AmountInput>;
+  native?: InputMaybe<Scalars['BigDecimal']['input']>;
+};
+
+export type WithdrawResult = InsufficientFunds | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+
+export type WrapTokensRequest = {
+  amount: Scalars['BigDecimal']['input'];
+};
+
+export type WrapTokensResult = InsufficientFunds | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 /** The signature was not signed by the expected signer. */
 export type WrongSignerError = {
@@ -8327,12 +8750,17 @@ export type RepostNotificationFieldsFragment = { __typename: 'RepostNotification
       & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
     ) }> } & { ' $fragmentName'?: 'RepostNotificationFieldsFragment' };
 
-export type SimpleCollectActionFieldsFragment = { __typename?: 'SimpleCollectAction', address: any, referralShare?: number | null, collectLimit?: number | null, isImmutable: boolean, endsAt?: any | null, recipients?: Array<{ __typename?: 'RecipientPercent', address: any, percent: number }> | null, amount?: (
+export type PayToCollectConfigFieldsFragment = { __typename?: 'PayToCollectConfig', referralShare?: number | null, recipients: Array<{ __typename?: 'RecipientPercent', address: any, percent: number }>, amount: (
     { __typename?: 'Erc20Amount' }
     & { ' $fragmentRefs'?: { 'Erc20AmountFieldsFragment': Erc20AmountFieldsFragment } }
+  ) } & { ' $fragmentName'?: 'PayToCollectConfigFieldsFragment' };
+
+export type SimpleCollectActionFieldsFragment = { __typename?: 'SimpleCollectAction', address: any, collectLimit?: number | null, isImmutable: boolean, endsAt?: any | null, payToCollect?: (
+    { __typename?: 'PayToCollectConfig' }
+    & { ' $fragmentRefs'?: { 'PayToCollectConfigFieldsFragment': PayToCollectConfigFieldsFragment } }
   ) | null } & { ' $fragmentName'?: 'SimpleCollectActionFieldsFragment' };
 
-export type UnknownActionFieldsFragment = { __typename: 'UnknownAction' } & { ' $fragmentName'?: 'UnknownActionFieldsFragment' };
+export type UnknownPostActionFieldsFragment = { __typename: 'UnknownPostAction' } & { ' $fragmentName'?: 'UnknownPostActionFieldsFragment' };
 
 export type LoggedInPostOperationsFieldsFragment = { __typename?: 'LoggedInPostOperations', id: string, hasBookmarked: boolean, hasReacted: boolean, hasSimpleCollected: boolean, hasTipped: boolean, isNotInterested: boolean, simpleCollectCount: number, postTipCount: number, hasCommented: (
     { __typename?: 'BooleanValue' }
@@ -8396,19 +8824,17 @@ type PostActionFields_SimpleCollectAction_Fragment = (
   & { ' $fragmentRefs'?: { 'SimpleCollectActionFieldsFragment': SimpleCollectActionFieldsFragment } }
 ) & { ' $fragmentName'?: 'PostActionFields_SimpleCollectAction_Fragment' };
 
-type PostActionFields_TippingPostAction_Fragment = { __typename?: 'TippingPostAction' } & { ' $fragmentName'?: 'PostActionFields_TippingPostAction_Fragment' };
+type PostActionFields_UnknownPostAction_Fragment = (
+  { __typename?: 'UnknownPostAction' }
+  & { ' $fragmentRefs'?: { 'UnknownPostActionFieldsFragment': UnknownPostActionFieldsFragment } }
+) & { ' $fragmentName'?: 'PostActionFields_UnknownPostAction_Fragment' };
 
-type PostActionFields_UnknownAction_Fragment = (
-  { __typename?: 'UnknownAction' }
-  & { ' $fragmentRefs'?: { 'UnknownActionFieldsFragment': UnknownActionFieldsFragment } }
-) & { ' $fragmentName'?: 'PostActionFields_UnknownAction_Fragment' };
+export type PostActionFieldsFragment = PostActionFields_SimpleCollectAction_Fragment | PostActionFields_UnknownPostAction_Fragment;
 
-export type PostActionFieldsFragment = PostActionFields_SimpleCollectAction_Fragment | PostActionFields_TippingPostAction_Fragment | PostActionFields_UnknownAction_Fragment;
-
-export type PostBaseFieldsFragment = { __typename: 'Post', id: any, slug: any, isEdited: boolean, isDeleted: boolean, timestamp: any, feed: any, author: (
+export type PostBaseFieldsFragment = { __typename: 'Post', id: any, slug: any, isEdited: boolean, isDeleted: boolean, timestamp: any, author: (
     { __typename?: 'Account' }
     & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
-  ), app?: (
+  ), feed: { __typename?: 'PostFeedInfo', group?: { __typename?: 'PostGroupInfo', address: any, metadata?: { __typename?: 'GroupMetadata', name: string, description?: string | null, icon?: any | null, coverPicture?: any | null } | null } | null }, app?: (
     { __typename?: 'App' }
     & { ' $fragmentRefs'?: { 'AppFieldsFragment': AppFieldsFragment } }
   ) | null, metadata: (
@@ -8454,17 +8880,17 @@ export type PostBaseFieldsFragment = { __typename: 'Post', id: any, slug: any, i
     { __typename?: 'TransactionMetadata' }
     & { ' $fragmentRefs'?: { 'PostMetadataFields_TransactionMetadata_Fragment': PostMetadataFields_TransactionMetadata_Fragment } }
   ) | (
+    { __typename?: 'UnknownPostMetadata' }
+    & { ' $fragmentRefs'?: { 'PostMetadataFields_UnknownPostMetadata_Fragment': PostMetadataFields_UnknownPostMetadata_Fragment } }
+  ) | (
     { __typename?: 'VideoMetadata' }
     & { ' $fragmentRefs'?: { 'PostMetadataFields_VideoMetadata_Fragment': PostMetadataFields_VideoMetadata_Fragment } }
   ), actions: Array<(
     { __typename?: 'SimpleCollectAction' }
     & { ' $fragmentRefs'?: { 'PostActionFields_SimpleCollectAction_Fragment': PostActionFields_SimpleCollectAction_Fragment } }
   ) | (
-    { __typename?: 'TippingPostAction' }
-    & { ' $fragmentRefs'?: { 'PostActionFields_TippingPostAction_Fragment': PostActionFields_TippingPostAction_Fragment } }
-  ) | (
-    { __typename?: 'UnknownAction' }
-    & { ' $fragmentRefs'?: { 'PostActionFields_UnknownAction_Fragment': PostActionFields_UnknownAction_Fragment } }
+    { __typename?: 'UnknownPostAction' }
+    & { ' $fragmentRefs'?: { 'PostActionFields_UnknownPostAction_Fragment': PostActionFields_UnknownPostAction_Fragment } }
   )>, stats: (
     { __typename?: 'PostStats' }
     & { ' $fragmentRefs'?: { 'PostStatsFieldsFragment': PostStatsFieldsFragment } }
@@ -8515,12 +8941,14 @@ type PostMetadataFields_ThreeDMetadata_Fragment = { __typename: 'ThreeDMetadata'
 
 type PostMetadataFields_TransactionMetadata_Fragment = { __typename: 'TransactionMetadata' } & { ' $fragmentName'?: 'PostMetadataFields_TransactionMetadata_Fragment' };
 
+type PostMetadataFields_UnknownPostMetadata_Fragment = { __typename: 'UnknownPostMetadata' } & { ' $fragmentName'?: 'PostMetadataFields_UnknownPostMetadata_Fragment' };
+
 type PostMetadataFields_VideoMetadata_Fragment = (
   { __typename: 'VideoMetadata' }
   & { ' $fragmentRefs'?: { 'VideoMetadataFieldsFragment': VideoMetadataFieldsFragment } }
 ) & { ' $fragmentName'?: 'PostMetadataFields_VideoMetadata_Fragment' };
 
-export type PostMetadataFieldsFragment = PostMetadataFields_ArticleMetadata_Fragment | PostMetadataFields_AudioMetadata_Fragment | PostMetadataFields_CheckingInMetadata_Fragment | PostMetadataFields_EmbedMetadata_Fragment | PostMetadataFields_EventMetadata_Fragment | PostMetadataFields_ImageMetadata_Fragment | PostMetadataFields_LinkMetadata_Fragment | PostMetadataFields_LivestreamMetadata_Fragment | PostMetadataFields_MintMetadata_Fragment | PostMetadataFields_SpaceMetadata_Fragment | PostMetadataFields_StoryMetadata_Fragment | PostMetadataFields_TextOnlyMetadata_Fragment | PostMetadataFields_ThreeDMetadata_Fragment | PostMetadataFields_TransactionMetadata_Fragment | PostMetadataFields_VideoMetadata_Fragment;
+export type PostMetadataFieldsFragment = PostMetadataFields_ArticleMetadata_Fragment | PostMetadataFields_AudioMetadata_Fragment | PostMetadataFields_CheckingInMetadata_Fragment | PostMetadataFields_EmbedMetadata_Fragment | PostMetadataFields_EventMetadata_Fragment | PostMetadataFields_ImageMetadata_Fragment | PostMetadataFields_LinkMetadata_Fragment | PostMetadataFields_LivestreamMetadata_Fragment | PostMetadataFields_MintMetadata_Fragment | PostMetadataFields_SpaceMetadata_Fragment | PostMetadataFields_StoryMetadata_Fragment | PostMetadataFields_TextOnlyMetadata_Fragment | PostMetadataFields_ThreeDMetadata_Fragment | PostMetadataFields_TransactionMetadata_Fragment | PostMetadataFields_UnknownPostMetadata_Fragment | PostMetadataFields_VideoMetadata_Fragment;
 
 export type PostStatsFieldsFragment = { __typename?: 'PostStats', bookmarks: number, collects: number, comments: number, quotes: number, reactions: number, reposts: number } & { ' $fragmentName'?: 'PostStatsFieldsFragment' };
 
@@ -8541,7 +8969,7 @@ export type CreateAccountWithUsernameMutationVariables = Exact<{
 }>;
 
 
-export type CreateAccountWithUsernameMutation = { __typename?: 'Mutation', createAccountWithUsername: { __typename?: 'CreateAccountResponse', hash: any } | { __typename?: 'NamespaceOperationValidationFailed' } | { __typename?: 'SelfFundedTransactionRequest', reason: string } | { __typename?: 'SponsoredTransactionRequest', reason: string } | { __typename?: 'TransactionWillFail', reason: string } | { __typename?: 'UsernameTaken' } };
+export type CreateAccountWithUsernameMutation = { __typename?: 'Mutation', createAccountWithUsername: { __typename?: 'CreateAccountResponse', hash: any } | { __typename?: 'NamespaceOperationValidationFailed', reason: string } | { __typename?: 'SelfFundedTransactionRequest', reason: string } | { __typename?: 'SponsoredTransactionRequest', reason: string } | { __typename?: 'TransactionWillFail', reason: string } | { __typename?: 'UsernameTaken', reason: string } };
 
 export type AuthenticateMutationVariables = Exact<{
   request: SignedAuthChallenge;
@@ -8784,16 +9212,16 @@ export type NotificationsQueryVariables = Exact<{
 }>;
 
 
-export type NotificationsQuery = { __typename?: 'Query', notifications: { __typename?: 'PaginatedNotificationResult', items: Array<(
+export type NotificationsQuery = { __typename?: 'Query', notifications: { __typename?: 'PaginatedNotificationResult', items: Array<{ __typename?: 'AccountActionExecutedNotification' } | (
       { __typename?: 'CommentNotification' }
       & { ' $fragmentRefs'?: { 'CommentNotificationFieldsFragment': CommentNotificationFieldsFragment } }
     ) | (
       { __typename?: 'FollowNotification' }
       & { ' $fragmentRefs'?: { 'FollowNotificationFieldsFragment': FollowNotificationFieldsFragment } }
-    ) | (
+    ) | { __typename?: 'GroupMembershipRequestApprovedNotification' } | { __typename?: 'GroupMembershipRequestRejectedNotification' } | (
       { __typename?: 'MentionNotification' }
       & { ' $fragmentRefs'?: { 'MentionNotificationFieldsFragment': MentionNotificationFieldsFragment } }
-    ) | (
+    ) | { __typename?: 'PostActionExecutedNotification' } | (
       { __typename?: 'QuoteNotification' }
       & { ' $fragmentRefs'?: { 'QuoteNotificationFieldsFragment': QuoteNotificationFieldsFragment } }
     ) | (
@@ -8869,9 +9297,13 @@ export class TypedDocumentString<TResult, TVariables>
   implements DocumentTypeDecoration<TResult, TVariables>
 {
   __apiType?: DocumentTypeDecoration<TResult, TVariables>['__apiType'];
+  private value: string;
+  public __meta__?: Record<string, any> | undefined;
 
-  constructor(private value: string, public __meta__?: Record<string, any> | undefined) {
+  constructor(value: string, __meta__?: Record<string, any> | undefined) {
     super(value);
+    this.value = value;
+    this.__meta__ = __meta__;
   }
 
   toString(): string & DocumentTypeDecoration<TResult, TVariables> {
@@ -9291,13 +9723,9 @@ export const Erc20AmountFieldsFragmentDoc = new TypedDocumentString(`
   name
   symbol
 }`, {"fragmentName":"Erc20AmountFields"}) as unknown as TypedDocumentString<Erc20AmountFieldsFragment, unknown>;
-export const SimpleCollectActionFieldsFragmentDoc = new TypedDocumentString(`
-    fragment SimpleCollectActionFields on SimpleCollectAction {
-  address
+export const PayToCollectConfigFieldsFragmentDoc = new TypedDocumentString(`
+    fragment PayToCollectConfigFields on PayToCollectConfig {
   referralShare
-  collectLimit
-  isImmutable
-  endsAt
   recipients {
     address
     percent
@@ -9320,19 +9748,54 @@ fragment Erc20Fields on Erc20 {
   decimals
   name
   symbol
+}`, {"fragmentName":"PayToCollectConfigFields"}) as unknown as TypedDocumentString<PayToCollectConfigFieldsFragment, unknown>;
+export const SimpleCollectActionFieldsFragmentDoc = new TypedDocumentString(`
+    fragment SimpleCollectActionFields on SimpleCollectAction {
+  address
+  collectLimit
+  isImmutable
+  endsAt
+  payToCollect {
+    ...PayToCollectConfigFields
+  }
+}
+    fragment Erc20AmountFields on Erc20Amount {
+  asset {
+    ...Erc20Fields
+  }
+  value
+}
+fragment Erc20Fields on Erc20 {
+  contract {
+    address
+    chainId
+  }
+  decimals
+  name
+  symbol
+}
+fragment PayToCollectConfigFields on PayToCollectConfig {
+  referralShare
+  recipients {
+    address
+    percent
+  }
+  amount {
+    ...Erc20AmountFields
+  }
 }`, {"fragmentName":"SimpleCollectActionFields"}) as unknown as TypedDocumentString<SimpleCollectActionFieldsFragment, unknown>;
-export const UnknownActionFieldsFragmentDoc = new TypedDocumentString(`
-    fragment UnknownActionFields on UnknownAction {
+export const UnknownPostActionFieldsFragmentDoc = new TypedDocumentString(`
+    fragment UnknownPostActionFields on UnknownPostAction {
   __typename
 }
-    `, {"fragmentName":"UnknownActionFields"}) as unknown as TypedDocumentString<UnknownActionFieldsFragment, unknown>;
+    `, {"fragmentName":"UnknownPostActionFields"}) as unknown as TypedDocumentString<UnknownPostActionFieldsFragment, unknown>;
 export const PostActionFieldsFragmentDoc = new TypedDocumentString(`
     fragment PostActionFields on PostAction {
   ... on SimpleCollectAction {
     ...SimpleCollectActionFields
   }
-  ... on UnknownAction {
-    ...UnknownActionFields
+  ... on UnknownPostAction {
+    ...UnknownPostActionFields
   }
 }
     fragment Erc20AmountFields on Erc20Amount {
@@ -9350,12 +9813,8 @@ fragment Erc20Fields on Erc20 {
   name
   symbol
 }
-fragment SimpleCollectActionFields on SimpleCollectAction {
-  address
+fragment PayToCollectConfigFields on PayToCollectConfig {
   referralShare
-  collectLimit
-  isImmutable
-  endsAt
   recipients {
     address
     percent
@@ -9364,7 +9823,16 @@ fragment SimpleCollectActionFields on SimpleCollectAction {
     ...Erc20AmountFields
   }
 }
-fragment UnknownActionFields on UnknownAction {
+fragment SimpleCollectActionFields on SimpleCollectAction {
+  address
+  collectLimit
+  isImmutable
+  endsAt
+  payToCollect {
+    ...PayToCollectConfigFields
+  }
+}
+fragment UnknownPostActionFields on UnknownPostAction {
   __typename
 }`, {"fragmentName":"PostActionFields"}) as unknown as TypedDocumentString<PostActionFieldsFragment, unknown>;
 export const PostStatsFieldsFragmentDoc = new TypedDocumentString(`
@@ -9427,7 +9895,17 @@ export const PostBaseFieldsFragmentDoc = new TypedDocumentString(`
   author {
     ...AccountFields
   }
-  feed
+  feed {
+    group {
+      address
+      metadata {
+        name
+        description
+        icon
+        coverPicture
+      }
+    }
+  }
   app {
     ...AppFields
   }
@@ -9554,12 +10032,8 @@ fragment MetadataAttributeFields on MetadataAttribute {
   key
   value
 }
-fragment SimpleCollectActionFields on SimpleCollectAction {
-  address
+fragment PayToCollectConfigFields on PayToCollectConfig {
   referralShare
-  collectLimit
-  isImmutable
-  endsAt
   recipients {
     address
     percent
@@ -9568,7 +10042,16 @@ fragment SimpleCollectActionFields on SimpleCollectAction {
     ...Erc20AmountFields
   }
 }
-fragment UnknownActionFields on UnknownAction {
+fragment SimpleCollectActionFields on SimpleCollectAction {
+  address
+  collectLimit
+  isImmutable
+  endsAt
+  payToCollect {
+    ...PayToCollectConfigFields
+  }
+}
+fragment UnknownPostActionFields on UnknownPostAction {
   __typename
 }
 fragment LoggedInPostOperationsFields on LoggedInPostOperations {
@@ -9654,8 +10137,8 @@ fragment PostActionFields on PostAction {
   ... on SimpleCollectAction {
     ...SimpleCollectActionFields
   }
-  ... on UnknownAction {
-    ...UnknownActionFields
+  ... on UnknownPostAction {
+    ...UnknownPostActionFields
   }
 }
 fragment PostMetadataFields on PostMetadata {
@@ -9795,12 +10278,8 @@ fragment MetadataAttributeFields on MetadataAttribute {
   key
   value
 }
-fragment SimpleCollectActionFields on SimpleCollectAction {
-  address
+fragment PayToCollectConfigFields on PayToCollectConfig {
   referralShare
-  collectLimit
-  isImmutable
-  endsAt
   recipients {
     address
     percent
@@ -9809,7 +10288,16 @@ fragment SimpleCollectActionFields on SimpleCollectAction {
     ...Erc20AmountFields
   }
 }
-fragment UnknownActionFields on UnknownAction {
+fragment SimpleCollectActionFields on SimpleCollectAction {
+  address
+  collectLimit
+  isImmutable
+  endsAt
+  payToCollect {
+    ...PayToCollectConfigFields
+  }
+}
+fragment UnknownPostActionFields on UnknownPostAction {
   __typename
 }
 fragment LoggedInPostOperationsFields on LoggedInPostOperations {
@@ -9895,8 +10383,8 @@ fragment PostActionFields on PostAction {
   ... on SimpleCollectAction {
     ...SimpleCollectActionFields
   }
-  ... on UnknownAction {
-    ...UnknownActionFields
+  ... on UnknownPostAction {
+    ...UnknownPostActionFields
   }
 }
 fragment PostBaseFields on Post {
@@ -9909,7 +10397,17 @@ fragment PostBaseFields on Post {
   author {
     ...AccountFields
   }
-  feed
+  feed {
+    group {
+      address
+      metadata {
+        name
+        description
+        icon
+        coverPicture
+      }
+    }
+  }
   app {
     ...AppFields
   }
@@ -10058,12 +10556,8 @@ fragment MetadataAttributeFields on MetadataAttribute {
   key
   value
 }
-fragment SimpleCollectActionFields on SimpleCollectAction {
-  address
+fragment PayToCollectConfigFields on PayToCollectConfig {
   referralShare
-  collectLimit
-  isImmutable
-  endsAt
   recipients {
     address
     percent
@@ -10072,7 +10566,16 @@ fragment SimpleCollectActionFields on SimpleCollectAction {
     ...Erc20AmountFields
   }
 }
-fragment UnknownActionFields on UnknownAction {
+fragment SimpleCollectActionFields on SimpleCollectAction {
+  address
+  collectLimit
+  isImmutable
+  endsAt
+  payToCollect {
+    ...PayToCollectConfigFields
+  }
+}
+fragment UnknownPostActionFields on UnknownPostAction {
   __typename
 }
 fragment LoggedInPostOperationsFields on LoggedInPostOperations {
@@ -10158,8 +10661,8 @@ fragment PostActionFields on PostAction {
   ... on SimpleCollectAction {
     ...SimpleCollectActionFields
   }
-  ... on UnknownAction {
-    ...UnknownActionFields
+  ... on UnknownPostAction {
+    ...UnknownPostActionFields
   }
 }
 fragment PostBaseFields on Post {
@@ -10172,7 +10675,17 @@ fragment PostBaseFields on Post {
   author {
     ...AccountFields
   }
-  feed
+  feed {
+    group {
+      address
+      metadata {
+        name
+        description
+        icon
+        coverPicture
+      }
+    }
+  }
   app {
     ...AppFields
   }
@@ -10415,12 +10928,8 @@ fragment MetadataAttributeFields on MetadataAttribute {
   key
   value
 }
-fragment SimpleCollectActionFields on SimpleCollectAction {
-  address
+fragment PayToCollectConfigFields on PayToCollectConfig {
   referralShare
-  collectLimit
-  isImmutable
-  endsAt
   recipients {
     address
     percent
@@ -10429,7 +10938,16 @@ fragment SimpleCollectActionFields on SimpleCollectAction {
     ...Erc20AmountFields
   }
 }
-fragment UnknownActionFields on UnknownAction {
+fragment SimpleCollectActionFields on SimpleCollectAction {
+  address
+  collectLimit
+  isImmutable
+  endsAt
+  payToCollect {
+    ...PayToCollectConfigFields
+  }
+}
+fragment UnknownPostActionFields on UnknownPostAction {
   __typename
 }
 fragment LoggedInPostOperationsFields on LoggedInPostOperations {
@@ -10515,8 +11033,8 @@ fragment PostActionFields on PostAction {
   ... on SimpleCollectAction {
     ...SimpleCollectActionFields
   }
-  ... on UnknownAction {
-    ...UnknownActionFields
+  ... on UnknownPostAction {
+    ...UnknownPostActionFields
   }
 }
 fragment PostBaseFields on Post {
@@ -10529,7 +11047,17 @@ fragment PostBaseFields on Post {
   author {
     ...AccountFields
   }
-  feed
+  feed {
+    group {
+      address
+      metadata {
+        name
+        description
+        icon
+        coverPicture
+      }
+    }
+  }
   app {
     ...AppFields
   }
@@ -10690,12 +11218,8 @@ fragment MetadataAttributeFields on MetadataAttribute {
   key
   value
 }
-fragment SimpleCollectActionFields on SimpleCollectAction {
-  address
+fragment PayToCollectConfigFields on PayToCollectConfig {
   referralShare
-  collectLimit
-  isImmutable
-  endsAt
   recipients {
     address
     percent
@@ -10704,7 +11228,16 @@ fragment SimpleCollectActionFields on SimpleCollectAction {
     ...Erc20AmountFields
   }
 }
-fragment UnknownActionFields on UnknownAction {
+fragment SimpleCollectActionFields on SimpleCollectAction {
+  address
+  collectLimit
+  isImmutable
+  endsAt
+  payToCollect {
+    ...PayToCollectConfigFields
+  }
+}
+fragment UnknownPostActionFields on UnknownPostAction {
   __typename
 }
 fragment LoggedInPostOperationsFields on LoggedInPostOperations {
@@ -10790,8 +11323,8 @@ fragment PostActionFields on PostAction {
   ... on SimpleCollectAction {
     ...SimpleCollectActionFields
   }
-  ... on UnknownAction {
-    ...UnknownActionFields
+  ... on UnknownPostAction {
+    ...UnknownPostActionFields
   }
 }
 fragment PostBaseFields on Post {
@@ -10804,7 +11337,17 @@ fragment PostBaseFields on Post {
   author {
     ...AccountFields
   }
-  feed
+  feed {
+    group {
+      address
+      metadata {
+        name
+        description
+        icon
+        coverPicture
+      }
+    }
+  }
   app {
     ...AppFields
   }
@@ -10970,12 +11513,8 @@ fragment MetadataAttributeFields on MetadataAttribute {
   key
   value
 }
-fragment SimpleCollectActionFields on SimpleCollectAction {
-  address
+fragment PayToCollectConfigFields on PayToCollectConfig {
   referralShare
-  collectLimit
-  isImmutable
-  endsAt
   recipients {
     address
     percent
@@ -10984,7 +11523,16 @@ fragment SimpleCollectActionFields on SimpleCollectAction {
     ...Erc20AmountFields
   }
 }
-fragment UnknownActionFields on UnknownAction {
+fragment SimpleCollectActionFields on SimpleCollectAction {
+  address
+  collectLimit
+  isImmutable
+  endsAt
+  payToCollect {
+    ...PayToCollectConfigFields
+  }
+}
+fragment UnknownPostActionFields on UnknownPostAction {
   __typename
 }
 fragment LoggedInPostOperationsFields on LoggedInPostOperations {
@@ -11070,8 +11618,8 @@ fragment PostActionFields on PostAction {
   ... on SimpleCollectAction {
     ...SimpleCollectActionFields
   }
-  ... on UnknownAction {
-    ...UnknownActionFields
+  ... on UnknownPostAction {
+    ...UnknownPostActionFields
   }
 }
 fragment PostBaseFields on Post {
@@ -11084,7 +11632,17 @@ fragment PostBaseFields on Post {
   author {
     ...AccountFields
   }
-  feed
+  feed {
+    group {
+      address
+      metadata {
+        name
+        description
+        icon
+        coverPicture
+      }
+    }
+  }
   app {
     ...AppFields
   }
@@ -11251,12 +11809,8 @@ fragment MetadataAttributeFields on MetadataAttribute {
   key
   value
 }
-fragment SimpleCollectActionFields on SimpleCollectAction {
-  address
+fragment PayToCollectConfigFields on PayToCollectConfig {
   referralShare
-  collectLimit
-  isImmutable
-  endsAt
   recipients {
     address
     percent
@@ -11265,7 +11819,16 @@ fragment SimpleCollectActionFields on SimpleCollectAction {
     ...Erc20AmountFields
   }
 }
-fragment UnknownActionFields on UnknownAction {
+fragment SimpleCollectActionFields on SimpleCollectAction {
+  address
+  collectLimit
+  isImmutable
+  endsAt
+  payToCollect {
+    ...PayToCollectConfigFields
+  }
+}
+fragment UnknownPostActionFields on UnknownPostAction {
   __typename
 }
 fragment LoggedInPostOperationsFields on LoggedInPostOperations {
@@ -11351,8 +11914,8 @@ fragment PostActionFields on PostAction {
   ... on SimpleCollectAction {
     ...SimpleCollectActionFields
   }
-  ... on UnknownAction {
-    ...UnknownActionFields
+  ... on UnknownPostAction {
+    ...UnknownPostActionFields
   }
 }
 fragment PostBaseFields on Post {
@@ -11365,7 +11928,17 @@ fragment PostBaseFields on Post {
   author {
     ...AccountFields
   }
-  feed
+  feed {
+    group {
+      address
+      metadata {
+        name
+        description
+        icon
+        coverPicture
+      }
+    }
+  }
   app {
     ...AppFields
   }
@@ -11531,12 +12104,8 @@ fragment MetadataAttributeFields on MetadataAttribute {
   key
   value
 }
-fragment SimpleCollectActionFields on SimpleCollectAction {
-  address
+fragment PayToCollectConfigFields on PayToCollectConfig {
   referralShare
-  collectLimit
-  isImmutable
-  endsAt
   recipients {
     address
     percent
@@ -11545,7 +12114,16 @@ fragment SimpleCollectActionFields on SimpleCollectAction {
     ...Erc20AmountFields
   }
 }
-fragment UnknownActionFields on UnknownAction {
+fragment SimpleCollectActionFields on SimpleCollectAction {
+  address
+  collectLimit
+  isImmutable
+  endsAt
+  payToCollect {
+    ...PayToCollectConfigFields
+  }
+}
+fragment UnknownPostActionFields on UnknownPostAction {
   __typename
 }
 fragment LoggedInPostOperationsFields on LoggedInPostOperations {
@@ -11631,8 +12209,8 @@ fragment PostActionFields on PostAction {
   ... on SimpleCollectAction {
     ...SimpleCollectActionFields
   }
-  ... on UnknownAction {
-    ...UnknownActionFields
+  ... on UnknownPostAction {
+    ...UnknownPostActionFields
   }
 }
 fragment PostBaseFields on Post {
@@ -11645,7 +12223,17 @@ fragment PostBaseFields on Post {
   author {
     ...AccountFields
   }
-  feed
+  feed {
+    group {
+      address
+      metadata {
+        name
+        description
+        icon
+        coverPicture
+      }
+    }
+  }
   app {
     ...AppFields
   }
@@ -11734,8 +12322,14 @@ export const SponsoredTransactionRequestFieldsFragmentDoc = new TypedDocumentStr
 export const CreateAccountWithUsernameDocument = new TypedDocumentString(`
     mutation CreateAccountWithUsername($request: CreateAccountWithUsernameRequest!) {
   createAccountWithUsername(request: $request) {
+    ... on UsernameTaken {
+      reason
+    }
     ... on CreateAccountResponse {
       hash
+    }
+    ... on NamespaceOperationValidationFailed {
+      reason
     }
     ... on SelfFundedTransactionRequest {
       reason
@@ -13061,12 +13655,8 @@ fragment RepostNotificationFields on RepostNotification {
     repostedAt
   }
 }
-fragment SimpleCollectActionFields on SimpleCollectAction {
-  address
+fragment PayToCollectConfigFields on PayToCollectConfig {
   referralShare
-  collectLimit
-  isImmutable
-  endsAt
   recipients {
     address
     percent
@@ -13075,7 +13665,16 @@ fragment SimpleCollectActionFields on SimpleCollectAction {
     ...Erc20AmountFields
   }
 }
-fragment UnknownActionFields on UnknownAction {
+fragment SimpleCollectActionFields on SimpleCollectAction {
+  address
+  collectLimit
+  isImmutable
+  endsAt
+  payToCollect {
+    ...PayToCollectConfigFields
+  }
+}
+fragment UnknownPostActionFields on UnknownPostAction {
   __typename
 }
 fragment LoggedInPostOperationsFields on LoggedInPostOperations {
@@ -13161,8 +13760,8 @@ fragment PostActionFields on PostAction {
   ... on SimpleCollectAction {
     ...SimpleCollectActionFields
   }
-  ... on UnknownAction {
-    ...UnknownActionFields
+  ... on UnknownPostAction {
+    ...UnknownPostActionFields
   }
 }
 fragment PostBaseFields on Post {
@@ -13175,7 +13774,17 @@ fragment PostBaseFields on Post {
   author {
     ...AccountFields
   }
-  feed
+  feed {
+    group {
+      address
+      metadata {
+        name
+        description
+        icon
+        coverPicture
+      }
+    }
+  }
   app {
     ...AppFields
   }
@@ -13356,12 +13965,8 @@ fragment MetadataAttributeFields on MetadataAttribute {
   key
   value
 }
-fragment SimpleCollectActionFields on SimpleCollectAction {
-  address
+fragment PayToCollectConfigFields on PayToCollectConfig {
   referralShare
-  collectLimit
-  isImmutable
-  endsAt
   recipients {
     address
     percent
@@ -13370,7 +13975,16 @@ fragment SimpleCollectActionFields on SimpleCollectAction {
     ...Erc20AmountFields
   }
 }
-fragment UnknownActionFields on UnknownAction {
+fragment SimpleCollectActionFields on SimpleCollectAction {
+  address
+  collectLimit
+  isImmutable
+  endsAt
+  payToCollect {
+    ...PayToCollectConfigFields
+  }
+}
+fragment UnknownPostActionFields on UnknownPostAction {
   __typename
 }
 fragment LoggedInPostOperationsFields on LoggedInPostOperations {
@@ -13456,8 +14070,8 @@ fragment PostActionFields on PostAction {
   ... on SimpleCollectAction {
     ...SimpleCollectActionFields
   }
-  ... on UnknownAction {
-    ...UnknownActionFields
+  ... on UnknownPostAction {
+    ...UnknownPostActionFields
   }
 }
 fragment PostBaseFields on Post {
@@ -13470,7 +14084,17 @@ fragment PostBaseFields on Post {
   author {
     ...AccountFields
   }
-  feed
+  feed {
+    group {
+      address
+      metadata {
+        name
+        description
+        icon
+        coverPicture
+      }
+    }
+  }
   app {
     ...AppFields
   }
@@ -13629,12 +14253,8 @@ fragment MetadataAttributeFields on MetadataAttribute {
   key
   value
 }
-fragment SimpleCollectActionFields on SimpleCollectAction {
-  address
+fragment PayToCollectConfigFields on PayToCollectConfig {
   referralShare
-  collectLimit
-  isImmutable
-  endsAt
   recipients {
     address
     percent
@@ -13643,7 +14263,16 @@ fragment SimpleCollectActionFields on SimpleCollectAction {
     ...Erc20AmountFields
   }
 }
-fragment UnknownActionFields on UnknownAction {
+fragment SimpleCollectActionFields on SimpleCollectAction {
+  address
+  collectLimit
+  isImmutable
+  endsAt
+  payToCollect {
+    ...PayToCollectConfigFields
+  }
+}
+fragment UnknownPostActionFields on UnknownPostAction {
   __typename
 }
 fragment LoggedInPostOperationsFields on LoggedInPostOperations {
@@ -13729,8 +14358,8 @@ fragment PostActionFields on PostAction {
   ... on SimpleCollectAction {
     ...SimpleCollectActionFields
   }
-  ... on UnknownAction {
-    ...UnknownActionFields
+  ... on UnknownPostAction {
+    ...UnknownPostActionFields
   }
 }
 fragment PostBaseFields on Post {
@@ -13743,7 +14372,17 @@ fragment PostBaseFields on Post {
   author {
     ...AccountFields
   }
-  feed
+  feed {
+    group {
+      address
+      metadata {
+        name
+        description
+        icon
+        coverPicture
+      }
+    }
+  }
   app {
     ...AppFields
   }
@@ -13912,12 +14551,8 @@ fragment MetadataAttributeFields on MetadataAttribute {
   key
   value
 }
-fragment SimpleCollectActionFields on SimpleCollectAction {
-  address
+fragment PayToCollectConfigFields on PayToCollectConfig {
   referralShare
-  collectLimit
-  isImmutable
-  endsAt
   recipients {
     address
     percent
@@ -13926,7 +14561,16 @@ fragment SimpleCollectActionFields on SimpleCollectAction {
     ...Erc20AmountFields
   }
 }
-fragment UnknownActionFields on UnknownAction {
+fragment SimpleCollectActionFields on SimpleCollectAction {
+  address
+  collectLimit
+  isImmutable
+  endsAt
+  payToCollect {
+    ...PayToCollectConfigFields
+  }
+}
+fragment UnknownPostActionFields on UnknownPostAction {
   __typename
 }
 fragment LoggedInPostOperationsFields on LoggedInPostOperations {
@@ -14012,8 +14656,8 @@ fragment PostActionFields on PostAction {
   ... on SimpleCollectAction {
     ...SimpleCollectActionFields
   }
-  ... on UnknownAction {
-    ...UnknownActionFields
+  ... on UnknownPostAction {
+    ...UnknownPostActionFields
   }
 }
 fragment PostBaseFields on Post {
@@ -14026,7 +14670,17 @@ fragment PostBaseFields on Post {
   author {
     ...AccountFields
   }
-  feed
+  feed {
+    group {
+      address
+      metadata {
+        name
+        description
+        icon
+        coverPicture
+      }
+    }
+  }
   app {
     ...AppFields
   }
@@ -14209,12 +14863,8 @@ fragment MetadataAttributeFields on MetadataAttribute {
   key
   value
 }
-fragment SimpleCollectActionFields on SimpleCollectAction {
-  address
+fragment PayToCollectConfigFields on PayToCollectConfig {
   referralShare
-  collectLimit
-  isImmutable
-  endsAt
   recipients {
     address
     percent
@@ -14223,7 +14873,16 @@ fragment SimpleCollectActionFields on SimpleCollectAction {
     ...Erc20AmountFields
   }
 }
-fragment UnknownActionFields on UnknownAction {
+fragment SimpleCollectActionFields on SimpleCollectAction {
+  address
+  collectLimit
+  isImmutable
+  endsAt
+  payToCollect {
+    ...PayToCollectConfigFields
+  }
+}
+fragment UnknownPostActionFields on UnknownPostAction {
   __typename
 }
 fragment LoggedInPostOperationsFields on LoggedInPostOperations {
@@ -14309,8 +14968,8 @@ fragment PostActionFields on PostAction {
   ... on SimpleCollectAction {
     ...SimpleCollectActionFields
   }
-  ... on UnknownAction {
-    ...UnknownActionFields
+  ... on UnknownPostAction {
+    ...UnknownPostActionFields
   }
 }
 fragment PostBaseFields on Post {
@@ -14323,7 +14982,17 @@ fragment PostBaseFields on Post {
   author {
     ...AccountFields
   }
-  feed
+  feed {
+    group {
+      address
+      metadata {
+        name
+        description
+        icon
+        coverPicture
+      }
+    }
+  }
   app {
     ...AppFields
   }

@@ -94,7 +94,7 @@ export const useCreateAccountMutation = () => {
             request: {
               metadataUri: uri,
               username: {
-                localName: input.username
+                localName: input.username.toLowerCase()
               }
             }
           },

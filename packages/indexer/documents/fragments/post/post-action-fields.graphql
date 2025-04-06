@@ -2,7 +2,7 @@ fragment PostActionFields on PostAction {
   ... on SimpleCollectAction {
     ...SimpleCollectActionFields
   }
-  ... on UnknownAction {
-    ...UnknownActionFields
+  ... on UnknownPostAction {
+    ...UnknownPostActionFields
   }
 }

@@ -9,12 +9,7 @@ export const SignInPage = () => {
         <h2 className="mb-1 font-serif text-2xl">Welcome back</h2>
         <p className="text-muted text-sm">Please sign in to continue.</p>
       </div>
-      {/* <AuthProviders />
-      <div className="my-4 flex items-center space-x-4">
-        <div className="h-px flex-1 bg-secondary" />
-        <span className="text-muted text-sm">or</span>
-        <div className="h-px flex-1 bg-secondary" />
-      </div> */}
+
       <ConnectWallet />
 
       <Authenticate />

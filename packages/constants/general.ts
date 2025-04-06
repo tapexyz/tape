@@ -84,10 +84,9 @@ export const TESTNET_ALLOWED_TOKENS = [
 ];
 
 // lens
+export const LENS_MAINNET_RPCS = ["https://rpc.lens.xyz"];
 export const LENS_TESTNET_RPCS = ["https://rpc.testnet.lens.dev"];
-export const LENS_STORAGE_NODE_URL = IS_MAINNET
-  ? "https://api.grove.storage"
-  : "https://api.grove.storage";
+export const LENS_STORAGE_NODE_URL = "https://api.grove.storage";
 
 // polygon
 export const POLYGON_RPC_URLS = IS_MAINNET

@@ -1,10 +1,11 @@
+import { chains } from "@lens-chain/sdk/viem";
 import type {
   AccountMetadata,
   AppMetadata,
   AudioMetadata,
   VideoMetadata
 } from "@lens-protocol/metadata";
-import { LENS_STORAGE_NODE_URL } from "@tape.xyz/constants";
+import { IS_DEVELOPMENT, LENS_STORAGE_NODE_URL } from "@tape.xyz/constants";
 
 type Result = {
   gateway_url: string;
@@ -15,7 +16,8 @@ type Result = {
 export const uploadJson = async (
   metadata: AppMetadata | AccountMetadata | VideoMetadata | AudioMetadata
 ): Promise<Result> => {
-  const response = await fetch(LENS_STORAGE_NODE_URL, {
+  const chainId = `?chain_id=${IS_DEVELOPMENT ? chains.testnet.id : chains.mainnet.id}`;
+  const response = await fetch(LENS_STORAGE_NODE_URL + chainId, {
     method: "POST",
     body: JSON.stringify(metadata)
   });
@@ -24,7 +26,8 @@ export const uploadJson = async (
 };
 
 export const uploadMedia = async (file: File): Promise<Result> => {
-  const response = await fetch(LENS_STORAGE_NODE_URL, {
+  const chainId = `?chain_id=${chains.testnet.id}`;
+  const response = await fetch(LENS_STORAGE_NODE_URL + chainId, {
     method: "POST",
     body: file
   });

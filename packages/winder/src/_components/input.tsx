@@ -22,7 +22,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
           id={id}
           type={type}
           className={tw(
-            "flex h-11 w-full rounded-custom border border-custom bg-transparent px-3.5 py-1 text-sm transition-colors placeholder:text-muted hover:border-primary/20 focus-visible:border-primary/40 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+            "flex h-11 w-full rounded-custom border border-custom bg-transparent px-3.5 py-1 text-sm transition-colors placeholder:text-muted hover:border-primary/20 focus:border-primary/40 focus:outline-none focus-visible:border-primary/40 disabled:cursor-not-allowed disabled:opacity-50",
             className
           )}
           ref={ref}

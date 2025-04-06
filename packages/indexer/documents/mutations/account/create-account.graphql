@@ -2,8 +2,14 @@ mutation CreateAccountWithUsername(
   $request: CreateAccountWithUsernameRequest!
 ) {
   createAccountWithUsername(request: $request) {
+    ... on UsernameTaken {
+      reason
+    }
     ... on CreateAccountResponse {
       hash
+    }
+    ... on NamespaceOperationValidationFailed {
+      reason
     }
     ... on SelfFundedTransactionRequest {
       reason

@@ -8,7 +8,17 @@ fragment PostBaseFields on Post {
   author {
     ...AccountFields
   }
-  feed
+  feed {
+    group {
+      address
+      metadata {
+        name
+        description
+        icon
+        coverPicture
+      }
+    }
+  }
   app {
     ...AppFields
   }
