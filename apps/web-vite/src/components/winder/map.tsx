@@ -234,7 +234,7 @@ export const base = [
       return (
         <VStack className="overflow-hidden">
           <a
-            href="https://vercel.com/font"
+            href="https://rsms.me/inter"
             className="group space-y-4"
             target="_blank"
             rel="noreferrer"

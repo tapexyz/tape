@@ -1,4 +1,5 @@
 import { getCategoryIcon } from "@/helpers/category";
+import { useScrollStore } from "@/store/scroll";
 import { Link, useMatchRoute } from "@tanstack/react-router";
 import { TAPE_MEDIA_CATEGORIES } from "@tape.xyz/constants";
 import { FunnelSimple, ScrollArea, tw } from "@tape.xyz/winder";
@@ -178,32 +179,36 @@ const Nav = () => {
   const [show, setShow] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const { isPanelOpen } = useContext(Context);
+  const scrollRef = useScrollStore((state) => state.scrollRef);
+  const globalScroll = scrollRef?.current;
 
   const handleScroll = () => {
-    if (isPanelOpen) return;
+    if (isPanelOpen || !globalScroll) return;
 
-    const scrollY = window.scrollY;
-    const windowHeight = window.innerHeight;
-    const documentHeight = document.documentElement.scrollHeight;
+    const scrollY = globalScroll.scrollTop;
+    const windowHeight = globalScroll.clientHeight;
+    const documentHeight = globalScroll.scrollHeight;
     const footerHeight = document.querySelector("footer")?.clientHeight || 0;
 
     const isScrollingDown = scrollY > lastScrollY;
-    const footerVisibility =
-      scrollY + windowHeight >= documentHeight - footerHeight;
+    const isNearFooter =
+      scrollY + windowHeight >= documentHeight - footerHeight - 100;
 
-    setShow(!(isScrollingDown || footerVisibility));
+    setShow(!isScrollingDown && !isNearFooter);
     setLastScrollY(scrollY);
   };
 
   useEffect(() => {
+    if (!globalScroll) return;
+
     const abortController = new AbortController();
-    window.addEventListener("scroll", handleScroll, {
+    globalScroll.addEventListener("scroll", handleScroll, {
       signal: abortController.signal
     });
     return () => {
       abortController.abort();
     };
-  }, [lastScrollY, isPanelOpen]);
+  }, [scrollRef, lastScrollY, isPanelOpen]);
 
   return (
     <AnimatePresence initial={false}>
