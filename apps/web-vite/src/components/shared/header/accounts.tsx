@@ -1,7 +1,7 @@
 import { getAccountMetadata } from "@/helpers/metadata";
 import { useAccountsAvailableQuery } from "@/queries/account";
 import type { AccountAvailable } from "@tape.xyz/indexer";
-import { Avatar, AvatarImage, Badge, Spinner } from "@tape.xyz/winder";
+import { Avatar, AvatarImage, Spinner } from "@tape.xyz/winder";
 
 export const Accounts = () => {
   const { data, isLoading } = useAccountsAvailableQuery();
@@ -17,7 +17,7 @@ export const Accounts = () => {
   return (
     <div className="flex flex-col">
       {accounts.map(({ account }) => {
-        const { name, handleWithPrefix, picture, namespace } =
+        const { name, handleWithPrefix, picture, handleWithNamespace } =
           getAccountMetadata(account);
 
         return (
@@ -26,18 +26,17 @@ export const Accounts = () => {
             key={account.address}
             className="flex items-center justify-between gap-2 px-4 py-1.5 transition-colors hover:bg-secondary"
           >
-            <span className="flex items-center gap-2">
-              <div className="flex items-center justify-between gap-2">
-                <Avatar size="md">
-                  <AvatarImage src={picture} />
-                </Avatar>
-                <div className="flex flex-col justify-center text-left">
-                  <span className="font-medium text-sm">{name}</span>
-                  <span className="text-muted text-xs">{handleWithPrefix}</span>
-                </div>
+            <div className="flex items-center justify-between gap-2">
+              <Avatar size="md">
+                <AvatarImage src={picture} />
+              </Avatar>
+              <div className="flex flex-col justify-center text-left">
+                <span className="font-medium text-sm">{name}</span>
+                <span className="text-muted text-xs">
+                  {handleWithNamespace}
+                </span>
               </div>
-            </span>
-            <Badge variant="outline">{namespace}</Badge>
+            </div>
           </button>
         );
       })}
