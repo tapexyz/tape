@@ -15,12 +15,15 @@ const getIcon = (theme: string) => {
 };
 
 export const ThemeSwitcher = () => {
-  const { setTheme, theme: currentTheme = "system", themes } = useTheme();
+  const { setTheme, theme: currentTheme = "light" } = useTheme();
 
   const getNextTheme = () => {
-    const currentIndex = themes.indexOf(currentTheme);
+    const themes = ["light", "dark"] as const;
+    const currentIndex = themes.indexOf(
+      currentTheme as (typeof themes)[number]
+    );
     const nextIndex = (currentIndex + 1) % themes.length;
-    return themes[nextIndex] || "system";
+    return themes[nextIndex] || "light";
   };
 
   return (
@@ -52,7 +55,10 @@ export const ThemeSwitcherExpanded = ({ id }: Readonly<{ id: string }>) => {
             <m.span
               key={currentTheme}
               layoutId={`${id}-theme-switcher`}
-              transition={{ duration: 0.2, bounce: 0, type: "spring" }}
+              transition={{
+                duration: 0.2,
+                bounce: 0
+              }}
               className="absolute inset-0 rounded-full bg-theme"
             />
           ) : null}

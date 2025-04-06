@@ -2,7 +2,7 @@
 @variant dark (&:where(.dark, .dark *));
 
 @font-face {
-  font-family: "GeistSans";
+  font-family: "Inter";
   src: url("/fonts/sans.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
@@ -36,7 +36,7 @@
 
 @layer base {
   :root {
-    --tape-font-sans: "GeistSans", ui-sans-serif, system-ui, -apple-system,
+    --tape-font-sans: "Inter", ui-sans-serif, system-ui, -apple-system,
       sans-serif;
     --tape-font-serif: "EditorialNew", ui-serif, serif;
     --tape-font-mono: "GeistMono", ui-monospace, monospace;

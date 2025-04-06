@@ -15,7 +15,7 @@ import { SearchResults } from "./results";
 export const SearchInput = ({ onNavigate }: { onNavigate: () => void }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const { data } = useSearchQuery(useDebounce(searchTerm, 300));
+  const { data, isLoading } = useSearchQuery(useDebounce(searchTerm, 300));
   const posts = data?.posts.items as Post[];
   const accounts = data?.accounts.items as Account[];
 
@@ -23,8 +23,8 @@ export const SearchInput = ({ onNavigate }: { onNavigate: () => void }) => {
     () => [
       ...(accounts?.map((account) => ({
         type: "account" as const,
-        id: account.username?.localName as string,
-        label: account.username?.localName as string
+        id: account.username?.value as string,
+        label: account.username?.value as string
       })) ?? []),
       ...(posts?.map((post) => ({
         type: "post" as const,
@@ -64,7 +64,11 @@ export const SearchInput = ({ onNavigate }: { onNavigate: () => void }) => {
         </DialogTitle>
       </DialogHeader>
 
-      <SearchResults results={results} onNavigate={onNavigate} />
+      <SearchResults
+        results={results}
+        onNavigate={onNavigate}
+        loading={isLoading}
+      />
     </>
   );
 };

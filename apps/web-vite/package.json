@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@lens-chain/sdk": "^1.0.2",
-    "@lens-protocol/metadata": "next",
+    "@lens-protocol/metadata": "^2.0.0",
     "@tanstack/react-query": "^5.69.0",
     "@tanstack/react-query-persist-client": "^5.69.0",
     "@tanstack/react-router": "^1.114.27",

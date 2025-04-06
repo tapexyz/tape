@@ -561,8 +561,8 @@ importers:
         specifier: ^1.0.2
         version: 1.0.2(ethers@6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10))(viem@2.25.0(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2))
       '@lens-protocol/metadata':
-        specifier: next
-        version: 2.0.0-next.7(typescript@5.8.2)(zod@3.24.2)
+        specifier: ^2.0.0
+        version: 2.0.0(typescript@5.8.2)(zod@3.24.2)
       '@tanstack/react-query':
         specifier: ^5.69.0
         version: 5.69.0(react@18.3.1)
@@ -3396,8 +3396,8 @@ packages:
       zod:
         optional: true
 
-  '@lens-protocol/metadata@2.0.0-next.7':
-    resolution: {integrity: sha512-N3d/ISxJUV82Zlo+aJmcsfDu3oCerSmmyPpHKecthy2lcl9xADgG5oxFOdKaerRcEVz16u+AbC4/txGo6rXwyA==}
+  '@lens-protocol/metadata@2.0.0':
+    resolution: {integrity: sha512-KLm9hQvPw8zCYOxnZFA02Cnzfrphbt6i1YIzAK5fBki1ZTMqAnlSoKxCesEXVjDd6m9MM6dd3neRxmvDGwer4Q==}
     engines: {node: '>=20'}
     peerDependencies:
       zod: ^3.22.3
@@ -15244,7 +15244,7 @@ snapshots:
     optionalDependencies:
       zod: 3.24.2
 
-  '@lens-protocol/metadata@2.0.0-next.7(typescript@5.8.2)(zod@3.24.2)':
+  '@lens-protocol/metadata@2.0.0(typescript@5.8.2)(zod@3.24.2)':
     dependencies:
       abitype: 1.0.8(typescript@5.8.2)(zod@3.24.2)
       json-stable-stringify: 1.2.1

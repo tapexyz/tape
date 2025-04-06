@@ -1,15 +1,18 @@
 import { getAccountMetadata } from "@/helpers/metadata";
 import { useMeSuspenseQuery } from "@/queries/account";
 import { useCreatePostMutation } from "@/queries/post";
+import { useCookieStore } from "@/store/cookie";
 import { useCreatePostStore } from "@/store/post";
-import { MediaAudioMimeType, audio, video } from "@lens-protocol/metadata";
 import {
+  MediaAudioMimeType,
   MediaVideoMimeType,
-  MetadataLicenseType
+  MetadataLicenseType,
+  audio,
+  video
 } from "@lens-protocol/metadata";
 import { TAPE_WEBSITE_URL } from "@tape.xyz/constants";
 import type { Account } from "@tape.xyz/indexer";
-import { Button, Input, Textarea } from "@tape.xyz/winder";
+import { Button, Input, Textarea, toast } from "@tape.xyz/winder";
 import { Advanced } from "./advanced";
 import { Category } from "./category";
 
@@ -26,11 +29,16 @@ export const Details = () => {
   } = useCreatePostStore();
   const { data } = useMeSuspenseQuery();
   const account = data.me.loggedInAs.account as Account;
-  const { handleWithPrefix } = getAccountMetadata(account);
+  const { handleWithNamespaceAndPrefix } = getAccountMetadata(account);
+  const isAuthenticated = useCookieStore((state) => state.isAuthenticated);
 
   const { mutateAsync: createPost, isPending } = useCreatePostMutation();
 
   const handleCreatePost = async () => {
+    if (!isAuthenticated) {
+      return toast.error("Please sign in to create a post");
+    }
+
     const trimmedTitle = title.trim();
     const trimmedDescription = description.trim();
     const baseMetadata = {
@@ -55,7 +63,7 @@ export const Details = () => {
               cover: coverUri,
               duration,
               license: MetadataLicenseType.CCO,
-              artist: handleWithPrefix
+              artist: handleWithNamespaceAndPrefix
             }
           })
         : video({

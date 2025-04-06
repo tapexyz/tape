@@ -234,20 +234,6 @@ export const base = [
       return (
         <VStack className="overflow-hidden">
           <a
-            href="https://pangrampangram.com/products/editorial-new"
-            className="group space-y-4"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <div className="space-y-2">
-              <div className="-mt-2 text-5xl">■</div>
-              <div className="font-serif text-2xl">Editorial New</div>
-            </div>
-            <h1 className="select-none text-end font-serif text-9xl text-muted transition-colors duration-300 group-hover:text-primary">
-              tape
-            </h1>
-          </a>
-          <a
             href="https://vercel.com/font"
             className="group space-y-4"
             target="_blank"
@@ -255,9 +241,23 @@ export const base = [
           >
             <div className="space-y-2">
               <div className="text-4xl">▲</div>
-              <div className="text-2xl">Geist Sans</div>
+              <div className="text-2xl">Inter</div>
             </div>
             <h1 className="select-none text-end text-9xl text-muted transition-colors duration-300 group-hover:text-primary">
+              tape
+            </h1>
+          </a>
+          <a
+            href="https://pangrampangram.com/products/editorial-new"
+            className="group space-y-4"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <div className="space-y-2">
+              <div className="text-4xl">■</div>
+              <div className="font-serif text-2xl">Editorial New</div>
+            </div>
+            <h1 className="select-none text-end font-serif text-9xl text-muted transition-colors duration-300 group-hover:text-primary">
               tape
             </h1>
           </a>

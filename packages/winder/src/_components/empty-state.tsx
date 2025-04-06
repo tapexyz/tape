@@ -34,7 +34,7 @@ export const EmptyState = ({ title, description, more, className }: Props) => {
       <div className="flex max-w-xs flex-col items-center gap-4 text-center">
         <RandomIcon className="size-10 opacity-60" />
         <div className="flex flex-col gap-2">
-          <span>{title}</span>
+          <span className="text-primary/80">{title}</span>
           {description ? (
             <span className="text-muted text-sm">{description}</span>
           ) : null}

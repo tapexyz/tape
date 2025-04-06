@@ -10,7 +10,7 @@ const Li = ({ item }: LiProps) => {
   return (
     <li>
       <a
-        className="-mx-3 group relative flex rounded-custom px-3 py-2 text-primary/70 capitalize"
+        className="-mx-3 group relative flex px-3 py-2 text-primary/70 capitalize"
         href={`#${id}`}
       >
         <span className="bg-[length:0%_2px] bg-gradient-to-r bg-left-bottom from-primary bg-no-repeat transition-all duration-200 ease-out group-hover:bg-[length:100%_2px] group-focus-visible:bg-[length:100%_2px]">
@@ -27,7 +27,7 @@ export const Sidebar = () => {
       <h1 className="select-none py-5 font-bold text-xs uppercase">
         Foundations
       </h1>
-      <ul className="w-full">
+      <ul className="w-full font-medium text-sm">
         {base.map((item) => (
           <Li key={item.id} item={item} />
         ))}
@@ -35,7 +35,7 @@ export const Sidebar = () => {
       <h1 className="select-none py-5 font-bold text-xs uppercase">
         Components
       </h1>
-      <ul className="w-full">
+      <ul className="w-full font-medium text-sm">
         {components.map((item) => (
           <Li key={item.id} item={item} />
         ))}

@@ -44,7 +44,7 @@ export const Links = memo(() => {
                 className="absolute inset-0 rounded-custom bg-secondary"
               />
             ) : null}
-            <span className="relative">{l.label}</span>
+            <span className="relative text-sm">{l.label}</span>
           </li>
         </a>
       ))}

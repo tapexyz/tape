@@ -17,7 +17,7 @@ export const Accounts = () => {
   return (
     <div className="flex flex-col">
       {accounts.map(({ account }) => {
-        const { name, handleWithPrefix, picture, handleWithNamespace } =
+        const { name, picture, handleWithNamespace } =
           getAccountMetadata(account);
 
         return (

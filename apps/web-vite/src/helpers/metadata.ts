@@ -59,6 +59,7 @@ export const getAccountMetadata = (account: Account) => {
     coverPicture: account.metadata?.coverPicture,
     handle: account?.username?.localName,
     handleWithPrefix: `@${account?.username?.localName}`,
-    handleWithNamespace: account.username?.value
+    handleWithNamespace: account.username?.value,
+    handleWithNamespaceAndPrefix: `@${account.username?.value}`
   };
 };
