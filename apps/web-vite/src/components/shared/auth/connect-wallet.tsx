@@ -21,17 +21,28 @@ export const ConnectWallet = memo(() => {
         return "Browser Wallet";
       case "walletConnect":
         return "Other Wallets";
-      case "me.rainbow":
-        return "Rainbow Wallet";
       default:
         return connector.name;
     }
   };
 
+  const allowedConnectors = [
+    "familyAccountsProvider",
+    "injected",
+    "walletConnect"
+  ];
+
+  const filteredConnectors = connectors
+    .filter((connector: Connector) => allowedConnectors.includes(connector.id))
+    .sort(
+      (a: Connector, b: Connector) =>
+        allowedConnectors.indexOf(a.id) - allowedConnectors.indexOf(b.id)
+    );
+
   return (
     <div className="mb-6 flex flex-col">
       <div className="flex flex-col gap-2">
-        {connectors.map((c) => (
+        {filteredConnectors.map((c) => (
           <>
             <Button
               key={c.id}

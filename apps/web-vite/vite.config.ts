@@ -63,7 +63,6 @@ export default defineConfig(({ mode }) => {
             motion: ["motion"],
             dom: ["react-dom"],
             idb: ["idb-keyval"],
-            connectkit: ["connectkit"],
             virtual: ["react-virtuoso"],
             hooks: ["@uidotdev/usehooks"],
             indexer: ["@tape.xyz/indexer"],
