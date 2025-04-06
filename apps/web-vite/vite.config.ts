@@ -1,5 +1,4 @@
 import { resolve } from "node:path";
-import MillionLint from "@million/lint";
 import tailwindcss from "@tailwindcss/vite";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 import swcReact from "@vitejs/plugin-react-swc";
@@ -22,7 +21,6 @@ export default defineConfig(({ mode }) => {
       swcReact(),
       ...(!isProd
         ? [
-            MillionLint.vite(),
             visualizer({
               filename: "./dist/stats.html",
               open: true,
@@ -65,6 +63,7 @@ export default defineConfig(({ mode }) => {
             motion: ["motion"],
             dom: ["react-dom"],
             idb: ["idb-keyval"],
+            connectkit: ["connectkit"],
             virtual: ["react-virtuoso"],
             hooks: ["@uidotdev/usehooks"],
             indexer: ["@tape.xyz/indexer"],

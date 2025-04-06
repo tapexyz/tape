@@ -13,7 +13,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-  toast
+  toast,
+  tw
 } from "@tape.xyz/winder";
 import { memo, useMemo, useState } from "react";
 import { useAccount } from "wagmi";
@@ -69,7 +70,7 @@ export const Authenticate = memo(() => {
   };
 
   return (
-    <div className="mb-6 flex items-center">
+    <div className={tw("flex items-center", sortedAccounts.length && "mb-6")}>
       {sortedAccounts.length ? (
         <div className="flex w-full flex-col gap-2">
           <Select

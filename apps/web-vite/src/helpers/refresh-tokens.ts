@@ -28,7 +28,7 @@ export const refreshTokens = async (refreshToken: string) => {
   });
 
   const result = (await response.json()) as { data: RefreshMutation };
-  if (result.data.refresh.__typename === "AuthenticationTokens") {
+  if (result.data?.refresh?.__typename === "AuthenticationTokens") {
     const { accessToken, refreshToken, idToken } = result.data.refresh;
     return signIn({ accessToken, refreshToken, identityToken: idToken });
   }

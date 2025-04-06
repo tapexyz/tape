@@ -9,10 +9,12 @@ import { http, WagmiProvider, createConfig, fallback } from "wagmi";
 
 const getConnectors = async () => {
   const { injected } = await import("wagmi/connectors");
+  const { familyAccountsConnector } = await import("family");
   const { coinbaseWallet } = await import("wagmi/connectors");
   const { walletConnect } = await import("wagmi/connectors");
 
   return [
+    familyAccountsConnector(),
     injected(),
     coinbaseWallet({ appName: TAPE_APP_NAME }),
     walletConnect({ projectId: WC_PROJECT_ID })

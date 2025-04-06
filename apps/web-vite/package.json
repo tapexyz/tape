@@ -14,11 +14,11 @@
   "dependencies": {
     "@lens-network/sdk": "canary",
     "@lens-protocol/metadata": "next",
-    "@million/lint": "^1.0.14",
     "@tanstack/react-query": "^5.69.0",
     "@tanstack/react-query-persist-client": "^5.69.0",
     "@tanstack/react-router": "^1.114.27",
     "@uidotdev/usehooks": "^2.4.1",
+    "family": "^0.1.1",
     "idb-keyval": "^6.2.1",
     "js-cookie": "^3.0.5",
     "motion": "^12.4.1",

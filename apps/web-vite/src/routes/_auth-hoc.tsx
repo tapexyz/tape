@@ -12,7 +12,7 @@ export const Route = createFileRoute("/_auth-hoc")({
     return (
       <div className="relative flex h-screen w-screen overflow-hidden">
         <div className="grid h-full w-full place-items-center">
-          <div className="container relative mx-auto max-w-sm border border-theme/30 bg-theme/30 p-10">
+          <div className="container relative mx-auto max-w-sm border border-primary/15 bg-theme/30 p-10">
             <SignInFrame />
 
             <Outlet />

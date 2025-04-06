@@ -7,7 +7,7 @@ import {
   ScrollRestoration,
   createRootRouteWithContext
 } from "@tanstack/react-router";
-import { ADMIN_X_HANDLE } from "@tape.xyz/constants";
+import { TAPE_X_HANDLE } from "@tape.xyz/constants";
 import { Button, EmptyState } from "@tape.xyz/winder";
 
 type RootRouteContext = {
@@ -33,14 +33,14 @@ export const Route = createRootRouteWithContext<RootRouteContext>()({
               <code>{error.message}</code>
             </pre>
             <span className="flex items-center gap-1 text-muted text-sm">
-              <span>Please tell</span>
+              <span>Please report</span>
               <a
-                href={`https://x.com/${ADMIN_X_HANDLE}`}
+                href={`https://x.com/${TAPE_X_HANDLE}`}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-block underline"
               >
-                @{ADMIN_X_HANDLE}
+                @{TAPE_X_HANDLE}
               </a>
             </span>
           </div>
