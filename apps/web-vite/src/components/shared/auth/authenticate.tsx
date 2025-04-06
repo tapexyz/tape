@@ -87,10 +87,10 @@ export const Authenticate = memo(() => {
             </SelectTrigger>
             <SelectContent>
               {sortedAccounts.map(({ account }) => {
-                const { namespace, handle } = getAccountMetadata(account);
+                const { handleWithNamespace } = getAccountMetadata(account);
                 return (
                   <SelectItem key={account.address} value={account.address}>
-                    {namespace}/{handle}
+                    {handleWithNamespace}
                   </SelectItem>
                 );
               })}

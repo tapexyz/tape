@@ -59,6 +59,6 @@ export const getAccountMetadata = (account: Account) => {
     coverPicture: account.metadata?.coverPicture,
     handle: account?.username?.localName,
     handleWithPrefix: `@${account?.username?.localName}`,
-    namespace: account.username?.namespace.namespace
+    handleWithNamespace: account.username?.value
   };
 };

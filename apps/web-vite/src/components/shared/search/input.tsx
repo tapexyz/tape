@@ -1,3 +1,4 @@
+import { getPostMetadata } from "@/helpers/metadata";
 import { useSearchQuery } from "@/queries/search";
 import type { Account, Post } from "@tape.xyz/indexer";
 import { X } from "@tape.xyz/winder";
@@ -28,7 +29,7 @@ export const SearchInput = ({ onNavigate }: { onNavigate: () => void }) => {
       ...(posts?.map((post) => ({
         type: "post" as const,
         id: post.id as string,
-        label: post.metadata.content as string
+        label: getPostMetadata(post.metadata)?.content as string
       })) ?? [])
     ],
     [accounts, posts]
