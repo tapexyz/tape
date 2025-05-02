@@ -1,4 +1,4 @@
-import { usePostsQuery } from "@/queries/post";
+import { useMLPostsExploreQuery } from "@/queries/post";
 import type { Post } from "@tape.xyz/indexer";
 import {
   Spinner,
@@ -9,11 +9,12 @@ import {
 } from "@tape.xyz/winder";
 import { memo } from "react";
 import { VideoCard } from "../shared/video-card";
-import { Virtualized } from "../shared/virtualized";
 
 export const Trending = memo(() => {
-  const { data, fetchNextPage, hasNextPage, isLoading } = usePostsQuery();
-  const trending = data?.pages.flatMap((page) => page.posts.items) as Post[];
+  const { data, isLoading } = useMLPostsExploreQuery();
+  const trending = data?.pages.flatMap(
+    (page) => page.mlPostsExplore.items
+  ) as Post[];
 
   if (isLoading) {
     return <Spinner />;
@@ -31,16 +32,11 @@ export const Trending = memo(() => {
           </TabsList>
         </div>
         <TabsContent value="all-time">
-          <Virtualized
-            grid
-            restoreScroll
-            data={trending}
-            endReached={fetchNextPage}
-            hasNextPage={hasNextPage}
-            itemContent={(_index, post) => (
-              <VideoCard key={post.id} post={post} />
-            )}
-          />
+          <div className="grid gap-x-2 gap-y-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {trending?.map((post) => (
+              <VideoCard key={post.slug} post={post} />
+            ))}
+          </div>
         </TabsContent>
         <TabsContent value="month">
           <div>Content this month.</div>

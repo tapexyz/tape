@@ -1,3 +1,4 @@
+import { getUnixTimestampNDaysAgo } from "@/helpers/date-time";
 import { execute } from "@/helpers/execute";
 import { uploadJson } from "@/helpers/upload";
 import type { AudioMetadata, VideoMetadata } from "@lens-protocol/metadata";
@@ -13,6 +14,7 @@ import {
 import {
   CreatePostDocument,
   MainContentFocus,
+  MlPostsExploreDocument,
   PageSize,
   PostDocument,
   PostType,
@@ -35,6 +37,32 @@ export const postQuery = (id: string) =>
 export const usePostQuery = (id: string) => useQuery(postQuery(id));
 export const usePostSuspenseQuery = (id: string) =>
   useSuspenseQuery(postQuery(id));
+
+const since = getUnixTimestampNDaysAgo(30);
+
+export const useMLPostsExploreQuery = () =>
+  useInfiniteQuery({
+    queryKey: ["ml-posts-explore"],
+    queryFn: ({ pageParam }) =>
+      execute({
+        query: MlPostsExploreDocument,
+        variables: {
+          request: {
+            filter: {
+              metadata: {
+                mainContentFocus: [MainContentFocus.Video]
+              },
+              since
+            },
+            pageSize: PageSize.Fifty,
+            shuffle: true,
+            cursor: pageParam
+          }
+        }
+      }),
+    initialPageParam: null,
+    getNextPageParam: (lastPage) => lastPage.mlPostsExplore.pageInfo.next
+  });
 
 export const usePostsQuery = () =>
   useInfiniteQuery({
@@ -78,7 +106,7 @@ export const bytesQuery = infiniteQueryOptions({
       }
     }),
   initialPageParam: null,
-  getNextPageParam: (lastPage) => lastPage.posts.pageInfo.next
+  getNextPageParam: (lastPage) => lastPage?.posts?.pageInfo?.next
 });
 export const useBytesQuery = () => useInfiniteQuery(bytesQuery);
 export const useBytesSuspenseQuery = () => useSuspenseInfiniteQuery(bytesQuery);
@@ -97,4 +125,52 @@ export const useCreatePostMutation = () =>
         }
       });
     }
+  });
+
+export const useAccountPostsQuery = (address: string) =>
+  useInfiniteQuery({
+    queryKey: ["account-posts", address],
+    queryFn: ({ pageParam }) =>
+      execute({
+        query: PostsDocument,
+        variables: {
+          request: {
+            filter: {
+              postTypes: [PostType.Root],
+              metadata: {
+                mainContentFocus: [MainContentFocus.Video]
+              },
+              authors: [address]
+            },
+            pageSize: PageSize.Fifty,
+            cursor: pageParam
+          }
+        }
+      }),
+    initialPageParam: null,
+    getNextPageParam: (lastPage) => lastPage.posts.pageInfo.next
+  });
+
+export const useAccountBytesQuery = (address: string) =>
+  useInfiniteQuery({
+    queryKey: ["account-bytes", address],
+    queryFn: ({ pageParam }) =>
+      execute({
+        query: PostsDocument,
+        variables: {
+          request: {
+            filter: {
+              postTypes: [PostType.Root],
+              metadata: {
+                mainContentFocus: [MainContentFocus.ShortVideo]
+              },
+              authors: [address]
+            },
+            pageSize: PageSize.Fifty,
+            cursor: pageParam
+          }
+        }
+      }),
+    initialPageParam: null,
+    getNextPageParam: (lastPage) => lastPage.posts.pageInfo.next
   });

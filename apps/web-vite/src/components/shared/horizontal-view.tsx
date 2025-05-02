@@ -24,19 +24,17 @@ export const HorizontalView = ({ heading, children }: Props) => {
         <div className="inline-flex space-x-1.5">
           <Button
             size="icon"
-            variant="secondary"
+            variant="outline"
             onClick={() => scroll(-scrollOffset)}
           >
             <CaretLeft className="size-4" />
-            <span className="sr-only">Scroll Left</span>
           </Button>
           <Button
             size="icon"
-            variant="secondary"
+            variant="outline"
             onClick={() => scroll(scrollOffset)}
           >
             <CaretRight className="size-4" />
-            <span className="sr-only">Scroll Right</span>
           </Button>
         </div>
       </div>

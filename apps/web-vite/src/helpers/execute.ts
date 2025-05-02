@@ -1,8 +1,8 @@
 import { hydrateAuthTokens } from "@/store/cookie";
 import {
+  LENS_API_URL,
   TAPE_USER_AGENT,
-  TAPE_WEBSITE_URL,
-  TESTNET_API_URL
+  TAPE_WEBSITE_URL
 } from "@tape.xyz/constants";
 import type { TypedDocumentString } from "@tape.xyz/indexer";
 import { shouldRefreshTokens } from "./parse-jwt";
@@ -25,7 +25,7 @@ export const execute = async <TResult, TVariables>({
   }
 
   try {
-    const response = await fetch(TESTNET_API_URL, {
+    const response = await fetch(LENS_API_URL, {
       method: "POST",
       headers: {
         "content-type": "application/json",

@@ -16,7 +16,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [
-      TanStackRouterVite(),
+      TanStackRouterVite({ target: "react", autoCodeSplitting: true }),
       tailwindcss(),
       swcReact(),
       ...(!isProd

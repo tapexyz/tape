@@ -114,7 +114,7 @@ export type AccountActionConfigInput = {
 };
 
 export type AccountActionExecuteInput = {
-  tipping?: InputMaybe<AmountInput>;
+  tipping?: InputMaybe<TippingAmountInput>;
   unknown?: InputMaybe<UnknownActionExecuteInput>;
 };
 
@@ -514,6 +514,16 @@ export type AccountRulesConfigInput = {
   required?: Array<AccountFollowRuleConfig>;
 };
 
+/**
+ * Used to filter posts based on their author's account score.
+ * The account score is an integer between 1 and 10000, where 1 is the lowest and 10000 is the
+ * highest.
+ */
+export type AccountScoreFilter = {
+  atLeast?: InputMaybe<Scalars['Int']['input']>;
+  lessThan?: InputMaybe<Scalars['Int']['input']>;
+};
+
 export type AccountStats = {
   __typename?: 'AccountStats';
   /** The stats for the feeds. */
@@ -601,6 +611,8 @@ export type AccountsBulkRequest = {
   addresses?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
   /** The legacy profile IDs to get. */
   legacyProfileIds?: InputMaybe<Array<Scalars['LegacyProfileId']['input']>>;
+  /** The accounts that are owned by the addresses */
+  ownedBy?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
   /** The usernames to get. */
   usernames?: InputMaybe<Array<UsernameInput>>;
 };
@@ -680,6 +692,11 @@ export type AddAdminsResult = SelfFundedTransactionRequest | SponsoredTransactio
 export type AddAppAuthorizationEndpointRequest = {
   /** The app. */
   app: Scalars['EvmAddress']['input'];
+  /**
+   * The bearer token for the app authorization endpoint.
+   * This is used in the `Authorization: Bearer <token>` header.
+   */
+  bearerToken?: InputMaybe<Scalars['String']['input']>;
   /** The app authorization endpoint. */
   endpoint: Scalars['URL']['input'];
 };
@@ -1448,8 +1465,12 @@ export type CreatePostRequest = {
   commentOn?: InputMaybe<ReferencingPostInput>;
   /** The URI of the post metadata. */
   contentUri: Scalars['URI']['input'];
-  /** The feed to post to. If not provided, the global feed is used. */
-  feed?: Scalars['EvmAddress']['input'];
+  /**
+   * The feed to post to.
+   * Defaults to the global feed for new posts, or the original post's feed for comments and
+   * quotes.
+   */
+  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
   /** The processing params for the feed rules. */
   feedRulesProcessingParams?: InputMaybe<Array<FeedRulesProcessingParams>>;
   /** The post to quote, if any. */
@@ -2602,6 +2623,7 @@ export type GroupMembershipRequest = {
 
 export type GroupMembershipRequestApprovedNotification = {
   __typename?: 'GroupMembershipRequestApprovedNotification';
+  approvedAt: Scalars['DateTime']['output'];
   approvedBy: Account;
   group: Group;
   id: Scalars['GeneratedNotificationId']['output'];
@@ -2611,6 +2633,7 @@ export type GroupMembershipRequestRejectedNotification = {
   __typename?: 'GroupMembershipRequestRejectedNotification';
   group: Group;
   id: Scalars['GeneratedNotificationId']['output'];
+  rejectedAt: Scalars['DateTime']['output'];
   rejectedBy: Account;
 };
 
@@ -2723,6 +2746,7 @@ export enum GroupRuleExecuteOn {
 }
 
 export enum GroupRuleType {
+  AdditionRemovalPid = 'ADDITION_REMOVAL_PID',
   BanAccount = 'BAN_ACCOUNT',
   MembershipApproval = 'MEMBERSHIP_APPROVAL',
   SimplePayment = 'SIMPLE_PAYMENT',
@@ -3501,6 +3525,11 @@ export type MintMetadata = {
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
 };
 
+export type MlinternalAccountRecommendationsRequest = {
+  account?: InputMaybe<Scalars['EvmAddress']['input']>;
+  secret: Scalars['String']['input'];
+};
+
 export type MlinternalForYouRequest = {
   account?: InputMaybe<Scalars['EvmAddress']['input']>;
   secret: Scalars['String']['input'];
@@ -3784,6 +3813,7 @@ export type Mutation = {
    * The HTTP Origin header MUST be present and match the app's domain.
    */
   legacyRolloverRefresh: RefreshResult;
+  mlAccountRecommendationsInternal: Scalars['Void']['output'];
   mlDismissRecommendedAccounts: Scalars['Void']['output'];
   mlForYouInternal: Scalars['Void']['output'];
   /**
@@ -4389,6 +4419,11 @@ export type MutationLeaveGroupArgs = {
 
 export type MutationLegacyRolloverRefreshArgs = {
   request: RolloverRefreshRequest;
+};
+
+
+export type MutationMlAccountRecommendationsInternalArgs = {
+  request: MlinternalAccountRecommendationsRequest;
 };
 
 
@@ -5312,7 +5347,7 @@ export type PostActionContractsRequest = {
 
 export type PostActionExecuteInput = {
   simpleCollect?: InputMaybe<SimpleCollectExecuteInput>;
-  tipping?: InputMaybe<AmountInput>;
+  tipping?: InputMaybe<TippingAmountInput>;
   unknown?: InputMaybe<UnknownActionExecuteInput>;
 };
 
@@ -5562,7 +5597,11 @@ export type PostReferencesRequest = {
   referenceTypes: Array<PostReferenceType>;
   /** The post to get references for. */
   referencedPost: Scalars['PostId']['input'];
-  /** The relevancy filter to apply. */
+  /**
+   * The relevancy filter to apply.
+   *
+   * This filter is only applicable for `CommentOn` reference type.
+   */
   relevancyFilter?: ReferenceRelevancyFilter;
   /** The visibility filter to apply by default it will honour the visibility of the post. */
   visibilityFilter?: PostVisibilityFilter;
@@ -5757,11 +5796,16 @@ export type PostsExploreRequest = {
   filter?: PostsExploreFilter;
   /** The page size. */
   pageSize?: PageSize;
-  /** Shuffle the results, defaults to false. */
+  /** Shuffle the results, defaults to false. Causes performance issues so is ignored for now. */
   shuffle?: Scalars['Boolean']['input'];
 };
 
 export type PostsFilter = {
+  /**
+   * A filter that returns only posts from authors with `Account Score` either `AtLeast` or
+   * `LessThan` the specified value.
+   */
+  accountScore?: InputMaybe<AccountScoreFilter>;
   /** The apps used to publish the posts. */
   apps?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
   /** The authors of the posts. */
@@ -5774,6 +5818,8 @@ export type PostsFilter = {
   metadata?: InputMaybe<PostMetadataFilter>;
   /** The types of the posts. */
   postTypes?: InputMaybe<Array<PostType>>;
+  /** The post IDs to search for. You can also use the post slug. */
+  posts?: InputMaybe<Array<Scalars['PostId']['input']>>;
   /** The query text to search for in the post content or metadata tags. */
   searchQuery?: InputMaybe<Scalars['String']['input']>;
 };
@@ -5942,6 +5988,7 @@ export type Query = {
   postReactionStatus: Array<PostReactionStatus>;
   /** Get the reactions added to a post. */
   postReactions: PaginatedPostReactionsResult;
+  /** Get any post references for a given post. */
   postReferences: PaginatedAnyPostsResult;
   postTags: PaginatedPostTagsResult;
   posts: PaginatedAnyPostsResult;
@@ -6749,6 +6796,11 @@ export type SimpleCollectActionContract = {
 };
 
 export type SimpleCollectExecuteInput = {
+  /**
+   * The list of referrers and their cut of the collect referral share.
+   * This is calculated as a percentage of the referral share AFTER the
+   * treasury fee is deducted.
+   */
   referrals?: InputMaybe<Array<ReferralCut>>;
   selected: Scalars['AlwaysTrue']['input'];
 };
@@ -7750,6 +7802,26 @@ export type TippingAccountActionExecuted = {
   amount: Erc20Amount;
   executedAt: Scalars['DateTime']['output'];
   executedBy: Account;
+};
+
+export type TippingAmountInput = {
+  /**
+   * The token address.
+   * Currently, only ERC20 tokens are supported.
+   */
+  currency: Scalars['EvmAddress']['input'];
+  /**
+   * The list of referrers and their cut of the referral share.
+   * This is calculated as a percentage of the referral share AFTER the
+   * treasury fee is deducted.
+   * The tip referral share is capped at 20%.
+   */
+  referrals?: InputMaybe<Array<ReferralCut>>;
+  /**
+   * Token value in its main unit (e.g., 1.5 WGHO), NOT in the smallest fraction (e.g.,
+   * wei).
+   */
+  value: Scalars['BigDecimal']['input'];
 };
 
 export type TippingPostActionContract = {
@@ -9240,6 +9312,16 @@ export type UsernamesQueryVariables = Exact<{
 export type UsernamesQuery = { __typename?: 'Query', usernames: { __typename?: 'PaginatedUsernamesResult', items: Array<(
       { __typename?: 'Username' }
       & { ' $fragmentRefs'?: { 'UsernameFieldsFragment': UsernameFieldsFragment } }
+    )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
+
+export type MlPostsExploreQueryVariables = Exact<{
+  request: PostsExploreRequest;
+}>;
+
+
+export type MlPostsExploreQuery = { __typename?: 'Query', mlPostsExplore: { __typename?: 'PaginatedPostsResult', items: Array<(
+      { __typename?: 'Post' }
+      & { ' $fragmentRefs'?: { 'PostFieldsFragment': PostFieldsFragment } }
     )>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
 export type PostReferencesQueryVariables = Exact<{
@@ -13844,6 +13926,301 @@ export const UsernamesDocument = new TypedDocumentString(`
   linkedTo
   value
 }`) as unknown as TypedDocumentString<UsernamesQuery, UsernamesQueryVariables>;
+export const MlPostsExploreDocument = new TypedDocumentString(`
+    query MLPostsExplore($request: PostsExploreRequest!) {
+  mlPostsExplore(request: $request) {
+    items {
+      ... on Post {
+        ...PostFields
+      }
+    }
+    pageInfo {
+      next
+    }
+  }
+}
+    fragment AccountFields on Account {
+  owner
+  address
+  createdAt
+  rules {
+    anyOf {
+      ...AccountFollowRuleFields
+    }
+    required {
+      ...AccountFollowRuleFields
+    }
+  }
+  metadata {
+    ...AccountMetadataFields
+  }
+  username(request: {autoResolve: true}) {
+    ...UsernameFields
+  }
+  operations {
+    ...LoggedInAccountOperationsFields
+  }
+}
+fragment AccountFollowRuleFields on AccountFollowRule {
+  id
+  type
+  address
+  config {
+    ...AnyKeyValueFields
+  }
+}
+fragment AccountMetadataFields on AccountMetadata {
+  id
+  name
+  bio
+  picture
+  coverPicture
+  attributes {
+    ...MetadataAttributeFields
+  }
+}
+fragment LoggedInAccountOperationsFields on LoggedInAccountOperations {
+  id
+  isFollowedByMe
+  isFollowingMe
+  isMutedByMe
+  isBlockedByMe
+}
+fragment UsernameFields on Username {
+  namespace
+  localName
+  linkedTo
+  value
+}
+fragment AnyKeyValueFields on AnyKeyValue {
+  ... on AddressKeyValue {
+    key
+    address
+  }
+  ... on BigDecimalKeyValue {
+    key
+    bigDecimal
+  }
+  ... on StringKeyValue {
+    key
+    string
+  }
+}
+fragment AppFields on App {
+  address
+  defaultFeedAddress
+  graphAddress
+  namespaceAddress
+  sponsorshipAddress
+  treasuryAddress
+  createdAt
+  metadata {
+    description
+    developer
+    logo
+    name
+    platforms
+    privacyPolicy
+    termsOfService
+    url
+  }
+}
+fragment BooleanValueFields on BooleanValue {
+  onChain
+  optimistic
+}
+fragment Erc20AmountFields on Erc20Amount {
+  asset {
+    ...Erc20Fields
+  }
+  value
+}
+fragment Erc20Fields on Erc20 {
+  contract {
+    address
+    chainId
+  }
+  decimals
+  name
+  symbol
+}
+fragment MetadataAttributeFields on MetadataAttribute {
+  type
+  key
+  value
+}
+fragment PayToCollectConfigFields on PayToCollectConfig {
+  referralShare
+  recipients {
+    address
+    percent
+  }
+  amount {
+    ...Erc20AmountFields
+  }
+}
+fragment SimpleCollectActionFields on SimpleCollectAction {
+  address
+  collectLimit
+  isImmutable
+  endsAt
+  payToCollect {
+    ...PayToCollectConfigFields
+  }
+}
+fragment UnknownPostActionFields on UnknownPostAction {
+  __typename
+}
+fragment LoggedInPostOperationsFields on LoggedInPostOperations {
+  id
+  hasBookmarked
+  hasReacted
+  hasSimpleCollected
+  hasTipped
+  isNotInterested
+  hasCommented {
+    ...BooleanValueFields
+  }
+  hasQuoted {
+    ...BooleanValueFields
+  }
+  hasReposted {
+    ...BooleanValueFields
+  }
+  canRepost {
+    __typename
+  }
+  canQuote {
+    __typename
+  }
+  canComment {
+    __typename
+  }
+  simpleCollectCount
+  postTipCount
+}
+fragment MediaAudioFields on MediaAudio {
+  artist
+  item
+  cover
+  license
+}
+fragment MediaFields on AnyMedia {
+  ... on MediaVideo {
+    ...MediaVideoFields
+  }
+  ... on MediaImage {
+    ...MediaImageFields
+  }
+  ... on MediaAudio {
+    ...MediaAudioFields
+  }
+}
+fragment MediaImageFields on MediaImage {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  item
+  license
+}
+fragment MediaVideoFields on MediaVideo {
+  altTag
+  attributes {
+    ...MetadataAttributeFields
+  }
+  cover
+  duration
+  item
+  license
+}
+fragment VideoMetadataFields on VideoMetadata {
+  __typename
+  id
+  title
+  content
+  tags
+  attributes {
+    ...MetadataAttributeFields
+  }
+  attachments {
+    ...MediaFields
+  }
+  video {
+    ...MediaVideoFields
+  }
+}
+fragment PostActionFields on PostAction {
+  ... on SimpleCollectAction {
+    ...SimpleCollectActionFields
+  }
+  ... on UnknownPostAction {
+    ...UnknownPostActionFields
+  }
+}
+fragment PostBaseFields on Post {
+  __typename
+  id
+  slug
+  isEdited
+  isDeleted
+  timestamp
+  author {
+    ...AccountFields
+  }
+  feed {
+    group {
+      address
+      metadata {
+        name
+        description
+        icon
+        coverPicture
+      }
+    }
+  }
+  app {
+    ...AppFields
+  }
+  metadata {
+    ...PostMetadataFields
+  }
+  actions {
+    ...PostActionFields
+  }
+  stats {
+    ...PostStatsFields
+  }
+  operations {
+    ...LoggedInPostOperationsFields
+  }
+}
+fragment PostFields on Post {
+  ...PostBaseFields
+  root {
+    ...PostBaseFields
+  }
+  commentOn {
+    ...PostBaseFields
+  }
+  quoteOf {
+    ...PostBaseFields
+  }
+}
+fragment PostMetadataFields on PostMetadata {
+  __typename
+  ... on VideoMetadata {
+    ...VideoMetadataFields
+  }
+}
+fragment PostStatsFields on PostStats {
+  bookmarks
+  collects
+  comments
+  quotes
+  reactions
+  reposts
+}`) as unknown as TypedDocumentString<MlPostsExploreQuery, MlPostsExploreQueryVariables>;
 export const PostReferencesDocument = new TypedDocumentString(`
     query PostReferences($request: PostReferencesRequest!) {
   postReferences(request: $request) {

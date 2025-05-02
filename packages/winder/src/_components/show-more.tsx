@@ -7,9 +7,10 @@ type Props = {
   onToggle: (on: boolean) => void;
   className?: string;
   content?: React.ReactNode;
+  icon?: React.ReactNode;
 };
 
-const MButton = ({ onToggle, content }: Props) => {
+const MButton = ({ onToggle, content, icon }: Props) => {
   const [on, toggle] = useState(false);
 
   return (
@@ -22,19 +23,19 @@ const MButton = ({ onToggle, content }: Props) => {
         onToggle(!on);
       }}
     >
-      <span className="inline-flex items-center">
+      <span className="inline-flex items-center gap-x-1">
         {content ?? <span>Show {on ? "less" : "more"}</span>}
-        <CaretDown className={tw("ml-1", on && "rotate-180")} weight="bold" />
+        {icon ?? <CaretDown className={tw(on && "rotate-180")} weight="bold" />}
       </span>
     </Button>
   );
 };
 
-export const ShowMore = ({ onToggle, className, content }: Props) => {
+export const ShowMore = ({ onToggle, className, content, icon }: Props) => {
   return (
     <div className={tw("flex items-center", className)}>
       <div className="h-px flex-1 bg-secondary" />
-      <MButton onToggle={onToggle} content={content} />
+      <MButton onToggle={onToggle} content={content} icon={icon} />
       <div className="h-px flex-1 bg-secondary" />
     </div>
   );

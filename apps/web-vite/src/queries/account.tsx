@@ -10,6 +10,7 @@ import {
 } from "@tanstack/react-query";
 import {
   AccountDocument,
+  AccountStatsDocument,
   AccountsAvailableDocument,
   CreateAccountWithUsernameDocument,
   MeDocument,
@@ -72,7 +73,19 @@ export const meQuery = queryOptions({
     }),
   enabled: isAuthenticated()
 });
+
 export const useMeSuspenseQuery = () => useSuspenseQuery(meQuery);
+
+export const useAccountStatsQuery = (address: string) => {
+  return useQuery({
+    queryKey: ["account-stats", address],
+    queryFn: () =>
+      execute({
+        query: AccountStatsDocument,
+        variables: { request: { account: address } }
+      })
+  });
+};
 
 export const useCreateAccountMutation = () => {
   const { mutateAsync: authenticate } = useAuthenticateMutation({

@@ -1,0 +1,12 @@
+query MLPostsExplore($request: PostsExploreRequest!) {
+  mlPostsExplore(request: $request) {
+    items {
+      ... on Post {
+        ...PostFields
+      }
+    }
+    pageInfo {
+      next
+    }
+  }
+}

@@ -11,13 +11,13 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
   XLogo,
   YoutubeLogo
 } from "@tape.xyz/winder";
 import { Actions } from "./actions";
+import { Bytes } from "./bytes";
+import { Stats } from "./stats";
+import { Videos } from "./videos";
 
 export const Profile = () => {
   const { handle: handleParam } = Route.useParams();
@@ -62,17 +62,6 @@ export const Profile = () => {
                 </span>
               </div>
 
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <span className="grid size-9 cursor-default place-items-center rounded-custom border border-custom font-normal text-sm">
-                    #6
-                  </span>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>6th onboard, 2 years in.</p>
-                </TooltipContent>
-              </Tooltip>
-
               <Button variant="outline" size="icon">
                 <YoutubeLogo className="size-5" weight="fill" />
               </Button>
@@ -89,14 +78,7 @@ export const Profile = () => {
         <div className="space-y-2.5">
           <span className="font-semibold">{handleWithPrefix}</span>
           <h1 className="font-serif text-[44px] leading-[44px]">{name}</h1>
-          <div className="flex items-center space-x-2 text-sm">
-            <p>
-              14k <span className="text-muted">followers</span>
-            </p>
-            <p>
-              72 <span className="text-muted">videos</span>
-            </p>
-          </div>
+          <Stats address={account.address} />
 
           <div>{bio && <p className="my-6">{bio}</p>}</div>
 
@@ -105,11 +87,11 @@ export const Profile = () => {
               <TabsTrigger value="videos">Videos</TabsTrigger>
               <TabsTrigger value="bytes">Bytes</TabsTrigger>
             </TabsList>
-            <TabsContent value="videos">
-              <div>Videos</div>
+            <TabsContent value="videos" className="mt-4">
+              <Videos address={account.address} />
             </TabsContent>
-            <TabsContent value="bytes">
-              <div>Bytes</div>
+            <TabsContent value="bytes" className="mt-4">
+              <Bytes address={account.address} />
             </TabsContent>
           </Tabs>
         </div>

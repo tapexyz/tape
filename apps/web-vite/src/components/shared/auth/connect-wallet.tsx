@@ -45,7 +45,7 @@ export const ConnectWallet = memo(() => {
         {filteredConnectors.map((c) => (
           <>
             <Button
-              key={c.id}
+              key={c.uid}
               variant="outline"
               className="h-11 px-3.5 font-normal"
               onClick={() => onChooseConnector(c)}

@@ -26,3 +26,11 @@ export const formatTimeToDuration = (seconds: number) => {
     ? duration.format("mm:ss")
     : duration.format("HH:mm:ss");
 };
+
+/**
+ * @param days number of days to subtract from current date
+ * @returns unix timestamp
+ */
+export const getUnixTimestampNDaysAgo = (days: number) => {
+  return dayjs().subtract(days, "day").unix();
+};

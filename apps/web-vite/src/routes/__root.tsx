@@ -4,7 +4,6 @@ import type { QueryClient } from "@tanstack/react-query";
 import {
   Link,
   Outlet,
-  ScrollRestoration,
   createRootRouteWithContext
 } from "@tanstack/react-router";
 import { TAPE_X_HANDLE } from "@tape.xyz/constants";
@@ -19,7 +18,6 @@ export const Route = createRootRouteWithContext<RootRouteContext>()({
   component: () => (
     <Providers>
       <Outlet />
-      <ScrollRestoration />
     </Providers>
   ),
   errorComponent: ({ error }) => (
