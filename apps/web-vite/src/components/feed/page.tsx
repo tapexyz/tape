@@ -8,9 +8,7 @@ import { Byte } from "./byte";
 export const FeedPage = () => {
   const { data, fetchNextPage, hasNextPage } = useBytesSuspenseQuery();
 
-  const allBytes = data.pages
-    .flatMap((page) => page?.posts?.items)
-    .filter(Boolean) as Post[];
+  const allBytes = data.pages.flatMap((page) => page?.posts?.items) as Post[];
 
   const { observe } = useInView({
     rootMargin: INFINITE_SCROLL_ROOT_MARGIN,

@@ -1,8 +1,11 @@
-import { Virtualized } from "@/components/shared/virtualized";
-import { getPostMetadata } from "@/helpers/metadata";
 import { usePostsQuery } from "@/queries/post";
 import type { Post } from "@tape.xyz/indexer";
 
+import { getTimeAgo } from "@/helpers/date-time";
+import { getPostMetadata } from "@/helpers/metadata";
+import { INFINITE_SCROLL_ROOT_MARGIN } from "@tape.xyz/constants";
+import { Spinner, VideoPlayer } from "@tape.xyz/winder";
+import { useInView } from "react-cool-inview";
 export const Posts = () => {
   const { data, fetchNextPage, isLoading, hasNextPage } = usePostsQuery();
 
@@ -10,34 +13,52 @@ export const Posts = () => {
     (page) => page.posts.items
   ) as Post[];
 
-  if (isLoading) {
-    return <div>loading</div>;
-  }
+  const { observe } = useInView({
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
+    onEnter: async () => {
+      await fetchNextPage();
+    }
+  });
 
-  if (!allPublications) {
-    return <div>not found</div>;
+  if (isLoading) {
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
   }
 
   return (
-    <div className="w-full max-w-2xl divide-y divide-gray-400 rounded-custom bg-white">
-      <Virtualized
-        restoreScroll
-        data={allPublications}
-        endReached={fetchNextPage}
-        hasNextPage={hasNextPage}
-        itemContent={(_index, post) => {
-          const metadata = getPostMetadata(post.metadata);
-          return (
-            <div className="p-5">
-              {metadata?.content}
-              <video controls className="aspect-video w-full rounded-custom">
-                <source src={metadata?.asset?.uri} type="video/mp4" />
-                <track kind="captions" />
-              </video>
-            </div>
-          );
-        }}
-      />
+    <div className="my-5 flex w-full max-w-2xl flex-col gap-5">
+      {allPublications.map((post) => {
+        const metadata = getPostMetadata(post.metadata);
+
+        const thumbnail = metadata?.asset.cover;
+        const videoUrl = metadata?.asset.uri;
+        return (
+          <div key={post.id}>
+            <VideoPlayer
+              className="rounded-card-sm"
+              posterClassName="rounded-card-sm"
+              src={{ src: videoUrl, type: "video/mp4" }}
+              poster={thumbnail}
+              autoPlay={true}
+              load="visible"
+            />
+            <h1 className="line-clamp-1 font-serif text-xl leading-[38px]">
+              {metadata?.title || metadata?.content}
+            </h1>
+            <span className="text-muted">
+              Published {getTimeAgo(post.timestamp)}
+            </span>
+          </div>
+        );
+      })}
+      {hasNextPage && (
+        <span ref={observe} className="flex justify-center p-10">
+          <Spinner />
+        </span>
+      )}
     </div>
   );
 };

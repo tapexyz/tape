@@ -5,9 +5,7 @@ import { ByteCard } from "../shared/byte-card";
 export const Bytes = () => {
   const { data, error } = useBytesQuery();
 
-  const bytes = data?.pages
-    .flatMap((page) => page?.posts?.items)
-    .filter(Boolean) as Post[];
+  const bytes = data?.pages.flatMap((page) => page?.posts?.items) as Post[];
 
   if (!bytes?.length || error) {
     return null;

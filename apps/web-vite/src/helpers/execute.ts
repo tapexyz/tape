@@ -48,7 +48,11 @@ export const execute = async <TResult, TVariables>({
     }
     const result = await response.json();
 
-    return result.data as TResult;
+    if (result.data) {
+      return result.data as TResult;
+    }
+
+    throw new Error("[GQL] Execute failed", { cause: result.errors });
   } catch (error) {
     throw new Error("[GQL] Execute failed", { cause: error });
   }

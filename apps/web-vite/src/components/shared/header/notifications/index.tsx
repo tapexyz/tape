@@ -1,16 +1,24 @@
 import { useNotificationsQuery } from "@/queries/notification";
+import { INFINITE_SCROLL_ROOT_MARGIN } from "@tape.xyz/constants";
 import type { Notification } from "@tape.xyz/indexer";
-import { Badge, BellSimple, Button } from "@tape.xyz/winder";
+import { Badge, BellSimple, Button, Spinner } from "@tape.xyz/winder";
 import { Popover, PopoverContent, PopoverTrigger } from "@tape.xyz/winder";
-import { Virtualized } from "../../virtualized";
+import { useInView } from "react-cool-inview";
 import { Followed } from "./followed";
 
 export const Notifications = () => {
   const { data, hasNextPage, fetchNextPage } = useNotificationsQuery();
 
   const notifications = data?.pages.flatMap(
-    (page) => page.notifications.items
+    (page) => page?.notifications.items
   ) as Notification[];
+
+  const { observe } = useInView({
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
+    onEnter: async () => {
+      await fetchNextPage();
+    }
+  });
 
   return (
     <Popover>
@@ -27,17 +35,17 @@ export const Notifications = () => {
       <PopoverContent align="end" className="min-h-[500px] w-96">
         <h6 className="p-4 font-medium text-lg">Notifications</h6>
         <hr className="w-full border-custom" />
-        <Virtualized
-          data={notifications}
-          endReached={fetchNextPage}
-          hasNextPage={hasNextPage}
-          itemContent={(_index, notification) => {
-            if (notification.__typename === "FollowNotification") {
-              return <Followed notification={notification} />;
-            }
-            return null;
-          }}
-        />
+        {notifications?.map((notification) => {
+          if (notification.__typename === "FollowNotification") {
+            return <Followed notification={notification} />;
+          }
+          return null;
+        })}
+        {hasNextPage && (
+          <span ref={observe} className="flex justify-center p-10">
+            <Spinner />
+          </span>
+        )}
       </PopoverContent>
     </Popover>
   );

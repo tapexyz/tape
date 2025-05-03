@@ -12,9 +12,7 @@ interface BytesProps {
 export const Bytes = ({ address }: BytesProps) => {
   const { data, isLoading, fetchNextPage, hasNextPage } =
     useAccountBytesQuery(address);
-  const bytes = data?.pages
-    .flatMap((page) => page?.posts?.items)
-    .filter(Boolean) as Post[];
+  const bytes = data?.pages.flatMap((page) => page?.posts?.items) as Post[];
 
   const { observe } = useInView({
     rootMargin: INFINITE_SCROLL_ROOT_MARGIN,

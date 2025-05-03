@@ -12,9 +12,7 @@ interface VideosProps {
 export const Videos = ({ address }: VideosProps) => {
   const { data, isLoading, fetchNextPage, hasNextPage } =
     useAccountPostsQuery(address);
-  const videos = data?.pages
-    .flatMap((page) => page?.posts?.items)
-    .filter(Boolean) as Post[];
+  const videos = data?.pages.flatMap((page) => page?.posts?.items) as Post[];
 
   const { observe } = useInView({
     rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
