@@ -22,6 +22,7 @@ import { Videos } from "./videos";
 export const Profile = () => {
   const { handle } = Route.useParams();
   const { media } = Route.useSearch();
+  const navigate = Route.useNavigate();
 
   const { data } = useAccountSuspenseQuery(handle);
 
@@ -77,7 +78,14 @@ export const Profile = () => {
 
           <div>{bio && <p className="my-6">{bio}</p>}</div>
 
-          <Tabs defaultValue={media ?? "videos"}>
+          <Tabs
+            defaultValue={media ?? "videos"}
+            onValueChange={(value) =>
+              navigate({
+                search: { media: value as "videos" | "bytes" }
+              })
+            }
+          >
             <TabsList className="text-[20px]">
               <TabsTrigger value="videos">Videos</TabsTrigger>
               <TabsTrigger value="bytes">Bytes</TabsTrigger>

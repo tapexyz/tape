@@ -2,7 +2,7 @@ import { signIn, signOut } from "@/store/cookie";
 import {
   TAPE_USER_AGENT,
   TAPE_WEBSITE_URL,
-  TESTNET_API_URL
+  LENS_API_URL
 } from "@tape.xyz/constants";
 import { RefreshDocument, type RefreshMutation } from "@tape.xyz/indexer";
 
@@ -11,7 +11,7 @@ export const refreshTokens = async (refreshToken: string) => {
     return signOut();
   }
 
-  const response = await fetch(TESTNET_API_URL, {
+  const response = await fetch(LENS_API_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
