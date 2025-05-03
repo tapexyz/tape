@@ -1,8 +1,8 @@
 import { signIn, signOut } from "@/store/cookie";
 import {
+  LENS_API_URL,
   TAPE_USER_AGENT,
-  TAPE_WEBSITE_URL,
-  LENS_API_URL
+  TAPE_WEBSITE_URL
 } from "@tape.xyz/constants";
 import { RefreshDocument, type RefreshMutation } from "@tape.xyz/indexer";
 
