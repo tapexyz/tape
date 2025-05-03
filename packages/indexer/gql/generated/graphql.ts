@@ -9228,7 +9228,7 @@ export type FollowersYouKnowQueryVariables = Exact<{
 
 
 export type FollowersYouKnowQuery = { __typename?: 'Query', followersYouKnow: { __typename?: 'PaginatedFollowersResult', items: Array<{ __typename?: 'Follower', followedOn: any, follower: (
-        { __typename?: 'Account' }
+        { __typename: 'Account' }
         & { ' $fragmentRefs'?: { 'AccountFieldsFragment': AccountFieldsFragment } }
       ) }>, pageInfo: { __typename?: 'PaginatedResultInfo', next?: any | null } } };
 
@@ -13147,6 +13147,7 @@ export const FollowersYouKnowDocument = new TypedDocumentString(`
     items {
       follower {
         ...AccountFields
+        __typename
       }
       followedOn
     }

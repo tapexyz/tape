@@ -1,9 +1,11 @@
 import { execute } from "@/helpers/execute";
 import { uploadJson } from "@/helpers/upload";
+import { useAccountStore } from "@/store/account";
 import { isAuthenticated } from "@/store/cookie";
 import { account } from "@lens-protocol/metadata";
 import {
   queryOptions,
+  useInfiniteQuery,
   useMutation,
   useQuery,
   useSuspenseQuery
@@ -13,11 +15,12 @@ import {
   AccountStatsDocument,
   AccountsAvailableDocument,
   CreateAccountWithUsernameDocument,
+  FollowersYouKnowDocument,
   MeDocument,
   PageSize
 } from "@tape.xyz/indexer";
 import { AUTH_CHALLENGE_TYPE } from "@tape.xyz/indexer/custom-types";
-import { isAddress } from "viem";
+import { type Address, isAddress } from "viem";
 import { useAccount } from "wagmi";
 import { useAuthenticateMutation } from "./auth";
 
@@ -76,7 +79,7 @@ export const meQuery = queryOptions({
 
 export const useMeSuspenseQuery = () => useSuspenseQuery(meQuery);
 
-export const useAccountStatsQuery = (address: string) => {
+export const useAccountStatsQuery = (address: Address) => {
   return useQuery({
     queryKey: ["account-stats", address],
     queryFn: () =>
@@ -84,6 +87,27 @@ export const useAccountStatsQuery = (address: string) => {
         query: AccountStatsDocument,
         variables: { request: { account: address } }
       })
+  });
+};
+
+export const useFollowersYouKnowInfiniteQuery = (target: Address) => {
+  const { currentAccount } = useAccountStore();
+  return useInfiniteQuery({
+    queryKey: ["followers-you-know", currentAccount, target],
+    queryFn: () =>
+      execute({
+        query: FollowersYouKnowDocument,
+        variables: {
+          request: {
+            observer: currentAccount?.address,
+            target,
+            pageSize: PageSize.Ten
+          }
+        }
+      }),
+    enabled: Boolean(currentAccount?.address),
+    getNextPageParam: (lastPage) => lastPage.followersYouKnow.pageInfo.next,
+    initialPageParam: 0
   });
 };
 

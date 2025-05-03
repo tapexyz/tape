@@ -1,7 +1,6 @@
 import { getAccountMetadata } from "@/helpers/metadata";
 import { useAccountSuspenseQuery } from "@/queries/account";
 import { Route } from "@/routes/_layout-hoc/u/$handle";
-import { WORKER_AVATAR_URL } from "@tape.xyz/constants";
 import type { Account } from "@tape.xyz/indexer";
 import {
   Avatar,
@@ -16,12 +15,15 @@ import {
 } from "@tape.xyz/winder";
 import { Actions } from "./actions";
 import { Bytes } from "./bytes";
+import { Mutuals } from "./mutuals";
 import { Stats } from "./stats";
 import { Videos } from "./videos";
 
 export const Profile = () => {
-  const { handle: handleParam } = Route.useParams();
-  const { data } = useAccountSuspenseQuery(handleParam);
+  const { handle } = Route.useParams();
+  const { media } = Route.useSearch();
+
+  const { data } = useAccountSuspenseQuery(handle);
 
   if (!data?.account) {
     return null;
@@ -41,7 +43,7 @@ export const Profile = () => {
           alt="cover"
           draggable={false}
         />
-        <div className="absolute bottom-0 h-10 w-full bg-gradient-to-t from-theme dark:from-theme" />
+        <div className="absolute bottom-0 h-10 w-full bg-gradient-to-t from-theme" />
       </div>
       <div className="space-y-5 p-5">
         <div className="-mt-[100px] relative z-10 flex">
@@ -52,15 +54,7 @@ export const Profile = () => {
               </Avatar>
             </span>
             <div className="flex items-center space-x-1.5">
-              <div className="flex">
-                <span className="-space-x-1.5 flex rounded-full bg-primary/10 p-1">
-                  {[6000, 3090, 4000, 5600].map((item) => (
-                    <Avatar size="xs" shape="circle" key={item}>
-                      <AvatarImage src={`${WORKER_AVATAR_URL}/${item}`} />
-                    </Avatar>
-                  ))}
-                </span>
-              </div>
+              <Mutuals account={account.address} />
 
               <Button variant="outline" size="icon">
                 <YoutubeLogo className="size-5" weight="fill" />
@@ -78,11 +72,12 @@ export const Profile = () => {
         <div className="space-y-2.5">
           <span className="font-semibold">{handleWithPrefix}</span>
           <h1 className="font-serif text-[44px] leading-[44px]">{name}</h1>
-          <Stats address={account.address} />
+
+          <Stats account={account.address} />
 
           <div>{bio && <p className="my-6">{bio}</p>}</div>
 
-          <Tabs defaultValue="videos">
+          <Tabs defaultValue={media ?? "videos"}>
             <TabsList className="text-[20px]">
               <TabsTrigger value="videos">Videos</TabsTrigger>
               <TabsTrigger value="bytes">Bytes</TabsTrigger>

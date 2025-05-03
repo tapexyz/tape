@@ -3,8 +3,8 @@ query FollowersYouKnow($request: FollowersYouKnowRequest!) {
     items {
       follower {
         ...AccountFields
+        __typename
       }
-      followedOn
     }
     pageInfo {
       next

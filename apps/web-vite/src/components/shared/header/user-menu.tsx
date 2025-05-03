@@ -1,5 +1,6 @@
 import { getAccountMetadata } from "@/helpers/metadata";
 import { useMeSuspenseQuery } from "@/queries/account";
+import { useAccountStore } from "@/store/account";
 import { signOut } from "@/store/cookie";
 import { Link } from "@tanstack/react-router";
 import type { Account } from "@tape.xyz/indexer";
@@ -21,19 +22,26 @@ import {
 } from "@tape.xyz/winder";
 import { useMeasure } from "@uidotdev/usehooks";
 import { AnimatePresence, m } from "motion/react";
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { Accounts } from "./accounts";
 
 export const UserMenu = memo(() => {
   const [showAccounts, setShowAccounts] = useState(false);
   const [elementRef, bounds] = useMeasure();
-  const { data } = useMeSuspenseQuery();
+  const { data, isSuccess } = useMeSuspenseQuery();
+  const { setCurrentAccount } = useAccountStore();
 
   if (!data) return null;
 
   const account = data.me.loggedInAs.account as Account;
   const { name, handleWithPrefix, picture, handle } =
     getAccountMetadata(account);
+
+  useEffect(() => {
+    if (isSuccess) {
+      setCurrentAccount(account);
+    }
+  }, [isSuccess]);
 
   return (
     <DropdownMenu>

@@ -1,7 +1,8 @@
 import { useAccountStatsQuery } from "@/queries/account";
+import type { Address } from "viem";
 
-export const Stats = ({ address }: { address: string }) => {
-  const { data: stats } = useAccountStatsQuery(address);
+export const Stats = ({ account }: { account: Address }) => {
+  const { data: stats } = useAccountStatsQuery(account);
 
   return (
     <div className="flex items-center space-x-2 text-sm">
@@ -11,7 +12,7 @@ export const Stats = ({ address }: { address: string }) => {
       </p>
       <p>
         {stats?.accountStats.feedStats.posts}{" "}
-        <span className="text-muted">videos</span>
+        <span className="text-muted">posts</span>
       </p>
     </div>
   );
