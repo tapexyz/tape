@@ -50,7 +50,7 @@ export const UserMenu = memo(() => {
           <AvatarImage src={picture} />
         </Avatar>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56">
+      <DropdownMenuContent align="end" className="w-52">
         <button
           type="button"
           className="flex w-full items-center justify-between gap-2 py-2 pr-3 pl-2"

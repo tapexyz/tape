@@ -45,8 +45,6 @@
     --upbyte: 15 100% 64;
     --scrollbar-thumb: #c7c7c7;
     --border-strong: #e4e5ea;
-    --shadow: 0 0 0 1px #ffffff17, 0 1px 1px #0000000a, 0 4px 8px -4px #00000014,
-      0 16px 24px -8px #0000001f;
 
     --site-background: 0 0% 95%;
     --primary: 0 0% 0%;
@@ -96,7 +94,7 @@
   --ring-color-custom: hsl(var(--border));
 
   /* Shadows */
-  --shadow-custom: var(--shadow);
+  --shadow-custom: 0px 2px 14px 0px rgba(0, 0, 0, 0.2);
 
   /* Text colors */
   --text-color-muted: hsl(var(--text-muted));
