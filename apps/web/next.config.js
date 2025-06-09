@@ -33,6 +33,11 @@ const moduleExports = {
   redirects() {
     return [
       {
+        source: "/:path*",
+        destination: "https://github.com/tapexyz/tape",
+        permanent: false
+      },
+      {
         source: "/channel/:handle(.+).lens",
         destination: "/u/:handle",
         permanent: true
