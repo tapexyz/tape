@@ -13,7 +13,7 @@
     "@aws-sdk/lib-storage": "3.799.0",
     "@livepeer/react": "3.1.9",
     "@rajesh896/broprint.js": "^2.1.1",
-    "axios": "^1.8.4",
+    "axios": "^1.13.5",
     "clsx": "^2.1.1",
     "fast-average-color": "^9.4.0",
     "next": "^15.2.3",
