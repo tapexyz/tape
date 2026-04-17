@@ -16,13 +16,12 @@ const extractOgTags = async (document: Document) => {
 
   const urlTag = document.querySelector('meta[property="og:url"]');
   const pageUrl = urlTag
-    ? imageTag.getAttribute("content") || "https://tape.xyz"
+    ? urlTag.getAttribute("content") || "https://tape.xyz"
     : "https://tape.xyz";
 
   const iframeHTML = await constructIframe(document);
-  const html = iframeHTML;
 
-  const metadata = {
+  const metadata: Record<string, unknown> = {
     version: "1.0",
     height: 113,
     width: 200,
@@ -30,14 +29,17 @@ const extractOgTags = async (document: Document) => {
     author_name: title.match(/by\s(.*)\s•/)?.[1] || title,
     author_url: pageUrl,
     description,
-    type: "video",
+    type: iframeHTML ? "video" : "link",
     provider_name: "Tape",
     provider_url: "https://tape.xyz",
     thumbnail_height: 360,
     thumbnail_width: 480,
-    thumbnail_url: image,
-    html
+    thumbnail_url: image
   };
+
+  if (iframeHTML) {
+    metadata.html = iframeHTML;
+  }
 
   return metadata;
 };
