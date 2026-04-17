@@ -2,6 +2,7 @@ import "dotenv/config";
 
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
+import { cors as corsMiddleware } from "hono/cors";
 import { logger } from "hono/logger";
 
 import { cors, originLogger } from "./middlewares";
@@ -24,6 +25,10 @@ import verified from "./routes/verified";
 const app = new Hono();
 
 app.use(logger()).use(originLogger).use("*", cors);
+
+// oEmbed endpoint needs wider CORS for external consumers
+app.use("/oembed/*", corsMiddleware({ origin: "*" }));
+app.use("/oembed", corsMiddleware({ origin: "*" }));
 
 app
   .get("/", (c) => c.text("nothing to see here, visit tape.xyz"))
