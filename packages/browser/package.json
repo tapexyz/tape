@@ -19,7 +19,7 @@
     "next": "^15.2.3",
     "react": "^18.3.1",
     "tailwind-merge": "^2.6.0",
-    "uuid": "^11.0.5"
+    "uuid": "^14.0.0"
   },
   "devDependencies": {
     "@tape.xyz/constants": "workspace:*",
