@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@lens-protocol/metadata": "^1.2.0",
-    "axios": "^1.8.4",
+    "axios": "^1.15.2",
     "viem": "^2.23.14"
   },
   "devDependencies": {
